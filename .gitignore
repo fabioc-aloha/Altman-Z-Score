@@ -77,12 +77,31 @@ Thumbs.db
 .env
 .env.*
 
-# Excel
+# Excel and Data files
 *.xlsx
 *.xls
+*.csv
 
-# Output files
-# genai_health.*
+# Output and report files
+output/*
+!output/.gitkeep
 
-# Ignore generated folders
-/genai_health/
+# Documentation artifacts
+*.pdf
+*.docx
+
+# Virtual Environment
+venv/
+.venv/
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+.vscode/settings.json
+
+# Local configuration
+config.local.py
+
+# Logs
+*.log
