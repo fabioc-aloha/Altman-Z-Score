@@ -19,7 +19,7 @@ load_dotenv(env_path)
 
 # Now import the modules
 from src.altman_zscore.cik_lookup import lookup_cik
-from src.altman_zscore.config import PORTFOLIO
+from portfolio import PORTFOLIO  # Updated import
 
 def main():
     """Validate all CIKs in portfolio."""

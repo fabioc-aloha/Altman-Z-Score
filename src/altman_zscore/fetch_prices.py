@@ -224,6 +224,10 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
         
     Raises:
         ValueError: If no data is available or if there's an error accessing price data
+        
+    Notes:
+        Uses pandas recommended float conversion to avoid FutureWarning.
+        Values are extracted from DataFrames using .iloc[0] to ensure scalar values.
     """
     df = yf.download(ticker,
                      start=start_date,

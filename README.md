@@ -21,103 +21,157 @@ The Altman Z-Score, developed by NYU Professor Edward Altman in 1968, is a predi
 Z = 1.2A + 1.4B + 3.3C + 0.6D + 1.0E
 
 Where:
-1. **A = Working Capital / Total Assets**
-   - Measures liquid assets relative to company size
-   - Higher ratio indicates better short-term financial stability
-   - Working Capital = Current Assets - Current Liabilities
-
-2. **B = Retained Earnings / Total Assets**
-   - Measures accumulated profitability over time
-   - Indicates company age and earning power
-   - Higher values suggest sustainable growth
-
-3. **C = EBIT / Total Assets**
-   - Measures operating efficiency and productivity
-   - EBIT (Earnings Before Interest & Taxes) shows core profitability
-   - Key indicator of asset utilization effectiveness
-
-4. **D = Market Value of Equity / Total Liabilities**
-   - Measures financial leverage and market confidence
-   - Shows how much assets can decline before liabilities exceed assets
-   - Market value indicates investor confidence
-
-5. **E = Sales / Total Assets**
-   - Measures asset turnover and efficiency
-   - Shows how effectively company uses assets to generate sales
-   - Industry-specific benchmark for operational efficiency
+- **A = Working Capital / Total Assets**: Measures liquid assets relative to company size
+- **B = Retained Earnings / Total Assets**: Measures accumulated profitability over time
+- **C = EBIT / Total Assets**: Measures operating efficiency and productivity
+- **D = Market Value of Equity / Total Liabilities**: Measures financial leverage and market confidence
+- **E = Sales / Total Assets**: Measures asset turnover and efficiency
 
 ### Diagnostic Zones
 
-The resulting Z-Score falls into one of three zones:
+| Z-Score Range | Interpretation         |
+|---------------|-----------------------|
+| > 2.99        | Safe Zone             |
+| 1.81 – 2.99   | Grey Zone             |
+| < 1.81        | Distress Zone         |
 
-- **Safe Zone (Z > 2.99)**
-  - Company is financially healthy
-  - Low probability of bankruptcy
-  - Strong financial position
+### Model Variants and Industry Calibrations
 
-- **Grey Zone (1.81 ≤ Z ≤ 2.99)**
-  - Some financial distress signs
-  - Requires careful monitoring
-  - Could go either way within 2 years
+The Altman Z-Score has evolved to support different company types and industries. This tool implements the following variants:
 
-- **Distress Zone (Z < 1.81)**
-  - High bankruptcy risk
-  - Significant financial challenges
-  - Immediate action required
+| Model Type         | Formula                                   | Thresholds                                 | Key Characteristics                                 |
+|--------------------|-------------------------------------------|--------------------------------------------|-----------------------------------------------------|
+| Original (1968)    | 1.2A + 1.4B + 3.3C + 0.6D + 1.0E          | Safe > 2.99<br>Grey 1.81-2.99<br>Distress < 1.81 | Manufacturing, market value, most validated         |
+| Private (1983)     | 0.717A + 0.847B + 3.107C + 0.420D + 0.998E| Safe > 2.90<br>Grey 1.23-2.90<br>Distress < 1.23 | Private companies, book value, modified weights     |
+| Service (1995)     | 6.56A + 3.26B + 6.72C + 1.05D             | Safe > 2.60<br>Grey 1.10-2.60<br>Distress < 1.10 | Service sector, no asset turnover, higher working capital |
+| Emerging (1995)    | 3.25A + 6.25B + 3.25C + 1.05D             | Safe > 2.99<br>Grey 1.81-2.99<br>Distress < 1.81 | Emerging markets, higher profitability, conservative |
 
-### Modern Applications
+#### Tech Company Adaptations
 
-While originally developed for manufacturing companies, the model has been adapted for:
-- Technology companies
-- Service-based businesses
-- Private companies
-- Non-US markets
+The tool provides specialized handling for tech companies based on their subsector and growth stage. While using the base models above, it includes additional analysis and adjustments:
 
-This tool specifically focuses on AI and technology companies, adapting the interpretation for modern business models while maintaining the core analytical framework.
+| Company Stage    | Model Used | Additional Considerations                                    |
+|-----------------|------------|-------------------------------------------------------------|
+| Tech (Hardware) | Original   | Traditional metrics with inventory and asset focus           |
+| Tech (Software) | Service    | Emphasis on intangible assets and R&D                       |
+| SaaS           | Service    | Focus on recurring revenue and customer metrics              |
+| AI/ML (Early)  | Service    | R&D intensity and pre-revenue metrics                       |
+| AI/ML (Growth) | Service    | Unit economics and scale metrics                            |
+| AI/ML (Mature) | Service    | Profitability and infrastructure efficiency                 |
+
+**Key Tech Company Considerations:**
+- High R&D intensity and growth investments may affect traditional ratios
+- Intangible assets (IP, data, algorithms) require special consideration
+- Pre-revenue status is common in early-stage tech
+- Asset-light business models may skew traditional metrics
 
 ## Features
 
-- **Automated Data Collection**
-  - Fetches financial statements from SEC EDGAR
-  - Retrieves market data from Yahoo Finance
-  - Supports batch processing of multiple companies
+1. **Automated Analysis Pipeline**
+   - Fetches financial data from SEC EDGAR
+   - Retrieves market data from Yahoo Finance
+   - Performs company classification
+   - Selects appropriate Z-Score model
+   - Calculates and validates results
 
-- **Comprehensive Analysis**
-  - Calculates all Z-Score components (A-E ratios)
-  - Provides diagnostic assessments (Safe/Grey/Distress zones)
-  - Includes trend analysis across quarters
-  - Tracks stock price performance
+2. **Intelligent Model Selection**
+   - Automatic company classification
+   - Context-aware model choice
+   - Tech sector specialization
+   - Validation warnings system
 
-- **Data Quality**
-  - Validates financial metrics
-  - Implements ratio sanity checks
-  - Includes data quality metrics
-  - Handles missing or invalid data
+3. **Comprehensive Analysis**
+   - Z-Score components calculation
+   - Industry benchmarking
+   - Tech sector adjustments
+   - Peer group comparison
+   - Growth stage consideration
 
-- **Performance**
-  - Parallel processing for multiple companies
-  - Caching for API responses
-  - Rate limiting for API requests
-  - Efficient data structures
+4. **Data Quality Assurance**
+   - Ratio sanity checks
+   - Cross-source validation
+   - Missing data handling
+   - Outlier detection
+
+5. **Results Presentation**
+   - Detailed CSV reports
+   - Formatted console output
+   - Industry context
+   - Diagnostic warnings
+   - Performance metrics
+
+## Project Documentation
+
+This project maintains several key documentation files, each serving a specific purpose:
+
+### Core Documentation
+- **README.md** (this file)
+  - Project overview and background
+  - Feature documentation
+  - Setup and usage instructions
+  - Basic concepts and terminology
+
+- **APIS.md**
+  - Detailed API specifications
+  - Rate limits and authentication
+  - Response formats
+  - Error handling
+
+### Development Documentation
+- **DECISIONS.md**
+  - Architectural decisions record (ADR)
+  - Technical standards
+  - Core technology choices
+  - API and code standards
+  - Testing requirements
+
+- **LEARNINGS.md**
+  - Implementation insights
+  - Solutions to technical challenges
+  - Performance optimizations
+  - Current challenges and next steps
+
+- **TODO.md**
+  - Current project priorities
+  - Active sprint tasks
+  - Implementation status
+  - Completion tracking
+
+### Planning Documentation
+- **PLAN.md**
+  - Detailed implementation plans
+  - Risk assessments
+  - Rollback procedures
+  - Success criteria
+
+Each document is maintained with a specific focus to avoid duplication and ensure clarity:
+- DECISIONS.md answers "What and Why"
+- LEARNINGS.md covers "How and What's Next"
+- TODO.md tracks "What's Pending"
+- PLAN.md details "How to Implement"
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/Altman-Z-Score.git
-cd Altman-Z-Score
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/Altman-Z-Score.git
+   cd Altman-Z-Score
+   ```
 
-2. Set up a Python virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. **(Recommended) Create and activate a Python virtual environment:**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
 
-3. Install dependencies:
-```bash
-pip install -e .
-```
+3. **Install the package and dependencies:**
+   ```bash
+   pip install -e .
+   ```
+
+> **Note:** This project is fully compatible with GitHub Codespaces. Codespaces users can skip manual environment setup—dependencies are installed automatically on first open.
+
+For troubleshooting or advanced setup, see the [APIS.md](APIS.md) and [DECISIONS.md] documentation.
 
 ## Configuration
 
@@ -126,81 +180,148 @@ pip install -e .
 SEC_EDGAR_USER_AGENT=your_name your_email@domain.com
 ```
 
-2. (Optional) Modify the portfolios in `src/altman_zscore/config.py`:
+2. (Optional) Configure API cache settings in `.env`:
+```env
+FINANCIAL_CACHE_TTL_DAYS=30  # Cache duration for financial data
+CACHE_DIR=.cache            # Cache directory location
+```
+
+3. (Optional) Modify the portfolios in `src/altman_zscore/config.py`:
    - Use predefined portfolios or create your own
    - Each portfolio includes tickers and analysis settings
    - CIK numbers are automatically looked up using SEC EDGAR
    - Changes take effect immediately
 
-### Portfolio System
-The tool uses a flexible portfolio management system that:
-- Supports multiple predefined portfolios (e.g., "genai")
-- Includes company tickers with descriptions
-- Configures analysis parameters per portfolio
-- Automatically handles CIK lookups with caching
-- Validates all portfolio configurations
+See [APIS.md](APIS.md) for detailed API configuration and usage guidelines.
 
-Example portfolio configuration:
+### Portfolio System
+
+Portfolios are defined in `portfolio.py` as lists of stock tickers grouped by theme or sector. CIK numbers are automatically looked up and validated for each ticker using the SEC EDGAR API.
+
+- You can add or remove tickers from any portfolio by editing `portfolio.py`.
+- To create a new portfolio, add a new entry to the `PORTFOLIOS` dictionary with a name, description, and list of tickers.
+- All portfolio changes take effect immediately—no manual CIK management is required.
+- Portfolio validation and CIK caching are handled automatically.
+
+Example portfolio definition:
 ```python
-PORTFOLIOS = {
-    "genai": {
-        "name": "GenAI Leaders",
-        "description": "Top public companies in generative AI and enabling infrastructure.",
-        "tickers": [
-            "MSFT",   # Microsoft Corporation
-            "GOOGL",  # Alphabet Inc.
-            "AMZN",   # Amazon.com, Inc.
-        ],
-        "diagnostic_assumptions": {
-            "safe_zone_threshold": 2.99,
-            "grey_zone_min": 1.81,
-            "grey_zone_max": 2.99,
-            "distress_zone_max": 1.80,
-        },
-        "currency": "USD",
-        "region": "US"
-    }
-}
+PORTFOLIO: list[str] = [
+    # Technology/Software Companies (Service Model)
+    "MSFT",   # Microsoft Corporation
+    "ORCL",   # Oracle Corporation
+    "CRM",    # Salesforce, Inc.
+    "ADBE",   # Adobe Inc.
+    "NOW",    # ServiceNow, Inc.
+    "SNOW",   # Snowflake Inc.
+    
+    # Manufacturing Companies (Original Model)
+    "F",      # Ford Motor Company
+    "GM",     # General Motors Company
+    "CAT",    # Caterpillar Inc.
+    "BA",     # Boeing Company
+    "MMM",    # 3M Company
+    "HON",    # Honeywell International Inc.
+    
+    # Mixed Hardware/Software (Original/Service Model)
+    "AAPL",   # Apple Inc.
+    "IBM",    # International Business Machines
+    "NVDA",   # NVIDIA Corporation
+    "AMD",    # Advanced Micro Devices
+    
+    # Emerging Market ADRs (EM Model)
+    "BABA",   # Alibaba Group Holding Ltd.
+    "TSM",    # Taiwan Semiconductor Manufacturing
+    "TCEHY",  # Tencent Holdings Ltd.
+    "NIO",    # NIO Inc.
+    "PDD",    # PDD Holdings Inc.
+    
+    # Recent IPOs/SPACs (Private Model)
+    "LCID",   # Lucid Group Inc.
+    "AI",     # C3.ai, Inc.
+    "PLTR",   # Palantir Technologies Inc.
+    
+    # Pure Service Companies (Service Model)
+    "UBER",   # Uber Technologies Inc.
+    "ABNB",   # Airbnb, Inc.
+    "DIS",    # The Walt Disney Company
+    "NFLX",   # Netflix, Inc.
+    "MA"      # Mastercard Incorporated
+    
+    # Distressed/Turnaround Companies (Various Models)
+    "RIVN",   # Rivian Automotive - EV maker with cash burn concerns
+    "MAT",    # Mattel Inc. - Historical restructuring case
+    "BBBY",   # Bed Bath & Beyond - Recent bankruptcy case
+    "AMC",    # AMC Entertainment - Theater chain restructuring
+    "CVNA",   # Carvana - Car retailer with debt concerns
+    "HOOD",   # Robinhood - Fintech with regulatory challenges
+    "BYND",   # Beyond Meat - Food tech with market challenges
+    "WISH",   # ContextLogic (Wish) - E-commerce turnaround attempt
+    "VYGR",   # Voyager Digital - Crypto bankruptcy case
+    "PRTY"    # Party City - Retail restructuring case
+]
 ```
+
+See comments in `portfolio.py` for more details and customization options.
 
 ## Usage
 
-1. Run the analysis:
+1. Run the analysis using the bootstrap script:
 ```bash
-python -m altman_zscore.main
+./analyze.py
+# or
+python analyze.py
 ```
 
 2. Results will be saved in:
    - CSV format: `zscore_analysis_DATE.csv`
    - Console output with summary
 
+The script will:
+- Set up the environment automatically
+- Prompt you to clear the cache if needed
+- Show progress during analysis
+- Display a summary of results
+
 ## Project Structure
 
 ```
-src/altman_zscore/      # Main package directory
-├── __init__.py         # Package initialization
-├── config.py           # Configuration and constants
-├── compute_zscore.py   # Z-score calculation logic
-├── fetch_financials.py # SEC EDGAR data fetching
-├── fetch_prices.py     # Market data retrieval
-└── main.py            # Main execution script
+src/altman_zscore/                # Main package directory
+├── __init__.py                  # Package initialization
+├── analysis_strategy.py         # Analysis strategy definitions
+├── calibration.py              # Model calibration utilities
+├── cik_lookup.py               # CIK number lookup functionality
+├── cik_mapping.py              # CIK to ticker mapping
+├── cik_validation.py           # CIK validation utilities
+├── company_profile.py          # Company classification
+├── compute_zscore.py           # Core Z-Score calculations
+├── config.py                   # Configuration and constants
+├── data_validation.py          # Data validation utilities
+├── fetch_financials.py         # SEC EDGAR data fetching
+├── fetch_prices.py             # Market data retrieval
+├── industry_classifier.py      # Industry classification
+├── industry_comparison.py      # Industry comparison logic
+├── main.py                     # Main execution script
+├── models.py                   # Z-Score model definitions
+├── api/                        # API integration modules
+│   ├── base_fetcher.py        # Base data fetcher
+│   ├── fetcher_factory.py     # Data fetcher creation
+│   ├── rate_limiter.py        # API rate limiting
+│   ├── request_manager.py     # Request handling
+│   ├── sec_client.py          # SEC EDGAR client
+│   └── yahoo_client.py        # Yahoo Finance client
+├── models/                     # Model implementation
+│   ├── base.py               # Base model class
+│   ├── factory.py            # Model factory
+│   └── original.py           # Original Z-Score model
+└── utils/                      # Utility functions
+    ├── financial_metrics.py   # Financial calculations
+    └── time_series.py        # Time series analysis
 
-tests/                  # Test directory
-└── test_compute_zscore.py  # Unit tests
+tests/                         # Test directory
+└── test_zscore.py            # Unit tests
 ```
 
-## Understanding Z-Score Components
-
-- **A ratio** (Working Capital/Total Assets): Measures liquid assets relative to size
-- **B ratio** (Retained Earnings/Total Assets): Measures profitability and age
-- **C ratio** (EBIT/Total Assets): Measures operating efficiency
-- **D ratio** (Market Value of Equity/Total Liabilities): Measures solvency
-- **E ratio** (Sales/Total Assets): Measures asset efficiency
-
-Interpretation:
-- Z-Score > 2.99: "Safe" Zone
-- 1.81 ≤ Z-Score ≤ 2.99: "Grey" Zone
-- Z-Score < 1.81: "Distress" Zone
+See [APIS.md](APIS.md) for detailed API documentation.
 
 ## Development
 
@@ -208,14 +329,7 @@ See our documentation for development guidelines:
 - [Architectural Decisions](DECISIONS.md)
 - [Implementation Learnings](LEARNINGS.md)
 - [Todo List](TODO.md)
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Make your changes
-4. Run the tests
-5. Submit a pull request
+- [API Documentation](APIS.md) - Detailed specifications for SEC EDGAR and Yahoo Finance APIs
 
 ## License
 
@@ -261,11 +375,201 @@ SEC_USER_AGENT=your_name your_email@domain.com
 DEFAULT_PORTFOLIO=genai  # Which portfolio to analyze by default
 ```
 
-## Caching
+## Implementation Details
 
-The tool caches data to improve performance and respect SEC EDGAR rate limits:
+### Model Selection
 
-- **Company CIKs**: Cached in `.cache/cik_cache.json`
-- **Financial Data**: Cached in `.cache/financial_data/`
+The tool automatically selects and calibrates models based on company characteristics:
 
-The cache is created automatically and updates when new companies are added to your portfolio. All cached data respects SEC EDGAR's rate limiting requirements.
+```
+ZScoreModel
+├── ORIGINAL        # Public manufacturing companies
+├── PRIVATE        # Private manufacturing companies
+├── SERVICE        # Non-manufacturing/service companies
+└── EM (Emerging)  # Companies in emerging markets
+```
+
+Model selection logic follows this priority:
+
+1. Market Category:
+   - Emerging markets: Uses EM model regardless of sector
+   - Developed markets: Proceeds to sector analysis
+
+2. Tech/AI Companies:
+   - Hardware/Mixed Tech: Uses ORIGINAL model (significant physical assets)
+   - Software/Service Tech: Uses SERVICE model (intangible value and R&D focus)
+
+3. Manufacturing Companies:
+   - Public: Uses ORIGINAL model (most validated)
+   - Private: Uses PRIVATE model (book value based)
+
+4. Service Companies:
+   - Uses SERVICE model (excludes asset turnover)
+
+The selection process includes automatic validation with warnings for:
+- Model appropriateness for company type
+- Extreme ratio values
+- Tech-specific metrics
+- Growth stage considerations
+
+### Analysis Features
+
+The tool provides comprehensive analysis capabilities:
+
+1. **Industry Comparison**
+   - Peer group benchmarking
+   - Subsector trend analysis
+   - Performance percentiles
+   - Context-aware interpretation
+
+2. **Tech-Specific Analysis**
+   - R&D intensity metrics
+   - Growth stage adjustments
+   - Unit economics validation
+   - Industry-specific warnings
+
+3. **Data Quality**
+   - Ratio sanity checks
+   - Market value validation
+   - Outlier detection
+   - Cross-source verification
+
+Example for AI/Tech Company Analysis:
+```python
+from altman_zscore import classify_company, compute_zscore
+
+# Classify the company
+profile = classify_company("0001318605", "TSLA")  # Tesla example
+
+# Get model recommendation
+model, reason = determine_zscore_model(profile)
+print(f"Using model: {model.value}")
+print(f"Reason: {reason}")
+
+# Calculate Z-score with validation
+z_score = compute_zscore(metrics, model)
+warnings = validate_model_selection(model, metrics, profile)
+
+for warning in warnings:
+    print(f"Warning: {warning}")
+```
+
+### Advanced Tech Company Analysis
+
+The tool provides specialized analysis capabilities for technology companies, built into the `IndustryComparison` class:
+
+1. **Industry Comparison**
+   - Computes industry median scores
+   - Calculates percentile rankings
+   - Tracks subsector performance
+   - Provides peer benchmarking
+
+2. **Tech Subsector Analysis**
+   - Hardware/Mixed Tech
+   - Software/Services
+   - SaaS/Enterprise
+   - AI/Machine Learning
+   - Other Tech Categories
+
+3. **R&D Investment Analysis**
+   - Calculates R&D intensity (R&D/Revenue ratio)
+   - Provides intensity-based insights:
+     * High (>15%): Strong innovation focus
+     * Moderate (5-15%): Balanced investment
+     * Low (<5%): Potential underinvestment
+
+4. **Performance Analytics**
+   - Industry median comparison
+   - Subsector percentile ranking
+   - Peer group analysis
+   - Growth stage consideration
+
+Example Tech Company Analysis:
+```python
+from altman_zscore import classify_company, compute_zscore, IndustryComparison
+
+# Initialize industry comparison
+industry_comp = IndustryComparison()
+
+# Classify company and get tech profile
+profile = classify_company("0001318605", "TSLA")  # Tesla example
+
+# Calculate Z-score with validation
+model, reason = determine_zscore_model(profile)
+z_score = compute_zscore(metrics, model)
+
+# Get insights
+industry_metrics = industry_comp.get_industry_metrics(profile, z_score.z_score)
+tech_insights = industry_comp.get_tech_specific_insights(profile, z_score.z_score)
+
+# Analysis results
+print(f"Industry Percentile: {industry_metrics['industry_percentile']:.1%}")
+print(f"Subsector Performance: {industry_metrics.get('subsector_median', 'N/A')}")
+```
+
+### Interpreting Results
+
+The tool provides context-aware interpretation of Z-Score results based on company characteristics:
+
+#### Core Metrics
+
+| Component          | Interpretation Guidelines                                      |
+|-------------------|-------------------------------------------------------------|
+| Working Capital   | Measures liquidity and short-term stability                  |
+| Retained Earnings | Indicates cumulative profitability and reinvestment         |
+| EBIT             | Shows operating efficiency and core business strength        |
+| Market Value     | Reflects market confidence and financial leverage           |
+| Sales            | Measures asset utilization (not used in Service model)      |
+
+#### Industry-Specific Context
+
+| Company Type       | Key Considerations                                           |
+|-------------------|-------------------------------------------------------------|
+| Tech/Software     | - R&D investment levels<br>- Intangible asset value<br>- Growth vs. profitability balance |
+| Manufacturing     | - Working capital efficiency<br>- Asset utilization<br>- Operating leverage |
+| Services          | - Revenue stability<br>- Operating margins<br>- Capital structure |
+| Emerging Markets  | - Market volatility<br>- Currency effects<br>- Country risk factors |
+
+#### Validation Warnings
+
+The tool includes automatic validation that may generate warnings for:
+
+1. **Model Selection Issues**
+   - Using Original model for non-public company
+   - Using Service model with high asset turnover
+   - Emerging market company not using EM model
+
+2. **Tech-Specific Concerns**
+   - Low market value relative to assets
+   - Unusual asset turnover for tech company
+   - R&D investment misalignment
+
+3. **Data Quality Issues**
+   - Extreme ratio values
+   - Missing critical metrics
+   - Inconsistent financial data
+
+### Diagnostic Recommendations
+
+1. **Early-Stage Tech**
+   - Prioritize growth metrics
+   - Monitor cash runway
+   - Track unit economics
+   - Consider funding needs
+
+2. **Growth-Stage Tech**
+   - Balance growth and efficiency
+   - Focus on scaling operations
+   - Monitor competitive position
+   - Track market expansion
+
+3. **Mature Tech**
+   - Emphasize profitability
+   - Watch market share
+   - Monitor innovation metrics
+   - Track industry position
+
+4. **Special Situations**
+   - Pre-revenue: Focus on burn rate and development milestones
+   - Hardware/Software Hybrid: Use blended thresholds
+   - Platform Companies: Consider network effects

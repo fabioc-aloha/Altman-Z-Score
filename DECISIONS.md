@@ -1,8 +1,14 @@
+# Architectural Decisions Record (ADR)
+
+This document records key architectural decisions in the Altman Z-Score project.
+
 # Architectural Decisions
 
 This document serves as the authoritative record of architectural decisions for the Altman Z-Score project.
 
-## AD-001: Project Structure
+## Core Architecture
+
+### AD-001: Project Structure
 - **Decision**: Use src layout with package structure
 - **Status**: Implemented
 - **Context**: Need for proper package organization and distribution
@@ -11,56 +17,71 @@ This document serves as the authoritative record of architectural decisions for 
   - Cleaner imports
   - Proper test isolation
 
-## AD-002: Data Processing
-- **Decision**: Use pandas for data manipulation
+### AD-002: Technology Stack
+- **Decision**: Use pandas for data processing, pydantic for validation
 - **Status**: Implemented
-- **Context**: Need efficient handling of financial data
+- **Context**: Need efficient and reliable data handling
 - **Consequences**:
   - Efficient data operations
-  - Built-in data validation
-  - Easy export capabilities
+  - Type-safe data validation
+  - Clear data schemas
 
-## AD-003: Error Handling
-- **Decision**: Use structured logging and specific exceptions
+### AD-003: Error Management
+- **Decision**: Structured logging with custom exceptions
 - **Status**: Implemented
-- **Context**: Need robust error tracking and recovery
+- **Context**: Need robust error handling
 - **Consequences**:
-  - Better error traceability
-  - Improved debugging
   - Clear error context
+  - Improved debugging
+  - Better error recovery
 
-## AD-004: Configuration Management
-- **Decision**: Use config.py and environment variables
+## Data Management
+
+### AD-004: Configuration
+- **Decision**: Use config.py with environment variables
 - **Status**: Implemented
-- **Context**: Need secure and flexible configuration
 - **Consequences**:
   - Secure credential handling
-  - Easy configuration updates
-  - Clear configuration separation
+  - Flexible configuration
+  - Clear separation of concerns
 
-## AD-005: Class Structure
-- **Decision**: Use dataclasses for data containers
+### AD-005: API Integration
+- **Decision**: Direct API access with rate limiting
 - **Status**: Implemented
-- **Context**: Need clean data structure representation
+- **Context**: Need reliable external data access
 - **Consequences**:
-  - Type-safe data handling
-  - Clear data validation
-  - Immutable data structures
+  - SEC EDGAR: 10 req/sec, required headers
+  - Yahoo Finance: Exponential backoff
+  - Response validation required
+  - Always fetch fresh data
 
-## AD-006: API Integration
-- **Decision**: Implement caching and rate limiting
-- **Status**: Implemented
-- **Context**: Need reliable API interactions
+### AD-006: Data Quality
+- **Decision**: Schema-based validation
+- **Status**: In Progress
+- **Context**: Need reliable financial data
 - **Consequences**:
-  - Respect API limits
-  - Better performance
-  - Reduced API costs
+  - Pydantic schema validation
+  - Data consistency checks
+  - Missing field handling
+  - Edge case protection
 
-## AD-007: Testing Strategy
-- **Decision**: Use pytest with mocking
+## Development
+
+### AD-007: Testing
+- **Decision**: pytest with mocking
 - **Status**: In Progress
 - **Context**: Need comprehensive testing
 - **Consequences**:
   - Reliable test suite
-  - Easy test maintenance
-  - Good test coverage
+  - Easy maintenance
+  - Good coverage
+
+### AD-008: Code Standards
+- **Decision**: PEP 8 with type hints
+- **Status**: Implemented
+- **Context**: Need consistent code style
+- **Consequences**:
+  - Type hints required
+  - Max line length: 100
+  - Docstrings required
+  - F-strings for formatting

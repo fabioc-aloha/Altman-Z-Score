@@ -1,16 +1,38 @@
 # fetch_financials.py
+"""
+Data fetching module for the Altman Z-Score analysis pipeline.
+
+This module is responsible for retrieving financial data from SEC EDGAR, NOT for
+running the analysis directly. It provides:
+
+- Financial data fetching from SEC EDGAR
+- Industry-specific data parsing
+- XBRL data extraction
+- Rate limiting compliance
+- Validation of financial metrics
+
+Use analyze.py in the root directory to run the full analysis pipeline.
+"""
+
 import os
 import requests
 from bs4 import BeautifulSoup, Tag
+from bs4.element import PageElement
+from typing import Optional, Union, List, Tuple, Dict, Any, TypeVar, cast
 import time
 import logging
 from tqdm import tqdm
 import json
-from typing import Dict, Any, Tuple, Optional, Union, List
 from datetime import datetime, timedelta
+from pathlib import Path
 from dotenv import load_dotenv
 from .config import OUTPUT_DIR
 from .cik_mapping import get_cik_mapping
+from .industry_classifier import CompanyProfile, TechSubsector
+from .api.fetcher_factory import create_fetcher
+from .data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+
+T = TypeVar('T', bound=PageElement)
 
 # Configure logging to only show warnings and errors
 logging.getLogger().setLevel(logging.WARNING)
@@ -20,7 +42,86 @@ load_dotenv()
 
 EDGAR_BASE = "https://www.sec.gov"
 DATA_EDGAR_BASE = "https://data.sec.gov"
-MIN_REQUEST_INTERVAL = 0.1
+
+# Helper functions for BeautifulSoup operations
+def safe_text_to_float(text: Optional[str]) -> Optional[float]:
+    """Safely convert text to float, handling common formatting."""
+    if not text:
+        return None
+    try:
+        # Remove commas and whitespace
+        cleaned = str(text).replace(',', '').strip()
+        # Handle parentheses for negative numbers
+        if cleaned.startswith('(') and cleaned.endswith(')'):
+            cleaned = f"-{cleaned[1:-1]}"
+        return float(cleaned)
+    except (ValueError, TypeError, AttributeError):
+        return None
+
+def safe_get_tag_text(element: Optional[Union[Tag, str]]) -> Optional[str]:
+    """Safely get text from a BeautifulSoup tag."""
+    if element is None:
+        return None
+    if isinstance(element, str):
+        return element
+    return element.text.strip() if hasattr(element, 'text') else None
+
+def safe_find_tag(element: Union[BeautifulSoup, Tag], tag_name: str, 
+                 attrs: Optional[Dict[str, Any]] = None) -> Optional[Tag]:
+    """Safely find a tag in BeautifulSoup element."""
+    if not element:
+        return None
+    try:
+        result = element.find(tag_name, attrs or {})
+        return cast(Optional[Tag], result)
+    except Exception as e:
+        logging.warning(f"Error finding tag {tag_name}: {str(e)}")
+        return None
+
+def safe_find_all_tags(element: Union[BeautifulSoup, Tag], tag_name: str, 
+                      attrs: Optional[Dict[str, Any]] = None) -> List[Tag]:
+    """Safely find all matching tags in BeautifulSoup element."""
+    if not element:
+        return []
+    try:
+        results = element.find_all(tag_name, attrs or {})
+        return cast(List[Tag], results)
+    except Exception as e:
+        logging.warning(f"Error finding tags {tag_name}: {str(e)}")
+        return []
+
+def safe_parse_date(text: Optional[str]) -> Optional[datetime]:
+    """Safely parse a date string into datetime object."""
+    if not text:
+        return None
+    try:
+        return datetime.strptime(text, "%Y-%m-%d")
+    except ValueError:
+        try:
+            return datetime.strptime(text, "%Y%m%d")
+        except ValueError:
+            logging.warning(f"Could not parse date string: {text}")
+            return None
+
+# API Configuration
+API_CONFIG = {
+    'sec_edgar': {
+        'request_interval': 0.1,  # 100ms between requests
+        'max_retries': 3,
+        'retry_base': 2,  # For exponential backoff
+        'default_retry_after': 10,
+        'batch_size': 5,
+        'timeout': 10
+    },
+    'yahoo_finance': {
+        'request_interval': 2.0,  # 2000ms between requests
+        'max_retries': 3,
+        'retry_base': 2,
+        'default_retry_after': 30,
+        'timeout': 20
+    }
+}
+
 last_request_time = 0
 
 def make_sec_request(url: str, base_url: str = EDGAR_BASE) -> requests.Response:
@@ -28,15 +129,15 @@ def make_sec_request(url: str, base_url: str = EDGAR_BASE) -> requests.Response:
     global last_request_time
     
     # Get user agent from environment variable
-    user_agent = os.getenv('SEC_USER_AGENT')
+    user_agent = os.getenv('SEC_USER_AGENT') or os.getenv('SEC_EDGAR_USER_AGENT')
     if not user_agent:
-        raise ValueError("SEC_USER_AGENT environment variable is required")
+        raise ValueError("Neither SEC_USER_AGENT nor SEC_EDGAR_USER_AGENT environment variable is set")
     
     # Ensure proper time between requests
     current_time = time.time()
     time_since_last_request = current_time - last_request_time
-    if time_since_last_request < MIN_REQUEST_INTERVAL:
-        time.sleep(MIN_REQUEST_INTERVAL - time_since_last_request)
+    if time_since_last_request < API_CONFIG['sec_edgar']['request_interval']:
+        time.sleep(API_CONFIG['sec_edgar']['request_interval'] - time_since_last_request)
     
     headers = {
         "User-Agent": user_agent,
@@ -45,15 +146,33 @@ def make_sec_request(url: str, base_url: str = EDGAR_BASE) -> requests.Response:
         "Connection": "close"
     }
     
-    for attempt in range(3):  # Implement retry logic
+    for attempt in range(API_CONFIG['sec_edgar']['max_retries']):  # Implement retry logic
         try:
-            response = requests.get(url, headers=headers, timeout=10)
+            response = requests.get(url, headers=headers, timeout=API_CONFIG['sec_edgar']['timeout'])
+            
+            # Handle rate limiting explicitly
+            if response.status_code == 429:
+                retry_after = int(response.headers.get('Retry-After', API_CONFIG['sec_edgar']['default_retry_after']))
+                logging.warning(f"Rate limited. Waiting {retry_after} seconds...")
+                time.sleep(retry_after)
+                continue
+                
             response.raise_for_status()
+            
+            # Validate response headers
+            content_type = response.headers.get('Content-Type', '')
+            if ('application/json' not in content_type and 
+                'text/html' not in content_type):
+                raise ValueError(f"Unexpected content type: {content_type}")
+                
             return response
+            
         except requests.exceptions.RequestException as e:
-            if attempt == 2:  # Last attempt
-                raise
-            time.sleep(2 ** attempt)  # Exponential backoff
+            if attempt == API_CONFIG['sec_edgar']['max_retries'] - 1:  # Last attempt
+                raise ValueError(f"Failed to fetch data from SEC EDGAR after {API_CONFIG['sec_edgar']['max_retries']} attempts: {str(e)}")
+            wait_time = API_CONFIG['sec_edgar']['retry_base'] ** attempt  # Exponential backoff
+            logging.warning(f"Request failed, retrying in {wait_time} seconds...")
+            time.sleep(wait_time)
     
     last_request_time = time.time()
     return response
@@ -88,164 +207,112 @@ def find_latest_10q(filings: dict, before_date: str) -> Optional[dict]:
     
     return latest_10q
 
+def find_xbrl_tag(soup: BeautifulSoup, concepts: List[str]) -> float:
+    """Find and parse XBRL tag value."""
+    for concept in concepts:
+        # First try exact tag match
+        tag = safe_find_tag(soup, 'ix:nonfraction', {'name': concept})
+        if tag and (val := safe_text_to_float(safe_get_tag_text(tag))):
+            return val
+    
+    # If we haven't found a valid value, log it and return 0
+    logging.warning(f"No valid value found for concepts: {concepts}")
+    return 0.0
+
+def find_with_period(soup: BeautifulSoup, concepts: List[str]) -> List[Tuple[datetime, float]]:
+    """Find XBRL tags with their period dates and values."""
+    dated_values: List[Tuple[datetime, float]] = []
+    
+    for concept in concepts:
+        # Find all tags with matching name
+        for tag in safe_find_all_tags(soup, 'ix:nonfraction', {'name': concept}):
+            value = safe_text_to_float(safe_get_tag_text(tag))
+            if value is None:
+                continue
+                
+            context_ref = tag.get('contextref')
+            if not context_ref:
+                continue
+            
+            # Find context element
+            context = safe_find_tag(soup, 'xbrli:context', {'id': context_ref})
+            if not context:
+                continue
+            
+            # Try to find period end date
+            period = safe_find_tag(context, 'xbrli:period')
+            if not period:
+                continue
+            
+            # Try both enddate and instant
+            date_el = safe_find_tag(period, 'xbrli:enddate') or safe_find_tag(period, 'xbrli:instant')
+            date_text = safe_get_tag_text(date_el)
+            if date := safe_parse_date(date_text):
+                dated_values.append((date, value))
+    
+    return sorted(dated_values, key=lambda x: x[0], reverse=True)
+
+def parse_financials(url: str, company_profile: Optional[CompanyProfile] = None) -> Dict[str, float]:
+    """Parse financial data from the filing."""
+    try:
+        response = make_sec_request(url)
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Get base financial metrics
+        metrics = parse_xbrl_data(html_content)
+        
+        # Use industry-specific fetcher if we have a company profile
+        additional_metrics = {}
+        if company_profile:
+            fetcher = create_fetcher(company_profile)
+            additional_metrics = fetcher.get_industry_metrics(soup)
+        
+        # Combine all metrics
+        combined_metrics = {**metrics, **additional_metrics}
+        
+        # Validate if we have a company profile
+        if company_profile:
+            fetcher = create_fetcher(company_profile)
+            validation_issues = fetcher.validate_data(combined_metrics, company_profile)
+            
+            # Log validation issues
+            for issue in validation_issues:
+                level = logging.ERROR if issue.level == ValidationLevel.ERROR else logging.WARNING
+                msg = f"{issue.field}: {issue.issue}"
+                if issue.value is not None:
+                    msg += f" (value: {issue.value})"
+                if issue.expected_range:
+                    msg += f" (expected: {issue.expected_range})"
+                logging.log(level, msg)
+            
+            # Only raise for ERROR level issues
+            error_issues = [i for i in validation_issues if i.level == ValidationLevel.ERROR]
+            if error_issues:
+                raise ValueError(f"Validation errors found: {', '.join(i.issue for i in error_issues)}")
+        
+        return combined_metrics
+        
+    except Exception as e:
+        raise ValueError(f"Error parsing financials: {str(e)}")
+
 def parse_xbrl_data(html_content: str) -> Dict[str, float]:
-    """Parse XBRL data from the filing HTML."""
+    """Parse XBRL data from the filing."""
     soup = BeautifulSoup(html_content, 'html.parser')
     
-    def safe_text_to_float(text: Optional[str]) -> Optional[float]:
-        """Safely convert text to float, return None if not possible."""
-        if not text:
-            return None
-        try:
-            return float(str(text).replace(',', '').strip())
-        except (ValueError, TypeError, AttributeError):
-            return None
-    
-    def try_compute_sum(component_names: List[str], log_missing: bool = False) -> Optional[float]:
-        """Try to compute sum of values from component tag names."""
-        total = 0.0
-        valid = False
-        
-        for name in component_names:
-            tag = soup.find('ix:nonfraction', attrs={'name': name})
-            if tag and isinstance(tag, Tag):
-                if val := safe_text_to_float(tag.text):
-                    total += val
-                    valid = True
-                    
-        return total if valid else None
-        
-    def try_compute_current_assets() -> Optional[float]:
-        """Try to compute current assets from common components."""
-        # First try standard total current assets tags
-        std_totals = [
-            'us-gaap:AssetsCurrent',
-            'us-gaap:CurrentAssets',
-            'us-gaap:AssetsNetCurrent',
-            'us-gaap:TotalCurrentAssets'
-        ]
-        if val := try_compute_sum(std_totals, log_missing=False):
-            logging.info("Found total current assets using standard tags")
-            return val
-            
-        logging.debug("Attempting to compute current assets from components...")
-            
-        # Try standard components
-        std_components = [
-            'us-gaap:CashAndCashEquivalentsAtCarryingValue',
-            'us-gaap:MarketableSecurities',
-            'us-gaap:AccountsReceivableNetCurrent',
-            'us-gaap:PrepaidExpenseAndOtherAssetsCurrent',
-            'us-gaap:InventoryNet',
-            'us-gaap:OtherCurrentAssets',
-            'us-gaap:ShortTermInvestments'
-        ]
-        if val := try_compute_sum(std_components):
-            logging.info("Computed current assets using standard components")
-            return val
-            
-        # Try fintech/financial institution specific components
-        fin_components = [
-            'us-gaap:CashAndDueFromBanks',
-            'us-gaap:InterestBearingDepositsInOtherInstitutions',
-            'us-gaap:LoansReceivableNetCurrent',
-            'us-gaap:LoansHeldForSaleNetCurrent',
-            'us-gaap:RestrictedCashAndCashEquivalentsCurrent',
-            'us-gaap:FederalFundsSoldAndSecuritiesPurchasedUnderAgreementsToResell',
-            'us-gaap:FinancingReceivableNetCurrent',
-            'us-gaap:LoanAndLeaseLossAllowance',
-            'us-gaap:FinanceReceivablesNetCurrent',
-            'us-gaap:TradingAccountAssets',
-            'us-gaap:MarginLoansReceivable'
-        ]
-        if val := try_compute_sum(fin_components):
-            logging.info("Computed current assets using fintech/financial components")
-            return val
-            
-        # Try fintech/financial services/lending industry specific components
-        fintech_components = [
-            'us-gaap:LoanAndLeaseFinancingReceivables',
-            'us-gaap:FinancingReceivableNetOfAllowanceForCreditLoss',
-            'us-gaap:AvailableForSaleSecuritiesDebt',
-            'us-gaap:MarketableSecuritiesShortTerm',
-            'us-gaap:CashAndCashEquivalents',
-            'us-gaap:AccountsAndNotesReceivableNet',
-            'us-gaap:OperatingLeaseRightOfUseAssetsCurrent',
-            'us-gaap:RestrictedCash',
-            'us-gaap:PrepaidExpensesAndOtherCurrentAssets',
-            'us-gaap:InvestmentsShortTerm',
-            'us-gaap:LoansAndLeasesReceivable',
-            'us-gaap:LoansReceivableNet',
-            'us-gaap:FinancingReceivableCurrent'
-        ]
-        if val := try_compute_sum(fintech_components):
-            logging.info("Computed current assets using fintech-specific components")
-            return val
-            
-        # Try alternative components
-        alt_components = [
-            'us-gaap:AccountsAndNotesReceivableNetCurrent',
-            'us-gaap:PrepaidRevenue',
-            'us-gaap:AvailableForSaleSecurities',
-            'us-gaap:DerivativeAssetsCurrent',
-            'us-gaap:InvestedAssets',
-            'us-gaap:AssetsCurrent1'
-        ]
-        if val := try_compute_sum(alt_components):
-            logging.info("Computed current assets using alternative components")
-            return val
-            
-        logging.warning("Could not compute current assets from any known components")
-        return None
-
-    def find_value(concepts: List[str]) -> float:
-        """Find a value in the XBRL document matching any of the given concepts."""
-        # First try exact matches
-        for concept in concepts:
-            tag = soup.find('ix:nonfraction', attrs={'name': concept})
-            if tag and isinstance(tag, Tag) and (val := safe_text_to_float(tag.text)):
-                return val
-                    
-        # Try special case computations
-        if concepts[0].startswith('us-gaap:AssetsCurrent'):
-            if val := try_compute_current_assets():
-                return val
-                    
-        # Try case-insensitive partial matches
-        base_concepts = [c.replace('us-gaap:', '').lower() for c in concepts]
-        for tag in soup.find_all('ix:nonfraction'):
-            if not isinstance(tag, Tag):
-                continue
-            if not tag.has_attr('name'):
-                continue
-            if not isinstance(tag.get('name'), str):
-                continue
-            name_attr = str(tag.get('name')).lower()
-            if any(bc in name_attr for bc in base_concepts):
-                if (val := safe_text_to_float(tag.text)) is not None:
-                    logging.info(f"Found partial match: {name_attr}")
-                    return val
-            
-        missing = ', '.join(concepts)
-        logging.error(f"Could not find any of these concepts: {missing}")
-        raise ValueError(f"Could not find any of {missing} in filing")
-    
-    # Map of financial concepts to their potential XBRL tags
+    # Core financial metric concepts
     concepts_map = {
         "CA": [
             "us-gaap:AssetsCurrent",
             "us-gaap:CurrentAssets",
             "us-gaap:AssetsNetCurrent",
-            "us-gaap:TotalCurrentAssets",
-            "us-gaap:AssetsCurrent1",
-            "us-gaap:CurrentAssetsTotal"
+            "us-gaap:TotalCurrentAssets"
         ],
         "CL": [
             "us-gaap:LiabilitiesCurrent",
             "us-gaap:CurrentLiabilities",
             "us-gaap:LiabilitiesNetCurrent",
-            "us-gaap:TotalCurrentLiabilities",
-            "us-gaap:LiabilitiesCurrent1"
+            "us-gaap:TotalCurrentLiabilities"
         ],
         "TA": [
             "us-gaap:Assets",
@@ -256,35 +323,27 @@ def parse_xbrl_data(html_content: str) -> Dict[str, float]:
         "RE": [
             "us-gaap:RetainedEarnings",
             "us-gaap:RetainedEarningsAccumulatedDeficit",
-            "us-gaap:AccumulatedRetainedEarnings",
-            "us-gaap:RetainedEarningsAccumulatedEarningsDeficit",
-            "us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+            "us-gaap:AccumulatedRetainedEarnings"
         ],
         "EBIT": [
             "us-gaap:OperatingIncomeLoss",
             "us-gaap:IncomeLossFromOperations",
-            "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxes",
-            "us-gaap:ProfitLoss",
-            "us-gaap:GrossProfit",
-            "us-gaap:IncomeLossFromOperatingActivities"
+            "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxes"
         ],
         "TL": [
             "us-gaap:Liabilities",
             "us-gaap:TotalLiabilities",
-            "us-gaap:LiabilitiesTotal",
-            "us-gaap:LiabilitiesAndStockholdersEquity"
+            "us-gaap:LiabilitiesTotal"
         ],
         "Sales": [
             "us-gaap:Revenues",
             "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
             "us-gaap:SalesRevenueNet",
-            "us-gaap:RevenueFromContractWithCustomer",
-            "us-gaap:OperatingRevenue",
-            "us-gaap:TotalRevenues"
+            "us-gaap:RevenueFromContractWithCustomer"
         ]
     }
     
-    return {key: find_value(concepts) for key, concepts in concepts_map.items()}
+    return {key: find_xbrl_tag(soup, concepts) for key, concepts in concepts_map.items()}
 
 def fetch_filing_url(cik: str, filing_type: str, period_end: str) -> str:
     """Get the latest 10-Q filing URL before the given date."""
@@ -317,24 +376,22 @@ def fetch_filing_url(cik: str, filing_type: str, period_end: str) -> str:
     except Exception as e:
         raise ValueError(f"Error fetching filing URL: {str(e)}")
 
-def parse_financials(url: str) -> Dict[str, float]:
-    """Parse financial data from the filing."""
-    try:
-        response = make_sec_request(url)
-        return parse_xbrl_data(response.text)
-    except Exception as e:
-        raise ValueError(f"Error parsing financials: {str(e)}")
-
-def fetch_batch_financials(tickers: list[str], period_end: str) -> Dict[str, Dict[str, Any]]:
+def fetch_batch_financials(
+    tickers: list[str], 
+    period_end: str, 
+    company_profiles: Optional[Dict[str, CompanyProfile]] = None
+) -> Dict[str, Dict[str, Any]]:
     """
     Fetch financial data for multiple tickers in batch.
     
     Args:
         tickers (list[str]): List of stock tickers to fetch data for
         period_end (str): End date for the period to fetch data for
+        company_profiles (Optional[Dict[str, CompanyProfile]]): Pre-classified company profiles 
+            to optimize fetching of industry-specific metrics
         
     Returns:
-        Dict[str, Dict[str, Any]]: Dictionary mapping tickers to their financial data
+        Dict[str, Dict[str, Any]]: Dictionary mapping tickers to their financial data and validation status
     """
     # Get CIK mappings for all tickers
     cik_map = get_cik_mapping(tickers)
@@ -351,17 +408,46 @@ def fetch_batch_financials(tickers: list[str], period_end: str) -> Dict[str, Dic
             if ticker not in cik_map:
                 progress_bar.write(f"Warning: No CIK found for {ticker}, skipping")
                 error_count += 1
+                results[ticker] = {
+                    "success": False,
+                    "data": None,
+                    "error": "No CIK found",
+                    "validation_status": "error"
+                }
                 continue
                 
             cik = cik_map[ticker]
             filing_url = fetch_filing_url(cik, "10-Q", period_end)
-            financials = parse_financials(filing_url)
-            results[ticker] = {
-                "success": True,
-                "data": financials,
-                "error": None
-            }
-            success_count += 1
+            
+            # Check if we have a company profile for industry-specific tags
+            profile = company_profiles.get(ticker) if company_profiles else None
+            
+            # Get metrics with validation
+            try:
+                financials = parse_financials(filing_url, company_profile=profile)
+                # If we got here, validation passed
+                results[ticker] = {
+                    "success": True,
+                    "data": financials,
+                    "error": None,
+                    "validation_status": "valid",
+                    "fetch_time": datetime.now().isoformat()
+                }
+                success_count += 1
+                
+            except ValueError as ve:
+                if "Validation errors found" in str(ve):
+                    # Validation error
+                    results[ticker] = {
+                        "success": False,
+                        "data": None,
+                        "error": str(ve),
+                        "validation_status": "invalid",
+                        "fetch_time": datetime.now().isoformat()
+                    }
+                else:
+                    raise  # Re-raise other value errors
+                    
             progress_bar.set_postfix({"success": success_count, "errors": error_count})
             
         except Exception as e:
@@ -369,7 +455,9 @@ def fetch_batch_financials(tickers: list[str], period_end: str) -> Dict[str, Dic
             results[ticker] = {
                 "success": False,
                 "data": None,
-                "error": str(e)
+                "error": str(e),
+                "validation_status": "error",
+                "fetch_time": datetime.now().isoformat()
             }
             error_count += 1
             progress_bar.set_postfix({"success": success_count, "errors": error_count})
@@ -378,3 +466,158 @@ def fetch_batch_financials(tickers: list[str], period_end: str) -> Dict[str, Dic
     print(f"\nCompleted: {success_count} succeeded, {error_count} failed")
             
     return results
+
+
+
+def fetch_financials(cik: str, filing_type: str, period_end: str) -> Dict[str, Any]:
+    """
+    Fetch financial data for a company from SEC EDGAR.
+    
+    Args:
+        cik (str): Company CIK number
+        filing_type (str): Type of filing to fetch (e.g., '10-Q')
+        period_end (str): End date for the period to fetch data for
+        
+    Returns:
+        Dict[str, Any]: Dictionary containing financial data
+    """
+    try:
+        # Find the filing URL from submissions
+        submissions_url = f"{DATA_EDGAR_BASE}/submissions/CIK{cik.zfill(10)}.json"
+        response = make_sec_request(submissions_url, DATA_EDGAR_BASE)
+        filings = response.json()
+        
+        # Find the latest 10-Q
+        latest_10q = find_latest_10q(filings, period_end)
+        if not latest_10q:
+            raise ValueError(f"No {filing_type} found for CIK={cik} before {period_end}")
+        
+        # Construct filing URL
+        acc_no = latest_10q["accessionNumber"].replace("-", "")
+        doc = latest_10q["primaryDocument"]
+        filing_url = f"{EDGAR_BASE}/Archives/edgar/data/{int(cik)}/{acc_no}/{doc}"
+        
+        # Parse financials from the filing
+        financial_data = parse_financials(filing_url)
+        
+        # Add metadata
+        result = {
+            'data': financial_data,
+            'meta': {
+                'filing_url': filing_url,
+                'cik': cik,
+                'filing_type': filing_type,
+                'period_end': period_end,
+                'fetch_time': datetime.now().isoformat()
+            }
+        }
+        
+        return result
+        
+    except Exception as e:
+        logging.error(f"Error fetching financials for CIK {cik}: {str(e)}")
+        raise
+
+def get_tech_rd_expenses(html_content: str) -> Optional[float]:
+    """Parse R&D expenses specifically for tech companies."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    concepts = [
+        'us-gaap:ResearchAndDevelopmentExpense',
+        'us-gaap:TechnologyAndDevelopmentExpense',
+        'us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost'
+    ]
+    
+    for concept in concepts:
+        tag = safe_find_tag(soup, 'ix:nonfraction', {'name': concept})
+        if tag and (val := safe_text_to_float(safe_get_tag_text(tag))):
+            return val
+    return None
+
+def get_tech_revenue_growth(html_content: str) -> Optional[float]:
+    """Calculate revenue growth for tech companies."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    concepts = [
+        'us-gaap:RevenuesFromContractWithCustomerExcludingAssessedTax',
+        'us-gaap:RevenuesNetOfInterestExpense',
+        'us-gaap:Revenues'
+    ]
+    
+    # Get revenue values across periods
+    dated_values = find_with_period(soup, concepts)
+    
+    # Calculate growth if we have at least two periods
+    if len(dated_values) >= 2:
+        sorted_values = sorted(dated_values, key=lambda x: x[0], reverse=True)
+        current_revenue = sorted_values[0][1]
+        prior_revenue = sorted_values[1][1]
+        if prior_revenue > 0:
+            return (current_revenue - prior_revenue) / prior_revenue
+            
+    return None
+
+def get_tech_subscription_revenue(html_content: str) -> Optional[float]:
+    """Parse subscription revenue for SaaS companies."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    concepts = [
+        'us-gaap:SubscriptionRevenue',
+        'us-gaap:CloudServicesRevenue',
+        'us-gaap:RecurringRevenue',
+        'us-gaap:SubscriptionAndTransactionBasedRevenue'
+    ]
+    
+    for concept in concepts:
+        tag = safe_find_tag(soup, 'ix:nonfraction', {'name': concept})
+        if tag and (val := safe_text_to_float(safe_get_tag_text(tag))):
+            return val
+    return None
+
+def get_manufacturing_turnover(html_content: str) -> Optional[float]:
+    """Calculate inventory turnover for manufacturing companies."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    
+    cogs_concepts = [
+        'us-gaap:CostOfGoodsAndServicesSold',
+        'us-gaap:CostOfRevenue',
+        'us-gaap:CostOfGoodsSold'
+    ]
+    inventory_concepts = [
+        'us-gaap:InventoryNet',
+        'us-gaap:Inventories',
+        'us-gaap:InventoryGross'
+    ]
+    
+    cogs = find_xbrl_tag(soup, cogs_concepts)
+    inventory = find_xbrl_tag(soup, inventory_concepts)
+    
+    if cogs and inventory and inventory > 0:
+        return cogs / inventory
+    return None
+
+def get_manufacturing_capex(html_content: str) -> Optional[float]:
+    """Parse capital expenditure for manufacturing companies."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    concepts = [
+        'us-gaap:PaymentsToAcquirePropertyPlantAndEquipment',
+        'us-gaap:CapitalExpendituresIncurredButNotYetPaid',
+        'us-gaap:PaymentsToAcquireProductiveAssets'
+    ]
+    
+    for concept in concepts:
+        tag = safe_find_tag(soup, 'ix:nonfraction', {'name': concept})
+        if tag and (val := safe_text_to_float(safe_get_tag_text(tag))):
+            return abs(val)  # CapEx is usually reported as negative in cash flow
+    return None
+
+
+
+class SECRequestError(Exception):
+    """Base exception for SEC EDGAR request errors."""
+    pass
+
+class SECRateLimitError(SECRequestError):
+    """Exception raised when hitting SEC EDGAR rate limits."""
+    pass
+
+class SECParseError(SECRequestError):
+    """Exception raised when failing to parse SEC EDGAR data."""
+    pass
