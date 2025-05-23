@@ -114,3 +114,20 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+altman_zscore.egg-info/
+
+# Remove local container and virtual env configs
+.devcontainer/
+venv/
+.venv/
+
+# Old codebase
+OLD/build/
+OLD/altman_zscore.egg-info/
+OLD/.devcontainer/
+OLD/venv/
+OLD/.venv/
+OLD/.pytest_cache/
+OLD/.mypy_cache/
+OLD/.coverage/
+OLD/.pylint.d/

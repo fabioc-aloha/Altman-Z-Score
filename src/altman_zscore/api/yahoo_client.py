@@ -1,198 +1,46 @@
 """
-Yahoo Finance API client for fetching market data.
+Yahoo Finance client for Altman Z-Score pipeline (MVP scaffold).
 """
-from dataclasses import dataclass
-from datetime import datetime, timedelta
-from decimal import Decimal
-from typing import Dict, List, Optional, Any
-import logging
-import time
+
 import yfinance as yf
-import pandas as pd
-from .rate_limiter import TokenBucket, RateLimitStrategy, RateLimitExceeded
 
-logger = logging.getLogger(__name__)
-
-class YahooFinanceError(Exception):
-    """Base exception for Yahoo Finance API errors."""
-    pass
-
-class YahooFinanceRateError(YahooFinanceError):
-    """Exception for rate limit errors."""
-    pass
-
-@dataclass
-class MarketData:
-    """Container for market-related data."""
-    market_cap: Optional[Decimal] = None
-    enterprise_value: Optional[Decimal] = None
-    revenue_growth: Optional[float] = None
-    operating_margin: Optional[float] = None
-    sector: Optional[str] = None
-    industry: Optional[str] = None
-    country: Optional[str] = None
 
 class YahooFinanceClient:
-    """
-    Client for fetching market data from Yahoo Finance.
-    
-    Handles:
-    - Market data retrieval
-    - Error recovery
-    - Data validation
-    - Caching (via yfinance)
-    - Rate limiting
-    """
-    
-    # Yahoo Finance recommended rate limit is 2000ms between requests
-    REQUEST_RATE = 0.5  # requests per second (1/2000ms)
-    MIN_REQUEST_INTERVAL = 2.0  # seconds
-    
-    def __init__(self):
-        """Initialize Yahoo Finance client."""
-        self.cache = {}  # Simple memory cache for ticker objects
-        self.rate_limiter = TokenBucket(
-            rate=self.REQUEST_RATE,
-            capacity=1,  # Conservative capacity as this is an unofficial API
-            strategy=RateLimitStrategy.WAIT
-        )
-        
-    def _wait_for_rate_limit(self, timeout: Optional[float] = None) -> None:
+    def get_market_cap_on_date(self, ticker, date, span_days=30):
         """
-        Wait for rate limit with timeout.
-        
-        Args:
-            timeout: Maximum time to wait in seconds
-            
-        Raises:
-            YahooFinanceRateError: If rate limit timeout occurs
+        Fetch market cap for a ticker on a given date using yfinance (default session/user agent).
+        Tries a window of +/- span_days around the date for available price data.
+        Returns (market cap as float, actual_date) or (None, None) if unavailable.
+        Warns if fallback to a different date is used.
         """
+        import datetime
         try:
-            self.rate_limiter.acquire(timeout=timeout)
-        except RateLimitExceeded as e:
-            raise YahooFinanceRateError(f"Rate limit exceeded: {str(e)}")
-            
-    def _get_ticker(self, symbol: str) -> yf.Ticker:
-        """
-        Get or create cached ticker object.
-        
-        Args:
-            symbol: Stock symbol
-            
-        Returns:
-            yf.Ticker object
-        """
-        if symbol not in self.cache:
-            self._wait_for_rate_limit()
-            self.cache[symbol] = yf.Ticker(symbol)
-        return self.cache[symbol]
-        
-    def get_market_data(self, symbol: str, timeout: float = 20.0) -> MarketData:
-        """
-        Get comprehensive market data for a company.
-        
-        Args:
-            symbol: Stock symbol
-            timeout: Request timeout in seconds
-            
-        Returns:
-            MarketData object containing market information
-        """
-        try:
-            # Wait for rate limit
-            self._wait_for_rate_limit(timeout)
-            
-            ticker = self._get_ticker(symbol)
-            info = ticker.info
-            
-            try:
-                market_cap = Decimal(str(info.get("marketCap", 0)))
-            except (TypeError, ValueError):
-                market_cap = None
-                
-            try:
-                enterprise_value = Decimal(str(info.get("enterpriseValue", 0)))
-            except (TypeError, ValueError):
-                enterprise_value = None
-                
-            return MarketData(
-                market_cap=market_cap,
-                enterprise_value=enterprise_value,
-                revenue_growth=info.get("revenueGrowth"),
-                operating_margin=info.get("operatingMargins"),
-                sector=info.get("sector"),
-                industry=info.get("industry"),
-                country=info.get("country")
-            )
-            
-        except YahooFinanceRateError:
-            raise
+            ticker_obj = yf.Ticker(ticker)
+            # Try a window of +/- span_days
+            start = date - datetime.timedelta(days=span_days)
+            end = date + datetime.timedelta(days=span_days)
+            hist = ticker_obj.history(period="1d", start=start, end=end)
+            if not hist.empty:
+                # Find the row closest to the requested date, but prefer the most recent previous trading day if possible
+                hist = hist.sort_index()
+                # Only consider dates <= requested date, if available
+                prior_dates = [d for d in hist.index if d.date() <= date]
+                if prior_dates:
+                    closest_idx = max(prior_dates)
+                else:
+                    # If no prior dates, use the closest available
+                    closest_idx = min(hist.index, key=lambda d: abs(d.date() - date))
+                shares = ticker_obj.info.get("sharesOutstanding")
+                close = hist.loc[closest_idx]["Close"]
+                if shares and close:
+                    actual_date = closest_idx.date()
+                    if actual_date != date:
+                        print(f"[WARN] No price data for {ticker} on {date} (possibly weekend/holiday). Using previous trading day: {actual_date}.")
+                    return float(shares) * float(close), actual_date
+            mcap = ticker_obj.info.get("marketCap")
+            if mcap:
+                print(f"[WARN] No price data for {ticker} near {date}. Using latest available market cap.")
+                return float(mcap), None
         except Exception as e:
-            raise YahooFinanceError(f"Error fetching market data: {str(e)}")
-        
-    def get_historical_prices(
-        self,
-        symbol: str,
-        start_date: datetime,
-        end_date: datetime,
-        timeout: float = 20.0
-    ) -> pd.DataFrame:
-        """
-        Get historical price data.
-        
-        Args:
-            symbol: Stock symbol
-            start_date: Start date for historical data
-            end_date: End date for historical data
-            timeout: Request timeout in seconds
-            
-        Returns:
-            DataFrame containing historical price data
-        """
-        ticker = self._get_ticker(symbol)
-        df = ticker.history(
-            start=start_date,
-            end=end_date,
-            interval="1d"
-        )
-        
-        if df.empty:
-            logger.warning(f"No price data found for {symbol}")
-            return pd.DataFrame()
-            
-        return df
-        
-    def get_price_on_date(
-        self,
-        symbol: str,
-        date: datetime,
-        window_days: int = 5
-    ) -> Optional[Decimal]:
-        """
-        Get closing price on or near a specific date.
-        
-        Args:
-            symbol: Stock symbol
-            date: Target date
-            window_days: Number of days to look before/after target date
-            
-        Returns:
-            Decimal price if found, None otherwise
-        """
-        start_date = date - timedelta(days=window_days)
-        end_date = date + timedelta(days=window_days)
-        
-        df = self.get_historical_prices(symbol, start_date, end_date)
-        if df.empty:
-            return None
-            
-        # Calculate time difference using datetime values
-        target_date = pd.Timestamp(date).to_pydatetime()
-        df["date"] = df.index
-        df["diff"] = df.index.map(lambda x: abs((x.to_pydatetime() - target_date).total_seconds()))
-        closest_row = df.loc[df["diff"].idxmin()]
-        
-        try:
-            return Decimal(str(closest_row["Close"]))
-        except (KeyError, ValueError, TypeError):
-            return None
+            print(f"[DEBUG] yfinance error for {ticker} on {date}: {e}")
+        return None, None

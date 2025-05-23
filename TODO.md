@@ -1,127 +1,67 @@
-# Altman Z-Score Project Improvements
+# Altman Z-Score MVP TODO List (2025)
 
-This document serves as the active project roadmap and task tracking system. It is the primary source for:
-- Current project priorities
-- Active sprint tasks
-- Implementation status
-- Completion tracking
+## Environment & Setup
+- [x] Archive old codebase to `OLD/` directory
+- [x] Document archival and .env usage in README.md
+- [x] Create and document `.env` file for API keys and user agents
+- [x] Set up Codespaces-compatible Python environment
+- [x] Add and configure `pyproject.toml` for dependencies
+- [x] Add initial dependencies:
+  - pandas
+  - pydantic
+  - requests
+  - yfinance
+  - sec-edgar-downloader
+  - arelle or xbrlparse
+  - matplotlib or plotly
+  - python-dotenv
 
-For large-scale changes that affect multiple modules or carry significant risks:
-1. Check DECISIONS.md for architectural guidelines
-2. Create a detailed PLAN.md before implementation
-3. Follow implementation steps in PLAN.md
-4. Update task status here as work progresses
+## MVP Pipeline Scaffold
+- [x] Scaffold `src/altman_zscore/one_stock_analysis.py` with pipeline structure
+- [x] Scaffold `src/altman_zscore/schemas/validation.py` with Pydantic models
+- [x] Implement CLI or function input handling (ticker, date, etc.)
+- [x] Implement SEC financials fetcher (using sec-edgar-downloader) [stub]
+- [x] Implement XBRL parser (arelle/xbrlparse) [stub]
+- [x] Implement Yahoo Finance price fetcher (yfinance) [stub]
+- [x] Implement data validation (Pydantic) [stub]
+- [x] Implement Z-Score computation (with industry/maturity calibration, validated against Sonos case)
+- [ ] Implement reporting (CSV/JSON output, Z-Score trend plot)
 
-## Critical/Urgent Tasks
-1. **API Response Validation** (HIGHEST PRIORITY)
-   - [ ] Implement pydantic models for API responses
-   - [ ] Add data quality checks with validation rules
-   - [ ] Add response format normalization with pydantic transforms
-   - [ ] Implement structured validation error reporting
-   - [ ] Add validation metrics tracking
-   - [ ] Create SEC EDGAR XBRL field validation
-   - [ ] Add Yahoo Finance data validation
-   - [ ] Implement cross-source data consistency checks
+## Model Selection & Calibration
+- [x] Implement model selection logic based on company industry, maturity, and public/private status
+- [x] Expand company profile/classifier to set industry, is_public, is_emerging_market for real tickers (static mapping + yfinance fallback)
+- [x] Implement additional Z-Score models (private, public, service, EM) and calibrations
+- [x] Add unit tests for private and public models (Sonos test complete for 'original')
 
-2. **Direct Data Access Enhancement** (URGENT)
-   - [ ] Implement robust error handling for API requests
-   - [ ] Add comprehensive request logging
-   - [ ] Implement request rate limiting
-   - [ ] Add request analytics and metrics
-   - [ ] Create API usage monitoring
-   - [ ] Implement comprehensive testing suite
-     - [ ] Unit tests for SEC EDGAR API client
-     - [ ] Unit tests for Yahoo Finance API client
-     - [ ] Integration tests for API interactions
-     - [ ] Error case testing
-     - [ ] Rate limit testing
+## Testing & Quality
+- [x] Add unit test for Sonos Q1 FY2025 (matches literature)
+- [x] Add unit tests for other models and edge cases (private, public)
+- [x] Add integration test for full pipeline (using fake data)
+- [ ] Validate with real-world tickers and edge cases (real data)
+- [ ] Validate pipeline output for Sonos against paper/literature values
 
-3. **Error Recovery System** (URGENT)
-   - [ ] Create error categorization framework
-   - [ ] Implement context-sensitive retry logic
-   - [ ] Add fallback data sources
-   - [ ] Enhance error reporting system
-   - [ ] Create error recovery metrics dashboard
+## Next Steps
+- [ ] Implement real company classification (industry, public/private, emerging market) for all supported tickers (add static mapping for SONO and others as needed)
+- [ ] Implement real data fetching (SEC, Yahoo) for all supported tickers (replace fake data generator)
+- [ ] Add option to inject/override financials for specific tickers (e.g., Sonos test case)
+- [ ] Implement robust reporting and output formats (CSV/JSON, trend plot)
+- [ ] Document calibration sources and assumptions
+- [ ] For all future API calls (especially price/market cap fetches), always account for weekends, holidays, and missing data windows. Use a fallback to the most recent previous trading day, and warn the user if fallback is used. Consider using a trading calendar for even more robust handling.
 
-## High Priority Tasks
+## New/Outstanding Tasks
+- [ ] Add static mapping for SONO in classifier to enable pipeline validation
+- [ ] Add real Sonos Q1 FY2025 financials to fetcher for validation
+- [ ] Compare pipeline Z-Score output for SONO to paper/literature and document any discrepancies
+- [ ] (Optional) Add CLI flag or config to select between real/fake/test data for a ticker
+- [x] Replace static industry/maturity mapping with real Yahoo Finance classification in `company_profile.py`.
+- [x] Log actual yfinance values for industry, sector, and country for transparency and debugging.
+- [x] Document yfinance API behavior and recommendations in `LEARNINGS_yfinance_industry_sector.md`.
+- [x] Update error handling to include full yfinance.info in error messages if industry/sector is missing.
+- [ ] Update tests to match actual Yahoo Finance values (e.g., "Consumer Electronics" for Apple) and handle missing data gracefully.
+- [ ] Add SEC EDGAR lookup as a fallback for US tickers if yfinance industry/sector is missing.
+- [ ] Use static patterns for known tickers if both yfinance and SEC fail (robust fallback).
+- [ ] Reintroduce enums for industry group and market category for consistency and testability.
+- [ ] Optionally, add company maturity classification using revenue growth/market cap if available.
 
-### Configuration Management
-- [ ] Create ConfigurationManager class with:
-  - [ ] Environment-specific settings
-  - [ ] Industry-specific parameters
-  - [ ] Model calibration settings
-  - [ ] API configuration management
-- [ ] Implement configuration validation
-- [ ] Add portfolio management:
-  - [ ] Exclusion management
-  - [ ] Industry grouping
-  - [ ] Risk categorization
-  - [ ] Performance tracking
-
-### Financial Analysis Pipeline
-- [ ] Enhanced ratio calculator:
-  - [ ] Industry-specific ratios
-  - [ ] Tech sector metrics
-  - [ ] Growth stage indicators
-- [ ] Metric normalization:
-  - [ ] Tech sector adjustments
-  - [ ] Size-based normalization
-  - [ ] Market cycle calibration
-- [ ] Analysis modules:
-  - [ ] Historical trends
-  - [ ] Peer comparison
-  - [ ] Industry benchmarking
-
-## Medium Priority Tasks
-
-### Data Quality
-- [ ] Implement data quality scoring:
-  - [ ] Completeness metrics
-  - [ ] Consistency checks
-  - [ ] Anomaly detection
-- [ ] Add validation metrics:
-  - [ ] Data freshness tracking
-  - [ ] Source reliability scoring
-  - [ ] Cross-validation metrics
-
-### Analysis Features
-- [ ] Correlation analysis:
-  - [ ] Inter-metric correlations
-  - [ ] Market correlations
-  - [ ] Industry factors
-- [ ] Pattern detection:
-  - [ ] Growth patterns
-  - [ ] Risk indicators
-  - [ ] Market trends
-
-## Low Priority Tasks
-- [ ] AI-powered growth stage detection
-- [ ] Portfolio optimization enhancements
-- [ ] ESG factor integration
-- [ ] Interactive dashboard
-- [ ] Custom reporting
-
-## Completed Tasks ✓
-- [x] Core Z-Score engine implementation
-- [x] Industry classification system
-- [x] Base API integrations (SEC EDGAR, Yahoo Finance)
-- [x] Data fetching infrastructure
-- [x] Portfolio management foundation
-- [x] Basic testing framework
-- [x] Core error handling and logging
-- [x] Class hierarchy and module structure
-- [x] Base configuration management
-- [x] Input validation framework
-- [x] XBRL parsing system
-- [x] CIK lookup implementation
-- [x] Rate limit handling
-- [x] Model versioning system
-- [x] Financial math utilities
-- [x] Time series analysis tools
-- [x] Data pipeline modularization
-- [x] SEC EDGAR API client
-- [x] Yahoo Finance API client
-- [x] Data transformation system
-- [x] Module separation and organization
-
-Note: Mark tasks as completed by changing `[ ]` to `[x]` when done.
+---
+Check off each item as you complete it. Use this list for MVP progress tracking and environment setup.

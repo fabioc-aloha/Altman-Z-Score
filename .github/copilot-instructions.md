@@ -1,95 +1,59 @@
-# GitHub Copilot Instructions
+# GitHub Copilot Instructions (2025+)
 
-This file contains algorithmic instructions for GitHub Copilot to follow when working with this codebase.
+## Project Guidance
+- Use `PLAN.md` for high-level features, vision, and progress tracking.
+- Use `TODO.md` for actionable tasks, environment setup, and phase-specific work.
+- All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
+- Preserve modularity, testability, and robust error handling throughout.
+- Each feature phase should be independently testable and deliver incremental value.
 
-## Action Priority
+## Feature Roadmap (see PLAN.md for details)
+- [x] MVP: Single-Stock Z-Score Trend Analysis
+- [ ] v1: Overlay Stock Price Trend
+- [ ] v2: Sentiment & News Analysis
+- [ ] v3: Portfolio Analysis
+- [ ] v4: Advanced Correlation & Insights
 
-1. **Before Making Any Changes**
-   - Check `DECISIONS.md` for architectural decisions
-   - Review `LEARNINGS.md` for past solutions and issues
-   - Validate against TODO.md for current priorities
-   - Ensure GitHub Codespaces compatibility
+## Implementation Principles
+- **Simplicity:** Start with a single-stock analysis pipeline, then generalize to portfolios.
+- **Modularity:** Clean separation of data fetching, validation, computation, and reporting.
+- **Testability:** Each module is independently testable with clear interfaces.
+- **Robustness:** Strong error handling, logging, and data validation at every step.
+- **Extensibility:** Easy to add new data sources, models, or output formats.
 
-2. **After Making Changes**
-   - Update TODO.md with completed items (change `[ ]` to `[x]`)
-   - Document significant learnings in `LEARNINGS.md`
-   - Record any architectural decisions in `DECISIONS.md`
-   - Validate Codespaces compatibility
+## Architecture Overview
+1. **Input Layer**: Accepts ticker(s) and analysis date; validates input.
+2. **Data Fetching Layer**: Fetches financials (SEC EDGAR/XBRL) and market data (Yahoo Finance).
+3. **Validation Layer**: Validates raw data using Pydantic schemas; reports missing/invalid fields.
+4. **Computation Layer**: Computes Altman Z-Score using validated data; returns result object.
+5. **Reporting Layer**: Outputs results to CSV, JSON, or stdout; logs all steps and errors.
 
-## Project Context
+## Workflow
+- Use `TODO.md` for phase-specific tasks (e.g., scaffolding, environment prep, feature implementation).
+- Use `PLAN.md` to check off major features as they are enabled.
+- Always ensure Codespaces compatibility (no local venvs, use pyproject.toml for dependencies).
+- Document significant learnings in `LEARNINGS.md` and architectural decisions in `DECISIONS.md`.
+- Never modify `PAPER.md` without explicit user consent.
 
-This is an Altman Z-Score analysis tool for analyzing financial health of companies, particularly focused on AI and tech companies. The tool fetches financial data from SEC EDGAR and market data from Yahoo Finance.
+## Testing & Quality
+- All changes must pass existing and new tests.
+- New features require new or updated tests.
+- Documentation must be updated for new features and changes.
+- Performance must be maintained or improved.
 
-## Development Workflow
+## Rollback Plan
+- The previous codebase is preserved in `OLD/` and can be restored if needed.
 
-1. **Initial Assessment**
-   - Review todo.md for context and priorities
-   - Check if task affects architectural decisions
-   - Review relevant sections in `LEARNINGS.md`
+## Conservative, Incremental Rollout Policy
+- Build a minimal, robust MVP first (single-stock Z-Score trend analysis).
+- Test thoroughly at each step before enabling new features.
+- Only enable new features after the MVP is stable and well-tested.
+- Light up features one at a time, with tests and documentation, to avoid regressions.
+- Avoid over-ambitious changes; prioritize reliability and maintainability.
 
-2. **Implementation Planning**
-   - For large, complex, or risky changes:
-     * Create PLAN.md in project root
-     * Include detailed implementation steps
-     * Document rationale and business value
-     * Estimate effort and timeline
-     * Assess risks and provide mitigation strategies
-     * Include rollback procedures
-     * Define success criteria
-   - Large changes are those that:
-     * Impact multiple modules
-     * Modify core functionality
-     * Change API contracts
-     * Affect performance
-     * Require database changes
-     * Involve third-party integrations
-     * Have potential for regressions
+## Archival of Previous Version
+- The previous codebase, including all legacy scripts, tests, and documentation, is now in the `OLD/` directory for reference and rollback only.
+- All new Copilot suggestions and code generation should target the new project structure and requirements.
 
-3. **Implementation Process**
-   - Follow code style and standards below
-   - Use appropriate project conventions
-   - Implement with Codespaces compatibility
-   - Document as you go
-   - Follow PLAN.md if created
-
-4. **Post-Implementation**
-   - Update todo.md status
-   - Document learnings
-   - Validate against standards
-   - Test in Codespaces
-
-5. **Documentation Updates**
-   - Update `LEARNINGS.md` for:
-     * Major breakthroughs
-     * Implementation insights
-     * Optimization techniques
-     * Failure scenarios and solutions
-   - Update todo.md status
-   - Never modify `PAPER.md` without user consent
-
-## Implementation Guidelines
-
-1. **Code Standards**
-   - Follow architectural decisions in DECISIONS.md
-   - Review AD-009 for Python style guidelines
-   - Review AD-010 for API integration standards
-   - Review AD-011 for data quality requirements
-
-2. **Project Structure**
-   - Use src layout as defined in AD-001
-   - Follow error handling patterns from AD-003
-   - Use configuration management from AD-004
-   - Follow testing strategy from AD-007
-
-3. **Quality Requirements**
-   - All changes must pass existing tests
-   - New features require new tests
-   - Documentation must be updated
-   - Performance must be maintained or improved
-
-4. **Deployment Requirements**
-   - Validate in Codespaces before commit
-   - Check all API integrations
-   - Verify data quality
-   - Test error handling paths
+---
 

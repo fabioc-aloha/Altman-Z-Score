@@ -1,299 +1,148 @@
-# API Response Validation Implementation Plan
+# Altman Z-Score Refactor Plan (2025, Revised)
 
-## Overview
+## Background
+This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates learnings from the previous codebase (now in `OLD/`). The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
 
-This plan details the implementation of pydantic models for API response validation in the Altman Z-Score project, focusing on both SEC EDGAR and Yahoo Finance data validation. This is part of the Critical/Urgent tasks for improving data quality and reliability.
+## High-Level Goals
+- **Simplicity:** Start with a single-stock analysis pipeline, then generalize to portfolios.
+- **Modularity:** Clean separation of data fetching, validation, computation, and reporting.
+- **Testability:** Each module is independently testable with clear interfaces.
+- **Robustness:** Strong error handling, logging, and data validation at every step.
+- **Extensibility:** Easy to add new data sources, models, or output formats.
+- **Best Practices:** Use industry/maturity calibration, and follow professional analyst standards.
 
-## Rationale
-
-### Why Pydantic?
-1. **Type Safety and Validation**
-   - Strong runtime type checking
-   - Automatic data validation
-   - Built-in serialization/deserialization
-   - Industry standard for Python data validation
-
-2. **Current Pain Points Addressed**
-   - Inconsistent data validation across API responses
-   - Missing field detection happening too late
-   - Manual type conversion prone to errors
-   - Difficult to track data quality metrics
-   - Inconsistent error handling
-
-3. **Business Value**
-   - Reduced risk of calculation errors
-   - Earlier detection of data issues
-   - Improved maintainability
-   - Better debugging capabilities
-   - Enhanced data quality monitoring
-
-## Prerequisites
-
-1. Dependencies to add to `pyproject.toml`:
-```toml
-[tool.poetry.dependencies]
-pydantic = "^2.0"
-typing-extensions = "^4.0"
-```
-
-## Implementation Structure
-
-The implementation will be organized in the existing `src/altman_zscore/schemas` directory:
-
-```
-src/altman_zscore/schemas/
-├── __init__.py
-├── base.py         (Base response models)
-├── edgar.py        (SEC EDGAR specific models)
-├── yahoo.py        (Yahoo Finance specific models)
-└── validation.py   (Common validation utilities)
-```
-
-## Pydantic Models Implementation
-
-### 1. Base Response Models (`base.py`)
-
-Base models for all API responses:
-
-```python
-from datetime import datetime
-from decimal import Decimal
-from pydantic import BaseModel, Field, validator
-from typing import Optional, List, Dict
-
-class BaseResponse(BaseModel):
-    """Base model for all API responses."""
-    timestamp: datetime = Field(..., description="Response timestamp")
-    status_code: int = Field(..., description="HTTP status code")
-    raw_response: Dict = Field(..., description="Original response data")
-
-    class Config:
-        arbitrary_types_allowed = True
-```
-
-### 2. SEC EDGAR Response Models (`edgar.py`)
-
-Models specific to SEC EDGAR data:
-
-```python
-class XBRLFiling(BaseModel):
-    """Model for XBRL filing data."""
-    cik: str
-    filing_date: datetime
-    period_end: datetime
-    form_type: str = Field(..., regex="^10-[QK]$")
-    financials: Dict[str, Decimal]
-    
-    @validator("financials")
-    def validate_required_metrics(cls, v):
-        required_fields = [
-            "Assets", "CurrentAssets", "Liabilities",
-            "RetainedEarnings", "OperatingIncome"
-        ]
-        for field in required_fields:
-            if field not in v:
-                raise ValueError(f"Missing required field: {field}")
-        return v
-```
-
-### 3. Yahoo Finance Response Models (`yahoo.py`)
-
-Models for market data:
-
-```python
-class MarketData(BaseModel):
-    """Model for market data responses."""
-    ticker: str
-    price: Decimal = Field(..., gt=0)
-    market_cap: Optional[Decimal]
-    volume: int = Field(..., ge=0)
-    timestamp: datetime
-
-    @validator("price")
-    def validate_price(cls, v):
-        if v <= 0:
-            raise ValueError("Price must be positive")
-        return v
-```
-
-## Integration Plan
-
-### 1. Update API Clients
-
-1. Modify `src/altman_zscore/api/sec_client.py`:
-   - Add response validation using new pydantic models
-   - Implement transformation functions
-   - Add error handling for validation failures
-
-2. Update `src/altman_zscore/api/yahoo_client.py`:
-   - Add response validation using new pydantic models
-   - Implement transformation functions
-   - Add error handling for validation failures
-
-### 2. Add Validation Tests
-
-Create new test files:
-- `tests/test_edgar_validation.py`
-- `tests/test_yahoo_validation.py`
-- `tests/test_validation_utils.py`
+## Architecture Overview
+1. **Input Layer**
+   - Accepts a ticker (or list of tickers) and analysis date.
+   - Validates input format and existence.
+   - Optionally accepts industry and company maturity overrides.
+2. **Data Fetching Layer**
+   - Fetches financials from SEC EDGAR (XBRL) using `sec-api` or `sec-edgar-downloader`.
+   - Parses XBRL using `arelle` or `xbrlparse` (latest maintained).
+   - Fetches market data from Yahoo Finance using `yfinance`.
+   - Optionally fetches industry/maturity benchmarks from public datasets (e.g., WRDS, Compustat, or open data).
+3. **Validation Layer**
+   - Validates raw data using Pydantic schemas.
+   - Reports missing/invalid fields and halts or warns as appropriate.
+   - Ensures all Z-Score components are present and reasonable.
+4. **Computation Layer**
+   - Computes Altman Z-Score using validated data.
+   - Calibrates Z-Score by industry and company maturity (using latest academic coefficients and benchmarks).
+   - Returns result object with all intermediate values, calibration details, and errors.
+5. **Reporting Layer**
+   - Outputs results to CSV, JSON, or stdout.
+   - Plots Z-Score trend (matplotlib/plotly).
+   - Logs all steps and errors for traceability.
+   - (v1) Overlays price trend; (v2) overlays sentiment/news.
 
 ## Implementation Steps
+1. **Bootstrap New Codebase**
+   - Scaffold `src/altman_zscore/one_stock_analysis.py` for the single-stock pipeline.
+   - Use only minimal, modern dependencies (`pandas`, `requests`, `pydantic`, `yfinance`, `sec-api`, `arelle`/`xbrlparse`, `matplotlib`/`plotly`).
+2. **Implement Input & Config Handling**
+   - Parse CLI args or function params for ticker, date, industry, and maturity.
+   - Validate inputs.
+3. **Implement Data Fetching**
+   - Write `fetch_sec_financials(ticker, date)` using `sec-api` or `sec-edgar-downloader`.
+   - Parse XBRL with `arelle` or `xbrlparse`.
+   - Write `fetch_yahoo_market_data(ticker, date)` using `yfinance`.
+   - Fetch industry/maturity benchmarks if available.
+4. **Implement Validation Schemas**
+   - Create Pydantic models in `schemas/validation.py` for all expected data.
+   - Validate fetched data and report issues.
+5. **Implement Z-Score Computation**
+   - Write a pure function `compute_zscore(validated_data, industry, maturity)`.
+   - Use latest Altman Z-Score models (original, emerging markets, service, private, etc.).
+   - Calibrate coefficients and thresholds by industry and maturity.
+   - Return result object with all components and calibration details.
+6. **Implement Reporting**
+   - Output result to CSV/JSON and log all steps.
+   - Plot Z-Score trend (matplotlib/plotly).
+   - (v1) Overlay price trend; (v2) overlay sentiment/news.
+7. **Testing**
+   - Write unit tests for each module.
+   - Add integration test for the full pipeline.
+8. **Iterate and Generalize**
+   - Once single-stock works, generalize to portfolio analysis.
+   - Refactor as needed for extensibility and maintainability.
 
-1. Schema Creation and Initial Setup (Day 1):
-   - Create schema files
-   - Implement base models
-   - Add basic validation rules
+## Best Practices & Analyst Guidance
+- **Data Quality:** Always validate and cross-check financials; flag outliers and missing data.
+- **Calibration:** Use industry and maturity-specific Z-Score coefficients and thresholds (see latest Altman research and WRDS/Compustat/academic sources).
+- **Documentation:** Clearly document all assumptions, calibration sources, and limitations.
+- **Transparency:** Log all data sources, errors, and calibration steps for auditability.
+- **Testing:** Use real-world tickers and edge cases in tests.
 
-2. SEC EDGAR Implementation (Days 2-3):
-   - Implement XBRL filing models
-   - Add filing-specific validation
-   - Create transformation functions
+## Feature Roadmap
 
-3. Yahoo Finance Implementation (Day 4):
-   - Implement market data models
-   - Add market data validation
-   - Create transformation functions
+- [x] **MVP: Single-Stock Z-Score Trend Analysis**
+  - Deep analysis of a single stock
+  - Fetches and validates 3 years of quarterly financials
+  - Computes Altman Z-Score for each quarter, calibrated by industry/maturity
+  - Outputs Z-Score trend as table and plot
+- [ ] **v1: Overlay Stock Price Trend**
+  - Fetches and overlays stock price trend for the same period
+  - Combined plot of Z-Score and price
+- [ ] **v2: Sentiment & News Analysis**
+  - Integrates sentiment analysis and news highlights
+  - Correlates operational health from news/SEC filings with Z-Score and price
+- [ ] **v3: Advanced Correlation & Insights**
+  - Correlates Z-Score, price, and operational health metrics
+  - Generates insights and alerts
 
-4. Testing and Integration (Days 5-6):
-   - Write comprehensive tests
-   - Update API clients
-   - Add error handling
+<!--
+## Future (Not in current roadmap)
+- Portfolio Analysis: Generalizes pipeline to handle multiple tickers, batch analysis and reporting
+-->
 
-5. Documentation and Review (Day 7):
-   - Document validation rules
-   - Add usage examples
-   - Review and refine implementation
+## Conservative, Incremental Rollout Policy
+- Build a minimal, robust MVP first (single-stock Z-Score trend analysis).
+- Test thoroughly at each step before enabling new features.
+- Only enable new features after the MVP is stable and well-tested.
+- Light up features one at a time, with tests and documentation, to avoid regressions.
+- Avoid over-ambitious changes; prioritize reliability and maintainability.
 
-## Success Criteria
+## Project Guidance
+- Use this PLAN.md for high-level features, vision, and progress tracking.
+- Use TODO.md for actionable tasks, environment setup, and phase-specific work.
+- All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
+- Preserve modularity, testability, and robust error handling throughout.
+- Each feature phase should be independently testable and deliver incremental value.
 
-1. **Validation Coverage**:
-   - All API responses validated
-   - Required fields checked
-   - Data types verified
-   - Range validations implemented
+## API & Data Source Strategy (2025)
 
-2. **Error Handling**:
-   - Clear error messages
-   - Proper error categorization
-   - Recovery suggestions included
+### Financials (SEC Filings/XBRL)
+- **Primary:** [SEC EDGAR Full-Text Search API](https://www.sec.gov/edgar/sec-api-documentation) (free, official, robust)
+- **Downloader:** [sec-edgar-downloader](https://github.com/jadchaar/sec-edgar-downloader) (Python, free, maintained)
+- **XBRL Parsing:** [arelle](https://arelle.org/) (open-source, industry standard, supports US-GAAP/IFRS), or [xbrlparse](https://github.com/greedo/python-xbrl) (lightweight, Python)
+- **Backup:** [sec-api.io](https://sec-api.io/) (free tier, REST, easy for metadata/search, but rate-limited)
 
-3. **Performance**:
-   - Validation overhead < 50ms
-   - Memory usage within limits
-   - Cache integration working
+### Market Data (Stock Prices)
+- **Primary:** [yfinance](https://github.com/ranaroussi/yfinance) (Yahoo Finance, free, Python, widely used)
+- **Backup:** [Alpha Vantage](https://www.alphavantage.co/) (free API key, rate-limited)
+- **Alternative:** [Stooq](https://stooq.com/) (free, CSV download, for global tickers)
 
-4. **Code Quality**:
-   - 100% test coverage for validation
-   - Documentation complete
-   - Type hints throughout
+### News & Sentiment (for v2+)
+- **Primary:** [NewsAPI.org](https://newsapi.org/) (free tier, broad coverage, REST)
+- **Backup:** [Finviz](https://finviz.com/) (web scraping, free, for headlines)
+- **Sentiment:** [vaderSentiment](https://github.com/cjhutto/vaderSentiment) (free, Python, financial news compatible), [textblob](https://textblob.readthedocs.io/en/dev/), or [HuggingFace Transformers](https://huggingface.co/models) (for advanced NLP, free tier)
 
-## Monitoring and Metrics
+### Industry & Maturity Benchmarks
+- **Primary:** [WRDS](https://wrds-www.wharton.upenn.edu/) (academic, not free, but public summary data may be available)
+- **Alternative:** [Compustat](https://www.spglobal.com/marketintelligence/en/solutions/compustat-research-insight) (not free, but some open datasets exist)
+- **Free/Public:** Use published Altman Z-Score coefficients by industry from academic papers or open data repositories (document sources in DECISIONS.md)
 
-1. **Validation Metrics to Track**:
-   - Validation success rate
-   - Common failure patterns
-   - Performance impact
-   - Cache hit/miss rates
+### General Principles
+- Prefer official, free, and well-documented APIs/libraries.
+- Use backup sources for redundancy and validation.
+- Document all API usage, rate limits, and licensing in DECISIONS.md.
+- Avoid paid APIs unless absolutely necessary for critical features.
 
-2. **Error Tracking**:
-   - Error frequency by type
-   - Recovery success rate
-   - Validation failure patterns
+---
 
-## Rollback Plan
+**Next Action:**
+- Begin implementation at `src/altman_zscore/one_stock_analysis.py` following this plan, using the latest libraries and calibration techniques.
 
-1. **Backup Points**:
-   - Original API client code
-   - Current validation logic
-   - Tests and configurations
-
-2. **Rollback Steps**:
-   - Revert schema changes
-   - Restore original clients
-   - Update dependencies
-
-## Future Enhancements
-
-1. **Phase 2 Improvements**:
-   - Add machine learning validation
-   - Implement adaptive thresholds
-   - Add real-time validation monitoring
-
-2. **Integration Opportunities**:
-   - Connect with data quality scoring
-   - Add anomaly detection
-   - Enhance error recovery
-
-## Risk Assessment
-
-### High-Risk Areas
-
-1. **Performance Impact**
-   - **Risk**: Validation overhead affecting response times
-   - **Mitigation**: 
-     - Implement validation caching
-     - Profile and optimize validation rules
-     - Consider async validation for non-critical checks
-
-2. **Data Compatibility**
-   - **Risk**: Breaking changes in API responses
-   - **Mitigation**:
-     - Comprehensive test coverage
-     - Flexible schema versioning
-     - Fallback validation rules
-
-3. **Cache Integration**
-   - **Risk**: Cache invalidation issues
-   - **Mitigation**:
-     - Clear cache lifecycle management
-     - Version-aware caching
-     - Cache warming strategies
-
-### Medium-Risk Areas
-
-1. **API Rate Limits**
-   - **Risk**: Increased API calls during testing
-   - **Mitigation**:
-     - Use mock data for tests
-     - Implement rate limit aware testing
-     - Staged rollout
-
-2. **Team Learning Curve**
-   - **Risk**: New validation paradigm adoption
-   - **Mitigation**:
-     - Documentation
-     - Code examples
-     - Review guidelines
-
-### Low-Risk Areas
-
-1. **Code Organization**
-   - **Risk**: Schema complexity
-   - **Mitigation**:
-     - Clear directory structure
-     - Consistent naming
-     - Documentation
-
-2. **Deployment**
-   - **Risk**: Integration issues
-   - **Mitigation**:
-     - Staged deployment
-     - Rollback plan
-     - Feature flags
-
-## Contingency Plans
-
-1. **Performance Issues**
-   - Implement validation bypasses for critical paths
-   - Add performance monitoring
-   - Prepare optimization strategies
-
-2. **API Changes**
-   - Monitor API deprecation notices
-   - Implement schema versioning
-   - Maintain compatibility layer
-
-3. **Resource Constraints**
-   - Prioritize critical validations
-   - Phase implementation if needed
-   - Prepare minimal viable validation set
+## Archival of Previous Version
+- The entire previous codebase (code, scripts, tests, docs) is now in the `OLD/` directory for reference and rollback.
+- See `OLD/README.md` for details on the archived structure and usage policy.
