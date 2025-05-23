@@ -31,11 +31,11 @@ Industry classifier for Altman Z-Score pipeline (MVP scaffold).
 #         # Fallback: unknown industry, assume public, not emerging
 #         return Profile(industry='unknown', is_public=True, is_emerging_market=False)
 
-# New robust classifier using static mapping and yfinance fallback
+# New robust classifier using SEC EDGAR and Yahoo Finance
 
 def classify_company(ticker):
     """
-    Returns a CompanyProfile for the given ticker, using static mapping or yfinance fallback.
+    Returns a CompanyProfile for the given ticker, using SEC EDGAR first, then Yahoo Finance as fallback. No static mapping.
     """
     from .company_profile import CompanyProfile
     return CompanyProfile.from_ticker(ticker)

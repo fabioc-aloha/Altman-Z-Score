@@ -20,6 +20,10 @@ from altman_zscore.industry_classifier import classify_company
 from altman_zscore.compute_zscore import FinancialMetrics, compute_zscore, determine_zscore_model
 from altman_zscore.data_validation import FinancialDataValidator
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
     """
@@ -115,6 +119,7 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
                 "error": None,
                 "diagnostic": zscore_obj.diagnostic,
                 "model": str(model),
+                "api_payload": q.get("raw_payload")
             })
         except Exception as e:
             logger.error(f"Error processing quarter {period_end} for {ticker}: {e}")
@@ -122,9 +127,48 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
                 "quarter_end": period_end,
                 "zscore": None,
                 "valid": False,
-                "error": str(e)
+                "error": str(e),
+                "diagnostic": None,
+                "model": str(model),
+                "api_payload": q.get("raw_payload")
             })
-    return pd.DataFrame(results)
+    # After results are collected, create DataFrame
+    df = pd.DataFrame(results)
+    # Reporting: output to CSV, JSON, and print summary table
+    import os
+    output_dir = "output"
+    os.makedirs(output_dir, exist_ok=True)
+    out_base = os.path.join(output_dir, f"zscore_{ticker}_{end_date}")
+    df.to_csv(f"{out_base}.csv", index=False)
+    df.to_json(f"{out_base}.json", orient="records", indent=2)
+    print(f"\n[INFO] Z-Score trend saved to {out_base}.csv and {out_base}.json")
+    # Print summary table to stdout
+    print("\nZ-Score Trend Table:")
+    print(df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False))
+    # Plot trend (MVP: simple matplotlib line plot)
+    try:
+        import matplotlib.pyplot as plt
+        plot_df = df[df["zscore"].notnull()]
+        if not plot_df.empty:
+            plt.figure(figsize=(10, 5))
+            plt.plot(plot_df["quarter_end"], plot_df["zscore"].astype(float), marker='o', label="Z-Score")
+            plt.title(f"Altman Z-Score Trend for {ticker}")
+            plt.xlabel("Quarter End")
+            plt.ylabel("Z-Score")
+            plt.xticks(rotation=45)
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.savefig(f"{out_base}_trend.png")
+            print(f"[INFO] Z-Score trend plot saved to {out_base}_trend.png")
+            plt.show()
+        else:
+            print("[WARN] No valid Z-Score data to plot.")
+    except ImportError:
+        print("[WARN] matplotlib not installed, skipping plot.")
+    except Exception as e:
+        print(f"[WARN] Could not plot Z-Score trend: {e}")
+    return df
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Single Stock Altman Z-Score Trend Analysis")

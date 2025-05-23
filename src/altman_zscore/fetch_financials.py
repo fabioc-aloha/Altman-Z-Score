@@ -10,6 +10,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
     import yfinance as yf
     from datetime import datetime, timedelta
     import logging
+    import json
     logger = logging.getLogger("altman_zscore.fetch_financials")
     # Define required fields for each Z-Score model
     model_fields = {
@@ -73,6 +74,14 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
                     missing.append(key)
                     val = 0.0
                 q[key] = val  # type: ignore
+            # Add raw payload for diagnostics
+            try:
+                q["raw_payload"] = json.dumps({
+                    "balance_sheet": bs[period].dropna().to_dict() if period in bs.columns else {},
+                    "income_statement": is_[period].dropna().to_dict() if period in is_.columns else {}
+                })
+            except Exception as e:
+                q["raw_payload"] = json.dumps({"error": f"Failed to extract raw payload: {e}"})
             if missing:
                 logger.warning(f"[{ticker}] {period_str}: Missing fields: {', '.join(missing)}")
             quarters.append(q)

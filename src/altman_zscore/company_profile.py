@@ -45,9 +45,18 @@ class CompanyProfile:
     @staticmethod
     def from_ticker(ticker):
         """
-        Classify company by ticker using yfinance, SEC EDGAR, and static fallback logic.
+        Classify company by ticker using SEC EDGAR first, then Yahoo Finance as fallback. No static mapping.
         """
-        # 1. Try yfinance
+        # 1. Try SEC EDGAR for US tickers
+        try:
+            cik = lookup_cik(ticker)
+            if cik:
+                profile = classify_company_by_sec(cik, ticker)
+                if profile and profile.industry_group is not None:
+                    return profile
+        except Exception as e:
+            print(f"[CompanyProfile] SEC EDGAR failed for {ticker}: {e}")
+        # 2. Try yfinance as fallback
         try:
             import yfinance as yf
             yf_ticker = yf.Ticker(ticker)
@@ -79,25 +88,42 @@ class CompanyProfile:
                 return CompanyProfile(ticker, industry, is_public, is_em, ig, MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED, country=country)
         except Exception as e:
             print(f"[CompanyProfile] yfinance failed for {ticker}: {e}")
-        # 2. Try SEC EDGAR for US tickers
-        try:
-            cik = lookup_cik(ticker)
-            if cik:
-                profile = classify_company_by_sec(cik, ticker)
-                return profile
-        except Exception as e:
-            print(f"[CompanyProfile] SEC EDGAR failed for {ticker}: {e}")
-        # 3. Static fallback
-        return static_fallback_profile(ticker)
+        # No static fallback
+        return None
 
 def lookup_cik(ticker: str) -> Optional[str]:
-    # Minimal stub: in real code, use a mapping or API
+    """
+    Lookup the CIK for a given ticker using local mapping or SEC API.
+    """
+    try:
+        # Try local mapping first
+        from altman_zscore.cik_mapping import get_cik_mapping
+        mapping = get_cik_mapping([ticker])
+        cik = mapping.get(ticker.upper())
+        if cik:
+            return str(cik)
+    except Exception:
+        pass
+    # Fallback: SEC's public ticker-CIK mapping
+    try:
+        url = f"https://www.sec.gov/files/company_tickers.json"
+        headers = {
+            'User-Agent': os.getenv('SEC_EDGAR_USER_AGENT', 'AltmanZScore/1.0'),
+            'From': os.getenv('SEC_API_EMAIL', '')
+        }
+        if not headers['From']:
+            import warnings
+            warnings.warn("SEC_API_EMAIL is not set in environment. SEC requests may be rejected.")
+        resp = requests.get(url, headers=headers, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+        for entry in data.values():
+            if entry['ticker'].upper() == ticker.upper():
+                return str(entry['cik_str']).zfill(10)
+    except Exception:
+        pass
     return None
 
 def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
     # Minimal stub: in real code, use SEC API and logic from OLD/industry_classifier.py
-    return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED)
-
-def static_fallback_profile(ticker: str) -> CompanyProfile:
-    # Minimal stub: fallback to OTHER/DEVELOPED
     return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED)
