@@ -84,10 +84,39 @@ def test_manufacturing_company_validation():
             if issue.expected_range:
                 logger.info(f"   Expected: {issue.expected_range}")
 
+def test_yahoo_industry_value():
+    """Test that the industry value matches actual Yahoo Finance for AAPL."""
+    import yfinance as yf
+    yf_ticker = yf.Ticker("AAPL")
+    yf_info = yf_ticker.info
+    industry = yf_info.get("industry")
+    assert industry == "Consumer Electronics", f"Expected 'Consumer Electronics', got {industry}"
+    print(f"[PASS] Yahoo Finance industry for AAPL: {industry}")
+
+def test_missing_required_field():
+    """Test that missing required fields are handled gracefully."""
+    validator = FinancialDataValidator()
+    incomplete_data = {
+        "total_assets": Decimal("1000000000"),
+        # 'current_assets' is missing
+        "current_liabilities": Decimal("200000000"),
+        "retained_earnings": Decimal("300000000"),
+        "ebit": Decimal("150000000"),
+        "revenue": Decimal("800000000")
+    }
+    issues = validator.validate_data(incomplete_data, industry="TECH")
+    if not issues:
+        print("[WARN] No validation issues found for missing field (stub validator)")
+    else:
+        for issue in issues:
+            print(f"[INFO] {issue.field}: {issue.issue}")
+
 def main():
     """Run validation tests."""
     test_tech_company_validation()
     test_manufacturing_company_validation()
+    test_yahoo_industry_value()
+    test_missing_required_field()
 
 if __name__ == "__main__":
     main()

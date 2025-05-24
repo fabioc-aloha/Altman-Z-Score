@@ -8,6 +8,7 @@ Pipeline:
 4. Compute: Altman Z-Score per quarter (industry/maturity calibrated)
 5. Report: Table and plot of Z-Score trend (MVP), overlay price (v1)
 """
+import os
 import argparse
 import datetime
 from typing import List, Optional
@@ -20,7 +21,6 @@ from altman_zscore.industry_classifier import classify_company
 from altman_zscore.compute_zscore import FinancialMetrics, compute_zscore, determine_zscore_model
 from altman_zscore.data_validation import FinancialDataValidator
 from datetime import datetime
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -51,10 +51,28 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
 
     # 1. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
-    # Only print error if classification fails, and do not print any warnings or company profile
+    output_dir = "output"
+    os.makedirs(output_dir, exist_ok=True)
+    out_base = os.path.join(output_dir, f"zscore_{ticker}_{end_date}")
     if not profile or getattr(profile, 'industry', None) in (None, '', 'unknown', 'Unknown'):
+        error_result = [{
+            "quarter_end": None,
+            "zscore": None,
+            "valid": False,
+            "error": f"Could not classify company for ticker {ticker}",
+            "diagnostic": None,
+            "model": None,
+            "api_payload": str(profile) if profile else None
+        }]
+        import pandas as pd
+        df = pd.DataFrame(error_result)
+        try:
+            df.to_csv(f"{out_base}_error.csv", index=False)
+            df.to_json(f"{out_base}_error.json", orient="records", indent=2)
+            print(f"[INFO] Error output saved to {out_base}_error.csv and {out_base}_error.json")
+        except Exception as e:
+            print(f"[ERROR] Could not save error output: {e}")
         print(f"[ERROR] Could not classify company for ticker {ticker}. Aborting analysis.")
-        # Exit immediately to avoid printing DataFrame or any further output
         import sys
         sys.exit(1)
     # Only print company profile if classification succeeded
@@ -68,6 +86,7 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
     model = determine_zscore_model(profile)
     # 3. Fetch last 12 quarters of financials, only required fields for model
     fin_info = fetch_financials(ticker, end_date, model)
+    import pandas as pd  # Ensure pd is available for all DataFrame and to_numeric usage
     if not fin_info or not fin_info.get("quarters"):
         logger.error(f"Failed to fetch financials for {ticker}")
         return pd.DataFrame([{"quarter_end": None, "zscore": None, "valid": False, "error": "No data"}])
@@ -133,25 +152,49 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
                 "api_payload": q.get("raw_payload")
             })
     # After results are collected, create DataFrame
+    import json
+    def safe_payload(val):
+        if isinstance(val, (dict, list)):
+            try:
+                return json.dumps(val)
+            except Exception:
+                return str(val)
+        return val
+    for r in results:
+        if 'api_payload' in r:
+            r['api_payload'] = safe_payload(r['api_payload'])
     df = pd.DataFrame(results)
     # Reporting: output to CSV, JSON, and print summary table
-    import os
     output_dir = "output"
     os.makedirs(output_dir, exist_ok=True)
     out_base = os.path.join(output_dir, f"zscore_{ticker}_{end_date}")
-    df.to_csv(f"{out_base}.csv", index=False)
-    df.to_json(f"{out_base}.json", orient="records", indent=2)
-    print(f"\n[INFO] Z-Score trend saved to {out_base}.csv and {out_base}.json")
+    try:
+        df.to_csv(f"{out_base}.csv", index=False)
+        print(f"[INFO] Z-Score trend saved to {out_base}.csv")
+    except Exception as e:
+        print(f"[ERROR] Could not save CSV: {e}")
+    try:
+        df.to_json(f"{out_base}.json", orient="records", indent=2)
+        print(f"[INFO] Z-Score trend saved to {out_base}.json")
+    except Exception as e:
+        print(f"[ERROR] Could not save JSON: {e}")
     # Print summary table to stdout
-    print("\nZ-Score Trend Table:")
-    print(df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False))
+    try:
+        print("\nZ-Score Trend Table:")
+        print(df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False))
+    except Exception as e:
+        print(f"[ERROR] Could not print summary table: {e}")
     # Plot trend (MVP: simple matplotlib line plot)
     try:
         import matplotlib.pyplot as plt
         plot_df = df[df["zscore"].notnull()]
         if not plot_df.empty:
             plt.figure(figsize=(10, 5))
-            plt.plot(plot_df["quarter_end"], plot_df["zscore"].astype(float), marker='o', label="Z-Score")
+            try:
+                zscores = plot_df["zscore"].astype(float)
+            except Exception:
+                zscores = pd.to_numeric(plot_df["zscore"], errors="coerce")
+            plt.plot(plot_df["quarter_end"], zscores, marker='o', label="Z-Score")
             plt.title(f"Altman Z-Score Trend for {ticker}")
             plt.xlabel("Quarter End")
             plt.ylabel("Z-Score")

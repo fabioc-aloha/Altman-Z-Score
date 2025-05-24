@@ -2,6 +2,15 @@
 
 A modern, robust, and modular Python tool for deep single-stock Altman Z-Score trend analysis, designed for reliability, transparency, and extensibility. Built for professional and academic use, with a conservative, incremental rollout policy and a focus on best practices in quantitative and qualitative stock analysis.
 
+---
+**Project Status (as of May 23, 2025):**
+- **MVP (Single-Stock Z-Score Trend Analysis) is complete and stable.**
+- The project is now focused on **v1: Overlay Stock Price Trend** (in progress).
+- All development and testing is performed in GitHub Codespaces and is fully compatible.
+- The previous codebase archive (`OLD/`) has been removed; all work is now in the new modular structure under `src/` and the project root.
+- Documentation, testing, and incremental rollout policies are strictly followed.
+---
+
 ## Project Description
 - **Purpose:** Analyze the financial health and bankruptcy risk of a single public company over time using the Altman Z-Score, calibrated by industry and company maturity.
 - **Scope:** Single-ticker analysis only (no portfolio support in current or near-term versions).
@@ -40,18 +49,12 @@ A modern, robust, and modular Python tool for deep single-stock Altman Z-Score t
 - Avoid over-ambitious changes; prioritize reliability and maintainability.
 
 ## Documentation
-- See `PLAN.md` for high-level vision, architecture, and implementation steps.
-- See `TODO.md` for actionable tasks and phase-specific work.
-- See `DECISIONS.md` for architectural and data source decisions.
+- See `PLAN.md` for high-level vision, architecture, implementation steps, and major decisions.
+- See `TODO.md` for actionable tasks, phase-specific work, and technical decisions.
 - See `LEARNINGS.md` for key learnings and technical notes.
 
 ## License
 MIT (see LICENSE file)
-
-## Archival of Previous Version
-- The previous codebase, including all legacy scripts, tests, and documentation, has been moved to the `OLD/` directory.
-- Refer to `OLD/README.md` for details on the contents and usage of the archived version.
-- All new development, testing, and documentation should be performed in the root project directories and new `src/` structure.
 
 ## Environment Variables & Secrets
 - All API keys, user agents, and sensitive configuration are stored in the `.env` file at the project root.

@@ -1,7 +1,7 @@
 # Altman Z-Score Refactor Plan (2025, Revised)
 
 ## Background
-This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates learnings from the previous codebase (now in `OLD/`). The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
+This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates Altman's Z-Score model documentation. The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
 
 ## High-Level Goals
 - **Simplicity:** Start with a single-stock analysis pipeline, then generalize to portfolios.
@@ -137,12 +137,3 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - Use backup sources for redundancy and validation.
 - Document all API usage, rate limits, and licensing in DECISIONS.md.
 - Avoid paid APIs unless absolutely necessary for critical features.
-
----
-
-**Next Action:**
-- Begin implementation at `src/altman_zscore/one_stock_analysis.py` following this plan, using the latest libraries and calibration techniques.
-
-## Archival of Previous Version
-- The entire previous codebase (code, scripts, tests, docs) is now in the `OLD/` directory for reference and rollback.
-- See `OLD/README.md` for details on the archived structure and usage policy.

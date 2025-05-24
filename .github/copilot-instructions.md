@@ -1,8 +1,8 @@
 # GitHub Copilot Instructions (2025+)
 
 ## Project Guidance
-- Use `PLAN.md` for high-level features, vision, and progress tracking.
-- Use `TODO.md` for actionable tasks, environment setup, and phase-specific work.
+- Use `PLAN.md` for high-level features, vision, progress tracking, and major architectural/technical decisions.
+- Use `TODO.md` for actionable tasks, environment setup, phase-specific work, and technical decisions.
 - All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
 - Preserve modularity, testability, and robust error handling throughout.
 - Each feature phase should be independently testable and deliver incremental value.
@@ -30,10 +30,10 @@
 
 ## Workflow
 - Use `TODO.md` for phase-specific tasks (e.g., scaffolding, environment prep, feature implementation).
-- Use `PLAN.md` to check off major features as they are enabled.
+- Use `PLAN.md` to check off major features as they are enabled and to record all major decisions.
 - Always ensure Codespaces compatibility (no local venvs, use pyproject.toml for dependencies).
-- Document significant learnings in `LEARNINGS.md` and architectural decisions in `DECISIONS.md`.
-- Never modify `PAPER.md` without explicit user consent.
+- Document significant learnings in `LEARNINGS.md`.
+- Never modify `OneStockAnalysis.md` without explicit user consent.
 
 ## Testing & Quality
 - All changes must pass existing and new tests.
@@ -42,7 +42,7 @@
 - Performance must be maintained or improved.
 
 ## Rollback Plan
-- The previous codebase is preserved in `OLD/` and can be restored if needed.
+- If a rollback is needed, restore from version control (git history).
 
 ## Conservative, Incremental Rollout Policy
 - Build a minimal, robust MVP first (single-stock Z-Score trend analysis).
@@ -51,9 +51,10 @@
 - Light up features one at a time, with tests and documentation, to avoid regressions.
 - Avoid over-ambitious changes; prioritize reliability and maintainability.
 
-## Archival of Previous Version
-- The previous codebase, including all legacy scripts, tests, and documentation, is now in the `OLD/` directory for reference and rollback only.
-- All new Copilot suggestions and code generation should target the new project structure and requirements.
+## Documentation and Decision Tracking Update (May 23, 2025)
+- The DECISIONS.md file has been removed from the repository.
+- All major architectural, technical, and data source decisions are now documented in PLAN.md and TODO.md.
+- Do not create or reference DECISIONS.md in this repository.
 
 ---
 

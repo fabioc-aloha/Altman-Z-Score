@@ -47,6 +47,7 @@ class CompanyProfile:
         """
         Classify company by ticker using SEC EDGAR first, then Yahoo Finance as fallback. No static mapping.
         """
+        print(f"[DEBUG] No static profile for: {ticker.upper()} (live classification only)")
         # 1. Try SEC EDGAR for US tickers
         try:
             cik = lookup_cik(ticker)
@@ -59,10 +60,26 @@ class CompanyProfile:
         # 2. Try yfinance as fallback
         try:
             import yfinance as yf
+            import json
+            import os
             yf_ticker = yf.Ticker(ticker)
             yf_info = yf_ticker.info
-            industry = yf_info.get('industry') or yf_info.get('sector')
-            country = (yf_info.get('country') or '').lower()
+            # Save the raw yfinance info payload for traceability
+            output_dir = os.path.join(os.getcwd(), "output")
+            os.makedirs(output_dir, exist_ok=True)
+            with open(os.path.join(output_dir, f"yf_info_{ticker.upper()}.json"), "w") as f:
+                json.dump(yf_info, f, indent=2)
+            # Helper to search for the first non-empty value among possible keys
+            def find_field(possible_keys):
+                for key in possible_keys:
+                    val = yf_info.get(key)
+                    if val:
+                        return val
+                return None
+            # Dynamically resolve fields
+            industry = find_field(["industry", "industryKey", "industryDisp", "sector", "sectorKey", "sectorDisp"])
+            country = find_field(["country", "countryKey", "countryDisp"])
+            exchange = find_field(["exchange", "fullExchangeName", "exchangeTimezoneName"])
             is_public = True
             emerging_countries = [
                 'china', 'india', 'brazil', 'russia', 'south africa',
@@ -71,24 +88,42 @@ class CompanyProfile:
                 'hungary', 'qatar', 'uae', 'peru', 'greece', 'czech republic',
                 'pakistan', 'saudi arabia', 'south korea', 'taiwan', 'vietnam'
             ]
-            is_em = country in emerging_countries
+            country_str = (country or '').lower()
+            is_em = country_str in emerging_countries
+            print(f"[DEBUG] yfinance info for {ticker}: industry={industry}, country={country}, exchange={exchange}")
             if industry:
                 # Map to enums if possible
                 ig = None
-                if 'tech' in industry.lower():
+                ind_lower = str(industry).lower()
+                if 'tech' in ind_lower:
                     ig = IndustryGroup.TECH
-                elif 'bank' in industry.lower() or 'financ' in industry.lower():
+                elif 'bank' in ind_lower or 'financ' in ind_lower:
                     ig = IndustryGroup.FINANCIAL
-                elif 'manufactur' in industry.lower():
+                elif 'manufactur' in ind_lower:
                     ig = IndustryGroup.MANUFACTURING
-                elif 'service' in industry.lower():
+                elif 'service' in ind_lower:
+                    ig = IndustryGroup.SERVICE
+                elif 'entertain' in ind_lower:
                     ig = IndustryGroup.SERVICE
                 else:
                     ig = IndustryGroup.OTHER
-                return CompanyProfile(ticker, industry, is_public, is_em, ig, MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED, country=country)
+                print(f"[DEBUG] yfinance classification for {ticker}: ig={ig}, is_em={is_em}")
+                return CompanyProfile(
+                    ticker,
+                    industry,
+                    is_public,
+                    is_em,
+                    ig,
+                    MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED,
+                    country=country,
+                    exchange=exchange
+                )
+            else:
+                print(f"[WARN] yfinance returned no industry/sector for {ticker}. Raw info: {yf_info}")
         except Exception as e:
             print(f"[CompanyProfile] yfinance failed for {ticker}: {e}")
         # No static fallback
+        print(f"[ERROR] Could not classify company for ticker {ticker} (no industry/sector from yfinance)")
         return None
 
 def lookup_cik(ticker: str) -> Optional[str]:
