@@ -99,4 +99,10 @@ MIT (see LICENSE file)
 - Output directory is created if missing
 - All improvements are reflected in the codebase and documentation
 
+## Community & Documentation
+
+- This repository is public as of May 2025.
+- The GitHub Wiki is enabled for extended documentation, guides, and community contributions.
+- See the Wiki tab above for more details, usage examples, and technical notes.
+
 See TODO.md and PLAN.md for roadmap and progress.
