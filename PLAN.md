@@ -79,7 +79,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - Deep analysis of a single stock
   - Fetches and validates 3 years of quarterly financials
   - Computes Altman Z-Score for each quarter, calibrated by industry/maturity
-  - Outputs Z-Score trend as table and plot
+  - Outputs Z-Score trend as table and plot, with robust legend and company profile/model footnote (MVP complete as of May 24, 2025)
 - [ ] **v1: Overlay Stock Price Trend**
   - Fetches and overlays stock price trend for the same period
   - Combined plot of Z-Score and price

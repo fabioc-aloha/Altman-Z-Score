@@ -90,29 +90,6 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         with open(f"output/is_columns_{ticker.upper()}_{end_date}.txt", "w") as f:
             f.write("\n".join(str(col) for col in is_.columns))
         quarters = []
-        # Static override for Sonos Q1 FY2025 for validation
-        if ticker.upper() == "SONO":
-            # Values from OneStockAnalysis.md and literature
-            # Q1 FY2025: period_end = '2025-03-31'
-            return {
-                "quarters": [
-                    {
-                        "period_end": "2025-03-31",
-                        "total_assets": 453.0,
-                        "current_assets": 453.0,
-                        "current_liabilities": 286.9,
-                        "retained_earnings": -12.8,
-                        "total_liabilities": 344.5,
-                        "book_value_equity": 287.5,
-                        "ebit": -69.7,
-                        "sales": 259.8,
-                        "raw_payload": {
-                            "source": "static/manual/OneStockAnalysis.md",
-                            "notes": "Sonos Q1 FY2025 validation data"
-                        }
-                    }
-                ]
-            }
         # Only process periods present in both balance sheet and income statement
         common_periods = [p for p in bs.columns if p in is_.columns]
         for period in common_periods:
@@ -177,8 +154,6 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         if quarters:
             return {"quarters": quarters}
         else:
-            logger.warning(f"No usable financial data found for {ticker}. The company may not exist or was not listed in the requested period.")
-            return {"quarters": []}
+            raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
     except Exception as e:
-        logger.error(f"Error fetching financials for {ticker}: {e}")
-        return {"quarters": []}
+        raise RuntimeError(f"Error fetching financials for {ticker}: {e}")

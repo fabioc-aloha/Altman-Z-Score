@@ -20,7 +20,7 @@ from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.industry_classifier import classify_company
 from altman_zscore.compute_zscore import FinancialMetrics, compute_zscore, determine_zscore_model
 from altman_zscore.data_validation import FinancialDataValidator
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -49,6 +49,7 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
     if not end_date:
         end_date = datetime.today().strftime("%Y-%m-%d")
 
+    import os  # Ensure os is imported before use
     # 1. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
     output_dir = "output"
@@ -76,24 +77,52 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
         import sys
         sys.exit(1)
     # Only print company profile if classification succeeded
-    print(f"[INFO] Company profile for {ticker}:")
-    print(f"  Industry: {getattr(profile, 'industry', 'Unknown')}")
-    print(f"  Public: {getattr(profile, 'is_public', 'Unknown')}")
-    print(f"  Emerging Market: {getattr(profile, 'is_emerging_market', 'Unknown')}")
-    print()
+    profile_info = (
+        f"Company profile for {ticker}:\n"
+        f"  Industry: {getattr(profile, 'industry', 'Unknown')}\n"
+        f"  Public: {getattr(profile, 'is_public', 'Unknown')}\n"
+        f"  Emerging Market: {getattr(profile, 'is_emerging_market', 'Unknown')}\n"
+    )
+    # Save company profile info to file
+    ticker_dir = os.path.join('output', ticker.upper())
+    os.makedirs(ticker_dir, exist_ok=True)
+    out_base = os.path.join(ticker_dir, f"zscore_{ticker}_{end_date}")
+    with open(f"{out_base}_profile.txt", "w", encoding="utf-8") as f:
+        f.write(profile_info)
 
     # 2. Determine Z-Score model before fetching financials
     model = determine_zscore_model(profile)
     # 3. Fetch last 12 quarters of financials, only required fields for model
     fin_info = fetch_financials(ticker, end_date, model)
     import pandas as pd  # Ensure pd is available for all DataFrame and to_numeric usage
-    if not fin_info or not fin_info.get("quarters"):
-        logger.error(f"Failed to fetch financials for {ticker}")
-        return pd.DataFrame([{"quarter_end": None, "zscore": None, "valid": False, "error": "No data"}])
+    # Only fail if there are zero valid quarters; allow partial data for new/delisted tickers
+    valid_quarters = [q for q in fin_info["quarters"] if any(v not in (None, '', 0.0) for k, v in q.items() if k != 'raw_payload')]
+    if not fin_info or not fin_info.get("quarters") or len(valid_quarters) == 0:
+        raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
+
+    # Filter to all available quarters up to end_date
+    try:
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+        valid_quarters_sorted = sorted(valid_quarters, key=lambda q: q.get("period_end"), reverse=True)
+        filtered_quarters = []
+        for q in valid_quarters_sorted:
+            period_end = q.get("period_end")
+            if period_end:
+                try:
+                    q_dt = datetime.strptime(str(period_end)[:10], "%Y-%m-%d")
+                    if q_dt <= end_dt:
+                        filtered_quarters.append(q)
+                except Exception:
+                    continue
+        # Do not limit by number of quarters; use all available
+    except Exception as e:
+        raise ValueError(f"Invalid end_date format: {end_date}. Error: {e}")
+    if not filtered_quarters:
+        raise ValueError(f"No financial data for available quarters up to {end_date} for ticker '{ticker}'.")
+    quarters = list(reversed(filtered_quarters))  # chronological order
 
     # 3. Fetch market value of equity for each quarter (using Yahoo)
     yahoo = YahooFinanceClient()
-    quarters = fin_info["quarters"]
     results = []
     for q in quarters:
         period_end = q.get("period_end")
@@ -129,11 +158,13 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
                 zscore_obj = compute_zscore(metrics_dict, model)
             else:
                 zscore_obj = compute_zscore(metrics.__dict__, model)
-            # Format z-score with thousand separators and 2 decimal places
-            zscore_val = f"{zscore_obj.z_score:,.2f}" if zscore_obj.z_score is not None else None
+            # Store zscore as float for analysis/plotting, and add formatted string for display/export
+            zscore_float = float(zscore_obj.z_score) if zscore_obj.z_score is not None else None
+            zscore_str = f"{zscore_float:,.2f}" if zscore_float is not None else None
             results.append({
                 "quarter_end": period_end,
-                "zscore": zscore_val,
+                "zscore": zscore_float,
+                "zscore_str": zscore_str,
                 "valid": True,
                 "error": None,
                 "diagnostic": zscore_obj.diagnostic,
@@ -165,52 +196,87 @@ def analyze_single_stock_zscore_trend(ticker: str, end_date: Optional[str] = Non
             r['api_payload'] = safe_payload(r['api_payload'])
     df = pd.DataFrame(results)
     # Reporting: output to CSV, JSON, and print summary table
-    output_dir = "output"
-    os.makedirs(output_dir, exist_ok=True)
-    out_base = os.path.join(output_dir, f"zscore_{ticker}_{end_date}")
+    # Ensure output and ticker subdirectory exist
+    import os
+    if not os.path.exists('output'):
+        os.makedirs('output', exist_ok=True)
+    ticker_dir = os.path.join('output', ticker.upper())
+    if not os.path.exists(ticker_dir):
+        os.makedirs(ticker_dir, exist_ok=True)
+    out_base = os.path.join(ticker_dir, f"zscore_{ticker}_{end_date}")
     try:
         df.to_csv(f"{out_base}.csv", index=False)
-        print(f"[INFO] Z-Score trend saved to {out_base}.csv")
     except Exception as e:
         print(f"[ERROR] Could not save CSV: {e}")
     try:
         df.to_json(f"{out_base}.json", orient="records", indent=2)
-        print(f"[INFO] Z-Score trend saved to {out_base}.json")
     except Exception as e:
         print(f"[ERROR] Could not save JSON: {e}")
-    # Print summary table to stdout
+    # Only print warnings and errors
+    for _, row in df.iterrows():
+        if row.get("error"):
+            print(f"[WARN] {row['quarter_end']}: {row['error']}")
+    # Save summary table to file, do not print to terminal
     try:
-        print("\nZ-Score Trend Table:")
-        print(df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False))
+        summary_table = df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False)
+        with open(f"{out_base}_summary.txt", "w", encoding="utf-8") as f:
+            f.write(summary_table)
     except Exception as e:
-        print(f"[ERROR] Could not print summary table: {e}")
+        print(f"[ERROR] Could not save summary table: {e}")
+    # Prepare single-line company profile footnote for chart
+    industry = getattr(profile, 'industry', 'Unknown')
+    is_public = getattr(profile, 'is_public', 'Unknown')
+    is_em = getattr(profile, 'is_emerging_market', 'Unknown')
+    # Try to extract SIC code if present in industry string
+    sic_code = None
+    if industry and 'SIC' in str(industry):
+        parts = str(industry).split()
+        for i, p in enumerate(parts):
+            if p == 'SIC' and i+1 < len(parts):
+                sic_code = parts[i+1]
+                break
+    # Map SIC code to description (minimal mapping for demonstration)
+    sic_map = {
+        '7372': 'Prepackaged Software',
+        # Add more mappings as needed
+    }
+    sic_desc = sic_map.get(str(sic_code)) if sic_code else None
+    # Compose industry string for footnote
+    if sic_code and sic_desc:
+        industry_foot = f"{sic_desc} (SIC {sic_code})"
+    elif sic_code:
+        industry_foot = f"SIC {sic_code}"
+    else:
+        industry_foot = industry if industry else 'Unknown industry'
+    footnote = f"Industry: {industry_foot} | Public: {is_public} | Emerging Market: {is_em} | Model: {model}"
     # Plot trend (MVP: simple matplotlib line plot)
     try:
-        import matplotlib.pyplot as plt
-        plot_df = df[df["zscore"].notnull()]
-        if not plot_df.empty:
-            plt.figure(figsize=(10, 5))
-            try:
-                zscores = plot_df["zscore"].astype(float)
-            except Exception:
-                zscores = pd.to_numeric(plot_df["zscore"], errors="coerce")
-            plt.plot(plot_df["quarter_end"], zscores, marker='o', label="Z-Score")
-            plt.title(f"Altman Z-Score Trend for {ticker}")
-            plt.xlabel("Quarter End")
-            plt.ylabel("Z-Score")
-            plt.xticks(rotation=45)
-            plt.grid(True)
-            plt.legend()
-            plt.tight_layout()
-            plt.savefig(f"{out_base}_trend.png")
-            print(f"[INFO] Z-Score trend plot saved to {out_base}_trend.png")
-            plt.show()
-        else:
-            print("[WARN] No valid Z-Score data to plot.")
+        from altman_zscore.plotting import plot_zscore_trend
+        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote)
     except ImportError:
         print("[WARN] matplotlib not installed, skipping plot.")
     except Exception as e:
         print(f"[WARN] Could not plot Z-Score trend: {e}")
+    # Save any additional output/diagnostic files to the ticker subfolder
+    # Example: move bs_columns, bs_index, is_columns, yf_info files if they exist
+    diagnostic_files = [
+        f"bs_columns_{ticker}_{end_date}.txt",
+        f"bs_index_{ticker}_{end_date}.txt",
+        f"is_columns_{ticker}_{end_date}.txt",
+        f"yf_info_{ticker}.json"
+    ]
+    # Move diagnostic files and log the move in a file, not terminal
+    move_log_path = os.path.join(ticker_dir, f"{ticker}_file_moves.log")
+    with open(move_log_path, "a", encoding="utf-8") as move_log:
+        for fname in diagnostic_files:
+            src_path = os.path.join('output', fname)
+            dst_path = os.path.join(ticker_dir, fname)
+            if os.path.exists(src_path):
+                try:
+                    os.replace(src_path, dst_path)
+                    move_log.write(f"Moved {fname} to {os.path.abspath(dst_path)}\n")
+                except Exception as e:
+                    print(f"[WARN] Could not move {fname}: {e}")
     return df
 
 def parse_args():

@@ -99,7 +99,12 @@ class CompanyProfile:
                     ig = IndustryGroup.TECH
                 elif 'bank' in ind_lower or 'financ' in ind_lower:
                     ig = IndustryGroup.FINANCIAL
-                elif 'manufactur' in ind_lower:
+                elif (
+                    'manufactur' in ind_lower or
+                    'consumer electronics' in ind_lower or
+                    'hardware' in ind_lower or
+                    'semiconductor' in ind_lower
+                ):
                     ig = IndustryGroup.MANUFACTURING
                 elif 'service' in ind_lower:
                     ig = IndustryGroup.SERVICE
@@ -160,5 +165,63 @@ def lookup_cik(ticker: str) -> Optional[str]:
     return None
 
 def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
-    # Minimal stub: in real code, use SEC API and logic from OLD/industry_classifier.py
-    return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED)
+    """
+    Fetch company info from SEC EDGAR, extract SIC code, and map to industry group.
+    """
+    import requests
+    import os
+    import time
+    sec_api_email = os.getenv('SEC_API_EMAIL', '')
+    headers = {
+        'User-Agent': os.getenv('SEC_EDGAR_USER_AGENT', 'AltmanZScore/1.0'),
+        'From': sec_api_email
+    }
+    # Fetch company facts (contains SIC and business address)
+    url = f"https://data.sec.gov/submissions/CIK{str(cik).zfill(10)}.json"
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+        # Extract SIC code and business country
+        sic = str(data.get('sic', ''))
+        country = data.get('addresses', {}).get('business', {}).get('country', None)
+        # Map SIC code to industry group
+        ig = IndustryGroup.OTHER
+        if sic:
+            try:
+                sic_int = int(sic)
+                if 3570 <= sic_int <= 3579 or 3670 <= sic_int <= 3679 or 7370 <= sic_int <= 7379:
+                    ig = IndustryGroup.TECH
+                elif 6000 <= sic_int <= 6999:
+                    ig = IndustryGroup.FINANCIAL
+                elif 2000 <= sic_int <= 3999:
+                    ig = IndustryGroup.MANUFACTURING
+                elif 7000 <= sic_int <= 8999:
+                    ig = IndustryGroup.SERVICE
+                else:
+                    ig = IndustryGroup.OTHER
+            except Exception:
+                pass
+        # Determine market category
+        emerging_countries = [
+            'china', 'india', 'brazil', 'russia', 'south africa',
+            'mexico', 'indonesia', 'turkey', 'thailand', 'malaysia',
+            'philippines', 'chile', 'colombia', 'poland', 'egypt',
+            'hungary', 'qatar', 'uae', 'peru', 'greece', 'czech republic',
+            'pakistan', 'saudi arabia', 'south korea', 'taiwan', 'vietnam'
+        ]
+        country_str = (country or '').lower()
+        is_em = country_str in emerging_countries
+        return CompanyProfile(
+            ticker,
+            industry=f"SIC {sic}" if sic else None,
+            is_public=True,
+            is_emerging_market=is_em,
+            industry_group=ig,
+            market_category=MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED,
+            country=country,
+            exchange=None
+        )
+    except Exception as e:
+        print(f"[CompanyProfile] SEC EDGAR real-time fetch failed for {ticker}: {e}")
+        return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED)
