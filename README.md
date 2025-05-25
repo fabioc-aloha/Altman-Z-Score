@@ -1,4 +1,4 @@
-# Altman Z-Score Analysis (2025+)
+# Altman Z-Score Analysis (Copilot)
 
 A modern, robust, and modular Python tool for deep single-stock Altman Z-Score trend analysis, designed for reliability, transparency, and extensibility. Built for professional and academic use, with a conservative, incremental rollout policy and a focus on best practices in quantitative and qualitative stock analysis.
 
