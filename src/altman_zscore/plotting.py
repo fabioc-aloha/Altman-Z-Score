@@ -15,38 +15,51 @@ import sys
 import importlib
 models = importlib.import_module('altman_zscore.models')
 
-# ANSI color codes for terminal output if supported
-class Colors:
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+import logging
 
-def print_info(msg):
-    """Print an info message with cyan color if supported"""
-    try:
-        print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
-    except:
-        print(f"[INFO] {msg}")
+# Set up module logger
+logger = logging.getLogger("altman_zscore.plotting")
 
-def print_warning(msg):
-    """Print a warning message with yellow color if supported"""
-    try:
-        print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
-    except:
-        print(f"[WARNING] {msg}")
+# Import common printing functions from one_stock_analysis
+try:
+    from altman_zscore.one_stock_analysis import print_info, print_warning, print_error
+except ImportError:
+    # Fallback if import fails
+    # ANSI color codes for terminal output if supported
+    class Colors:
+        HEADER = '\033[95m'
+        BLUE = '\033[94m'
+        CYAN = '\033[96m'
+        GREEN = '\033[92m'
+        YELLOW = '\033[93m'
+        RED = '\033[91m'
+        ENDC = '\033[0m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
 
-def print_error(msg):
-    """Print an error message with red color if supported"""
-    try:
-        print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}")
-    except:
-        print(f"[ERROR] {msg}")
+    def print_info(msg):
+        """Print an info message with cyan color if supported"""
+        try:
+            print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
+        except:
+            print(f"[INFO] {msg}")
+            logger.info(msg)
+
+    def print_warning(msg):
+        """Print a warning message with yellow color if supported"""
+        try:
+            print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
+        except:
+            print(f"[WARNING] {msg}")
+            logger.warning(msg)
+
+    def print_error(msg):
+        """Print an error message with red color if supported"""
+        try:
+            print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}")
+        except:
+            print(f"[ERROR] {msg}")
+            logger.error(msg)
 
 def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
     """

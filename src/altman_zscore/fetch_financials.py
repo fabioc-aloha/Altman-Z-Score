@@ -7,8 +7,16 @@ Z-Score model are fetched. Logs diagnostics and handles missing/partial data gra
 """
 
 # All imports should be at the top of the file, per Python best practices.
+import logging
+import os
+import pandas as pd
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Any, Union
 
-def fetch_financials(ticker: str, end_date: str, zscore_model: str):
+# Set up module logger
+logger = logging.getLogger("altman_zscore.fetch_financials")
+
+def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, List[Dict[str, Any]]]]:
     """
     Fetch 12 quarters of real financials for the given ticker using yfinance (primary) and SEC EDGAR (fallback).
 
@@ -206,5 +214,5 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
     except Exception as e:
         logger.error(f"[{ticker}] Exception in fetch_financials: {e}")
-        print(f"[ERROR] Could not fetch financials for {ticker}: {e}")
+        # Don't print directly, let the calling function handle the error
         return None

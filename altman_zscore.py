@@ -7,14 +7,18 @@ It delegates analysis to the core logic in src/altman_zscore/one_stock_analysis.
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-from altman_zscore.one_stock_analysis import analyze_single_stock_zscore_trend, print_header, print_info, print_success, print_warning, print_error
+from altman_zscore.one_stock_analysis import (
+    analyze_single_stock_zscore_trend, print_header, print_info, 
+    print_success, print_warning, print_error,
+    CompanyClassificationError, FinancialDataError
+)
 import argparse
 import time
 import pandas as pd
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Single Stock Altman Z-Score Trend Analysis")
-    parser.add_argument("ticker", type=str, help="Stock ticker symbol (e.g., AAPL)")
+    parser.add_argument("--ticker", type=str, required=True, help="Stock ticker symbol (e.g., AAPL)")
     return parser.parse_args()
 
 def main():
@@ -61,9 +65,19 @@ def main():
                 print_warning(f"No valid Z-Scores calculated for {ticker}")
         else:
             print_warning(f"No analysis results available for {ticker}")
+    except CompanyClassificationError as e:
+        print_error(f"Company Classification Error: {e}")
+        print_info("See error files in output directory for more details.")
+        return 1
+    except FinancialDataError as e:
+        print_error(f"Financial Data Error: {e}")
+        print_info("See error files in output directory for more details.")
+        return 1
     except Exception as e:
         print_error(f"Analysis failed: {e}")
-        sys.exit(1)
+        return 1
+    
+    return 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

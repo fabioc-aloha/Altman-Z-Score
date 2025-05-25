@@ -129,10 +129,40 @@ See `.env.example` for all available options and documentation.
 - Modular code: plotting logic in src/altman_zscore/plotting.py
 - Local development: all work in a local .venv (see docs/venv_setup.md)
 
-## How to Run
-1. Activate your .venv and install dependencies (pip install -r requirements.txt)
-2. Run the analysis script (see README.md for CLI usage)
-3. Find all outputs (CSV, JSON, PNG) in the output/ folder. The absolute path to the chart is printed after each run.
+## Quick Start Guide
+
+Get up and running with the Altman Z-Score analysis tool in minutes:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/fabioc-aloha/Altman-Z-Score.git
+cd Altman-Z-Score
+
+# 2. Set up virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set up environment variables
+# Copy the example file and fill in your values
+cp .env.example .env
+# Edit .env with your API keys and settings
+
+# 5. Run the analysis for a stock (e.g., Microsoft)
+python altman_zscore.py --ticker MSFT
+```
+
+After running the analysis, you'll find all outputs (CSV, JSON, PNG) in the `output/` directory. The absolute path to the chart is printed after each run.
+
+For more details, see:
+- [Virtual Environment Setup](docs/venv_setup.md)
+- [Project Plan](PLAN.md)
+- [Development Tasks](TODO.md)
+- [Technical Learnings](LEARNINGS.md)
+- [APIs Documentation](APIS.md)
+- [Code Review Recommendations](CODE_REVIEW_RECOMMENDATIONS.md)
 
 ## Tested and Working
 - Chart output is visually clear, robust, and user-friendly, with a complete legend and footnote
