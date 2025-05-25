@@ -51,9 +51,10 @@ def print_error(msg):
     except:
         print(f"[ERROR] {msg}")
 
-def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
+def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_prices=None):
     """
     Plot the Altman Z-Score trend with colored risk bands and save as PNG.
+    If stock_prices provided, overlays stock price trend on secondary y-axis.
 
     Args:
         df (pd.DataFrame): DataFrame with columns ['quarter_end', 'zscore']
@@ -61,6 +62,8 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
         profile_footnote (str, optional): Footnote string for chart (company profile/model info)
+        stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price']
+                                             for overlaying stock prices
     
     Returns:
         None. Saves PNG to output/ and prints absolute path.
@@ -69,6 +72,7 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
         - Handles missing/invalid data gracefully.
         - Adds value labels, robust legend, and footnote.
         - Output directory is created if missing.
+        - When stock_prices provided, shows price trend on secondary y-axis.
     """
     plot_df = df[df["zscore"].notnull()]
     if plot_df.empty:
@@ -174,9 +178,61 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
               markersize=4, linestyle='-', linewidth=1)
     ]
     
-    # Add legend with 4 columns
+    # If stock prices are provided, add them on a secondary y-axis
+    if stock_prices is not None and not stock_prices.empty:
+        # Create a secondary y-axis for stock prices
+        ax2 = ax.twinx()
+        
+        # Ensure stock prices dataframe has quarter_end and price columns
+        if 'quarter_end' in stock_prices.columns and 'price' in stock_prices.columns:
+            # Convert quarter_end to datetime if not already
+            stock_prices['quarter_end'] = pd.to_datetime(stock_prices['quarter_end'])
+            
+            # Filter to just the quarters we have z-score data for
+            common_quarters = set(pd.to_datetime(df['quarter_end']).dt.strftime('%Y-%m-%d'))
+            stock_prices = stock_prices[stock_prices['quarter_end'].dt.strftime('%Y-%m-%d').isin(common_quarters)]
+            
+            if not stock_prices.empty:
+                # Sort by quarter_end to ensure chronological order
+                stock_prices = stock_prices.sort_values('quarter_end')
+                
+                # Create mapping from quarter_end to x position
+                quarter_to_xpos = {q.strftime('%Y-%m-%d'): pos for q, pos in zip(x_dates, x_pos)}
+                
+                # Map each stock price quarter to its x-position
+                stock_x_pos = [quarter_to_xpos.get(q.strftime('%Y-%m-%d'), -1) for q in stock_prices['quarter_end']]
+                stock_prices_valid = stock_prices[~pd.Series(stock_x_pos).eq(-1)]
+                stock_x_pos_valid = [x for x in stock_x_pos if x != -1]
+                
+                # Plot the stock prices on the secondary y-axis
+                ax2.plot(stock_x_pos_valid, stock_prices_valid['price'], 
+                      marker='s', color='green', linestyle='-', linewidth=1.5, 
+                      label=f"{ticker} Price", zorder=3)
+                
+                # Add value labels to each stock price point
+                for i, (x, price) in enumerate(zip(stock_x_pos_valid, stock_prices_valid['price'])):
+                    try:
+                        price_label = f"${price:.2f}"
+                        ax2.annotate(price_label, (x, price), 
+                                    textcoords="offset points", xytext=(0,-15), 
+                                    ha='center', fontsize=9, color='green')
+                    except Exception:
+                        pass
+                
+                # Set y-label for the secondary axis
+                ax2.set_ylabel("Stock Price ($)", color='green')
+                ax2.tick_params(axis='y', labelcolor='green')
+                
+                # Add stock price line to legend_elements
+                legend_elements.append(
+                    Line2D([0], [0], color='green', marker='s', label=f'{ticker} Price', 
+                           markersize=4, linestyle='-', linewidth=1.5)
+                )
+
+    # Add legend with appropriate number of columns
     plt.gcf().subplots_adjust(bottom=0.22)  # Increased bottom margin from 0.2 to 0.22
-    plt.legend(handles=legend_elements, ncol=4, bbox_to_anchor=(0.5, -0.25),  # Moved down from -0.15 to -0.25
+    num_cols = 5 if stock_prices is not None and not stock_prices.empty else 4
+    plt.legend(handles=legend_elements, ncol=num_cols, bbox_to_anchor=(0.5, -0.25),  # Moved down from -0.15 to -0.25
               loc='center', fontsize=8, frameon=True, framealpha=0.9)
     
     # Add profile info as subtitle if available

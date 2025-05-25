@@ -358,10 +358,22 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     else:
         industry_foot = industry if industry else 'Unknown industry'
     footnote = f"Industry: {industry_foot} | Maturity: {maturity_desc} | Public: {is_public} | Emerging Market: {is_em} | Model: {model}"
-    # Plot trend (MVP: simple matplotlib line plot)
+    
+    # Fetch stock prices for the quarters in our Z-Score dataframe
+    stock_prices = None
+    try:
+        from altman_zscore.fetch_prices import get_quarterly_prices
+        # Extract the quarter_end dates from our Z-Score dataframe
+        quarters_list = df['quarter_end'].tolist()
+        # Fetch stock prices for these quarters
+        stock_prices = get_quarterly_prices(ticker, quarters_list)
+    except Exception as e:
+        print(f"[WARN] Could not fetch stock prices for overlay: {e}")
+    
+    # Plot trend with stock price overlay if available
     try:
         from altman_zscore.plotting import plot_zscore_trend
-        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote)
+        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote, stock_prices=stock_prices)
     except ImportError:
         print("[WARN] matplotlib not installed, skipping plot.")
     except Exception as e:
