@@ -152,35 +152,45 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, price_
             # Create secondary y-axis for stock price
             ax2 = ax.twinx()
             
-            # Match price data with quarter dates
+            # Match price data with quarter dates - ensure exact alignment with Z-score x positions
             price_at_quarters = []
-            for date in x_dates:
-                # Convert date to Timestamp if it's not already
-                if not isinstance(date, pd.Timestamp):
-                    date = pd.Timestamp(date)
+            
+            # Create a dictionary mapping date strings to their corresponding price
+            price_dict = {}
+            for date_idx, row in price_data.iterrows():
+                price_dict[pd.Timestamp(date_idx).strftime('%Y-%m-%d')] = row['Close']
+            
+            # For each quarter end date (same dates as Z-score data)
+            for i, date in enumerate(x_dates):
+                # Convert date to string in same format
+                date_str = pd.Timestamp(date).strftime('%Y-%m-%d')
                 
-                # Find closest price data point to the quarter end date
+                # Find the closest date in price_data
                 if not price_data.empty:
                     # Calculate absolute difference between each price date and the target date
-                    date_diffs = abs(price_data.index.astype('datetime64[ns]') - date.to_datetime64())
+                    date_diffs = abs(price_data.index.astype('datetime64[ns]') - pd.Timestamp(date).to_datetime64())
                     closest_idx = date_diffs.argmin()
-                    price_at_quarters.append(price_data['Close'].iloc[closest_idx])
+                    closest_date = price_data.index[closest_idx]
+                    price = price_data['Close'].iloc[closest_idx]
+                    
+                    # Add the price at the exact same position as the Z-score point
+                    price_at_quarters.append(price)
             
-            # Plot stock price on secondary y-axis
-            ax2.plot(x_pos, price_at_quarters, marker='s', linestyle='--', 
-                     label="Stock Price", color='#d62728', zorder=1)
+            # Plot stock price on secondary y-axis using exactly the same x positions as Z-score
+            ax2.plot(x_pos, price_at_quarters, marker='s', color='green', linestyle='-', linewidth=1.5, 
+                     label=f"{ticker} Price", zorder=1)
             
             # Configure secondary axis
-            ax2.set_ylabel(f"Stock Price ($)", color='#d62728')
-            ax2.tick_params(axis='y', colors='#d62728')
+            ax2.set_ylabel(f"Stock Price ($)", color='green')
+            ax2.tick_params(axis='y', labelcolor='green')
             
             # Optional: Add value labels to price points
             for i, price in enumerate(price_at_quarters):
                 try:
                     label = f"${price:.2f}"
-                    ax2.annotate(label, (i, price), textcoords="offset points", 
-                                xytext=(0,8), ha='center', fontsize=9, 
-                                color='#d62728', rotation=0)
+                    ax2.annotate(label, (i, price), 
+                                textcoords="offset points", xytext=(0,-15), 
+                                ha='center', fontsize=9, color='green')
                 except Exception:
                     pass
         except Exception as e:
@@ -228,8 +238,8 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, price_
     # Add stock price to legend if it was plotted
     if ax2 is not None:
         legend_elements.append(
-            Line2D([0], [0], color='#d62728', marker='s', label='Stock Price', 
-                  markersize=4, linestyle='--', linewidth=1)
+            Line2D([0], [0], color='green', marker='s', label=f'{ticker} Price', 
+                  markersize=4, linestyle='-', linewidth=1.5)
         )
     
     # Adjust bottom margin based on legend size
