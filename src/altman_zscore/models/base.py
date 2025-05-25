@@ -1,4 +1,12 @@
-"""Base classes for Z-score models."""
+"""
+Base classes for Z-score models.
+
+This module defines the abstract base classes and shared data structures for
+all Z-score model implementations. It provides a common interface for model
+creation, validation, and computation.
+
+Note: This code follows PEP 8 style guidelines.
+"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime

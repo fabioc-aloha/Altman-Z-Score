@@ -1,8 +1,10 @@
 """
 Financial data validation utilities for Altman Z-Score pipeline.
 
-This module provides Pydantic-based validation and diagnostics for financial data used in Z-Score computation.
-Handles missing fields, outliers, and edge-case reporting.
+This module provides Pydantic-based validation and diagnostics for financial data
+used in Z-Score computation. Handles missing fields, outliers, and edge-case reporting.
+
+Note: This code follows PEP 8 style guidelines.
 """
 
 from enum import Enum

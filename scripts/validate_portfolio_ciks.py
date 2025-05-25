@@ -1,5 +1,11 @@
 """
 Script to validate CIKs for all portfolio tickers.
+
+This script verifies the correctness of all CIK (Central Index Key) identifiers
+in the portfolio configuration against the SEC EDGAR database, reporting any
+discrepancies or missing identifiers.
+
+Note: This code follows PEP 8 style guidelines.
 """
 import asyncio
 import logging

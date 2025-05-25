@@ -23,6 +23,8 @@ The main analysis pipeline (analyze.py) coordinates these components to:
 5. Generate reports
 
 See the README.md for usage instructions and documentation.
+
+Note: This code follows PEP 8 style guidelines.
 """
 
 from .compute_zscore import FinancialMetrics
