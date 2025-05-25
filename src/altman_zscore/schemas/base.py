@@ -15,8 +15,6 @@ class BaseResponse:
     """Base class for all API responses."""
     status: ResponseStatus
     timestamp: datetime
-    errors: Optional[List[str]] = None
-    warnings: Optional[List[str]] = None
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'BaseResponse':
@@ -24,8 +22,6 @@ class BaseResponse:
         return cls(
             status=ResponseStatus[data.get('status', 'ERROR').upper()],
             timestamp=datetime.fromisoformat(data.get('timestamp', datetime.now().isoformat())),
-            errors=data.get('errors'),
-            warnings=data.get('warnings')
         )
 
 @dataclass
@@ -34,6 +30,8 @@ class ErrorResponse(BaseResponse):
     error_code: str
     error_message: str
     retry_after: Optional[float] = None
+    errors: Optional[List[str]] = None
+    warnings: Optional[List[str]] = None
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'ErrorResponse':
@@ -42,11 +40,11 @@ class ErrorResponse(BaseResponse):
         return cls(
             status=base.status,
             timestamp=base.timestamp,
-            errors=base.errors,
-            warnings=base.warnings,
             error_code=data['error_code'],
             error_message=data['error_message'],
-            retry_after=data.get('retry_after')
+            retry_after=data.get('retry_after'),
+            errors=data.get('errors'),
+            warnings=data.get('warnings')
         )
 
 @dataclass

@@ -44,10 +44,11 @@ class SECClient:
     
     def __init__(self, email: Optional[str] = None):
         """Initialize client."""
+        # Prefer SEC_EDGAR_USER_AGENT for User-Agent header, fallback to SEC_API_EMAIL for legacy support
+        self.user_agent = os.getenv("SEC_EDGAR_USER_AGENT")
         self.email = email or os.getenv("SEC_API_EMAIL")
-        if not self.email:
-            raise ValueError("SEC API email is required. Set SEC_API_EMAIL environment variable.")
-            
+        if not self.user_agent and not self.email:
+            raise ValueError("SEC EDGAR User-Agent is required. Set SEC_EDGAR_USER_AGENT or SEC_API_EMAIL in your environment.")
         self.rate_limiter = TokenBucket(
             rate=self.REQUEST_RATE,
             capacity=self.REQUEST_RATE * 2,
@@ -59,10 +60,17 @@ class SECClient:
     def _create_session(self) -> requests.Session:
         """Create and configure requests session."""
         session = requests.Session()
-        session.headers.update({
-            "User-Agent": f"altman-zscore-analyzer {self.email}",
-            "Accept": "application/json",
-        })
+        if self.user_agent:
+            session.headers.update({
+                "User-Agent": self.user_agent,
+                "Accept": "application/json",
+            })
+        else:
+            # Fallback for legacy support
+            session.headers.update({
+                "User-Agent": f"altman-zscore-analyzer {self.email}",
+                "Accept": "application/json",
+            })
         return session
         
     def _ensure_rate_limit(self):

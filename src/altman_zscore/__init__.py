@@ -27,6 +27,8 @@ See the README.md for usage instructions and documentation.
 
 from .compute_zscore import FinancialMetrics
 
+# All imports should be at the top of the file, per Python best practices.
+
 __all__ = [
     'FinancialMetrics',
 ]

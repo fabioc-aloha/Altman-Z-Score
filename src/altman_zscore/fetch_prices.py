@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import logging
 from time import sleep
 import pandas as pd
+import numpy as np
 
 # Filter out yfinance warnings related to auto_adjust changes
 warnings.filterwarnings('ignore', category=UserWarning, module='yfinance')
@@ -99,7 +100,6 @@ def get_closest_price(df: pd.DataFrame, target_date: str) -> float:
         df.index = pd.DatetimeIndex(df.index)
     
     # Calculate the absolute difference in days using vectorized operations
-    import numpy as np
     time_deltas = (df.index - pd.Timestamp(target)).values.astype('timedelta64[D]')
     days_diff = np.abs(time_deltas.astype(float))
     

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 from datetime import datetime
 from decimal import Decimal
+
 from .base import BaseResponse, ResponseStatus, DataQualityMetrics
 
 @dataclass
@@ -88,8 +89,6 @@ class YahooResponse(BaseResponse):
         return cls(
             status=base.status,
             timestamp=base.timestamp,
-            errors=base.errors,
-            warnings=base.warnings,
             request_id=data['requestId'],
             data_quality=DataQualityMetrics(
                 completeness=data['dataQuality']['completeness'],

@@ -23,8 +23,8 @@ Usage:
 """
 
 from typing import Dict, Optional
-import os
 import logging
+
 from .api.sec_client import SECClient
 
 logger = logging.getLogger(__name__)

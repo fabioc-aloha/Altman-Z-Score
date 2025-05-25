@@ -2,6 +2,8 @@
 Industry classifier for Altman Z-Score pipeline (MVP scaffold).
 """
 
+# All imports should be at the top of the file, per Python best practices.
+
 # DEPRECATED: Old classify_company using Yahoo API (rate-limited, unreliable)
 # def classify_company(ticker: str):
 #     """
@@ -19,7 +21,7 @@ Industry classifier for Altman Z-Score pipeline (MVP scaffold).
 #     try:
 #         resp = requests.get(url, timeout=10)
 #         data = resp.json()
-#         print(f"[DEBUG] Yahoo Finance API response for {ticker}: {data}")  # Debug output
+#         # print(f"[DEBUG] Yahoo Finance API response for {ticker}: {data}")  # Debug output
 #         profile = data['quoteSummary']['result'][0]['assetProfile']
 #         industry = profile.get('industry', '').lower()
 #         country = profile.get('country', '').lower()
@@ -27,7 +29,7 @@ Industry classifier for Altman Z-Score pipeline (MVP scaffold).
 #         is_emerging = country not in ['united states', 'canada', 'united kingdom', 'germany', 'france', 'japan', 'australia', 'netherlands', 'switzerland', 'sweden', 'norway', 'finland', 'denmark', 'belgium', 'austria', 'ireland', 'italy', 'spain', 'portugal', 'new zealand']
 #         return Profile(industry=industry, is_public=True, is_emerging_market=is_emerging)
 #     except Exception as e:
-#         print(f"[DEBUG] Exception in classify_company for {ticker}: {e}")  # Debug output
+#         # print(f"[DEBUG] Exception in classify_company for {ticker}: {e}")  # Debug output
 #         # Fallback: unknown industry, assume public, not emerging
 #         return Profile(industry='unknown', is_public=True, is_emerging_market=False)
 

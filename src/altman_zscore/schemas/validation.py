@@ -1,3 +1,5 @@
+# All imports should be at the top of the file, per Python best practices.
+
 # Pydantic schemas for validating SEC and Yahoo data for Altman Z-Score analysis
 from pydantic import BaseModel, Field
 from typing import Optional

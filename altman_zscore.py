@@ -1,0 +1,69 @@
+"""
+Altman Z-Score Analysis Pipeline Entry Point (MVP)
+
+This script serves as the main entry point and pipeline coordinator for single-stock Altman Z-Score trend analysis.
+It delegates analysis to the core logic in src/altman_zscore/one_stock_analysis.py.
+"""
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+from altman_zscore.one_stock_analysis import analyze_single_stock_zscore_trend, print_header, print_info, print_success, print_warning, print_error
+import argparse
+import time
+import pandas as pd
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Single Stock Altman Z-Score Trend Analysis")
+    parser.add_argument("ticker", type=str, help="Stock ticker symbol (e.g., AAPL)")
+    return parser.parse_args()
+
+def main():
+    args = parse_args()
+    ticker = args.ticker.upper()
+    print_header(f"ALTMAN Z-SCORE ANALYSIS: {ticker}")
+    print_info(f"Running Z-Score trend analysis for {ticker} (all available quarters)")
+    print_info(f"This may take a moment while we fetch financial data...")
+    try:
+        start_time = time.time()
+        df = analyze_single_stock_zscore_trend(ticker)
+        end_time = time.time()
+        if df is not None and not df.empty and 'zscore' in df.columns:
+            valid_scores = df[df['zscore'].notnull()]
+            if not valid_scores.empty:
+                print_header("ANALYSIS RESULTS")
+                result_df = df[['quarter_end', 'zscore']].copy()
+                result_df.columns = ['Quarter', 'Z-Score']
+                result_df = result_df.sort_values('Quarter', ascending=False)
+                formatted_results = []
+                for _, row in result_df.iterrows():
+                    quarter = row['Quarter']
+                    z_score = row['Z-Score']
+                    if pd.isna(z_score):
+                        score_str = f"N/A"
+                    else:
+                        if z_score < 1.8:
+                            score_str = f"{z_score:.2f} (Distress)"
+                        elif z_score < 3.0:
+                            score_str = f"{z_score:.2f} (Grey)"
+                        else:
+                            score_str = f"{z_score:.2f} (Safe)"
+                    formatted_results.append(f"{quarter}: {score_str}")
+                for result in formatted_results:
+                    print(result)
+                print("\nINTERPRETATION GUIDE:")
+                print("< 1.80: High likelihood of financial distress")
+                print("1.80 - 2.99: Grey area (uncertain)")
+                print("≥ 3.00: Safe zone, financially sound")
+                print_success(f"Analysis completed in {end_time - start_time:.2f} seconds")
+                print_info(f"Full results saved to output/{ticker}/")
+                print_info(f"Z-Score plot saved to output/{ticker}/zscore_{ticker}_trend.png")
+            else:
+                print_warning(f"No valid Z-Scores calculated for {ticker}")
+        else:
+            print_warning(f"No analysis results available for {ticker}")
+    except Exception as e:
+        print_error(f"Analysis failed: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

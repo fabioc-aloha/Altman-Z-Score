@@ -85,8 +85,6 @@ class EDGARResponse(BaseResponse):
         return cls(
             status=base.status,
             timestamp=base.timestamp,
-            errors=base.errors,
-            warnings=base.warnings,
             request_id=data['requestId'],
             data_quality=DataQualityMetrics(
                 completeness=data['dataQuality']['completeness'],
@@ -106,8 +104,8 @@ class CompanyResponse(EDGARResponse):
 class FilingResponse(EDGARResponse):
     """Response containing filing data."""
     filing: FilingInfo
-    xbrl_data: Optional[XBRLData]
-    raw_text: Optional[str]
+    xbrl_data: Optional[XBRLData] = None
+    raw_text: Optional[str] = None
 
 @dataclass
 class SearchResponse(EDGARResponse):

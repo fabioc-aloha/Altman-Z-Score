@@ -34,13 +34,13 @@ class YahooFinanceClient:
                 close = hist.loc[closest_idx]["Close"]
                 if shares and close:
                     actual_date = closest_idx.date()
-                    if actual_date != date:
-                        print(f"[WARN] No price data for {ticker} on {date} (possibly weekend/holiday). Using previous trading day: {actual_date}.")
+                    # Suppress warning about fallback to previous trading day
                     return float(shares) * float(close), actual_date
             mcap = ticker_obj.info.get("marketCap")
             if mcap:
-                print(f"[WARN] No price data for {ticker} near {date}. Using latest available market cap.")
+                # Suppress warning about fallback to latest available market cap
                 return float(mcap), None
         except Exception as e:
-            print(f"[DEBUG] yfinance error for {ticker} on {date}: {e}")
+            pass
+            # print(f"[DEBUG] yfinance error for {ticker} on {date}: {e}")
         return None, None

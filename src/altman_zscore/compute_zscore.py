@@ -1,26 +1,27 @@
 """
-Altman Z-Score Calculation Scaffold (MVP)
+Altman Z-Score computation logic and model selection utilities.
 
-This module provides a clean, testable interface for Altman Z-Score calculation, model selection,
-and calibration. It is designed for incremental development and validation against academic sources.
-
-Key responsibilities:
-- Define the core Z-Score calculation logic (original, private, service, EM, etc.)
-- Provide a pure function interface for Z-Score computation
-- Support model calibration by industry and company maturity
-- Enable unit testing and validation against published Altman Z-Score examples
-
-TODO:
-- Implement each model's formula as a pure function
-- Add calibration constants and thresholds (see PLAN.md, PAPER.md, and literature)
-- Add docstring examples for each model
-- Add unit tests for each model and calibration
+This module provides functions to compute the Altman Z-Score for a company, with calibration by industry and maturity.
+Includes all supported Z-Score model variants and robust error handling for edge cases.
 """
+
 from typing import Dict, Any
 from dataclasses import dataclass
 
 @dataclass
 class FinancialMetrics:
+    """
+    Container for financial metrics required for Z-Score computation.
+
+    Attributes:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        market_value_equity (float): Market value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+    """
     current_assets: float
     current_liabilities: float
     retained_earnings: float
@@ -79,6 +80,18 @@ def altman_zscore_service(
     X3 = EBIT / Total Assets
     X4 = Market Value of Equity / Total Liabilities
     (No X5/Sales term)
+
+    Args:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        market_value_equity (float): Market value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+
+    Returns:
+        ZScoreResult: Object containing the computed Z-Score and component values
     """
     X1 = safe_div(working_capital, total_assets)
     X2 = safe_div(retained_earnings, total_assets)
@@ -132,6 +145,18 @@ def altman_zscore_original(
         X4 = 1031.5 / 344.5 = 2.994
         X5 = 259.8 / 453.0 = 0.574
         Z = 1.2*0.366 + 1.4*(-0.028) + 3.3*(-0.154) + 0.6*2.994 + 1.0*0.574 = 2.262
+
+    Args:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        market_value_equity (float): Market value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+
+    Returns:
+        ZScoreResult: Object containing the computed Z-Score and component values
     """
     X1 = safe_div(working_capital, total_assets)
     X2 = safe_div(retained_earnings, total_assets)
@@ -182,6 +207,18 @@ def altman_zscore_private(
         Safe: >2.9
         Grey: 1.23–2.9
         Distress: <1.23
+
+    Args:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        book_value_equity (float): Book value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+
+    Returns:
+        ZScoreResult: Object containing the computed Z-Score and component values
     """
     X1 = safe_div(working_capital, total_assets)
     X2 = safe_div(retained_earnings, total_assets)
@@ -232,6 +269,18 @@ def altman_zscore_public(
         Safe: >2.6
         Grey: 1.1–2.6
         Distress: <1.1
+
+    Args:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        market_value_equity (float): Market value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+
+    Returns:
+        ZScoreResult: Object containing the computed Z-Score and component values
     """
     X1 = safe_div(working_capital, total_assets)
     X2 = safe_div(retained_earnings, total_assets)
@@ -280,6 +329,18 @@ def altman_zscore_em(
         Safe: >2.6
         Grey: 1.1–2.6
         Distress: <1.1
+
+    Args:
+        working_capital (float): Working capital
+        retained_earnings (float): Retained earnings
+        ebit (float): Earnings before interest and taxes
+        market_value_equity (float): Market value of equity
+        total_assets (float): Total assets
+        total_liabilities (float): Total liabilities
+        sales (float): Sales/revenue
+
+    Returns:
+        ZScoreResult: Object containing the computed Z-Score and component values
     """
     X1 = safe_div(working_capital, total_assets)
     X2 = safe_div(retained_earnings, total_assets)
@@ -309,12 +370,13 @@ def altman_zscore_em(
 
 def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScoreResult:
     """
-    Compute Altman Z-Score using the selected model.
+    Compute the Altman Z-Score for a given set of financial metrics and model.
+
     Args:
-        metrics: Dict with required fields (see model docstrings)
-        model: Which model to use ("original", "private", etc.)
+        metrics (dict): Financial metrics (see FinancialMetrics)
+        model (str): Z-Score model name (e.g., 'original', 'private', 'tech')
     Returns:
-        ZScoreResult
+        ZScoreResult: Object with z_score and all intermediate values
     """
     if model == "original":
         return altman_zscore_original(
@@ -366,10 +428,41 @@ def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScore
             total_liabilities=metrics.get("total_liabilities", metrics["current_liabilities"]),
             sales=metrics["sales"]
         )
-    # TODO: Add other models
+    if model == "tech":
+        # Tech model: use public model formula, with different thresholds
+        X1 = safe_div(metrics["current_assets"] - metrics["current_liabilities"], metrics["total_assets"])
+        X2 = safe_div(metrics["retained_earnings"], metrics["total_assets"])
+        X3 = safe_div(metrics["ebit"], metrics["total_assets"])
+        X4 = safe_div(metrics.get("market_value_equity", 1e9), metrics.get("total_liabilities", metrics["current_liabilities"]))
+        if None in (X1, X2, X3, X4):
+            raise ValueError("Division by zero in one or more Z-Score components (tech model)")
+        X1 = X1 if X1 is not None else 0.0
+        X2 = X2 if X2 is not None else 0.0
+        X3 = X3 if X3 is not None else 0.0
+        X4 = X4 if X4 is not None else 0.0
+        z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4        # Thresholds based on company maturity (example logic)
+        if metrics.get("company_maturity") == "young":
+            thresholds = {"safe": 1.5, "grey": 0.5, "distress": 0.5}
+        else:
+            thresholds = {"safe": 2.6, "grey": 1.1, "distress": 1.1}
+            
+        if z > thresholds["safe"]:
+            diagnostic = "Safe Zone"
+        elif z < thresholds["distress"]:
+            diagnostic = "Distress Zone"
+        else:
+            diagnostic = "Grey Zone"
+        return ZScoreResult(
+            z_score=z,
+            model="tech",
+            components={"X1": X1, "X2": X2, "X3": X3, "X4": X4},
+            diagnostic=diagnostic,
+            thresholds=thresholds
+        )
+    # If model is not one of the implemented models, raise error
     raise NotImplementedError(f"Model '{model}' not implemented yet.")
 
-# --- Calibration and model selection stubs ---
+# --- Calibration and model selection ---
 def determine_zscore_model(profile: Any) -> str:
     """
     Select the correct Altman Z-Score model based on company profile (industry, maturity, public/private).

@@ -80,9 +80,25 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - Fetches and validates 3 years of quarterly financials
   - Computes Altman Z-Score for each quarter, calibrated by industry/maturity
   - Outputs Z-Score trend as table and plot, with robust legend and company profile/model footnote (MVP complete as of May 24, 2025)
-- [ ] **v1: Overlay Stock Price Trend**
+- [ ] **v1: Overlay Stock Price Trend and Forecasting**
   - Fetches and overlays stock price trend for the same period
   - Combined plot of Z-Score and price
+  - **New Feature: Z-Score Forecasting**
+    - **Objective:** Add the ability to forecast the next quarter's Z-Score based on consensus estimates and other data sources.
+    - **Implementation Steps:**
+      1. **Data Collection:**
+         - Fetch consensus estimates for key financial metrics (e.g., revenue, EBITDA, net income) from Yahoo Finance or other APIs.
+         - Integrate additional data sources for industry trends and macroeconomic indicators.
+      2. **Forecasting Model:**
+         - Develop a lightweight forecasting model to estimate Z-Score components based on collected data.
+         - Use historical trends and industry benchmarks to refine predictions.
+      3. **Integration:**
+         - Extend the computation layer to include forecasted Z-Score values.
+         - Update the reporting layer to display forecasted Z-Score alongside historical trends.
+      4. **Validation:**
+         - Test the forecasting feature with multiple tickers to ensure accuracy and reliability.
+      5. **Documentation:**
+         - Update README.md and other documentation to include usage instructions and limitations for the forecasting feature.
 - [ ] **v2: Sentiment & News Analysis**
   - Integrates sentiment analysis and news highlights
   - Correlates operational health from news/SEC filings with Z-Score and price
@@ -105,7 +121,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 ## Project Guidance
 - Use this PLAN.md for high-level features, vision, and progress tracking.
 - Use TODO.md for actionable tasks, environment setup, and phase-specific work.
-- All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
+- All development and testing is performed in a consistent development environment—ensure compatibility at every step.
 - Preserve modularity, testability, and robust error handling throughout.
 - Each feature phase should be independently testable and deliver incremental value.
 
@@ -130,10 +146,15 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 ### Industry & Maturity Benchmarks
 - **Primary:** [WRDS](https://wrds-www.wharton.upenn.edu/) (academic, not free, but public summary data may be available)
 - **Alternative:** [Compustat](https://www.spglobal.com/marketintelligence/en/solutions/compustat-research-insight) (not free, but some open datasets exist)
-- **Free/Public:** Use published Altman Z-Score coefficients by industry from academic papers or open data repositories (document sources in DECISIONS.md)
+- **Free/Public:** Use published Altman Z-Score coefficients by industry from academic papers or open data repositories (document sources in APIS.md)
 
 ### General Principles
 - Prefer official, free, and well-documented APIs/libraries.
 - Use backup sources for redundancy and validation.
-- Document all API usage, rate limits, and licensing in DECISIONS.md.
+- Document all API usage, rate limits, and licensing in APIS.md.
 - Avoid paid APIs unless absolutely necessary for critical features.
+
+## Updated Entry Point
+- The main entry point for the Altman Z-Score analysis pipeline has been updated to `altman_zscore.py`.
+- All references to `one_stock_analysis.py` in the documentation and examples have been updated accordingly.
+- Ensure that the new entry point is tested and validated for all supported tickers.
