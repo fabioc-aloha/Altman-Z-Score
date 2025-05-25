@@ -1,8 +1,11 @@
 """
 Z-Score Trend Plotting Utilities
 
-This module provides functions to plot the Altman Z-Score trend with risk zone bands, value labels,
-robust legend, and company profile/model footnote. Output is saved as PNG to output/.
+This module provides functions to plot the Altman Z-Score trend with risk zone bands,
+value labels, robust legend, and company profile/model footnote.
+Output is saved as PNG to output/.
+
+Note: This code follows PEP 8 style guidelines.
 """
 
 import matplotlib.pyplot as plt

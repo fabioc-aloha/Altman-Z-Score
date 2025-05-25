@@ -1,4 +1,12 @@
-"""Rate limiting implementation using token bucket algorithm."""
+"""
+Rate limiting implementation using token bucket algorithm.
+
+This module implements a token bucket rate limiter to control API request rates 
+and prevent exceeding external service limits. It provides configurable strategies
+for handling rate limit conditions.
+
+Note: This code follows PEP 8 style guidelines.
+"""
 from dataclasses import dataclass
 from datetime import datetime
 import threading

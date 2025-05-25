@@ -1,4 +1,12 @@
-# fetch_prices.py
+"""
+Market price data fetching utilities for Altman Z-Score analysis.
+
+This module provides functions to retrieve historical stock price data
+using yfinance API, with retry logic and validation to handle edge cases.
+It supports fetching prices for specific dates and calculating price changes.
+
+Note: This code follows PEP 8 style guidelines.
+"""
 import warnings
 import yfinance as yf
 from datetime import datetime, timedelta

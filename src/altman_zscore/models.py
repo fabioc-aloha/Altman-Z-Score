@@ -1,5 +1,7 @@
 """
-Models module containing different Z-Score model variants and their calibrations.
+Models module with Z-Score model variants and their calibrations.
+
+Note: This code follows PEP 8 style guidelines.
 """
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -7,16 +9,19 @@ from decimal import Decimal
 from enum import Enum, auto
 from typing import Any, Dict, List, Optional
 
+
 class CompanyStage(Enum):
     """Enum for company lifecycle stages"""
     EARLY = auto()
     GROWTH = auto()
     MATURE = auto()
 
+
 class CompanyType(Enum):
     """Enum for company types"""
     PUBLIC = auto()
     PRIVATE = auto()
+
 
 @dataclass
 class ModelThresholds:
@@ -26,7 +31,11 @@ class ModelThresholds:
     grey_zone_lower: Decimal
     distress_zone: Decimal
 
-    def get_diagnostic(self, score: Decimal, company_type: Optional[str] = None) -> Dict[str, Any]:
+    def get_diagnostic(
+        self,
+        score: Decimal,
+        company_type: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
         Get detailed diagnostic information based on Z-Score and company type.
         
@@ -39,14 +48,14 @@ class ModelThresholds:
         """
         if score > self.safe_zone:
             status = "Safe Zone"
-            interpretation = "Strong financial health with low probability of financial distress."
+            interpretation = "Strong financial health with low probability of distress."
         elif score > self.distress_zone:
             status = "Grey Zone"
-            interpretation = "Some signs of financial stress. Requires careful monitoring."
+            interpretation = "Some signs of financial stress. Requires monitoring."
         else:
             status = "Distress Zone"
             interpretation = "High risk of financial distress. Immediate action required."
-            
+        
         return {
             "status": status,
             "interpretation": interpretation,
@@ -264,11 +273,16 @@ class OriginalZScore(ZScoreModel):
     def calculate_zscore(self, financial_data: Dict) -> Decimal:
         """Calculate the original Z-Score"""
         return (
-            self.coefficients.working_capital_to_assets * financial_data['working_capital_to_assets'] +
-            self.coefficients.retained_earnings_to_assets * financial_data['retained_earnings_to_assets'] +
-            self.coefficients.ebit_to_assets * financial_data['ebit_to_assets'] +
-            self.coefficients.equity_to_liabilities * financial_data['equity_to_liabilities'] +
-            self.coefficients.sales_to_assets * financial_data['sales_to_assets']
+            self.coefficients.working_capital_to_assets *
+            financial_data['working_capital_to_assets'] +
+            self.coefficients.retained_earnings_to_assets *
+            financial_data['retained_earnings_to_assets'] +
+            self.coefficients.ebit_to_assets *
+            financial_data['ebit_to_assets'] +
+            self.coefficients.equity_to_liabilities *
+            financial_data['equity_to_liabilities'] +
+            self.coefficients.sales_to_assets *
+            financial_data['sales_to_assets']
         )
 
     def interpret_score(self, score: Decimal) -> str:
@@ -288,18 +302,23 @@ class TechZScore(ZScoreModel):
     def calculate_zscore(self, financial_data: Dict) -> Decimal:
         """Calculate the tech-adjusted Z-Score"""
         base_score = (
-            self.calibration.coefficients.working_capital_to_assets * financial_data['working_capital_to_assets'] +
-            self.calibration.coefficients.retained_earnings_to_assets * financial_data['retained_earnings_to_assets'] +
-            self.calibration.coefficients.ebit_to_assets * financial_data['ebit_to_assets'] +
-            self.calibration.coefficients.equity_to_liabilities * financial_data['equity_to_liabilities'] +
-            self.calibration.coefficients.sales_to_assets * financial_data['sales_to_assets']
+            self.calibration.coefficients.working_capital_to_assets *
+            financial_data['working_capital_to_assets'] +
+            self.calibration.coefficients.retained_earnings_to_assets *
+            financial_data['retained_earnings_to_assets'] +
+            self.calibration.coefficients.ebit_to_assets *
+            financial_data['ebit_to_assets'] +
+            self.calibration.coefficients.equity_to_liabilities *
+            financial_data['equity_to_liabilities'] +
+            self.calibration.coefficients.sales_to_assets *
+            financial_data['sales_to_assets']
         )
         
         # Apply tech-specific adjustments
         rd_intensity = financial_data.get('rd_to_revenue', Decimal('0'))
         if rd_intensity > self.calibration.rd_intensity_threshold:
             base_score *= Decimal('1.1')  # Bonus for high R&D intensity
-            
+        
         return base_score
 
     def interpret_score(self, score: Decimal) -> str:

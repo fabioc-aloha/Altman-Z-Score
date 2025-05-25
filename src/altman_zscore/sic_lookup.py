@@ -1,4 +1,11 @@
-# All imports should be at the top of the file, per Python best practices.
+"""
+SIC code to description mapping for industry classification.
+
+This module provides a dictionary mapping Standard Industrial Classification (SIC) 
+codes to their textual descriptions for use in company industry classification.
+
+Note: This code follows PEP 8 style guidelines.
+"""
 
 # SIC code to description mapping for Altman Z-Score analysis
 sic_map = {

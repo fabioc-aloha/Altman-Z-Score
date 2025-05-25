@@ -1,28 +1,52 @@
 """
 Altman Z-Score Analysis Pipeline Entry Point (MVP)
 
-This script serves as the main entry point and pipeline coordinator for single-stock Altman Z-Score trend analysis.
-It delegates analysis to the core logic in src/altman_zscore/one_stock_analysis.py.
+This script serves as the main entry point and pipeline coordinator for
+single-stock Altman Z-Score trend analysis. It delegates analysis to the
+core logic in src/altman_zscore/one_stock_analysis.py.
+
+Note: This code follows PEP 8 style guidelines.
 """
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-from altman_zscore.one_stock_analysis import analyze_single_stock_zscore_trend, print_header, print_info, print_success, print_warning, print_error
 import argparse
+import os
+import sys
 import time
+
 import pandas as pd
 
+# Add src directory to path for relative imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+from altman_zscore.one_stock_analysis import (  # noqa: E402
+    analyze_single_stock_zscore_trend,
+    print_header,
+    print_info,
+    print_success,
+    print_warning,
+    print_error
+)
+
+
 def parse_args():
-    parser = argparse.ArgumentParser(description="Single Stock Altman Z-Score Trend Analysis")
-    parser.add_argument("ticker", type=str, help="Stock ticker symbol (e.g., AAPL)")
+    """Parse command line arguments for the Altman Z-Score analysis."""
+    parser = argparse.ArgumentParser(
+        description="Single Stock Altman Z-Score Trend Analysis"
+    )
+    parser.add_argument(
+        "ticker",
+        type=str,
+        help="Stock ticker symbol (e.g., AAPL)"
+    )
     return parser.parse_args()
 
+
 def main():
+    """Main entry point for the Altman Z-Score analysis pipeline."""
     args = parse_args()
     ticker = args.ticker.upper()
     print_header(f"ALTMAN Z-SCORE ANALYSIS: {ticker}")
-    print_info(f"Running Z-Score trend analysis for {ticker} (all available quarters)")
-    print_info(f"This may take a moment while we fetch financial data...")
+    msg = f"Running Z-Score trend for {ticker} (all quarters)"
+    print_info(msg)
+    print_info("This may take a moment while we fetch financial data...")
     try:
         start_time = time.time()
         df = analyze_single_stock_zscore_trend(ticker)
@@ -39,7 +63,7 @@ def main():
                     quarter = row['Quarter']
                     z_score = row['Z-Score']
                     if pd.isna(z_score):
-                        score_str = f"N/A"
+                        score_str = "N/A"
                     else:
                         if z_score < 1.8:
                             score_str = f"{z_score:.2f} (Distress)"
@@ -54,9 +78,11 @@ def main():
                 print("< 1.80: High likelihood of financial distress")
                 print("1.80 - 2.99: Grey area (uncertain)")
                 print("≥ 3.00: Safe zone, financially sound")
-                print_success(f"Analysis completed in {end_time - start_time:.2f} seconds")
+                elapsed = end_time - start_time
+                print_success(f"Analysis completed in {elapsed:.2f} seconds")
                 print_info(f"Full results saved to output/{ticker}/")
-                print_info(f"Z-Score plot saved to output/{ticker}/zscore_{ticker}_trend.png")
+                plot_path = f"output/{ticker}/zscore_{ticker}_trend.png"
+                print_info(f"Z-Score plot saved to {plot_path}")
             else:
                 print_warning(f"No valid Z-Scores calculated for {ticker}")
         else:
@@ -64,6 +90,7 @@ def main():
     except Exception as e:
         print_error(f"Analysis failed: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
