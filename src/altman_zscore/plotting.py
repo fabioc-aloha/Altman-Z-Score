@@ -155,9 +155,16 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, price_
             # Match price data with quarter dates
             price_at_quarters = []
             for date in x_dates:
-                # Get closest price to quarter end date
-                closest_idx = (price_data.index - date).abs().argmin()
-                price_at_quarters.append(price_data['Close'].iloc[closest_idx])
+                # Convert date to Timestamp if it's not already
+                if not isinstance(date, pd.Timestamp):
+                    date = pd.Timestamp(date)
+                
+                # Find closest price data point to the quarter end date
+                if not price_data.empty:
+                    # Calculate absolute difference between each price date and the target date
+                    date_diffs = abs(price_data.index.astype('datetime64[ns]') - date.to_datetime64())
+                    closest_idx = date_diffs.argmin()
+                    price_at_quarters.append(price_data['Close'].iloc[closest_idx])
             
             # Plot stock price on secondary y-axis
             ax2.plot(x_pos, price_at_quarters, marker='s', linestyle='--', 
