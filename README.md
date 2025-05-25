@@ -3,10 +3,11 @@
 A modern, robust, and modular Python tool for deep single-stock Altman Z-Score trend analysis, designed for reliability, transparency, and extensibility. Built for professional and academic use, with a conservative, incremental rollout policy and a focus on best practices in quantitative and qualitative stock analysis.
 
 ---
-**Project Status (as of May 24, 2025):**
+**Project Status (as of May 2025):**
 - **MVP (Single-Stock Z-Score Trend Analysis) is complete and stable.**
-- All reporting, charting, and error handling features for the MVP are implemented and tested.
-- The project is now focused on **v1: Overlay Stock Price Trend** (in progress).
+- **v1 (Stock Price Trend Overlay) is now implemented.**
+- All reporting, charting, and error handling features are implemented and tested.
+- The project is proceeding to **v2: Sentiment & News Analysis** next.
 - All development and testing is performed in GitHub Codespaces and is fully compatible.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 ---
@@ -56,15 +57,23 @@ The main entry point for running the Altman Z-Score analysis pipeline is now `al
 #### Usage
 To analyze a stock, run the following command:
 ```sh
-python altman_zscore.py --ticker <TICKER>
+python altman_zscore.py <TICKER>
 ```
 Replace `<TICKER>` with the stock ticker symbol you want to analyze (e.g., `AAPL`, `MSFT`).
 
 #### Example
 ```sh
-python altman_zscore.py --ticker MSFT
+python altman_zscore.py MSFT
 ```
-This will generate the Z-Score trend analysis for Microsoft and save the results in the `output/` directory.
+This will generate the Z-Score trend analysis with stock price overlay for Microsoft and save the results in the `output/` directory.
+
+#### Output Files
+For each analysis, the following files are created in `output/<TICKER>/`:
+1. `zscore_<TICKER>_trend.png` - High-resolution PNG chart with Z-Score trend and stock price overlay
+2. `zscore_<TICKER>_trend.svg` - (Optional) SVG vector format of the chart if enabled
+3. `zscore_<TICKER>_results.csv` - CSV file with Z-Score values for each quarter
+4. `zscore_<TICKER>_results.json` - JSON file with detailed Z-Score data and analysis metadata
+5. `zscore_<TICKER>_summary.txt` - Text summary of the analysis results
 
 ### Development & Contribution
 - All changes must pass existing and new tests.
@@ -76,7 +85,7 @@ This will generate the Z-Score trend analysis for Microsoft and save the results
 
 ### Roadmap
 - [x] MVP: Single-Stock Z-Score Trend Analysis
-- [ ] v1: Overlay Stock Price Trend
+- [x] v1: Overlay Stock Price Trend
 - [ ] v2: Sentiment & News Analysis
 - [ ] v3: Portfolio Analysis
 - [ ] v4: Advanced Correlation & Insights
@@ -112,7 +121,8 @@ See `.env.example` for all available options and documentation.
 - This project uses a Python virtual environment (`.venv`) for dependency management and isolation.
 - See `docs/venv_setup.md` for detailed instructions on setting up and activating the virtual environment.
 
-## Key Features Implemented (as of May 24, 2025)
+## Key Features Implemented (as of May 2025)
+### MVP (Completed)
 - Single-stock Z-Score analysis pipeline: end-to-end, from input to reporting
 - Industry classification: yfinance, SEC EDGAR, and static patterns for robust mapping
 - Model selection: automatic based on company profile
@@ -123,11 +133,16 @@ See `.env.example` for all available options and documentation.
   - Z-Score trend plot as PNG, with risk zone bands, value labels, quarter-based x-axis, and a robust legend showing all risk zones and thresholds (saved to output/)
   - Company profile, SIC code, and model details included as a footnote in the chart
   - Output directory is created if missing; absolute path to chart is printed after saving
-- Edge-case handling: improved classification and error reporting for tickers like SONO and YHOO
-- Note: Rivian (RIVN) is a well-known, high-profile growth-stage company in the EV sector. It is classified as "mature" due to SIC 3711 (Motor Vehicles) for model selection purposes, but this does not reflect its true business maturity, age, or profitability. This is not a forensic or obscure edge case, but a limitation of SIC-based mapping for model selection.
-- Tested tickers: MSFT, AAPL, SONO, YHOO (outputs verified)
-- Modular code: plotting logic in src/altman_zscore/plotting.py
-- Local development: all work in a local .venv (see docs/venv_setup.md)
+
+### v1 (Latest)
+- Stock price overlay on Z-Score charts:
+  - Visualizes stock price trends alongside Z-Score data on dual y-axis charts
+  - Clear visual distinction between Z-Scores and stock prices with different colors and line styles
+  - Enhanced legend with Z-Score and price trend information
+  - Detailed footnotes explaining Z-Score risk zones and price correlations
+  - High-resolution PNG output (300 DPI) for clear visualization
+  - Optional SVG format support for scalable vector graphics
+- Improved reporting and visualization quality
 
 ## How to Run
 1. Activate your .venv and install dependencies (pip install -r requirements.txt)
