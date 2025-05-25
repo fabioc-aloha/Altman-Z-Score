@@ -358,14 +358,47 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     else:
         industry_foot = industry if industry else 'Unknown industry'
     footnote = f"Industry: {industry_foot} | Maturity: {maturity_desc} | Public: {is_public} | Emerging Market: {is_em} | Model: {model}"
-    # Plot trend (MVP: simple matplotlib line plot)
+    
+    # Fetch stock price data for overlay
+    price_data = None
+    try:
+        # Get stock price data for the same time period as Z-Score data
+        # Sort df by quarter_end to ensure correct date range
+        df_sorted = df.sort_values('quarter_end')
+        if not df_sorted.empty:
+            # Get date range
+            start_date = pd.to_datetime(df_sorted['quarter_end'].iloc[0])
+            end_date = pd.to_datetime(df_sorted['quarter_end'].iloc[-1])
+            
+            # Add buffer days for better visualization
+            start_date = (start_date - pd.Timedelta(days=30)).strftime('%Y-%m-%d')
+            end_date = (pd.to_datetime(end_date) + pd.Timedelta(days=30)).strftime('%Y-%m-%d')
+            
+            # Import price fetching functions
+            from altman_zscore.fetch_prices import get_market_data
+            
+            # Fetch price data
+            print_info(f"Fetching historical price data for {ticker} ({start_date} to {end_date})...")
+            price_data = get_market_data(ticker, start_date)
+            
+            # Filter price data to the relevant date range
+            if not price_data.empty:
+                price_data = price_data[(price_data.index >= start_date) & (price_data.index <= end_date)]
+                print_info(f"Successfully fetched {len(price_data)} price data points")
+    except Exception as e:
+        print_warning(f"Could not fetch stock price data: {e}")
+        price_data = None
+    
+    # Plot trend (with price overlay if available)
     try:
         from altman_zscore.plotting import plot_zscore_trend
-        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote)
+        # Default to not saving SVG to maintain backward compatibility
+        save_svg = False
+        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote, price_data=price_data, save_svg=save_svg)
     except ImportError:
-        print("[WARN] matplotlib not installed, skipping plot.")
+        print_warning("matplotlib not installed, skipping plot.")
     except Exception as e:
-        print(f"[WARN] Could not plot Z-Score trend: {e}")
+        print_warning(f"Could not plot Z-Score trend: {e}")
     # Save any additional output/diagnostic files to the ticker subfolder
     # Example: move bs_columns, bs_index, is_columns, yf_info files if they exist
     diagnostic_files = [

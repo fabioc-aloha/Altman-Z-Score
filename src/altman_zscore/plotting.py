@@ -51,9 +51,9 @@ def print_error(msg):
     except:
         print(f"[ERROR] {msg}")
 
-def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
+def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, price_data=None, save_svg=False):
     """
-    Plot the Altman Z-Score trend with colored risk bands and save as PNG.
+    Plot the Altman Z-Score trend with colored risk bands and optional stock price overlay.
 
     Args:
         df (pd.DataFrame): DataFrame with columns ['quarter_end', 'zscore']
@@ -61,14 +61,17 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
         profile_footnote (str, optional): Footnote string for chart (company profile/model info)
+        price_data (pd.DataFrame, optional): DataFrame with stock price data (datetime index and 'Close' column)
+        save_svg (bool, optional): If True, also saves the chart as SVG
     
     Returns:
-        None. Saves PNG to output/ and prints absolute path.
+        None. Saves high-resolution PNG (and optionally SVG) to output/ and prints absolute path.
     
     Notes:
         - Handles missing/invalid data gracefully.
         - Adds value labels, robust legend, and footnote.
         - Output directory is created if missing.
+        - Supports stock price overlay on secondary y-axis if price_data is provided.
     """
     plot_df = df[df["zscore"].notnull()]
     if plot_df.empty:
@@ -129,15 +132,53 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
     x_dates = plot_df['quarter_end']
     x_quarters = [f"{d.year}Q{((d.month-1)//3)+1}" for d in x_dates]
     x_pos = range(len(x_quarters))
-    plt.plot(x_pos, zscores, marker='o', label="Z-Score", color='blue', zorder=2)
-    # Add value labels to each Z-Score point
+    
+    # Get primary axis and plot Z-Score
     ax = plt.gca()
+    ax.plot(x_pos, zscores, marker='o', label="Z-Score", color='blue', zorder=2)
+    
+    # Add value labels to each Z-Score point
     for i, z_val in enumerate(zscores):
         try:
             label = f"{z_val:.2f}"
             ax.annotate(label, (i, z_val), textcoords="offset points", xytext=(0,8), ha='center', fontsize=9, color='blue')
         except Exception:
             pass
+    
+    # Handle secondary y-axis for price data if provided
+    ax2 = None
+    if price_data is not None and not price_data.empty:
+        try:
+            # Create secondary y-axis for stock price
+            ax2 = ax.twinx()
+            
+            # Match price data with quarter dates
+            price_at_quarters = []
+            for date in x_dates:
+                # Get closest price to quarter end date
+                closest_idx = (price_data.index - date).abs().argmin()
+                price_at_quarters.append(price_data['Close'].iloc[closest_idx])
+            
+            # Plot stock price on secondary y-axis
+            ax2.plot(x_pos, price_at_quarters, marker='s', linestyle='--', 
+                     label="Stock Price", color='#d62728', zorder=1)
+            
+            # Configure secondary axis
+            ax2.set_ylabel(f"Stock Price ($)", color='#d62728')
+            ax2.tick_params(axis='y', colors='#d62728')
+            
+            # Optional: Add value labels to price points
+            for i, price in enumerate(price_at_quarters):
+                try:
+                    label = f"${price:.2f}"
+                    ax2.annotate(label, (i, price), textcoords="offset points", 
+                                xytext=(0,8), ha='center', fontsize=9, 
+                                color='#d62728', rotation=0)
+                except Exception:
+                    pass
+        except Exception as e:
+            print_warning(f"Could not plot stock price data: {e}")
+    
     # Format x-axis dates to show as quarters (e.g., '2024Q1'), horizontal
     ax.set_xticks(list(x_pos))
     ax.set_xticklabels(x_quarters, rotation=0, ha='center')
@@ -154,8 +195,11 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
     if not company_name:
         company_name = ticker.upper()
 
-    # Create title and subtitle
-    plt.title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
+    # Create title with price overlay indicator if applicable
+    if price_data is not None and not price_data.empty:
+        plt.title(f"Altman Z-Score Trend with Stock Price Overlay for {company_name} ({ticker.upper()})")
+    else:
+        plt.title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
     
     plt.xlabel("Quarter End")
     plt.ylabel("Z-Score")
@@ -174,9 +218,20 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
               markersize=4, linestyle='-', linewidth=1)
     ]
     
-    # Add legend with 4 columns
-    plt.gcf().subplots_adjust(bottom=0.22)  # Increased bottom margin from 0.2 to 0.22
-    plt.legend(handles=legend_elements, ncol=4, bbox_to_anchor=(0.5, -0.25),  # Moved down from -0.15 to -0.25
+    # Add stock price to legend if it was plotted
+    if ax2 is not None:
+        legend_elements.append(
+            Line2D([0], [0], color='#d62728', marker='s', label='Stock Price', 
+                  markersize=4, linestyle='--', linewidth=1)
+        )
+    
+    # Adjust bottom margin based on legend size
+    margin_factor = 0.22 if len(legend_elements) <= 4 else 0.25
+    plt.gcf().subplots_adjust(bottom=margin_factor)
+    
+    # Add legend with appropriate number of columns
+    ncols = 4 if len(legend_elements) <= 4 else 5
+    plt.legend(handles=legend_elements, ncol=ncols, bbox_to_anchor=(0.5, -0.25),
               loc='center', fontsize=8, frameon=True, framealpha=0.9)
     
     # Add profile info as subtitle if available
@@ -184,14 +239,36 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
         plt.figtext(0.5, 0.95, profile_footnote, 
                    ha='center', va='top', fontsize=9, color='#666666')
     
+    # Add explanation footnote about Z-Score and stock prices
+    explanation_footnote = (
+        "Z-Score Interpretation: <1.8: High distress risk | 1.8-2.99: Grey zone | ≥3.0: Safe zone\n" +
+        "Stock price overlay shows relative price performance during the period analyzed"
+    ) if price_data is not None else (
+        "Z-Score Interpretation: <1.8: High distress risk | 1.8-2.99: Grey zone | ≥3.0: Safe zone"
+    )
+    
+    plt.figtext(0.5, 0.01, explanation_footnote,
+               ha='center', va='bottom', fontsize=8, color='#444444',
+               bbox=dict(boxstyle="round,pad=0.5", fc="#f9f9f9", ec="#cccccc", alpha=0.8))
+    
     # Ensure output subdirectory for ticker exists
     ticker_dir = os.path.join('output', ticker.upper())
     if not os.path.exists(ticker_dir):
         os.makedirs(ticker_dir, exist_ok=True)
     
+    # Save high-resolution PNG (300 dpi)
     out_path = os.path.join(ticker_dir, f"zscore_{ticker}_trend.png")
-    plt.savefig(out_path)
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
     print_info(f"Z-Score trend plot saved to {os.path.abspath(out_path)}")
+    
+    # Save as SVG if requested
+    if save_svg:
+        svg_path = os.path.join(ticker_dir, f"zscore_{ticker}_trend.svg")
+        try:
+            plt.savefig(svg_path, format='svg', bbox_inches='tight')
+            print_info(f"Z-Score trend plot also saved as SVG: {os.path.abspath(svg_path)}")
+        except Exception as e:
+            print_warning(f"Could not save SVG format: {e}")
     
     # Only show the plot if running interactively (not in headless environment)
     if hasattr(sys, 'ps1') or sys.flags.interactive:
