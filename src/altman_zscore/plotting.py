@@ -187,7 +187,7 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
             color='#007a00', fontsize=11, ha='left', va='center',
             alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)
 
-    # Use integer positions for x-axis to ensure correct plotting and annotation
+    # Plot Z-scores
     x_dates = plot_df['quarter_end']
     x_quarters = [f"{d.year}Q{((d.month-1)//3)+1}" for d in x_dates]
     x_pos = range(len(x_quarters))
@@ -207,6 +207,8 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
                            xytext=(0,-15), ha='center', fontsize=8, color='green')
             except Exception:
                 pass
+    elif len(norm_stock_prices) > 0:
+        print_warning(f"Stock price data length ({len(norm_stock_prices)}) doesn't match Z-score data length ({len(x_pos)}). Stock line not plotted.")
         
     # Add value labels to each Z-Score point
     ax = plt.gca()
@@ -269,8 +271,16 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None):
     
     # Add stock price line to legend if available
     if norm_stock_prices:
+        # Create a label with the date range
+        if len(date_strs) >= 2:
+            first_date = pd.to_datetime(date_strs[0]).strftime('%b %Y')
+            last_date = pd.to_datetime(date_strs[-1]).strftime('%b %Y')
+            stock_label = f'Stock Value\n{first_date}-{last_date}'
+        else:
+            stock_label = 'Stock Value\nTrend Line'
+            
         legend_elements.append(
-            Line2D([0], [0], color='green', marker='^', label='Stock Value\nTrend Line', 
+            Line2D([0], [0], color='green', marker='^', label=stock_label, 
                   markersize=4, linestyle='--', linewidth=1)
         )
     
