@@ -253,3 +253,43 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
         return start_price, end_price
     except (IndexError, KeyError) as e:
         raise ValueError(f"Error accessing price data for {ticker}: {str(e)}")
+
+def get_quarterly_prices(ticker: str, quarters_list) -> pd.DataFrame:
+    """
+    Get stock prices for a list of quarter end dates.
+    
+    Args:
+        ticker: Stock symbol
+        quarters_list: List of quarter end dates (can be strings or datetime)
+        
+    Returns:
+        pd.DataFrame: DataFrame with 'quarter_end' and 'price' columns
+        
+    Raises:
+        ValueError: If prices cannot be fetched
+    """
+    results = []
+    
+    for quarter_end in quarters_list:
+        try:
+            # Ensure date is in string format
+            if not isinstance(quarter_end, str):
+                quarter_date = pd.to_datetime(quarter_end).strftime('%Y-%m-%d')
+            else:
+                quarter_date = quarter_end
+                
+            # Get market data for the quarter end date
+            df = get_market_data(ticker, quarter_date)
+            price = get_closest_price(df, quarter_date)
+            
+            results.append({
+                'quarter_end': pd.to_datetime(quarter_date),
+                'price': price
+            })
+        except Exception as e:
+            print(f"[WARN] Could not fetch price for {ticker} on {quarter_date}: {str(e)}")
+    
+    if not results:
+        raise ValueError(f"Could not fetch any prices for {ticker}")
+    
+    return pd.DataFrame(results)
