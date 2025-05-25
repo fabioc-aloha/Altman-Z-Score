@@ -1,5 +1,7 @@
 """
 Models module containing different Z-Score model variants and their calibrations.
+
+Note: This code follows PEP 8 style guidelines.
 """
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
