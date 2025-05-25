@@ -96,10 +96,16 @@ This MVP release satisfies all the requirements specified in the roadmap and del
 
 ---
 ## Next Steps: v1 Overlay Stock Price Trend
-- [ ] Design and implement overlay of stock price trend on Z-Score chart
-- [ ] Fetch historical price data for the same period as Z-Score analysis
-- [ ] Update plotting logic to combine Z-Score and price trend (dual y-axis or overlay)
-- [ ] Update tests and documentation for v1 features
+- [x] Design and implement overlay of stock price trend on Z-Score chart
+- [x] Fetch historical price data for the same period as Z-Score analysis
+- [x] Update plotting logic to combine Z-Score and price trend (dual y-axis or overlay)
+- [x] Update tests and documentation for v1 features
 
 ---
-MVP is complete as of May 24, 2025. Use this list for v1 and future progress tracking.
+v1 is complete as of May 2025. Use this list for v2 and future progress tracking.
+
+## Next Steps: v2 Sentiment & News Analysis
+- [ ] Design and implement sentiment analysis for news related to the company
+- [ ] Incorporate news sentiment into the Z-Score analysis
+- [ ] Update plotting logic to include sentiment indicators
+- [ ] Update tests and documentation for v2 features
