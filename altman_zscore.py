@@ -94,3 +94,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# To run the script for Microsoft (MSFT) stock, use the following command:
+# python altman_zscore.py MSFT
