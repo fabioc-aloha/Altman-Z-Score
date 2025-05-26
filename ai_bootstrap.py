@@ -14,6 +14,7 @@ import logging
 from typing import Dict, Any, Optional, Union, List
 import json
 from pathlib import Path
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
@@ -154,7 +155,6 @@ def run_test() -> None:
     """
     Run basic tests for the AI pipeline.
     """
-    from datetime import datetime
     
     logger.info("Running AI pipeline test...")
     
@@ -275,5 +275,4 @@ def main():
         parser.print_help()
         
 if __name__ == "__main__":
-    from datetime import datetime
     main()
