@@ -218,10 +218,13 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
                                     ha='center', fontsize=9, color='green')
                     except Exception:
                         pass
-                
-                # Set y-label for the secondary axis
+                  # Set y-label for the secondary axis
                 ax2.set_ylabel("Stock Price ($)", color='green')
                 ax2.tick_params(axis='y', labelcolor='green')
+                
+                # Force the y-axis for stock prices to start at 0
+                y_min, y_max = ax2.get_ylim()
+                ax2.set_ylim(bottom=0, top=y_max * 1.1)  # Start at 0, add 10% padding to the top
                 
                 # Add stock price line to legend_elements
                 legend_elements.append(

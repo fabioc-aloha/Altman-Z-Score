@@ -269,9 +269,10 @@ def get_quarterly_prices(ticker: str, quarters_list) -> pd.DataFrame:
         ValueError: If prices cannot be fetched
     """
     results = []
-    
     for quarter_end in quarters_list:
-        try:            # Ensure date is in string format (YYYY-MM-DD) without time component
+        quarter_date = None  # Initialize quarter_date to avoid unbound variable issue
+        try:
+            # Ensure date is in string format (YYYY-MM-DD) without time component
             if isinstance(quarter_end, str):
                 # Remove any time component if present
                 quarter_date = quarter_end.split()[0]
@@ -288,7 +289,9 @@ def get_quarterly_prices(ticker: str, quarters_list) -> pd.DataFrame:
                 'price': price
             })
         except Exception as e:
-            print(f"[WARN] Could not fetch price for {ticker} on {quarter_date}: {str(e)}")
+            # Use quarter_end if quarter_date is None (conversion failed)
+            error_date = quarter_date if quarter_date else str(quarter_end)
+            print(f"[WARN] Could not fetch price for {ticker} on {error_date}: {str(e)}")
     
     if not results:
         raise ValueError(f"Could not fetch any prices for {ticker}")
