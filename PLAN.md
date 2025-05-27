@@ -80,11 +80,12 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - Fetches and validates 3 years of quarterly financials
   - Computes Altman Z-Score for each quarter, calibrated by industry/maturity
   - Outputs Z-Score trend as table and plot, with robust legend and company profile/model footnote (MVP complete as of May 24, 2025)
-- [x] **v1: Overlay Stock Price Trend** (Partially Complete as of May 27, 2025)
+- [x] **v1: Overlay Stock Price Trend** (Complete as of May 27, 2025)
   - [x] Fetches and overlays stock price trend for the same period
   - [x] Combined plot of Z-Score and price
   - [x] Fixed date formatting issue in price fetching function to handle datetime strings with time components
-  - [ ] **New Feature: Z-Score Forecasting** (Planned)
+- [ ] **v2: Z-Score Forecasting & Sentiment Analysis**
+  - [ ] **Z-Score Forecasting Feature:**
     - **Objective:** Add the ability to forecast the next quarter's Z-Score based on consensus estimates and other data sources.
     - **Implementation Steps:**
       1. **Data Collection:**
@@ -100,6 +101,8 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
          - Test the forecasting feature with multiple tickers to ensure accuracy and reliability.
       5. **Documentation:**
          - Update README.md and other documentation to include usage instructions and limitations for the forecasting feature.
+  - [ ] Integrates sentiment analysis and news highlights
+  - [ ] Correlates operational health from news/SEC filings with Z-Score and price
 - [ ] **v2: Sentiment & News Analysis**
   - Integrates sentiment analysis and news highlights
   - Correlates operational health from news/SEC filings with Z-Score and price

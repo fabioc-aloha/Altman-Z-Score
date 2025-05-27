@@ -53,35 +53,28 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             "total_liabilities", "book_value_equity", "ebit", "sales"
         ],
     }
-    required_fields = {
+      required_fields = {
         "total_assets": [
             "Total Assets",
             "Total Assets Net Minority Interest",
-            "Total Assets Including Net Minority Interest",
-            "Assets",  # AAPL fallback
-            "Assets Total"  # AAPL fallback
+            "Total Assets Including Net Minority Interest"
         ],
         "current_assets": [
             "Current Assets",
-            "Total Current Assets",
-            "Assets Current"  # AAPL fallback
+            "Total Current Assets"
         ],
         "current_liabilities": [
             "Current Liabilities",
-            "Total Current Liabilities",
-            "Liabilities Current"  # AAPL fallback
-        ],
-        "retained_earnings": [
+            "Total Current Liabilities"
+        ],        "retained_earnings": [
             "Retained Earnings",
             "Retained Earnings Total Equity",
-            "Gains Losses Not Affecting Retained Earnings",  # TSLA-specific
-            "Other Equity Adjustments",  # TSLA sometimes uses this
-            "Retained Earnings Accumulated Deficit"  # AAPL fallback
+            "Gains Losses Not Affecting Retained Earnings"
         ],
         "total_liabilities": [
             "Total Liab",
             "Total Liabilities",
-            "Total Liabilities Net Minority Interest",
+            "Total Liabilities Net Minority Interest", 
             "Total Liabilities Including Net Minority Interest",
             "Total Non Current Liabilities Net Minority Interest"
         ],
@@ -90,19 +83,16 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             "Total Equity Gross Minority Interest",
             "Total Equity",
             "Total Shareholder Equity",
-            "Stockholders Equity",  # TSLA
-            "Common Stock Equity",   # TSLA
-            "Tangible Book Value",   # TSLA (sometimes used)
-            "Net Tangible Assets"    # TSLA (sometimes used)
+            "Stockholders Equity",
+            "Common Stock Equity"
         ],
         "ebit": [
             "Ebit",
             "EBIT",
             "Earnings Before Interest and Taxes",
             "Operating Income",
-            "Operating Revenue",  # TSLA
-            "Total Operating Income As Reported",  # TSLA
-            "Gross Profit"  # fallback for TSLA if no EBIT/Operating Income
+            "Operating Revenue",
+            "Total Operating Income As Reported"
         ],
         "sales": [
             "Total Revenue",

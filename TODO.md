@@ -100,10 +100,15 @@ This MVP release satisfies all the requirements specified in the roadmap and del
 - [x] Fetch historical price data for the same period as Z-Score analysis
 - [x] Update plotting logic to combine Z-Score and price trend (dual y-axis or overlay)
 - [x] Fix date formatting issue in `get_quarterly_prices` function to handle datetime strings with time components
-- [ ] Add Z-Score forecasting capability based on consensus estimates
-- [ ] Update tests and documentation for v1 features
+- [x] Update tests and documentation for v1 features
+
+## Future Enhancements (v2 and beyond)
+- [ ] v2: Z-Score Forecasting & Sentiment Analysis
+  - [ ] Add Z-Score forecasting capability based on consensus estimates
+  - [ ] Implement sentiment analysis from news sources
+  - [ ] Correlate operational health indicators with Z-Score and price trends
 
 ---
 MVP is complete as of May 24, 2025.
-V1 Stock Price Overlay feature completed on May 27, 2025.
+v1 Stock Price Overlay feature completed on May 27, 2025.
 Use this list for v1 and future progress tracking.
