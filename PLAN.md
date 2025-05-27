@@ -18,7 +18,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
    - Optionally accepts industry and company maturity overrides.
 2. **Data Fetching Layer**
    - Fetches financials from SEC EDGAR (XBRL) using `sec-api` or `sec-edgar-downloader`.
-   - Parses XBRL using `arelle` or `xbrlparse` (latest maintained).
+   - Parses XBRL using `xbrlparse` (latest maintained).
    - Fetches market data from Yahoo Finance using `yfinance`.
    - Optionally fetches industry/maturity benchmarks from public datasets (e.g., WRDS, Compustat, or open data).
 3. **Validation Layer**
@@ -38,13 +38,13 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 ## Implementation Steps
 1. **Bootstrap New Codebase**
    - Scaffold `src/altman_zscore/one_stock_analysis.py` for the single-stock pipeline.
-   - Use only minimal, modern dependencies (`pandas`, `requests`, `pydantic`, `yfinance`, `sec-api`, `arelle`/`xbrlparse`, `matplotlib`/`plotly`).
+   - Use only minimal, modern dependencies (`pandas`, `requests`, `pydantic`, `yfinance`, `sec-api`, `xbrlparse`, `matplotlib`/`plotly`).
 2. **Implement Input & Config Handling**
    - Parse CLI args or function params for ticker, date, industry, and maturity.
    - Validate inputs.
 3. **Implement Data Fetching**
    - Write `fetch_sec_financials(ticker, date)` using `sec-api` or `sec-edgar-downloader`.
-   - Parse XBRL with `arelle` or `xbrlparse`.
+   - Parse XBRL with `xbrlparse`.
    - Write `fetch_yahoo_market_data(ticker, date)` using `yfinance`.
    - Fetch industry/maturity benchmarks if available.
 4. **Implement Validation Schemas**
@@ -80,10 +80,11 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - Fetches and validates 3 years of quarterly financials
   - Computes Altman Z-Score for each quarter, calibrated by industry/maturity
   - Outputs Z-Score trend as table and plot, with robust legend and company profile/model footnote (MVP complete as of May 24, 2025)
-- [ ] **v1: Overlay Stock Price Trend and Forecasting**
-  - Fetches and overlays stock price trend for the same period
-  - Combined plot of Z-Score and price
-  - **New Feature: Z-Score Forecasting**
+- [x] **v1: Overlay Stock Price Trend** (Partially Complete as of May 27, 2025)
+  - [x] Fetches and overlays stock price trend for the same period
+  - [x] Combined plot of Z-Score and price
+  - [x] Fixed date formatting issue in price fetching function to handle datetime strings with time components
+  - [ ] **New Feature: Z-Score Forecasting** (Planned)
     - **Objective:** Add the ability to forecast the next quarter's Z-Score based on consensus estimates and other data sources.
     - **Implementation Steps:**
       1. **Data Collection:**
@@ -130,7 +131,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 ### Financials (SEC Filings/XBRL)
 - **Primary:** [SEC EDGAR Full-Text Search API](https://www.sec.gov/edgar/sec-api-documentation) (free, official, robust)
 - **Downloader:** [sec-edgar-downloader](https://github.com/jadchaar/sec-edgar-downloader) (Python, free, maintained)
-- **XBRL Parsing:** [arelle](https://arelle.org/) (open-source, industry standard, supports US-GAAP/IFRS), or [xbrlparse](https://github.com/greedo/python-xbrl) (lightweight, Python)
+- **XBRL Parsing:** [xbrlparse](https://github.com/greedo/python-xbrl) (lightweight, Python)
 - **Backup:** [sec-api.io](https://sec-api.io/) (free tier, REST, easy for metadata/search, but rate-limited)
 
 ### Market Data (Stock Prices)

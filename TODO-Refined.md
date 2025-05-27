@@ -4,7 +4,6 @@ This document consolidates the recommendations from `todo-mvp.md` and `TODO-Code
 
 ## 1. Data Fetching Reliability
 - [ ] **Retry & Backoff**: Ensure all API calls (Yahoo Finance, SEC) implement retry logic with exponential backoff and capture connection-related exceptions explicitly.
-- [ ] **Optional Caching**: Add a simple on-disk cache (e.g. `./.cache`) for financial statements and price data to reduce repeated network calls.
 - [ ] **Fallback Sources**: Implement a real SEC EDGAR parser as a fallback when `yfinance` is incomplete. Validate required environment variables (`SEC_EDGAR_USER_AGENT`, `SEC_API_EMAIL`) at startup.
 - [ ] **Single Price Download**: Fetch the entire date range for price data once and slice locally to minimize network requests.
 

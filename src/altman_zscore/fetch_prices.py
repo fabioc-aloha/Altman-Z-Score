@@ -271,12 +271,13 @@ def get_quarterly_prices(ticker: str, quarters_list) -> pd.DataFrame:
     results = []
     
     for quarter_end in quarters_list:
-        try:
-            # Ensure date is in string format
-            if not isinstance(quarter_end, str):
-                quarter_date = pd.to_datetime(quarter_end).strftime('%Y-%m-%d')
+        try:            # Ensure date is in string format (YYYY-MM-DD) without time component
+            if isinstance(quarter_end, str):
+                # Remove any time component if present
+                quarter_date = quarter_end.split()[0]
             else:
-                quarter_date = quarter_end
+                # For datetime objects, format to string without time component
+                quarter_date = pd.to_datetime(quarter_end).strftime('%Y-%m-%d')
                 
             # Get market data for the quarter end date
             df = get_market_data(ticker, quarter_date)

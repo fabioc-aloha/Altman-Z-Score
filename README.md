@@ -3,10 +3,11 @@
 A modern, robust, and modular Python tool for deep single-stock Altman Z-Score trend analysis, designed for reliability, transparency, and extensibility. Built for professional and academic use, with a conservative, incremental rollout policy and a focus on best practices in quantitative and qualitative stock analysis.
 
 ---
-**Project Status (as of May 24, 2025):**
+**Project Status (as of May 27, 2025):**
 - **MVP (Single-Stock Z-Score Trend Analysis) is complete and stable.**
 - All reporting, charting, and error handling features for the MVP are implemented and tested.
-- The project is now focused on **v1: Overlay Stock Price Trend** (in progress).
+- **v1: Overlay Stock Price Trend** is partially complete - price overlay now working correctly.
+- The project is now focused on the Z-Score forecasting feature for v1 completion.
 - All development and testing is performed in GitHub Codespaces and is fully compatible.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 ---
@@ -15,7 +16,7 @@ A modern, robust, and modular Python tool for deep single-stock Altman Z-Score t
 - **Purpose:** Analyze the financial health and bankruptcy risk of a single public company over time using the Altman Z-Score, calibrated by industry and company maturity.
 - **Scope:** Single-ticker analysis only (no portfolio support in current or near-term versions).
 - **Data Sources:** SEC EDGAR (XBRL), Yahoo Finance, NewsAPI, and public industry benchmarks.
-- **Tech Stack:** Python, pandas, pydantic, yfinance, sec-edgar-downloader, arelle/xbrlparse, matplotlib/plotly.
+- **Tech Stack:** Python, pandas, pydantic, yfinance, sec-edgar-downloader, xbrlparse, matplotlib/plotly.
 - **Best Practices:** Modular pipeline, strong validation, robust error handling, and full auditability/logging.
 - **Local Development:** Now uses a local Python virtual environment (`.venv`). See `docs/venv_setup.md` for setup instructions.
 
@@ -147,6 +148,22 @@ See `.env.example` for all available options and documentation.
 - See the Wiki tab above for more details, usage examples, and technical notes.
 
 See TODO.md and PLAN.md for roadmap and progress.
+
+## v1 Feature: Stock Price Overlay (Completed May 27, 2025)
+
+The v1 release includes the ability to overlay stock price trends on the Z-Score chart, allowing users to visually correlate financial health with market performance. This feature:
+
+- Automatically fetches historical stock prices for the same time periods as the Z-Score analysis
+- Displays price data alongside Z-Score values using a dual y-axis chart
+- Provides visual correlation between market perception (price) and financial fundamentals (Z-Score)
+- Handles weekend/holiday dates and other edge cases gracefully
+
+When running the analysis, the price overlay will automatically be included in the generated chart if price data is available. The chart will be saved to the output directory with the same naming convention as before.
+
+**Implementation Details:**
+- The price data is fetched using the Yahoo Finance API via the yfinance library
+- Date formatting was improved to handle dates with time components
+- The plotting module was enhanced to support dual y-axis visualization
 
 ## Known Limitations & Edge Cases
 

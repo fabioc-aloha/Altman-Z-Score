@@ -9,6 +9,28 @@ This file is for documenting key technical and project learnings during the 2025
 
 ---
 
+## Date Formatting in Price Fetching (May 27, 2025)
+
+When working with datetime objects or strings containing time components (e.g., '2025-03-31 00:00:00'), make sure to strip the time portion before passing to APIs or functions expecting 'YYYY-MM-DD' format. We encountered an issue where the `get_quarterly_prices` function in `fetch_prices.py` was receiving dates with time components that caused "unconverted data remains: 00:00:00" errors.
+
+The solution was to modify the function to handle both:
+1. String dates with time components (split at space to get just the date part)
+2. Datetime objects (format to string without time component)
+
+```python
+# Correct way to handle dates with time components
+if isinstance(quarter_end, str):
+    # Remove any time component if present
+    quarter_date = quarter_end.split()[0]
+else:
+    # For datetime objects, format to string without time component
+    quarter_date = pd.to_datetime(quarter_end).strftime('%Y-%m-%d')
+```
+
+This approach makes the code more robust when dealing with dates from different sources.
+
+---
+
 ## MVP Limitations and Edge Cases (May 2025)
 
 - **Delisted/Nonexistent Tickers:** The pipeline cannot analyze companies that are fully delisted or have no recent filings/market data; it now exits gracefully and saves a user-friendly error report. Some tickers (e.g., RIDE, JHKASD) may have partial or missing data due to delisting, bankruptcy, or symbol changes.

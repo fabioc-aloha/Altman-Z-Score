@@ -20,7 +20,7 @@
   - requests
   - yfinance
   - sec-edgar-downloader
-  - arelle or xbrlparse
+  - xbrlparse
   - matplotlib or plotly
   - python-dotenv
 - [x] Project now uses a local `.venv` for all development and testing (see `docs/venv_setup.md` for setup instructions)
@@ -31,7 +31,7 @@
 - [x] Scaffold `src/altman_zscore/schemas/validation.py` with Pydantic models
 - [x] Implement CLI or function input handling (ticker, date, etc.)
 - [x] Implement SEC financials fetcher (using sec-edgar-downloader)
-- [x] Implement XBRL parser (arelle/xbrlparse)
+- [x] Implement XBRL parser (xbrlparse)
 - [x] Implement Yahoo Finance price fetcher (yfinance)
 - [x] Implement data validation (Pydantic)
 - [x] Implement Z-Score computation (with industry/maturity calibration, validated against Sonos case)
@@ -96,10 +96,14 @@ This MVP release satisfies all the requirements specified in the roadmap and del
 
 ---
 ## Next Steps: v1 Overlay Stock Price Trend
-- [ ] Design and implement overlay of stock price trend on Z-Score chart
-- [ ] Fetch historical price data for the same period as Z-Score analysis
-- [ ] Update plotting logic to combine Z-Score and price trend (dual y-axis or overlay)
+- [x] Design and implement overlay of stock price trend on Z-Score chart
+- [x] Fetch historical price data for the same period as Z-Score analysis
+- [x] Update plotting logic to combine Z-Score and price trend (dual y-axis or overlay)
+- [x] Fix date formatting issue in `get_quarterly_prices` function to handle datetime strings with time components
+- [ ] Add Z-Score forecasting capability based on consensus estimates
 - [ ] Update tests and documentation for v1 features
 
 ---
-MVP is complete as of May 24, 2025. Use this list for v1 and future progress tracking.
+MVP is complete as of May 24, 2025.
+V1 Stock Price Overlay feature completed on May 27, 2025.
+Use this list for v1 and future progress tracking.
