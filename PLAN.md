@@ -1,5 +1,12 @@
 # Altman Z-Score Refactor Plan (2025, Revised)
 
+## May 2025 Update
+
+- Removed experimental AI parsing features (`srcai/`, `ai_bootstrap.py`) to focus on a robust, traditional pipeline.
+- Improved fallback logic for field name variations in SEC/XBRL and Yahoo Finance data (notably for TSLA and AAPL).
+- Quarters with missing filings are now skipped early, reducing noise and improving reliability.
+- All major architectural and technical decisions are tracked here and in TODO.md.
+
 ## Background
 This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates Altman's Z-Score model documentation. The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
 

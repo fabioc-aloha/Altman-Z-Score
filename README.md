@@ -4,6 +4,10 @@ A modern, robust, and modular Python tool for deep single-stock Altman Z-Score t
 
 ---
 **Project Status (as of May 27, 2025):**
+- **May 2025 Update:**
+  - Experimental AI parsing features have been removed to focus on a robust, traditional pipeline.
+  - The financials fetching logic now includes extensive fallback field mappings (notably for TSLA and AAPL), ensuring that quarters are only skipped when data is truly missing.
+  - The codebase is now simpler, more maintainable, and focused on reliability and transparency.
 - **MVP (Single-Stock Z-Score Trend Analysis) is complete and stable.**
 - All reporting, charting, and error handling features for the MVP are implemented and tested.
 - **v1: Overlay Stock Price Trend** is partially complete - price overlay now working correctly.

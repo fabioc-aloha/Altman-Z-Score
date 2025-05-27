@@ -1,5 +1,10 @@
 # Altman Z-Score MVP TODO List (2025)
 
+## May 2025 Updates
+- [x] Remove srcai/ and ai_bootstrap.py (AI parsing pipeline)
+- [x] Expand required_fields mapping for TSLA and AAPL
+- [x] Improve logic to skip quarters with missing filings early
+
 ## Final MVP Tasks (as of May 24, 2025)
 - [x] Implement reporting: CSV/JSON output and Z-Score trend plot in the MVP pipeline.
 - [x] Validate pipeline output for Sonos and other real-world tickers.  # MVP complete: outputs validated for MSFT, AAPL, SONO, YHOO

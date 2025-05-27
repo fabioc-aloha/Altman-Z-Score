@@ -41,3 +41,11 @@ This approach makes the code more robust when dealing with dates from different 
 - **API/Data Source Reliability:** All results depend on the availability and accuracy of public APIs; outages or changes may affect functionality.
 
 ---
+
+## May 2025
+
+- Field names in SEC/XBRL and Yahoo Finance data can vary significantly by company and quarter. Robust mapping and fallback logic are essential.
+- Skipping quarters with missing filings early in the pipeline reduces confusion and improves user experience.
+- Removing experimental AI features simplified the codebase and improved maintainability.
+
+---
