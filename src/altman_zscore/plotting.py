@@ -1,11 +1,14 @@
 """
 Z-Score Trend Plotting Utilities
 
-This module provides functions to plot the Altman Z-Score trend with risk zone bands,
-value labels, robust legend, and company profile/model footnote.
-Output is saved as PNG to output/.
+This module provides functions to plot the Altman Z-Score trend, generate component and full reports, and output results to files. It supports robust error handling, clear legends, and company profile/model context in all outputs.
 
-Note: This code follows PEP 8 style guidelines.
+Key Features:
+- Plots Z-Score trend with risk zone bands and value labels
+- Generates component and full reports with context, formulas, and diagnostics
+- Handles missing/invalid data gracefully
+- Compatible with Codespaces and local environments
+- All outputs saved to output/<TICKER>/
 """
 
 import matplotlib.pyplot as plt
@@ -53,12 +56,15 @@ def print_error(msg):
 
 def report_zscore_components_table(df, model, out_base=None, print_to_console=True):
     """
-    Generate and print/save a table showing X1..X5 (or X1..X4) and z-score by quarter.
+    Generate and print/save a table showing Z-Score components (X1..X5 or X1..X4) and z-score by quarter.
+
     Args:
         df (pd.DataFrame): DataFrame with columns: quarter_end, zscore, components (dict), etc.
         model (str): Z-Score model name (determines which X components to show)
         out_base (str, optional): Output file base path (without extension)
         print_to_console (bool): Whether to print the table to the console
+    Returns:
+        None. Prints and/or saves the table as a text file.
     """
     # Determine which X components are present for the model
     model = str(model).lower()
@@ -115,6 +121,16 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     - Context/decisions (model, classification, etc.)
     - Calculation formulas for X1..X5 (or X1..X4)
     - Table of all quarters with X components, Z-Score, and diagnostic
+    - Raw data mapping table (values in millions of USD)
+
+    Args:
+        df (pd.DataFrame): DataFrame with Z-Score results and mapping info
+        model (str): Z-Score model name
+        out_base (str, optional): Output file base path (without extension)
+        print_to_console (bool): Whether to print the report to the console
+        context_info (dict, optional): Contextual info for the report header
+    Returns:
+        None. Prints and/or saves the report as a text file.
     """
     # Get company name for the report title
     company_name = None
@@ -290,12 +306,9 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
         profile_footnote (str, optional): Footnote string for chart (company profile/model info)
-        stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price']
-                                             for overlaying stock prices
-    
+        stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price'] for overlaying stock prices
     Returns:
         None. Saves PNG to output/ and prints absolute path.
-    
     Notes:
         - Handles missing/invalid data gracefully.
         - Adds value labels, robust legend, and footnote.

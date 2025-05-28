@@ -5,7 +5,7 @@ This module provides functions to compute the Altman Z-Score for a company, with
 Includes all supported Z-Score model variants and robust error handling for edge cases.
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from dataclasses import dataclass
 
 @dataclass
@@ -465,11 +465,18 @@ def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScore
 # --- Calibration and model selection ---
 def determine_zscore_model(profile: Any) -> str:
     """
-    Select the correct Altman Z-Score model based on company profile (industry, maturity, public/private).
+    Select the correct Altman Z-Score model based on company profile attributes.
+
     Args:
-        profile: Company profile object with at least 'industry' and 'is_public' attributes.
+        profile (Any): Company profile object with at least 'industry' and 'is_public' attributes. May also have 'is_emerging_market'.
+
     Returns:
-        Model string: 'original', 'private', 'service', 'public', or 'em'
+        str: Model string ('original', 'private', 'service', 'public', or 'em')
+            - 'original': Public manufacturing/industrial
+            - 'private': Private manufacturing/industrial
+            - 'service': Service/financial/tech (public or private)
+            - 'public': Public non-manufacturing/tech
+            - 'em': Emerging market
     """
     industry = getattr(profile, 'industry', '').lower() if hasattr(profile, 'industry') else ''
     is_public = getattr(profile, 'is_public', True) if hasattr(profile, 'is_public') else True
@@ -484,23 +491,29 @@ def determine_zscore_model(profile: Any) -> str:
     # Default fallback
     return 'original'
 
-def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: str = None) -> str:
+def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: Optional[str] = None) -> str:
     """
-    Map SIC code to the correct Altman Z-Score model type.
+    Select the Altman Z-Score model type based on SIC code, public/private status, and optional maturity.
+
     Args:
-        sic_code (str): SIC code as string or int
-        is_public (bool): Whether the company is public
-        maturity (str): Optional maturity string (e.g., 'private', 'emerging')
+        sic_code (str): SIC code as a string (empty string for missing/unknown)
+        is_public (bool, optional): Whether the company is public. Defaults to True.
+        maturity (Optional[str], optional): Optional maturity string (e.g., 'private', 'emerging'). Not currently used in logic.
+
     Returns:
         str: Model type ('original', 'private', 'service', 'public', 'tech', 'em')
+            - 'original': Public manufacturing/industrial (SIC 2000-3999)
+            - 'private': Private manufacturing/industrial (SIC 2000-3999)
+            - 'tech': Tech/software (SIC 3570-3579, 3670-3679, 7370-7379)
+            - 'service': Financial/general services (SIC 6000-8999)
+            - fallback: 'original' for missing/invalid SIC or unclassified
     """
+    if sic_code.strip() == "":
+        return 'original'  # fallback to original if SIC is missing or empty
     try:
         sic = int(str(sic_code))
     except Exception:
         return 'original'  # fallback to original if SIC is invalid
-    # Explicit maturity override
-    if maturity and str(maturity).lower() in ['private', 'emerging']:
-        return 'private'
     # Manufacturing (Original/Private): 2000-3999
     if 2000 <= sic <= 3999:
         return 'original' if is_public else 'private'

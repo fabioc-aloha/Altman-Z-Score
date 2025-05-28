@@ -55,11 +55,8 @@ load_dotenv()
 
 def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
     """
-    Fetch the latest 12 quarters of financials for the given ticker up to end_date using sec-edgar-downloader.
-    Returns a list of dicts (one per quarter) with raw financial data.
-    
-    Note: This function is a placeholder for future SEC EDGAR integration.
-    Currently, the implementation relies on Yahoo Finance API through fetch_financials().
+    Placeholder for future SEC EDGAR integration. Currently unused.
+    Returns an empty list. All financials are fetched via Yahoo Finance in fetch_financials().
     """
     # Note: Implementation moved to fetch_financials module, which uses Yahoo Finance
     # Future version will integrate direct SEC EDGAR API access
@@ -67,17 +64,17 @@ def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
 
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     """
-    Main entry for single-stock Z-Score trend analysis (MVP).
+    Main entry point for single-stock Altman Z-Score trend analysis.
 
     Args:
         ticker (str): Stock ticker symbol (e.g., 'AAPL')
         start_date (str, optional): Only include quarters ending on or after this date (YYYY-MM-DD)
     Returns:
         pd.DataFrame: DataFrame with columns: ['quarter_end', 'zscore', 'valid', 'error', ...]
-    
-    Steps:
+
+    Workflow:
         1. Classify company (industry, maturity, etc.)
-        2. Select Z-Score model based on profile
+        2. Select Z-Score model based on profile and SIC code
         3. Fetch last 12 quarters of financials (robust fallback logic)
         4. Validate and compute Z-Score for each quarter
         5. Output results to CSV, JSON, and plot
@@ -150,8 +147,8 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                 sic_code = parts[i+1]
                 break
     maturity_str = str(maturity) if maturity is not None else ''
-    if sic_code:
-        model = select_zscore_model_by_sic(sic_code, is_public=(str(is_public).lower() == 'true'), maturity=maturity_str)
+    # Always call select_zscore_model_by_sic with a string, even if sic_code is None
+    model = select_zscore_model_by_sic(str(sic_code or ''), is_public=(str(is_public).lower() == 'true'), maturity=maturity_str)
     if not model:
         model = determine_zscore_model(profile)
 

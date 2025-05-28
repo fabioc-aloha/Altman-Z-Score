@@ -12,6 +12,40 @@
 - All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
 - Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
 
+## May 2025: Recent Accomplishments
+- Robust reporting: Industry name (mapped from SIC) always shown; context line combines industry and SIC; Z-Score Component Table's Diagnostic column shows risk area for each quarter.
+- Full, well-formatted analysis report saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; all key output files (summary, profile, CSV/JSON, trend chart) documented in README.
+- All core docstrings and comments reviewed and updated for clarity, accuracy, and maintainability (compute_zscore, plotting, analysis, etc.).
+- Type safety: Model selection and all function signatures now robust to static analysis; Pylance errors resolved.
+- Documentation and planning (README, TODO.md, PLAN.md) fully up to date.
+- v1 (Stock Price Overlay) is complete, stable, and well-tested. All MVP goals met.
+
+---
+
+## v2 Roadmap: Z-Score Forecasting & Sentiment Analysis
+
+### Immediate Next Steps
+1. **Requirements Review**: Finalize requirements for Z-Score forecasting (define data sources, model, and output format).
+2. **API Research**: Evaluate and select APIs for consensus estimates and news/sentiment (Yahoo Finance, NewsAPI, others).
+3. **Design**: Draft a lightweight, explainable, and robust forecasting model. Define clear interfaces for new modules.
+4. **Scaffolding**: Scaffold new modules for forecasting and sentiment analysis, following the established modular/testable pattern.
+5. **Testing**: Add/expand tests for all new v2 features. Ensure v1 features remain stable and well-tested during v2 development.
+6. **Documentation**: Update README, PLAN.md, and TODO.md for v2 features, usage, and architecture.
+
+### Guiding Principles for v2
+- Maintain modularity, testability, and robust error handling throughout.
+- Each v2 feature phase should be independently testable and deliver incremental value.
+- Preserve Codespaces compatibility and document all new dependencies or environment changes.
+- Continue to use PLAN.md and TODO.md for tracking major decisions and actionable tasks.
+
+---
+
+## v2 Feature Goals
+- Z-Score forecasting using consensus estimates and/or time series models
+- News and sentiment integration for risk/diagnostic context
+- Extensible architecture for future portfolio/multi-ticker analysis
+- Maintain and improve reporting, error handling, and documentation standards
+
 ## Background
 This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates Altman's Z-Score model documentation. The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
 
