@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Altman Z-Score Analysis Pipeline Entry Point (MVP)
 
@@ -6,6 +7,12 @@ single-stock Altman Z-Score trend analysis. It delegates analysis to the
 core logic in src/altman_zscore/one_stock_analysis.py.
 
 Note: This code follows PEP 8 style guidelines.
+
+USAGE:
+    python main.py TSLA
+    python main.py AAPL --start 2023-01-01
+
+All outputs will be saved to output/<TICKER>/
 """
 import argparse
 import os

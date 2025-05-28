@@ -6,7 +6,7 @@ import time
 from typing import List, Optional
 import logging
 from sec_edgar_downloader._Downloader import Downloader
-from altman_zscore.fetch_financials import fetch_financials
+from altman_zscore.data_fetching.financials import fetch_financials
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.industry_classifier import classify_company
 from altman_zscore.compute_zscore import FinancialMetrics, compute_zscore, determine_zscore_model
@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from altman_zscore.sic_lookup import sic_map
 from altman_zscore.compute_zscore import select_zscore_model_by_sic
 import json
-from altman_zscore.fetch_prices import get_quarterly_prices
+from altman_zscore.data_fetching.prices import get_quarterly_prices, get_monthly_price_stats
 from altman_zscore.plotting import plot_zscore_trend, report_zscore_components_table
 
 # ANSI color codes for terminal output
@@ -62,6 +62,14 @@ def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
     # Future version will integrate direct SEC EDGAR API access
     return []
 
+def get_output_ticker_dir(ticker):
+    """Return the absolute output directory for a given ticker, ensuring it exists."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    ticker_dir = os.path.join(base_dir, 'output', ticker.upper())
+    if not os.path.exists(ticker_dir):
+        os.makedirs(ticker_dir, exist_ok=True)
+    return ticker_dir
+
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     """
     Main entry point for single-stock Altman Z-Score trend analysis.
@@ -82,11 +90,17 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     """
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
 
+    # Setup base output directory using absolute path
+    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "output")
+    os.makedirs(output_dir, exist_ok=True)
+
     # 1. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
-    output_dir = "output"
-    os.makedirs(output_dir, exist_ok=True)
-    out_base = os.path.join(output_dir, f"zscore_{ticker}")    # If profile is None or lacks industry, treat as not found and exit gracefully
+    
+    # Create ticker-specific output directory
+    ticker_dir = get_output_ticker_dir(ticker)
+    
+    out_base = os.path.join(ticker_dir, f"zscore_{ticker}")    # If profile is None or lacks industry, treat as not found and exit gracefully
     if not profile or getattr(profile, 'industry', None) in (None, '', 'unknown', 'Unknown'):
         error_result = [{
             "quarter_end": None,
@@ -97,9 +111,8 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             "model": None,
             "api_payload": str(profile) if profile else None
         }]
-        ticker_dir = os.path.join('output', ticker.upper())
-        os.makedirs(ticker_dir, exist_ok=True)
-        out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
+        
+        # Use previously defined ticker_dir
         df = pd.DataFrame(error_result)
         try:
             df.to_csv(f"{out_base}_error.csv", index=False)
@@ -115,6 +128,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         print_error(f" - Industry/sector information is unavailable")
         print_error(f"Analysis aborted.")
         sys.exit(1)
+
     # Only print company profile if classification succeeded
     profile_info = (
         f"Company profile for {ticker}:\n"
@@ -123,9 +137,6 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         f"  Emerging Market: {getattr(profile, 'is_emerging_market', 'Unknown')}\n"
     )
     # Save company profile info to file
-    ticker_dir = os.path.join('output', ticker.upper())
-    os.makedirs(ticker_dir, exist_ok=True)
-    out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
     with open(f"{out_base}_profile.txt", "w", encoding="utf-8") as f:
         f.write(profile_info)
 
@@ -166,8 +177,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             "model": model,
             "api_payload": None
         }]
-        ticker_dir = os.path.join('output', ticker.upper())
-        os.makedirs(ticker_dir, exist_ok=True)
+        ticker_dir = get_output_ticker_dir(ticker)
         out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
         df = pd.DataFrame(error_result)
         try:
@@ -274,11 +284,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     df = pd.DataFrame(results)
     # Reporting: output to CSV, JSON, and print summary table
     # Ensure output and ticker subdirectory exist
-    if not os.path.exists('output'):
-        os.makedirs('output', exist_ok=True)
-    ticker_dir = os.path.join('output', ticker.upper())
-    if not os.path.exists(ticker_dir):
-        os.makedirs(ticker_dir, exist_ok=True)
+    ticker_dir = get_output_ticker_dir(ticker)
     out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
     try:
         df.to_csv(f"{out_base}.csv", index=False)
@@ -345,6 +351,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         model = model_hint
     else:
         model = determine_zscore_model(profile)
+        
     # Compose industry string for footnote
     if sic_code and sic_desc:
         industry_foot = f"{sic_desc} (SIC {sic_code})"
@@ -354,13 +361,35 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         industry_foot = industry if industry else 'Unknown industry'
     footnote = f"Industry: {industry_foot} | Maturity: {maturity_desc} | Public: {is_public} | Emerging Market: {is_em} | Model: {model}"
     
-    # Fetch stock prices for the quarters in our Z-Score dataframe
+    # Fetch stock prices for the Z-Score period
     stock_prices = None
+    monthly_stats = None  # Initialize monthly_stats to None to avoid unbound variable issue
     try:
-        # Extract the quarter_end dates from our Z-Score dataframe
-        quarters_list = df['quarter_end'].tolist()
-        # Fetch stock prices for these quarters
-        stock_prices = get_quarterly_prices(ticker, quarters_list)
+        # Extract start and end dates from our Z-Score dataframe
+        quarters = pd.to_datetime(df['quarter_end'])
+        start_date = quarters.min().strftime('%Y-%m-%d')
+        end_date = quarters.max().strftime('%Y-%m-%d')
+          
+        # Fetch monthly price stats and quarterly prices
+        monthly_stats = get_monthly_price_stats(ticker, start_date, end_date)
+        stock_prices = get_quarterly_prices(ticker, df['quarter_end'].tolist())
+          
+        # Save price data to disk
+        try:
+            from altman_zscore.data_fetching.prices import save_price_data_to_disk
+            
+            output_dir = os.path.dirname(out_base)
+            if not monthly_stats.empty:
+                csv_path, json_path = save_price_data_to_disk(monthly_stats, ticker, output_dir, "monthly_prices")
+                print_info(f"Monthly price statistics saved to {os.path.basename(csv_path)} and {os.path.basename(json_path)}")
+                
+            if not stock_prices.empty:
+                # No need to drop monthly_stats column as it's now passed separately
+                csv_path, json_path = save_price_data_to_disk(stock_prices, ticker, output_dir, "quarterly_prices")
+                print_info(f"Quarterly prices saved to {os.path.basename(csv_path)} and {os.path.basename(json_path)}")
+        except (ImportError, AttributeError):
+            # If save_price_data_to_disk is not available or fails
+            print_warning("Price data saving to disk is not available or failed")
     except Exception as e:
         print(f"[WARN] Could not fetch stock prices for overlay: {e}")
     
@@ -394,31 +423,25 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         report_zscore_components_table(df, model, out_base, print_to_console=True)
     except Exception as e:
         print_warning(f"Could not generate Z-Score component table: {e}")
+        
     # Plot trend with stock price overlay if available
     try:
-        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote, stock_prices=stock_prices)
+        # Pass monthly_stats as a separate parameter
+        plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote, stock_prices=stock_prices, monthly_stats=monthly_stats)
     except ImportError:
         print("[WARN] matplotlib not installed, skipping plot.")
     except Exception as e:
         print(f"[WARN] Could not plot Z-Score trend: {e}")
+        
     # Save any additional output/diagnostic files to the ticker subfolder
-    # Example: move bs_columns, bs_index, is_columns, yf_info files if they exist
-    diagnostic_files = [
-        f"bs_columns_{ticker}.txt",
-        f"bs_index_{ticker}.txt",
-        f"is_columns_{ticker}.txt",
-        f"yf_info_{ticker}.json"
-    ]
-    # Move diagnostic files and log the move in a file, not terminal
-    move_log_path = os.path.join(ticker_dir, f"{ticker}_file_moves.log")
-    with open(move_log_path, "a", encoding="utf-8") as move_log:
-        for fname in diagnostic_files:
-            src_path = os.path.join('output', fname)
-            dst_path = os.path.join(ticker_dir, fname)
-            if os.path.exists(src_path):
-                try:
-                    os.replace(src_path, dst_path)
-                    move_log.write(f"Moved {fname} to {os.path.abspath(dst_path)}\n")
-                except Exception as e:
-                    print(f"[WARN] Could not move {fname}: {e}")
+    # (No move needed: diagnostics are now written directly to ticker_dir)
     return df
+
+if __name__ == "__main__":
+    import sys
+    import argparse
+    parser = argparse.ArgumentParser(description="Run Altman Z-Score analysis for a single stock.")
+    parser.add_argument("ticker", type=str, help="Stock ticker symbol (e.g., MSFT)")
+    parser.add_argument("--start_date", type=str, default="2024-01-01", help="Start date for analysis (YYYY-MM-DD)")
+    args = parser.parse_args()
+    analyze_single_stock_zscore_trend(args.ticker, args.start_date)

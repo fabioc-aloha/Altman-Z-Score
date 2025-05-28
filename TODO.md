@@ -18,6 +18,7 @@
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
 ---
+<<<<<<< HEAD
 ## v2 Roadmap: Z-Score Forecasting & Sentiment Analysis (May 2025)
 - [ ] **Requirements Review:** Finalize requirements for Z-Score forecasting (define data sources, model, and output format)
 - [ ] **API Research:** Evaluate and select APIs for consensus estimates and news/sentiment (Yahoo Finance, NewsAPI, others)
@@ -31,6 +32,22 @@
 - News and sentiment integration for risk/diagnostic context
 - Extensible architecture for future portfolio/multi-ticker analysis
 - Maintain and improve reporting, error handling, and documentation standards
+=======
+## v2 Preparation: Z-Score Forecasting, Sentiment, and Plotting Enhancements
+- [ ] **Monthly Stock Price Averages with Whiskers:**
+    - [ ] Implement function to aggregate daily prices into monthly averages, min, and max (see fetch_prices.py)
+    - [ ] Add overlay of monthly average price points and min/max whiskers to the stock price line in the trend plot (plotting.py)
+    - [ ] Add option to enable/disable this overlay in the CLI and plotting function
+    - [ ] Unit test aggregation logic and visual test for plot output
+    - [ ] Document feature in README and code docstrings
+- [ ] Review and finalize requirements for Z-Score forecasting (define data sources, model, and output format)
+- [ ] Research and select APIs for consensus estimates and news/sentiment (e.g., Yahoo Finance, NewsAPI, others)
+- [ ] Design forecasting model (lightweight, explainable, and robust)
+- [ ] Scaffold new modules for forecasting and sentiment analysis
+- [ ] Add/expand tests for new v2 features
+- [ ] Update documentation (README, PLAN.md, etc.) for v2 features and usage
+- [ ] Ensure all v1 features remain stable and well-tested during v2 development
+>>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)
 
 ---
 ## Future Enhancements (beyond v2)
