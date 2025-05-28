@@ -1,4 +1,4 @@
-# Altman Z-Score Analysis (V1)
+# Altman Z-Score Analysis (V2)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
@@ -7,14 +7,15 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 ## Project Status (May 2025)
 - **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
 - **v1 (Stock Price Overlay):** Complete
-- **v2 (Forecasting, Sentiment, Portfolio Analysis):** In planning (see PLAN.md)
+- **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
+- **v2.5 (Forecasting, Sentiment, Portfolio Analysis):** In planning (see PLAN.md)
 - All development and testing uses a local Python 3.11+ virtual environment (`.venv`)
 
 ---
 
 ## What Does This Project Do?
 - **Purpose:** Analyze the financial health and bankruptcy risk of a public company over time using the Altman Z-Score, with industry-aware model selection.
-- **Scope:** Single-ticker analysis (portfolio/multi-ticker coming in v2+)
+- **Scope:** Single-ticker analysis (portfolio/multi-ticker coming in v2.5+)
 - **Data Sources:** SEC EDGAR (XBRL), Yahoo Finance, NewsAPI, public industry benchmarks
 - **Tech Stack:** Python, pandas, pydantic, yfinance, sec-edgar-downloader, xbrlparse, matplotlib/plotly
 
@@ -33,13 +34,13 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 ## Usage
 To analyze a stock, run:
 ```pwsh
-python altman_zscore.py --ticker <TICKER>
+python main.py <TICKER>
 ```
 Replace `<TICKER>` with the stock ticker symbol you want to analyze (e.g., `AAPL`, `MSFT`).
 
 Example:
 ```pwsh
-python altman_zscore.py --ticker AAPL
+python main.py AAPL
 ```
 
 Outputs will be saved in the `output/<TICKER>/` directory:
@@ -64,8 +65,8 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 
 ## Advanced Usage
 - **Custom Analysis:** Extend the pipeline to new models, data sources, or output formats by following the modular structure
-- **Batch/Portfolio Analysis:** (Planned for v2+) Analyze multiple tickers or portfolios with a single command
-- **Forecasting & Sentiment:** (v2 Roadmap) Integrate consensus estimates and news sentiment for forward-looking risk analysis
+- **Batch/Portfolio Analysis:** (Planned for v2.5+) Analyze multiple tickers or portfolios with a single command
+- **Forecasting & Sentiment:** (v2.5 Roadmap) Integrate consensus estimates and news sentiment for forward-looking risk analysis
 
 ---
 
@@ -86,4 +87,4 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 
 ---
 
-MVP and v1 are complete as of May 2025. v2 (forecasting, sentiment, portfolio analysis) is in planning—see PLAN.md for details.
+MVP, v1, and v2 are complete as of May 2025. v2.5 (forecasting, sentiment, portfolio analysis) is in planning—see PLAN.md for details.

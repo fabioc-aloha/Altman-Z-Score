@@ -2,23 +2,38 @@
 
 ## May 2025 Update
 
-- Removed experimental AI parsing features (`srcai/`, `ai_bootstrap.py`) to focus on a robust, traditional pipeline.
-- Improved fallback logic for field name variations in SEC/XBRL and Yahoo Finance data (notably for TSLA and AAPL).
-- Quarters with missing filings are now skipped early, reducing noise and improving reliability.
-- All major architectural and technical decisions are tracked here and in TODO.md.
-- Enhanced reporting: always show industry name (mapped from SIC code) in all reports
-- Context section now combines industry and SIC code into a single line
-- Z-Score Component Table's Diagnostic column displays the risk area (Safe Zone, Distress Zone, Grey Zone) for each quarter
-- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
-- Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
+- **V2 is complete and merged to main.**
+- All outputs are now per-ticker, the main entry point is main.py, and the codebase is free of deprecated files.
+- See below for the V2.5 roadmap (forecasting, sentiment, portfolio analysis).
 
-## May 2025: Recent Accomplishments
-- Robust reporting: Industry name (mapped from SIC) always shown; context line combines industry and SIC; Z-Score Component Table's Diagnostic column shows risk area for each quarter.
-- Full, well-formatted analysis report saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; all key output files (summary, profile, CSV/JSON, trend chart) documented in README.
-- All core docstrings and comments reviewed and updated for clarity, accuracy, and maintainability (compute_zscore, plotting, analysis, etc.).
-- Type safety: Model selection and all function signatures now robust to static analysis; Pylance errors resolved.
-- Documentation and planning (README, TODO.md, PLAN.md) fully up to date.
-- v1 (Stock Price Overlay) is complete, stable, and well-tested. All MVP goals met.
+---
+
+## Version Milestones
+- **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
+- **v1 (Stock Price Overlay):** Complete
+- **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
+- **v2.5 (Forecasting, Sentiment, Portfolio/Multi-Ticker Analysis):** Next planned milestone (see below)
+
+---
+
+## V2.5 Roadmap: Forecasting, Sentiment, and Portfolio Analysis
+- **Forecasting:**
+  - Add the ability to forecast the next quarter's Z-Score using consensus estimates and/or time series models.
+  - Integrate APIs for consensus estimates (Yahoo Finance, others).
+  - Design a lightweight, explainable forecasting model.
+  - Display forecasted Z-Score alongside historical trends in reports and plots.
+- **Sentiment & News Analysis:**
+  - Integrate news and sentiment APIs (e.g., NewsAPI, Finviz, vaderSentiment).
+  - Correlate news/sentiment with Z-Score and price trends.
+  - Add news/sentiment highlights to the full report.
+- **Portfolio/Multi-Ticker Analysis:**
+  - Generalize the pipeline to accept and process multiple tickers in a single run.
+  - Output per-ticker results and aggregate/portfolio-level summaries.
+  - Add CLI and reporting support for batch/portfolio analysis.
+- **Testing & Documentation:**
+  - Add/expand tests for new v2.5 features.
+  - Update documentation (README, PLAN.md, etc.) for v2.5 features and usage.
+  - Ensure all v2 features remain stable and well-tested during v2.5 development.
 
 ---
 
