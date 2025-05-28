@@ -131,4 +131,109 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 
 ---
 
+<<<<<<< HEAD
 MVP, v1, and v2 are complete as of May 2025. v2.5 (forecasting, sentiment, portfolio analysis) is in planning—see PLAN.md for details.
+=======
+    - `SEC_EDGAR_USER_AGENT`: Required. Your SEC EDGAR User-Agent string (format: `Project/Version (your@email.com) Python-Requests/3.0`).
+    - `SEC_API_EMAIL`: Required. Your contact email for SEC API access.
+
+- Optional variables are provided for additional data sources (Yahoo Finance, NewsAPI, etc.) and cache configuration.
+
+Example:
+
+```
+SEC_EDGAR_USER_AGENT=AltmanZScore/1.0 (your@email.com) Python-Requests/3.0
+SEC_API_EMAIL=your@email.com
+```
+
+See `.env.example` for all available options and documentation.
+
+## Python Virtual Environment Setup
+- This project uses a Python virtual environment (`.venv`) for dependency management and isolation.
+- See `docs/venv_setup.md` for detailed instructions on setting up and activating the virtual environment.
+
+## Key Features Implemented (as of May 28, 2025)
+- **Main entry point is now `main.py` in the project root.**
+- **All output and diagnostic files are written directly to per-ticker output folders (`output/<TICKER>/`).**
+- **All deprecated and backup files have been removed from the codebase as of May 28, 2025.**
+- Single-stock Z-Score analysis pipeline: end-to-end, from input to reporting
+- Industry classification: yfinance, SEC EDGAR, and static patterns for robust mapping
+- Model selection: automatic based on company profile
+- Data validation: Pydantic schemas for all financial data
+- Computation: Altman Z-Score for each quarter, robust error handling
+- Reporting:
+  - CSV and JSON output for each analysis run (saved to output/)
+  - Z-Score trend plot as PNG, with risk zone bands, value labels, quarter-based x-axis, and a robust legend showing all risk zones and thresholds (saved to output/)
+  - Company profile, SIC code, and model details included as a footnote in the chart
+  - **Full analysis report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`**
+  - **Summary, profile, and trend chart files for each ticker in the output folder**
+  - **Industry name is always shown, mapped from SIC code when available**
+  - **Context section combines industry and SIC code into a single line**
+  - **Z-Score Component Table's Diagnostic column now shows the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter**
+  - Output directory is created if missing; absolute path to chart is printed after saving
+  - All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
+
+## Enhanced Reporting & Context (May 2025):
+- The industry name is always shown in reports, mapped from SIC code when available.
+- The context section now combines industry and SIC code into a single line (e.g., "Prepackaged Software (SIC 7372)").
+- The Z-Score Component Table's "Diagnostic" column displays the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter, not the validation summary.
+- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting.
+
+## How to Run
+1. Activate your .venv and install dependencies (pip install -r requirements.txt)
+2. Run the analysis script using the new entry point:
+   ```sh
+   python main.py <TICKER>
+   # Example:
+   python main.py TSLA
+   python main.py AAPL --start 2023-01-01
+   ```
+3. All outputs—including diagnostics—are now saved to `output/<TICKER>/`.
+
+## Tested and Working
+- Chart output is visually clear, robust, and user-friendly, with a complete legend and footnote
+- All reporting files are generated and saved as expected
+- Output directory is created if missing
+- All improvements are reflected in the codebase and documentation
+
+## Community & Documentation
+
+- This repository is public as of May 2025.
+- The GitHub Wiki is enabled for extended documentation, guides, and community contributions.
+- See the Wiki tab above for more details, usage examples, and technical notes.
+
+See TODO.md and PLAN.md for roadmap and progress.
+
+## v1 Feature: Stock Price Overlay (Completed May 27, 2025)
+
+The v1 release includes the ability to overlay stock price trends on the Z-Score chart, allowing users to visually correlate financial health with market performance. This feature:
+
+- Automatically fetches historical stock prices for the same time periods as the Z-Score analysis
+- Displays price data alongside Z-Score values using a dual y-axis chart
+- Provides visual correlation between market perception (price) and financial fundamentals (Z-Score)
+- Handles weekend/holiday dates and other edge cases gracefully
+
+When running the analysis, the price overlay will automatically be included in the generated chart if price data is available. The chart will be saved to the output directory with the same naming convention as before.
+
+**Implementation Details:**
+- The price data is fetched using the Yahoo Finance API via the yfinance library
+- Date formatting was improved to handle dates with time components
+- The plotting module was enhanced to support dual y-axis visualization
+
+## Known Limitations & Edge Cases
+
+### Delisted and Nonexistent Companies
+- The pipeline uses only real, live data from SEC EDGAR and Yahoo Finance. If a ticker is delisted, has changed symbols, or is not found in public data sources, the analysis will fail gracefully and save a user-friendly error report. However, for some delisted companies, especially those with no recent filings or market data, it may not be possible to retrieve any financials or price history. In these cases, the output will indicate the data gap and the analysis will not proceed.
+- Some tickers (e.g., RIDE, JHKASD) may have partial or missing data due to the timing of delisting, bankruptcy, or symbol changes. The pipeline will report these cases clearly, but cannot fill in missing data from static or unofficial sources.
+- If a company has changed its ticker or CIK, you may need to research the new symbol or CIK manually.
+
+### Other Limitations
+- **SIC/Industry Mapping**: Model selection is based on SIC code and industry mapping from public sources. This may not always reflect the true business maturity or sector (e.g., Rivian is classified as "mature" due to SIC 3711, but is a growth-stage company).
+- **Quarterly Data Gaps**: If a company has missing or irregular quarterly filings, the Z-Score trend may have gaps or fewer data points.
+- **International Companies**: The pipeline is designed for US-listed equities. Non-US companies or ADRs may have incomplete or inconsistent data.
+- **Portfolio Analysis**: Only single-ticker analysis is supported in the MVP. Portfolio and multi-ticker support is planned for future versions.
+- **News/Sentiment**: Sentiment and news analysis are not included in the MVP, but are planned for future releases.
+- **Data Source Reliability**: All results depend on the accuracy and availability of public APIs and data sources. Outages or changes in data provider APIs may temporarily affect functionality.
+
+For more details on edge cases and technical learnings, see `LEARNINGS.md` and the project Wiki.
+>>>>>>> 820a617 (Docs: update README, LEARNINGS, and usage for new main.py entry point, per-ticker outputs, and codebase cleanup (May 28, 2025))

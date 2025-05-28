@@ -49,3 +49,11 @@ This approach makes the code more robust when dealing with dates from different 
 - Removing experimental AI features simplified the codebase and improved maintainability.
 
 ---
+
+## May 28, 2025: Output Organization and Codebase Cleanup
+- All diagnostic and output files are now written directly to per-ticker output folders (output/<TICKER>/).
+- All deprecated and backup files were removed from the codebase to avoid confusion.
+- The main entry point for the analysis pipeline is now main.py in the project root.
+- This improves clarity, reproducibility, and user experience for all future development.
+
+---

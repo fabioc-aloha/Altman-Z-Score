@@ -10,6 +10,9 @@
 - [x] All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
 - [x] Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt
 - [x] Other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
+- [x] All deprecated files and backups removed from codebase (May 28, 2025)
+- [x] All diagnostic and output files are now written directly to per-ticker output folders
+- [x] Main entry point is now main.py in the project root; usage is documented
 
 ## MVP & v1 Status (as of May 27, 2025)
 - [x] MVP: Single-Stock Z-Score Trend Analysis (complete)
@@ -34,12 +37,12 @@
 - Maintain and improve reporting, error handling, and documentation standards
 =======
 ## v2 Preparation: Z-Score Forecasting, Sentiment, and Plotting Enhancements
-- [ ] **Monthly Stock Price Averages with Whiskers:**
-    - [ ] Implement function to aggregate daily prices into monthly averages, min, and max (see fetch_prices.py)
-    - [ ] Add overlay of monthly average price points and min/max whiskers to the stock price line in the trend plot (plotting.py)
-    - [ ] Add option to enable/disable this overlay in the CLI and plotting function
-    - [ ] Unit test aggregation logic and visual test for plot output
-    - [ ] Document feature in README and code docstrings
+- [x] **Monthly Stock Price Averages with Whiskers:**
+    - [x] Implement function to aggregate daily prices into monthly averages, min, and max (see fetch_prices.py)
+    - [x] Add overlay of monthly average price points and min/max whiskers to the stock price line in the trend plot (plotting.py)
+    - [x] Add option to enable/disable this overlay in the CLI and plotting function
+    - [x] Unit test aggregation logic and visual test for plot output
+    - [x] Document feature in README and code docstrings
 - [ ] Review and finalize requirements for Z-Score forecasting (define data sources, model, and output format)
 - [ ] Research and select APIs for consensus estimates and news/sentiment (e.g., Yahoo Finance, NewsAPI, others)
 - [ ] Design forecasting model (lightweight, explainable, and robust)
@@ -63,4 +66,5 @@
 
 MVP is complete as of May 24, 2025.
 v1 Stock Price Overlay feature completed on May 27, 2025.
+All deprecated files removed and outputs are now per-ticker as of May 28, 2025.
 Use this list for v2 and future progress tracking.
