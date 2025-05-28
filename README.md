@@ -1,11 +1,12 @@
-# Altman Z-Score Analysis (Version 2.0.1)
+# Altman Z-Score Analysis (Version 2.0.2)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
 **Project Status (as of May 28, 2025):**
-- **V2.0.1 (Bug Fix & Resilience Improvement):** Latest release — see PLAN.md for details
+- **V2.0.2 (Publishing Issue):** Latest release — see PLAN.md for details
+- **V2.0.1 (Bug Fix & Resilience Improvement):** Complete
 - **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
 - **v1 (Stock Price Overlay):** Complete
 - **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
@@ -13,6 +14,9 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 - All development and testing uses a local Python 3.11+ virtual environment (`.venv`)
 
 ---
+
+## V2.0.2: Publishing Issue
+- No code changes. This release addresses a publishing/tagging issue on GitHub only.
 
 ## V2.0.1: Bug Fix & Resilience Improvement
 - All output file and directory creation is now fully centralized and robust (no hardcoded paths).
@@ -165,10 +169,26 @@ For more details, see `LEARNINGS.md` and the project Wiki.
 - See `TODO.md` for actionable tasks and environment setup.
 - Document significant learnings in `LEARNINGS.md`.
 
+## Test & Development Environment
+- The project uses a `src/` layout. For all tests and scripts to work, you must ensure `PYTHONPATH=src` is set in your environment.
+- This is set in the `.env` file, but most shells (including PowerShell) do **not** auto-load `.env` for environment variables.
+- **To run tests in PowerShell:**
+  ```powershell
+  $env:PYTHONPATH="src"; pytest
+  ```
+- **To run tests in bash:**
+  ```bash
+  export PYTHONPATH=src; pytest
+  ```
+- Codespaces and some IDEs may auto-load `.env`, but if you see `ModuleNotFoundError: No module named 'altman_zscore'`, set `PYTHONPATH` manually as above.
+
 ## License
 MIT (see LICENSE file)
 
 ## Changelog
+
+### V2.0.2 (May 28, 2025) — Publishing Issue
+- No code changes. This release addresses a publishing/tagging issue on GitHub only.
 
 ### V2.0.1 (May 28, 2025) — Bug Fix & Resilience Improvement
 - All output file and directory creation is now fully centralized and robust (no hardcoded paths).
