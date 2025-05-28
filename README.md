@@ -136,7 +136,10 @@ See `.env.example` for all available options and documentation.
 - This project uses a Python virtual environment (`.venv`) for dependency management and isolation.
 - See `docs/venv_setup.md` for detailed instructions on setting up and activating the virtual environment.
 
-## Key Features Implemented (as of May 24, 2025)
+## Key Features Implemented (as of May 28, 2025)
+- **Main entry point is now `main.py` in the project root.**
+- **All output and diagnostic files are written directly to per-ticker output folders (`output/<TICKER>/`).**
+- **All deprecated and backup files have been removed from the codebase as of May 28, 2025.**
 - Single-stock Z-Score analysis pipeline: end-to-end, from input to reporting
 - Industry classification: yfinance, SEC EDGAR, and static patterns for robust mapping
 - Model selection: automatic based on company profile
@@ -162,8 +165,14 @@ See `.env.example` for all available options and documentation.
 
 ## How to Run
 1. Activate your .venv and install dependencies (pip install -r requirements.txt)
-2. Run the analysis script (see README.md for CLI usage)
-3. Find all outputs (CSV, JSON, PNG) in the output/ folder. The absolute path to the chart is printed after each run.
+2. Run the analysis script using the new entry point:
+   ```sh
+   python main.py <TICKER>
+   # Example:
+   python main.py TSLA
+   python main.py AAPL --start 2023-01-01
+   ```
+3. All outputs—including diagnostics—are now saved to `output/<TICKER>/`.
 
 ## Tested and Working
 - Chart output is visually clear, robust, and user-friendly, with a complete legend and footnote
