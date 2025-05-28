@@ -6,6 +6,11 @@
 - Improved fallback logic for field name variations in SEC/XBRL and Yahoo Finance data (notably for TSLA and AAPL).
 - Quarters with missing filings are now skipped early, reducing noise and improving reliability.
 - All major architectural and technical decisions are tracked here and in TODO.md.
+- Enhanced reporting: always show industry name (mapped from SIC code) in all reports
+- Context section now combines industry and SIC code into a single line
+- Z-Score Component Table's Diagnostic column displays the risk area (Safe Zone, Distress Zone, Grey Zone) for each quarter
+- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
+- Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
 
 ## Background
 This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates Altman's Z-Score model documentation. The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
@@ -66,6 +71,8 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
    - Output result to CSV/JSON and log all steps.
    - Plot Z-Score trend (matplotlib/plotly).
    - (v1) Overlay price trend; (v2) overlay sentiment/news.
+   - **Generate full analysis report as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt, including context, field mapping, Z-Score component table with risk area, and all formulas.**
+   - **Ensure all output is robust, well-formatted, and includes all key context and diagnostics.**
 7. **Testing**
    - Write unit tests for each module.
    - Add integration test for the full pipeline.

@@ -234,6 +234,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
                 continue
 
             # Extract only fields required for the selected model (AI-only)
+            field_mapping = {}
             for key in fields_to_fetch:
                 ai_raw_field = None
                 if ai_mapping and key in ai_mapping and ai_mapping[key]:
@@ -257,6 +258,15 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
                     missing.append(key)
                     val = 0.0
                 q[key] = val  # type: ignore
+                # Add to field_mapping for reporting
+                field_mapping[key] = {
+                    "canonical_field": key,
+                    "mapped_raw_field": found_name,
+                    "value": val,
+                    "missing": val == 0.0 or found_name is None
+                }
+            import json
+            q["field_mapping"] = json.dumps(field_mapping)
             # Add raw payload for diagnostics
             try:
                 q["raw_payload"] = json.dumps({

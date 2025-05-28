@@ -33,6 +33,17 @@ This project provides a robust, modular, and testable pipeline for single-stock 
 - **Robust Error Handling**: Gracefully handles delisted, missing, or invalid tickers (e.g., RIDE, JHKASD), saving user-friendly error reports and exiting cleanly without stack traces.
 - **Minimal Console Output**: Only essential information, warnings, and errors are shown; all debug output is suppressed.
 - **Comprehensive Reporting**: Output files and charts include company profile, SIC code, and model details in footnotes.
+- **Full Analysis Report Output**: For each analysis, a comprehensive, well-formatted report is generated and saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`. This file includes:
+  - Context and model selection details
+  - Raw data field mapping table (values in millions of USD)
+  - Z-Score component table with risk area diagnostics for each quarter
+  - All formulas and calculation details
+  - This is the main reference for interpreting results and auditability.
+- **Other Output Files**:
+  - `output/<TICKER>/zscore_<TICKER>_summary.txt`: Table summary of all computed quarters
+  - `output/<TICKER>/zscore_<TICKER>_profile.txt`: Company profile and classification
+  - `output/<TICKER>/zscore_<TICKER>.csv` and `.json`: Raw results for further analysis
+  - `output/<TICKER>/zscore_<TICKER>_trend.png`: Z-Score trend chart (with price overlay if available)
 - **Professional Documentation**: All core modules have complete module-level docstrings, public functions/classes are fully documented, and non-obvious logic is explained with inline comments.
 - **Environment Flexibility**: Compatible with both GitHub Codespaces and local Python virtual environments. See `docs/venv_setup.md` for local setup instructions. Uses `pyproject.toml` for dependencies.
 - **Extensible Architecture**: Clean separation of input, data fetching, validation, computation, and reporting layers. Easy to add new models, data sources, or output formats.
@@ -127,12 +138,19 @@ See `.env.example` for all available options and documentation.
   - CSV and JSON output for each analysis run (saved to output/)
   - Z-Score trend plot as PNG, with risk zone bands, value labels, quarter-based x-axis, and a robust legend showing all risk zones and thresholds (saved to output/)
   - Company profile, SIC code, and model details included as a footnote in the chart
+  - **Full analysis report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`**
+  - **Summary, profile, and trend chart files for each ticker in the output folder**
+  - **Industry name is always shown, mapped from SIC code when available**
+  - **Context section combines industry and SIC code into a single line**
+  - **Z-Score Component Table's Diagnostic column now shows the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter**
   - Output directory is created if missing; absolute path to chart is printed after saving
-- Edge-case handling: improved classification and error reporting for tickers like SONO and YHOO
-- Note: Rivian (RIVN) is a well-known, high-profile growth-stage company in the EV sector. It is classified as "mature" due to SIC 3711 (Motor Vehicles) for model selection purposes, but this does not reflect its true business maturity, age, or profitability. This is not a forensic or obscure edge case, but a limitation of SIC-based mapping for model selection.
-- Tested tickers: MSFT, AAPL, SONO, YHOO (outputs verified)
-- Modular code: plotting logic in src/altman_zscore/plotting.py
-- Local development: all work in a local .venv (see docs/venv_setup.md)
+  - All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
+
+## Enhanced Reporting & Context (May 2025):
+- The industry name is always shown in reports, mapped from SIC code when available.
+- The context section now combines industry and SIC code into a single line (e.g., "Prepackaged Software (SIC 7372)").
+- The Z-Score Component Table's "Diagnostic" column displays the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter, not the validation summary.
+- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting.
 
 ## How to Run
 1. Activate your .venv and install dependencies (pip install -r requirements.txt)

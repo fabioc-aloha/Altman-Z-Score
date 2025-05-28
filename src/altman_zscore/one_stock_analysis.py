@@ -225,7 +225,8 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                     "zscore": None,
                     "valid": False,
                     "error": "; ".join(errors),
-                    "diagnostic": diagnostic
+                    "diagnostic": None,  # No risk area if errors prevent computation
+                    "validation_summary": diagnostic
                 })
                 continue
             # For private model, pass book_value_equity if present in q, else fallback to mve
@@ -245,9 +246,11 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                 "components": zscore_obj.components,  # <-- Add this line
                 "valid": True,
                 "error": None,
-                "diagnostic": diagnostic,
+                "diagnostic": zscore_obj.diagnostic,  # Set to risk area
+                "validation_summary": diagnostic,     # Store validation summary separately
                 "model": str(model),
-                "api_payload": q.get("raw_payload")
+                "api_payload": q.get("raw_payload"),
+                "field_mapping": q.get("field_mapping")  # <-- Ensure field_mapping is included
             })
         except Exception as e:
             logger.error(f"Error processing quarter {period_end} for {ticker}: {e}")
@@ -367,9 +370,16 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     # Generate and print/save the X1..X5/z-score report table before plotting
     try:
         # Compose context info for the report
+        # Use mapped industry name if available, else fallback to raw industry string
+        if sic_desc:
+            industry_for_context = sic_desc
+        elif sic_code:
+            industry_for_context = f"SIC {sic_code}"
+        else:
+            industry_for_context = industry
         context_info = {
             "Ticker": ticker,
-            "Industry": industry,
+            "Industry": industry_for_context,
             "Public": is_public,
             "Emerging Market": is_em,
             "Maturity": maturity,

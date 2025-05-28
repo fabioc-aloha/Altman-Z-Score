@@ -4,6 +4,12 @@
 - [x] Remove srcai/ and ai_bootstrap.py (AI parsing pipeline)
 - [x] Expand required_fields mapping for TSLA and AAPL
 - [x] Improve logic to skip quarters with missing filings early
+- [x] Enhanced reporting: always show industry name (mapped from SIC code) in all reports
+- [x] Context section now combines industry and SIC code into a single line
+- [x] Z-Score Component Table's Diagnostic column displays the risk area (Safe Zone, Distress Zone, Grey Zone) for each quarter
+- [x] All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
+- [x] Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt
+- [x] Other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
 
 ## MVP & v1 Status (as of May 27, 2025)
 - [x] MVP: Single-Stock Z-Score Trend Analysis (complete)
