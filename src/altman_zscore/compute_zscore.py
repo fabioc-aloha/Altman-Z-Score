@@ -484,4 +484,37 @@ def determine_zscore_model(profile: Any) -> str:
     # Default fallback
     return 'original'
 
+def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: str = None) -> str:
+    """
+    Map SIC code to the correct Altman Z-Score model type.
+    Args:
+        sic_code (str): SIC code as string or int
+        is_public (bool): Whether the company is public
+        maturity (str): Optional maturity string (e.g., 'private', 'emerging')
+    Returns:
+        str: Model type ('original', 'private', 'service', 'public', 'tech', 'em')
+    """
+    try:
+        sic = int(str(sic_code))
+    except Exception:
+        return 'original'  # fallback to original if SIC is invalid
+    # Explicit maturity override
+    if maturity and str(maturity).lower() in ['private', 'emerging']:
+        return 'private'
+    # Manufacturing (Original/Private): 2000-3999
+    if 2000 <= sic <= 3999:
+        return 'original' if is_public else 'private'
+    # Tech: 3570-3579, 3670-3679, 7370-7379
+    if (3570 <= sic <= 3579) or (3670 <= sic <= 3679) or (7370 <= sic <= 7379):
+        return 'tech' if is_public else 'private'
+    # Financial Services: 6000-6999
+    if 6000 <= sic <= 6999:
+        return 'service' if is_public else 'private'
+    # General Services: 7000-8999
+    if 7000 <= sic <= 8999:
+        return 'service' if is_public else 'private'
+    # Emerging markets (if flagged elsewhere)
+    # Add more rules as needed
+    return 'original'  # fallback
+
 # --- For testability, add unit tests and docstring examples in a separate test module ---

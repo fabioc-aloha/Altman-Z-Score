@@ -14,6 +14,10 @@ from altman_zscore.data_validation import FinancialDataValidator
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from altman_zscore.sic_lookup import sic_map
+from altman_zscore.compute_zscore import select_zscore_model_by_sic
+import json
+from altman_zscore.fetch_prices import get_quarterly_prices
+from altman_zscore.plotting import plot_zscore_trend, report_zscore_components_table
 
 # ANSI color codes for terminal output
 class Colors:
@@ -61,12 +65,13 @@ def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
     # Future version will integrate direct SEC EDGAR API access
     return []
 
-def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
+def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     """
     Main entry for single-stock Z-Score trend analysis (MVP).
 
     Args:
         ticker (str): Stock ticker symbol (e.g., 'AAPL')
+        start_date (str, optional): Only include quarters ending on or after this date (YYYY-MM-DD)
     Returns:
         pd.DataFrame: DataFrame with columns: ['quarter_end', 'zscore', 'valid', 'error', ...]
     
@@ -80,7 +85,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     """
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
 
-    import os  # Ensure os is imported before use
     # 1. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
     output_dir = "output"
@@ -135,9 +139,8 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     maturity = getattr(profile, 'maturity', None)
 
     # 2. Determine Z-Score model before fetching financials
-    # Refine model selection using decoded maturity and SIC code
-    # Example: Use SIC for manufacturing/service/tech, and maturity for stage
-    model_hint = None
+    # Prefer robust SIC-based model selection
+    model = None
     # Try to extract SIC code if present in industry string
     sic_code = None
     if industry and 'SIC' in str(industry):
@@ -146,23 +149,12 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
             if p == 'SIC' and i+1 < len(parts):
                 sic_code = parts[i+1]
                 break
+    maturity_str = str(maturity) if maturity is not None else ''
     if sic_code:
-        if str(sic_code).startswith('37') or str(sic_code).startswith('36'):
-            model_hint = 'original'  # Manufacturing/industrial
-        elif str(sic_code).startswith('73'):
-            model_hint = 'tech'      # Software/tech
-        elif str(sic_code).startswith('60') or str(sic_code).startswith('61'):
-            model_hint = 'service'   # Financial services
-        elif str(sic_code).startswith('87') or str(sic_code).startswith('89'):
-            model_hint = 'service'   # Research/consulting/services
-        # Add more rules as needed
-    if maturity and str(maturity).lower() in ['private', 'emerging']:
-        model_hint = 'private'
-    # Use model_hint if set, otherwise fall back to determine_zscore_model(profile)
-    if model_hint:
-        model = model_hint
-    else:
+        model = select_zscore_model_by_sic(sic_code, is_public=(str(is_public).lower() == 'true'), maturity=maturity_str)
+    if not model:
         model = determine_zscore_model(profile)
+
     # 3. Fetch last 12 quarters of financials, only required fields for model
     # Pass an empty string for end_date (fetch_financials requires str, but we ignore it)
     fin_info = fetch_financials(ticker, "", model)
@@ -177,7 +169,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
             "model": model,
             "api_payload": None
         }]
-        import pandas as pd
         ticker_dir = os.path.join('output', ticker.upper())
         os.makedirs(ticker_dir, exist_ok=True)
         out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
@@ -190,11 +181,15 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
             print_error(f"Could not save error output: {e}")
         print_error(f"No financial data available for {ticker}. Analysis cannot proceed.")
         print_warning(f"This may be due to: company not being listed, recent IPO, or missing data in sources.")
-        import sys
         sys.exit(1)
-    import pandas as pd  # Ensure pd is available for all DataFrame and to_numeric usage
     # Only fail if there are zero valid quarters; allow partial data for new/delisted tickers
     valid_quarters = [q for q in fin_info["quarters"] if any(v not in (None, '', 0.0) for k, v in q.items() if k != 'raw_payload')]
+    if start_date:
+        try:
+            start_dt = datetime.strptime(start_date, "%Y-%m-%d").date()
+            valid_quarters = [q for q in valid_quarters if 'period_end' in q and q['period_end'] and datetime.strptime(str(q['period_end'])[:10], "%Y-%m-%d").date() >= start_dt]
+        except Exception as e:
+            print_warning(f"Could not filter quarters by start_date: {e}")
     if not fin_info or not fin_info.get("quarters") or len(valid_quarters) == 0:
         raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
 
@@ -247,6 +242,7 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
                 "quarter_end": period_end,
                 "zscore": zscore_float,
                 "zscore_str": zscore_str,
+                "components": zscore_obj.components,  # <-- Add this line
                 "valid": True,
                 "error": None,
                 "diagnostic": diagnostic,
@@ -265,7 +261,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
                 "api_payload": q.get("raw_payload")
             })
     # After results are collected, create DataFrame
-    import json
     def safe_payload(val):
         if isinstance(val, (dict, list)):
             try:
@@ -279,7 +274,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     df = pd.DataFrame(results)
     # Reporting: output to CSV, JSON, and print summary table
     # Ensure output and ticker subdirectory exist
-    import os
     if not os.path.exists('output'):
         os.makedirs('output', exist_ok=True)
     ticker_dir = os.path.join('output', ticker.upper())
@@ -301,7 +295,9 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
             print_warning(f"{row['quarter_end']}: {row['error']}")
     # Save summary table to file, do not print to terminal
     try:
-        summary_table = df[["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"]].to_string(index=False)
+        # Only include columns that exist in the DataFrame
+        summary_cols = [col for col in ["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"] if col in df.columns]
+        summary_table = df[summary_cols].to_string(index=False)
         with open(f"{out_base}_summary.txt", "w", encoding="utf-8") as f:
             f.write(summary_table)
     except Exception as e:
@@ -330,7 +326,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
                 sic_code = parts[i+1]
                 break
     # Map SIC code to description (expanded mapping) now imported from sic_lookup.py
-    # sic_map = {...}  # moved to sic_lookup.py
     sic_desc = sic_map.get(str(sic_code)) if sic_code else None
     # Refine model selection using decoded maturity and SIC code
     model_hint = None
@@ -362,7 +357,6 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     # Fetch stock prices for the quarters in our Z-Score dataframe
     stock_prices = None
     try:
-        from altman_zscore.fetch_prices import get_quarterly_prices
         # Extract the quarter_end dates from our Z-Score dataframe
         quarters_list = df['quarter_end'].tolist()
         # Fetch stock prices for these quarters
@@ -370,9 +364,31 @@ def analyze_single_stock_zscore_trend(ticker: str) -> pd.DataFrame:
     except Exception as e:
         print(f"[WARN] Could not fetch stock prices for overlay: {e}")
     
+    # Generate and print/save the X1..X5/z-score report table before plotting
+    try:
+        # Compose context info for the report
+        context_info = {
+            "Ticker": ticker,
+            "Industry": industry,
+            "Public": is_public,
+            "Emerging Market": is_em,
+            "Maturity": maturity,
+            "Model": model,
+            "SIC Code": sic_code or "N/A",
+            "Analysis Date": datetime.now().strftime("%Y-%m-%d")
+        }
+        from altman_zscore.plotting import report_zscore_full_report
+        report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=context_info)
+    except Exception as e:
+        print_warning(f"Could not generate full Z-Score report: {e}")
+    
+    # Generate and print/save the X1..X5/z-score report table before plotting
+    try:
+        report_zscore_components_table(df, model, out_base, print_to_console=True)
+    except Exception as e:
+        print_warning(f"Could not generate Z-Score component table: {e}")
     # Plot trend with stock price overlay if available
     try:
-        from altman_zscore.plotting import plot_zscore_trend
         plot_zscore_trend(df, ticker, model, out_base, profile_footnote=footnote, stock_prices=stock_prices)
     except ImportError:
         print("[WARN] matplotlib not installed, skipping plot.")

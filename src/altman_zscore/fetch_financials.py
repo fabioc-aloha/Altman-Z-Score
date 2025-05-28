@@ -7,6 +7,8 @@ Z-Score model are fetched. Logs diagnostics and handles missing/partial data gra
 """
 
 # All imports should be at the top of the file, per Python best practices.
+import os
+from altman_zscore.api.openai_client import AzureOpenAIClient
 
 def fetch_financials(ticker: str, end_date: str, zscore_model: str):
     """
@@ -112,6 +114,45 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         ],
     }
     fields_to_fetch = model_fields.get(zscore_model, model_fields["original"])
+
+    # AI-powered field mapping integration (AI-only, no static fallback)
+    ai_field_mapping = os.getenv("AI_FIELD_MAPPING", "false").lower() == "true"
+    ai_mapping = None
+    if ai_field_mapping:
+        try:
+            import yfinance as yf
+            yf_ticker = yf.Ticker(ticker)
+            bs = yf_ticker.quarterly_balance_sheet
+            is_ = yf_ticker.quarterly_financials
+            raw_fields = list(set([str(idx) for idx in bs.index] + [str(idx) for idx in is_.index]))
+            canonical_fields = fields_to_fetch
+            sample_values = {}
+            for f in raw_fields:
+                v = None
+                if f in bs.index and bs.shape[1] > 0:
+                    v = bs.iloc[bs.index.get_loc(f), 0]
+                elif f in is_.index and is_.shape[1] > 0:
+                    v = is_.iloc[is_.index.get_loc(f), 0]
+                if v is not None:
+                    sample_values[f] = v
+            client = AzureOpenAIClient()
+            ai_mapping = client.suggest_field_mapping(raw_fields, canonical_fields, sample_values)
+            # Log and print the AI mapping for diagnostics
+            print(f"[AI Mapping] Canonical to raw field mapping for {ticker}: {ai_mapping}")
+            print(f"[AI Mapping] Available raw fields: {raw_fields}")
+            for canon, raw in (ai_mapping or {}).items():
+                print(f"[AI Mapping] {canon} -> {raw}")
+            # Log the AI mapping for diagnostics
+            import logging
+            logger = logging.getLogger("altman_zscore.fetch_financials")
+            logger.info(f"[AI Mapping] Canonical to raw field mapping for {ticker}: {ai_mapping}")
+            for canon, raw in (ai_mapping or {}).items():
+                logger.info(f"[AI Mapping] {canon} -> {raw}")
+        except Exception as e:
+            import logging
+            logging.getLogger("altman_zscore.fetch_financials").warning(f"AI field mapping failed: {e}. All fields will be treated as missing.")
+            ai_mapping = None
+
     try:
         yf_ticker = yf.Ticker(ticker)
         bs = yf_ticker.quarterly_balance_sheet
@@ -170,82 +211,48 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             for key in critical_fields:
                 if key not in fields_to_fetch:
                     continue
-                    
-                names = required_fields[key]
+                ai_raw_field = None
+                if ai_mapping and key in ai_mapping and ai_mapping[key]:
+                    ai_raw_field = ai_mapping[key]["FoundField"] if isinstance(ai_mapping[key], dict) else ai_mapping[key]
                 found = False
-                
-                # Try exact match first
-                for name in names:
-                    if name in bs.index and key not in ["ebit", "sales"]:
-                        v = bs.at[name, period]
+                # Only use AI-mapped field
+                if ai_raw_field:
+                    if ai_raw_field in bs.index and key not in ["ebit", "sales"]:
+                        v = bs.at[ai_raw_field, period]
                         if v is not None and v == v and float(v) != 0:  # not NaN and not zero
                             found = True
-                            break
-                    if name in is_.index and key in ["ebit", "sales"]:
-                        v = is_.at[name, period]
+                    elif ai_raw_field in is_.index and key in ["ebit", "sales"]:
+                        v = is_.at[ai_raw_field, period]
                         if v is not None and v == v and float(v) != 0:  # not NaN and not zero
                             found = True
-                            break
-                
-                # Try partial match if exact match failed
-                if not found:
-                    search_space = available_bs_keys if key not in ["ebit", "sales"] else available_is_keys
-                    for candidate in search_space:
-                        for name in names:
-                            if name.lower() in candidate.lower():
-                                if key not in ["ebit", "sales"]:
-                                    v = bs.at[candidate, period]
-                                else:
-                                    v = is_.at[candidate, period]
-                                if v is not None and v == v and float(v) != 0:  # not NaN and not zero
-                                    found = True
-                                    break
-                        if found:
-                            break
-                
                 if not found:
                     critical_missing.append(key)
-            
+
             # Skip this quarter if critical fields are missing
             if critical_missing:
                 logger.warning(f"[{ticker}] {period_str}: Skipping quarter due to critical missing fields: {', '.join(critical_missing)}")
                 continue
-            
-            # Extract only fields required for the selected model
+
+            # Extract only fields required for the selected model (AI-only)
             for key in fields_to_fetch:
-                names = required_fields[key]
+                ai_raw_field = None
+                if ai_mapping and key in ai_mapping and ai_mapping[key]:
+                    ai_raw_field = ai_mapping[key]["FoundField"] if isinstance(ai_mapping[key], dict) else ai_mapping[key]
                 val = None
                 found_name = None
-                for name in names:
-                    if name in bs.index and key not in ["ebit", "sales"]:
-                        v = bs.at[name, period]
-                        if v is not None and v == v:  # not NaN
-                            val = float(v)
-                            found_name = name
-                            break
-                    if name in is_.index and key in ["ebit", "sales"]:
-                        v = is_.at[name, period]
+                # Only use AI-mapped field
+                if ai_raw_field:
+                    if ai_raw_field in bs.index and key not in ["ebit", "sales"]:
+                        v = bs.at[ai_raw_field, period]
                         if v is not None and v == v:
                             val = float(v)
-                            found_name = name
-                            break
-                # Fallback: try partial match if not found
-                if val is None:
-                    search_space = available_bs_keys if key not in ["ebit", "sales"] else available_is_keys
-                    for candidate in search_space:
-                        for name in names:
-                            if name.lower() in candidate.lower():
-                                if key not in ["ebit", "sales"]:
-                                    v = bs.at[candidate, period]
-                                else:
-                                    v = is_.at[candidate, period]
-                                if v is not None and v == v:
-                                    val = float(v)
-                                    found_name = candidate
-                                    logger.warning(f"[{ticker}] {period_str}: Used fallback field '{candidate}' for '{key}' (expected one of {names})")
-                                    break
-                        if val is not None:
-                            break
+                            found_name = ai_raw_field
+                    elif ai_raw_field in is_.index and key in ["ebit", "sales"]:
+                        v = is_.at[ai_raw_field, period]
+                        if v is not None and v == v:
+                            val = float(v)
+                            found_name = ai_raw_field
+                # If not found by AI, treat as missing
                 if val is None:
                     missing.append(key)
                     val = 0.0

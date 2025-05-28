@@ -1,4 +1,4 @@
-# GitHub Copilot Instructions (2025+)
+# GitHub Copilot Instructions
 
 ## Project Guidance
 - Use `PLAN.md` for high-level features, vision, progress tracking, and major architectural/technical decisions.
@@ -6,13 +6,6 @@
 - All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
 - Preserve modularity, testability, and robust error handling throughout.
 - Each feature phase should be independently testable and deliver incremental value.
-
-## Feature Roadmap (see PLAN.md for details)
-- [x] MVP: Single-Stock Z-Score Trend Analysis
-- [ ] v1: Overlay Stock Price Trend
-- [ ] v2: Sentiment & News Analysis
-- [ ] v3: Portfolio Analysis
-- [ ] v4: Advanced Correlation & Insights
 
 ## Implementation Principles
 - **Simplicity:** Start with a single-stock analysis pipeline, then generalize to portfolios.
@@ -35,23 +28,7 @@
 - Document significant learnings in `LEARNINGS.md`.
 - Never modify `OneStockAnalysis.md` without explicit user consent.
 
-## Testing & Quality
-- All changes must pass existing and new tests.
-- New features require new or updated tests.
-- Documentation must be updated for new features and changes.
-- Performance must be maintained or improved.
-
-## Rollback Plan
-- If a rollback is needed, restore from version control (git history).
-
-## Conservative, Incremental Rollout Policy
-- Build a minimal, robust MVP first (single-stock Z-Score trend analysis).
-- Test thoroughly at each step before enabling new features.
-- Only enable new features after the MVP is stable and well-tested.
-- Light up features one at a time, with tests and documentation, to avoid regressions.
-- Avoid over-ambitious changes; prioritize reliability and maintainability.
-
-## Documentation and Decision Tracking Update (May 23, 2025)
+## Documentation and Decision Tracking
 - The DECISIONS.md file has been removed from the repository.
 - All major architectural, technical, and data source decisions are now documented in PLAN.md and TODO.md.
 - Do not create or reference DECISIONS.md in this repository.

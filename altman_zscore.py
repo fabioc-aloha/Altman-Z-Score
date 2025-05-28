@@ -36,6 +36,12 @@ def parse_args():
         type=str,
         help="Stock ticker symbol (e.g., AAPL)"
     )
+    parser.add_argument(
+        "--start",
+        type=str,
+        default="2024-01-01",
+        help="Start date (YYYY-MM-DD) for analysis (default: 2024-01-01)"
+    )
     return parser.parse_args()
 
 
@@ -43,13 +49,14 @@ def main():
     """Main entry point for the Altman Z-Score analysis pipeline."""
     args = parse_args()
     ticker = args.ticker.upper()
+    start_date = args.start
     print_header(f"ALTMAN Z-SCORE ANALYSIS: {ticker}")
-    msg = f"Running Z-Score trend for {ticker} (all quarters)"
+    msg = f"Running Z-Score trend for {ticker} (from {start_date} onward)"
     print_info(msg)
     print_info("This may take a moment while we fetch financial data...")
     try:
         start_time = time.time()
-        df = analyze_single_stock_zscore_trend(ticker)
+        df = analyze_single_stock_zscore_trend(ticker, start_date=start_date)
         end_time = time.time()
         if df is not None and not df.empty and 'zscore' in df.columns:
             valid_scores = df[df['zscore'].notnull()]

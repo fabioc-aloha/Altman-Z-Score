@@ -51,6 +51,150 @@ def print_error(msg):
     except:
         print(f"[ERROR] {msg}")
 
+def report_zscore_components_table(df, model, out_base=None, print_to_console=True):
+    """
+    Generate and print/save a table showing X1..X5 (or X1..X4) and z-score by quarter.
+    Args:
+        df (pd.DataFrame): DataFrame with columns: quarter_end, zscore, components (dict), etc.
+        model (str): Z-Score model name (determines which X components to show)
+        out_base (str, optional): Output file base path (without extension)
+        print_to_console (bool): Whether to print the table to the console
+    """
+    # Determine which X components are present for the model
+    model = str(model).lower()
+    if model in ("original", "private"):
+        x_cols = ["X1", "X2", "X3", "X4", "X5"]
+    else:
+        x_cols = ["X1", "X2", "X3", "X4"]
+    # Build table rows
+    rows = []
+    for _, row in df.iterrows():
+        q = row.get("quarter_end")
+        # Format quarter as 'YYYY Qn' if possible
+        q_str = str(q)
+        try:
+            import pandas as pd
+            dt = pd.to_datetime(q)
+            q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
+        except Exception:
+            pass
+        z = row.get("zscore")
+        comps = row.get("components")
+        if isinstance(comps, str):
+            try:
+                import json
+                comps = json.loads(comps)
+            except Exception:
+                comps = {}
+        if not isinstance(comps, dict):
+            comps = {}
+        row_vals = [q_str]
+        for x in x_cols:
+            val = comps.get(x)
+            row_vals.append(f"{val:.3f}" if val is not None else "")
+        row_vals.append(f"{z:.3f}" if z is not None else "")
+        rows.append(row_vals)
+    # Prepare header
+    header = ["Quarter"] + x_cols + ["Z-Score"]
+    # Format as table
+    import tabulate
+    table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
+    if print_to_console:
+        print("\nZ-Score Component Table (by Quarter):")
+        print(table_str)
+    # Save to file if out_base provided
+    if out_base:
+        out_path = f"{out_base}_zscore_components.txt"
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(table_str + "\n")
+        print_info(f"Component table saved to {out_path}")
+
+def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None):
+    """
+    Generate a full formatted report including:
+    - Context/decisions (model, classification, etc.)
+    - Calculation formulas for X1..X5 (or X1..X4)
+    - Table of all quarters with X components, Z-Score, and diagnostic
+    """
+    lines = []
+    # 1. Context/decisions
+    if context_info:
+        lines.append("# Altman Z-Score Analysis Report\n")
+        lines.append("## Analysis Context and Decisions\n")
+        for k, v in context_info.items():
+            lines.append(f"- **{k}:** {v}")
+        lines.append("")
+    # 2. Calculation formulas
+    model = str(model).lower()
+    if model == "original":
+        lines.append("## Altman Z-Score (Original) Formula")
+        lines.append("Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5")
+        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
+        lines.append("- X2 = Retained Earnings / Total Assets")
+        lines.append("- X3 = EBIT / Total Assets")
+        lines.append("- X4 = Market Value of Equity / Total Liabilities")
+        lines.append("- X5 = Sales / Total Assets\n")
+        x_cols = ["X1", "X2", "X3", "X4", "X5"]
+    elif model == "private":
+        lines.append("## Altman Z-Score (Private) Formula")
+        lines.append("Z' = 0.717*X1 + 0.847*X2 + 3.107*X3 + 0.420*X4 + 0.998*X5")
+        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
+        lines.append("- X2 = Retained Earnings / Total Assets")
+        lines.append("- X3 = EBIT / Total Assets")
+        lines.append("- X4 = Book Value of Equity / Total Liabilities")
+        lines.append("- X5 = Sales / Total Assets\n")
+        x_cols = ["X1", "X2", "X3", "X4", "X5"]
+    else:
+        lines.append(f"## Altman Z-Score ({model.title()}) Formula")
+        lines.append("Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4")
+        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
+        lines.append("- X2 = Retained Earnings / Total Assets")
+        lines.append("- X3 = EBIT / Total Assets")
+        lines.append("- X4 = Market Value of Equity / Total Liabilities\n")
+        x_cols = ["X1", "X2", "X3", "X4"]
+    # 3. Table with diagnostics
+    rows = []
+    for _, row in df.iterrows():
+        q = row.get("quarter_end")
+        q_str = str(q)
+        try:
+            import pandas as pd
+            dt = pd.to_datetime(q)
+            q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
+        except Exception:
+            pass
+        z = row.get("zscore")
+        comps = row.get("components")
+        diag = row.get("diagnostic")
+        if isinstance(comps, str):
+            try:
+                import json
+                comps = json.loads(comps)
+            except Exception:
+                comps = {}
+        if not isinstance(comps, dict):
+            comps = {}
+        row_vals = [q_str]
+        for x in x_cols:
+            val = comps.get(x)
+            row_vals.append(f"{val:.3f}" if val is not None else "")
+        row_vals.append(f"{z:.3f}" if z is not None else "")
+        row_vals.append(diag or "")
+        rows.append(row_vals)
+    header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]
+    import tabulate
+    table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
+    lines.append("## Z-Score Component Table (by Quarter)")
+    lines.append(table_str)
+    report = "\n".join(lines)
+    if print_to_console:
+        print(report)
+    if out_base:
+        out_path = f"{out_base}_zscore_full_report.txt"
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(report + "\n")
+        print_info(f"Full report saved to {out_path}")
+
 def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_prices=None):
     """
     Plot the Altman Z-Score trend with colored risk bands and save as PNG.
