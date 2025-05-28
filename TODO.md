@@ -20,52 +20,19 @@
 - All reporting, charting, and error handling features for the MVP and v1 are implemented and tested.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
-<<<<<<< HEAD
----
-<<<<<<< HEAD
-## v2 Roadmap: Z-Score Forecasting & Sentiment Analysis (May 2025)
-- [ ] **Requirements Review:** Finalize requirements for Z-Score forecasting (define data sources, model, and output format)
-- [ ] **API Research:** Evaluate and select APIs for consensus estimates and news/sentiment (Yahoo Finance, NewsAPI, others)
-- [ ] **Design:** Draft a lightweight, explainable, and robust forecasting model. Define clear interfaces for new modules.
-- [ ] **Scaffolding:** Scaffold new modules for forecasting and sentiment analysis, following the established modular/testable pattern
-- [ ] **Testing:** Add/expand tests for all new v2 features. Ensure v1 features remain stable and well-tested during v2 development
-- [ ] **Documentation:** Update README, PLAN.md, and TODO.md for v2 features, usage, and architecture
-
-### v2 Feature Goals
-- Z-Score forecasting using consensus estimates and/or time series models
-- News and sentiment integration for risk/diagnostic context
-- Extensible architecture for future portfolio/multi-ticker analysis
-- Maintain and improve reporting, error handling, and documentation standards
-=======
-## v2 Preparation: Z-Score Forecasting, Sentiment, and Plotting Enhancements
-- [x] **Monthly Stock Price Averages with Whiskers:**
-    - [x] Implement function to aggregate daily prices into monthly averages, min, and max (see fetch_prices.py)
-    - [x] Add overlay of monthly average price points and min/max whiskers to the stock price line in the trend plot (plotting.py)
-    - [x] Add option to enable/disable this overlay in the CLI and plotting function
-    - [x] Unit test aggregation logic and visual test for plot output
-    - [x] Document feature in README and code docstrings
-=======
 ## v2: Enhanced Reporting (Full report file generation)
 - [x] Comprehensive, well-formatted report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
 - [x] Includes context, field mapping, Z-Score component table with risk area diagnostics, and all formulas
 - [x] Improved field mapping and value formatting
 
 ## v2.5: Z-Score Forecasting, Sentiment, and Plotting Enhancements
->>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 - [ ] Review and finalize requirements for Z-Score forecasting (define data sources, model, and output format)
 - [ ] Research and select APIs for consensus estimates and news/sentiment (e.g., Yahoo Finance, NewsAPI, others)
 - [ ] Design forecasting model (lightweight, explainable, and robust)
 - [ ] Scaffold new modules for forecasting and sentiment analysis
-<<<<<<< HEAD
-- [ ] Add/expand tests for new v2 features
-- [ ] Update documentation (README, PLAN.md, etc.) for v2 features and usage
-- [ ] Ensure all v1 features remain stable and well-tested during v2 development
->>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)
-=======
 - [ ] Add/expand tests for new v2.5 features
 - [ ] Update documentation (README, PLAN.md, etc.) for v2.5 features and usage
 - [ ] Ensure all v1 and v2 features remain stable and well-tested during v2.5 development
->>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
 ## Future Enhancements (beyond v2.5)
 - [ ] Portfolio/multi-ticker analysis

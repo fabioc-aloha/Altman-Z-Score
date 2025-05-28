@@ -2,8 +2,6 @@
 
 ## May 2025 Update
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 - **V2 is complete and merged to main.**
 - All outputs are now per-ticker, the main entry point is main.py, and the codebase is free of deprecated files.
 - See below for the V2.5 roadmap (forecasting, sentiment, portfolio analysis).
@@ -62,21 +60,6 @@
 - News and sentiment integration for risk/diagnostic context
 - Extensible architecture for future portfolio/multi-ticker analysis
 - Maintain and improve reporting, error handling, and documentation standards
-=======
-- Removed experimental AI parsing features (`srcai/`, `ai_bootstrap.py`) to focus on a robust, traditional pipeline.
-=======
->>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
-- Improved fallback logic for field name variations in SEC/XBRL and Yahoo Finance data (notably for TSLA and AAPL).
-- Quarters with missing filings are now skipped early, reducing noise and improving reliability.
-- All major architectural and technical decisions are tracked here and in TODO.md.
-- Enhanced reporting: always show industry name (mapped from SIC code) in all reports
-- Context section now combines industry and SIC code into a single line
-- Z-Score Component Table's Diagnostic column displays the risk area (Safe Zone, Distress Zone, Grey Zone) for each quarter
-- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
-- Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
-- **All diagnostic and output files are now written directly to per-ticker output folders.**
-- **The main entry point is now main.py in the project root.**
->>>>>>> 820a617 (Docs: update README, LEARNINGS, and usage for new main.py entry point, per-ticker outputs, and codebase cleanup (May 28, 2025))
 
 ## Background
 This plan is based on the new concept outlined in `OneStockAnalysis.md` and incorporates Altman's Z-Score model documentation. The goal is to create a robust, modular, and testable Altman Z-Score analysis tool for single stocks and portfolios, with a focus on reliability, data integrity, and ease of maintenance.
