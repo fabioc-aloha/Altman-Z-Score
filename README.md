@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 # Altman Z-Score Analysis (V2)
+=======
+# Altman Z-Score Analysis (Version 2.0)
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 ## Project Status (May 2025)
@@ -33,10 +38,29 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 - **Scope:** Single-ticker analysis (portfolio/multi-ticker coming in v2.5+)
 - **Data Sources:** SEC EDGAR (XBRL), Yahoo Finance, NewsAPI, public industry benchmarks
 - **Tech Stack:** Python, pandas, pydantic, yfinance, sec-edgar-downloader, xbrlparse, matplotlib/plotly
+=======
+
+## Project Status (as of May 27, 2025)
+- **MVP (Single-Stock Z-Score Trend Analysis)**: Complete and stable.
+- **v1: Overlay Stock Price Trend**: Partially complete; price overlay is functional.
+- **v2: Enhanced Reporting**: Focused on generating comprehensive, well-formatted reports.
+- All development and testing is performed using a local virtual environment with Python 3.11+.
+- Documentation, testing, and incremental rollout policies are strictly followed.
+
+---
+
+## Project Description
+- **Purpose**: Analyze the financial health and bankruptcy risk of a single public company over time using the Altman Z-Score, calibrated by industry and company maturity.
+- **Scope**: Single-ticker analysis only (no portfolio support in current or near-term versions).
+- **Data Sources**: SEC EDGAR (XBRL), Yahoo Finance, NewsAPI, and public industry benchmarks.
+- **Tech Stack**: Python, pandas, pydantic, yfinance, sec-edgar-downloader, xbrlparse, matplotlib/plotly.
+- **Best Practices**: Modular pipeline, strong validation, robust error handling, and full auditability/logging.
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
 ---
 
 ## Key Features
+<<<<<<< HEAD
 - **Altman Z-Score Trend Analysis:** Computes and visualizes Z-Score trends for any US-listed company using real, live data
 - **Industry-Aware Model Selection:** Automatically selects the correct Z-Score model based on SIC code and industry
 - **Comprehensive Reporting:** Generates full, well-formatted reports (TXT, CSV, JSON) with context, formulas, diagnostics, and raw data mapping
@@ -113,6 +137,25 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 - **Forecasting & Sentiment:** (v2.5 Roadmap) Integrate consensus estimates and news sentiment for forward-looking risk analysis
 
 ---
+=======
+- **Single-Stock Z-Score Trend Analysis**: Computes and visualizes Altman Z-Score trends for any US-listed equity using only real, live data.
+- **Enhanced Price Trend Visualization**: Monthly price statistics overlay with whiskers showing averages and high-low ranges.
+- **Comprehensive Reporting**: Generates detailed reports including context, field mapping, Z-Score diagnostics, and formulas.
+- **Robust Error Handling**: Gracefully handles delisted, missing, or invalid tickers, saving user-friendly error reports.
+- **Extensible Architecture**: Clean separation of input, data fetching, validation, computation, and reporting layers.
+
+---
+
+## Roadmap
+- [x] MVP: Single-Stock Z-Score Trend Analysis
+- [x] v1: Overlay Stock Price Trend
+- [x] v2: Enhanced Reporting (Full report file generation)
+- [ ] v2.5: Sentiment & News Analysis
+- [ ] v3: Portfolio Analysis
+- [ ] v4: Advanced Correlation & Insights
+
+---
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
 ## Environment Setup
 - Copy `.env.example` to `.env` and fill in your API keys and configuration
@@ -122,6 +165,7 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
   ```
 - Use Python 3.11+ with a `.venv` virtual environment (see `docs/venv_setup.md` for setup instructions)
 
+<<<<<<< HEAD
 ---
 
 ## Documentation & Support
@@ -138,90 +182,81 @@ MVP, v1, and v2 are complete as of May 2025. v2.5 (forecasting, sentiment, portf
     - `SEC_API_EMAIL`: Required. Your contact email for SEC API access.
 
 - Optional variables are provided for additional data sources (Yahoo Finance, NewsAPI, etc.) and cache configuration.
+=======
+### Environment Variables
+The project uses a `.env` file in the root directory to manage API keys and configuration. For security, your real `.env` should never be committed to version control. Instead, use the provided `.env.example` as a template:
+
+1. Copy `.env.example` to `.env` in the project root.
+2. Fill in your real credentials and configuration values.
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
 Example:
-
 ```
 SEC_EDGAR_USER_AGENT=AltmanZScore/1.0 (your@email.com) Python-Requests/3.0
 SEC_API_EMAIL=your@email.com
 ```
 
-See `.env.example` for all available options and documentation.
-
-## Python Virtual Environment Setup
+### Python Virtual Environment Setup
 - This project uses a Python virtual environment (`.venv`) for dependency management and isolation.
+- Requires Python 3.11+.
 - See `docs/venv_setup.md` for detailed instructions on setting up and activating the virtual environment.
 
-## Key Features Implemented (as of May 28, 2025)
-- **Main entry point is now `main.py` in the project root.**
-- **All output and diagnostic files are written directly to per-ticker output folders (`output/<TICKER>/`).**
-- **All deprecated and backup files have been removed from the codebase as of May 28, 2025.**
-- Single-stock Z-Score analysis pipeline: end-to-end, from input to reporting
-- Industry classification: yfinance, SEC EDGAR, and static patterns for robust mapping
-- Model selection: automatic based on company profile
-- Data validation: Pydantic schemas for all financial data
-- Computation: Altman Z-Score for each quarter, robust error handling
-- Reporting:
-  - CSV and JSON output for each analysis run (saved to output/)
-  - Z-Score trend plot as PNG, with risk zone bands, value labels, quarter-based x-axis, and a robust legend showing all risk zones and thresholds (saved to output/)
-  - Company profile, SIC code, and model details included as a footnote in the chart
-  - **Full analysis report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`**
-  - **Summary, profile, and trend chart files for each ticker in the output folder**
-  - **Industry name is always shown, mapped from SIC code when available**
-  - **Context section combines industry and SIC code into a single line**
-  - **Z-Score Component Table's Diagnostic column now shows the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter**
-  - Output directory is created if missing; absolute path to chart is printed after saving
-  - All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
+---
 
-## Enhanced Reporting & Context (May 2025):
-- The industry name is always shown in reports, mapped from SIC code when available.
-- The context section now combines industry and SIC code into a single line (e.g., "Prepackaged Software (SIC 7372)").
-- The Z-Score Component Table's "Diagnostic" column displays the risk area ("Safe Zone", "Distress Zone", "Grey Zone") for each quarter, not the validation summary.
-- All output is clearer, well-formatted, and robust, with improved field mapping and value formatting.
+## Usage
 
-## How to Run
-1. Activate your .venv and install dependencies (pip install -r requirements.txt)
-2. Run the analysis script using the new entry point:
+### Setup
+1. Install Python 3.11+ if not already installed.
+2. Activate your `.venv` and install dependencies:
    ```sh
-   python main.py <TICKER>
-   # Example:
-   python main.py TSLA
-   python main.py AAPL --start 2023-01-01
+   pip install -r requirements.txt
    ```
-3. All outputs—including diagnostics—are now saved to `output/<TICKER>/`.
+3. Configure your `.env` file as described above.
 
-## Tested and Working
-- Chart output is visually clear, robust, and user-friendly, with a complete legend and footnote
-- All reporting files are generated and saved as expected
-- Output directory is created if missing
-- All improvements are reflected in the codebase and documentation
+### Run Analysis
+To analyze a stock, use the CLI in `main.py`:
+```sh
+python main.py <TICKER>
+```
+Replace `<TICKER>` with the stock ticker symbol you want to analyze (e.g., `AAPL`, `MSFT`).
 
-## Community & Documentation
+#### Example
+```sh
+python main.py MSFT --start 2023-01-01
+```
+This will generate the Z-Score trend analysis for Microsoft starting from January 1, 2023, and save the results in the `output/` directory.
 
-- This repository is public as of May 2025.
-- The GitHub Wiki is enabled for extended documentation, guides, and community contributions.
-- See the Wiki tab above for more details, usage examples, and technical notes.
+---
 
-See TODO.md and PLAN.md for roadmap and progress.
+## Outputs
+- **Full Analysis Report**: `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
+- **Summary and Profile**: `output/<TICKER>/zscore_<TICKER>_summary.txt`, `output/<TICKER>/zscore_<TICKER>_profile.txt`
+- **Raw Data**: CSV and JSON files for Z-Score components and price data.
+- **Trend Chart**: `output/<TICKER>/zscore_<TICKER>_trend.png` with enhanced price overlay.
 
-## v1 Feature: Stock Price Overlay (Completed May 27, 2025)
+---
 
-The v1 release includes the ability to overlay stock price trends on the Z-Score chart, allowing users to visually correlate financial health with market performance. This feature:
+## Known Limitations
+- **SIC/Industry Mapping**: May not always reflect true business maturity.
+- **Quarterly Data Gaps**: Missing or irregular filings may result in gaps.
+- **International Companies**: Designed for US-listed equities; non-US companies may have incomplete data.
+- **Portfolio Analysis**: Only single-ticker analysis is supported.
+- **Data Source Reliability**: Dependent on public APIs; outages may affect functionality.
 
-- Automatically fetches historical stock prices for the same time periods as the Z-Score analysis
-- Displays price data alongside Z-Score values using a dual y-axis chart
-- Provides visual correlation between market perception (price) and financial fundamentals (Z-Score)
-- Handles weekend/holiday dates and other edge cases gracefully
+For more details, see `LEARNINGS.md` and the project Wiki.
 
-When running the analysis, the price overlay will automatically be included in the generated chart if price data is available. The chart will be saved to the output directory with the same naming convention as before.
+---
 
-**Implementation Details:**
-- The price data is fetched using the Yahoo Finance API via the yfinance library
-- Date formatting was improved to handle dates with time components
-- The plotting module was enhanced to support dual y-axis visualization
+## Development & Contribution
+- All changes must pass existing and new tests.
+- New features require updated tests and documentation.
+- See `PLAN.md` for the feature roadmap and major decisions.
+- See `TODO.md` for actionable tasks and environment setup.
+- Document significant learnings in `LEARNINGS.md`.
 
-## Known Limitations & Edge Cases
+---
 
+<<<<<<< HEAD
 ### Delisted and Nonexistent Companies
 - The pipeline uses only real, live data from SEC EDGAR and Yahoo Finance. If a ticker is delisted, has changed symbols, or is not found in public data sources, the analysis will fail gracefully and save a user-friendly error report. However, for some delisted companies, especially those with no recent filings or market data, it may not be possible to retrieve any financials or price history. In these cases, the output will indicate the data gap and the analysis will not proceed.
 - Some tickers (e.g., RIDE, JHKASD) may have partial or missing data due to the timing of delisting, bankruptcy, or symbol changes. The pipeline will report these cases clearly, but cannot fill in missing data from static or unofficial sources.
@@ -237,3 +272,7 @@ When running the analysis, the price overlay will automatically be included in t
 
 For more details on edge cases and technical learnings, see `LEARNINGS.md` and the project Wiki.
 >>>>>>> 820a617 (Docs: update README, LEARNINGS, and usage for new main.py entry point, per-ticker outputs, and codebase cleanup (May 28, 2025))
+=======
+## License
+MIT (see LICENSE file)
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)

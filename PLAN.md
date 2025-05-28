@@ -3,6 +3,7 @@
 ## May 2025 Update
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - **V2 is complete and merged to main.**
 - All outputs are now per-ticker, the main entry point is main.py, and the codebase is free of deprecated files.
 - See below for the V2.5 roadmap (forecasting, sentiment, portfolio analysis).
@@ -63,6 +64,8 @@
 - Maintain and improve reporting, error handling, and documentation standards
 =======
 - Removed experimental AI parsing features (`srcai/`, `ai_bootstrap.py`) to focus on a robust, traditional pipeline.
+=======
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 - Improved fallback logic for field name variations in SEC/XBRL and Yahoo Finance data (notably for TSLA and AAPL).
 - Quarters with missing filings are now skipped early, reducing noise and improving reliability.
 - All major architectural and technical decisions are tracked here and in TODO.md.
@@ -71,7 +74,6 @@
 - Z-Score Component Table's Diagnostic column displays the risk area (Safe Zone, Distress Zone, Grey Zone) for each quarter
 - All output is clearer, well-formatted, and robust, with improved field mapping and value formatting
 - Full analysis report is saved as output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt; other key output files: summary, profile, CSV/JSON, and trend chart for each ticker
-- **All deprecated and backup files have been removed from the codebase (May 28, 2025).**
 - **All diagnostic and output files are now written directly to per-ticker output folders.**
 - **The main entry point is now main.py in the project root.**
 >>>>>>> 820a617 (Docs: update README, LEARNINGS, and usage for new main.py entry point, per-ticker outputs, and codebase cleanup (May 28, 2025))
@@ -162,36 +164,28 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - [x] Fetches and overlays stock price trend for the same period
   - [x] Combined plot of Z-Score and price
   - [x] Fixed date formatting issue in price fetching function to handle datetime strings with time components
-- [ ] **v2: Z-Score Forecasting & Sentiment Analysis**
+- [x] **v2: Enhanced Reporting (Full report file generation)**
+  - [x] Comprehensive, well-formatted report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
+  - [x] Includes context, field mapping, Z-Score component table with risk area diagnostics, and all formulas
+  - [x] Improved field mapping and value formatting
+- [ ] **v2.1: Granular Stock Price Analysis**
+  - [ ] Introduce monthly granularity for stock price trends in the chart.
+  - [ ] Add whisker/error bars to represent price ranges (e.g., high/low prices for each month).
+  - [ ] Generate a detailed stock price data file for future analysis, saved as `output/<TICKER>/monthly_prices_<TICKER>.csv` and `output/<TICKER>/monthly_prices_<TICKER>.json`.
+- [ ] **v2.5: Z-Score Forecasting & Sentiment Analysis**
   - [ ] **Z-Score Forecasting Feature:**
-    - **Objective:** Add the ability to forecast the next quarter's Z-Score based on consensus estimates and other data sources.
-    - **Implementation Steps:**
-      1. **Data Collection:**
-         - Fetch consensus estimates for key financial metrics (e.g., revenue, EBITDA, net income) from Yahoo Finance or other APIs.
-         - Integrate additional data sources for industry trends and macroeconomic indicators.
-      2. **Forecasting Model:**
-         - Develop a lightweight forecasting model to estimate Z-Score components based on collected data.
-         - Use historical trends and industry benchmarks to refine predictions.
-      3. **Integration:**
-         - Extend the computation layer to include forecasted Z-Score values.
-         - Update the reporting layer to display forecasted Z-Score alongside historical trends.
-      4. **Validation:**
-         - Test the forecasting feature with multiple tickers to ensure accuracy and reliability.
-      5. **Documentation:**
-         - Update README.md and other documentation to include usage instructions and limitations for the forecasting feature.
-  - [ ] Integrates sentiment analysis and news highlights
-  - [ ] Correlates operational health from news/SEC filings with Z-Score and price
-- [ ] **v2: Sentiment & News Analysis**
-  - Integrates sentiment analysis and news highlights
-  - Correlates operational health from news/SEC filings with Z-Score and price
-- [ ] **v3: Advanced Correlation & Insights**
+    - Fetch consensus estimates for key financial metrics (e.g., revenue, EBITDA, net income) from Yahoo Finance or other APIs.
+    - Develop a lightweight forecasting model to estimate Z-Score components based on collected data.
+    - Extend the computation layer to include forecasted Z-Score values.
+    - Update the reporting layer to display forecasted Z-Score alongside historical trends.
+  - [ ] **Sentiment Analysis Feature:**
+    - Integrate sentiment analysis and news highlights
+    - Correlate operational health from news/SEC filings with Z-Score and price
+- [ ] **v3: Portfolio Analysis**
+  - Generalizes pipeline to handle multiple tickers, batch analysis, and reporting
+- [ ] **v4: Advanced Correlation & Insights**
   - Correlates Z-Score, price, and operational health metrics
   - Generates insights and alerts
-
-<!--
-## Future (Not in current roadmap)
-- Portfolio Analysis: Generalizes pipeline to handle multiple tickers, batch analysis and reporting
--->
 
 ## Conservative, Incremental Rollout Policy
 - Build a minimal, robust MVP first (single-stock Z-Score trend analysis).
@@ -240,5 +234,4 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - The main entry point for the Altman Z-Score analysis pipeline has been updated to `main.py` in the project root (formerly `altman_zscore.py`).
 - All references to `one_stock_analysis.py` in the documentation and examples have been updated accordingly.
 - All outputs are now organized by ticker in `output/<TICKER>/`.
-- All deprecated and backup files have been removed as of May 28, 2025.
 - Ensure that the new entry point is tested and validated for all supported tickers.

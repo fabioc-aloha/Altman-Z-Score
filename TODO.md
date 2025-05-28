@@ -20,6 +20,7 @@
 - All reporting, charting, and error handling features for the MVP and v1 are implemented and tested.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
+<<<<<<< HEAD
 ---
 <<<<<<< HEAD
 ## v2 Roadmap: Z-Score Forecasting & Sentiment Analysis (May 2025)
@@ -43,17 +44,30 @@
     - [x] Add option to enable/disable this overlay in the CLI and plotting function
     - [x] Unit test aggregation logic and visual test for plot output
     - [x] Document feature in README and code docstrings
+=======
+## v2: Enhanced Reporting (Full report file generation)
+- [x] Comprehensive, well-formatted report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
+- [x] Includes context, field mapping, Z-Score component table with risk area diagnostics, and all formulas
+- [x] Improved field mapping and value formatting
+
+## v2.5: Z-Score Forecasting, Sentiment, and Plotting Enhancements
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 - [ ] Review and finalize requirements for Z-Score forecasting (define data sources, model, and output format)
 - [ ] Research and select APIs for consensus estimates and news/sentiment (e.g., Yahoo Finance, NewsAPI, others)
 - [ ] Design forecasting model (lightweight, explainable, and robust)
 - [ ] Scaffold new modules for forecasting and sentiment analysis
+<<<<<<< HEAD
 - [ ] Add/expand tests for new v2 features
 - [ ] Update documentation (README, PLAN.md, etc.) for v2 features and usage
 - [ ] Ensure all v1 features remain stable and well-tested during v2 development
 >>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)
+=======
+- [ ] Add/expand tests for new v2.5 features
+- [ ] Update documentation (README, PLAN.md, etc.) for v2.5 features and usage
+- [ ] Ensure all v1 and v2 features remain stable and well-tested during v2.5 development
+>>>>>>> ce65ac8 (Release version 2.0 with updated documentation and features)
 
----
-## Future Enhancements (beyond v2)
+## Future Enhancements (beyond v2.5)
 - [ ] Portfolio/multi-ticker analysis
 - [ ] Advanced correlation and insights
 - [ ] Community contributions and plugin support
