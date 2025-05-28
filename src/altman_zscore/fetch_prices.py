@@ -16,6 +16,7 @@ import pandas as pd
 import numpy as np
 import os
 import json
+from altman_zscore.utils.paths import get_output_dir
 
 # Filter out yfinance warnings related to auto_adjust changes
 warnings.filterwarnings('ignore', category=UserWarning, module='yfinance')
@@ -399,10 +400,10 @@ def save_price_data_to_disk(df: pd.DataFrame, ticker: str, output_dir: str, file
     if df is None or df.empty:
         raise ValueError("No price data to save")
     
-    # Ensure output directory exists
-    os.makedirs(output_dir, exist_ok=True)
+    # Get output directory
+    output_dir = get_output_dir()
     
-    # Define file paths directly in the output directory
+    # Define file paths
     csv_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.csv")
     json_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.json")
     

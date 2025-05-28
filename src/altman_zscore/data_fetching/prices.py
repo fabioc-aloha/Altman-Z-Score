@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 import os
 import json
+from altman_zscore.utils.paths import get_output_dir
 
 # Filter out yfinance warnings related to auto_adjust changes
 warnings.filterwarnings('ignore', category=UserWarning, module='yfinance')
@@ -197,12 +198,12 @@ def get_monthly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.D
     except Exception as e:
         raise ValueError(f"Error fetching monthly price statistics for {ticker}: {str(e)}")
 
-def save_price_data_to_disk(df: pd.DataFrame, ticker: str, output_dir: str, file_prefix: str) -> tuple[str, str]:
+def save_price_data_to_disk(df: pd.DataFrame, ticker: str, file_prefix: str) -> tuple[str, str]:
     if df is None or df.empty:
         raise ValueError("No price data to save")
-    os.makedirs(output_dir, exist_ok=True)
-    csv_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.csv")
-    json_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.json")
+        
+    csv_path = get_output_dir(f"{file_prefix}.csv", ticker=ticker)
+    json_path = get_output_dir(f"{file_prefix}.json", ticker=ticker)
     try:
         df_copy = df.copy()
         datetime_cols = [col for col in df_copy.columns if pd.api.types.is_datetime64_any_dtype(df_copy[col])]

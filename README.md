@@ -1,15 +1,25 @@
-# Altman Z-Score Analysis (Version 2.0)
+# Altman Z-Score Analysis (Version 2.0.1)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Project Status (as of May 27, 2025):**
+**Project Status (as of May 28, 2025):**
+- **V2.0.1 (Bug Fix & Resilience Improvement):** Latest release — see PLAN.md for details
 - **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
 - **v1 (Stock Price Overlay):** Complete
 - **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
 - **v2.5 (Forecasting, Sentiment, Portfolio Analysis):** In planning (see PLAN.md)
 - All development and testing uses a local Python 3.11+ virtual environment (`.venv`)
+
+---
+
+## V2.0.1: Bug Fix & Resilience Improvement
+- All output file and directory creation is now fully centralized and robust (no hardcoded paths).
+- If a ticker is invalid or unavailable, a clear marker file (`TICKER_NOT_AVAILABLE.txt`) is written in the output folder, and no other files are created.
+- Removed all legacy, redundant, or confusing output files (component tables, summary, profile, etc.).
+- Documentation and code comments have been updated for clarity and maintainability.
+- The codebase is now more robust to edge cases and easier to maintain.
 
 ---
 
@@ -43,10 +53,9 @@ python main.py AAPL
 
 Outputs will be saved in the `output/<TICKER>/` directory:
 - Full report: `zscore_<TICKER>_zscore_full_report.txt`
-- Component table: `zscore_<TICKER>_zscore_components.txt`
 - Trend chart: `zscore_<TICKER>_trend.png`
 - Raw data: `zscore_<TICKER>.csv` and `.json`
-- Profile/summary: `zscore_<TICKER>_profile.txt`
+- If a ticker is not available or does not exist, only a `TICKER_NOT_AVAILABLE.txt` marker file will be present in the output folder.
 
 Reports include mapped industry, SIC code, model selection rationale, and risk diagnostics for each quarter. Charts show Z-Score trends with risk zones and optional price overlay.
 
@@ -132,9 +141,9 @@ This will generate the Z-Score trend analysis for Microsoft starting from Januar
 
 ## Outputs
 - **Full Analysis Report**: `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
-- **Summary and Profile**: `output/<TICKER>/zscore_<TICKER>_summary.txt`, `output/<TICKER>/zscore_<TICKER>_profile.txt`
 - **Raw Data**: CSV and JSON files for Z-Score components and price data.
 - **Trend Chart**: `output/<TICKER>/zscore_<TICKER>_trend.png` with enhanced price overlay.
+- If a ticker is not available or does not exist, only a `TICKER_NOT_AVAILABLE.txt` marker file will be present in the output folder.
 
 ---
 
@@ -158,3 +167,12 @@ For more details, see `LEARNINGS.md` and the project Wiki.
 
 ## License
 MIT (see LICENSE file)
+
+## Changelog
+
+### V2.0.1 (May 28, 2025) — Bug Fix & Resilience Improvement
+- All output file and directory creation is now fully centralized and robust (no hardcoded paths).
+- If a ticker is invalid or unavailable, a clear marker file (`TICKER_NOT_AVAILABLE.txt`) is written in the output folder, and no other files are created.
+- Removed all legacy, redundant, or confusing output files (component tables, summary, profile, etc.).
+- Documentation and code comments have been updated for clarity and maintainability.
+- The codebase is now more robust to edge cases and easier to maintain.

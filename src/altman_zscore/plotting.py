@@ -20,7 +20,8 @@ import os
 import sys
 import importlib
 models = importlib.import_module('altman_zscore.models')
-from altman_zscore.reporting import report_zscore_components_table, report_zscore_full_report
+from altman_zscore.reporting import report_zscore_full_report
+from altman_zscore.utils.paths import get_output_dir
 
 # ANSI color codes for terminal output if supported
 class Colors:
@@ -55,135 +56,13 @@ def print_error(msg):
     except:
         print(f"[ERROR] {msg}")
 
-<<<<<<< HEAD
-def report_zscore_components_table(df, model, out_base=None, print_to_console=True):
-    """
-    Generate and print/save a table showing Z-Score components (X1..X5 or X1..X4) and z-score by quarter.
-
-    Args:
-        df (pd.DataFrame): DataFrame with columns: quarter_end, zscore, components (dict), etc.
-        model (str): Z-Score model name (determines which X components to show)
-        out_base (str, optional): Output file base path (without extension)
-        print_to_console (bool): Whether to print the table to the console
-    Returns:
-        None. Prints and/or saves the table as a text file.
-    """
-    # Determine which X components are present for the model
-    model = str(model).lower()
-    if model in ("original", "private"):
-        x_cols = ["X1", "X2", "X3", "X4", "X5"]
-    else:
-        x_cols = ["X1", "X2", "X3", "X4"]
-    # Build table rows
-    rows = []
-    for _, row in df.iterrows():
-        q = row.get("quarter_end")
-        # Format quarter as 'YYYY Qn' if possible
-        q_str = str(q)
-        try:
-            import pandas as pd
-            dt = pd.to_datetime(q)
-            q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
-        except Exception:
-            pass
-        z = row.get("zscore")
-        comps = row.get("components")
-        if isinstance(comps, str):
-            try:
-                import json
-                comps = json.loads(comps)
-            except Exception:
-                comps = {}
-        if not isinstance(comps, dict):
-            comps = {}
-        row_vals = [q_str]
-        for x in x_cols:
-            val = comps.get(x)
-            row_vals.append(f"{val:.3f}" if val is not None else "")
-        row_vals.append(f"{z:.3f}" if z is not None else "")
-        rows.append(row_vals)
-    # Prepare header
-    header = ["Quarter"] + x_cols + ["Z-Score"]
-    # Format as table
-    import tabulate
-    table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
-    if print_to_console:
-        print("\nZ-Score Component Table (by Quarter):")
-        print(table_str)
-    # Save to file if out_base provided
-    if out_base:
-        out_path = f"{out_base}_zscore_components.txt"
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(table_str + "\n")
-        print_info(f"Component table saved to {out_path}")
-
-def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None):
-    """
-    Generate a full formatted report including:
-    - Context/decisions (model, classification, etc.)
-    - Calculation formulas for X1..X5 (or X1..X4)
-    - Table of all quarters with X components, Z-Score, and diagnostic
-    - Raw data mapping table (values in millions of USD)
-
-    Args:
-        df (pd.DataFrame): DataFrame with Z-Score results and mapping info
-        model (str): Z-Score model name
-        out_base (str, optional): Output file base path (without extension)
-        print_to_console (bool): Whether to print the report to the console
-        context_info (dict, optional): Contextual info for the report header
-    Returns:
-        None. Prints and/or saves the report as a text file.
-    """
-    # Get company name for the report title
-    company_name = None
-    try:
-        import yfinance as yf
-        yf_ticker = yf.Ticker(context_info["Ticker"]) if context_info and "Ticker" in context_info else None
-        if yf_ticker:
-            info = yf_ticker.info
-            company_name = info.get('shortName') or info.get('longName')
-    except Exception:
-        company_name = None
-    if not company_name and context_info and "Ticker" in context_info:
-        company_name = context_info["Ticker"].upper()
-    # Title with company name and ticker
-    if company_name and context_info and "Ticker" in context_info:
-        title = f"# Altman Z-Score Analysis Report: {company_name} ({context_info['Ticker'].upper()})\n"
-    else:
-        title = "# Altman Z-Score Analysis Report\n"
-    lines = [title]
-    # Add spacing between sections
-    lines.append("")
-    lines.append("## Analysis Context and Decisions\n")
-    if context_info:
-        # Combine industry and SIC code into a single line
-        industry_val = context_info.get("Industry")
-        sic_val = context_info.get("SIC Code")
-        if industry_val and sic_val and industry_val != "Unknown":
-            lines.append(f"- **Industry:** {industry_val} (SIC {sic_val})")
-        else:
-            lines.append(f"- **Industry:** {industry_val or sic_val}")
-        for k, v in context_info.items():
-            if k in ("Industry", "SIC Code"):
-                continue
-            lines.append(f"- **{k}:** {v}")
-        lines.append("")
-    # 2. Calculation formulas
-    model = str(model).lower()
-    lines.append("")
-=======
 def get_output_ticker_dir(ticker):
     """Return the absolute output directory for a given ticker, ensuring it exists."""
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    ticker_dir = os.path.join(base_dir, 'output', ticker.upper())
-    if not os.path.exists(ticker_dir):
-        os.makedirs(ticker_dir, exist_ok=True)
-    return ticker_dir
+    return get_output_dir(ticker=ticker)
 
 def get_zscore_thresholds(model):
     """Return distress and safe zone thresholds for the given model name."""
     # These values are based on standard Altman Z-Score literature
->>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)
     if model == "original":
         return {"distress_zone": 1.81, "safe_zone": 2.99}
     elif model == "private":
@@ -205,14 +84,8 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
         profile_footnote (str, optional): Footnote string for chart (company profile/model info)
-<<<<<<< HEAD
         stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price'] for overlaying stock prices
-=======
-        stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price']
-                                             for overlaying stock prices
         monthly_stats (pd.DataFrame, optional): DataFrame with monthly price statistics
-    
->>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)
     Returns:
         None. Saves PNG to output/ and prints absolute path.
     Notes:

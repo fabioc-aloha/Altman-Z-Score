@@ -1,5 +1,16 @@
 # Altman Z-Score Refactor Plan (2025, Revised)
 
+## V2.0.1 Release: Bug Fix and Resilience Improvement (May 28, 2025)
+
+- **Release V2.0.1** focuses on bug fixes, output folder/file handling, and improved resilience:
+  - All output file and directory creation is now fully centralized and robust (no hardcoded paths).
+  - If a ticker is invalid or unavailable, a clear marker file (`TICKER_NOT_AVAILABLE.txt`) is written in the output folder, and no other files are created.
+  - Removed all legacy, redundant, or confusing output files (component tables, summary, profile, etc.).
+  - Documentation and code comments have been updated for clarity and maintainability.
+  - The codebase is now more robust to edge cases and easier to maintain.
+
+---
+
 ## May 2025 Update
 
 - **V2 is complete and merged to main.**

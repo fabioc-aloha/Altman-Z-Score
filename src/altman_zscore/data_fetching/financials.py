@@ -5,6 +5,7 @@ Financials data fetching utilities for Altman Z-Score analysis.
 # All imports should be at the top of the file, per Python best practices.
 import os
 from altman_zscore.api.openai_client import AzureOpenAIClient
+from altman_zscore.utils.paths import get_output_dir
 
 def fetch_financials(ticker: str, end_date: str, zscore_model: str):
     """
@@ -14,6 +15,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         ticker (str): Stock ticker symbol (e.g., 'AAPL')
         end_date (str): End date for financials (ignored in MVP, use all available)
         zscore_model (str): Z-Score model name (determines required fields)
+        output_dir (str, optional): Directory to save output files. Defaults to './output'.
     Returns:
         dict or None: {"quarters": [dict, ...]} if data found, else None
     
@@ -156,15 +158,6 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         # Log what periods/columns are present
         logger.info(f"[{ticker}] Balance sheet columns: {list(bs.columns)}")
         logger.info(f"[{ticker}] Income statement columns: {list(is_.columns)}")
-        # Save the balance sheet index for troubleshooting
-        ticker_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'output', ticker.upper())
-        os.makedirs(ticker_dir, exist_ok=True)
-        with open(os.path.join(ticker_dir, f"bs_index_{ticker.upper()}_{end_date}.txt"), "w") as f:
-            f.write("\n".join(str(idx) for idx in bs.index))
-        with open(os.path.join(ticker_dir, f"bs_columns_{ticker.upper()}_{end_date}.txt"), "w") as f:
-            f.write("\n".join(str(col) for col in bs.columns))
-        with open(os.path.join(ticker_dir, f"is_columns_{ticker.upper()}_{end_date}.txt"), "w") as f:
-            f.write("\n".join(str(col) for col in is_.columns))
         quarters = []
         common_periods = [p for p in bs.columns if p in is_.columns]
         # If yfinance returns no data, try SEC EDGAR fallback
@@ -280,9 +273,11 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             quarters.append(q)
         quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
         if quarters:
-            # Warn if partial data (e.g., only annuals, or fewer than 4 quarters)
-            if len(quarters) < 4:
-                logger.warning(f"[{ticker}] Only {len(quarters)} usable periods found. Proceeding with partial data.")
+            # Only now, after confirming valid data, write diagnostics/output files
+            with open(get_output_dir(f"bs_index.txt", ticker=ticker), "w") as f:
+                f.write("\n".join(str(idx) for idx in bs.index))
+            with open(get_output_dir(f"is_index.txt", ticker=ticker), "w") as f:
+                f.write("\n".join(str(idx) for idx in is_.index))
             return {"quarters": quarters}
         else:
             logger.error(f"[{ticker}] No usable financial data found after processing. Data may be present but missing required fields.")

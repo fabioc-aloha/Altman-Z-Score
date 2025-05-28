@@ -21,58 +21,7 @@ from altman_zscore.computation.formulas import (
 from altman_zscore.computation.compute import compute_zscore
 from altman_zscore.computation.model_selection import determine_zscore_model, select_zscore_model_by_sic
 
-<<<<<<< HEAD
 from typing import Dict, Any, Optional
-from dataclasses import dataclass
-
-@dataclass
-class FinancialMetrics:
-    """
-    Container for financial metrics required for Z-Score computation.
-
-    Attributes:
-        working_capital (float): Working capital
-        retained_earnings (float): Retained earnings
-        ebit (float): Earnings before interest and taxes
-        market_value_equity (float): Market value of equity
-        total_assets (float): Total assets
-        total_liabilities (float): Total liabilities
-        sales (float): Sales/revenue
-    """
-    current_assets: float
-    current_liabilities: float
-    retained_earnings: float
-    ebit: float
-    market_value_equity: float
-    total_assets: float
-    total_liabilities: float
-    sales: float
-    period_end: Any = None
-
-    @staticmethod
-    def from_dict(q: Dict[str, Any], mve: float, period_end: Any):
-        """
-        Create FinancialMetrics from a dict (quarterly data), market value equity, and period_end.
-        """
-        return FinancialMetrics(
-            current_assets=q.get("current_assets", 0.0),
-            current_liabilities=q.get("current_liabilities", 0.0),
-            retained_earnings=q.get("retained_earnings", 0.0),
-            ebit=q.get("ebit", 0.0),
-            market_value_equity=mve if mve is not None else 0.0,
-            total_assets=q.get("total_assets", 0.0),
-            total_liabilities=q.get("total_liabilities", 0.0),
-            sales=q.get("sales", 0.0),
-            period_end=period_end
-        )
-
-@dataclass
-class ZScoreResult:
-    z_score: float
-    model: str
-    components: Dict[str, float]
-    diagnostic: str
-    thresholds: Dict[str, float]
 
 def safe_div(numerator, denominator):
     if denominator == 0:
@@ -548,6 +497,3 @@ def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: 
     return 'original'  # fallback
 
 # --- For testability, add unit tests and docstring examples in a separate test module ---
-=======
-# This file is retained for backward compatibility and as a glue module.
->>>>>>> 671cc1f (Refactor: remove deprecated files, clean up diagnostics output, and clarify main entry point. All outputs now organized per ticker. Deprecated modules removed.)

@@ -10,6 +10,9 @@ from altman_zscore.computation.formulas import (
 from altman_zscore.models.financial_metrics import ZScoreResult
 
 def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScoreResult:
+    # NOTE: All output file writing should use the centralized get_output_dir(relative_path, ticker) utility
+    # from altman_zscore.utils.paths to ensure outputs go to ./output/<TICKER>/ as per project conventions.
+    # This function does not write output directly, but any future output should follow this pattern.
     if model == "original":
         return altman_zscore_original(
             working_capital=metrics["current_assets"] - metrics["current_liabilities"],

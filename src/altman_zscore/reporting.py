@@ -5,57 +5,15 @@ This module provides functions to generate and save Altman Z-Score text reports 
 """
 import os
 import tabulate
+from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.utils.colors import Colors
 
 def print_info(msg):
+    """Print an info message with blue color if supported"""
     try:
-        from altman_zscore.plotting import Colors
-        print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
-    except Exception:
+        print(f"{Colors.BLUE}[INFO]{Colors.ENDC} {msg}")
+    except:
         print(f"[INFO] {msg}")
-
-def report_zscore_components_table(df, model, out_base=None, print_to_console=True):
-    # ...moved from plotting.py...
-    model = str(model).lower()
-    if model in ("original", "private"):
-        x_cols = ["X1", "X2", "X3", "X4", "X5"]
-    else:
-        x_cols = ["X1", "X2", "X3", "X4"]
-    rows = []
-    for _, row in df.iterrows():
-        q = row.get("quarter_end")
-        q_str = str(q)
-        try:
-            import pandas as pd
-            dt = pd.to_datetime(q)
-            q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
-        except Exception:
-            pass
-        z = row.get("zscore")
-        comps = row.get("components")
-        if isinstance(comps, str):
-            try:
-                import json
-                comps = json.loads(comps)
-            except Exception:
-                comps = {}
-        if not isinstance(comps, dict):
-            comps = {}
-        row_vals = [q_str]
-        for x in x_cols:
-            val = comps.get(x)
-            row_vals.append(f"{val:.3f}" if val is not None else "")
-        row_vals.append(f"{z:.3f}" if z is not None else "")
-        rows.append(row_vals)
-    header = ["Quarter"] + x_cols + ["Z-Score"]
-    table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
-    if print_to_console:
-        print("\nZ-Score Component Table (by Quarter):")
-        print(table_str)
-    if out_base:
-        out_path = f"{out_base}_zscore_components.txt"
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(table_str + "\n")
-        print_info(f"Component table saved to {out_path}")
 
 def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None):
     # ...full function body moved from plotting.py...
@@ -204,7 +162,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     if print_to_console:
         print(report)
     if out_base:
-        out_path = f"{out_base}_zscore_full_report.txt"
+        out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.txt")
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(report + "\n")
         print_info(f"Full report saved to {out_path}")

@@ -9,6 +9,7 @@ from sec_edgar_downloader._Downloader import Downloader
 from altman_zscore.data_fetching.financials import fetch_financials
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.industry_classifier import classify_company
+from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.compute_zscore import FinancialMetrics, compute_zscore, determine_zscore_model
 from altman_zscore.data_validation import FinancialDataValidator
 from datetime import datetime, timedelta
@@ -17,7 +18,8 @@ from altman_zscore.sic_lookup import sic_map
 from altman_zscore.compute_zscore import select_zscore_model_by_sic
 import json
 from altman_zscore.data_fetching.prices import get_quarterly_prices, get_monthly_price_stats
-from altman_zscore.plotting import plot_zscore_trend, report_zscore_components_table
+from altman_zscore.plotting import plot_zscore_trend, report_zscore_full_report
+from altman_zscore.utils.paths import get_output_dir
 
 # ANSI color codes for terminal output
 class Colors:
@@ -62,13 +64,11 @@ def fetch_sec_quarterly_financials(ticker: str, end_date: str) -> list:
     # Future version will integrate direct SEC EDGAR API access
     return []
 
-def get_output_ticker_dir(ticker):
-    """Return the absolute output directory for a given ticker, ensuring it exists."""
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    ticker_dir = os.path.join(base_dir, 'output', ticker.upper())
-    if not os.path.exists(ticker_dir):
-        os.makedirs(ticker_dir, exist_ok=True)
-    return ticker_dir
+def get_zscore_path(ticker, ext=None):
+    """Return the path for Z-Score output files in the ticker's directory."""
+    # Use the ticker directory as base, not a subdirectory called 'zscore'
+    base = get_output_dir(None, ticker=ticker)
+    return f"{os.path.join(base, f'zscore_{ticker}')}{ext if ext else ''}"
 
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     """
@@ -88,57 +88,23 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         5. Output results to CSV, JSON, and plot
         6. Save all diagnostics and error reports to output/
     """
-    logger = logging.getLogger("altman_zscore.one_stock_analysis")
-
-    # Setup base output directory using absolute path
-    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "output")
-    os.makedirs(output_dir, exist_ok=True)
-
-    # 1. Classify company (industry, maturity, etc.)
+    logger = logging.getLogger("altman_zscore.one_stock_analysis")    # Setup base output directory using absolute path    # 1. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
     
-    # Create ticker-specific output directory
-    ticker_dir = get_output_ticker_dir(ticker)
-    
-    out_base = os.path.join(ticker_dir, f"zscore_{ticker}")    # If profile is None or lacks industry, treat as not found and exit gracefully
+    out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")    # All outputs for this ticker go to ./output/<TICKER>/
     if not profile or getattr(profile, 'industry', None) in (None, '', 'unknown', 'Unknown'):
-        error_result = [{
-            "quarter_end": None,
-            "zscore": None,
-            "valid": False,
-            "error": f"Could not classify company for ticker {ticker}. The ticker may not exist, may be delisted, or lacks industry/sector info.",
-            "diagnostic": None,
-            "model": None,
-            "api_payload": str(profile) if profile else None
-        }]
-        
-        # Use previously defined ticker_dir
-        df = pd.DataFrame(error_result)
-        try:
-            df.to_csv(f"{out_base}_error.csv", index=False)
-            df.to_json(f"{out_base}_error.json", orient="records", indent=2)
-            print_info(f"Error output saved to {out_base}_error.csv and {out_base}_error.json")
-        except Exception as e:
-            print_error(f"Could not save error output: {e}")
-        
+        from altman_zscore.utils.paths import write_ticker_not_available
         print_error(f"Could not classify company for ticker {Colors.BOLD}{ticker}{Colors.ENDC}.")
         print_error(f"Possible causes:")
         print_error(f" - The ticker symbol {ticker} may not exist")
         print_error(f" - The company may be delisted")
         print_error(f" - Industry/sector information is unavailable")
         print_error(f"Analysis aborted.")
+        write_ticker_not_available(ticker, reason="Classification failed: industry/sector not found or ticker does not exist.")
         sys.exit(1)
 
     # Only print company profile if classification succeeded
-    profile_info = (
-        f"Company profile for {ticker}:\n"
-        f"  Industry: {getattr(profile, 'industry', 'Unknown')}\n"
-        f"  Public: {getattr(profile, 'is_public', 'Unknown')}\n"
-        f"  Emerging Market: {getattr(profile, 'is_emerging_market', 'Unknown')}\n"
-    )
-    # Save company profile info to file
-    with open(f"{out_base}_profile.txt", "w", encoding="utf-8") as f:
-        f.write(profile_info)
+    # (Removed: profile_info and writing zscore_<TICKER>_profile.txt)
 
     # Extract company profile fields immediately after classification
     industry = getattr(profile, 'industry', 'Unknown')
@@ -177,8 +143,6 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             "model": model,
             "api_payload": None
         }]
-        ticker_dir = get_output_ticker_dir(ticker)
-        out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
         df = pd.DataFrame(error_result)
         try:
             df.to_csv(f"{out_base}_error.csv", index=False)
@@ -269,8 +233,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                 "diagnostic": f"[ERROR] Exception: {e}",
                 "model": str(model),
                 "api_payload": q.get("raw_payload")
-            })
-    # After results are collected, create DataFrame
+            })    # After results are collected, create DataFrame
     def safe_payload(val):
         if isinstance(val, (dict, list)):
             try:
@@ -281,11 +244,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     for r in results:
         if 'api_payload' in r:
             r['api_payload'] = safe_payload(r['api_payload'])
-    df = pd.DataFrame(results)
-    # Reporting: output to CSV, JSON, and print summary table
-    # Ensure output and ticker subdirectory exist
-    ticker_dir = get_output_ticker_dir(ticker)
-    out_base = os.path.join(ticker_dir, f"zscore_{ticker}")
+    df = pd.DataFrame(results)    # Reporting: output to CSV, JSON, and print summary table
     try:
         df.to_csv(f"{out_base}.csv", index=False)
         print_info(f"Results saved to CSV: {out_base}.csv")
@@ -300,14 +259,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         if row.get("error"):
             print_warning(f"{row['quarter_end']}: {row['error']}")
     # Save summary table to file, do not print to terminal
-    try:
-        # Only include columns that exist in the DataFrame
-        summary_cols = [col for col in ["quarter_end", "zscore", "diagnostic", "model", "valid", "error", "api_payload"] if col in df.columns]
-        summary_table = df[summary_cols].to_string(index=False)
-        with open(f"{out_base}_summary.txt", "w", encoding="utf-8") as f:
-            f.write(summary_table)
-    except Exception as e:
-        print(f"[ERROR] Could not save summary table: {e}")
+    # (Removed: summary table and writing zscore_<TICKER>_summary.txt)
     # Prepare single-line company profile footnote for chart
     industry = getattr(profile, 'industry', 'Unknown')
     is_public = getattr(profile, 'is_public', 'Unknown')
@@ -373,19 +325,14 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         # Fetch monthly price stats and quarterly prices
         monthly_stats = get_monthly_price_stats(ticker, start_date, end_date)
         stock_prices = get_quarterly_prices(ticker, df['quarter_end'].tolist())
-          
         # Save price data to disk
         try:
             from altman_zscore.data_fetching.prices import save_price_data_to_disk
-            
-            output_dir = os.path.dirname(out_base)
             if not monthly_stats.empty:
-                csv_path, json_path = save_price_data_to_disk(monthly_stats, ticker, output_dir, "monthly_prices")
+                csv_path, json_path = save_price_data_to_disk(monthly_stats, ticker, "monthly_prices")
                 print_info(f"Monthly price statistics saved to {os.path.basename(csv_path)} and {os.path.basename(json_path)}")
-                
             if not stock_prices.empty:
-                # No need to drop monthly_stats column as it's now passed separately
-                csv_path, json_path = save_price_data_to_disk(stock_prices, ticker, output_dir, "quarterly_prices")
+                csv_path, json_path = save_price_data_to_disk(stock_prices, ticker, "quarterly_prices")
                 print_info(f"Quarterly prices saved to {os.path.basename(csv_path)} and {os.path.basename(json_path)}")
         except (ImportError, AttributeError):
             # If save_price_data_to_disk is not available or fails
@@ -417,12 +364,6 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=context_info)
     except Exception as e:
         print_warning(f"Could not generate full Z-Score report: {e}")
-    
-    # Generate and print/save the X1..X5/z-score report table before plotting
-    try:
-        report_zscore_components_table(df, model, out_base, print_to_console=True)
-    except Exception as e:
-        print_warning(f"Could not generate Z-Score component table: {e}")
         
     # Plot trend with stock price overlay if available
     try:
