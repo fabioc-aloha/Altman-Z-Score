@@ -91,9 +91,9 @@ class CompanyProfile:
             yf_ticker = yf.Ticker(ticker)
             yf_info = yf_ticker.info
             # Save the raw yfinance info payload for traceability
-            output_dir = os.path.join(os.getcwd(), "output")
-            os.makedirs(output_dir, exist_ok=True)
-            with open(os.path.join(output_dir, f"yf_info_{ticker.upper()}.json"), "w") as f:
+            ticker_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'output', ticker.upper())
+            os.makedirs(ticker_dir, exist_ok=True)
+            with open(os.path.join(ticker_dir, f"yf_info_{ticker.upper()}.json"), "w") as f:
                 json.dump(yf_info, f, indent=2)
             # Helper to search for the first non-empty value among possible keys
             def find_field(possible_keys):

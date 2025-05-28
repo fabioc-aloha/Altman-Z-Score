@@ -5,6 +5,7 @@ A modern, robust, and modular Python tool for deep single-stock Altman Z-Score t
 ---
 **Project Status (as of May 27, 2025):**
 - **May 2025 Update:**
+  - Added monthly stock price statistics with whisker overlay for better price trend visualization
   - Experimental AI parsing features have been removed to focus on a robust, traditional pipeline.
   - The financials fetching logic now includes extensive fallback field mappings (notably for TSLA and AAPL), ensuring that quarters are only skipped when data is truly missing.
   - The codebase is now simpler, more maintainable, and focused on reliability and transparency.
@@ -30,6 +31,11 @@ This project provides a robust, modular, and testable pipeline for single-stock 
 
 ### Key Features
 - **Single-Stock Z-Score Trend Analysis**: Computes and visualizes Altman Z-Score trends for any US-listed equity using only real, live data (no static/hardcoded values).
+- **Enhanced Price Trend Visualization**: Features monthly price statistics overlay with whiskers showing:
+  - Monthly average price points
+  - High-low ranges visualized as whiskers
+  - Transparent overlay for easy Z-Score trend comparison
+  - Per-month data point counts for transparency
 - **Robust Error Handling**: Gracefully handles delisted, missing, or invalid tickers (e.g., RIDE, JHKASD), saving user-friendly error reports and exiting cleanly without stack traces.
 - **Minimal Console Output**: Only essential information, warnings, and errors are shown; all debug output is suppressed.
 - **Comprehensive Reporting**: Output files and charts include company profile, SIC code, and model details in footnotes.
@@ -43,7 +49,9 @@ This project provides a robust, modular, and testable pipeline for single-stock 
   - `output/<TICKER>/zscore_<TICKER>_summary.txt`: Table summary of all computed quarters
   - `output/<TICKER>/zscore_<TICKER>_profile.txt`: Company profile and classification
   - `output/<TICKER>/zscore_<TICKER>.csv` and `.json`: Raw results for further analysis
-  - `output/<TICKER>/zscore_<TICKER>_trend.png`: Z-Score trend chart (with price overlay if available)
+  - `output/<TICKER>/quarterly_prices_<TICKER>.csv` and `.json`: Quarterly price data used in the analysis
+  - `output/<TICKER>/monthly_prices_<TICKER>.csv` and `.json`: Monthly price statistics (avg, min, max)
+  - `output/<TICKER>/zscore_<TICKER>_trend.png`: Z-Score trend chart with enhanced price overlay and monthly statistics
 - **Professional Documentation**: All core modules have complete module-level docstrings, public functions/classes are fully documented, and non-obvious logic is explained with inline comments.
 - **Environment Flexibility**: Compatible with both GitHub Codespaces and local Python virtual environments. See `docs/venv_setup.md` for local setup instructions. Uses `pyproject.toml` for dependencies.
 - **Extensible Architecture**: Clean separation of input, data fetching, validation, computation, and reporting layers. Easy to add new models, data sources, or output formats.

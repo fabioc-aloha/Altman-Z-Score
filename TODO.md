@@ -18,7 +18,13 @@
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
 ---
-## v2 Preparation: Z-Score Forecasting & Sentiment Analysis
+## v2 Preparation: Z-Score Forecasting, Sentiment, and Plotting Enhancements
+- [ ] **Monthly Stock Price Averages with Whiskers:**
+    - [ ] Implement function to aggregate daily prices into monthly averages, min, and max (see fetch_prices.py)
+    - [ ] Add overlay of monthly average price points and min/max whiskers to the stock price line in the trend plot (plotting.py)
+    - [ ] Add option to enable/disable this overlay in the CLI and plotting function
+    - [ ] Unit test aggregation logic and visual test for plot output
+    - [ ] Document feature in README and code docstrings
 - [ ] Review and finalize requirements for Z-Score forecasting (define data sources, model, and output format)
 - [ ] Research and select APIs for consensus estimates and news/sentiment (e.g., Yahoo Finance, NewsAPI, others)
 - [ ] Design forecasting model (lightweight, explainable, and robust)
