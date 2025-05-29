@@ -20,19 +20,17 @@
 - All reporting, charting, and error handling features for the MVP and v1 are implemented and tested.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
-## V2.2: Model Selection & Calibration Overhaul (May 2025)
-- [x] Centralize all model coefficients and thresholds in `src/altman_zscore/computation/constants.py`.
-- [x] Refactor model selection to use company age, IPO date, industry (SIC), public/private status, and region.
-- [x] Add maturity classification (early-stage, growth, mature) using founding year and IPO date.
-- [x] Support industry-specific and emerging market (EM) models and thresholds.
-- [x] Add transparency: log/report all model/threshold overrides and assumptions in the report.
-- [x] Add warnings for size/leverage outliers in the report.
-- [x] Remove all hard-coded coefficients/thresholds from codebase.
-- [x] Document calibration and update process in `altmans.md`.
-
-### Next Steps for V2.2
-- [ ] Integrate additional industry benchmark data (WRDS/Compustat or open data) into `constants.py`.
+## V2.2: Model Selection & Calibration Overhaul (In Progress)
+- [ ] Refactor `constants.py` to include all model coefficients, thresholds, and metadata (version, source, date).
+- [ ] Update company profile to include founding year, IPO date, and robust maturity classification.
+- [ ] Refactor model selection logic to use age, IPO, industry (SIC), public/private status, and region.
+- [ ] Add/expand support for industry-specific and emerging market (EM) models and thresholds.
+- [ ] Enhance reporting: log/report all model/threshold overrides, assumptions, and rationale.
+- [ ] Add warnings for size/leverage outliers in the report.
+- [ ] Remove any remaining hard-coded coefficients/thresholds from codebase.
 - [ ] Expand unit/integration tests for new model selection and reporting logic.
+- [ ] Integrate additional industry benchmark data (WRDS/Compustat or open data) into `constants.py` as available.
+- [ ] Document and automate calibration update process in `altmans.md`.
 - [ ] Schedule periodic calibration updates and document the process.
 - [ ] Continue to refine transparency and reporting for edge cases.
 

@@ -1,14 +1,24 @@
 # Altman Z-Score Refactor Plan (2025, Revised)
 
-## V2.2: Model Selection & Calibration Overhaul (May 2025)
-- Model selection now uses company age, IPO date, industry (SIC), public/private status, and region.
-- Maturity is classified as early-stage, growth, or mature using founding year and IPO date.
-- All model coefficients and thresholds are centralized in `src/altman_zscore/computation/constants.py`.
-- Industry-specific and emerging market (EM) models are supported.
-- The reporting layer logs all model/threshold overrides and lists assumptions and rationale.
-- Warnings are included for size/leverage outliers.
-- The architecture is fully extensible for new models and calibration updates.
-- See `altmans.md` for the detailed implementation plan and calibration process.
+## V2.2: Model Selection & Calibration Overhaul (May 2025, In Progress)
+- Implements all recommendations from `altmans.md`:
+  - Centralize all model coefficients, thresholds, and metadata in `constants.py` (with version/date/source fields).
+  - Refactor company profile to include founding year, IPO date, and robust maturity classification.
+  - Model selection logic uses age, IPO, industry (SIC), public/private status, and region.
+  - Support for industry-specific and emerging market (EM) models and thresholds.
+  - Reporting layer logs all model/threshold overrides, assumptions, and rationale.
+  - Warnings for size/leverage outliers.
+  - Document and automate calibration update process.
+- See `altmans.md` for detailed requirements and rationale.
+- **Implementation Steps:**
+  1. Refactor `constants.py` to include all coefficients, thresholds, and metadata.
+  2. Update company profile for founding year, IPO date, and maturity logic.
+  3. Refactor model selection logic for new criteria.
+  4. Enhance reporting for transparency and outlier warnings.
+  5. Expand tests for new logic and edge cases.
+  6. Document calibration update process in `altmans.md`.
+  7. Integrate additional industry benchmark data as available.
+  8. Schedule periodic calibration updates.
 
 ## V2.0.1 Release: Bug Fix and Resilience Improvement (May 28, 2025)
 
