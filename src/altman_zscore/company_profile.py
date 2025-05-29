@@ -48,10 +48,13 @@ class CompanyProfile:
         tech_subsector (TechSubsector): Enum for tech subsector (if applicable)
         country (str): Country of headquarters
         exchange (str): Exchange name
-        maturity (str): Company maturity (e.g., 'mature', 'growth')
+        founding_year (Optional[int]): Year the company was founded
+        ipo_date (Optional[str]): IPO date (YYYY-MM-DD) if available
+        maturity (str): Company maturity (e.g., 'early-stage', 'growth', 'mature')
     """
     def __init__(self, ticker, industry=None, is_public=True, is_emerging_market=False,
-                 industry_group=None, market_category=None, tech_subsector=None, country=None, exchange=None, maturity=None):
+                 industry_group=None, market_category=None, tech_subsector=None, country=None, exchange=None,
+                 founding_year=None, ipo_date=None, maturity=None):
         self.ticker = ticker.upper()
         self.industry = industry
         self.is_public = is_public
@@ -61,7 +64,42 @@ class CompanyProfile:
         self.tech_subsector = tech_subsector
         self.country = country
         self.exchange = exchange
+        self.founding_year = founding_year
+        self.ipo_date = ipo_date
         self.maturity = maturity  # Add maturity to profile
+
+    @staticmethod
+    def classify_maturity(founding_year, ipo_date, current_year=None):
+        """
+        Classify company as 'early-stage', 'growth', or 'mature' using founding year and IPO date.
+        """
+        import datetime
+        if not current_year:
+            current_year = datetime.datetime.now().year
+        if ipo_date:
+            try:
+                ipo_year = int(str(ipo_date)[:4])
+                years_since_ipo = current_year - ipo_year
+                if years_since_ipo < 3:
+                    return 'early-stage'
+                elif years_since_ipo < 7:
+                    return 'growth'
+                else:
+                    return 'mature'
+            except Exception:
+                pass
+        if founding_year:
+            try:
+                years_since_founding = current_year - int(founding_year)
+                if years_since_founding < 3:
+                    return 'early-stage'
+                elif years_since_founding < 7:
+                    return 'growth'
+                else:
+                    return 'mature'
+            except Exception:
+                pass
+        return 'mature'  # Default fallback
 
     @staticmethod
     def from_ticker(ticker):
@@ -105,6 +143,8 @@ class CompanyProfile:
             industry = find_field(["industry", "industryKey", "industryDisp", "sector", "sectorKey", "sectorDisp"])
             country = find_field(["country", "countryKey", "countryDisp"])
             exchange = find_field(["exchange", "fullExchangeName", "exchangeTimezoneName"])
+            founding_year = find_field(["founded", "startYear", "foundingYear"])
+            ipo_date = find_field(["ipoDate", "ipoYear", "ipo"])
             is_public = True
             emerging_countries = [
                 'china', 'india', 'brazil', 'russia', 'south africa',
@@ -115,6 +155,7 @@ class CompanyProfile:
             ]
             country_str = (country or '').lower()
             is_em = country_str in emerging_countries
+            maturity = CompanyProfile.classify_maturity(founding_year, ipo_date)
             # print(f"[DEBUG] yfinance info for {ticker}: industry={industry}, country={country}, exchange={exchange}")
             if industry:
                 # Map to enums if possible
@@ -146,7 +187,10 @@ class CompanyProfile:
                     ig,
                     MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED,
                     country=country,
-                    exchange=exchange
+                    exchange=exchange,
+                    founding_year=founding_year,
+                    ipo_date=ipo_date,
+                    maturity=maturity
                 )
             else:
                 print(f"[WARN] yfinance returned no industry/sector for {ticker}. Raw info: {yf_info}")
@@ -253,7 +297,7 @@ def lookup_cik(ticker: str) -> Optional[str]:
         url = f"https://www.sec.gov/files/company_tickers.json"
         headers = {
             'User-Agent': os.getenv('SEC_EDGAR_USER_AGENT', 'AltmanZScore/1.0'),
-            'From': os.getenv('SEC_API_EMAIL', '')
+            'From': os.getenv('SEC_API_EMAIL', 'AltmanZScore/1.0')
         }
         if not headers['From']:
             import warnings
