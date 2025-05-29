@@ -6,7 +6,7 @@
 - [x] Update TODO.md with completed and pending items
 - [x] Update outdated test scripts to work with the current codebase structure
 - [x] Add new test script for visualization enhancements
-- [ ] Run all tests to verify functionality
+- [x] Run all tests to verify functionality
 
 ## Tests to Run
 - [x] Monthly price statistics
@@ -38,7 +38,7 @@
    git push origin v2.2.0
    ```
 
-5. Create GitHub Release:
+5. Create GitHub Release: ✅
    - Title: V2.2.0: Model Selection & Calibration Overhaul with Enhanced Visualizations
    - Description:
 
@@ -71,4 +71,4 @@ This release includes model selection & calibration overhaul and enhanced visual
 - Documentation and automation of calibration update process
 ```
 
-6. Attach any relevant assets to the release (example reports, screenshots)
+6. Attach any relevant assets to the release (example reports, screenshots) ✅
