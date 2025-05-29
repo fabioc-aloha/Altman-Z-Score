@@ -1,8 +1,4 @@
-# ---
-# Indentation Best Practice:
-# Always use 4 spaces per indentation level (never tabs). Configure your editor to insert spaces for tabs and display invisible characters. Use a linter (e.g., flake8) and autoformatter (e.g., black) to catch and fix indentation issues before running code. Set up pre-commit hooks to enforce this automatically.
-# ---
-# Altman Z-Score Analysis (Version 2.2)
+# Altman Z-Score Analysis (Version 2.2.0)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
@@ -22,24 +18,12 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 ---
 
 ## Version Roadmap
-- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
-- **V2.2:** Model selection & calibration overhaul (maturity, IPO, industry, region, centralized constants, transparency, extensibility).
+- **V2.2 (Current):** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
+- **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
 - **V2.6:** Portfolio/multi-ticker analysis.
 - **V2.7:** Advanced correlation and insights.
 - **V2.8:** Community contributions and plugin support.
-
----
-
-## Output Examples
-The repository includes example reports in the `output/` directory. Each example shows:
-- Time series Z-Score calculation with trend analysis
-- Financial health assessment with industry context
-- Enhanced visualizations with Z-Score and stock price overlay
-- Raw data files (CSV/JSON) with mapped financial fields
-- Comprehensive markdown and DOCX reports
-
-These examples demonstrate the format and quality of analysis you can expect when running the tool on any publicly traded company.
 
 ---
 
@@ -252,7 +236,16 @@ MIT (see LICENSE file)
 
 ## Changelog
 
-### V2.1 (May 28, 2025) — Current
+### V2.2 (May 29, 2025) — Current
+- Model selection & calibration overhaul with enhanced visualizations
+- Improved Z-Score and price plotting with better label positioning
+- Implemented I-shaped whiskers with horizontal caps for price range indicators
+- Optimized y-axis scaling to prevent overlapping between Z-Score and price data
+- Enhanced color scheme with darker gray for price axis and better readability
+- Added example output reports for MSFT, RIVN, SONO, and TSLA
+- Updated tests for compatibility with current codebase
+
+### V2.1 (May 28, 2025)
 - Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
 
 ### V2.0.2 (May 28, 2025) — Publishing Issue
@@ -283,8 +276,8 @@ MIT (see LICENSE file)
   - A detailed plan for further improvements and calibration is maintained in `altmans.md`.
 
 ## Version Roadmap
-- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
-- **V2.2:** Model selection & calibration overhaul (maturity, IPO, industry, region, centralized constants, transparency, extensibility).
+- **V2.2 (Current):** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
+- **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
 - **V2.6:** Portfolio/multi-ticker analysis.
 - **V2.7:** Advanced correlation and insights.
