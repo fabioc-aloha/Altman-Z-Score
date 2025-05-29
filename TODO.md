@@ -1,5 +1,17 @@
 # Altman Z-Score MVP TODO List (2025)
 
+## May 29, 2025 Updates
+- [x] Enhanced visualization with improved Z-Score and price plotting
+- [x] Moved Z-Score labels above markers for better readability
+- [x] Implemented I-shaped whiskers for price range indicators
+- [x] Made whiskers thinner (1px) with horizontal caps for better aesthetics
+- [x] Adjusted color scheme with darker gray (#444444) for price data
+- [x] Fixed indentation issues with consistent 4-space indentation
+- [x] Added responsive y-axis scaling to prevent overlapping
+- [x] Fixed annotate function parameter names (text vs label)
+- [x] Included output/ directory in git repository with example reports
+- [x] Added "Output Examples" section to README.md
+
 ## May 2025 Updates
 - [x] Remove srcai/ and ai_bootstrap.py (AI parsing pipeline)
 - [x] Expand required_fields mapping for TSLA and AAPL
@@ -20,14 +32,17 @@
 - All reporting, charting, and error handling features for the MVP and v1 are implemented and tested.
 - Documentation, testing, and incremental rollout policies are strictly followed.
 
-## V2.2: Model Selection & Calibration Overhaul (In Progress)
-- [ ] Refactor `constants.py` to include all model coefficients, thresholds, and metadata (version, source, date).
-- [ ] Update company profile to include founding year, IPO date, and robust maturity classification.
-- [ ] Refactor model selection logic to use age, IPO, industry (SIC), public/private status, and region.
-- [ ] Add/expand support for industry-specific and emerging market (EM) models and thresholds.
-- [ ] Enhance reporting: log/report all model/threshold overrides, assumptions, and rationale.
+## V2.2: Model Selection & Calibration Overhaul (2025-05-29)
+- [x] Centralized all model coefficients, thresholds, and metadata in `src/altman_zscore/computation/constants.py`.
+- [x] Integrated company maturity (early-stage, growth, mature) into model selection logic.
+- [x] Model selection now uses industry, SIC, public/private status, region, and maturity.
+- [x] Dispatcher in `compute.py` dynamically handles any model key present in `MODEL_COEFFICIENTS`, including new/custom and SIC-specific keys, using the original formula and logging the override.
+- [x] NotImplementedError is only raised for truly unknown model keys.
+- [x] Reporting and override context are fully logged for transparency.
+- [x] All main model constants and thresholds match Altman literature and best practices.
+- [x] Structure supports easy addition of new models, coefficients, and thresholds.
+- [x] DECISIONS.md is deprecated; all major decisions are now tracked in PLAN.md and TODO.md.
 - [ ] Add warnings for size/leverage outliers in the report.
-- [ ] Remove any remaining hard-coded coefficients/thresholds from codebase.
 - [ ] Expand unit/integration tests for new model selection and reporting logic.
 - [ ] Integrate additional industry benchmark data (WRDS/Compustat or open data) into `constants.py` as available.
 - [ ] Document and automate calibration update process in `altmans.md`.
@@ -42,6 +57,12 @@
 - [ ] Add/expand tests for new v2.5 features
 - [ ] Update documentation (README, PLAN.md, etc.) for v2.5 features and usage
 - [ ] Ensure all v2.1 and v2.2 features remain stable and well-tested during v2.5 development
+- [ ] Add option to show moving averages for both Z-Score and price trends
+- [ ] Enable interactive tooltips when viewing plots in notebooks
+- [ ] Add ability to highlight specific events or periods (e.g., earnings releases, management changes)
+- [ ] Support for comparing multiple stocks' Z-Scores in a single plot
+- [ ] Add data table export option for all chart data
+- [ ] Implement dark mode for plots with appropriate color schemes
 
 ## V2.6: Portfolio/multi-ticker analysis
 - [ ] Generalize pipeline for batch/portfolio analysis
@@ -66,3 +87,4 @@ MVP is complete as of May 24, 2025.
 v1 Stock Price Overlay feature completed on May 27, 2025.
 All deprecated files removed and outputs are now per-ticker as of May 28, 2025.
 Use this list for v2 and future progress tracking.
+

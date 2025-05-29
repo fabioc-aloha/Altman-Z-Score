@@ -56,6 +56,23 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
                 continue
             lines.append(f"- **{k}:** {v}")
         lines.append("")
+    # --- Model/Threshold Overrides and Assumptions Section ---
+    # If the DataFrame contains a ZScoreResult with override_context, log it
+    if hasattr(df, 'zscore_results') and df.zscore_results:
+        override_context = getattr(df.zscore_results[0], 'override_context', None)
+        if override_context:
+            lines.append("### Model/Threshold Overrides and Assumptions\n")
+            for k, v in override_context.items():
+                lines.append(f"- **{k}:** {v}")
+            lines.append("")
+    elif 'override_context' in df.columns:
+        # If override_context is a column (e.g., from DataFrame of results)
+        oc = df['override_context'].iloc[0]
+        if oc:
+            lines.append("### Model/Threshold Overrides and Assumptions\n")
+            for k, v in oc.items():
+                lines.append(f"- **{k}:** {v}")
+            lines.append("")
     model = str(model).lower()
     lines.append("")
     if model == "original":
@@ -167,8 +184,8 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
     lines.append("## Z-Score Component Table (by Quarter)")
     lines.append(table_str)
-    # --- Qualitative Validation Section ---
-    lines.append("\n\n## Qualitative Validation\n")
+    # --- Financial Analysis & Commentary Section ---
+    lines.append("\n\n## Financial Analysis & Commentary\n")
     # Compose a summary paragraph using LLM for richer commentary
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary

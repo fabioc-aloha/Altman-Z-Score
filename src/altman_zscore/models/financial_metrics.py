@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, Any
 from decimal import Decimal
 
@@ -41,3 +41,4 @@ class ZScoreResult:
     components: Dict[str, Decimal]
     diagnostic: str
     thresholds: Dict[str, Decimal]  # Changed from float to Decimal for type safety and precision
+    override_context: Dict[str, Any] = field(default_factory=dict)  # For logging model/threshold overrides and assumptions

@@ -40,10 +40,14 @@
 ---
 
 ## Version Milestones
-- **V2.1 (Current):**
+- **V2.2 (Current):**
+  - Model selection & calibration overhaul with enhanced visualizations
+  - Improved plotting with I-shaped whiskers, better label positioning, and optimized scaling
+  - Example output reports for MSFT, RIVN, SONO, and TSLA
+- **V2.1:**
   - Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
   - All outputs are per-ticker, main entry point is main.py, and deprecated files are removed.
-- **V2.2: Model Selection & Calibration Overhaul (May 2025):**
+- **V2.2: Model Selection & Calibration (May 2025):**
   - Model selection now uses company age, IPO date, industry (SIC), public/private status, and region.
   - Maturity is classified as early-stage, growth, or mature using founding year and IPO date.
   - All model coefficients and thresholds are centralized in `src/altman_zscore/computation/constants.py`.
@@ -193,10 +197,10 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - [x] **v2: Enhanced Reporting (Full report file generation)**
   - [x] Comprehensive, well-formatted report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
   - [x] Includes context, field mapping, Z-Score component table with risk area diagnostics, and all formulas
-  - [ ] **v2.1: Granular Stock Price Analysis**
-  - [ ] Introduce monthly granularity for stock price trends in the chart.
-  - [ ] Add whisker/error bars to represent price ranges (e.g., high/low prices for each month).
-  - [ ] Generate a detailed stock price data file for future analysis, saved as `output/<TICKER>/monthly_prices_<TICKER>.csv` and `output/<TICKER>/monthly_prices_<TICKER>.json`.
+  - [x] **v2.1: Granular Stock Price Analysis**
+  - [x] Introduce monthly granularity for stock price trends in the chart.
+  - [x] Add whisker/error bars to represent price ranges (e.g., high/low prices for each month).
+  - [x] Generate a detailed stock price data file for future analysis, saved as `output/<TICKER>/monthly_prices.csv` and `output/<TICKER>/monthly_prices.json`.
 - [ ] **v2.5: Z-Score Forecasting & Sentiment Analysis**
   - [ ] **Z-Score Forecasting Feature:**
     - Fetch consensus estimates for key financial metrics (e.g., revenue, EBITDA, net income) from Yahoo Finance or other APIs.
@@ -273,3 +277,17 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - The platform is now ready for further sentiment analysis, news/sentiment trend charts, and portfolio-level analytics in future versions.
 
 ---
+
+## Plotting and Visualization Improvements (May 29, 2025)
+- **Enhanced Z-Score and Stock Price Visualizations:** 
+  - ✅ Improved label positioning with Z-Score values above markers and price values above their points
+  - ✅ Implemented I-shaped whiskers with horizontal caps for price range indicators
+  - ✅ Optimized y-axis scaling to prevent overlapping between Z-Score and price data
+  - ✅ Enhanced color scheme with darker gray for price axis and better readability
+  - ✅ Fixed indentation issues in plotting code with consistent 4-space indentation
+  - ✅ Added responsive margins to both axes to accommodate different data ranges
+  - ✅ Added proper parameter names in annotate functions for better code quality
+- **Example Reports:**
+  - ✅ Added example output reports to the repository for demonstration purposes
+  - ✅ Updated README.md with "Output Examples" section explaining the included reports
+  - ✅ All examples now show properly formatted Z-Score trend analysis with price overlay

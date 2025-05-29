@@ -1,32 +1,36 @@
 import sys
 import os
 import json
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Ensure src is in the path for import
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.append(str(project_root))
+# Add src directory to path for relative imports
+sys.path.insert(0, os.path.join(project_root, 'src'))
 load_dotenv()
 
-from src.altman_zscore.api.openai_client import AzureOpenAIClient
+from altman_zscore.api.openai_client import AzureOpenAIClient
 
 CANONICAL_FIELDS = [
     "total_assets", "current_assets", "current_liabilities", "retained_earnings", "ebit", "sales"
 ]
 
 def run_mapping_for_ticker(ticker):
-    # Read raw fields from output/bs_index_{ticker}_.txt
-    bs_path = f"output/bs_index_{ticker}_.txt"
+    # Read raw fields from output/<TICKER>/bs_index.txt
+    bs_path = f"output/{ticker}/bs_index.txt"
     with open(bs_path, "r", encoding="utf-8") as f:
         bs_fields = [line.strip() for line in f if line.strip() and not line.startswith("//")]
     # Try to get income statement fields
     is_fields = []
-    is_index_path = f"output/is_index_{ticker}_.txt"
+    is_index_path = f"output/{ticker}/is_index.txt"
     if os.path.exists(is_index_path):
         with open(is_index_path, "r", encoding="utf-8") as f:
             is_fields = [line.strip() for line in f if line.strip() and not line.startswith("//")]
     else:
         # Fallback: parse from summary JSON
-        summary_path = f"output/{ticker}/zscore_{ticker}_summary.txt"
+        summary_path = f"output/{ticker}/zscore_{ticker}.json"
         if os.path.exists(summary_path):
             with open(summary_path, "r", encoding="utf-8") as f:
                 for line in f:

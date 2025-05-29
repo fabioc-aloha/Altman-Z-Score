@@ -46,6 +46,21 @@ Enhance the Altman Z-Score pipeline to align more closely with academic best pra
 
 ---
 
+## Implementation Status (as of 2025-05-29)
+
+### v2.2 Model Selection & Calibration Overhaul
+- All model coefficients, thresholds, and metadata are now centralized in `src/altman_zscore/computation/constants.py`.
+- Company maturity (early-stage, growth, mature) is robustly integrated into model selection logic.
+- Model selection logic uses industry, SIC, public/private status, region, and maturity.
+- The dispatcher in `compute.py` dynamically handles any model key present in `MODEL_COEFFICIENTS`, including new/custom and SIC-specific keys, using the original formula and logging the override.
+- NotImplementedError is only raised for truly unknown model keys.
+- Reporting and override context are fully logged for transparency.
+- All main model constants and thresholds match Altman literature and best practices.
+- Structure supports easy addition of new models, coefficients, and thresholds.
+- All changes are documented in PLAN.md and TODO.md; DECISIONS.md is deprecated.
+
+---
+
 ## Implementation Steps
 1. **Refactor `constants.py`:**
    - Move all model coefficients and thresholds (including per-industry and EM) into this file.

@@ -115,7 +115,7 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
     # Compute correct y-limits before drawing bands
     z_min = min(zscores.min(), float(thresholds["distress_zone"]))
     z_max = max(zscores.max(), float(thresholds["safe_zone"]))
-    margin = 0.5 * (z_max - z_min) * 0.1  # 10% margin
+    margin = 0.5 * (z_max - z_min) * 0.15  # Increased margin from 0.1 to 0.15
     ymin = z_min - margin
     # Add extra padding to the top for the legend
     legend_padding = (z_max - z_min) * 0.18  # 18% of range for legend space
@@ -140,24 +140,56 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
         safe_y = ymax - (ymax - ymin) * 0.15
     ax.text(zone_x, safe_y, 'Safe',
             color='#007a00', fontsize=11, ha='left', va='center',
-            alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)
-
-    # Use integer positions for x-axis to ensure correct plotting and annotation
+            alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)    # Create monthly timeline that spans from earliest to latest dates
     x_dates = plot_df['quarter_end']
-    x_quarters = [f"{d.year}Q{((d.month-1)//3)+1}" for d in x_dates]
-    x_pos = range(len(x_quarters))
-    plt.plot(x_pos, zscores, marker='o', label="Z-Score", color='blue', zorder=2)
-    # Add value labels to each Z-Score point
+    
+    # Determine the full date range including monthly data if available
+    min_date = x_dates.min()
+    max_date = x_dates.max()
+    
+    # If monthly stats are available, extend the range to include all months
+    if monthly_stats is not None and not monthly_stats.empty:
+        monthly_dates = pd.to_datetime(monthly_stats['month'])
+        min_date = min(min_date, monthly_dates.min())
+        max_date = max(max_date, monthly_dates.max())
+    
+    # Create monthly timeline from min to max date
+    month_range = pd.date_range(start=min_date.replace(day=1), 
+                               end=max_date.replace(day=1), 
+                               freq='MS')  # Month Start frequency
+    
+    # Create position mapping: each month gets an integer position
+    month_to_pos = {month: i for i, month in enumerate(month_range)}
+    
+    # Map quarter dates to their corresponding month positions
+    quarter_positions = []
+    for quarter_date in x_dates:
+        quarter_month = quarter_date.replace(day=1)
+        quarter_positions.append(month_to_pos.get(quarter_month, -1))
+    
+    # Plot Z-scores at their quarter positions
+    valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
+    if valid_quarters:
+        q_pos, q_scores = zip(*valid_quarters)
+        plt.plot(q_pos, q_scores, marker='o', label="Z-Score", color='blue', zorder=2)
+          # Add value labels to each Z-Score point
+        ax = plt.gca()
+        for pos, z_val in zip(q_pos, q_scores):
+            try:
+                label = f"{z_val:.2f}"
+                ax.annotate(text=label, xy=(pos, z_val), textcoords="offset points", xytext=(0,12), ha='center', fontsize=9, color='blue')
+            except Exception:
+                pass
+    
+    # Format x-axis to show months
+    month_labels = [f"{month.strftime('%Y-%m')}" for month in month_range]
     ax = plt.gca()
-    for i, z_val in enumerate(zscores):
-        try:
-            label = f"{z_val:.2f}"
-            ax.annotate(label, (i, z_val), textcoords="offset points", xytext=(0,8), ha='center', fontsize=9, color='blue')
-        except Exception:
-            pass
-    # Format x-axis dates to show as quarters (e.g., '2024Q1'), horizontal
-    ax.set_xticks(list(x_pos))
-    ax.set_xticklabels(x_quarters, rotation=0, ha='center')
+    ax.set_xticks(list(range(len(month_range))))
+    ax.set_xticklabels(month_labels, rotation=45, ha='right')
+    
+    # Store the month range and position mapping for stock price plotting
+    global_month_range = month_range
+    global_month_to_pos = month_to_pos
 
     # Get company name and prep title
     company_name = None
@@ -169,12 +201,10 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
     except Exception:
         company_name = None
     if not company_name:
-        company_name = ticker.upper()
-
-    # Create title and subtitle
+        company_name = ticker.upper()    # Create title and subtitle
     plt.title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
     
-    plt.xlabel("Quarter End")
+    plt.xlabel("Month")
     plt.ylabel("Z-Score")
     plt.grid(True, zorder=1)
     
@@ -191,96 +221,76 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
               markersize=4, linestyle='-', linewidth=1)
     ]
     
-    # If stock prices are provided, add them on a secondary y-axis
-    if stock_prices is not None and not stock_prices.empty:
-        # Create a secondary y-axis for stock prices
+    # If monthly_stats are provided, plot monthly average and range as the stock price line
+    if monthly_stats is not None and not monthly_stats.empty:
         ax2 = ax.twinx()
+        monthly_stats['month'] = pd.to_datetime(monthly_stats['month'])
+        # Sort by month
+        monthly_stats = monthly_stats.sort_values('month')
+        # Map months to positions
+        month_positions = [global_month_to_pos.get(month, -1) for month in monthly_stats['month']]
+        # Only keep valid positions
+        valid = [i for i, pos in enumerate(month_positions) if pos != -1]
+        month_positions = [month_positions[i] for i in valid]
+        avg_prices = [monthly_stats.iloc[i]['avg_price'] for i in valid]
+        min_prices = [monthly_stats.iloc[i]['min_price'] for i in valid]
+        max_prices = [monthly_stats.iloc[i]['max_price'] for i in valid]
         
-        # Ensure stock prices dataframe has quarter_end and price columns
-        if 'quarter_end' in stock_prices.columns and 'price' in stock_prices.columns:
-            # Convert quarter_end to datetime if not already
-            stock_prices['quarter_end'] = pd.to_datetime(stock_prices['quarter_end'])
-            
-            # Filter to just the quarters we have z-score data for
-            common_quarters = set(pd.to_datetime(df['quarter_end']).dt.strftime('%Y-%m-%d'))
-            stock_prices = stock_prices[stock_prices['quarter_end'].dt.strftime('%Y-%m-%d').isin(common_quarters)]
-            
-            if not stock_prices.empty:
-                # Sort by quarter_end to ensure chronological order
-                stock_prices = stock_prices.sort_values('quarter_end')
-                
-                # Create mapping from quarter_end to x position
-                quarter_to_xpos = {q.strftime('%Y-%m-%d'): pos for q, pos in zip(x_dates, x_pos)}
-                
-                # Map each stock price quarter to its x-position
-                stock_x_pos = [quarter_to_xpos.get(q.strftime('%Y-%m-%d'), -1) for q in stock_prices['quarter_end']]
-                stock_prices_valid = stock_prices[~pd.Series(stock_x_pos).eq(-1)]
-                stock_x_pos_valid = [x for x in stock_x_pos if x != -1]
-                
-                # Plot the stock prices on the secondary y-axis
-                ax2.plot(stock_x_pos_valid, stock_prices_valid['price'], 
-                      marker='s', color='green', linestyle='-', linewidth=1.5, 
-                      label=f"{ticker} Price", zorder=3)
-                  # Add value labels to each stock price point
-                for i, (x, price) in enumerate(zip(stock_x_pos_valid, stock_prices_valid['price'])):
-                    try:
-                        price_label = f"${price:.2f}"
-                        ax2.annotate(price_label, (x, price), 
-                                    textcoords="offset points", xytext=(0,-15), 
-                                    ha='center', fontsize=9, color='green')
-                    except Exception:
-                        pass
-                  # Add monthly stats with whiskers if available
-                if monthly_stats is not None and not monthly_stats.empty:
-                    for i, (x, price_date) in enumerate(zip(stock_x_pos_valid, stock_prices_valid['quarter_end'])):
-                        # Find the corresponding month's stats
-                        month_stats = monthly_stats[monthly_stats['month'].dt.to_period('M') == 
-                                                  price_date.to_period('M')]
-                        if not month_stats.empty:
-                            stats = month_stats.iloc[0]
-                            # Plot whiskers
-                            ax2.vlines(x, stats['min_price'], stats['max_price'], color='green', 
-                                     alpha=0.5, linewidth=1, zorder=2)
-                            # Plot monthly average point
-                            ax2.plot(x, stats['avg_price'], 'o', color='darkgreen', 
-                                   markersize=4, alpha=0.7, zorder=3)
-                            
-                # Set y-label for the secondary axis
-                ax2.set_ylabel("Stock Price ($)", color='green')
-                ax2.tick_params(axis='y', labelcolor='green')
-                
-                # Force the y-axis for stock prices to start at 0
-                y_min, y_max = ax2.get_ylim()
-                ax2.set_ylim(bottom=0, top=y_max * 1.1)  # Start at 0, add 10% padding to the top                # Add stock price and monthly stats elements to legend
-                has_monthly = (monthly_stats is not None and not monthly_stats.empty)
-                
-                legend_elements.append(
-                    Line2D([0], [0], color='green', marker='s', label=f'{ticker} Price', 
-                           markersize=4, linestyle='-', linewidth=1.5)
-                )
-                
-                if has_monthly:
-                    # Add monthly average point
-                    legend_elements.append(
-                        Line2D([0], [0], color='darkgreen', marker='o', label='Monthly Avg',
-                               markersize=4, linestyle='none', alpha=0.7)
-                    )
-                    # Add whiskers
-                    legend_elements.append(
-                        Line2D([0], [0], color='green', label='Monthly Range',
-                               markersize=4, linestyle='-', alpha=0.5)
-                    )
-
-    # Add legend with appropriate number of columns
-    plt.gcf().subplots_adjust(bottom=0.22)  # Increased bottom margin from 0.2 to 0.22
-    num_cols = 5 if stock_prices is not None and not stock_prices.empty else 4
-    plt.legend(handles=legend_elements, ncol=num_cols, bbox_to_anchor=(0.5, -0.25),  # Moved down from -0.15 to -0.25
+        # Plot price data with adjusted axis
+        dark_gray = '#444444'  # Darker gray for better visibility
+        ax2.plot(month_positions, avg_prices, marker='o', color=dark_gray, 
+                linestyle='-', linewidth=2, label='Monthly Avg Price', zorder=3)
+        
+        # Plot I-shaped whiskers for min/max range
+        whisker_width = 0.3  # Width of the horizontal caps
+        for pos, min_p, max_p in zip(month_positions, min_prices, max_prices):
+            # Vertical line
+            ax2.vlines(pos, min_p, max_p, color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
+            # Horizontal caps at top and bottom
+            ax2.hlines(min_p, pos - whisker_width/2, pos + whisker_width/2, 
+                      color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
+            ax2.hlines(max_p, pos - whisker_width/2, pos + whisker_width/2, 
+                      color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
+        
+        # Add value labels with more space
+        for pos, avg in zip(month_positions, avg_prices):
+            try:
+                avg_label = f"${avg:.2f}"
+                ax2.annotate(text=avg_label, xy=(pos, avg), 
+                           textcoords="offset points", xytext=(0,12),  # Position closer to data point
+                           ha='center', fontsize=7, color=dark_gray, alpha=0.8)
+            except Exception:
+                pass
+        
+        # Adjust price axis appearance and limits
+        ax2.set_ylabel("Stock Price ($)", color=dark_gray, labelpad=15)  # Add padding between axis and label
+        ax2.tick_params(axis='y', labelcolor=dark_gray, pad=8)  # Add padding between axis and tick labels
+        y_min, y_max = ax2.get_ylim()
+        price_range = y_max - y_min
+        price_margin = price_range * 0.25  # 25% margin for price axis
+        ax2.set_ylim(bottom=max(0, y_min - price_margin * 0.5),  # Less margin at bottom
+                    top=y_max + price_margin)  # More margin at top for labels
+        
+        # Update legend for monthly stats
+        legend_elements.append(
+            Line2D([0], [0], color=dark_gray, marker='o', label='Monthly Avg Price', 
+                  markersize=4, linestyle='-', linewidth=2)
+        )
+        legend_elements.append(
+            Line2D([0], [0], color=dark_gray, label='Monthly Range', 
+                  markersize=4, linestyle='-', linewidth=2, alpha=0.8)
+        )
+    # Add legend extending horizontally in one line
+    plt.gcf().subplots_adjust(bottom=0.22)  # Increased bottom margin for horizontal legend
+    # Use all elements in a single horizontal row
+    num_cols = len(legend_elements)
+    plt.legend(handles=legend_elements, ncol=num_cols, bbox_to_anchor=(0.5, -0.25),
               loc='center', fontsize=8, frameon=True, framealpha=0.9)
     
     # Add profile info as subtitle if available
     if profile_footnote:
         plt.figtext(0.5, 0.95, profile_footnote, 
-                   ha='center', va='top', fontsize=9, color='#666666')
+                   ha='center', va='top', fontsize=9, color='#555555')
     # Use utility for output directory
     ticker_dir = get_output_ticker_dir(ticker)
     out_path = os.path.join(ticker_dir, f"zscore_{ticker}_trend.png")

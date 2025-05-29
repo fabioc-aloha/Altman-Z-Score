@@ -12,6 +12,10 @@ This document consolidates the recommendations from `todo-mvp.md` and `TODO-Code
 - [x] **Quarter Formatting**: Use `matplotlib.dates.QuarterLocator` and `DateFormatter` to label quarters (e.g. `2024Q1`).  # Implemented in plotting.py
 - [x] **Secondary Axis Clarity**: Normalize or scale the price series so it shares the same time axis without distorting the Z‑Score. Clearly label units and legend entries.  # Implemented in plotting.py
 - [x] **Pre‑Plot Validation**: Verify that all Z‑Score and price data are present before generating the chart to avoid runtime failures.  # Implemented in plotting.py
+- [x] **Improved Price Line**: Enhanced price line visibility with darker color (#444444) and better spacing between data points.  # Implemented in plotting.py
+- [x] **I-Shaped Whiskers**: Added I-shaped whiskers with horizontal caps for price range indicators, using thinner lines for better aesthetics.  # Implemented in plotting.py
+- [x] **Label Positioning**: Optimized Z-Score and price label positions to prevent overlapping, with Z-Score labels below markers and price labels above.  # Implemented in plotting.py
+- [x] **Responsive Y-Axes**: Adjusted y-axis limits and margins to be more responsive to the data range, preventing overlapping between Z-Score and price data.  # Implemented in plotting.py
 
 ## 3. Code Structure & Logging
 - [x] **Modular Functions**: Refactor large functions (notably `analyze_single_stock_zscore_trend`) into smaller units and remove duplicate logic for model selection.  # Refactored in one_stock_analysis.py

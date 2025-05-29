@@ -19,6 +19,11 @@ MODEL_METADATA = {
         "source": "Altman 1993; see altmans.md",
         "notes": "Service/Non-manufacturing model."
     },
+    "tech": {
+        "version": "2025-05-29",
+        "source": "Altman 1993; see altmans.md",
+        "notes": "Tech companies use the service/non-manufacturing model."
+    },
     "em": {
         "version": "2025-05-29",
         "source": "Altman 2017; see altmans.md",
@@ -55,6 +60,13 @@ MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
         "D": Decimal('1.05'),
         "E": Decimal('0.0'),
     },
+    "tech": {  # Alias for service/non-manufacturing model
+        "A": Decimal('6.56'),
+        "B": Decimal('3.26'),
+        "C": Decimal('6.72'),
+        "D": Decimal('1.05'),
+        "E": Decimal('0.0'),
+    },
     "em": {
         "A": Decimal('3.25'),
         "B": Decimal('6.56'),
@@ -79,6 +91,7 @@ Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
     "private": {"safe": Decimal('2.9'), "grey": Decimal('1.23'), "distress": Decimal('1.23')},
     "public": {"safe": Decimal('2.6'), "grey": Decimal('1.1'), "distress": Decimal('1.1')},
     "service": {"safe": Decimal('2.6'), "grey": Decimal('1.1'), "distress": Decimal('1.1')},
+    "tech": {"safe": Decimal('2.6'), "grey": Decimal('1.1'), "distress": Decimal('1.1')},
     "em": {"safe": Decimal('2.6'), "grey": Decimal('1.1'), "distress": Decimal('1.1')},
     # Example: per-industry override
     "sic_2834": {"safe": Decimal('3.1'), "grey": Decimal('2.0'), "distress": Decimal('1.5')},

@@ -77,15 +77,6 @@ Thumbs.db
 .env
 .env.*
 
-# Excel and Data files
-*.xlsx
-*.xls
-*.csv
-
-# Output and report files
-output/*
-!output/.gitkeep
-
 # Documentation artifacts
 *.pdf
 *.docx
@@ -105,7 +96,7 @@ config.local.py
 
 # Logs
 *.log
-output/
+# output/ - Including output folder for example reports
 __pycache__/
 *.pyc
 *.pyo

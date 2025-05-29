@@ -3,10 +3,13 @@ import logging
 from decimal import Decimal
 from pathlib import Path
 import sys
+import os
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
+# Add src directory to path for relative imports
+sys.path.insert(0, os.path.join(project_root, 'src'))
 
 from altman_zscore.data_validation import FinancialDataValidator, ValidationLevel
 

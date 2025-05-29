@@ -1,3 +1,8 @@
+# ---
+# Indentation Best Practice:
+# Always use 4 spaces per indentation level (never tabs). Configure your editor to insert spaces for tabs and display invisible characters. Use a linter (e.g., flake8) and autoformatter (e.g., black) to catch and fix indentation issues before running code. Set up pre-commit hooks to enforce this automatically.
+# ---
+
 # GitHub Copilot Instructions
 
 ## Project Guidance

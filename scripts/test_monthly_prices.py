@@ -6,15 +6,16 @@ from pathlib import Path
 # Add the project root directory to Python path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
+# Add src directory to path for relative imports
+sys.path.insert(0, os.path.join(project_root, 'src'))
 
-from src.altman_zscore.data_fetching.prices import get_monthly_price_stats
+from altman_zscore.data_fetching.prices import get_monthly_price_stats
 import pandas as pd
 
 def test_monthly_stats():
-    """Test the get_monthly_price_stats function with a known stable stock."""
-    # Test with MSFT data for a stable period
+    """Test the get_monthly_price_stats function with a known stable stock."""    # Test with MSFT data for a stable period
     start_date = "2024-01-01"
-    end_date = "2024-05-28"
+    end_date = "2025-05-29"  # Updated to current date
     ticker = "MSFT"
     
     try:

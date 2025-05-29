@@ -1,11 +1,16 @@
-# Altman Z-Score Analysis (Version 2.1)
+# ---
+# Indentation Best Practice:
+# Always use 4 spaces per indentation level (never tabs). Configure your editor to insert spaces for tabs and display invisible characters. Use a linter (e.g., flake8) and autoformatter (e.g., black) to catch and fix indentation issues before running code. Set up pre-commit hooks to enforce this automatically.
+# ---
+# Altman Z-Score Analysis (Version 2.2)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Project Status (as of May 28, 2025):**
-- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+**Project Status (as of May 29, 2025):**
+- **V2.2 (Current):** Model selection & calibration overhaul, enhanced visualizations with improved plotting features
+- **V2.1:** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup
 - **V2.0.2 (Publishing Issue):** Complete
 - **V2.0.1 (Bug Fix & Resilience Improvement):** Complete
 - **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
@@ -23,6 +28,30 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 - **V2.6:** Portfolio/multi-ticker analysis.
 - **V2.7:** Advanced correlation and insights.
 - **V2.8:** Community contributions and plugin support.
+
+---
+
+## Output Examples
+The repository includes example reports in the `output/` directory. Each example shows:
+- Time series Z-Score calculation with trend analysis
+- Financial health assessment with industry context
+- Enhanced visualizations with Z-Score and stock price overlay
+- Raw data files (CSV/JSON) with mapped financial fields
+- Comprehensive markdown and DOCX reports
+
+These examples demonstrate the format and quality of analysis you can expect when running the tool on any publicly traded company.
+
+---
+
+## Output Examples
+The repository includes example reports in the `output/` directory for MSFT, RIVN, SONO, and TSLA. Each example shows:
+- Time series Z-Score calculation with trend analysis
+- Financial health assessment with industry context
+- Enhanced visualizations with Z-Score and stock price overlay
+- Raw data files (CSV/JSON) with mapped financial fields
+- Comprehensive markdown reports
+
+These examples demonstrate the format and quality of analysis you can expect when running the tool on any publicly traded company.
 
 ---
 

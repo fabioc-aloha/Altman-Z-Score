@@ -34,14 +34,18 @@ Overall the MVP pipeline is functional but can benefit from unified retry logic,
 
 ## 2. Plotting Improvements for Stock Price Overlay
 
-The function `plot_zscore_trend` in `src/altman_zscore/plotting.py` overlays stock prices on a secondary y‑axis. The x‑axis currently uses integer positions for quarters and maps price data to those positions. This can lead to misalignment when quarters are missing.
+The function `plot_zscore_trend` in `src/altman_zscore/plotting.py` has been enhanced with the following improvements:
 
-Recommendations:
-1. **Use datetime-based x‑axis** – Plot both Z‑Score and stock price series with `quarter_end` converted to real dates. Enable `ax.xaxis_date()` so matplotlib manages spacing automatically.
-2. **Quarter formatting** – Format tick labels with `QuarterLocator`/`DateFormatter` to show `2024Q1`, `2024Q2`, etc. This keeps the timeline accurate when quarters are skipped.
-3. **Single download for price data** – Fetch all price data for the full analysis period in one request and join to the Z‑Score DataFrame by date. This reduces API calls and ensures perfect alignment.
-4. **Consistent scaling** – When plotting prices, normalize or scale the values if needed so the price line shares the same time axis without distorting the Z‑Score scale.
-5. **Legend clarity** – Add units to the price axis label and ensure the legend clearly distinguishes between the Z‑Score line and the stock price line.
+✓ **Use datetime-based x‑axis** – Plot both Z‑Score and stock price series with `quarter_end` converted to real dates.
+✓ **Quarter formatting** – Format tick labels to show proper dates.
+✓ **Single download for price data** – Fetch all price data for the full analysis period in one request.
+✓ **Consistent scaling** – When plotting prices, normalize and scale the values with appropriate margins to prevent overlapping.
+✓ **Legend clarity** – Added units to the price axis label and clear legend distinction between Z‑Score line and stock price.
+✓ **Enhanced visuals** – Implemented I-shaped whiskers, optimized label positions, and improved color scheme for better readability.
 
-Implementing these changes will make the overlay smoother and the chart easier to read, especially when the company has irregular filing dates or missing quarters.
+Additional improvements that could be considered:
+- Add option to show moving averages for both Z-Score and price trends
+- Enable interactive tooltips when viewing in notebooks
+- Add ability to highlight specific events or periods
+- Support for comparing multiple stocks' Z-Scores in a single plot
 
