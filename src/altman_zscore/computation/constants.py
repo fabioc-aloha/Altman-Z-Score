@@ -24,6 +24,11 @@ MODEL_METADATA = {
         "source": "Altman 2017; see altmans.md",
         "notes": "Emerging Markets model."
     },
+    "sic_2834": {
+        "version": "2025-05-29",
+        "source": "Example WRDS/Compustat calibration; update as needed.",
+        "notes": "Pharma (SIC 2834) override."
+    },
     # Add more as needed
 }
 
@@ -64,8 +69,6 @@ MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
         "C": Decimal('3.0'),
         "D": Decimal('0.7'),
         "E": Decimal('1.2'),
-        "version": "2025-05-29",
-        "source": "Example WRDS/Compustat calibration; update as needed."
     },
     # Add more SIC/industry-specific as needed
 }
