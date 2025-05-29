@@ -1,5 +1,15 @@
 # Altman Z-Score Refactor Plan (2025, Revised)
 
+## V2.2: Model Selection & Calibration Overhaul (May 2025)
+- Model selection now uses company age, IPO date, industry (SIC), public/private status, and region.
+- Maturity is classified as early-stage, growth, or mature using founding year and IPO date.
+- All model coefficients and thresholds are centralized in `src/altman_zscore/computation/constants.py`.
+- Industry-specific and emerging market (EM) models are supported.
+- The reporting layer logs all model/threshold overrides and lists assumptions and rationale.
+- Warnings are included for size/leverage outliers.
+- The architecture is fully extensible for new models and calibration updates.
+- See `altmans.md` for the detailed implementation plan and calibration process.
+
 ## V2.0.1 Release: Bug Fix and Resilience Improvement (May 28, 2025)
 
 - **Release V2.0.1** focuses on bug fixes, output folder/file handling, and improved resilience:
@@ -20,10 +30,22 @@
 ---
 
 ## Version Milestones
-- **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
-- **v1 (Stock Price Overlay):** Complete
-- **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
-- **v2.5 (Forecasting, Sentiment, Portfolio/Multi-Ticker Analysis):** Next planned milestone (see below)
+- **V2.1 (Current):**
+  - Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+  - All outputs are per-ticker, main entry point is main.py, and deprecated files are removed.
+- **V2.2: Model Selection & Calibration Overhaul (May 2025):**
+  - Model selection now uses company age, IPO date, industry (SIC), public/private status, and region.
+  - Maturity is classified as early-stage, growth, or mature using founding year and IPO date.
+  - All model coefficients and thresholds are centralized in `src/altman_zscore/computation/constants.py`.
+  - Industry-specific and emerging market (EM) models are supported.
+  - The reporting layer logs all model/threshold overrides and lists assumptions and rationale.
+  - Warnings are included for size/leverage outliers.
+  - The architecture is fully extensible for new models and calibration updates.
+  - See `altmans.md` for the detailed implementation plan and calibration process.
+- **V2.5: Z-Score Forecasting, Sentiment, and Plotting Enhancements**
+- **V2.6: Portfolio/multi-ticker analysis**
+- **V2.7: Advanced correlation and insights**
+- **V2.8: Community contributions and plugin support**
 
 ---
 
@@ -161,8 +183,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - [x] **v2: Enhanced Reporting (Full report file generation)**
   - [x] Comprehensive, well-formatted report saved as `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
   - [x] Includes context, field mapping, Z-Score component table with risk area diagnostics, and all formulas
-  - [x] Improved field mapping and value formatting
-- [ ] **v2.1: Granular Stock Price Analysis**
+  - [ ] **v2.1: Granular Stock Price Analysis**
   - [ ] Introduce monthly granularity for stock price trends in the chart.
   - [ ] Add whisker/error bars to represent price ranges (e.g., high/low prices for each month).
   - [ ] Generate a detailed stock price data file for future analysis, saved as `output/<TICKER>/monthly_prices_<TICKER>.csv` and `output/<TICKER>/monthly_prices_<TICKER>.json`.
@@ -229,3 +250,16 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - All references to `one_stock_analysis.py` in the documentation and examples have been updated accordingly.
 - All outputs are now organized by ticker in `output/<TICKER>/`.
 - Ensure that the new entry point is tested and validated for all supported tickers.
+
+## Qualitative Validation & News Integration (v2+)
+
+- Each Z-Score report now includes an LLM-generated qualitative validation section.
+- This section provides:
+  - A concise summary contextualizing the Z-Score result (e.g., "Safe Zone", "Distress Zone")
+  - 2-3 recent news headlines with links (Markdown format)
+  - Explicit references to credit ratings, analyst reports, and news sources
+- The prompt template for the LLM explicitly requests news headlines with links and reference lists.
+- This approach ensures every report is actionable, reference-backed, and easy to audit.
+- The platform is now ready for further sentiment analysis, news/sentiment trend charts, and portfolio-level analytics in future versions.
+
+---

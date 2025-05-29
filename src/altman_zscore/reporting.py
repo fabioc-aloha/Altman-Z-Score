@@ -15,8 +15,17 @@ def print_info(msg):
     except:
         print(f"[INFO] {msg}")
 
-def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None):
-    # ...full function body moved from plotting.py...
+def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None, generate_docx=True):
+    """
+    Generate and save a full Altman Z-Score analysis report in Markdown format, and optionally convert it to DOCX (Word).
+    Args:
+        df: DataFrame with Z-Score results and mappings
+        model: Z-Score model name
+        out_base: Output file base name (no extension)
+        print_to_console: If True, print the report to stdout
+        context_info: Optional dict with company/ticker/industry context
+        generate_docx: If True (default), also generate a DOCX version of the report
+    """
     company_name = None
     try:
         import yfinance as yf
@@ -158,11 +167,53 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
     lines.append("## Z-Score Component Table (by Quarter)")
     lines.append(table_str)
+    # --- Qualitative Validation Section ---
+    lines.append("\n\n## Qualitative Validation\n")
+    # Compose a summary paragraph using LLM for richer commentary
+    try:
+        from altman_zscore.api.openai_client import get_llm_qualitative_commentary
+        # Compose the context for the LLM: pass the full report so far (excluding the qualitative section)
+        llm_commentary = get_llm_qualitative_commentary("\n".join(lines))
+        lines.append(llm_commentary.strip() + "\n")
+    except Exception as e:
+        lines.append("> [LLM commentary unavailable: {}]".format(e))
+    import os  # Ensure os is imported for chart embedding logic
+    docx_path = None
+    out_path = None
+    if out_base:
+        out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
+    # --- Chart Section ---
+    ticker = context_info.get('Ticker') if context_info else None
+    chart_md = None
+    if ticker and out_path:
+        chart_path = os.path.join('output', ticker, f'zscore_{ticker}_trend.png')
+        if os.path.exists(chart_path):
+            rel_chart_path = os.path.relpath(chart_path, os.path.dirname(out_path)).replace('\\', '/')
+            chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
+            chart_md += "\n"  # Add a new line before the caption
+            chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
+    if chart_md:
+        lines.append(chart_md)
+    lines.append("\n### References and Data Sources\n")
+    lines.append("- **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.")
+    lines.append("- **Market Data:** Yahoo Finance (historical prices, market value of equity).")
+    lines.append("- **Field Mapping & Validation:** Automated mapping with code-level synonym fallback and Pydantic schema validation. See Raw Data Field Mapping Table above.")
+    lines.append("- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.\n")
+    lines.append("---")
     report = "\n".join(lines)
     if print_to_console:
         print(report)
-    if out_base:
-        out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.txt")
+    if out_path:
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(report + "\n")
         print_info(f"Full report saved to {out_path}")
+        if generate_docx:
+            try:
+                from altman_zscore.md_to_docx import convert_report_md_to_docx
+                docx_path = out_path.replace('.md', '.docx')
+                convert_report_md_to_docx(out_path, docx_path)
+            except Exception as e:
+                print_info(f"[DOCX conversion failed: {e}]")
+    return report
+
+# (md to docx conversion moved to md_to_docx.py for modularity)

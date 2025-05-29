@@ -26,16 +26,29 @@ class AzureOpenAIClient:
         response.raise_for_status()
         return response.json()
 
-    def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None):
+    def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None):
         """
         Use Azure OpenAI to suggest a mapping from canonical fields to raw fields.
         Args:
             raw_fields (list[str]): List of raw field names (from XBRL/EDGAR)
             canonical_fields (list[str]): List of canonical fields (e.g., total_assets, retained_earnings)
             sample_values (dict, optional): Optional dict of {raw_field: value} for context
+            mapping_overrides (dict, optional): Optional dict of {canonical_field: raw_field} to override mapping
         Returns:
             dict: {canonical_field: {"FoundField": matched_raw_field, "Value": value}}
         """
+        # Centralized synonyms for each canonical field
+        FIELD_SYNONYMS = {
+            "total_assets": ["Total Assets", "Assets", "TotalAssets", "Assets Total"],
+            "current_assets": ["Current Assets", "Assets Current", "CurrentAssets"],
+            "current_liabilities": ["Current Liabilities", "Liabilities Current", "CurrentLiabilities"],
+            "retained_earnings": ["Retained Earnings", "Earnings Retained", "RetainedEarningsAccumulatedDeficit"],
+            "ebit": ["EBIT", "Earnings Before Interest and Taxes", "Operating Income", "Income From Operations"],
+            "market_value_equity": ["Market Value Equity", "Market Capitalization", "Market Cap", "MarketValueOfEquity"],
+            "book_value_equity": ["Book Value Equity", "Total Equity", "Shareholders Equity", "Stockholders Equity", "Equity"],
+            "total_liabilities": ["Total Liabilities", "Liabilities", "TotalLiabilities"],
+            "sales": ["Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue", "Sales"],
+        }
         system_prompt = (
             "You are a financial data expert. Given a list of raw field names from an SEC XBRL filing, "
             "map each canonical Altman Z-Score field to the most likely raw field name. "
@@ -68,14 +81,57 @@ Canonical fields: {canonical_fields}\n
                 if content.endswith("```"):
                     content = content.rsplit("```", 1)[0]
             mapping = json.loads(content)
-            # --- CODE-LEVEL FALLBACK FOR 'sales' ---
-            if ("sales" not in mapping or mapping["sales"] is None or mapping["sales"].get("FoundField") in [None, "null"]):
-                # Fallback: pick the best available revenue field
-                revenue_priority = ["Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue"]
-                for field in revenue_priority:
-                    if field in raw_fields:
-                        mapping["sales"] = {"FoundField": field, "Value": None}
-                        break
+            # --- CODE-LEVEL FALLBACK FOR ALL FIELDS ---
+            for canonical in canonical_fields:
+                # User-supplied override takes precedence
+                if mapping_overrides and canonical in mapping_overrides:
+                    override_field = mapping_overrides[canonical]
+                    if override_field in raw_fields:
+                        mapping[canonical] = {"FoundField": override_field, "Value": None}
+                        continue
+                # If missing/null, try synonyms
+                if canonical not in mapping or mapping[canonical] is None or mapping[canonical].get("FoundField") in [None, "null"]:
+                    for synonym in FIELD_SYNONYMS.get(canonical, []):
+                        if synonym in raw_fields:
+                            mapping[canonical] = {"FoundField": synonym, "Value": None}
+                            break
             return mapping
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
+
+def get_llm_qualitative_commentary(prompt: str) -> str:
+    """
+    Generate a qualitative commentary for the Altman Z-Score report using Azure OpenAI LLM.
+    Args:
+        prompt (str): The full prompt to send to the LLM (should include context and instructions).
+    Returns:
+        str: The LLM-generated commentary as plain text.
+    """
+    client = AzureOpenAIClient()
+    system_prompt = (
+        "You are a financial analyst. Given the following Altman Z-Score report and context, "
+        "generate a six-paragraph qualitative commentary: "
+        "(1) summarize the Z-Score trend, (2) summarize the stock price trend, (3) discuss how the two trends align or diverge and what that means for risk assessment, "
+        "(4) analyze the Z-Score component ratios (X1–X5) in detail, highlighting which ratios are most concerning or stable for this company, (5) discuss any other relevant financial ratios (such as current ratio, debt-to-equity, or others) that are important for this company's situation, using the data in the report, and (6) provide investment advice based on the Z-Score and ratio analysis. "
+        "Be specific, reference the numbers, and provide actionable insight. "
+        "For the financial ratio analysis, use the actual values from the Z-Score component table and the raw data field mapping table. "
+        "Explicitly calculate and discuss the current ratio (current assets / current liabilities) and the debt-to-equity ratio (total liabilities / stockholders' equity) for each quarter if possible, and comment on their trends and implications. "
+        "If any ratio is especially high, low, or changing rapidly, highlight this and explain what it means for risk. "
+        "If data is missing for a ratio, state this clearly. "
+        "For the investment advice, provide a clear summary of the risk profile and actionable recommendations for investors, but include a disclaimer that this advice is generated by an AI language model and should be validated by a qualified financial advisor."
+    )
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt}
+    ]
+    response = client.chat_completion(messages, temperature=0.2, max_tokens=1400)
+    try:
+        content = response["choices"][0]["message"]["content"]
+        # Remove code block markers if present
+        if content.strip().startswith("```"):
+            content = content.strip().split("\n", 1)[-1]
+            if content.endswith("```"):
+                content = content.rsplit("```", 1)[0]
+        return content.strip()
+    except Exception as e:
+        raise RuntimeError(f"Failed to parse LLM commentary: {e}\nResponse: {response}")

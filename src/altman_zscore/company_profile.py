@@ -270,7 +270,7 @@ def lookup_cik(ticker: str) -> Optional[str]:
 
 def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
     """
-    Fetch company info from SEC EDGAR, extract SIC code, and map to industry group.
+    Fetch company info from SEC EDGAR, extract SIC code, and map to industry group and maturity.
 
     Args:
         cik (str): 10-digit CIK
@@ -294,25 +294,35 @@ def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
         country = data.get('addresses', {}).get('business', {}).get('country', None)
         ig = IndustryGroup.OTHER
         maturity = None
+        # --- Robust maturity assignment logic ---
         if sic:
             try:
                 sic_int = int(sic)
+                # Industry group mapping
                 if 3570 <= sic_int <= 3579 or 3670 <= sic_int <= 3679 or 7370 <= sic_int <= 7379:
                     ig = IndustryGroup.TECH
+                    # Tech: public = mature, private = growth/early
+                    maturity = 'mature'
                 elif 6000 <= sic_int <= 6999:
                     ig = IndustryGroup.FINANCIAL
+                    maturity = 'mature'
                 elif 2000 <= sic_int <= 3999:
                     ig = IndustryGroup.MANUFACTURING
+                    # Manufacturing: public = mature, private = growth/early
+                    maturity = 'mature'
                 elif 7000 <= sic_int <= 8999:
                     ig = IndustryGroup.SERVICE
+                    # Service: public = mature, private = growth/early
+                    maturity = 'mature'
                 else:
                     ig = IndustryGroup.OTHER
-                # Maturity logic for manufacturing (e.g., SIC 3711 = auto, public, post-IPO, so mature)
-                if sic_int == 3711:
-                    maturity = 'mature'
-                # Add more SIC-specific maturity rules as needed
+                    maturity = 'mature'  # Default to mature for public, developed market
+                # Example: If SIC is in biotech/early-stage, could set 'growth' or 'early' (future extensibility)
+                # If SIC is 2834 (biotech), set to 'growth' or 'early' (not implemented here)
             except Exception:
-                pass
+                maturity = 'mature'  # Fallback for parse errors
+        else:
+            maturity = 'mature'  # Fallback if no SIC but public and developed
         emerging_countries = [
             'china', 'india', 'brazil', 'russia', 'south africa',
             'mexico', 'indonesia', 'turkey', 'thailand', 'malaysia',
@@ -335,4 +345,4 @@ def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
         )
     except Exception as e:
         print(f"[CompanyProfile] SEC EDGAR real-time fetch failed for {ticker}: {e}")
-        return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED, maturity=None)
+        return CompanyProfile(ticker, industry_group=IndustryGroup.OTHER, market_category=MarketCategory.DEVELOPED, maturity='mature')

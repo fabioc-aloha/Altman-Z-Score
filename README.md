@@ -1,17 +1,28 @@
-# Altman Z-Score Analysis (Version 2.0.2)
+# Altman Z-Score Analysis (Version 2.1)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
 **Project Status (as of May 28, 2025):**
-- **V2.0.2 (Publishing Issue):** Latest release — see PLAN.md for details
+- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+- **V2.0.2 (Publishing Issue):** Complete
 - **V2.0.1 (Bug Fix & Resilience Improvement):** Complete
 - **MVP (Single-Stock Z-Score Trend Analysis):** Complete and stable
 - **v1 (Stock Price Overlay):** Complete
 - **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
 - **v2.5 (Forecasting, Sentiment, Portfolio Analysis):** In planning (see PLAN.md)
 - All development and testing uses a local Python 3.11+ virtual environment (`.venv`)
+
+---
+
+## Version Roadmap
+- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+- **V2.2:** Model selection & calibration overhaul (maturity, IPO, industry, region, centralized constants, transparency, extensibility).
+- **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
+- **V2.6:** Portfolio/multi-ticker analysis.
+- **V2.7:** Advanced correlation and insights.
+- **V2.8:** Community contributions and plugin support.
 
 ---
 
@@ -76,7 +87,7 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 
 ## Advanced Usage
 - **Custom Analysis:** Extend the pipeline to new models, data sources, or output formats by following the modular structure
-- **Batch/Portfolio Analysis:** (Planned for v2.5+) Analyze multiple tickers or portfolios with a single command
+- **Batch/Portfolio Analysis:** (Planned for v2.6+) Analyze multiple tickers or portfolios with a single command
 - **Forecasting & Sentiment:** (v2.5 Roadmap) Integrate consensus estimates and news sentiment for forward-looking risk analysis
 
 ---
@@ -86,8 +97,8 @@ Reports include mapped industry, SIC code, model selection rationale, and risk d
 - [x] v1: Overlay Stock Price Trend
 - [x] v2: Enhanced Reporting (Full report file generation)
 - [ ] v2.5: Sentiment & News Analysis
-- [ ] v3: Portfolio Analysis
-- [ ] v4: Advanced Correlation & Insights
+- [ ] v2.6: Portfolio Analysis
+- [ ] v2.7: Advanced Correlation & Insights
 
 ---
 
@@ -143,6 +154,31 @@ This will generate the Z-Score trend analysis for Microsoft starting from Januar
 
 ---
 
+## DOCX Export: Markdown to Word Conversion
+
+This project includes a utility to convert the full Markdown report to a Word (DOCX) document, preserving all formatting, tables, images, and charts. This is useful for sharing, printing, or further editing your analysis in Microsoft Word or Google Docs.
+
+**How to use:**
+
+1. Generate your Markdown report as usual (e.g., `output/SONO/zscore_SONO_zscore_full_report.txt`).
+2. Use the provided function:
+
+```python
+from altman_zscore.md_to_docx import convert_report_md_to_docx
+convert_report_md_to_docx('output/SONO/zscore_SONO_zscore_full_report.txt')
+```
+
+- The output will be saved as `output/SONO/zscore_SONO_zscore_full_report.docx` by default.
+- All Markdown features (headings, tables, lists, blockquotes, images) are supported.
+- Charts and images referenced in the Markdown will be embedded in the DOCX if available.
+
+**Feature highlights:**
+- Converts Markdown to DOCX, preserving all formatting and structure
+- Embeds images and charts
+- Output is suitable for professional reporting and further editing
+
+---
+
 ## Outputs
 - **Full Analysis Report**: `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
 - **Raw Data**: CSV and JSON files for Z-Score components and price data.
@@ -187,6 +223,9 @@ MIT (see LICENSE file)
 
 ## Changelog
 
+### V2.1 (May 28, 2025) — Current
+- Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+
 ### V2.0.2 (May 28, 2025) — Publishing Issue
 - No code changes. This release addresses a publishing/tagging issue on GitHub only.
 
@@ -196,3 +235,28 @@ MIT (see LICENSE file)
 - Removed all legacy, redundant, or confusing output files (component tables, summary, profile, etc.).
 - Documentation and code comments have been updated for clarity and maintainability.
 - The codebase is now more robust to edge cases and easier to maintain.
+
+## Recent Improvements (May 2025)
+- **Advanced Model Selection:**
+  - Z-Score model selection now incorporates company age, IPO date, industry (SIC), public/private status, and region.
+  - Maturity is classified as early-stage, growth, or mature using founding year and IPO date.
+  - Industry-specific and region-specific (EM) models and thresholds are supported.
+- **Centralized Constants:**
+  - All model coefficients and thresholds are now stored in `src/altman_zscore/computation/constants.py`.
+  - No hard-coded values remain in the codebase; all logic references the centralized constants.
+- **Transparency and Reporting:**
+  - The report now logs all model/threshold overrides and lists assumptions and rationale for model selection.
+  - Warnings are added for size/leverage outliers.
+- **Extensibility:**
+  - The architecture supports easy addition of new models, coefficients, and thresholds via `constants.py`.
+  - Calibration data is versioned and traceable.
+- **Documentation:**
+  - A detailed plan for further improvements and calibration is maintained in `altmans.md`.
+
+## Version Roadmap
+- **V2.1 (Current):** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup.
+- **V2.2:** Model selection & calibration overhaul (maturity, IPO, industry, region, centralized constants, transparency, extensibility).
+- **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
+- **V2.6:** Portfolio/multi-ticker analysis.
+- **V2.7:** Advanced correlation and insights.
+- **V2.8:** Community contributions and plugin support.

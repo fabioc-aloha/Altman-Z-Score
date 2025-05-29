@@ -355,7 +355,8 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             "Industry": industry_for_context,
             "Public": is_public,
             "Emerging Market": is_em,
-            "Maturity": maturity,
+            # Use mapped maturity description, fallback to 'Mature Company' for public companies
+            "Maturity": maturity_map.get(str(maturity).lower(), 'Mature Company') if maturity else ('Mature Company' if str(is_public).lower() == 'true' else 'Unknown'),
             "Model": model,
             "SIC Code": sic_code or "N/A",
             "Analysis Date": datetime.now().strftime("%Y-%m-%d")

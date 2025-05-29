@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Dict, Any
+from decimal import Decimal
 
 @dataclass
 class FinancialMetrics:
@@ -35,8 +36,8 @@ class FinancialMetrics:
 
 @dataclass
 class ZScoreResult:
-    z_score: float
+    z_score: Decimal
     model: str
-    components: Dict[str, float]
+    components: Dict[str, Decimal]
     diagnostic: str
-    thresholds: Dict[str, float]
+    thresholds: Dict[str, Decimal]  # Changed from float to Decimal for type safety and precision

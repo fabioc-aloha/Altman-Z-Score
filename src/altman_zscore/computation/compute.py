@@ -4,8 +4,7 @@ from altman_zscore.computation.formulas import (
     altman_zscore_service,
     altman_zscore_private,
     altman_zscore_public,
-    altman_zscore_em,
-    safe_div
+    altman_zscore_em
 )
 from altman_zscore.models.financial_metrics import ZScoreResult
 
@@ -65,21 +64,23 @@ def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScore
         )
     if model == "tech":
         # Tech model: use public model formula, with different thresholds
-        X1 = safe_div(metrics["current_assets"] - metrics["current_liabilities"], metrics["total_assets"])
-        X2 = safe_div(metrics["retained_earnings"], metrics["total_assets"])
-        X3 = safe_div(metrics["ebit"], metrics["total_assets"])
-        X4 = safe_div(metrics.get("market_value_equity", 1e9), metrics.get("total_liabilities", metrics["current_liabilities"]))
+        from decimal import Decimal
+        X1 = Decimal(str(metrics["current_assets"] - metrics["current_liabilities"])) / Decimal(str(metrics["total_assets"]))
+        X2 = Decimal(str(metrics["retained_earnings"])) / Decimal(str(metrics["total_assets"]))
+        X3 = Decimal(str(metrics["ebit"])) / Decimal(str(metrics["total_assets"]))
+        X4 = Decimal(str(metrics.get("market_value_equity", 1e9))) / Decimal(str(metrics.get("total_liabilities", metrics["current_liabilities"])))
         if None in (X1, X2, X3, X4):
             raise ValueError("Division by zero in one or more Z-Score components (tech model)")
-        X1 = X1 if X1 is not None else 0.0
-        X2 = X2 if X2 is not None else 0.0
-        X3 = X3 if X3 is not None else 0.0
-        X4 = X4 if X4 is not None else 0.0
-        z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
+        X1 = X1 if X1 is not None else Decimal(0)
+        X2 = X2 if X2 is not None else Decimal(0)
+        X3 = X3 if X3 is not None else Decimal(0)
+        X4 = X4 if X4 is not None else Decimal(0)
+        z = Decimal('6.56')*X1 + Decimal('3.26')*X2 + Decimal('6.72')*X3 + Decimal('1.05')*X4
+        from altman_zscore.computation.constants import Z_SCORE_THRESHOLDS
         if metrics.get("company_maturity") == "young":
-            thresholds = {"safe": 1.5, "grey": 0.5, "distress": 0.5}
+            thresholds = {"safe": Decimal('1.5'), "grey": Decimal('0.5'), "distress": Decimal('0.5')}
         else:
-            thresholds = {"safe": 2.6, "grey": 1.1, "distress": 1.1}
+            thresholds = Z_SCORE_THRESHOLDS["tech"] if "tech" in Z_SCORE_THRESHOLDS else Z_SCORE_THRESHOLDS["public"]
         if z > thresholds["safe"]:
             diagnostic = "Safe Zone"
         elif z < thresholds["distress"]:
