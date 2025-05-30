@@ -212,3 +212,47 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - [ ] If LLM response is malformed/missing, fall back to code-level synonym matching and log a warning.
 - [ ] Document mapping logic, fallback rules, and internationalization in README or a dedicated doc.
 
+# Competitive Roadmap Tasks (Source: competition roadmap.md)
+
+## Phase 1: Foundation
+- [ ] Implement modular data connectors for Alpha Vantage, IEX Cloud, CSV, SQL, REST
+- [ ] Build and document Public REST API v1 for Z-Score calculations
+- [ ] Enhance CLI for batch processing, per-ticker outputs, and summary reports
+- [ ] Expand documentation with quickstarts, in-tool help, and guided tutorials
+
+## Phase 2: Interactivity
+- [ ] Develop web dashboard with interactive charts and peer comparisons
+- [ ] Create Excel Add-In for one-click report generation
+- [ ] Implement alerting system (email/Slack notifications)
+
+## Phase 3: Intelligence
+- [ ] Integrate LLM-powered AI narrative generation for Z-Score summaries
+- [ ] Prepare SaaS tier with hosted deployment, SLAs, and RBAC
+
+## Phase 4: Enterprise & Extensibility
+- [ ] Develop pro plugins for advanced stress-testing and scenario analysis
+- [ ] Enable audit-ready exports with versioning, change logs, and metadata
+- [ ] Integrate with BI platforms (Power BI, Tableau)
+- [ ] Prepare for marketplace deployment (Azure Marketplace, automated scripts)
+
+## Phase 5: Scale & Partnerships
+- [ ] Add real-time data feed support (WebSocket, premium feeds)
+- [ ] Upgrade API to v2 (bulk endpoints, streaming, improved handling)
+- [ ] Make dashboard mobile-responsive
+
+## Competitive Differentiators (Implementation)
+- [ ] Ensure zero licensing cost for open-source core and open-core add-ons
+- [ ] Maintain modular data flexibility (plug-and-play connectors)
+- [ ] Deliver AI-driven insights (automated summaries, alerting)
+- [ ] Foster community-driven roadmap (public roadmap, sprints, early access)
+- [ ] Package enterprise features (SaaS, SLAs, RBAC, audit-ready, BI integration)
+
+## Non-Functional Requirements
+- [ ] Optimize for efficient batch processing (100+ tickers)
+- [ ] Enforce OAuth2 and TLS for SaaS/API
+- [ ] Architect for horizontal scaling (API/UI)
+- [ ] Target System Usability Scale (SUS) score ≥ 80
+- [ ] Document and monitor SaaS uptime commitment
+
+> For full details, see `competition roadmap.md`. Each task above should be independently testable and deliver incremental value. Track progress in PLAN.md and update as features are completed.
+
