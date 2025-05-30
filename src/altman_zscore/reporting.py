@@ -7,6 +7,7 @@ import os
 import tabulate
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.colors import Colors
+from altman_zscore.zscore_models import ModelCoefficients, ModelThresholds, TechCalibration, CompanyStage
 
 def print_info(msg):
     """Print an info message with blue color if supported"""
@@ -15,16 +16,15 @@ def print_info(msg):
     except:
         print(f"[INFO] {msg}")
 
-def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None, generate_docx=True):
+def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None, model_obj=None, calibration=None):
     """
-    Generate and save a full Altman Z-Score analysis report in Markdown format, and optionally convert it to DOCX (Word).
+    Generate and save a full Altman Z-Score analysis report in Markdown format.
     Args:
         df: DataFrame with Z-Score results and mappings
         model: Z-Score model name
         out_base: Output file base name (no extension)
         print_to_console: If True, print the report to stdout
         context_info: Optional dict with company/ticker/industry context
-        generate_docx: If True (default), also generate a DOCX version of the report
     """
     # --- Introduction and Source Attribution ---
     intro_lines = [
@@ -38,7 +38,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         "",
         "**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.",
         "",
-        "<span style='font-size:smaller'><em>Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.</em></span>",
+        "*Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.*",
         "---",
         ""
     ]
@@ -92,35 +92,84 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
             for k, v in oc.items():
                 lines.append(f"- **{k}:** {v}")
             lines.append("")
-    model = str(model).lower()
+    model_name = str(model).lower()
     lines.append("")
-    if model == "original":
-        lines.append("## Altman Z-Score (Original) Formula\n")
-        lines.append("Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5")
-        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
-        lines.append("- X2 = Retained Earnings / Total Assets")
-        lines.append("- X3 = EBIT / Total Assets")
-        lines.append("- X4 = Market Value of Equity / Total Liabilities")
-        lines.append("- X5 = Sales / Total Assets\n")
-        x_cols = ["X1", "X2", "X3", "X4", "X5"]
-    elif model == "private":
-        lines.append("## Altman Z-Score (Private) Formula\n")
-        lines.append("Z' = 0.717*X1 + 0.847*X2 + 3.107*X3 + 0.420*X4 + 0.998*X5")
-        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
-        lines.append("- X2 = Retained Earnings / Total Assets")
-        lines.append("- X3 = EBIT / Total Assets")
-        lines.append("- X4 = Book Value of Equity / Total Liabilities")
-        lines.append("- X5 = Sales / Total Assets\n")
-        x_cols = ["X1", "X2", "X3", "X4", "X5"]
+    # --- Dynamically build formula and threshold display ---
+    formula_lines = []
+    threshold_lines = []
+    x_labels = []
+    x_cols = []  # Ensure x_cols is always defined
+    # Prefer explicit model_obj or calibration if provided
+    used_coeffs = None
+    used_thresholds = None
+    if calibration is not None:
+        used_coeffs = calibration.coefficients
+        used_thresholds = calibration.thresholds
+    elif model_obj is not None:
+        used_coeffs = getattr(model_obj, 'coefficients', None)
+        used_thresholds = getattr(model_obj, 'thresholds', None)
     else:
-        lines.append(f"## Altman Z-Score ({model.title()}) Formula\n")
-        lines.append("Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4")
-        lines.append("- X1 = (Current Assets - Current Liabilities) / Total Assets")
-        lines.append("- X2 = Retained Earnings / Total Assets")
-        lines.append("- X3 = EBIT / Total Assets")
-        lines.append("- X4 = Market Value of Equity / Total Liabilities\n")
-        x_cols = ["X1", "X2", "X3", "X4"]
-    lines.append("")
+        # Fallback: reconstruct from model name
+        if model_name == "original":
+            used_coeffs = ModelCoefficients.original()
+            used_thresholds = ModelThresholds.original()
+        elif model_name == "private":
+            used_coeffs = ModelCoefficients.private_company()
+            used_thresholds = ModelThresholds.private_company()
+        elif model_name in ("non_manufacturing", "service"):
+            used_coeffs = ModelCoefficients.non_manufacturing()
+            used_thresholds = ModelThresholds.non_manufacturing()
+        elif model_name.startswith("tech"):
+            # Try to infer stage from context_info
+            stage = None
+            maturity = (context_info or {}).get("Maturity", "").lower() if context_info else ""
+            if "early" in maturity:
+                stage = CompanyStage.EARLY
+            elif "growth" in maturity:
+                stage = CompanyStage.GROWTH
+            elif "mature" in maturity:
+                stage = CompanyStage.MATURE
+            else:
+                stage = CompanyStage.GROWTH  # default
+            calibration = TechCalibration.ai_ml(stage)
+            used_coeffs = calibration.coefficients
+            used_thresholds = calibration.thresholds
+        elif model_name == "saas":
+            calibration = TechCalibration.saas()
+            used_coeffs = calibration.coefficients
+            used_thresholds = calibration.thresholds
+    # Build formula string
+    if used_coeffs is not None:
+        coeff_map = [
+            ("X1", used_coeffs.working_capital_to_assets, "(Current Assets - Current Liabilities) / Total Assets"),
+            ("X2", used_coeffs.retained_earnings_to_assets, "Retained Earnings / Total Assets"),
+            ("X3", used_coeffs.ebit_to_assets, "EBIT / Total Assets"),
+            ("X4", used_coeffs.equity_to_liabilities, "Equity / Total Liabilities"),
+            ("X5", used_coeffs.sales_to_assets, "Sales / Total Assets"),
+        ]
+        # Only include nonzero coefficients
+        terms = []
+        for x, coeff, desc in coeff_map:
+            if coeff != 0:
+                terms.append(f"{coeff}*{x}")
+                x_labels.append((x, desc))
+                x_cols.append(x)
+        formula_str = "Z = " + " + ".join(terms)
+        formula_lines.append(f"## Z-Score Formula Used\n")
+        formula_lines.append(formula_str)
+        for x, desc in x_labels:
+            formula_lines.append(f"- {x} = {desc}")
+        formula_lines.append("")
+    # Build threshold string
+    if used_thresholds is not None:
+        threshold_lines.append("**Thresholds:**")
+        threshold_lines.append(f"- Safe Zone: > {used_thresholds.safe_zone}")
+        threshold_lines.append(f"- Grey Zone: > {used_thresholds.distress_zone} and <= {used_thresholds.safe_zone}")
+        threshold_lines.append(f"- Distress Zone: <= {used_thresholds.distress_zone}")
+        threshold_lines.append("")
+    # Insert formula and thresholds into report
+    lines.extend(formula_lines)
+    lines.extend(threshold_lines)
     # --- Warning Section for Missing Fields and Reliability Impact ---
     if hasattr(df, 'missing_fields') and df.missing_fields:
         lines.append('> **Warning:** The following required fields were missing for one or more quarters: ' + ', '.join(sorted(set(df.missing_fields))) + '. Z-Score components for these fields are omitted or estimated. Interpret results with caution.')
@@ -177,11 +226,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         if idx < len(df) - 1:
             mapping_rows.append(["---", "---", "---", "---"])
     mapping_table_str = tabulate.tabulate(mapping_rows, headers=mapping_header, tablefmt="github")
-    lines.append("## Raw Data Field Mapping Table (by Quarter)")
-    lines.append(mapping_table_str)
-    lines.append("")
-    lines.append("All values are shown in millions of USD as reported by the data source.")
-    lines.append("")
+    # Do NOT append the Raw Data Field Mapping Table here
     rows = []
     for _, row in df.iterrows():
         q = row.get("quarter_end")
@@ -212,8 +257,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         rows.append(row_vals)
     header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]
     table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
-    lines.append("\n\n## Z-Score Component Table (by Quarter)")
-    lines.append(table_str)
+    # Do NOT append the Z-Score Component Table here
     import os  # Ensure os is imported before chart embedding logic
     lines.append("\n\n---\n\n# Graphical View of the Z-Score Analysis\n")
     # --- Chart Section (standalone section before LLM commentary) ---
@@ -237,6 +281,9 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
     if chart_md:
         lines.append(chart_md)
+    # --- Z-Score Component Table (by Quarter) after the chart ---
+    lines.append("\n## Z-Score Component Table (by Quarter)")
+    lines.append(table_str)
     # --- LLM Commentary Section ---
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary
@@ -257,6 +304,13 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         lines.append(llm_commentary.strip() + "\n")
     except Exception as e:
         lines.append("> [LLM commentary unavailable: {}]".format(e))
+    # --- Appendix: Input Data Tables ---
+    lines.append("\n\n---\n\n# Appendix\n")
+    lines.append("## Raw Data Field Mapping Table (by Quarter)")
+    lines.append(mapping_table_str)
+    lines.append("")
+    lines.append("All values are shown in millions of USD as reported by the data source.")
+    lines.append("")
     import os  # Ensure os is imported for chart embedding logic
     docx_path = None
     if out_base:
@@ -269,7 +323,6 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
             with open(out_path, "w", encoding="utf-8") as f:
                 f.write(report + "\n")
             print_info(f"[SUCCESS] Full report saved to {out_path}")
-            # DOCX conversion removed
         except Exception as e:
             print_info(f"[ERROR] Could not save report to {out_path}: {e}")
     return report
