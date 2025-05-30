@@ -291,3 +291,25 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - ✅ Added example output reports to the repository for demonstration purposes
   - ✅ Updated README.md with "Output Examples" section explaining the included reports
   - ✅ All examples now show properly formatted Z-Score trend analysis with price overlay
+
+## Prompt Ingestion for LLM Analysis (May 2025)
+
+- All LLM prompt files are now stored in `src/prompts/` for clarity and maintainability.
+- The pipeline reads these files at runtime and combines them with the current report context before sending to the LLM.
+- Any changes to these prompt files are immediately reflected in all future reports—no code changes required.
+- This enables full transparency, reproducibility, and user control over the LLM's analysis style, instructions, and references.
+- See `README.md` for user instructions and workflow.
+
+---
+
+## Change Log: DOCX/Word Export Removal (May 29, 2025)
+- The DOCX/Word export feature has been removed from the codebase due to persistent formatting and chart embedding issues.
+- All documentation and code references to DOCX/Word export have been removed.
+- Reports are now generated in Markdown format only.
+
+### Rationale
+- The DOCX export feature did not meet professional standards for formatting and chart/image embedding.
+- Markdown output remains robust, portable, and easy to convert to other formats if needed.
+
+### Next Steps
+- If high-quality Word export is required in the future, consider using a dedicated Markdown-to-Word tool or service outside this codebase.

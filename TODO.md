@@ -12,6 +12,11 @@
 - [x] Included output/ directory in git repository with example reports
 - [x] Added "Output Examples" section to README.md
 
+## May 29, 2025: DOCX/Word Export Removal
+- [x] DOCX/Word export feature removed from the codebase due to persistent formatting and chart embedding issues.
+- [x] All documentation and code references to DOCX/Word export have been removed.
+- [x] Reports are now generated in Markdown format only.
+
 ## May 2025 Updates
 - [x] Remove srcai/ and ai_bootstrap.py (AI parsing pipeline)
 - [x] Expand required_fields mapping for TSLA and AAPL
@@ -87,4 +92,29 @@ MVP is complete as of May 24, 2025.
 v1 Stock Price Overlay feature completed on May 27, 2025.
 All deprecated files removed and outputs are now per-ticker as of May 28, 2025.
 Use this list for v2 and future progress tracking.
+
+# Prompt Ingestion for LLM Analysis: Test Checklist
+
+## Goal
+Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated financial analysis and recommendations section of the report.
+
+## Test Steps
+1. **Edit the Prompt**
+    - Open `prompt_fin_analysis.md` and add a unique phrase (e.g., "TEST-PROMPT-INGESTION-123").
+2. **Run the Analysis Pipeline**
+    - Execute the pipeline for any ticker (e.g., `python main.py MSFT`).
+3. **Check the Output Report**
+    - Open the generated report in `output/<TICKER>/zscore_<TICKER>_zscore_full_report.md` (or `.txt`).
+    - Confirm that the LLM-generated financial analysis section contains the unique phrase you added.
+4. **Revert the Prompt**
+    - Remove the test phrase from `prompt_fin_analysis.md` to restore the canonical prompt.
+
+## Expected Result
+- The LLM analysis section in the report should reflect any changes made to `prompt_fin_analysis.md` without requiring a code change or restart.
+
+## Notes
+- If the phrase does not appear, check for errors in the pipeline or LLM call.
+- This test ensures full transparency and user control over the LLM's analysis instructions and references.
+
+---
 

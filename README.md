@@ -167,31 +167,6 @@ This will generate the Z-Score trend analysis for Microsoft starting from Januar
 
 ---
 
-## DOCX Export: Markdown to Word Conversion
-
-This project includes a utility to convert the full Markdown report to a Word (DOCX) document, preserving all formatting, tables, images, and charts. This is useful for sharing, printing, or further editing your analysis in Microsoft Word or Google Docs.
-
-**How to use:**
-
-1. Generate your Markdown report as usual (e.g., `output/SONO/zscore_SONO_zscore_full_report.txt`).
-2. Use the provided function:
-
-```python
-from altman_zscore.md_to_docx import convert_report_md_to_docx
-convert_report_md_to_docx('output/SONO/zscore_SONO_zscore_full_report.txt')
-```
-
-- The output will be saved as `output/SONO/zscore_SONO_zscore_full_report.docx` by default.
-- All Markdown features (headings, tables, lists, blockquotes, images) are supported.
-- Charts and images referenced in the Markdown will be embedded in the DOCX if available.
-
-**Feature highlights:**
-- Converts Markdown to DOCX, preserving all formatting and structure
-- Embeds images and charts
-- Output is suitable for professional reporting and further editing
-
----
-
 ## Outputs
 - **Full Analysis Report**: `output/<TICKER>/zscore_<TICKER>_zscore_full_report.txt`
 - **Raw Data**: CSV and JSON files for Z-Score components and price data.
@@ -282,3 +257,17 @@ MIT (see LICENSE file)
 - **V2.6:** Portfolio/multi-ticker analysis.
 - **V2.7:** Advanced correlation and insights.
 - **V2.8:** Community contributions and plugin support.
+
+## Prompt Ingestion and Customization
+
+All LLM prompt files are now stored in `src/prompts/` for clarity, maintainability, and best practice. This approach keeps prompts version-controlled, discoverable, and close to the code that uses them.
+
+- **Prompt files:**
+    - `src/prompts/prompt_fin_analysis.md` — financial analysis and recommendations (used in report generation and qualitative commentary)
+    - `src/prompts/prompt_field_mapping.md` — field mapping for XBRL/EDGAR (used in LLM-driven field mapping)
+
+The pipeline reads these files at runtime. Any changes you make are reflected immediately in all future reports and outputs—no code changes or restarts are required. To adjust LLM instructions, references, or output style, simply edit these files.
+
+If you add new LLM-driven features, create a new prompt file in `src/prompts/` and reference it in your code for full transparency and user control.
+
+See the prompt files themselves for detailed instructions and references.

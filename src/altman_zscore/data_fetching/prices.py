@@ -32,7 +32,7 @@ def get_market_data(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFram
     last_error = None
     for attempt in range(3):
         try:
-            df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+            df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
             if isinstance(df, pd.DataFrame) and not df.empty and len(df.index) > 0:
                 return df
             if attempt < 2:
@@ -61,6 +61,9 @@ def get_closest_price(df: pd.DataFrame, target_date: str) -> float:
         if close_col not in df.columns:
             raise ValueError("Neither 'Close' nor 'Adj Close' column found in data")
         price = df[close_col].iloc[closest_idx]
+        # Fix for FutureWarning: float on single-element Series
+        if isinstance(price, pd.Series):
+            price = price.iloc[0]
         return float(price)
     except Exception as e:
         raise ValueError(f"Error getting closest price: {str(e)}")
@@ -115,16 +118,20 @@ def get_market_value(ticker: str, date: str) -> float:
         raise ValueError(f"Error calculating market value for {ticker}: {str(e)}")
 
 def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[float, float]:
-    df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+    df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
     if df is None or df.empty:
         raise ValueError(f"No price data available for {ticker}")
     try:
         close_col = 'Adj Close' if 'Adj Close' in df.columns else 'Close'
         if close_col not in df.columns:
             raise ValueError("Neither 'Close' nor 'Adj Close' column found in data")
-        start_price = float(df[close_col].iloc[0])
-        end_price = float(df[close_col].iloc[-1])
-        return start_price, end_price
+        start_price = df[close_col].iloc[0]
+        if isinstance(start_price, pd.Series):
+            start_price = start_price.iloc[0]
+        end_price = df[close_col].iloc[-1]
+        if isinstance(end_price, pd.Series):
+            end_price = end_price.iloc[0]
+        return float(start_price), float(end_price)
     except (IndexError, KeyError) as e:
         raise ValueError(f"Error accessing price data for {ticker}: {str(e)}")
 
@@ -159,7 +166,7 @@ def get_monthly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.D
     try:
         for attempt in range(3):
             try:
-                df = yf.download(ticker, start=start_date, end=end_date, progress=False)
+                df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
                 if isinstance(df, pd.DataFrame) and not df.empty:
                     break
                 if attempt < 2:

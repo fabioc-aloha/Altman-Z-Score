@@ -11,7 +11,7 @@ class AzureOpenAIClient:
         if not all([self.api_key, self.endpoint, self.deployment]):
             raise ValueError("Missing Azure OpenAI configuration in environment variables.")
 
-    def chat_completion(self, messages, temperature=0.0, max_tokens=512):
+    def chat_completion(self, messages, temperature=0.0, max_tokens=2500):
         url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
         headers = {
             "api-key": self.api_key,
@@ -49,16 +49,18 @@ class AzureOpenAIClient:
             "total_liabilities": ["Total Liabilities", "Liabilities", "TotalLiabilities"],
             "sales": ["Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue", "Sales"],
         }
-        system_prompt = (
-            "You are a financial data expert. Given a list of raw field names from an SEC XBRL filing, "
-            "map each canonical Altman Z-Score field to the most likely raw field name. "
-            "If no good match exists, return null for that field. "
-            "For the canonical field 'sales', you must always map it to the best available revenue field (such as 'Total Revenue', 'Revenue', 'Sales Revenue Net', or 'Operating Revenue') if any of these are present in the raw fields. "
-            "Never leave 'sales' as null if any revenue field is present. If multiple revenue fields are present, prefer 'Total Revenue', then 'Revenue', then 'Sales Revenue Net', then 'Operating Revenue'. "
-            "Always return a JSON object where the keys are the canonical field names (e.g., 'sales'), and the values are objects with two keys: 'FoundField' (the best-matching raw field name or null) and 'Value' (the value for that field, or null). "
-            "Even if the best match for 'sales' is 'Total Revenue', the output key must still be 'sales', with the value set to {\"FoundField\": \"Total Revenue\", \"Value\": <value>}. "
-            "The output must always include all canonical field names as keys, even if the matched raw field is different. "
-        )
+        # --- Prompt Ingestion for Field Mapping ---
+        # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
+        prompt_path_new = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_field_mapping.md")
+        prompt_path_legacy = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_field_mapping.md")
+        if os.path.exists(prompt_path_new):
+            prompt_path = prompt_path_new
+        elif os.path.exists(prompt_path_legacy):
+            prompt_path = prompt_path_legacy
+        else:
+            raise FileNotFoundError(f"Could not find prompt_field_mapping.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}")
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            system_prompt = f.read()
         user_prompt = f"""
 Raw fields: {raw_fields}\n
 Canonical fields: {canonical_fields}\n
@@ -70,7 +72,7 @@ Canonical fields: {canonical_fields}\n
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
-        response = self.chat_completion(messages, temperature=0.0, max_tokens=512)
+        response = self.chat_completion(messages, temperature=0.0, max_tokens=2500)
         # Try to extract the mapping from the response
         try:
             content = response["choices"][0]["message"]["content"]
@@ -108,23 +110,22 @@ def get_llm_qualitative_commentary(prompt: str) -> str:
         str: The LLM-generated commentary as plain text.
     """
     client = AzureOpenAIClient()
-    system_prompt = (
-        "You are a financial analyst. Given the following Altman Z-Score report and context, "
-        "generate a six-paragraph qualitative commentary: "
-        "(1) summarize the Z-Score trend, (2) summarize the stock price trend, (3) discuss how the two trends align or diverge and what that means for risk assessment, "
-        "(4) analyze the Z-Score component ratios (X1–X5) in detail, highlighting which ratios are most concerning or stable for this company, (5) discuss any other relevant financial ratios (such as current ratio, debt-to-equity, or others) that are important for this company's situation, using the data in the report, and (6) provide investment advice based on the Z-Score and ratio analysis. "
-        "Be specific, reference the numbers, and provide actionable insight. "
-        "For the financial ratio analysis, use the actual values from the Z-Score component table and the raw data field mapping table. "
-        "Explicitly calculate and discuss the current ratio (current assets / current liabilities) and the debt-to-equity ratio (total liabilities / stockholders' equity) for each quarter if possible, and comment on their trends and implications. "
-        "If any ratio is especially high, low, or changing rapidly, highlight this and explain what it means for risk. "
-        "If data is missing for a ratio, state this clearly. "
-        "For the investment advice, provide a clear summary of the risk profile and actionable recommendations for investors, but include a disclaimer that this advice is generated by an AI language model and should be validated by a qualified financial advisor."
-    )
+    # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
+    prompt_path_new = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_fin_analysis.md")
+    prompt_path_legacy = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_fin_analysis.md")
+    if os.path.exists(prompt_path_new):
+        prompt_path = prompt_path_new
+    elif os.path.exists(prompt_path_legacy):
+        prompt_path = prompt_path_legacy
+    else:
+        raise FileNotFoundError(f"Could not find prompt_fin_analysis.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        system_prompt = f.read()
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": prompt}
     ]
-    response = client.chat_completion(messages, temperature=0.2, max_tokens=1400)
+    response = client.chat_completion(messages, temperature=0.2, max_tokens=2500)
     try:
         content = response["choices"][0]["message"]["content"]
         # Remove code block markers if present

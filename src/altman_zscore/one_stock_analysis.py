@@ -81,14 +81,40 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         pd.DataFrame: DataFrame with columns: ['quarter_end', 'zscore', 'valid', 'error', ...]
 
     Workflow:
-        1. Classify company (industry, maturity, etc.)
-        2. Select Z-Score model based on profile and SIC code
-        3. Fetch last 12 quarters of financials (robust fallback logic)
-        4. Validate and compute Z-Score for each quarter
-        5. Output results to CSV, JSON, and plot
-        6. Save all diagnostics and error reports to output/
+        1. Check if company exists and isn't bankrupt/delisted
+        2. Classify company (industry, maturity, etc.)
+        3. Select Z-Score model based on profile and SIC code
+        4. Fetch last 12 quarters of financials (robust fallback logic)
+        5. Validate and compute Z-Score for each quarter
+        6. Output results to CSV, JSON, and plot
+        7. Save all diagnostics and error reports to output/
     """
-    logger = logging.getLogger("altman_zscore.one_stock_analysis")    # Setup base output directory using absolute path    # 1. Classify company (industry, maturity, etc.)
+    logger = logging.getLogger("altman_zscore.one_stock_analysis")
+    
+    # Setup base output directory using absolute path
+    out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
+    
+    # 1. Check if company exists and isn't bankrupt/delisted
+    try:
+        from altman_zscore.company_status import check_company_status, handle_special_status
+        print_info(f"Checking status of {ticker}...")
+        status = check_company_status(ticker)
+        
+        # If company has special status (doesn't exist, delisted, bankrupt), handle it
+        if handle_special_status(status):
+            if status.is_bankrupt:
+                print_error(f"The company {ticker} has filed for bankruptcy. Analysis aborted.")
+            elif status.is_delisted:
+                print_error(f"The ticker {ticker} has been delisted. Analysis aborted.")
+            elif not status.exists:
+                print_error(f"The ticker {ticker} does not appear to exist. Analysis aborted.")
+            else:
+                print_error(f"The ticker {ticker} has issues: {status.status_reason}. Analysis aborted.")
+            sys.exit(1)
+    except Exception as e:
+        logger.warning(f"Error checking company status: {e}. Continuing with analysis.")
+    
+    # 2. Classify company (industry, maturity, etc.)
     profile = classify_company(ticker)
     
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")    # All outputs for this ticker go to ./output/<TICKER>/
