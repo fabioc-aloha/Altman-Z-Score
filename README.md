@@ -1,11 +1,12 @@
-# Altman Z-Score Analysis (Version 2.2.0)
+# Altman Z-Score Analysis (Version 2.2.1)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
 **Project Status (as of May 29, 2025):**
-- **V2.2 (Current):** Model selection & calibration overhaul, enhanced visualizations with improved plotting features
+- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting
+- **V2.2:** Model selection & calibration overhaul, enhanced visualizations with improved plotting features
 - **V2.1:** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup
 - **V2.0.2 (Publishing Issue):** Complete
 - **V2.0.1 (Bug Fix & Resilience Improvement):** Complete
@@ -13,12 +14,13 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 - **v1 (Stock Price Overlay):** Complete
 - **v2 (Per-ticker outputs, main.py entry point, codebase cleanup):** Complete and merged to main
 - **v2.5 (Forecasting, Sentiment, Portfolio Analysis):** In planning (see PLAN.md)
-- All development and testing uses a local Python 3.11+ virtual environment (`.venv`)
+- All development and testing is performed in GitHub Codespaces—ensure compatibility at every step.
 
 ---
 
 ## Version Roadmap
-- **V2.2 (Current):** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
+- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
+- **V2.2:** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
 - **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
 - **V2.6:** Portfolio/multi-ticker analysis.
@@ -211,7 +213,10 @@ MIT (see LICENSE file)
 
 ## Changelog
 
-### V2.2 (May 29, 2025) — Current
+### V2.2.1 (May 29, 2025) — Current
+- Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
+
+### V2.2 (May 29, 2025)
 - Model selection & calibration overhaul with enhanced visualizations
 - Improved Z-Score and price plotting with better label positioning
 - Implemented I-shaped whiskers with horizontal caps for price range indicators
@@ -251,7 +256,8 @@ MIT (see LICENSE file)
   - A detailed plan for further improvements and calibration is maintained in `altmans.md`.
 
 ## Version Roadmap
-- **V2.2 (Current):** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
+- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
+- **V2.2:** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
 - **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
 - **V2.6:** Portfolio/multi-ticker analysis.

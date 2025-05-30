@@ -1,3 +1,35 @@
+# PLAN.md — Altman Z-Score Analysis (v2.2.1)
+
+## Version 2.2.1 (May 29, 2025)
+- Centralized all LLM prompt files in `src/prompts/` and made them user-editable.
+- Refactored prompt ingestion logic for robust path handling and runtime updates.
+- Updated documentation (`README.md`, `PLAN.md`, `TODO.md`) to describe the new prompt workflow, folder structure, and version 2.2.1.
+- Added a test checklist for prompt ingestion.
+- Fixed bugs with prompt path logic and yfinance/pandas warnings.
+- Moved chart image/caption before the LLM analysis in the report and into its own section.
+- Made the LLM generate all section names, including references and disclaimers, per prompt instructions.
+- Removed all hardcoded references, disclaimers, and section headings from the code.
+- Improved terminal output to only show save status, not report content.
+- Updated the financial analysis prompt to require a disclaimer, references, context-aware stakeholder tables, and to include source attribution and author.
+- Updated the field mapping prompt to instruct the LLM to use semantic similarity/context, not just string matching.
+- Removed the DOCX/Word export feature and all related code/docs.
+- Added a hardcoded introduction, source attribution, author, and license to the top of the report in `reporting.py`.
+- Made the source attribution and project/author reference consistent in both the prompt and the report.
+- Removed the "Missing" column from the Raw Data Field Mapping Table in the report generator.
+- Ensured the introduction and attribution are always at the very top of the generated report file and included in the LLM context.
+- Added a developer disclaimer to the introduction.
+- Updated the LICENSE to a custom "Attribution Non-Commercial License (MIT-based)" and referenced it in the report introduction.
+- Moved the report title to the very top of the report, before the introduction, with correct line spacing.
+- Fixed the report generator to ensure only one introduction section appears, immediately after the title, and not duplicated.
+- Renamed the section "Analysis Context and Decisions" to "Analysis Context and Z-Score Model Selection Criteria".
+- Staged, committed, and pushed changes to the main branch, including updated reports and documentation.
+- Updated the version to 2.2.1 in all documentation and changelogs.
+
+## Prompt Folder Usage
+- All LLM prompt files are in `src/prompts/`.
+- To customize LLM behavior, edit the relevant prompt file. Changes are reflected immediately in all outputs.
+- For new LLM-driven features, add a new prompt file in `src/prompts/` and reference it in your code.
+
 # Altman Z-Score Refactor Plan (2025, Revised)
 
 ## V2.2: Model Selection & Calibration Overhaul (May 2025, In Progress)
@@ -159,7 +191,7 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
    - Create Pydantic models in `schemas/validation.py` for all expected data.
    - Validate fetched data and report issues.
 5. **Implement Z-Score Computation**
-   - Write a pure function `compute_zscore(validated_data, industry, maturity)`.
+   - Write a pure function `compute_zscore(validated_data, industry, maturity)` .
    - Use latest Altman Z-Score models (original, emerging markets, service, private, etc.).
    - Calibrate coefficients and thresholds by industry and maturity.
    - Return result object with all components and calibration details.

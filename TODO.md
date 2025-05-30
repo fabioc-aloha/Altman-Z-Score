@@ -116,5 +116,72 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - If the phrase does not appear, check for errors in the pipeline or LLM call.
 - This test ensures full transparency and user control over the LLM's analysis instructions and references.
 
----
+# TODO.md — Altman Z-Score Analysis (v2.2.1)
+
+## Completed (v2.2.1)
+- Centralized all LLM prompt files in `src/prompts/` and made them user-editable; updated code to ingest prompts from there.
+- Refactored prompt ingestion logic for robust path handling and runtime updates.
+- Updated documentation (`README.md`, `PLAN.md`, `TODO.md`) to describe the new prompt workflow and folder structure.
+- Added a test checklist for prompt ingestion.
+- Fixed a bug with prompt path logic for financial analysis.
+- Moved chart image/caption before the LLM analysis in the report and into its own section.
+- Made the LLM generate all section names, including references and disclaimers, per prompt instructions.
+- Removed all hardcoded references, disclaimers, and section headings from the code.
+- Improved terminal output to only show save status, not report content.
+- Fixed yfinance/pandas warnings in `prices.py`.
+- Updated the financial analysis prompt to require a disclaimer, references, and context-aware stakeholder tables, and to include source attribution and author.
+- Updated the field mapping prompt to instruct the LLM to use semantic similarity/context, not just string matching.
+- Removed the DOCX/Word export feature and all related code/docs.
+- Added a hardcoded introduction and source attribution (with author) to the top of the report in `reporting.py`.
+- Made the source attribution and project/author reference consistent in both the prompt and the report.
+- Removed the "Missing" column from the Raw Data Field Mapping Table in the report generator.
+- Ensured the introduction and attribution are always at the very top of the generated report file and included in the LLM context.
+- Added a developer disclaimer to the introduction.
+- Updated the LICENSE to a custom "Attribution Non-Commercial License (MIT-based)" and referenced it in the report introduction.
+- Moved the report title to the very top of the report, before the introduction, with correct line spacing.
+- Fixed the report generator to ensure only one introduction section appears, immediately after the title, and not duplicated.
+- Renamed the section "Analysis Context and Decisions" to "Analysis Context and Z-Score Model Selection Criteria".
+- Staged, committed, and pushed changes to the main branch, including updated reports and documentation.
+- Updated the version to 2.2.1 in all documentation and changelogs.
+
+## Version 2.2.1 (May 29, 2025)
+- [x] Centralize all LLM prompt files in `src/prompts/` and make them user-editable
+- [x] Refactor prompt ingestion logic for robust path handling and runtime updates
+- [x] Update documentation (`README.md`, `PLAN.md`, `TODO.md`) to describe the new prompt workflow, folder structure, and version 2.2.1
+- [x] Add a test checklist for prompt ingestion
+- [x] Fix bugs with prompt path logic and yfinance/pandas warnings
+- [x] Move chart image/caption before the LLM analysis in the report and into its own section
+- [x] Make the LLM generate all section names, including references and disclaimers, per prompt instructions
+- [x] Remove all hardcoded references, disclaimers, and section headings from the code
+- [x] Improve terminal output to only show save status, not report content
+- [x] Update the financial analysis prompt to require a disclaimer, references, context-aware stakeholder tables, and to include source attribution and author
+- [x] Update the field mapping prompt to instruct the LLM to use semantic similarity/context, not just string matching
+- [x] Remove the DOCX/Word export feature and all related code/docs
+- [x] Add a hardcoded introduction, source attribution, author, and license to the top of the report in `reporting.py`
+- [x] Make the source attribution and project/author reference consistent in both the prompt and the report
+- [x] Remove the "Missing" column from the Raw Data Field Mapping Table in the report generator
+- [x] Ensure the introduction and attribution are always at the very top of the generated report file and included in the LLM context
+- [x] Add a developer disclaimer to the introduction
+- [x] Update the LICENSE to a custom "Attribution Non-Commercial License (MIT-based)" and reference it in the report introduction
+- [x] Move the report title to the very top of the report, before the introduction, with correct line spacing
+- [x] Fix the report generator to ensure only one introduction section appears, immediately after the title, and not duplicated
+- [x] Rename the section "Analysis Context and Decisions" to "Analysis Context and Z-Score Model Selection Criteria"
+- [x] Stage, commit, and push changes to the main branch, including updated reports and documentation
+- [x] Update the version to 2.2.1 in all documentation and changelogs
+
+### Prompt Folder Usage
+- All LLM prompt files are now in `src/prompts/`.
+- Edit these files to change LLM instructions, references, or output style—changes are reflected immediately in new reports.
+- Add new prompt files in `src/prompts/` for new LLM-driven features and reference them in code.
+
+## In Progress / Next
+- [ ] Expand test coverage for prompt ingestion and runtime updates
+- [ ] Add more prompt-driven features (e.g., qualitative commentary, advanced diagnostics)
+- [ ] Continue improving Codespaces compatibility and documentation
+- [ ] Prepare for v2.2.x: outlier warnings, expanded tests, and further reporting improvements
+
+## Prompt Folder Usage
+- All LLM prompt files are in `src/prompts/`.
+- To customize LLM behavior, edit the relevant prompt file. Changes are reflected immediately in all outputs.
+- For new LLM-driven features, add a new prompt file in `src/prompts/` and reference it in your code.
 
