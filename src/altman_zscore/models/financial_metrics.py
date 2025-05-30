@@ -36,6 +36,17 @@ class FinancialMetrics:
 
 @dataclass
 class ZScoreResult:
+    """
+    Container for Altman Z-Score calculation results.
+    
+    Attributes:
+        z_score: Calculated Z-Score value
+        model: Model type used (e.g., 'original', 'private', 'service')
+        components: Dictionary of component values (X1, X2, etc.)
+        diagnostic: Risk assessment string (e.g., 'Safe', 'Grey Zone', 'Distress')
+        thresholds: Risk thresholds for the model
+        override_context: Context for any model/threshold overrides
+    """
     z_score: Decimal
     model: str
     components: Dict[str, Decimal]

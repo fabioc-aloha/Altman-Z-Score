@@ -6,6 +6,12 @@ import yfinance as yf
 
 
 class YahooFinanceClient:
+    """
+    Yahoo Finance client for fetching market data and financial metrics.
+    
+    Provides methods to retrieve market capitalization, stock prices, and other
+    financial data using the yfinance library.
+    """
     def get_market_cap_on_date(self, ticker, date, span_days=30):
         """
         Fetch market cap for a ticker on a given date using yfinance (default session/user agent).
