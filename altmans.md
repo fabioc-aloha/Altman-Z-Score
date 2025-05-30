@@ -1,11 +1,3 @@
-# Vision Alignment
-
-All model and calibration decisions are guided by the project vision:
-
-> Our goal is to deliver an Altman Z-Score platform that not only matches but surpasses the capabilities of all current and future competitors—open-source or commercial. Every feature, architectural decision, and user experience is designed to set a new industry standard for transparency, extensibility, and actionable financial insight.
-
-See [vision.md](./vision.md) for the full vision statement.
-
 # Plan: Altman Z-Score Model Selection and Calibration Improvements
 
 ## Objective
@@ -71,22 +63,22 @@ Enhance the Altman Z-Score pipeline to align more closely with academic best pra
 
 ## Implementation Steps
 1. **Refactor `constants.py`:**
-   - Move all model coefficients and thresholds (including per-industry and EM) into this file.
-   - Add metadata (version, source, date) for each model/threshold set.
+   - [x] Move all model coefficients and thresholds (including per-industry and EM) into this file.
+   - [x] Add metadata (version, source, date) for each model/threshold set.
 2. **Update Company Profile:**
-   - Add founding year and IPO date fields.
-   - Update maturity classification logic.
+   - [x] Add founding year and IPO date fields.
+   - [x] Update maturity classification logic.
 3. **Refactor Model Selection Logic:**
-   - Always use `constants.py` for coefficients and thresholds.
-   - Add logic for age/IPO-based maturity, industry, and region.
+   - [x] Always use `constants.py` for coefficients and thresholds.
+   - [x] Add logic for age/IPO-based maturity, industry, and region.
 4. **Enhance Reporting:**
-   - Add transparency section for overrides/assumptions.
-   - Add warnings for size/leverage outliers.
+   - [x] Add transparency section for overrides/assumptions.
+   - [ ] Add warnings for size/leverage outliers.
 5. **Testing and Documentation:**
-   - Add/expand tests for new logic.
-   - Update documentation and usage examples.
+   - [x] Add/expand tests for new logic.
+   - [x] Update documentation and usage examples.
 6. **Calibration Update Process:**
-   - Document how to update `constants.py` with new data.
+   - [x] Document how to update `constants.py` with new data.
 
 ---
 
