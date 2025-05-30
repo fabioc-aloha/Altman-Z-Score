@@ -39,15 +39,42 @@ class AzureOpenAIClient:
         """
         # Centralized synonyms for each canonical field
         FIELD_SYNONYMS = {
-            "total_assets": ["Total Assets", "Assets", "TotalAssets", "Assets Total"],
-            "current_assets": ["Current Assets", "Assets Current", "CurrentAssets"],
-            "current_liabilities": ["Current Liabilities", "Liabilities Current", "CurrentLiabilities"],
-            "retained_earnings": ["Retained Earnings", "Earnings Retained", "RetainedEarningsAccumulatedDeficit"],
-            "ebit": ["EBIT", "Earnings Before Interest and Taxes", "Operating Income", "Income From Operations"],
-            "market_value_equity": ["Market Value Equity", "Market Capitalization", "Market Cap", "MarketValueOfEquity"],
-            "book_value_equity": ["Book Value Equity", "Total Equity", "Shareholders Equity", "Stockholders Equity", "Equity"],
-            "total_liabilities": ["Total Liabilities", "Liabilities", "TotalLiabilities"],
-            "sales": ["Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue", "Sales"],
+            "total_assets": [
+                "Total Assets", "Assets", "TotalAssets", "Assets Total", "Net Assets", "Net Asset Value", "Nettovermogen", "Nettoaktiva",
+                "Ativo Total", "Ativos Totais", "Ativo Consolidado", "Ativo", "Total do Ativo"
+            ],
+            "current_assets": [
+                "Current Assets", "Assets Current", "CurrentAssets", "Current Asset", "CurrentAsset", "Liquid Assets", "Liquide Mittel",
+                "Ativo Circulante", "Ativos Circulantes", "Disponibilidades"
+            ],
+            "current_liabilities": [
+                "Current Liabilities", "Liabilities Current", "CurrentLiabilities", "Current Liab.", "Current Liability", "CurrentLiab", "Kurzfristige Verbindlichkeiten",
+                "Passivo Circulante", "Passivos Circulantes"
+            ],
+            "retained_earnings": [
+                "Retained Earnings", "Earnings Retained", "RetainedEarningsAccumulatedDeficit", "Ret. Earnings", "Gewinnrücklagen",
+                "Lucros Acumulados", "Lucros Retidos", "Reservas de Lucros"
+            ],
+            "ebit": [
+                "EBIT", "Earnings Before Interest and Taxes", "Operating Income", "Income From Operations", "Operating Profit", "Profit Before Tax", "Ergebnis vor Zinsen und Steuern", "Betriebsergebnis",
+                "Lucro Antes do Resultado Financeiro e dos Tributos", "LAJIR", "Lucro Operacional"
+            ],
+            "market_value_equity": [
+                "Market Value Equity", "Market Capitalization", "Market Cap", "MarketValueOfEquity", "Börsenwert", "Market Value of Equity",
+                "Valor de Mercado", "Valor de Mercado das Ações"
+            ],
+            "book_value_equity": [
+                "Book Value Equity", "Total Equity", "Shareholders Equity", "Stockholders Equity", "Equity", "Share Capital", "Shareholder Funds", "Eigenkapital",
+                "Patrimônio Líquido", "Patrimonio Liquido", "Capital Social"
+            ],
+            "total_liabilities": [
+                "Total Liabilities", "Liabilities", "TotalLiabilities", "Gesamtschulden",
+                "Passivo Total", "Passivos Totais", "Total do Passivo"
+            ],
+            "sales": [
+                "Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue", "Sales", "Turnover", "Umsatz", "Net Sales",
+                "Receita Líquida de Vendas", "Receita de Vendas", "Receita Operacional", "Receita Líquida"
+            ],
         }
         # --- Prompt Ingestion for Field Mapping ---
         # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility

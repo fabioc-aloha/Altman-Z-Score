@@ -48,8 +48,13 @@ def run_mapping_for_ticker(ticker):
     client = AzureOpenAIClient()
     mapping = client.suggest_field_mapping(raw_fields, CANONICAL_FIELDS)
     print("AI Field Mapping Result:")
+    missing = []
     for canonical, raw in mapping.items():
         print(f"  {canonical}: {raw}")
+        if not raw or not raw.get("FoundField") or raw["FoundField"] in [None, "null", ""]:
+            missing.append(canonical)
+    if missing:
+        print(f"  [Missing fields for {ticker}]: {', '.join(missing)}")
     # Print which quarters are missing data for this ticker, only for quarters >= Jan 2024
     summary_path = f"output/{ticker}/zscore_{ticker}_summary.txt"
     if os.path.exists(summary_path):
@@ -67,7 +72,10 @@ def run_mapping_for_ticker(ticker):
                                 print("    ", line.strip())
 
 def main():
-    for ticker in ["AAPL", "SONO", "MSFT", "FDX", "DAL", "SBUX", "TSLA"]:
+    # Dynamically get all tickers from the output directory
+    output_dir = Path('output')
+    tickers = [p.name for p in output_dir.iterdir() if p.is_dir()]
+    for ticker in sorted(tickers):
         run_mapping_for_ticker(ticker)
 
 if __name__ == "__main__":

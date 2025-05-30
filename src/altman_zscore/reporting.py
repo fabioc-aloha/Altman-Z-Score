@@ -38,7 +38,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         "",
         "**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.",
         "",
-        "**Disclaimer:** The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.",
+        "<span style='font-size:smaller'><em>Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.</em></span>",
         "---",
         ""
     ]
@@ -118,6 +118,19 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         lines.append("- X4 = Market Value of Equity / Total Liabilities\n")
         x_cols = ["X1", "X2", "X3", "X4"]
     lines.append("")
+    # --- Warning Section for Missing Fields and Reliability Impact ---
+    if hasattr(df, 'missing_fields') and df.missing_fields:
+        lines.append('> **Warning:** The following required fields were missing for one or more quarters: ' + ', '.join(sorted(set(df.missing_fields))) + '. Z-Score components for these fields are omitted or estimated. Interpret results with caution.')
+        lines.append('')
+    elif hasattr(df, 'zscore_results') and df.zscore_results:
+        # Check for missing fields in zscore_results if present
+        missing = set()
+        for res in df.zscore_results:
+            if hasattr(res, 'missing_fields') and res.missing_fields:
+                missing.update(res.missing_fields)
+        if missing:
+            lines.append('> **Warning:** The following required fields were missing for one or more quarters: ' + ', '.join(sorted(missing)) + '. Z-Score components for these fields are omitted or estimated. Interpret results with caution.')
+            lines.append('')
     def format_number_millions(val):
         try:
             if val is None or val == "":
@@ -207,10 +220,16 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
     chart_md = None
     if ticker and out_path:
-        chart_path = os.path.join('output', ticker, f'zscore_{ticker}_trend.png')
-        if os.path.exists(chart_path):
-            rel_chart_path = os.path.relpath(chart_path, os.path.dirname(out_path)).replace('\\', '/')
-            chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
+        # Try GitHub-friendly relative path first (assumes report and image are in the same output/<TICKER>/ folder)
+        github_chart_path = f"zscore_{ticker}_trend.png"
+        local_chart_path = os.path.join('output', ticker, f'zscore_{ticker}_trend.png')
+        if os.path.exists(local_chart_path):
+            # Use GitHub-friendly path if the report and image are in the same folder
+            if os.path.dirname(out_path) == os.path.dirname(local_chart_path):
+                chart_md = f"\n![Z-Score and Price Trend Chart]({github_chart_path})\n"
+            else:
+                rel_chart_path = os.path.relpath(local_chart_path, os.path.dirname(out_path)).replace('\\', '/')
+                chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
             chart_md += "\n"  # Add a new line before the caption
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
     if chart_md:

@@ -160,6 +160,8 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
         logger.info(f"[{ticker}] Income statement columns: {list(is_.columns)}")
         quarters = []
         common_periods = [p for p in bs.columns if p in is_.columns]
+        # Track missing fields for each quarter for partial analysis and reporting
+        missing_fields_by_quarter = []
         # If yfinance returns no data, try SEC EDGAR fallback
         if (not len(bs.columns) and not len(is_.columns)) or not common_periods:
             logger.warning(f"[{ticker}] No usable financials from yfinance. Attempting SEC EDGAR fallback...")
@@ -271,6 +273,8 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
             if missing:
                 logger.warning(f"[{ticker}] {period_str}: Missing fields: {', '.join(missing)}. Available BS keys: {sorted(available_bs_keys)}. Available IS keys: {sorted(available_is_keys)}")
             quarters.append(q)
+            # Track missing fields for each quarter for partial analysis and reporting
+            missing_fields_by_quarter.append(missing)
         quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
         if quarters:
             # Only now, after confirming valid data, write diagnostics/output files
@@ -278,7 +282,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str):
                 f.write("\n".join(str(idx) for idx in bs.index))
             with open(get_output_dir(f"is_index.txt", ticker=ticker), "w") as f:
                 f.write("\n".join(str(idx) for idx in is_.index))
-            return {"quarters": quarters}
+            return {"quarters": quarters, "missing_fields_by_quarter": missing_fields_by_quarter}
         else:
             logger.error(f"[{ticker}] No usable financial data found after processing. Data may be present but missing required fields.")
             raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")

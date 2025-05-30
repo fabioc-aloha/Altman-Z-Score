@@ -20,7 +20,7 @@ This checklist ensures a clean, robust, and well-documented release for version 
 - [ ] Review and update example outputs in `output/`
 
 ## Release
-- [ ] Stage, commit, and push all changes to the main branch
+- [x] Stage, commit, and push all changes to the main branch
 - [ ] Tag the release as `v2.2.1` on GitHub
 - [ ] Verify that the release builds and runs from a fresh Codespace
 - [x] Confirm that prompt changes are reflected at runtime (no restart required)

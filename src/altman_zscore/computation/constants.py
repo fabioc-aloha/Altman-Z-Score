@@ -110,6 +110,15 @@ EMERGING_MARKETS = [
     "CN", "IN", "BR", "RU", "ZA", "MX", "ID", "TR", "PL", "TH", "PH", "EG", "NG", "PK", "VN", "AR", "CO", "MY", "CL", "PE"
 ]
 
+# --- Region/EM Model Aliases (for international support) ---
+MODEL_ALIASES = {
+    'EM': 'em',
+    'EMERGING': 'em',
+    'EU': 'service',
+    'ASIA': 'service',
+    # Add more as needed
+}
+
 # --- Calibration update process metadata ---
 CALIBRATION_UPDATE = {
     "last_update": "2025-05-29",

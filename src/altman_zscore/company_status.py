@@ -230,6 +230,31 @@ def check_company_status(ticker: str) -> CompanyStatus:
     return status
 
 
+def detect_company_region(info: dict) -> str:
+    """
+    Attempt to detect the country/region of a company from Yahoo/SEC info dict.
+    Returns a region string (e.g., 'US', 'EM', 'EU', 'ASIA', etc.) or 'Unknown'.
+    """
+    if not info:
+        return 'Unknown'
+    country = info.get('country') or info.get('Country')
+    if not country:
+        return 'Unknown'
+    country = country.lower()
+    if 'united states' in country or country == 'usa' or country == 'us':
+        return 'US'
+    # Example EM/region logic (expand as needed)
+    em_countries = ['brazil', 'india', 'china', 'south africa', 'russia', 'mexico', 'indonesia', 'turkey', 'thailand', 'malaysia', 'philippines', 'chile', 'colombia', 'peru', 'egypt', 'nigeria', 'poland', 'hungary', 'czech republic']
+    if any(em in country for em in em_countries):
+        return 'EM'
+    # Add more region logic as needed
+    if 'germany' in country or 'france' in country or 'uk' in country or 'europe' in country:
+        return 'EU'
+    if 'japan' in country or 'china' in country or 'korea' in country or 'taiwan' in country:
+        return 'ASIA'
+    return country.title()
+
+
 def handle_special_status(status: CompanyStatus) -> bool:
     """
     Handle cases where a company has a special status (doesn't exist, delisted, bankrupt).

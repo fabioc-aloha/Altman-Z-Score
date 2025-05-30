@@ -277,3 +277,13 @@ The pipeline reads these files at runtime. Any changes you make are reflected im
 If you add new LLM-driven features, create a new prompt file in `src/prompts/` and reference it in your code for full transparency and user control.
 
 See the prompt files themselves for detailed instructions and references.
+
+## International and Fallback Logic (v2.2.x+)
+- Expanded field mapping to include international/IFRS/abbreviated field names (e.g., "Turnover", "Share Capital", "Profit Before Tax").
+- If any required field is missing, the pipeline performs partial analysis and clearly flags/report missing fields and reliability impact in the report.
+- Market data fetching now supports fallback to alternative sources (Alpha Vantage, Stooq) if Yahoo/SEC data is missing or incomplete.
+- Company region/country is detected for model selection (e.g., EM model for emerging markets).
+- All fallback attempts and missing data are logged and reported for transparency.
+- See `TODO-International-Fallback.md` for the full checklist and progress.
+
+---

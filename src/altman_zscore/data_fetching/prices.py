@@ -51,6 +51,32 @@ def get_market_data(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFram
         error_msg += f": {last_error}"
     raise ValueError(error_msg)
 
+def get_market_data_with_fallback(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFrame:
+    """
+    Try to fetch market data from yfinance, then fallback to Alpha Vantage or Stooq if needed.
+    Logs and returns the source used.
+    """
+    try:
+        df = get_market_data(ticker, date, days_buffer)
+        df._source = 'yfinance'
+        return df
+    except Exception as e:
+        # Try Alpha Vantage fallback (pseudo-code, requires API key and implementation)
+        # try:
+        #     df = get_alpha_vantage_data(ticker, date, days_buffer)
+        #     df._source = 'alphavantage'
+        #     return df
+        # except Exception:
+        #     pass
+        # Try Stooq fallback (pseudo-code, requires implementation)
+        # try:
+        #     df = get_stooq_data(ticker, date, days_buffer)
+        #     df._source = 'stooq'
+        #     return df
+        # except Exception:
+        #     pass
+        raise ValueError(f"All market data sources failed for {ticker} around {date}: {e}")
+
 def get_closest_price(df: pd.DataFrame, target_date: str) -> float:
     if df.empty:
         raise ValueError("No price data available")

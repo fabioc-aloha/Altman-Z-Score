@@ -345,3 +345,51 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 
 ### Next Steps
 - If high-quality Word export is required in the future, consider using a dedicated Markdown-to-Word tool or service outside this codebase.
+
+# PLAN: Field Mapping and Internationalization Improvements (May 2025)
+
+## Objective
+Enhance the Altman Z-Score pipeline's field mapping, internationalization, and robustness for global and emerging market tickers, with a focus on banks/financials and user transparency.
+
+---
+
+## 1. Expand FIELD_SYNONYMS
+- Add more synonyms for each canonical field, especially for banks and international companies (Portuguese, Spanish, French, etc.).
+- Include terms like "Receita de Juros" (Interest Income), "Lucro Líquido" (Net Income), etc.
+
+## 2. Bank/Financial Institution Awareness
+- Detect if a company is a bank/financial institution (from sector/industry or ticker list).
+- Adjust mapping priorities for banks (e.g., map 'sales' to 'Interest Income' if no revenue field is present).
+
+## 3. Partial/Fallback Mapping Reporting
+- When a field cannot be mapped, include a 'Reason' in the returned mapping (e.g., 'No revenue field found; company may be a bank').
+- Surface this in the report for transparency.
+
+## 4. Sample Value Matching
+- Use sample_values (if provided) to improve mapping confidence (e.g., match by value type/range).
+
+## 5. Case-Insensitive and Accent-Insensitive Matching
+- Normalize field names (lowercase, remove accents/diacritics) before matching.
+
+## 6. Logging and Diagnostics
+- Add granular logging for mapping decisions, especially for fallbacks and unmapped fields.
+
+## 7. User-Editable Mapping Overrides
+- Allow user to provide a mapping override file (e.g., mapping_overrides.json) for persistent issues.
+
+## 8. Unit Tests for Mapping Logic
+- Add/expand unit tests for edge cases, especially for international tickers and banks.
+
+## 9. Graceful Handling of LLM Failures
+- If LLM response is malformed/missing, fall back to code-level synonym matching and log a warning.
+
+## 10. Documentation
+- Document mapping logic, fallback rules, and internationalization in README or a dedicated doc.
+
+---
+
+## Next Steps
+- Prioritize FIELD_SYNONYMS expansion and bank awareness logic.
+- Implement fallback reporting and logging.
+- Add user-editable mapping override support.
+- Update tests and documentation.
