@@ -1,3 +1,9 @@
+# Vision: Exceeding the Competition
+
+Our goal is to deliver an Altman Z-Score platform that not only matches but surpasses the capabilities of all current and future competitors—open-source or commercial. Every feature, architectural decision, and user experience is designed to set a new industry standard for transparency, extensibility, and actionable financial insight.
+
+> See [vision.md](./vision.md) for the full vision statement.
+
 # Altman Z-Score Analysis (Version 2.2.2)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
