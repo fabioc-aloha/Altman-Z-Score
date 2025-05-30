@@ -1,3 +1,7 @@
+# Vision: Exceeding the Competition
+
+Our goal is to deliver an Altman Z-Score platform that not only matches but surpasses the capabilities of all current and future competitors—open-source or commercial. Every feature, architectural decision, and user experience is designed to set a new industry standard for transparency, extensibility, and actionable financial insight.
+
 # PLAN.md — Altman Z-Score Analysis (v2.2.2)
 
 ## Version 2.2.2 (May 29, 2025)
@@ -412,3 +416,46 @@ Enhance the Altman Z-Score pipeline's field mapping, internationalization, and r
 - Implement fallback reporting and logging.
 - Add user-editable mapping override support.
 - Update tests and documentation.
+
+# Competitive Roadmap & Differentiators (Source: competition roadmap.md)
+
+## Five-Phase Feature Roadmap
+- [ ] **Phase 1: Foundation**
+    - Modular Data Connectors (multiple sources: Alpha Vantage, IEX Cloud, CSV, SQL, REST)
+    - Public REST API v1 (expose Z-Score calculations)
+    - Enhanced CLI (batch processing, per-ticker outputs)
+    - Documentation & Tutorials (quickstarts, in-tool help)
+- [ ] **Phase 2: Interactivity**
+    - Web Dashboard (interactive UI, charts, peer comparisons)
+    - Excel Add-In (one-click report generation)
+    - Alerting System (email/Slack notifications)
+- [ ] **Phase 3: Intelligence**
+    - AI Narrative Generation (LLM-powered summaries)
+    - SaaS Tier (hosted deployment, SLAs, RBAC)
+- [ ] **Phase 4: Enterprise & Extensibility**
+    - Pro Plugins (premium stress-testing, scenario analysis)
+    - Audit-Ready Exports (versioning, change logs, compliance)
+    - BI Platform Integrations (Power BI/Tableau connectors)
+    - Marketplace Deployment (Azure Marketplace, automated scripts)
+- [ ] **Phase 5: Scale & Partnerships**
+    - Real-Time Data Feeds (WebSocket, premium feeds)
+    - Enhanced API v2 (bulk, streaming, improved handling)
+    - Mobile-Responsive UI (dashboard for mobile)
+
+## Competitive Differentiators
+- Zero Licensing Cost (open-source core, open-core add-ons)
+- Modular Data Flexibility (plug-and-play connectors)
+- AI-Driven Insights (automated summaries, alerting)
+- Community-Driven Roadmap (public roadmap, sprints, early access)
+- Enterprise Packaging (SaaS tier, SLAs, RBAC, audit-ready, BI integration)
+
+## Non-Functional Requirements (from competition roadmap)
+- Performance: Efficient batch processing (e.g., 100 tickers)
+- Security: OAuth2 and TLS for SaaS/API
+- Scalability: Horizontal scaling for API/UI
+- Usability: Target SUS score ≥ 80
+- Reliability: SaaS uptime commitment
+
+---
+
+> For full details, see `competition roadmap.md`. All major features and differentiators above are now tracked as part of the project plan.

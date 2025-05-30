@@ -2,6 +2,8 @@
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
+> **Vision:** This project is committed to exceeding the capabilities of all competing Altman Z-Score analysis tools—open-source or commercial. Our ambition is to set a new industry standard for transparency, extensibility, and actionable financial insight.
+
 ---
 
 **Release v2.2.2 (May 29, 2025):**
@@ -373,3 +375,49 @@ See `output/TESTED_COMPANIES.md` for a detailed, up-to-date table of all compani
 See the full table in `output/TESTED_COMPANIES.md` for all tested companies and outcomes.
 
 ---
+
+## Competitive Roadmap (Source: competition roadmap.md)
+
+The Altman Z-Score project is guided by a five-phase competitive roadmap to ensure best-in-class capabilities:
+
+**Phase 1: Foundation**
+- Modular data connectors (Alpha Vantage, IEX Cloud, CSV, SQL, REST)
+- Public REST API v1
+- Enhanced CLI (batch, per-ticker, summary)
+- Documentation & tutorials
+
+**Phase 2: Interactivity**
+- Web dashboard (interactive charts, peer comparisons)
+- Excel Add-In
+- Alerting system (email/Slack)
+
+**Phase 3: Intelligence**
+- AI narrative generation (LLM-powered summaries)
+- SaaS tier (hosted, SLAs, RBAC)
+
+**Phase 4: Enterprise & Extensibility**
+- Pro plugins (advanced stress-testing, scenario analysis)
+- Audit-ready exports (versioning, change logs, compliance)
+- BI platform integrations (Power BI, Tableau)
+- Marketplace deployment (Azure Marketplace, scripts)
+
+**Phase 5: Scale & Partnerships**
+- Real-time data feeds (WebSocket, premium feeds)
+- Enhanced API v2 (bulk, streaming)
+- Mobile-responsive UI
+
+**Competitive Differentiators:**
+- Zero licensing cost (open-source core, open-core add-ons)
+- Modular data flexibility (plug-and-play connectors)
+- AI-driven insights (automated summaries, alerting)
+- Community-driven roadmap (public roadmap, sprints, early access)
+- Enterprise packaging (SaaS, SLAs, RBAC, audit-ready, BI integration)
+
+**Non-Functional Requirements:**
+- Efficient batch processing (100+ tickers)
+- OAuth2 and TLS for SaaS/API
+- Horizontal scaling for API/UI
+- Target SUS score ≥ 80
+- SaaS uptime commitment
+
+> For full details, see `competition roadmap.md`. Progress is tracked in PLAN.md and TODO.md.
