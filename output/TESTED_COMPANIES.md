@@ -1,10 +1,5 @@
 # ---
-# BEFORE EVERY RELEASE:
-# - Ensure every company with an output folder in `output/` is listed in the table below.
-# - For each ticker, update the Outcome, Script Version, and Notes/Issues columns as needed.
-# - If new companies are added to `output/`, add them here before release.
-# - If companies are removed from `output/`, remove them from this table.
-# - This file is a release-blocking item: see `README.md` and `RELEASE_CHECKLIST.md` for details.
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
 # ---
 
 # Tested Companies and Pipeline Outcomes (as of May 29, 2025)

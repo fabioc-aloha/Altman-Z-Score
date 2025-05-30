@@ -116,7 +116,20 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - If the phrase does not appear, check for errors in the pipeline or LLM call.
 - This test ensures full transparency and user control over the LLM's analysis instructions and references.
 
-# TODO.md — Altman Z-Score Analysis (v2.2.1)
+# TODO.md — Altman Z-Score Analysis (v2.2.2)
+
+## Version 2.2.2 (May 29, 2025)
+- Script version now included in every report for traceability
+- Tested companies documentation and release process are enforced
+- Documentation, outputs, and release workflow streamlined and up to date
+- All changes are fully tracked and versioned in outputs and documentation
+
+## Next Steps
+- See PLAN.md for roadmap and high-level features
+- See output/TESTED_COMPANIES.md for tested companies and outcomes
+- All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+
+---
 
 ## Completed (v2.2.1)
 - Centralized all LLM prompt files in `src/prompts/` and made them user-editable; updated code to ingest prompts from there.

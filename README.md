@@ -4,6 +4,45 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 
 ---
 
+**Release v2.2.2 (May 29, 2025):**
+- Script version is now included in every report for traceability
+- Tested companies documentation and release process are enforced
+- Documentation, outputs, and release workflow streamlined and up to date
+- All changes are fully tracked and versioned in outputs and documentation
+
+---
+
+## Usage
+To analyze a stock, run:
+```sh
+python main.py <TICKER>
+```
+Replace `<TICKER>` with the stock ticker symbol you want to analyze (e.g., `AAPL`, `MSFT`).
+
+Outputs will be saved in the `output/<TICKER>/` directory:
+- Full report: `zscore_<TICKER>_zscore_full_report.md`
+- Trend chart: `zscore_<TICKER>_trend.png`
+- Raw data: `zscore_<TICKER>.csv` and `.json`
+- If a ticker is not available, only a `TICKER_NOT_AVAILABLE.txt` marker file will be present.
+
+---
+
+## Documentation & Release Process
+- All companies in `output/` are tracked in `output/TESTED_COMPANIES.md` (release-blocking)
+- All version numbers and changelogs are up to date in documentation
+- See `PLAN.md` and `TODO.md` for roadmap and actionable tasks
+- See `LEARNINGS.md` for technical notes and known issues
+
+---
+
+For more details, see the full documentation in this repository.
+
+# Altman Z-Score Analysis (Version 2.2.2)
+
+A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
+
+---
+
 **Project Status (as of May 29, 2025):**
 - **V2.2.2 (Current):** Script version is now included in every report; tested companies documentation and release process enforced; improved traceability
 - **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting

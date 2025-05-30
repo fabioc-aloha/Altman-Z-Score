@@ -1,3 +1,16 @@
+# PLAN.md — Altman Z-Score Analysis (v2.2.2)
+
+## Version 2.2.2 (May 29, 2025)
+- Script version now included in every report for traceability
+- Tested companies documentation and release process are enforced
+- Documentation, outputs, and release workflow streamlined and up to date
+- All changes are fully tracked and versioned in outputs and documentation
+
+## Roadmap & Next Steps
+- See TODO.md for actionable tasks and next-phase planning
+- All companies in output/ are tracked in output/TESTED_COMPANIES.md (release-blocking)
+- All version numbers and changelogs are up to date in documentation
+
 # PLAN.md — Altman Z-Score Analysis (v2.2.1)
 
 ## Version 2.2.1 (May 29, 2025)
@@ -261,6 +274,10 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
 - All development and testing is performed in a consistent development environment—ensure compatibility at every step.
 - Preserve modularity, testability, and robust error handling throughout.
 - Each feature phase should be independently testable and deliver incremental value.
+
+# ---
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+# ---
 
 ## API & Data Source Strategy (2025)
 

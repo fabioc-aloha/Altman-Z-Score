@@ -1,12 +1,18 @@
-# LEARNINGS.md
+# LEARNINGS.md — Altman Z-Score Analysis (v2.2.2)
 
-This file is for documenting key technical and project learnings during the 2025+ refactor of the Altman Z-Score project.
+## Version 2.2.2 (May 29, 2025)
+- All tests pass except for a single fixture warning in test_company_status.py (not release-blocking)
+- Script version now included in every report for traceability
+- Tested companies documentation and release process are enforced
+- Documentation, outputs, and release workflow streamlined and up to date
 
-- Capture lessons from new library integrations, API quirks, and data validation challenges.
-- Summarize what worked, what didn’t, and why decisions were made.
-- Use this as a living document to inform future contributors and avoid repeating past mistakes.
-- When fetching market cap or price data for a specific date, always check if the date is a weekend, holiday, or non-trading day. Fallback to the most recent previous trading day and warn the user. This is now implemented in YahooFinanceClient and should be standard for all future data fetchers. Consider using a trading calendar for even more robust handling.
+## Notes
+- See README.md for usage and release process
+- See PLAN.md and TODO.md for roadmap and actionable tasks
+- See output/TESTED_COMPANIES.md for tested companies and outcomes
 
+---
+All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
 ---
 
 ## Date Formatting in Price Fetching (May 27, 2025)
