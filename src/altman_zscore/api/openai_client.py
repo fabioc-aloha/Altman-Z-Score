@@ -1,5 +1,7 @@
 import os
+
 import requests
+
 
 class AzureOpenAIClient:
     def __init__(self):
@@ -13,15 +15,8 @@ class AzureOpenAIClient:
 
     def chat_completion(self, messages, temperature=0.0, max_tokens=2500):
         url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
-        headers = {
-            "api-key": self.api_key,
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "messages": messages,
-            "temperature": temperature,
-            "max_tokens": max_tokens
-        }
+        headers = {"api-key": self.api_key, "Content-Type": "application/json"}
+        payload = {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
         return response.json()
@@ -39,14 +34,20 @@ class AzureOpenAIClient:
         """
         # --- Prompt Ingestion for Field Mapping ---
         # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
-        prompt_path_new = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_field_mapping.md")
-        prompt_path_legacy = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_field_mapping.md")
+        prompt_path_new = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_field_mapping.md"
+        )
+        prompt_path_legacy = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_field_mapping.md"
+        )
         if os.path.exists(prompt_path_new):
             prompt_path = prompt_path_new
         elif os.path.exists(prompt_path_legacy):
             prompt_path = prompt_path_legacy
         else:
-            raise FileNotFoundError(f"Could not find prompt_field_mapping.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}")
+            raise FileNotFoundError(
+                f"Could not find prompt_field_mapping.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}"
+            )
         with open(prompt_path, "r", encoding="utf-8") as f:
             system_prompt = f.read()
         user_prompt = f"""
@@ -58,7 +59,7 @@ Canonical fields: {canonical_fields}\n
         user_prompt += "Return a JSON object mapping each canonical field to an object with 'FoundField' (the best-matching raw field name or null) and 'Value' (the value for that field, or null)."
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
+            {"role": "user", "content": user_prompt},
         ]
         # --- Use LLM for all language/synonym mapping ---
         # The LLM prompt is now responsible for robust, multilingual, and semantic field mapping.
@@ -67,6 +68,7 @@ Canonical fields: {canonical_fields}\n
         try:
             content = response["choices"][0]["message"]["content"]
             import json
+
             # Strip code block markers if present
             if content.strip().startswith("```"):
                 content = content.strip().split("\n", 1)[-1]
@@ -82,6 +84,7 @@ Canonical fields: {canonical_fields}\n
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
 
+
 def get_llm_qualitative_commentary(prompt: str) -> str:
     """
     Generate a qualitative commentary for the Altman Z-Score report using Azure OpenAI LLM.
@@ -92,20 +95,21 @@ def get_llm_qualitative_commentary(prompt: str) -> str:
     """
     client = AzureOpenAIClient()
     # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
-    prompt_path_new = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_fin_analysis.md")
+    prompt_path_new = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_fin_analysis.md"
+    )
     prompt_path_legacy = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_fin_analysis.md")
     if os.path.exists(prompt_path_new):
         prompt_path = prompt_path_new
     elif os.path.exists(prompt_path_legacy):
         prompt_path = prompt_path_legacy
     else:
-        raise FileNotFoundError(f"Could not find prompt_fin_analysis.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}")
+        raise FileNotFoundError(
+            f"Could not find prompt_fin_analysis.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}"
+        )
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt}
-    ]
+    messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}]
     response = client.chat_completion(messages, temperature=0.2, max_tokens=2500)
     try:
         content = response["choices"][0]["message"]["content"]

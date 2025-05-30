@@ -1,27 +1,30 @@
 """Factory for creating industry-specific financial data fetchers."""
+
 from typing import Dict, Type
+
+from ..industry_classifier import CompanyProfile, IndustryGroup  # Ensure these symbols exist
 from .base_fetcher import BaseFinancialFetcher
-from .tech_fetcher import TechFinancialFetcher
 from .manufacturing_fetcher import ManufacturingFinancialFetcher
 from .service_fetcher import ServiceFinancialFetcher
-from ..industry_classifier import CompanyProfile, IndustryGroup
+from .tech_fetcher import TechFinancialFetcher
 
 # Fetcher registry
 FETCHERS: Dict[str, Type[BaseFinancialFetcher]] = {
     "TECH": TechFinancialFetcher,
     "MANUFACTURING": ManufacturingFinancialFetcher,
-    "SERVICE": ServiceFinancialFetcher
+    "SERVICE": ServiceFinancialFetcher,
 }
+
 
 def create_fetcher(company_profile: CompanyProfile) -> BaseFinancialFetcher:
     """Create appropriate financial data fetcher based on company profile.
-    
+
     Args:
         company_profile: Profile containing company classification
-        
+
     Returns:
         Industry-specific financial data fetcher
-        
+
     Note:
         If a company doesn't fit into the main industry categories, the base fetcher
         is used which provides common financial metrics applicable to all industries.
@@ -35,7 +38,7 @@ def create_fetcher(company_profile: CompanyProfile) -> BaseFinancialFetcher:
     else:
         # For unknown or other industries, use base fetcher
         return BaseFinancialFetcher()
-        
+
     # Use registered fetcher for known industries
     fetcher_class = FETCHERS.get(industry, BaseFinancialFetcher)
     return fetcher_class()

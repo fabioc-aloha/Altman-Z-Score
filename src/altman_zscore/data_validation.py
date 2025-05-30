@@ -65,7 +65,7 @@ class FinancialDataValidator:
                     )
                 )
         # 2. All-zero or all-missing check (edge case: empty quarter)
-        nonzero_fields = [f for f in self.REQUIRED_FIELDS if q.get(f) not in (None, '', 0.0)]
+        nonzero_fields = [f for f in self.REQUIRED_FIELDS if q.get(f) not in (None, "", 0.0)]
         if len(nonzero_fields) == 0:
             issues.append(
                 ValidationIssue(
@@ -81,7 +81,7 @@ class FinancialDataValidator:
                     field="total_assets",
                     issue="Total assets is negative (suspicious)",
                     level=ValidationLevel.WARNING,
-                    value=q["total_assets"]
+                    value=q["total_assets"],
                 )
             )
         if q.get("sales") is not None and q["sales"] < 0:
@@ -90,7 +90,7 @@ class FinancialDataValidator:
                     field="sales",
                     issue="Sales is negative (suspicious)",
                     level=ValidationLevel.WARNING,
-                    value=q["sales"]
+                    value=q["sales"],
                 )
             )
         # 4. Extreme ratio checks (e.g., liabilities > 10x assets)
@@ -102,7 +102,7 @@ class FinancialDataValidator:
                         field="total_liabilities",
                         issue="Total liabilities > 10x total assets (possible data error)",
                         level=ValidationLevel.WARNING,
-                        value=ratio
+                        value=ratio,
                     )
                 )
         return issues
@@ -128,6 +128,6 @@ class FinancialDataValidator:
         for i in issues:
             prefix = "[ERROR]" if i.level == ValidationLevel.ERROR else "[WARN]"
             field = f"{i.field}: " if i.field else ""
-            val = f" (value: {i.value})" if hasattr(i, 'value') and i.value is not None else ""
+            val = f" (value: {i.value})" if hasattr(i, "value") and i.value is not None else ""
             lines.append(f"{prefix} {field}{i.issue}{val}")
         return " | ".join(lines)

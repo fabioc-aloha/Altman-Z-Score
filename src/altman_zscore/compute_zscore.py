@@ -10,20 +10,14 @@ This module is now modularized. All core logic has been moved to:
 
 Import from those modules instead. Do NOT add formula logic here.
 """
-from altman_zscore.models.financial_metrics import FinancialMetrics, ZScoreResult
-from altman_zscore.computation.formulas import (
-    altman_zscore_original,
-    altman_zscore_service,
-    altman_zscore_private,
-    altman_zscore_public,
-    altman_zscore_em,
-)
+
 from altman_zscore.computation import compute as compute_module
-from altman_zscore.computation.model_selection import determine_zscore_model, select_zscore_model_by_sic
+from altman_zscore.computation.model_selection import determine_zscore_model as _determine_zscore_model, select_zscore_model_by_sic as _select_zscore_model_by_sic
 from altman_zscore.utils.financial_metrics import FinancialMetricsCalculator
+from .models.financial_metrics import ZScoreResult
+from typing import Any, Dict, Optional
+
 safe_div = FinancialMetricsCalculator.safe_divide
-from typing import Dict, Any, Optional
-from decimal import Decimal
 
 # All Z-Score formula implementations and safe_div have been removed from this file.
 # Use the imported functions above for all Z-Score calculations and utilities.
@@ -32,6 +26,7 @@ from decimal import Decimal
 # --- Dispatcher and model selection logic only ---
 
 # Removed duplicate safe_div; use FinancialMetricsCalculator.safe_divide if needed elsewhere.
+
 
 def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScoreResult:
     """
@@ -46,7 +41,9 @@ def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScore
     # Delegate to computation/compute.py for all model logic, including 'tech'.
     return compute_module.compute_zscore(metrics, model)
 
+
 # --- Calibration and model selection ---
+
 
 def determine_zscore_model(profile: Any) -> str:
     """
@@ -63,18 +60,8 @@ def determine_zscore_model(profile: Any) -> str:
             - 'public': Public non-manufacturing/tech
             - 'em': Emerging market
     """
-    industry = getattr(profile, 'industry', '').lower() if hasattr(profile, 'industry') else ''
-    is_public = getattr(profile, 'is_public', True) if hasattr(profile, 'is_public') else True
-    is_emerging = getattr(profile, 'is_emerging_market', False) if hasattr(profile, 'is_emerging_market') else False
+    return _determine_zscore_model(profile)
 
-    if is_emerging:
-        return 'em'
-    if industry in ['manufacturing', 'hardware', 'industrial']:
-        return 'original' if is_public else 'private'
-    if industry in ['service', 'software', 'tech', 'technology']:
-        return 'public' if is_public else 'private'
-    # Default fallback
-    return 'original'
 
 def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: Optional[str] = None) -> str:
     """
@@ -93,26 +80,7 @@ def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: 
             - 'service': Financial/general services (SIC 6000-8999)
             - fallback: 'original' for missing/invalid SIC or unclassified
     """
-    if sic_code.strip() == "":
-        return 'original'  # fallback to original if SIC is missing or empty
-    try:
-        sic = int(str(sic_code))
-    except Exception:
-        return 'original'  # fallback to original if SIC is invalid
-    # Manufacturing (Original/Private): 2000-3999
-    if 2000 <= sic <= 3999:
-        return 'original' if is_public else 'private'
-    # Tech: 3570-3579, 3670-3679, 7370-7379
-    if (3570 <= sic <= 3579) or (3670 <= sic <= 3679) or (7370 <= sic <= 7379):
-        return 'tech' if is_public else 'private'
-    # Financial Services: 6000-6999
-    if 6000 <= sic <= 6999:
-        return 'service' if is_public else 'private'
-    # General Services: 7000-8999
-    if 7000 <= sic <= 8999:
-        return 'service' if is_public else 'private'
-    # Emerging markets (if flagged elsewhere)
-    # Add more rules as needed
-    return 'original'  # fallback
+    return _select_zscore_model_by_sic(sic_code, is_public, maturity)
+
 
 # --- For testability, add unit tests and docstring examples in a separate test module ---

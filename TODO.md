@@ -49,6 +49,42 @@ See [vision.md](./vision.md) for the full vision statement.
 - [x] Centralized all model coefficients, thresholds, and metadata in `src/altman_zscore/computation/constants.py`.
 - [x] Integrated company maturity (early-stage, growth, mature) into model selection logic.
 - [x] Model selection now uses industry, SIC, public/private status, region, and maturity.
+
+## V2.3: Weekly Price Data Integration (2025-05-30) ✅ COMPLETED
+- [x] **Weekly Price Data Functionality**: Implemented `get_weekly_price_stats()` function with Monday-start week grouping
+- [x] **Enhanced Plotting**: Updated `plot_zscore_trend()` to support weekly price overlays with automatic data selection
+- [x] **Pipeline Integration**: Added weekly data fetching and saving to main analysis pipeline
+- [x] **Comprehensive Testing**: Created `weekly_demo.py` for full integration demonstration
+- [x] **Data Persistence**: Weekly data saved as CSV/JSON alongside monthly/quarterly data
+- [x] **Backward Compatibility**: All existing functionality preserved, weekly features are additive
+- [x] **Documentation**: Created `WEEKLY_INTEGRATION_SUMMARY.md` with complete implementation details
+- [x] **Main Pipeline Testing**: Verified end-to-end functionality with `python main.py MSFT` and `python main.py TSLA`
+- [x] **Import Resolution**: Resolved all module import issues for seamless integration
+
+**V2.3 Status**: All weekly price data features are now fully integrated and operational in the main pipeline. Weekly data provides up to 58 weeks of recent price history (vs 14 months for monthly data), offering higher granularity for trend analysis.
+
+## V2.4: Weekly-Only Simplification (2025-05-30) ✅ COMPLETED
+- [x] **Codebase Simplification**: Removed monthly price functionality to simplify codebase and focus on weekly data
+- [x] **Function Signature Updates**: Removed `monthly_stats` parameter from `plot_zscore_trend()` and `plot_zscore_trend_pipeline()`
+- [x] **Monthly Function Removal**: Deleted `get_monthly_price_stats()` functions from both `data_fetching/prices.py` and `fetch_prices.py`
+- [x] **Import Cleanup**: Removed all monthly function imports throughout the codebase
+- [x] **Test Updates**: Updated `test_plot_visualizations.py` to use weekly data instead of monthly
+- [x] **Pipeline Simplification**: Modified `one_stock_analysis.py` to only fetch and use weekly price data
+- [x] **Main Script Updates**: Fixed syntax errors and removed `--monthly` argument parsing from `main.py`
+- [x] **File Cleanup**: Removed obsolete `scripts/test_monthly_prices.py` file
+- [x] **Plotting Logic**: Simplified price overlay logic to always use weekly approach with consistent labeling
+- [x] **Documentation**: Updated function docstrings to reflect weekly-only support
+- [x] **Parameter Cleanup**: Removed `weekly_stats` parameter from plotting functions, simplified to use only `stock_prices` parameter
+- [x] **CLI Simplification**: Removed `--weekly` parameter from main.py CLI since weekly functionality is always enabled
+- [x] **Quarterly Prices Removal**: Removed unused `get_quarterly_prices()` function and all quarterly price file generation (Option 2)
+  - [x] Removed `get_quarterly_prices` import from `one_stock_analysis.py`
+  - [x] Removed quarterly price function calls and file saving logic from main analysis pipeline  
+  - [x] Deleted `get_quarterly_prices()` function definitions from both `data_fetching/prices.py` and legacy `fetch_prices.py`
+  - [x] Updated test files to check for weekly prices instead of quarterly prices
+  - [x] Cleaned up all existing `quarterly_prices.csv` and `quarterly_prices.json` files from output directories
+  - [x] Verified main analysis functionality works correctly without quarterly prices
+
+**V2.4 Status**: Codebase successfully simplified to support only weekly price overlays. This reduces complexity while maintaining the higher granularity benefits of weekly data. Monthly functionality has been completely removed, making the codebase more maintainable and focused. The `weekly_stats` parameter has been removed from plotting functions and the `--weekly` CLI parameter has been removed to further simplify the API.
 - [x] Dispatcher in `compute.py` dynamically handles any model key present in `MODEL_COEFFICIENTS`, including new/custom and SIC-specific keys, using the original formula and logging the override.
 - [x] NotImplementedError is only raised for truly unknown model keys.
 - [x] Reporting and override context are fully logged for transparency.

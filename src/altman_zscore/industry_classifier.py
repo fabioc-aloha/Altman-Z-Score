@@ -35,9 +35,11 @@ Industry classifier for Altman Z-Score pipeline (MVP scaffold).
 
 # New robust classifier using SEC EDGAR and Yahoo Finance
 
+
 def classify_company(ticker):
     """
     Returns a CompanyProfile for the given ticker, using SEC EDGAR first, then Yahoo Finance as fallback. No static mapping.
     """
     from .company_profile import CompanyProfile
+
     return CompanyProfile.from_ticker(ticker)

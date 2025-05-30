@@ -1,21 +1,31 @@
 """
 Path utilities for Altman Z-Score analysis.
 
-- All outputs for a given ticker are written to ./output/<TICKER>/.
-- If a ticker is not available or does not exist, a marker file TICKER_NOT_AVAILABLE.txt is written in the ticker's output folder.
-- The marker file is created by the pipeline when classification fails or the ticker is invalid, and no other output files are produced for that ticker.
+This module provides functions for managing output paths and directories.
+It ensures that all outputs are organized by ticker and handles the creation
+of necessary directories for storing analysis results.
+
+Note: This code follows PEP 8 style guidelines.
 """
+
 import os
+
 
 def get_output_dir(relative_path=None, ticker=None):
     """
     Return the absolute path to the output directory or file for a given ticker.
 
-    If ticker is provided, the base directory is ./output/<TICKER>/ (created if needed).
-    If relative_path is provided, it is appended to the base directory. If it looks like a file, its parent directory is created.
-    If neither is provided, returns the absolute path to ./output/ (created if needed).
+    Args:
+        relative_path (str, optional): Relative path to append to the base directory.
+        ticker (str, optional): Stock ticker symbol to create a subdirectory for.
+
+    Returns:
+        str: Absolute path to the output directory or file.
+
+    Raises:
+        OSError: If the directory cannot be created.
     """
-    output_dir = os.path.abspath('./output')
+    output_dir = os.path.abspath("./output")
     os.makedirs(output_dir, exist_ok=True)
 
     if ticker:
@@ -28,11 +38,12 @@ def get_output_dir(relative_path=None, ticker=None):
     if relative_path:
         full_path = os.path.join(base_dir, relative_path)
         # If the relative_path looks like a file, create its parent directory
-        dirpath = os.path.dirname(full_path) if '.' in os.path.basename(full_path) else full_path
+        dirpath = os.path.dirname(full_path) if "." in os.path.basename(full_path) else full_path
         os.makedirs(dirpath, exist_ok=True)
         return full_path
     else:
         return base_dir
+
 
 def write_ticker_not_available(ticker, reason=None):
     """

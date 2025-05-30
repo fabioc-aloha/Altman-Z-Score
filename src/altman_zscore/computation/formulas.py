@@ -1,8 +1,9 @@
-from typing import Dict
 from decimal import Decimal
-from altman_zscore.models.financial_metrics import ZScoreResult
-from altman_zscore.computation.constants import Z_SCORE_THRESHOLDS
-from altman_zscore.utils.financial_metrics import FinancialMetricsCalculator
+
+from ..models.financial_metrics import ZScoreResult
+from ..utils.financial_metrics import FinancialMetricsCalculator
+from .constants import Z_SCORE_THRESHOLDS
+
 
 def altman_zscore_service(
     working_capital: float,
@@ -11,7 +12,7 @@ def altman_zscore_service(
     market_value_equity: float,
     total_assets: float,
     total_liabilities: float,
-    sales: float
+    sales: float,
 ) -> ZScoreResult:
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
@@ -30,7 +31,7 @@ def altman_zscore_service(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal('6.56')*X1 + Decimal('3.26')*X2 + Decimal('6.72')*X3 + Decimal('1.05')*X4
+    z = Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
     thresholds = Z_SCORE_THRESHOLDS["service"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -43,8 +44,9 @@ def altman_zscore_service(
         model="service",
         components={"X1": X1, "X2": X2, "X3": X3, "X4": X4},
         diagnostic=diagnostic,
-        thresholds=thresholds
+        thresholds=thresholds,
     )
+
 
 def altman_zscore_original(
     working_capital: float,
@@ -53,7 +55,7 @@ def altman_zscore_original(
     market_value_equity: float,
     total_assets: float,
     total_liabilities: float,
-    sales: float
+    sales: float,
 ) -> ZScoreResult:
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
@@ -75,7 +77,7 @@ def altman_zscore_original(
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
     X5 = X5 if X5 is not None else Decimal(0)
-    z = Decimal('1.2')*X1 + Decimal('1.4')*X2 + Decimal('3.3')*X3 + Decimal('0.6')*X4 + Decimal('1.0')*X5
+    z = Decimal("1.2") * X1 + Decimal("1.4") * X2 + Decimal("3.3") * X3 + Decimal("0.6") * X4 + Decimal("1.0") * X5
     thresholds = Z_SCORE_THRESHOLDS["original"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -88,8 +90,9 @@ def altman_zscore_original(
         model="original",
         components={"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5},
         diagnostic=diagnostic,
-        thresholds=thresholds
+        thresholds=thresholds,
     )
+
 
 def altman_zscore_private(
     working_capital: float,
@@ -98,7 +101,7 @@ def altman_zscore_private(
     book_value_equity: float,
     total_assets: float,
     total_liabilities: float,
-    sales: float
+    sales: float,
 ) -> ZScoreResult:
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
@@ -120,7 +123,13 @@ def altman_zscore_private(
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
     X5 = X5 if X5 is not None else Decimal(0)
-    z = Decimal('0.717')*X1 + Decimal('0.847')*X2 + Decimal('3.107')*X3 + Decimal('0.420')*X4 + Decimal('0.998')*X5
+    z = (
+        Decimal("0.717") * X1
+        + Decimal("0.847") * X2
+        + Decimal("3.107") * X3
+        + Decimal("0.420") * X4
+        + Decimal("0.998") * X5
+    )
     thresholds = Z_SCORE_THRESHOLDS["private"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -133,8 +142,9 @@ def altman_zscore_private(
         model="private",
         components={"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5},
         diagnostic=diagnostic,
-        thresholds=thresholds
+        thresholds=thresholds,
     )
+
 
 def altman_zscore_public(
     working_capital: float,
@@ -143,7 +153,7 @@ def altman_zscore_public(
     market_value_equity: float,
     total_assets: float,
     total_liabilities: float,
-    sales: float
+    sales: float,
 ) -> ZScoreResult:
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
@@ -162,7 +172,7 @@ def altman_zscore_public(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal('6.56')*X1 + Decimal('3.26')*X2 + Decimal('6.72')*X3 + Decimal('1.05')*X4
+    z = Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
     thresholds = Z_SCORE_THRESHOLDS["public"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -175,8 +185,9 @@ def altman_zscore_public(
         model="public",
         components={"X1": X1, "X2": X2, "X3": X3, "X4": X4},
         diagnostic=diagnostic,
-        thresholds=thresholds
+        thresholds=thresholds,
     )
+
 
 def altman_zscore_em(
     working_capital: float,
@@ -185,7 +196,7 @@ def altman_zscore_em(
     market_value_equity: float,
     total_assets: float,
     total_liabilities: float,
-    sales: float
+    sales: float,
 ) -> ZScoreResult:
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
@@ -204,7 +215,7 @@ def altman_zscore_em(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal('3.25') + Decimal('6.56')*X1 + Decimal('3.26')*X2 + Decimal('6.72')*X3 + Decimal('1.05')*X4
+    z = Decimal("3.25") + Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
     thresholds = Z_SCORE_THRESHOLDS["em"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -217,5 +228,5 @@ def altman_zscore_em(
         model="em",
         components={"X1": X1, "X2": X2, "X3": X3, "X4": X4},
         diagnostic=diagnostic,
-        thresholds=thresholds
+        thresholds=thresholds,
     )

@@ -14,6 +14,7 @@ class YahooFinanceClient:
         Warns if fallback to a different date is used.
         """
         import datetime
+
         try:
             ticker_obj = yf.Ticker(ticker)
             # Try a window of +/- span_days
@@ -40,7 +41,6 @@ class YahooFinanceClient:
             if mcap:
                 # Suppress warning about fallback to latest available market cap
                 return float(mcap), None
-        except Exception as e:
+        except Exception:
             pass
-            # print(f"[DEBUG] yfinance error for {ticker} on {date}: {e}")
         return None, None

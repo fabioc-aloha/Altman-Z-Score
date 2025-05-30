@@ -15,25 +15,34 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle
 import os
 import sys
 import importlib
-models = importlib.import_module('altman_zscore.models')
-from altman_zscore.reporting import report_zscore_full_report
+import matplotlib
+
+matplotlib.use("Agg")
+models = importlib.import_module("altman_zscore.models")
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.plot_helpers import prepare_weekly_price_stats_for_plotting
+from altman_zscore.plot_blocks import (
+    plot_zscore as _plot_zscore,
+    add_legend_and_save as _add_legend_and_save,
+    format_axes as _format_axes,
+    plot_price_trend as _plot_price_trend,
+)
 
 # ANSI color codes for terminal output if supported
 class Colors:
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    CYAN = "\033[96m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    RED = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
 
 def print_info(msg):
     """Print an info message with cyan color if supported"""
@@ -42,12 +51,14 @@ def print_info(msg):
     except:
         print(f"[INFO] {msg}")
 
+
 def print_warning(msg):
     """Print a warning message with yellow color if supported"""
     try:
         print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
     except:
         print(f"[WARNING] {msg}")
+
 
 def print_error(msg):
     """Print an error message with red color if supported"""
@@ -56,9 +67,11 @@ def print_error(msg):
     except:
         print(f"[ERROR] {msg}")
 
+
 def get_output_ticker_dir(ticker):
     """Return the absolute output directory for a given ticker, ensuring it exists."""
     return get_output_dir(ticker=ticker)
+
 
 def get_zscore_thresholds(model):
     """Return distress and safe zone thresholds for the given model name."""
@@ -73,41 +86,41 @@ def get_zscore_thresholds(model):
         # Fallback to original model thresholds
         return {"distress_zone": 1.81, "safe_zone": 2.99}
 
-def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_prices=None, monthly_stats=None):
+
+def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_moving_averages=False):
     """
     Plot the Altman Z-Score trend with colored risk bands and save as PNG.
-    If stock_prices provided, overlays stock price trend on secondary y-axis.
+    If stock_prices provided, overlays weekly stock price trend on secondary y-axis.
 
     Args:
         df (pd.DataFrame): DataFrame with columns ['quarter_end', 'zscore']
         ticker (str): Stock ticker symbol
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
-        profile_footnote (str, optional): Footnote string for chart (company profile/model info)
         stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price'] for overlaying stock prices
-        monthly_stats (pd.DataFrame, optional): DataFrame with monthly price statistics
+        show_moving_averages (bool, optional): Whether to show moving averages for Z-Score and price trends. Default: False
     Returns:
         None. Saves PNG to output/ and prints absolute path.
     Notes:
         - Handles missing/invalid data gracefully.
-        - Adds value labels, robust legend, and footnote.
-        - Output directory is created if missing.
-        - When stock_prices provided, shows price trend on secondary y-axis.
+        - Adds value labels and robust legend.        - Output directory is created if missing.
+        - Shows weekly price trend on secondary y-axis when stock_prices provided.
+        - Moving averages: 3-period for Z-Score, 5-period for price data.
     """
     plot_df = df[df["zscore"].notnull()]
     if plot_df.empty:
         print_warning("No valid Z-Score data to plot.")
         return
-    
+
     print_info("Generating Z-Score trend plot...")
     plt.figure(figsize=(10, 5.5))  # Increased figure height slightly
-    
+
     # Ensure chronological order by sorting by quarter_end
     plot_df = plot_df.copy()
-    plot_df['quarter_end'] = pd.to_datetime(plot_df['quarter_end'])
-    plot_df = plot_df.sort_values('quarter_end')
+    plot_df["quarter_end"] = pd.to_datetime(plot_df["quarter_end"])
+    plot_df = plot_df.sort_values("quarter_end")
     zscores = plot_df["zscore"].astype(float)
-    x = plot_df["quarter_end"]
+    plot_df["quarter_end"]
 
     # Get thresholds for the model
     thresholds = get_zscore_thresholds(model)
@@ -117,185 +130,442 @@ def plot_zscore_trend(df, ticker, model, out_base, profile_footnote=None, stock_
     z_max = max(zscores.max(), float(thresholds["safe_zone"]))
     margin = 0.5 * (z_max - z_min) * 0.15  # Increased margin from 0.1 to 0.15
     ymin = z_min - margin
+
     # Add extra padding to the top for the legend
     legend_padding = (z_max - z_min) * 0.18  # 18% of range for legend space
     ymax = z_max + margin + legend_padding
     plt.ylim(ymin, ymax)
     # Draw bands in order: distress (bottom), grey (middle), safe (top)
-    plt.axhspan(ymin, float(thresholds["distress_zone"]), color='#ff6666', alpha=0.8, label='Distress Zone', zorder=0)
-    plt.axhspan(float(thresholds["distress_zone"]), float(thresholds["safe_zone"]), color='#cccccc', alpha=0.6, label='Grey Zone', zorder=0)
-    plt.axhspan(float(thresholds["safe_zone"]), ymax, color='#66ff66', alpha=0.5, label='Safe Zone', zorder=0)
-    # Add zone names inside the plot area, aligned to the left and vertically centered in each band
+    plt.axhspan(
+        ymin,
+        float(thresholds["distress_zone"]),
+        color="#ff6666",
+        alpha=0.8,
+        label="Distress Zone",
+        zorder=0,
+    )
+    plt.axhspan(
+        float(thresholds["distress_zone"]),
+        float(thresholds["safe_zone"]),
+        color="#cccccc",
+        alpha=0.6,
+        label="Grey Zone",
+        zorder=0,
+    )
+    plt.axhspan(
+        float(thresholds["safe_zone"]),
+        ymax,
+        color="#66ff66",
+        alpha=0.5,
+        label="Safe Zone",
+        zorder=0,
+    )
+
+    # Add zone names inside the plot area
     ax = plt.gca()
-    zone_x = 0.1  # Slightly inside the plot area
-    ax.text(zone_x, (ymin + float(thresholds["distress_zone"])) / 2, 'Distress',
-            color='#a60000', fontsize=11, ha='left', va='center',
-            alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)
-    ax.text(zone_x, (float(thresholds["distress_zone"]) + float(thresholds["safe_zone"])) / 2, 'Grey',
-            color='#444444', fontsize=11, ha='left', va='center',
-            alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)
-    # Lower the 'Safe' label to avoid the legend
-    safe_y = (float(thresholds["safe_zone"]) + ymax) / 2
-    if safe_y > ymax - (ymax - ymin) * 0.15:
-        safe_y = ymax - (ymax - ymin) * 0.15
-    ax.text(zone_x, safe_y, 'Safe',
-            color='#007a00', fontsize=11, ha='left', va='center',
-            alpha=0.95, fontweight='bold', zorder=1000, clip_on=False)    # Create monthly timeline that spans from earliest to latest dates
-    x_dates = plot_df['quarter_end']
-    
-    # Determine the full date range including monthly data if available
-    min_date = x_dates.min()
-    max_date = x_dates.max()
-    
-    # If monthly stats are available, extend the range to include all months
-    if monthly_stats is not None and not monthly_stats.empty:
-        monthly_dates = pd.to_datetime(monthly_stats['month'])
-        min_date = min(min_date, monthly_dates.min())
-        max_date = max(max_date, monthly_dates.max())
-    
-    # Create monthly timeline from min to max date
-    month_range = pd.date_range(start=min_date.replace(day=1), 
-                               end=max_date.replace(day=1), 
-                               freq='MS')  # Month Start frequency
-    
-    # Create position mapping: each month gets an integer position
-    month_to_pos = {month: i for i, month in enumerate(month_range)}
-    
-    # Map quarter dates to their corresponding month positions
+
+    # Calculate y positions within each zone
+    distress_y = ymin + (float(thresholds["distress_zone"]) - ymin) * 0.5
+    grey_y = (
+        float(thresholds["distress_zone"]) + (float(thresholds["safe_zone"]) - float(thresholds["distress_zone"])) * 0.5
+    )
+    safe_y = float(thresholds["safe_zone"]) + (ymax - float(thresholds["safe_zone"])) * 0.3
+    # Add the zone labels at the start of the x-axis
+    # Use transform to place labels in axes coordinates (0 = left, 1 = right)
+    ax.text(
+        0.02,
+        (distress_y - ymin) / (ymax - ymin),
+        "Distress",
+        transform=ax.transAxes,
+        color="#a60000",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+
+    ax.text(
+        0.02,
+        (grey_y - ymin) / (ymax - ymin),
+        "Grey",
+        transform=ax.transAxes,
+        color="#444444",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+
+    ax.text(
+        0.02,
+        (safe_y - ymin) / (ymax - ymin),
+        "Safe",
+        transform=ax.transAxes,
+        color="#007a00",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+
+    # Create timeline that spans earliest to latest dates
+    x_dates = plot_df["quarter_end"]
+    # Get min and max dates from Z-Score data
+    z_score_min = x_dates.min()
+    z_score_max = x_dates.max()
+
+    # Initialize min_date with a 3-month lookback before first Z-Score
+    min_date = (z_score_min - pd.DateOffset(months=3)).replace(day=1)
+
+    # Set max_date to one week before current date
+    current_date = pd.Timestamp.now()
+    max_date = current_date - pd.Timedelta(days=7)
+    # If z_score_max is later than max_date (somehow), use z_score_max
+    if z_score_max > max_date:
+        max_date = z_score_max
+
+    # Always use weekly data for date range calculation (weekly-only support)
+    using_weekly = True
+    min_date = min_date - pd.Timedelta(days=min_date.weekday())
+    date_range = pd.date_range(start=min_date, end=max_date, freq="W-MON")
+
+    # Create position mappings
+    date_to_pos = {date: i for i, date in enumerate(date_range)}
+
+    # Use monthly labels for readability on weekly x-axis
+    date_labels = []
+    current_month = None
+    for i, date in enumerate(date_range):
+        # Only show label if it's the first week of a month
+        if date.month != current_month:
+            date_labels.append(date.strftime("%Y-%m"))
+            current_month = date.month
+        else:
+            date_labels.append("")  # Empty label for other weeks
+
+    # Map quarter dates to their positions
     quarter_positions = []
     for quarter_date in x_dates:
-        quarter_month = quarter_date.replace(day=1)
-        quarter_positions.append(month_to_pos.get(quarter_month, -1))
-    
-    # Plot Z-scores at their quarter positions
+        # Find the Monday of the week containing the quarter date
+        monday = quarter_date - pd.Timedelta(days=quarter_date.weekday())
+        pos = date_to_pos.get(monday, -1)
+        quarter_positions.append(pos)
+
+    # Plot Z-scores at their positions
     valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
     if valid_quarters:
         q_pos, q_scores = zip(*valid_quarters)
-        plt.plot(q_pos, q_scores, marker='o', label="Z-Score", color='blue', zorder=2)
-          # Add value labels to each Z-Score point
-        ax = plt.gca()
-        for pos, z_val in zip(q_pos, q_scores):
-            try:
-                label = f"{z_val:.2f}"
-                ax.annotate(text=label, xy=(pos, z_val), textcoords="offset points", xytext=(0,12), ha='center', fontsize=9, color='blue')
-            except Exception:
-                pass
-    
-    # Format x-axis to show months
-    month_labels = [f"{month.strftime('%Y-%m')}" for month in month_range]
-    ax = plt.gca()
-    ax.set_xticks(list(range(len(month_range))))
-    ax.set_xticklabels(month_labels, rotation=45, ha='right')
-    
-    # Store the month range and position mapping for stock price plotting
-    global_month_range = month_range
-    global_month_to_pos = month_to_pos
+        _plot_zscore(ax, q_pos, q_scores, show_moving_averages)
+
+    # Format x-axis
+    _format_axes(ax, date_labels, using_weekly, date_range)
 
     # Get company name and prep title
     company_name = None
     try:
         import yfinance as yf
+
         yf_ticker = yf.Ticker(ticker)
         info = yf_ticker.info
-        company_name = info.get('shortName') or info.get('longName')
-    except Exception:
-        company_name = None
+        company_name = info.get("shortName") or info.get("longName")
+    except KeyError:
+        company_name = ticker.upper()
     if not company_name:
-        company_name = ticker.upper()    # Create title and subtitle
+        company_name = ticker.upper()  # Create title and subtitle
     plt.title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
-    
-    plt.xlabel("Month")
-    plt.ylabel("Z-Score")
+    # Set up weekly price overlay if data is provided
+    price_stats = None
+    price_label = "Weekly\nAvg Price/Range"
+
+    if stock_prices is not None and not stock_prices.empty:
+        price_stats = stock_prices.copy()
+        price_stats["period"] = pd.to_datetime(price_stats["week"])
+        print(
+            "[DEBUG] Weekly price stats range:",
+            price_stats["period"].min(),
+            "to",
+            price_stats["period"].max(),
+        )
+
+    # Adjust figure layout for price axis
+    plt.gcf().subplots_adjust(right=0.85)  # Make room for price axis
+    # plt.xlabel(time_label)  # Will show "Week" or "Month" based on data type
+    # Set Z-Score y-axis label and ticks to blue to match the Z-Score line
+    ax = plt.gca()
+    ax.set_ylabel("Z-Score", color="blue", labelpad=6)  # Reduce padding to prevent label going outside
+    ax.tick_params(axis="y", labelcolor="blue")
     plt.grid(True, zorder=1)
-    
+
     # Prepare threshold values for legend
     safe = float(thresholds["safe_zone"])
     distress = float(thresholds["distress_zone"])
-    
+
     # Create legend patches
     legend_elements = [
-        mpatches.Patch(facecolor='#ff6666', alpha=0.8, label=f'Distress Zone\n≤ {distress}'),
-        mpatches.Patch(facecolor='#cccccc', alpha=0.6, label=f'Grey Zone\n{distress} to {safe}'),
-        mpatches.Patch(facecolor='#66ff66', alpha=0.5, label=f'Safe Zone\n≥ {safe}'),
-        Line2D([0], [0], color='blue', marker='o', label='Z-Score\nTrend Line', 
-              markersize=4, linestyle='-', linewidth=1)
+        mpatches.Patch(facecolor="#ff6666", alpha=0.8, label=f"Distress Zone\n≤ {distress}"),
+        mpatches.Patch(facecolor="#cccccc", alpha=0.6, label=f"Grey Zone\n{distress} to {safe}"),
+        mpatches.Patch(facecolor="#66ff66", alpha=0.5, label=f"Safe Zone\n≥ {safe}"),
+        Line2D(
+            [0],
+            [0],
+            color="blue",
+            marker="s",
+            label="Z-Score\nTrend Line",
+            markersize=4,
+            linestyle="-",
+            linewidth=1,
+        ),
     ]
-    
-    # If monthly_stats are provided, plot monthly average and range as the stock price line
-    if monthly_stats is not None and not monthly_stats.empty:
+    # If price_stats are provided, plot average and range as the stock price line
+    if price_stats is not None and not price_stats.empty:
         ax2 = ax.twinx()
-        monthly_stats['month'] = pd.to_datetime(monthly_stats['month'])
-        # Sort by month
-        monthly_stats = monthly_stats.sort_values('month')
-        # Map months to positions
-        month_positions = [global_month_to_pos.get(month, -1) for month in monthly_stats['month']]
-        # Only keep valid positions
-        valid = [i for i, pos in enumerate(month_positions) if pos != -1]
-        month_positions = [month_positions[i] for i in valid]
-        avg_prices = [monthly_stats.iloc[i]['avg_price'] for i in valid]
-        min_prices = [monthly_stats.iloc[i]['min_price'] for i in valid]
-        max_prices = [monthly_stats.iloc[i]['max_price'] for i in valid]
-        
-        # Plot price data with adjusted axis
-        dark_gray = '#444444'  # Darker gray for better visibility
-        ax2.plot(month_positions, avg_prices, marker='o', color=dark_gray, 
-                linestyle='-', linewidth=2, label='Monthly Avg Price', zorder=3)
-        
-        # Plot I-shaped whiskers for min/max range
-        whisker_width = 0.3  # Width of the horizontal caps
-        for pos, min_p, max_p in zip(month_positions, min_prices, max_prices):
-            # Vertical line
-            ax2.vlines(pos, min_p, max_p, color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
-            # Horizontal caps at top and bottom
-            ax2.hlines(min_p, pos - whisker_width/2, pos + whisker_width/2, 
-                      color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
-            ax2.hlines(max_p, pos - whisker_width/2, pos + whisker_width/2, 
-                      color=dark_gray, alpha=0.8, linewidth=1, zorder=2)
-        
-        # Add value labels with more space
-        for pos, avg in zip(month_positions, avg_prices):
-            try:
-                avg_label = f"${avg:.2f}"
-                ax2.annotate(text=avg_label, xy=(pos, avg), 
-                           textcoords="offset points", xytext=(0,12),  # Position closer to data point
-                           ha='center', fontsize=7, color=dark_gray, alpha=0.8)
-            except Exception:
-                pass
-        
-        # Adjust price axis appearance and limits
-        ax2.set_ylabel("Stock Price ($)", color=dark_gray, labelpad=15)  # Add padding between axis and label
-        ax2.tick_params(axis='y', labelcolor=dark_gray, pad=8)  # Add padding between axis and tick labels
-        y_min, y_max = ax2.get_ylim()
-        price_range = y_max - y_min
-        price_margin = price_range * 0.25  # 25% margin for price axis
-        ax2.set_ylim(bottom=max(0, y_min - price_margin * 0.5),  # Less margin at bottom
-                    top=y_max + price_margin)  # More margin at top for labels
-        
-        # Update legend for monthly stats
-        legend_elements.append(
-            Line2D([0], [0], color=dark_gray, marker='o', label='Monthly Avg Price', 
-                  markersize=4, linestyle='-', linewidth=2)
+        # Use weekly helpers for data prep
+        period_positions, avg_prices, min_prices, max_prices = prepare_weekly_price_stats_for_plotting(
+            price_stats, date_to_pos, min_date, max_date
         )
-        legend_elements.append(
-            Line2D([0], [0], color=dark_gray, label='Monthly Range', 
-                  markersize=4, linestyle='-', linewidth=2, alpha=0.8)
-        )
+        if not (period_positions and avg_prices and min_prices and max_prices):
+            # No valid data to plot
+            pass
+        else:
+            price_legend = _plot_price_trend(
+                ax2, period_positions, avg_prices, min_prices, max_prices, price_label, using_weekly
+            )
+            legend_elements.append(price_legend)
+
     # Add legend extending horizontally in one line
-    plt.gcf().subplots_adjust(bottom=0.22)  # Increased bottom margin for horizontal legend
-    # Use all elements in a single horizontal row
-    num_cols = len(legend_elements)
-    plt.legend(handles=legend_elements, ncol=num_cols, bbox_to_anchor=(0.5, -0.25),
-              loc='center', fontsize=8, frameon=True, framealpha=0.9)
-    
-    # Add profile info as subtitle if available
-    if profile_footnote:
-        plt.figtext(0.5, 0.95, profile_footnote, 
-                   ha='center', va='top', fontsize=9, color='#555555')
-    # Use utility for output directory
+    # Increase left margin for y-axis label, adjust bottom margin and legend position
+    _add_legend_and_save(
+        plt.gcf(),
+        legend_elements,
+        os.path.join(get_output_ticker_dir(ticker), f"zscore_{ticker}_trend.png"),
+    )
+
+    # Only show the plot if running interactively (not in headless environment)
+    if hasattr(sys, "ps1") or sys.flags.interactive:
+        plt.show()
+
+
+def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages=False):
+    """
+    Orchestrates the Z-Score and weekly price trend plotting pipeline.
+    Only processes and saves the data necessary for the plot.
+    """
+    import os
+    import sys
+
+    import matplotlib.patches as mpatches
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    # Configure figure size and layout
+    fig = plt.figure(figsize=(10, 5.5))
+    plt.subplots_adjust(right=0.85)  # Make room for price axis
+    ax = plt.gca()
+
+    # Filter and prep Z-Score data
+    plot_df = df[df["zscore"].notnull()].copy()
+    if plot_df.empty:
+        print("[WARN] No valid Z-Score data to plot.")
+        return
+
+    plot_df["quarter_end"] = pd.to_datetime(plot_df["quarter_end"])
+    plot_df = plot_df.sort_values("quarter_end")
+    zscores = plot_df["zscore"].astype(float)
+    x_dates = plot_df["quarter_end"]
+
+    # Get thresholds and y-limits
+    thresholds = get_zscore_thresholds(model)
+    z_min = min(zscores.min(), float(thresholds["distress_zone"]))
+    z_max = max(zscores.max(), float(thresholds["safe_zone"]))
+    margin = 0.5 * (z_max - z_min) * 0.15
+    ymin = z_min - margin
+    legend_padding = (z_max - z_min) * 0.18
+    ymax = z_max + margin + legend_padding
+
+    # Date range setup
+    z_score_min = x_dates.min()
+    z_score_max = x_dates.max()
+    min_date = (z_score_min - pd.DateOffset(months=3)).replace(day=1)
+    current_date = pd.Timestamp.now()
+    max_date = current_date - pd.Timedelta(days=7)
+    if z_score_max > max_date:
+        max_date = z_score_max
+        # Always use weekly approach (monthly functionality removed)
+    using_weekly = True
+    # Configure date range and positions (weekly only)
+    min_date = min_date - pd.Timedelta(days=min_date.weekday())
+    date_range = pd.date_range(start=min_date, end=max_date, freq="W-MON")
+
+    date_to_pos = {date: i for i, date in enumerate(date_range)}
+
+    # Format x-axis labels (monthly labels on weekly axis for readability)
+    date_labels = []
+    current_month = None
+    for i, date in enumerate(date_range):
+        if date.month != current_month:
+            date_labels.append(date.strftime("%Y-%m"))
+            current_month = date.month
+        else:
+            date_labels.append("")
+            # Map quarter dates to positions (weekly only)
+    quarter_positions = []
+    for quarter_date in x_dates:
+        monday = quarter_date - pd.Timedelta(days=quarter_date.weekday())
+        pos = date_to_pos.get(monday, -1)
+        quarter_positions.append(pos)
+
+    # Plot Z-Score data
+    valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
+    if not valid_quarters:
+        print("[WARN] No valid Z-Score data to plot after mapping.")
+        return
+    q_pos, q_scores = zip(*valid_quarters)
+
+    # Configure Z-Score axis and plot risk bands
+    ax.set_ylim(ymin, ymax)
+    ax.axhspan(
+        ymin,
+        float(thresholds["distress_zone"]),
+        color="#ff6666",
+        alpha=0.8,
+        label="Distress Zone",
+        zorder=0,
+    )
+    ax.axhspan(
+        float(thresholds["distress_zone"]),
+        float(thresholds["safe_zone"]),
+        color="#cccccc",
+        alpha=0.6,
+        label="Grey Zone",
+        zorder=0,
+    )
+    ax.axhspan(
+        float(thresholds["safe_zone"]),
+        ymax,
+        color="#66ff66",
+        alpha=0.5,
+        label="Safe Zone",
+        zorder=0,
+    )
+
+    # Add zone labels
+    distress_y = ymin + (float(thresholds["distress_zone"]) - ymin) * 0.5
+    grey_y = (
+        float(thresholds["distress_zone"]) + (float(thresholds["safe_zone"]) - float(thresholds["distress_zone"])) * 0.5
+    )
+    safe_y = float(thresholds["safe_zone"]) + (ymax - float(thresholds["safe_zone"])) * 0.3
+    ax.text(
+        0.02,
+        (distress_y - ymin) / (ymax - ymin),
+        "Distress",
+        transform=ax.transAxes,
+        color="#a60000",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+    ax.text(
+        0.02,
+        (grey_y - ymin) / (ymax - ymin),
+        "Grey",
+        transform=ax.transAxes,
+        color="#444444",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+    ax.text(
+        0.02,
+        (safe_y - ymin) / (ymax - ymin),
+        "Safe",
+        transform=ax.transAxes,
+        color="#007a00",
+        fontsize=11,
+        ha="left",
+        va="center",
+        fontweight="bold",
+        zorder=1000,
+    )
+
+    # Plot Z-Score
+    _plot_zscore(ax, q_pos, q_scores, show_moving_averages)
+
+    # Format axes
+    _format_axes(ax, date_labels, using_weekly, date_range)
+
+    # Set up title
+    company_name = ticker.upper()
+    try:
+        import yfinance as yf
+
+        yf_ticker = yf.Ticker(ticker)
+        info = yf_ticker.info
+        company_name = info.get("shortName") or info.get("longName") or ticker.upper()
+    except KeyError:
+        pass
+    ax.set_title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
+    # plt.xlabel("Week" if using_weekly else "Month")
+
+    # Set up legend elements
+    safe = float(thresholds["safe_zone"])
+    distress = float(thresholds["distress_zone"])
+    legend_elements = [
+        mpatches.Patch(facecolor="#ff6666", alpha=0.8, label=f"Distress Zone\n≤ {distress}"),
+        mpatches.Patch(facecolor="#cccccc", alpha=0.6, label=f"Grey Zone\n{distress} to {safe}"),
+        mpatches.Patch(facecolor="#66ff66", alpha=0.5, label=f"Safe Zone\n≥ {safe}"),
+        Line2D(
+            [0],
+            [0],
+            color="blue",
+            marker="s",
+            label="Z-Score\nTrend Line",
+            markersize=4,
+            linestyle="-",
+            linewidth=1,
+        ),
+    ]
+
+    # Handle price overlay (weekly only)
+    # Note: stock_prices parameter would need to be passed to this function for price overlay
+    # Currently this function doesn't accept stock_prices parameter, so no price overlay will be shown
+    price_stats = None
+    price_label = "Weekly\nAvg Price/Range"
+
+    # Stock price overlay logic would go here if stock_prices parameter was available
+    if price_stats is not None and not price_stats.empty:
+        ax2 = ax.twinx()
+        print("[DEBUG] Created secondary y-axis")
+        # Always use weekly price stats preparation
+        period_positions, avg_prices, min_prices, max_prices = prepare_weekly_price_stats_for_plotting(
+            price_stats, date_to_pos, min_date, max_date
+        )
+
+        if period_positions and avg_prices and min_prices and max_prices:
+            legend_elements.append(
+                _plot_price_trend(
+                    ax2,
+                    period_positions,
+                    avg_prices,
+                    min_prices,
+                    max_prices,
+                    price_label,
+                    using_weekly,
+                )
+            )
+            print("[DEBUG] Added price trend to plot")
+
+    # Save the plot
     ticker_dir = get_output_ticker_dir(ticker)
     out_path = os.path.join(ticker_dir, f"zscore_{ticker}_trend.png")
-    plt.savefig(out_path)
+    _add_legend_and_save(fig, legend_elements, out_path)
     print_info(f"Z-Score trend plot saved to {os.path.abspath(out_path)}")
-    # Only show the plot if running interactively (not in headless environment)
-    if hasattr(sys, 'ps1') or sys.flags.interactive:
+
+    if hasattr(sys, "ps1") or sys.flags.interactive:
         plt.show()

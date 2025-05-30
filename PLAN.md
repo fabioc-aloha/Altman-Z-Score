@@ -91,7 +91,22 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 ---
 
 ## Version Milestones
-- **V2.2 (Current):**
+- **V2.4 (COMPLETED - May 30, 2025):**
+  - **Weekly-Only Simplification**: Removed monthly price functionality to focus solely on weekly data
+  - Simplified `plot_zscore_trend()` function signature by removing `monthly_stats` parameter
+  - Cleaned up codebase by removing all monthly price functions and imports
+  - Updated tests and main pipeline to use only weekly data
+  - **Benefits**: Reduced code complexity while maintaining higher granularity (58 weeks vs 14 months)
+  - **Backward Compatibility**: Main functionality preserved, only monthly overlays removed
+- **V2.3 (COMPLETED - May 30, 2025):**
+  - **Weekly Price Data Integration**: Complete implementation of weekly price statistics with automatic granularity selection
+  - Enhanced `plot_zscore_trend()` function supported both weekly and monthly price overlays (now simplified to weekly-only)
+  - Comprehensive testing and demonstration with `weekly_demo.py`
+  - Backward-compatible integration maintained all existing functionality
+  - Weekly data persistence in CSV/JSON format alongside quarterly data
+  - **Full Pipeline Integration**: Successfully tested with `python main.py MSFT` and `python main.py TSLA`
+  - **Higher Granularity**: Weekly data provides up to 58 weeks of recent history vs 14 months for monthly data
+- **V2.2:**
   - Model selection & calibration overhaul with enhanced visualizations
   - Improved plotting with I-shaped whiskers, better label positioning, and optimized scaling
   - Example output reports for MSFT, RIVN, SONO, and TSLA
@@ -461,3 +476,11 @@ Enhance the Altman Z-Score pipeline's field mapping, internationalization, and r
 ---
 
 > For full details, see `competition roadmap.md`. All major features and differentiators above are now tracked as part of the project plan.
+
+## v2.4 (2025-05-30)
+- Reporting layer always uses coefficients/thresholds from calculation (override_context)
+- No hard-coded formulas or thresholds in reporting output
+- Full fidelity for SIC/industry overrides and custom calibrations
+- Model/threshold overrides and assumptions are logged in report
+- All model constants and thresholds centralized in computation/constants.py
+- Robust error handling and logging throughout pipeline

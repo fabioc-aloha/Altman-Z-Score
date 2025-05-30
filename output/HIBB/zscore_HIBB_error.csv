@@ -1,2 +1,0 @@
-quarter_end,zscore,valid,error,diagnostic,model,api_payload,status_info
-,,False,The ticker 'HIBB' does not appear to exist.,Company status check failed,original,,"{'ticker': 'HIBB', 'exists': False, 'is_active': False, 'is_bankrupt': False, 'is_delisted': False, 'last_trading_date': None, 'error_message': 'Ticker not found in Yahoo Finance', 'bankruptcy_date': None, 'status_reason': None}"

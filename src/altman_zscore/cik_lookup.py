@@ -14,20 +14,21 @@ Features:
 
 Usage:
     from altman_zscore.cik_lookup import lookup_cik, lookup_ciks
-    
+
     # Single lookup
     cik = lookup_cik("AAPL")
-    
+
     # Batch lookup
     ciks = lookup_ciks(["AAPL", "MSFT", "GOOGL"])
 """
 
-from typing import Dict, Optional
 import logging
+from typing import Dict, Optional
 
 from .api.sec_client import SECClient
 
 logger = logging.getLogger(__name__)
+
 
 def lookup_cik(ticker: str) -> Optional[str]:
     """Look up CIK number for a ticker symbol."""
@@ -38,6 +39,7 @@ def lookup_cik(ticker: str) -> Optional[str]:
         logger.error(f"Failed to look up CIK for {ticker}: {str(e)}")
         return None
 
+
 def validate_cik(ticker: str, expected_cik: str) -> bool:
     """Validate a CIK number matches what we expect from SEC."""
     try:
@@ -47,6 +49,7 @@ def validate_cik(ticker: str, expected_cik: str) -> bool:
     except Exception as e:
         logger.error(f"Failed to validate CIK for {ticker}: {str(e)}")
         return False
+
 
 def validate_portfolio_ciks(portfolio: Dict[str, str]) -> Dict[str, bool]:
     """Validate CIKs for all tickers in a portfolio."""
