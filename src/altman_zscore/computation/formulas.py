@@ -13,6 +13,31 @@ def altman_zscore_service(
     total_liabilities: float,
     sales: float
 ) -> ZScoreResult:
+    """
+    Calculate Altman Z-Score using the service/non-manufacturing model.
+    
+    Formula: Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
+    Where:
+        X1 = Working Capital / Total Assets
+        X2 = Retained Earnings / Total Assets  
+        X3 = EBIT / Total Assets
+        X4 = Market Value of Equity / Total Liabilities
+    
+    Args:
+        working_capital: Working capital amount
+        retained_earnings: Retained earnings amount
+        ebit: Earnings before interest and taxes
+        market_value_equity: Market value of equity
+        total_assets: Total assets
+        total_liabilities: Total liabilities
+        sales: Not used in this model but included for consistency
+        
+    Returns:
+        ZScoreResult: Object containing z_score and component values
+        
+    Raises:
+        ValueError: If division by zero occurs in components
+    """
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
     re_dec = Decimal(str(retained_earnings))
@@ -55,6 +80,32 @@ def altman_zscore_original(
     total_liabilities: float,
     sales: float
 ) -> ZScoreResult:
+    """
+    Calculate Altman Z-Score using the original public manufacturing model.
+    
+    Formula: Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+    Where:
+        X1 = Working Capital / Total Assets
+        X2 = Retained Earnings / Total Assets  
+        X3 = EBIT / Total Assets
+        X4 = Market Value of Equity / Total Liabilities
+        X5 = Sales / Total Assets
+    
+    Args:
+        working_capital: Working capital amount
+        retained_earnings: Retained earnings amount
+        ebit: Earnings before interest and taxes
+        market_value_equity: Market value of equity
+        total_assets: Total assets
+        total_liabilities: Total liabilities
+        sales: Net sales/revenue
+        
+    Returns:
+        ZScoreResult: Object containing z_score and component values
+        
+    Raises:
+        ValueError: If division by zero occurs in components
+    """
     calc = FinancialMetricsCalculator
     wc_dec = Decimal(str(working_capital))
     re_dec = Decimal(str(retained_earnings))

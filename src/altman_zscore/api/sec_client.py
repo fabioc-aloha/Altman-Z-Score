@@ -173,8 +173,11 @@ class SECClient:
             logger.warning(f"No CIK found for ticker {ticker}")
             return None
                 
+        except (AttributeError, IndexError, ValueError) as e:
+            logger.error(f"Error parsing CIK response for {ticker}: {str(e)}")
+            return None
         except Exception as e:
-            logger.error(f"Error looking up CIK for {ticker}: {str(e)}")
+            logger.error(f"Unexpected error looking up CIK for {ticker}: {str(e)}")
             return None
 
     def get_company_info(self, ticker_or_cik: str) -> Optional[Dict[str, Any]]:
@@ -210,8 +213,11 @@ class SECClient:
             company_info['cik'] = padded_cik
             return company_info
             
+        except (ValueError, AttributeError, KeyError) as e:
+            logger.error(f"Error parsing company info for {ticker_or_cik}: {str(e)}")
+            return None
         except Exception as e:
-            logger.error(f"Error getting company info for {ticker_or_cik}: {str(e)}")
+            logger.error(f"Unexpected error getting company info for {ticker_or_cik}: {str(e)}")
             return None
         
     @lru_cache(maxsize=1000)

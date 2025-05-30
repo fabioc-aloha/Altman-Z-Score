@@ -9,6 +9,82 @@ from decimal import Decimal
 
 logger = logging.getLogger(__name__)
 
+
+def parse_date_string(date_str: str) -> datetime:
+    """
+    Parse date string into datetime object with standardized formats.
+    
+    Supports common formats:
+    - YYYY-MM-DD
+    - YYYY-MM-DD HH:MM:SS
+    - ISO format strings
+    
+    Args:
+        date_str: Date string to parse
+        
+    Returns:
+        datetime object
+        
+    Raises:
+        ValueError: If date string cannot be parsed
+    """
+    if not date_str:
+        raise ValueError("Empty date string provided")
+    
+    # Clean the input string
+    date_str = str(date_str).strip()
+    
+    # Try common formats in order of preference
+    formats = [
+        "%Y-%m-%d",           # YYYY-MM-DD
+        "%Y-%m-%d %H:%M:%S",  # YYYY-MM-DD HH:MM:SS
+        "%Y-%m-%dT%H:%M:%S",  # ISO format
+        "%Y-%m-%dT%H:%M:%SZ", # ISO format with Z
+    ]
+    
+    # Extract just the date part if there's extra info
+    if ' ' in date_str:
+        date_part = date_str.split()[0]
+    elif 'T' in date_str:
+        date_part = date_str.split('T')[0] if len(date_str.split('T')[0]) == 10 else date_str
+    else:
+        date_part = date_str[:10] if len(date_str) >= 10 else date_str
+    
+    for fmt in formats:
+        try:
+            if fmt == "%Y-%m-%d":
+                return datetime.strptime(date_part, fmt)
+            else:
+                return datetime.strptime(date_str, fmt)
+        except ValueError:
+            continue
+            
+    raise ValueError(f"Unable to parse date string: {date_str}")
+
+
+def safe_date_to_string(date_obj: Union[datetime, str], format_str: str = "%Y-%m-%d") -> str:
+    """
+    Safely convert date object to string format.
+    
+    Args:
+        date_obj: datetime object or string
+        format_str: Output format string
+        
+    Returns:
+        Formatted date string
+    """
+    if isinstance(date_obj, str):
+        try:
+            date_obj = parse_date_string(date_obj)
+        except ValueError:
+            return date_obj  # Return as-is if can't parse
+    
+    if isinstance(date_obj, datetime):
+        return date_obj.strftime(format_str)
+    
+    return str(date_obj)
+
+
 @dataclass
 class TrendMetrics:
     """Container for trend analysis metrics."""

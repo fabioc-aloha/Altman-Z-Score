@@ -52,8 +52,46 @@ def parse_args():
     return parser.parse_args()
 
 
+def validate_environment():
+    """Validate critical environment variables are set."""
+    critical_vars = {
+        'SEC_EDGAR_USER_AGENT': 'Required for SEC EDGAR API access',
+    }
+    
+    optional_vars = {
+        'NEWSAPI_KEY': 'Optional for news sentiment analysis (future feature)',
+        'OPENAI_API_KEY': 'Optional for AI-powered analysis'
+    }
+    
+    missing_critical = []
+    for var, description in critical_vars.items():
+        if not os.getenv(var):
+            missing_critical.append(f"{var}: {description}")
+    
+    if missing_critical:
+        print_error("Missing critical environment variables:")
+        for missing in missing_critical:
+            print_error(f"  - {missing}")
+        print_error("Please set these environment variables and try again.")
+        sys.exit(1)
+    
+    # Warn about missing optional variables
+    missing_optional = []
+    for var, description in optional_vars.items():
+        if not os.getenv(var):
+            missing_optional.append(f"{var}: {description}")
+    
+    if missing_optional:
+        print_warning("Missing optional environment variables:")
+        for missing in missing_optional:
+            print_warning(f"  - {missing}")
+
+
 def main():
     """Main entry point for the Altman Z-Score analysis pipeline."""
+    # Validate critical environment variables early
+    validate_environment()
+    
     args = parse_args()
     ticker = args.ticker.upper()
     start_date = args.start

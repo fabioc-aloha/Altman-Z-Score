@@ -97,7 +97,7 @@ def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: 
         return 'original'  # fallback to original if SIC is missing or empty
     try:
         sic = int(str(sic_code))
-    except Exception:
+    except (ValueError, TypeError):
         return 'original'  # fallback to original if SIC is invalid
     # Manufacturing (Original/Private): 2000-3999
     if 2000 <= sic <= 3999:
