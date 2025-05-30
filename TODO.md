@@ -185,3 +185,15 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - To customize LLM behavior, edit the relevant prompt file. Changes are reflected immediately in all outputs.
 - For new LLM-driven features, add a new prompt file in `src/prompts/` and reference it in your code.
 
+## May 29, 2025: Field Mapping & Internationalization Next Steps
+- [ ] Expand FIELD_SYNONYMS in openai_client.py for all canonical fields, especially for banks and international companies (add Portuguese, Spanish, French, etc.; e.g., "Receita de Juros", "Lucro Líquido").
+- [ ] Implement bank/financial institution awareness: detect banks from sector/industry/ticker and adjust mapping priorities (e.g., map 'sales' to 'Interest Income' if no revenue field is present).
+- [ ] Add partial/fallback mapping reporting: when a field cannot be mapped, include a 'Reason' in the returned mapping and surface this in the report.
+- [ ] Use sample_values (if provided) to improve mapping confidence (e.g., match by value type/range).
+- [ ] Normalize field names for case-insensitive and accent-insensitive matching before mapping.
+- [ ] Add granular logging for mapping decisions, especially for fallbacks and unmapped fields.
+- [ ] Allow user to provide a mapping override file (e.g., mapping_overrides.json) for persistent issues.
+- [ ] Add/expand unit tests for mapping logic, especially for international tickers and banks.
+- [ ] If LLM response is malformed/missing, fall back to code-level synonym matching and log a warning.
+- [ ] Document mapping logic, fallback rules, and internationalization in README or a dedicated doc.
+
