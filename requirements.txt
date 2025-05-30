@@ -7,6 +7,18 @@ matplotlib
 python-dotenv
 openai>=1.0.0
 tabulate
-python-docx
 markdown
 beautifulsoup4
+# --- Competitive Roadmap Additions ---
+fastapi
+uvicorn
+plotly
+scikit-learn
+slack_sdk
+xlwings
+websockets
+vaderSentiment
+textblob
+pytest
+# python-docx removed (DOCX export deprecated)
+# smtplib is part of Python stdlib, no need to add
