@@ -93,19 +93,19 @@ All values are shown in millions of USD as reported by the data source.
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-The liquidity position of Toyota Motor Corporation (TM) is measured through the X1 component of the Z-Score, which reflects the working capital relative to total assets. The X1 value has remained relatively low, indicating that the company may struggle to cover its short-term liabilities. For instance, the X1 value for Q4 2024 is 0.067, suggesting limited liquidity.
+The liquidity position of Toyota Motor Corporation (TM) is measured through the X1 component of the Z-Score, which reflects the working capital ratio. The X1 value has shown a slight increase from 0.061 in Q1 2024 to 0.067 in Q4 2024, indicating a marginal improvement in the company's ability to cover short-term liabilities with its current assets. However, the overall liquidity remains weak, as indicated by the Z-Score being in the distress zone.
 
 ### Profitability
-Profitability is assessed through the X3 component (EBIT/Total Assets). The X3 value has shown a declining trend, with Q4 2024 at 0.03, indicating that the company is generating lower earnings relative to its asset base. This trend raises concerns about operational efficiency and profitability.
+Profitability is assessed through the X3 component (EBIT/Total Assets). The X3 value has fluctuated, with a low of 0.01 in Q3 2024 and a peak of 0.03 in Q4 2024. This suggests that while there was a slight recovery in earnings before interest and taxes relative to total assets, profitability remains a concern, contributing to the overall distress signal.
 
 ### Capital Efficiency
-The X2 component (Retained Earnings/Total Assets) reflects the company's ability to reinvest profits. The X2 value of 0.372 in Q4 2024 indicates a moderate level of retained earnings, but it is not sufficient to offset the declining profitability.
+The X2 component (Retained Earnings/Total Assets) indicates the company's ability to reinvest profits. The X2 value has remained relatively stable, hovering around 0.372 to 0.377, which reflects a consistent level of retained earnings. However, this stability does not translate into strong capital efficiency, as the overall Z-Score remains low.
 
 ### Leverage
-Leverage is assessed through the X4 component (Market Value of Equity/Total Liabilities). The X4 value of 0.004 in Q4 2024 indicates a high level of debt relative to equity, which could pose risks in times of financial distress.
+Leverage is assessed through the X4 component (Market Value of Equity/Total Liabilities). The X4 value has slightly increased from 0.004 to 0.006, indicating a marginal improvement in the market's perception of the company's equity relative to its liabilities. Nevertheless, the low values across the Z-Score components suggest that Toyota is heavily leveraged, which poses risks in times of financial distress.
 
 ### Z-Score Trend Interpretation
-The Z-Score for TM has consistently remained in the distress zone, with values ranging from 0.753 to 0.833 over the last four quarters. This trend indicates a deteriorating financial condition, suggesting that the company is at risk of bankruptcy if corrective measures are not taken promptly.
+The Z-Score trend for Toyota indicates a consistent position in the distress zone, with scores ranging from 0.753 to 0.833 over the last four quarters. This trend signals an ongoing risk of bankruptcy and highlights the need for immediate strategic interventions to stabilize the company's financial health.
 
 ---
 
@@ -113,69 +113,71 @@ The Z-Score for TM has consistently remained in the distress zone, with values r
 
 ### Phased Response Proposal
 1. **Immediate Retrenchment (Short-term Actions)**
-   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) emphasis on immediate financial stabilization.
-   - **Asset Liquidation:** Consider selling non-core assets to generate cash. This is supported by Hofer's (1980) turnaround strategies, which advocate for asset optimization.
+   - **Cost Reduction:** Implement immediate cost-cutting measures, including workforce optimization and operational efficiency improvements. This aligns with Bibeault's (1999) emphasis on immediate financial stabilization during a turnaround.
+   - **Asset Liquidation:** Identify non-core assets for divestiture to improve liquidity. This aligns with Hofer's (1980) turnaround strategies focusing on asset management.
+   - **Debt Restructuring:** Engage with creditors to negotiate more favorable terms, reducing interest burdens and extending repayment periods.
 
 2. **Long-term Repositioning (Strategic Actions)**
-   - **Market Diversification:** Explore new markets and product lines to enhance revenue streams. Hoskisson et al. (2004) highlight the importance of strategic restructuring for long-term sustainability.
-   - **Innovation Investment:** Increase investment in R&D to foster innovation and improve competitive positioning, as suggested by Beard (2024).
+   - **Market Diversification:** Explore new markets and product lines to reduce dependency on traditional automotive sales, as suggested by Hoskisson et al. (2004).
+   - **Innovation Investment:** Increase investment in electric and autonomous vehicle technologies to align with market trends and consumer preferences, supporting Beard's (2024) framework for strategic renewal.
+   - **Stakeholder Engagement:** Foster stronger relationships with stakeholders, including customers and suppliers, to enhance brand loyalty and operational resilience, as per Freeman's (1984) stakeholder theory.
 
 ---
 
-## Stakeholder Recommendations
+## Recommendations for Stakeholders
 
-| Stakeholder Title                | Executive Name | Responsibilities and Recommended Actions                                                                 |
-|----------------------------------|----------------|----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer (CEO)    | Akio Toyoda    | Lead the turnaround strategy, focusing on immediate cost reductions and long-term innovation investments. |
-| Chief Financial Officer (CFO)    | Kenta Kon    | Monitor cash flow closely, implement asset liquidation strategies, and manage financial reporting.        |
-| Chief Marketing Officer (CMO)    | Masahiro Yamamoto | Develop marketing strategies to enter new markets and promote innovative products.                       |
-| Board Members                     | Various        | Provide oversight and support for the turnaround strategy, ensuring alignment with long-term goals.      |
-| Employees                         | N/A            | Engage in cost-saving initiatives and contribute ideas for innovation and efficiency improvements.        |
-| Investors                         | N/A            | Monitor company performance and support strategic initiatives; consider holding shares for potential recovery. |
-| Creditors                         | N/A            | Work with the company to restructure debt terms if necessary to avoid default.                           |
-| Debtors                           | N/A            | Ensure timely payments to maintain cash flow and support the company's recovery efforts.                 |
-| Partner Companies                 | N/A            | Collaborate on joint ventures or projects that can enhance market presence and share resources.          |
-| Customers                         | N/A            | Provide feedback on products and services to guide innovation and improvement efforts.                   |
+| Stakeholder Title                     | Executive Name | Responsibilities & Recommended Actions                                                                 |
+|---------------------------------------|----------------|---------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Akio Toyoda    | Lead the turnaround strategy, focusing on immediate cost reductions and long-term innovation investments. |
+| Chief Financial Officer               | Kenta Kon     | Oversee debt restructuring and asset liquidation processes to improve liquidity and financial stability.   |
+| Chief Marketing Officer               | Masayoshi Shiratori | Develop marketing strategies to promote new product lines and enhance customer engagement.                |
+| Board Members                         | Various        | Provide oversight and support for the turnaround strategy, ensuring alignment with long-term goals.      |
+| Employees                             | N/A            | Engage in cost-saving initiatives and contribute ideas for operational efficiency improvements.           |
+| Investors                             | N/A            | Monitor financial health and support strategic initiatives that enhance long-term value.                  |
+| Creditors                             | N/A            | Collaborate on debt restructuring efforts to ensure the company's survival and future profitability.      |
+| Debtors                               | N/A            | Maintain open communication regarding payment terms and conditions to support liquidity.                 |
+| Partner Companies                     | N/A            | Explore joint ventures or collaborations in emerging markets and technologies.                           |
+| Customers                             | N/A            | Provide feedback on product offerings and engage with the brand through loyalty programs.                 |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about the turnaround strategy and their role in it.
-- **External Communication:** Transparent communication with investors and creditors about the financial situation and recovery plans.
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress to foster engagement and morale.
+- **External Communication:** Transparent communication with investors and stakeholders about financial health and strategic initiatives.
 
 ### Marketing Strategy
 - **Brand Repositioning:** Focus on sustainability and innovation in marketing campaigns to attract environmentally conscious consumers.
-- **Targeted Promotions:** Launch promotions in new markets to build brand awareness and drive sales.
+- **Customer Engagement:** Launch loyalty programs and feedback initiatives to strengthen customer relationships.
 
 ### Execution Timeline
-| Phase                | Action Item                          | Timeline        | Accountability         |
-|---------------------|-------------------------------------|------------------|------------------------|
-| Immediate Retrenchment | Cost Reduction Initiatives          | Q2 2025          | CFO                    |
-| Immediate Retrenchment | Asset Liquidation                   | Q2 2025          | CFO                    |
-| Long-term Repositioning | Market Diversification Strategy     | Q3 2025 - Q4 2026| CEO, CMO               |
-| Long-term Repositioning | Innovation Investment Plan          | Q3 2025 - Q4 2026| CEO, CMO               |
+| Phase                     | Timeline         | Accountability          |
+|--------------------------|------------------|-------------------------|
+| Immediate Retrenchment   | 0-3 months       | CFO and CEO             |
+| Debt Restructuring       | 3-6 months       | CFO                     |
+| Market Diversification    | 6-12 months      | CMO                     |
+| Innovation Investment     | 12+ months       | CEO and Board Members   |
 
 ---
 
 ## Investor Recommendation
-Given the current financial distress indicated by the Z-Score, investors should consider holding their shares while monitoring the company's turnaround efforts. This recommendation is based on the potential for recovery through strategic actions. However, it is essential to consult with a financial advisor before making any investment decisions.
+Given the current financial distress indicated by the Z-Score, investors should **hold** their positions in Toyota Motor Corporation while monitoring the implementation of the turnaround strategy. The company has potential for recovery if strategic actions are effectively executed. However, it is crucial to consult a financial advisor before making investment decisions.
 
 ---
 
 ## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|-----------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                   | Regulatory Compliance      | Moderate            | Compliance with automotive regulations can impact operations.            |
-| Government Agencies          | Financial Support          | Low                 | Limited direct influence but can provide support in crises.              |
-| Unions                       | Labor Negotiations         | Moderate            | Unions can influence labor costs and employee relations.                 |
-| Major Suppliers              | Supply Chain Control       | High                | Suppliers can impact production costs and timelines significantly.        |
-| Key Partners                 | Strategic Alliances        | Moderate            | Partnerships can enhance market reach and resource sharing.              |
-| Activist Investors           | Shareholder Influence      | High                | Can push for changes in management or strategy through shareholder votes. |
-| Creditors                    | Debt Restructuring         | High                | Creditors can influence financial restructuring and terms.               |
-| Large Customers              | Purchase Power             | Moderate            | Large customers can negotiate better terms, impacting revenue.           |
+| External Stakeholder          | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|-------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                    | Regulatory Compliance       | Medium              | Regulatory requirements can impact operational flexibility and costs.     |
+| Government Agencies           | Financial Support           | Low                 | Limited direct influence unless in crisis, but can provide support.      |
+| Unions                        | Labor Negotiations         | Medium              | Strong influence on labor costs and employee relations.                   |
+| Major Suppliers               | Supply Chain Leverage      | High                | Can impact production costs and timelines significantly.                  |
+| Key Partners                  | Strategic Alliances        | Medium              | Partnerships can enhance market reach and innovation capabilities.        |
+| Activist Investors            | Shareholder Activism       | High                | Can exert pressure for changes in governance and strategy.                |
+| Creditors                     | Financial Terms            | High                | Significant influence over financial restructuring and liquidity.         |
+| Large Customers               | Purchasing Power           | Medium              | Can impact sales volume and revenue stability.                            |
 
 ---
 

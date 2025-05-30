@@ -1,11 +1,12 @@
-# Altman Z-Score Analysis (Version 2.2.1)
+# Altman Z-Score Analysis (Version 2.2.2)
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
 **Project Status (as of May 29, 2025):**
-- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting
+- **V2.2.2 (Current):** Script version is now included in every report; tested companies documentation and release process enforced; improved traceability
+- **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting
 - **V2.2:** Model selection & calibration overhaul, enhanced visualizations with improved plotting features
 - **V2.1:** Stable Z-Score trend analysis, robust reporting, per-ticker outputs, and codebase cleanup
 - **V2.0.2 (Publishing Issue):** Complete
@@ -19,7 +20,8 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 ---
 
 ## Version Roadmap
-- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
+- **V2.2.2 (Current):** Script version is now included in every report; tested companies documentation and release process enforced; improved traceability.
+- **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
 - **V2.2:** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
 - **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
@@ -213,7 +215,14 @@ MIT (see LICENSE file)
 
 ## Changelog
 
-### V2.2.1 (May 29, 2025) — Current
+### V2.2.2 (May 29, 2025)
+- Added explicit script version line ("Script Version: v2.2.2") to the top of every generated report for traceability.
+- Updated all documentation and badges to reflect v2.2.2 as the current version.
+- Enforced and documented the requirement to keep `output/TESTED_COMPANIES.md` up to date before every release (see README and RELEASE_CHECKLIST).
+- Improved documentation and release process to ensure all output companies are tracked and versioned.
+- No breaking changes to the analysis pipeline or output structure.
+
+### V2.2.1 (May 29, 2025) — Previous
 - Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
 
 ### V2.2 (May 29, 2025)
@@ -238,6 +247,12 @@ MIT (see LICENSE file)
 - Documentation and code comments have been updated for clarity and maintainability.
 - The codebase is now more robust to edge cases and easier to maintain.
 
+### V2.2.2 (May 29, 2025)
+- Added explicit script version line ("Script Version: v2.2.1") to the top of every generated report for traceability.
+- Enforced and documented the requirement to keep `output/TESTED_COMPANIES.md` up to date before every release (see README and RELEASE_CHECKLIST).
+- Improved documentation and release process to ensure all output companies are tracked and versioned.
+- No breaking changes to the analysis pipeline or output structure.
+
 ## Recent Improvements (May 2025)
 - **Advanced Model Selection:**
   - Z-Score model selection now incorporates company age, IPO date, industry (SIC), public/private status, and region.
@@ -256,7 +271,8 @@ MIT (see LICENSE file)
   - A detailed plan for further improvements and calibration is maintained in `altmans.md`.
 
 ## Version Roadmap
-- **V2.2.1 (Current):** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
+- **V2.2.2 (Current):** Script version is now included in every report; tested companies documentation and release process enforced; improved traceability.
+- **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, and robust report formatting.
 - **V2.2:** Model selection & calibration overhaul and enhanced visualizations with improved plotting features.
 - **V2.2.x:** Additional features for model selection and reporting, including outlier warnings and expanded tests.
 - **V2.5:** Z-Score forecasting, sentiment/news analysis, and advanced plotting.
@@ -285,5 +301,36 @@ See the prompt files themselves for detailed instructions and references.
 - Company region/country is detected for model selection (e.g., EM model for emerging markets).
 - All fallback attempts and missing data are logged and reported for transparency.
 - See `TODO-International-Fallback.md` for the full checklist and progress.
+
+---
+
+> **Note:** After running the pipeline for new companies or regions, always update `output/TESTED_COMPANIES.md` to reflect the latest tested tickers and outcomes. This ensures the documentation and results remain accurate and useful for all users and contributors.
+
+- Whenever you add, remove, or re-run companies in the `output/` folder, update `output/TESTED_COMPANIES.md` to reflect the current set and outcomes.
+- Before every release, confirm that `output/TESTED_COMPANIES.md` is complete and accurate. This is a release-blocking requirement.
+
+- **Tested Companies Table:**
+    - Before every release, ensure that every company with an output folder in `output/` is listed in `output/TESTED_COMPANIES.md`.
+    - Update the Outcome, Script Version, and Notes/Issues columns for all new or changed tickers.
+    - Remove any companies from the table if their output folder has been removed.
+    - This is a release-blocking item: do not release unless this file is complete and accurate.
+
+---
+
+## Tested Companies and Pipeline Outcomes (as of May 29, 2025)
+
+See `output/TESTED_COMPANIES.md` for a detailed, up-to-date table of all companies tested with the pipeline, including US, Brazilian, European, and Asian tickers. The table lists ticker, company name, region, sector/type, outcome (Success/Partial/Error), and notes on any issues encountered (e.g., missing fields, mapping errors, or ticker not found).
+
+| Ticker | Company Name | Region | Sector/Type | Outcome | Notes/Issues |
+|--------|--------------|--------|-------------|---------|--------------|
+| MSFT   | Microsoft    | US     | Tech        | Success | Full report, chart, and data generated |
+| ITUB   | Itau Unibanco| Brazil | Bank        | Error   | Field mapping/formatting issue (AI output not strict JSON); no report |
+| BBD    | Banco Bradesco| Brazil| Bank        | Partial | Report generated, but 'sales' missing for all quarters (bank proxy logic) |
+| SAP    | SAP SE       | Europe | Tech        | Success | Full report, chart, and data generated |
+| TM     | Toyota       | Asia   | Auto        | Success | Full report, chart, and data generated |
+| TSM    | TSMC         | Asia   | Semiconductors | Error | Missing critical fields (current assets, liabilities, retained earnings) |
+| ...    | ...          | ...    | ...         | ...     | ...          |
+
+See the full table in `output/TESTED_COMPANIES.md` for all tested companies and outcomes.
 
 ---

@@ -42,7 +42,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 10,429.3               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -7,565.5               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 39,248.5               |
-| 2025 Q1   | book_value_equity   | Stockholders Equity                     | -7,622.5               |
+| 2025 Q1   | book_value_equity   | Common Stock Equity                     | -7,622.5               |
 | 2025 Q1   | ebit                | EBIT                                    | 629.4                  |
 | 2025 Q1   | sales               | Total Revenue                           | 8,761.6                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -51,7 +51,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 9,725.3                |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -7,256.4               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 39,357.7               |
-| 2024 Q4   | book_value_equity   | Stockholders Equity                     | -7,471.7               |
+| 2024 Q4   | book_value_equity   | Common Stock Equity                     | -7,471.7               |
 | 2024 Q4   | ebit                | EBIT                                    | 1,149.5                |
 | 2024 Q4   | sales               | Total Revenue                           | 9,397.8                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -60,7 +60,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 9,070.0                |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -7,343.8               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 38,780.9               |
-| 2024 Q3   | book_value_equity   | Stockholders Equity                     | -7,448.9               |
+| 2024 Q3   | book_value_equity   | Common Stock Equity                     | -7,448.9               |
 | 2024 Q3   | ebit                | EBIT                                    | 1,333.7                |
 | 2024 Q3   | sales               | Total Revenue                           | 9,073.9                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -69,7 +69,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 7,649.5                |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -7,561.5               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 38,049.2               |
-| 2024 Q2   | book_value_equity   | Stockholders Equity                     | -7,945.4               |
+| 2024 Q2   | book_value_equity   | Common Stock Equity                     | -7,945.4               |
 | 2024 Q2   | ebit                | EBIT                                    | 1,545.6                |
 | 2024 Q2   | sales               | Total Revenue                           | 9,113.9                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -78,7 +78,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 7,528.9                |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | -7,970.7               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 37,805.4               |
-| 2024 Q1   | book_value_equity   | Stockholders Equity                     | -8,449.4               |
+| 2024 Q1   | book_value_equity   | Common Stock Equity                     | -8,449.4               |
 | 2024 Q1   | ebit                | EBIT                                    | 1,133.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 8,563.0                |
 
@@ -102,87 +102,93 @@ All values are shown in millions of USD as reported by the data source.
 
 ## 1. Diagnostic Evaluation of Financial Health
 
-### Overview
-Starbucks Corporation (SBUX) has been experiencing financial distress as indicated by its Altman Z-Score, which has consistently remained in the distress zone (Z-Score < 1.81) over the past five quarters. The Z-Score for Q1 2025 is 1.559, slightly down from 1.565 in Q4 2024, suggesting a marginal decline in financial health.
+### Liquidity
+Starbucks Corporation (SBUX) has shown a negative trend in liquidity, as indicated by the X1 component of the Z-Score, which represents the working capital ratio. The current assets have consistently been lower than current liabilities, leading to a negative X1 value across the quarters analyzed. This indicates potential liquidity issues, as the company may struggle to meet short-term obligations.
 
-### Key Financial Metrics
-- **Liquidity (X1)**: The liquidity ratio (X1) has been negative, indicating that current liabilities exceed current assets. This reflects a potential cash flow issue, which could hinder operational flexibility.
-- **Profitability (X3)**: The EBIT to total assets ratio (X3) is low, suggesting that the company is not generating sufficient earnings relative to its asset base. This could be a result of high operational costs or declining sales.
-- **Capital Efficiency (X2)**: The retained earnings to total assets ratio (X2) is negative, indicating accumulated losses. This is a significant concern as it reflects the company's inability to reinvest profits into growth.
-- **Leverage (X4)**: The market value of equity to total liabilities ratio (X4) is relatively strong, suggesting that the company has a substantial equity cushion relative to its debts. However, the negative equity position raises concerns about long-term solvency.
-- **Sales Efficiency (X5)**: The sales to total assets ratio (X5) is low, indicating that the company is not effectively utilizing its assets to generate revenue.
+### Profitability
+The profitability of Starbucks is reflected in the X3 component (EBIT/Total Assets), which has remained low but positive. This suggests that while the company is generating some earnings before interest and taxes, it is not sufficient to offset the negative retained earnings (X2), which have been consistently negative. This indicates that the company has accumulated losses over time, impacting overall profitability.
+
+### Capital Efficiency
+The X4 component (Market Value of Equity/Total Liabilities) shows a relatively stable ratio, indicating that the market perceives the company as having a significant equity cushion relative to its liabilities. However, the negative retained earnings (X2) and the overall financial distress reflected in the Z-Score indicate that capital efficiency is not translating into sustainable profitability.
+
+### Leverage
+The leverage aspect, represented by the X4 component, indicates that Starbucks has a manageable level of debt relative to its market capitalization. However, the overall high total liabilities compared to the negative equity position suggests that the company is heavily leveraged, which poses risks in times of financial distress.
 
 ### Z-Score Trend Interpretation
-The Z-Score trend indicates that Starbucks is in a precarious financial position, with no significant improvement over the last five quarters. The persistent distress signals a need for immediate action to stabilize the company and reposition it for future growth.
+The Z-Score for Starbucks has remained in the distress zone (below 1.81) across the quarters analyzed, with a slight fluctuation but no significant improvement. The Z-Score of 1.559 in Q1 2025 indicates that the company is at a high risk of bankruptcy, necessitating immediate action to improve financial health.
 
 ---
 
 ## 2. Turnaround and Renewal Management Theory Application
 
-### Phased Response Proposal
-Based on turnaround and renewal management theories, particularly Hofer's (1980) turnaround strategies and Bibeault's (1999) corporate turnaround principles, a phased response is recommended:
+### Immediate Retrenchment
+According to Hofer (1980) and Bibeault (1999), immediate retrenchment strategies should focus on cost-cutting measures and liquidity improvement. Starbucks should consider the following actions:
+- **Cost Reduction:** Implement a company-wide cost reduction program, focusing on non-essential expenditures.
+- **Asset Liquidation:** Evaluate underperforming assets for potential sale to improve liquidity.
+- **Debt Restructuring:** Engage with creditors to negotiate more favorable terms or debt forgiveness.
 
-1. **Immediate Retrenchment (Short-term Focus)**:
-   - **Cost Reduction**: Implement immediate cost-cutting measures to improve liquidity. This may include renegotiating supplier contracts, reducing overhead costs, and optimizing staffing levels.
-   - **Cash Flow Management**: Enhance cash flow management practices to ensure operational continuity. This may involve tightening credit terms with customers and accelerating receivables collection.
-
-2. **Long-term Repositioning (Strategic Focus)**:
-   - **Market Reassessment**: Conduct a thorough market analysis to identify new growth opportunities and customer segments. This aligns with Hoskisson et al. (2004) on corporate restructuring.
-   - **Innovation and Product Development**: Invest in product innovation and digital transformation to enhance customer experience and drive sales growth, as suggested by Beard (2024).
-   - **Stakeholder Engagement**: Foster stronger relationships with stakeholders to build trust and support for strategic initiatives, as emphasized by Freeman (1984).
+### Long-term Repositioning
+For long-term repositioning, Hoskisson et al. (2004) suggest a focus on strategic renewal. Starbucks should:
+- **Market Repositioning:** Innovate product offerings and enhance customer experience to regain market share.
+- **Operational Efficiency:** Invest in technology to streamline operations and reduce costs.
+- **Brand Revitalization:** Launch a marketing campaign to strengthen brand loyalty and attract new customers.
 
 ---
 
 ## 3. Recommendations for Stakeholders
 
-| Stakeholder Title                     | Executive Name | Responsibilities and Recommended Actions                                                                                       |
-|---------------------------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Laxman Narasimhan | Lead the turnaround strategy, focusing on cost reduction and market reassessment.                                            |
-| Chief Financial Officer               | Rachel Ruggeri  | Implement cash flow management strategies and oversee financial restructuring efforts.                                        |
-| Chief Marketing Officer               | Brady Brewer     | Develop marketing strategies to enhance brand loyalty and attract new customers.                                             |
-| Board Members                         | Various         | Provide oversight and support for strategic initiatives; ensure alignment with long-term goals.                               |
-| Employees                             | Various         | Engage in cost-saving initiatives and provide feedback on operational efficiencies.                                            |
-| Investors                             | Various         | Monitor financial performance; consider long-term investment potential based on turnaround success.                            |
-| Creditors                             | Various         | Work with management to restructure debt terms and ensure continued support during the turnaround.                             |
-| Debtors                               | Various         | Maintain open communication regarding payment terms and support cash flow management efforts.                                  |
-| Partner Companies                     | Various         | Collaborate on joint marketing initiatives and supply chain efficiencies.                                                      |
-| Customers                             | Various         | Provide feedback on product offerings and service quality; engage in loyalty programs.                                         |
+| Stakeholder Title                | Executive Name | Responsibilities & Recommended Actions                                                                 |
+|----------------------------------|----------------|--------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer (CEO)    | Laxman Narasimhan | Lead the turnaround strategy, focusing on immediate cost reductions and long-term growth initiatives.   |
+| Chief Financial Officer (CFO)    | Rachel Ruggeri  | Oversee financial restructuring, manage cash flow, and negotiate with creditors.                       |
+| Chief Marketing Officer (CMO)    | Brady Brewer     | Develop a marketing strategy to revitalize the brand and attract customers.                            |
+| Board Members                     | Various         | Provide oversight and support for strategic decisions, ensuring alignment with turnaround goals.        |
+| Employees                         | N/A             | Engage in cost-saving initiatives and provide feedback on operational improvements.                     |
+| Investors                         | N/A             | Monitor financial health and support strategic initiatives; consider long-term investment potential.    |
+| Creditors                         | N/A             | Work with the company on restructuring debt and improving financial stability.                         |
+| Debtors                           | N/A             | Ensure timely payments to maintain cash flow and support operational needs.                            |
+| Partner Companies                 | N/A             | Collaborate on joint marketing initiatives and supply chain efficiencies.                               |
+| Customers                         | N/A             | Provide feedback on product offerings and service improvements to enhance customer satisfaction.        |
 
 ---
 
 ## 4. Communication, Marketing, and Execution Strategies
 
-### Strategies
-- **Communication**: Regular updates to stakeholders on financial health and turnaround progress through newsletters and meetings.
-- **Marketing**: Launch targeted marketing campaigns focusing on new product offerings and customer engagement initiatives.
-- **Execution Timeline**:
-  - **Q2 2025**: Implement cost-cutting measures and cash flow management strategies.
-  - **Q3 2025**: Conduct market analysis and begin product innovation initiatives.
-  - **Q4 2025**: Launch new marketing campaigns and assess stakeholder feedback.
+### Communication Strategy
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and their role in it.
+- **External Communication:** Transparent communication with investors and creditors regarding financial health and recovery plans.
 
-### Accountability Framework
-- Assign specific team leaders for each initiative, with regular progress reviews to ensure accountability and adapt strategies as needed.
+### Marketing Strategy
+- **Brand Campaign:** Launch a campaign highlighting new product offerings and sustainability initiatives.
+- **Customer Engagement:** Utilize social media and loyalty programs to engage customers and gather feedback.
+
+### Execution Timeline
+| Phase               | Action Item                               | Timeline       | Accountability          |
+|---------------------|------------------------------------------|----------------|-------------------------|
+| Immediate Retrenchment | Cost reduction program                   | Q2 2025        | CFO                     |
+| Immediate Retrenchment | Asset evaluation and liquidation         | Q2 2025        | CEO                     |
+| Long-term Repositioning | Marketing campaign launch                | Q3 2025        | CMO                     |
+| Long-term Repositioning | Operational efficiency improvements      | Q4 2025        | COO                     |
 
 ---
 
 ## 5. Investment Recommendation
-
-Given the current financial distress indicated by the Z-Score and the need for a turnaround strategy, investors should **hold** their positions in Starbucks Corporation (SBUX) while monitoring the implementation of the proposed recovery strategies. It is crucial to consult with a financial advisor before making any investment decisions.
+Given the current financial distress indicated by the Z-Score, investors should **hold** their positions in Starbucks until the company demonstrates a clear path to recovery and improved financial health. This recommendation is based on the potential for future growth but acknowledges the current risks. **Disclaimer:** This is not financial advice; please consult your financial advisor before making investment decisions.
 
 ---
 
 ## 6. External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder                | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                   |
-|-------------------------------------|----------------------------|---------------------|--------------------------------------------------------------------------------------------|
-| Regulators                          | Regulatory Compliance       | Medium              | Must adhere to industry regulations; potential fines for non-compliance.                  |
-| Government Agencies                 | Economic Support            | Low                 | Limited direct influence but can impact market conditions through policy changes.          |
-| Unions                              | Labor Relations             | Medium              | Can influence operational costs and employee morale through negotiations.                  |
-| Major Suppliers                     | Supply Chain Leverage       | High                | Significant impact on cost structure; can negotiate terms based on volume and reliability. |
-| Key Partners                        | Strategic Alliances         | Medium              | Collaborative opportunities can enhance market position; influence through partnership terms. |
-| Activist Investors                  | Shareholder Activism        | High                | Can exert pressure for changes in management or strategy; influence through voting power.  |
-| Creditors                           | Debt Restructuring          | High                | Significant influence on financial restructuring efforts; can dictate terms of repayment.   |
-| Large Customers                     | Purchasing Power            | Medium              | Can impact sales volume; influence through contract negotiations and loyalty.               |
+| External Stakeholder        | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|-----------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                  | Regulatory Compliance       | Medium              | Compliance with health and safety regulations can impact operations.      |
+| Government Agencies          | Financial Support           | Low                 | Limited direct influence but can affect public perception and support.   |
+| Unions                      | Labor Relations             | Medium              | Strong influence on employee relations and operational continuity.       |
+| Major Suppliers             | Supply Chain Dependency     | Medium              | Dependence on suppliers for raw materials can impact production.         |
+| Key Partners                | Strategic Alliances         | Medium              | Partnerships can enhance market reach and operational efficiency.        |
+| Activist Investors          | Shareholder Advocacy        | High                | Can exert pressure for changes in governance and strategy.              |
+| Creditors                   | Debt Obligations            | High                | Significant influence due to financial leverage and repayment terms.     |
+| Large Customers             | Revenue Contribution        | Medium              | Their purchasing decisions can significantly impact revenue.            |
 
 ---
 
@@ -206,13 +212,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 

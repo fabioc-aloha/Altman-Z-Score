@@ -1,0 +1,2 @@
+quarter_end,zscore,valid,error,diagnostic,model,api_payload,status_info
+,,False,The ticker 'NESN' does not appear to exist.,Company status check failed,original,,"{'ticker': 'NESN', 'exists': False, 'is_active': False, 'is_bankrupt': False, 'is_delisted': False, 'last_trading_date': None, 'error_message': 'Error retrieving data: HTTP Error 404: ', 'bankruptcy_date': None, 'status_reason': None}"

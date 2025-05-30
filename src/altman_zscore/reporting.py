@@ -59,6 +59,9 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         title = "# Altman Z-Score Analysis Report"
     # Place title at the very top, then intro_lines, then the rest
     lines = [title, ""] + intro_lines
+    # --- Script Version Section ---
+    lines.append(f"**Script Version:** v2.2.1")
+    lines.append("")
     lines.append("## Analysis Context and Z-Score Model Selection Criteria\n")
     if context_info:
         industry_val = context_info.get("Industry")

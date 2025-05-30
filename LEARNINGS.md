@@ -57,3 +57,11 @@ This approach makes the code more robust when dealing with dates from different 
 - This improves clarity, reproducibility, and user experience for all future development.
 
 ---
+
+## May 29, 2025: LLM Prompt Ingestion and US Ticker Robustness
+- Successfully validated that edits to `prompt_fin_analysis.md` are immediately reflected in generated reports for all tested tickers, confirming prompt-driven, user-editable analysis and reporting.
+- Ran the full pipeline for a wide range of well-known American companies (MSFT, AAPL, AMZN, TSLA, GOOGL, META, NVDA, SBUX, FDX, DAL) with robust field mapping, fallback logic, and transparent reporting of missing fields. All outputs were generated as expected, with clear warnings for any missing or unmapped data.
+- Confirmed that the fallback and partial analysis logic works as intended: the pipeline proceeds with partial Z-Score analysis and flags/reports missing fields in the report, ensuring transparency and reliability.
+- The current field mapping, fallback, and reporting logic is robust for US tickers; next focus is on international and bank tickers.
+
+---

@@ -42,7 +42,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 29,699.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 8,925.0                |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 61,895.0               |
-| 2025 Q1   | book_value_equity   | Stockholders Equity                     | 15,447.0               |
+| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 15,447.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 499.0                  |
 | 2025 Q1   | sales               | Total Revenue                           | 14,040.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -51,7 +51,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 26,670.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 8,783.0                |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 60,079.0               |
-| 2024 Q4   | book_value_equity   | Stockholders Equity                     | 15,293.0               |
+| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 15,293.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 1,382.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 15,559.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -60,7 +60,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 28,118.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 7,940.0                |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 61,722.0               |
-| 2024 Q3   | book_value_equity   | Stockholders Equity                     | 13,646.0               |
+| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 13,646.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 1,734.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 15,677.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -69,7 +69,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 28,759.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 6,765.0                |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 62,811.0               |
-| 2024 Q2   | book_value_equity   | Stockholders Equity                     | 12,386.0               |
+| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 12,386.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 1,961.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 16,658.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -78,7 +78,7 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 28,478.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 5,622.0                |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 63,818.0               |
-| 2024 Q1   | book_value_equity   | Stockholders Equity                     | 11,151.0               |
+| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 11,151.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 327.0                  |
 | 2024 Q1   | sales               | Total Revenue                           | 13,748.0               |
 
@@ -103,91 +103,92 @@ All values are shown in millions of USD as reported by the data source.
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Delta Air Lines, Inc. (DAL) exhibits negative liquidity ratios, as indicated by the X1 component of the Z-Score, which is consistently negative across the quarters analyzed. This suggests that the company may struggle to meet its short-term obligations, as current liabilities exceed current assets.
+Delta Air Lines, Inc. (DAL) exhibits a concerning liquidity position, as indicated by the negative values of X1 (Working Capital / Total Assets). The current assets are significantly lower than current liabilities, suggesting that the company may struggle to meet short-term obligations. This trend has persisted over the last five quarters, indicating a systemic liquidity issue.
 
 ### Profitability
-The profitability of DAL, as reflected in the X3 component (EBIT/Total Assets), shows minimal positive returns, indicating that the company is not generating sufficient earnings relative to its asset base. The trend in retained earnings (X2) is also modest, suggesting limited reinvestment into the business.
+The profitability metrics, represented by X3 (EBIT / Total Assets), show minimal earnings relative to total assets. The EBIT has been fluctuating, with a notable decline in recent quarters, which raises concerns about the company's operational efficiency and ability to generate profits from its asset base.
 
 ### Capital Efficiency
-The X4 component (Market Value of Equity/Total Liabilities) indicates a moderate level of capital efficiency, but with a declining trend. This suggests that while the market values the equity, the company’s liabilities are growing at a faster rate, which could lead to increased financial distress.
+X2 (Retained Earnings / Total Assets) reflects a modest retention of earnings, but the overall trend indicates that retained earnings are not growing sufficiently to support long-term sustainability. This is compounded by the declining EBIT, which suggests that the company is not effectively utilizing its assets to generate returns.
 
 ### Leverage
-The leverage ratios, particularly the X5 component (Sales/Total Assets), indicate that DAL is generating sales but not at a level that compensates for its high asset base. The company’s reliance on debt is evident, and the increasing total liabilities pose a risk to financial stability.
+X4 (Market Value of Equity / Total Liabilities) indicates a relatively stable leverage position, but the overall market value of equity is under pressure due to the low Z-Score. The company’s reliance on debt financing may pose risks if operational performance does not improve.
 
 ### Z-Score Trend Interpretation
-The Z-Score trend for DAL is concerning, with scores consistently in the distress zone (below 1.8). The most recent Z-Score of 0.353 indicates a high probability of bankruptcy, necessitating immediate action to stabilize the company’s financial position.
+The Z-Score has consistently remained in the "Distress Zone" (Z-Score < 1.8) over the last five quarters, indicating a high risk of bankruptcy. The slight upward trend from 0.322 in Q1 2024 to 0.353 in Q1 2025 is insufficient to suggest a turnaround. The company must take immediate action to address its financial health.
 
 ---
 
-## 2. Turnaround and Renewal Management Theory Application
+## 2. Proposed Phased Response
 
 ### Immediate Retrenchment
-According to Bibeault (1999), immediate retrenchment is crucial for companies in distress. DAL should focus on cost-cutting measures, including:
-- Reducing operational costs through workforce optimization.
-- Streamlining routes and reducing underperforming flights.
-- Negotiating better terms with suppliers and creditors.
+According to Hofer's (1980) turnaround strategies, immediate retrenchment is necessary to stabilize the company. This includes:
+- **Cost Reduction:** Implementing aggressive cost-cutting measures, including workforce reductions and operational efficiencies.
+- **Asset Liquidation:** Selling non-core assets to improve liquidity and reduce debt levels.
 
-### Long-term Repositioning
-Hoskisson et al. (2004) emphasize the importance of strategic renewal. DAL should consider:
-- Diversifying revenue streams, such as enhancing cargo services or expanding into new markets.
-- Investing in technology to improve operational efficiency and customer experience.
-- Strengthening brand loyalty through enhanced customer service initiatives.
+### Long-Term Repositioning
+Bibeault (1999) emphasizes the importance of strategic renewal for long-term success. DAL should focus on:
+- **Market Reassessment:** Evaluating market conditions and customer preferences to realign service offerings.
+- **Innovation in Services:** Investing in technology and customer experience enhancements to regain market share.
+- **Strategic Partnerships:** Forming alliances with other airlines or travel companies to expand reach and improve service offerings.
 
 ---
 
 ## 3. Recommendations for Stakeholders
 
-| Stakeholder Title                     | Responsibilities                              | Recommended Actions                                                                 |
-|---------------------------------------|----------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer (Ed Bastian) | Overall strategy and leadership              | Implement immediate cost-cutting measures and initiate strategic review processes.   |
-| Chief Financial Officer (Dan Janki)  | Financial management and reporting           | Focus on liquidity management and renegotiate debt terms with creditors.            |
-| Chief Marketing Officer (Kristin M. G. H. McCarthy) | Marketing strategy and customer engagement | Enhance customer loyalty programs and explore new market segments.                  |
-| Board Members                         | Governance and oversight                      | Support management in strategic decision-making and monitor financial health closely.|
-| Employees                             | Operational execution                         | Engage in open communication about changes and encourage feedback on cost-saving ideas.|
-| Investors                             | Financial returns and growth                 | Monitor company performance closely; consider holding until signs of recovery emerge.|
-| Creditors                             | Debt management and risk assessment          | Work with DAL to restructure debt and provide temporary relief on payment terms.    |
-| Debtors                               | Payment obligations                           | Ensure timely payments to maintain good relations and avoid penalties.              |
-| Partner Companies                     | Collaborative opportunities                   | Explore partnerships to enhance service offerings and share resources.              |
-| Customers                             | Service utilization                           | Provide feedback on services and participate in loyalty programs.                   |
+| Stakeholder Title                  | Responsibilities and Recommended Actions                                                                 |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Chief Executive Officer (CEO)**  | Ed Bastian: Lead the turnaround strategy, focusing on cost reduction and strategic partnerships.           |
+| **Chief Financial Officer (CFO)**  | Dan Janki: Implement rigorous financial controls and monitor cash flow closely.                           |
+| **Chief Marketing Officer (CMO)**  | Tim Mapes: Revamp marketing strategies to focus on customer retention and brand loyalty.                  |
+| **Board Members**                  | Provide oversight and support for strategic initiatives; ensure alignment with long-term goals.           |
+| **Employees**                      | Engage in cost-saving initiatives and provide feedback on operational efficiencies.                        |
+| **Investors**                      | Monitor financial health closely; consider advocating for strategic changes if performance does not improve.|
+| **Creditors**                      | Work with DAL to restructure debt agreements to provide more favorable terms during recovery.              |
+| **Debtors**                        | Ensure timely payments to maintain cash flow; consider renegotiating terms if necessary.                   |
+| **Partner Companies**              | Collaborate on joint marketing efforts and service offerings to enhance customer experience.               |
+| **Customers**                      | Communicate transparently about changes and improvements; solicit feedback to enhance service offerings.   |
 
 ---
 
 ## 4. Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic changes.
-- **External Communication:** Transparent communication with investors and creditors regarding recovery plans.
+- **Internal Communication:** Regular updates to employees about the turnaround plan and progress.
+- **External Communication:** Transparent communication with investors and customers about the company's direction and improvements.
 
 ### Marketing Strategy
-- **Customer Engagement:** Launch targeted marketing campaigns to retain existing customers and attract new ones.
-- **Brand Positioning:** Emphasize reliability and customer service in marketing materials.
+- **Rebranding Campaign:** Launch a campaign to refresh the brand image, focusing on reliability and customer service.
+- **Loyalty Programs:** Enhance loyalty programs to retain existing customers and attract new ones.
 
 ### Execution Timeline
-| Phase              | Activities                                      | Timeline         | Accountability          |
-|--------------------|-------------------------------------------------|------------------|-------------------------|
-| Immediate Actions   | Cost-cutting, debt restructuring                | 0-3 months       | CFO and CEO             |
-| Short-term Actions  | Marketing campaigns, operational efficiency     | 3-6 months       | CMO and COO             |
-| Long-term Actions    | Strategic partnerships, technology investments  | 6-12 months      | CEO and Board Members   |
+| Phase                     | Timeline          | Accountability            |
+|---------------------------|-------------------|---------------------------|
+| Immediate Cost Reduction   | Q2 2025           | CFO, CEO                  |
+| Asset Liquidation         | Q2-Q3 2025        | CFO                       |
+| Market Reassessment       | Q3 2025           | CMO                       |
+| Innovation Implementation  | Q4 2025 onward    | CMO, CEO                  |
 
 ---
 
-## 5. Investment Recommendation
-Given the current financial distress indicated by the Z-Score, investors should **hold** their positions in DAL while monitoring the implementation of the turnaround strategies. This recommendation is based on the potential for recovery if management effectively executes the proposed strategies. However, investors should consult their financial advisors before making any decisions.
+## 5. Investor Recommendation
+
+Given the current financial distress indicated by the Z-Score, investors should **hold** their positions in DAL while monitoring the implementation of the turnaround strategy. The potential for recovery exists, but significant risks remain. This is not financial advice; please consult your financial advisor before making any investment decisions.
 
 ---
 
-## 6. Bargaining Power and Influence of External Stakeholders
+## 6. External Stakeholder Influence Assessment
 
-| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                 | Regulatory compliance       | Medium              | Can impose penalties or restrictions if financial health does not improve.|
-| Government Agencies        | Financial support           | Low                 | Limited direct influence but can provide support during crises.           |
-| Unions                     | Labor negotiations          | Medium              | Can influence operational costs through wage negotiations.                |
-| Major Suppliers            | Supply chain leverage       | Medium              | Can affect operational efficiency through pricing and terms.              |
-| Key Partners               | Collaborative leverage      | Medium              | Can enhance service offerings and share resources.                        |
-| Activist Investors         | Shareholder activism        | High                | Can influence management decisions through pressure for change.          |
-| Creditors                  | Debt repayment terms        | High                | Have significant influence over financial restructuring efforts.          |
-| Large Customers            | Revenue impact              | Medium              | Can affect sales and revenue through purchasing decisions.                |
+| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| **Regulators**               | Regulatory compliance       | High                | Can impose penalties or restrictions based on financial health.           |
+| **Government Agencies**      | Financial support           | Medium              | May provide assistance or incentives for operational improvements.         |
+| **Unions**                   | Labor negotiations          | Medium              | Can influence workforce reductions and labor costs.                       |
+| **Major Suppliers**          | Supply chain leverage       | Medium              | Can impact operational costs and availability of critical resources.      |
+| **Key Partners**             | Strategic alliances         | High                | Can enhance market reach and service offerings through collaboration.     |
+| **Activist Investors**       | Shareholder influence       | Medium              | Can pressure management for changes in strategy or governance.           |
+| **Creditors**                | Debt restructuring          | High                | Hold significant leverage in negotiating terms during financial distress. |
+| **Large Customers**          | Revenue impact              | Medium              | Can influence revenue through purchasing decisions and contracts.         |
 
 ---
 
@@ -211,7 +212,13 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
+  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
+  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
+  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
+  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
+  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
+  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 

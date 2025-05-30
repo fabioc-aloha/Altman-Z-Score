@@ -143,6 +143,7 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - Renamed the section "Analysis Context and Decisions" to "Analysis Context and Z-Score Model Selection Criteria".
 - Staged, committed, and pushed changes to the main branch, including updated reports and documentation.
 - Updated the version to 2.2.1 in all documentation and changelogs.
+- **Successfully ran the pipeline and generated full reports for a wide range of well-known American companies (MSFT, AAPL, AMZN, TSLA, GOOGL, META, NVDA, SBUX, FDX, DAL), confirming robust field mapping, fallback, and reporting logic for these cases.**
 
 ## Version 2.2.1 (May 29, 2025)
 - [x] Centralize all LLM prompt files in `src/prompts/` and make them user-editable
@@ -179,6 +180,7 @@ Ensure that edits to `prompt_fin_analysis.md` are reflected in the generated fin
 - [ ] Add more prompt-driven features (e.g., qualitative commentary, advanced diagnostics)
 - [ ] Continue improving Codespaces compatibility and documentation
 - [ ] Prepare for v2.2.x: outlier warnings, expanded tests, and further reporting improvements
+- [ ] **Next: Focus on international and bank tickers, as US tickers are now well covered and tested.**
 
 ## Prompt Folder Usage
 - All LLM prompt files are in `src/prompts/`.

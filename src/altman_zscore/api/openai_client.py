@@ -37,45 +37,6 @@ class AzureOpenAIClient:
         Returns:
             dict: {canonical_field: {"FoundField": matched_raw_field, "Value": value}}
         """
-        # Centralized synonyms for each canonical field
-        FIELD_SYNONYMS = {
-            "total_assets": [
-                "Total Assets", "Assets", "TotalAssets", "Assets Total", "Net Assets", "Net Asset Value", "Nettovermogen", "Nettoaktiva",
-                "Ativo Total", "Ativos Totais", "Ativo Consolidado", "Ativo", "Total do Ativo"
-            ],
-            "current_assets": [
-                "Current Assets", "Assets Current", "CurrentAssets", "Current Asset", "CurrentAsset", "Liquid Assets", "Liquide Mittel",
-                "Ativo Circulante", "Ativos Circulantes", "Disponibilidades"
-            ],
-            "current_liabilities": [
-                "Current Liabilities", "Liabilities Current", "CurrentLiabilities", "Current Liab.", "Current Liability", "CurrentLiab", "Kurzfristige Verbindlichkeiten",
-                "Passivo Circulante", "Passivos Circulantes"
-            ],
-            "retained_earnings": [
-                "Retained Earnings", "Earnings Retained", "RetainedEarningsAccumulatedDeficit", "Ret. Earnings", "Gewinnrücklagen",
-                "Lucros Acumulados", "Lucros Retidos", "Reservas de Lucros"
-            ],
-            "ebit": [
-                "EBIT", "Earnings Before Interest and Taxes", "Operating Income", "Income From Operations", "Operating Profit", "Profit Before Tax", "Ergebnis vor Zinsen und Steuern", "Betriebsergebnis",
-                "Lucro Antes do Resultado Financeiro e dos Tributos", "LAJIR", "Lucro Operacional"
-            ],
-            "market_value_equity": [
-                "Market Value Equity", "Market Capitalization", "Market Cap", "MarketValueOfEquity", "Börsenwert", "Market Value of Equity",
-                "Valor de Mercado", "Valor de Mercado das Ações"
-            ],
-            "book_value_equity": [
-                "Book Value Equity", "Total Equity", "Shareholders Equity", "Stockholders Equity", "Equity", "Share Capital", "Shareholder Funds", "Eigenkapital",
-                "Patrimônio Líquido", "Patrimonio Liquido", "Capital Social"
-            ],
-            "total_liabilities": [
-                "Total Liabilities", "Liabilities", "TotalLiabilities", "Gesamtschulden",
-                "Passivo Total", "Passivos Totais", "Total do Passivo"
-            ],
-            "sales": [
-                "Total Revenue", "Revenue", "Sales Revenue Net", "Operating Revenue", "Sales", "Turnover", "Umsatz", "Net Sales",
-                "Receita Líquida de Vendas", "Receita de Vendas", "Receita Operacional", "Receita Líquida"
-            ],
-        }
         # --- Prompt Ingestion for Field Mapping ---
         # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
         prompt_path_new = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_field_mapping.md")
@@ -99,8 +60,10 @@ Canonical fields: {canonical_fields}\n
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ]
+        # --- Use LLM for all language/synonym mapping ---
+        # The LLM prompt is now responsible for robust, multilingual, and semantic field mapping.
+        # The Python code will only apply user-supplied mapping overrides if present, and otherwise trust the LLM output.
         response = self.chat_completion(messages, temperature=0.0, max_tokens=2500)
-        # Try to extract the mapping from the response
         try:
             content = response["choices"][0]["message"]["content"]
             import json
@@ -110,20 +73,11 @@ Canonical fields: {canonical_fields}\n
                 if content.endswith("```"):
                     content = content.rsplit("```", 1)[0]
             mapping = json.loads(content)
-            # --- CODE-LEVEL FALLBACK FOR ALL FIELDS ---
-            for canonical in canonical_fields:
-                # User-supplied override takes precedence
-                if mapping_overrides and canonical in mapping_overrides:
-                    override_field = mapping_overrides[canonical]
+            # Apply user-supplied mapping overrides if present
+            if mapping_overrides:
+                for canonical, override_field in mapping_overrides.items():
                     if override_field in raw_fields:
                         mapping[canonical] = {"FoundField": override_field, "Value": None}
-                        continue
-                # If missing/null, try synonyms
-                if canonical not in mapping or mapping[canonical] is None or mapping[canonical].get("FoundField") in [None, "null"]:
-                    for synonym in FIELD_SYNONYMS.get(canonical, []):
-                        if synonym in raw_fields:
-                            mapping[canonical] = {"FoundField": synonym, "Value": None}
-                            break
             return mapping
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")

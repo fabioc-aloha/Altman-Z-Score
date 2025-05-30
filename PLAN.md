@@ -323,6 +323,8 @@ This plan is based on the new concept outlined in `OneStockAnalysis.md` and inco
   - ✅ Added example output reports to the repository for demonstration purposes
   - ✅ Updated README.md with "Output Examples" section explaining the included reports
   - ✅ All examples now show properly formatted Z-Score trend analysis with price overlay
+  - ✅ Successfully generated and validated reports for a wide range of well-known American large caps (MSFT, AAPL, AMZN, TSLA, GOOGL, META, NVDA, SBUX, FDX, DAL)
+  - ✅ Next: Add and test several US small-cap tickers to further validate field mapping and fallback logic across market capitalizations
 
 ## Prompt Ingestion for LLM Analysis (May 2025)
 

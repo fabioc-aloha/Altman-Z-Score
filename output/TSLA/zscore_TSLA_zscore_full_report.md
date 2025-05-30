@@ -100,104 +100,97 @@ All values are shown in millions of USD as reported by the data source.
 
 # Graphical View of the Z-Score Analysis
 
-
-![Z-Score and Price Trend Chart](zscore_TSLA_trend.png)
-
-*Figure: Z-Score and stock price trend for TSLA (see output folder for full-resolution image)*
-
-## Diagnostic Evaluation of Financial Health
+## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Tesla's liquidity position, as indicated by the X1 component of the Z-Score, shows a consistent ratio of current assets to current liabilities, ranging from 0.193 to 0.242 over the last five quarters. This suggests that Tesla has a solid ability to cover its short-term obligations, which is crucial for operational stability.
+Tesla's liquidity position, as indicated by the X1 component of the Z-Score, shows a consistent ratio above 0.2 across the last five quarters, suggesting that the company is capable of covering its short-term liabilities with its current assets. The most recent quarter (2025 Q1) reports an X1 value of 0.237, indicating a healthy liquidity position.
 
 ### Profitability
-The X2 component, representing retained earnings as a proportion of total assets, has remained stable, indicating that Tesla is effectively retaining earnings for reinvestment. The values range from 0.266 to 0.288, reflecting a healthy profit retention strategy.
+The profitability measure (X3) has shown fluctuations, with a notable dip in 2025 Q1 (0.005) compared to previous quarters. This decline suggests that while Tesla has been generating revenue, its earnings before interest and taxes (EBIT) relative to total assets have decreased significantly, which could be a concern for stakeholders.
 
 ### Capital Efficiency
-The X3 component, which measures EBIT relative to total assets, shows a slight decline from 0.018 to 0.005, indicating a reduction in operational efficiency. This decline could be a concern if it continues, as it suggests that Tesla may not be generating as much operating income from its assets as it previously did.
+The retained earnings to total assets ratio (X2) remains stable, hovering around 0.28, which indicates that Tesla has been effectively reinvesting its profits into the business. This stability is a positive sign for long-term growth and sustainability.
 
 ### Leverage
-The X4 component, which assesses the market value of equity relative to total liabilities, has shown a significant increase from 12.855 to 26.881. This indicates that Tesla is becoming less leveraged, which is a positive sign for financial stability and risk management.
+Tesla's leverage, represented by the X4 component, has improved significantly, with a value of 16.798 in 2025 Q1, indicating a strong market value of equity relative to total liabilities. This suggests that Tesla is less reliant on debt financing, which is favorable for its financial health.
 
-### Overall Z-Score Trend
-The Z-Score has consistently remained in the "Safe Zone," with values ranging from 8.571 to 17.111. This trend indicates that Tesla is not at immediate risk of bankruptcy and is in a strong financial position relative to its peers. The Z-Score's upward trajectory suggests improving financial health, particularly in terms of leverage.
-
----
-
-## Turnaround and Renewal Management Theory Application
-
-### Phased Response Proposal
-1. **Immediate Retrenchment (Short-term Actions)**
-   - **Cost Reduction:** Implement immediate cost-cutting measures to improve profitability, particularly in operational areas where efficiency has declined (X3). This aligns with Bibeault's (1999) emphasis on immediate corrective actions during a turnaround.
-   - **Cash Flow Management:** Enhance cash flow management practices to ensure liquidity remains robust, especially in light of potential market volatility.
-
-2. **Long-term Repositioning (Strategic Actions)**
-   - **Innovation and R&D Investment:** Increase investment in research and development to drive innovation, aligning with Hofer's (1980) focus on strategic renewal. This will help maintain Tesla's competitive edge in the electric vehicle market.
-   - **Market Expansion:** Explore new markets and product lines to diversify revenue streams, which is crucial for long-term sustainability (Hoskisson et al., 2004).
+### Z-Score Trend Interpretation
+The Z-Score has consistently remained in the "Safe Zone," with the latest score of 10.934 in 2025 Q1. This indicates that Tesla is not at immediate risk of bankruptcy and is financially stable. However, the declining profitability metric should be monitored closely, as it could impact future performance.
 
 ---
 
-## Recommendations for Stakeholders
+## 2. Turnaround and Renewal Management Theory Application
 
-| Stakeholder Title                     | Executive Name | Responsibilities & Recommended Actions                                                                 |
-|---------------------------------------|----------------|--------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Elon Musk      | Lead the strategic vision; prioritize cost reduction and innovation investments.                       |
-| Chief Financial Officer               | Zachary Kirkhorn| Oversee cash flow management; implement financial controls to enhance profitability.                   |
-| Chief Marketing Officer               | Vanessa Zhao   | Develop marketing strategies to promote new products and market expansion efforts.                     |
-| Board Members                         | Various        | Provide oversight and strategic guidance; ensure alignment with long-term goals.                       |
-| Employees                             | N/A            | Engage in cost-saving initiatives; contribute ideas for operational efficiency improvements.            |
-| Investors                             | N/A            | Monitor financial health; consider long-term growth potential when making investment decisions.        |
-| Creditors                             | N/A            | Maintain open communication regarding financial health; assess risk exposure.                          |
-| Debtors                               | N/A            | Ensure timely payments; maintain transparency with Tesla regarding financial obligations.               |
-| Partner Companies                     | N/A            | Collaborate on innovation projects; explore joint ventures for market expansion.                       |
-| Customers                             | N/A            | Provide feedback on products; engage with Tesla's sustainability initiatives.                          |
+### Immediate Retrenchment
+Given the recent decline in profitability, Tesla should focus on immediate retrenchment strategies. This includes cost-cutting measures, optimizing operational efficiency, and potentially restructuring underperforming segments. According to Bibeault (1999), such actions can stabilize the company in the short term.
+
+### Long-Term Repositioning
+For long-term sustainability, Tesla should consider repositioning strategies that involve innovation and market expansion. Hofer (1980) emphasizes the importance of strategic renewal, which could involve diversifying product offerings or entering new markets to enhance revenue streams.
 
 ---
 
-## Communication, Marketing, and Execution Strategies
+## 3. Recommendations for Stakeholders
+
+| Stakeholder Title | Executive Name | Responsibilities | Recommended Actions |
+|-------------------|----------------|------------------|---------------------|
+| Chief Executive Officer | Elon Musk | Overall strategy and vision | Implement cost-cutting measures and explore new market opportunities. |
+| Chief Financial Officer | Zachary Kirkhorn | Financial oversight | Monitor profitability metrics closely and adjust financial strategies accordingly. |
+| Chief Marketing Officer | Vanessa Y. | Brand positioning and marketing | Enhance marketing efforts to promote new product lines and innovations. |
+| Board Members | Various | Governance and oversight | Support management in strategic decisions and ensure alignment with long-term goals. |
+| Employees | Various | Operations and execution | Engage in efficiency programs and provide feedback on operational improvements. |
+| Investors | Various | Financial support and expectations | Communicate the strategic plan clearly and reassure them of the company's stability. |
+| Creditors | Various | Financial agreements | Maintain open communication regarding financial health and repayment plans. |
+| Debtors | Various | Financial obligations | Ensure timely payments and maintain good relationships. |
+| Partner Companies | Various | Collaborative projects | Explore joint ventures or partnerships to enhance product offerings. |
+| Customers | Various | Product usage and feedback | Gather customer feedback to improve products and services. |
+
+---
+
+## 4. Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication:** Press releases and investor calls to communicate financial performance and strategic direction.
+- **Objective:** Maintain transparency with stakeholders regarding financial health and strategic direction.
+- **Method:** Regular updates through quarterly earnings calls and press releases.
 
 ### Marketing Strategy
-- **Brand Positioning:** Emphasize Tesla's commitment to innovation and sustainability in marketing campaigns.
-- **Customer Engagement:** Utilize social media and customer feedback to enhance product offerings and customer satisfaction.
+- **Objective:** Increase brand awareness and promote new products.
+- **Method:** Utilize digital marketing campaigns and social media engagement.
 
 ### Execution Timeline
-| Phase                | Timeline       | Accountability         |
-|----------------------|----------------|-------------------------|
-| Immediate Retrenchment| Q2 2025        | CFO and CEO             |
-| Innovation Investment | Q3 2025 - Q4 2025| CEO and R&D Team       |
-| Market Expansion      | Q1 2026        | CMO and Business Development Team |
+- **Q2 2025:** Implement cost-cutting measures and initiate marketing campaigns.
+- **Q3 2025:** Assess the impact of changes and adjust strategies as needed.
+- **Q4 2025:** Review financial performance and stakeholder feedback.
+
+### Accountability Framework
+- Assign specific team leads for each initiative and establish KPIs to measure success.
 
 ---
 
-## Investment Recommendation
-Based on the current financial health indicated by the Z-Score and the strategic initiatives proposed, investors are advised to **hold** their positions in Tesla. The company shows strong financial stability and potential for growth, but ongoing monitoring of operational efficiency is essential. 
+## 5. Investment Recommendation
 
-**Disclaimer:** This is not financial advice. Please consult your financial advisor before making investment decisions.
-
----
-
-## Bargaining Power and Influence of External Stakeholders
-
-| External Stakeholder          | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|-------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                    | Regulatory Compliance       | High                | Tesla must adhere to environmental regulations and safety standards.      |
-| Government Agencies           | Policy Influence            | Medium              | Government incentives for electric vehicles can impact sales.            |
-| Unions                        | Labor Relations             | Medium              | Union negotiations can affect operational costs and employee relations.   |
-| Major Suppliers               | Supply Chain Control        | High                | Key suppliers have significant leverage over production costs.            |
-| Key Partners                  | Strategic Alliances         | Medium              | Partnerships can enhance market reach and innovation capabilities.        |
-| Activist Investors            | Shareholder Activism        | Medium              | They can influence corporate governance and strategic direction.          |
-| Creditors                     | Financial Leverage          | High                | Creditors can impose conditions on financing and influence cash flow.    |
-| Large Customers               | Purchasing Power            | Medium              | Large contracts can significantly impact revenue and production planning. |
+Based on the current financial analysis, investors should **hold** their positions in Tesla. The company is in a stable financial position with a strong Z-Score, but the recent decline in profitability warrants caution. Investors should consult their financial advisors for personalized advice.
 
 ---
 
+## 6. External Stakeholder Bargaining Power Assessment
+
+| External Stakeholder | Nature of Bargaining Power | Degree of Influence | Rationale |
+|----------------------|----------------------------|---------------------|-----------|
+| Regulators | Regulatory compliance | Moderate | Tesla must adhere to automotive regulations, impacting operational flexibility. |
+| Government Agencies | Incentives and subsidies | High | Government support can significantly affect Tesla's financial health and market position. |
+| Unions | Labor negotiations | Moderate | Union presence can influence labor costs and operational decisions. |
+| Major Suppliers | Supply chain dependency | High | Key suppliers hold leverage over pricing and availability of critical components. |
+| Key Partners | Collaborative ventures | Moderate | Partnerships can enhance market reach but require negotiation on terms. |
+| Activist Investors | Shareholder influence | High | Activist investors can push for changes in management or strategy. |
+| Creditors | Debt repayment terms | High | Creditors have significant influence over financial strategies and liquidity. |
+| Large Customers | Purchase agreements | Moderate | Major customers can negotiate terms that impact revenue stability. |
+
+---
+
+## Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-- LLM Model used: OpenAI GPT-4
+- LLM Model used: OpenAI GPT-3.5
 - Knowledge cut-off: October 2023
 - Internet search: No
 - Real-time data: No
@@ -213,6 +206,4 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
-  - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
 
