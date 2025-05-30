@@ -3,6 +3,10 @@
 ## Overview
 This document contains recommended actions based on a code review of the MVP version of the Altman Z-Score repository, focusing on stability and stock price plotting issues.
 
+# ---
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+# ---
+
 ## Stability Issues
 
 ### Error Handling Improvements

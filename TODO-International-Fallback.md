@@ -4,6 +4,10 @@ This checklist tracks the implementation of robust field mapping, fallback logic
 
 ---
 
+# ---
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+# ---
+
 ## 1. Expand Field Mapping Synonyms and Contextual Matching
 - [x] Expand `FIELD_SYNONYMS` in `src/altman_zscore/api/openai_client.py` to include:
     - [x] "Turnover" (UK/EU) for sales

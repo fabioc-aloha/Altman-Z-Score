@@ -2,6 +2,10 @@
 
 This document consolidates the recommendations from `todo-mvp.md` and `TODO-Codex.md` into a single, prioritized plan. Each action item has been validated against the existing code base and common Python best practices.
 
+# ---
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+# ---
+
 ## 1. Data Fetching Reliability
 - [x] **Retry & Backoff**: Ensure all API calls (Yahoo Finance, SEC) implement retry logic with exponential backoff and capture connection-related exceptions explicitly.  # Implemented in fetchers with retry logic and error handling.
 - [ ] **Fallback Sources**: Implement a real SEC EDGAR parser as a fallback when `yfinance` is incomplete. Validate required environment variables (`SEC_EDGAR_USER_AGENT`, `SEC_API_EMAIL`) at startup.

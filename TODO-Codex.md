@@ -2,6 +2,10 @@
 
 This document captures a quick review of the current codebase for the Altman Z-Score project. The goal is to highlight areas that affect MVP stability and data reliability when fetching from external APIs, and to outline recommendations for improving the upcoming stock price overlay plotting.
 
+# ---
+# All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+# ---
+
 ## 1. Review of Data Fetching Logic
 
 ### Financial Statements (`src/altman_zscore/fetch_financials.py`)
