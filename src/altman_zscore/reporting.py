@@ -72,7 +72,11 @@ def report_zscore_full_report(
     # Place title at the very top, then intro_lines, then the rest
     lines = [title, ""] + intro_lines
     # --- Script Version Section ---
-    lines.append(f"**Script Version:** v2.2.1")
+    try:
+        from main import __version__ as pipeline_version
+    except ImportError:
+        pipeline_version = "unknown"
+    lines.append(f"**Script Version:** v{pipeline_version}")
     lines.append("")
     lines.append("## Analysis Context and Z-Score Model Selection Criteria\n")
     if context_info:
@@ -333,13 +337,15 @@ def report_zscore_full_report(
     if ticker and out_path:
         # Try GitHub-friendly relative path first (assumes report and image are in the same output/<TICKER>/ folder)
         github_chart_path = f"zscore_{ticker}_trend.png"
-        local_chart_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
+        local_chart_path = os.path.abspath(os.path.join("output", ticker, f"zscore_{ticker}_trend.png"))
         if os.path.exists(local_chart_path):
-            # Use GitHub-friendly path if the report and image are in the same folder
-            if os.path.dirname(out_path) == os.path.dirname(local_chart_path):
+            # Convert both paths to absolute paths for comparison
+            out_dir = os.path.abspath(os.path.dirname(out_path))
+            chart_dir = os.path.dirname(local_chart_path)
+            if out_dir == chart_dir:
                 chart_md = f"\n![Z-Score and Price Trend Chart]({github_chart_path})\n"
             else:
-                rel_chart_path = os.path.relpath(local_chart_path, os.path.dirname(out_path)).replace("\\", "/")
+                rel_chart_path = os.path.relpath(local_chart_path, out_dir).replace("\\", "/")
                 chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
             chart_md += "\n"  # Add a new line before the caption
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"

@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from ..models.financial_metrics import ZScoreResult
 from ..utils.financial_metrics import FinancialMetricsCalculator
-from .constants import Z_SCORE_THRESHOLDS
+from .constants import Z_SCORE_THRESHOLDS, MODEL_COEFFICIENTS
 
 
 def altman_zscore_service(
@@ -21,6 +21,7 @@ def altman_zscore_service(
     mve_dec = Decimal(str(market_value_equity))
     ta_dec = Decimal(str(total_assets))
     tl_dec = Decimal(str(total_liabilities))
+    coeffs = MODEL_COEFFICIENTS["service"]
     X1 = calc.safe_divide(wc_dec, ta_dec)
     X2 = calc.safe_divide(re_dec, ta_dec)
     X3 = calc.safe_divide(ebit_dec, ta_dec)
@@ -31,7 +32,12 @@ def altman_zscore_service(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
+    z = (
+        coeffs["A"] * X1
+        + coeffs["B"] * X2
+        + coeffs["C"] * X3
+        + coeffs["D"] * X4
+    )
     thresholds = Z_SCORE_THRESHOLDS["service"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -65,6 +71,7 @@ def altman_zscore_original(
     ta_dec = Decimal(str(total_assets))
     tl_dec = Decimal(str(total_liabilities))
     sales_dec = Decimal(str(sales))
+    coeffs = MODEL_COEFFICIENTS["original"]
     X1 = calc.safe_divide(wc_dec, ta_dec)
     X2 = calc.safe_divide(re_dec, ta_dec)
     X3 = calc.safe_divide(ebit_dec, ta_dec)
@@ -77,7 +84,13 @@ def altman_zscore_original(
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
     X5 = X5 if X5 is not None else Decimal(0)
-    z = Decimal("1.2") * X1 + Decimal("1.4") * X2 + Decimal("3.3") * X3 + Decimal("0.6") * X4 + Decimal("1.0") * X5
+    z = (
+        coeffs["A"] * X1
+        + coeffs["B"] * X2
+        + coeffs["C"] * X3
+        + coeffs["D"] * X4
+        + coeffs["E"] * X5
+    )
     thresholds = Z_SCORE_THRESHOLDS["original"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -111,6 +124,7 @@ def altman_zscore_private(
     ta_dec = Decimal(str(total_assets))
     tl_dec = Decimal(str(total_liabilities))
     sales_dec = Decimal(str(sales))
+    coeffs = MODEL_COEFFICIENTS["private"]
     X1 = calc.safe_divide(wc_dec, ta_dec)
     X2 = calc.safe_divide(re_dec, ta_dec)
     X3 = calc.safe_divide(ebit_dec, ta_dec)
@@ -124,11 +138,11 @@ def altman_zscore_private(
     X4 = X4 if X4 is not None else Decimal(0)
     X5 = X5 if X5 is not None else Decimal(0)
     z = (
-        Decimal("0.717") * X1
-        + Decimal("0.847") * X2
-        + Decimal("3.107") * X3
-        + Decimal("0.420") * X4
-        + Decimal("0.998") * X5
+        coeffs["A"] * X1
+        + coeffs["B"] * X2
+        + coeffs["C"] * X3
+        + coeffs["D"] * X4
+        + coeffs["E"] * X5
     )
     thresholds = Z_SCORE_THRESHOLDS["private"]
     if z > Decimal(str(thresholds["safe"])):
@@ -162,6 +176,7 @@ def altman_zscore_public(
     mve_dec = Decimal(str(market_value_equity))
     ta_dec = Decimal(str(total_assets))
     tl_dec = Decimal(str(total_liabilities))
+    coeffs = MODEL_COEFFICIENTS["public"] if "public" in MODEL_COEFFICIENTS else MODEL_COEFFICIENTS["service"]
     X1 = calc.safe_divide(wc_dec, ta_dec)
     X2 = calc.safe_divide(re_dec, ta_dec)
     X3 = calc.safe_divide(ebit_dec, ta_dec)
@@ -172,7 +187,12 @@ def altman_zscore_public(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
+    z = (
+        coeffs["A"] * X1
+        + coeffs["B"] * X2
+        + coeffs["C"] * X3
+        + coeffs["D"] * X4
+    )
     thresholds = Z_SCORE_THRESHOLDS["public"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"
@@ -205,6 +225,7 @@ def altman_zscore_em(
     mve_dec = Decimal(str(market_value_equity))
     ta_dec = Decimal(str(total_assets))
     tl_dec = Decimal(str(total_liabilities))
+    coeffs = MODEL_COEFFICIENTS["em"]
     X1 = calc.safe_divide(wc_dec, ta_dec)
     X2 = calc.safe_divide(re_dec, ta_dec)
     X3 = calc.safe_divide(ebit_dec, ta_dec)
@@ -215,7 +236,13 @@ def altman_zscore_em(
     X2 = X2 if X2 is not None else Decimal(0)
     X3 = X3 if X3 is not None else Decimal(0)
     X4 = X4 if X4 is not None else Decimal(0)
-    z = Decimal("3.25") + Decimal("6.56") * X1 + Decimal("3.26") * X2 + Decimal("6.72") * X3 + Decimal("1.05") * X4
+    z = (
+        coeffs["A"]
+        + coeffs["B"] * X1
+        + coeffs["C"] * X2
+        + coeffs["D"] * X3
+        + coeffs["E"] * X4
+    )
     thresholds = Z_SCORE_THRESHOLDS["em"]
     if z > Decimal(str(thresholds["safe"])):
         diagnostic = "Safe Zone"

@@ -17,11 +17,17 @@ A robust, modular Python tool for single-stock Altman Z-Score trend analysis. De
 ---
 
 ## Usage
-To analyze a stock, run:
+To analyze one or more stocks, run:
 ```sh
-python main.py <TICKER>
+python main.py <TICKER1> <TICKER2> ... [--start YYYY-MM-DD] [--moving-averages] [--no-plot]
 ```
-Replace `<TICKER>` with the stock ticker symbol (e.g., `AAPL`, `MSFT`).
+Examples:
+```sh
+python main.py AAPL MSFT TSLA
+python main.py TSLA --start 2023-01-01
+python main.py AAPL MSFT --moving-averages --no-plot
+```
+Replace `<TICKER1> <TICKER2> ...` with one or more stock ticker symbols (e.g., `AAPL`, `MSFT`).
 
 Outputs are saved in `output/<TICKER>/`:
 - Full report: `zscore_<TICKER>_zscore_full_report.md`

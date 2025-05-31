@@ -1,6 +1,72 @@
 # Centralized constants for Altman Z-Score models
 from decimal import Decimal
-from typing import Dict
+from typing import Dict, List
+
+# Direct field mappings for data fetching (field name variations by source)
+FIELD_MAPPING = {
+    'total_assets': ['Total Assets', 'Assets', 'AssetsTotal'],
+    'current_assets': ['Current Assets', 'AssetsCurrent'],
+    'current_liabilities': ['Current Liabilities', 'LiabilitiesCurrent'],
+    'retained_earnings': ['Retained Earnings', 'RetainedEarnings'],
+    'total_liabilities': ['Total Liabilities Net Minority Interest', 'Total Liabilities', 'Liabilities'],
+    'book_value_equity': ['Common Stock Equity', 'Stockholders Equity', 'Total Equity Gross Minority Interest'],
+    'ebit': ['EBIT', 'Operating Income', 'OperatingIncome'],
+    'sales': ['Total Revenue', 'Revenues', 'Sales', 'Revenue', 'Operating Revenue']
+}
+
+# Required fields per model type (specifies which fields must be present in data)
+MODEL_FIELDS: Dict[str, List[str]] = {
+    "original": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "book_value_equity",
+        "ebit",
+        "sales"
+    ],
+    "private": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "book_value_equity",
+        "ebit",
+        "sales"
+    ],
+    "public": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "book_value_equity",
+        "ebit",
+        "sales"
+    ],
+    "service": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "book_value_equity",
+        "ebit",
+        "sales"
+    ],
+    "emerging": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings", 
+        "total_liabilities",
+        "book_value_equity",
+        "ebit",
+        "sales"
+    ]
+}
 
 # --- Metadata for traceability ---
 MODEL_METADATA = {
