@@ -178,7 +178,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
         "Distress",
         transform=ax.transAxes,
         color="#a60000",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",
@@ -191,7 +191,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
         "Grey",
         transform=ax.transAxes,
         color="#444444",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",
@@ -204,7 +204,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
         "Safe",
         transform=ax.transAxes,
         color="#007a00",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",
@@ -463,7 +463,7 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages
         "Distress",
         transform=ax.transAxes,
         color="#a60000",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",
@@ -475,7 +475,7 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages
         "Grey",
         transform=ax.transAxes,
         color="#444444",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",
@@ -487,7 +487,7 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages
         "Safe",
         transform=ax.transAxes,
         color="#007a00",
-        fontsize=11,
+        fontsize=9,  # Decreased font size
         ha="left",
         va="center",
         fontweight="bold",

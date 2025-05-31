@@ -113,86 +113,20 @@ $industry_mix = @(
     'ADP'     # Automatic Data Processing (Services)
 )
 
-# Remove duplicates across all groups
-
 # Helper to run the CLI for a group
 function Invoke-ZScoreBatch($tickers, $groupName) {
-    $tickersStr = $tickers -join ','
-    $outDir = "output/batch_$groupName"
-    if (!(Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
-    Write-Host "Running Z-Score batch for ${groupName}: ${tickersStr}"
-    python main.py --tickers $tickersStr --output $outDir --full-report
+    Write-Host "Running Z-Score batch for ${groupName}: $($tickers -join ' ')"
+    python main.py @tickers
 }
 
-# Run all groups with true deduplication (each ticker only in its first group)
-$seen = @{}
-function Get-UniqueGroupTickers($tickers) {
-    $result = @()
-    foreach ($t in $tickers) {
-        if (-not $seen.ContainsKey($t)) {
-            $seen[$t] = $true
-            $result += $t
-        }
-    }
-    return $result
-}
-
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $large_caps) 'large_caps'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $distressed) 'distressed'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $tech_em) 'tech_em'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $latam_br) 'latam_br'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $europe) 'europe'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $asia) 'asia'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $edge_cases) 'edge_cases'
-Invoke-ZScoreBatch (Get-UniqueGroupTickers $industry_mix) 'industry_mix'
+# Run all groups (no deduplication)
+Invoke-ZScoreBatch $large_caps 'large_caps'
+Invoke-ZScoreBatch $distressed 'distressed'
+Invoke-ZScoreBatch $tech_em 'tech_em'
+Invoke-ZScoreBatch $latam_br 'latam_br'
+Invoke-ZScoreBatch $europe 'europe'
+Invoke-ZScoreBatch $asia 'asia'
+Invoke-ZScoreBatch $edge_cases 'edge_cases'
+Invoke-ZScoreBatch $industry_mix 'industry_mix'
 
 Write-Host "Batch processing complete. Check the output directories for reports."
-
-# Summarize results for all tickers
-$summaryPath = "output/batch_summary.md"
-$summaryLines = @()
-$summaryLines += "# Batch Run Summary"
-$summaryLines += "| Group | Ticker | Success | Model Used | Z-Score | Notes |"
-$summaryLines += "|-------|--------|---------|------------|---------|-------|"
-
-$groups = @(
-    @{name='large_caps'; tickers=$large_caps},
-    @{name='distressed'; tickers=$distressed},
-    @{name='tech_em'; tickers=$tech_em},
-    @{name='latam_br'; tickers=$latam_br},
-    @{name='europe'; tickers=$europe},
-    @{name='asia'; tickers=$asia},
-    @{name='edge_cases'; tickers=$edge_cases},
-    @{name='industry_mix'; tickers=$industry_mix}
-)
-
-foreach ($group in $groups) {
-    $gname = $group.name
-    foreach ($ticker in $group.tickers | Select-Object -Unique) {
-        $outDir = "output/batch_$gname"
-        $jsonPath = Join-Path $outDir "zscore_${ticker}.json"
-        $mdPath = Join-Path $outDir "zscore_${ticker}_zscore_full_report.md"
-        $success = $false
-        $model = ''
-        $zscore = ''
-        $notes = ''
-        if (Test-Path $jsonPath) {
-            try {
-                $data = Get-Content $jsonPath | ConvertFrom-Json
-                $success = $true
-                $model = $data.model_used
-                $zscore = $data.zscore
-                if ($data.warnings) { $notes = $data.warnings -join '; ' }
-            } catch {
-                $notes = 'JSON parse error'
-            }
-        } elseif (Test-Path $mdPath) {
-            $notes = 'No JSON, but Markdown report exists'
-        } else {
-            $notes = 'No output file found'
-        }
-        $summaryLines += "| $gname | $ticker | $success | $model | $zscore | $notes |"
-    }
-}
-$summaryLines | Set-Content $summaryPath
-Write-Host "Summary written to $summaryPath"

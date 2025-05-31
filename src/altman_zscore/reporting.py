@@ -111,114 +111,49 @@ def report_zscore_full_report(
     model_name = str(model).lower()
     lines.append("")
     # --- Dynamically build formula and threshold display ---
+    from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
     formula_lines = []
     threshold_lines = []
     x_labels = []
     x_cols = []  # Ensure x_cols is always defined
-    # Always prefer override_context if present
-    used_coeffs = None
-    used_thresholds = None
-    if override_context is not None:
-        # Try to extract coefficients and thresholds from override_context
-        coeffs = override_context.get("coefficients")
-        thresholds = override_context.get("thresholds")
-        # Defensive: handle both dict and ModelCoefficients/ModelThresholds
-        if coeffs and isinstance(coeffs, dict):
-            # Map dict keys to expected order (A-E)
-            coeff_map = [
-                ("X1", coeffs.get("A", 0), "(Current Assets - Current Liabilities) / Total Assets"),
-                ("X2", coeffs.get("B", 0), "Retained Earnings / Total Assets"),
-                ("X3", coeffs.get("C", 0), "EBIT / Total Assets"),
-                ("X4", coeffs.get("D", 0), "Equity / Total Liabilities"),
-                ("X5", coeffs.get("E", 0), "Sales / Total Assets"),
-            ]
-            terms = []
-            for x, coeff, desc in coeff_map:
-                if coeff != 0:
-                    terms.append(f"{coeff}*{x}")
-                    x_labels.append((x, desc))
-                    x_cols.append(x)
-            formula_str = "Z = " + " + ".join(terms)
-            formula_lines.append(f"## Z-Score Formula Used\n")
-            formula_lines.append(formula_str)
-            for x, desc in x_labels:
-                formula_lines.append(f"- {x} = {desc}")
-            formula_lines.append("")
-        if thresholds and isinstance(thresholds, dict):
-            threshold_lines.append("**Thresholds:**")
-            safe = thresholds.get("safe")
-            distress = thresholds.get("distress")
-            if safe is not None and distress is not None:
-                threshold_lines.append(f"- Safe Zone: > {safe}")
-                threshold_lines.append(f"- Grey Zone: > {distress} and <= {safe}")
-                threshold_lines.append(f"- Distress Zone: <= {distress}")
-                threshold_lines.append("")
+    # Use the model name from the first row of the DataFrame if available
+    model_name = None
+    if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
+        model_name = df.zscore_results[0].model
+    elif 'model' in df.columns:
+        model_name = df['model'].iloc[0]
     else:
-        # Fallback: reconstruct from model name
-        if calibration is not None:
-            used_coeffs = calibration.coefficients
-            used_thresholds = calibration.thresholds
-        elif model_obj is not None:
-            used_coeffs = getattr(model_obj, "coefficients", None)
-            used_thresholds = getattr(model_obj, "thresholds", None)
-        else:
-            if model_name == "original":
-                used_coeffs = ModelCoefficients.original()
-                used_thresholds = ModelThresholds.original()
-            elif model_name == "private":
-                used_coeffs = ModelCoefficients.private_company()
-                used_thresholds = ModelThresholds.private_company()
-            elif model_name in ("non_manufacturing", "service"):
-                used_coeffs = ModelCoefficients.non_manufacturing()
-                used_thresholds = ModelThresholds.non_manufacturing()
-            elif model_name.startswith("tech"):
-                stage = None
-                maturity = (context_info or {}).get("Maturity", "").lower() if context_info else ""
-                if "early" in maturity:
-                    stage = CompanyStage.EARLY
-                elif "growth" in maturity:
-                    stage = CompanyStage.GROWTH
-                elif "mature" in maturity:
-                    stage = CompanyStage.MATURE
-                else:
-                    stage = CompanyStage.GROWTH  # default
-                calibration = TechCalibration.ai_ml(stage)
-                used_coeffs = calibration.coefficients
-                used_thresholds = calibration.thresholds
-            elif model_name == "saas":
-                calibration = TechCalibration.saas()
-                used_coeffs = calibration.coefficients
-                used_thresholds = calibration.thresholds
-        if used_coeffs is not None:
-            coeff_map = [
-                (
-                    "X1",
-                    used_coeffs.working_capital_to_assets,
-                    "(Current Assets - Current Liabilities) / Total Assets",
-                ),
-                ("X2", used_coeffs.retained_earnings_to_assets, "Retained Earnings / Total Assets"),
-                ("X3", used_coeffs.ebit_to_assets, "EBIT / Total Assets"),
-                ("X4", used_coeffs.equity_to_liabilities, "Equity / Total Liabilities"),
-                ("X5", used_coeffs.sales_to_assets, "Sales / Total Assets"),
-            ]
-            terms = []
-            for x, coeff, desc in coeff_map:
-                if coeff != 0:
-                    terms.append(f"{coeff}*{x}")
-                    x_labels.append((x, desc))
-                    x_cols.append(x)
-            formula_str = "Z = " + " + ".join(terms)
-            formula_lines.append(f"## Z-Score Formula Used\n")
-            formula_lines.append(formula_str)
-            for x, desc in x_labels:
-                formula_lines.append(f"- {x} = {desc}")
-            formula_lines.append("")
-        if used_thresholds is not None:
-            threshold_lines.append("**Thresholds:**")
-            threshold_lines.append(f"- Safe Zone: > {used_thresholds.safe_zone}")
-            threshold_lines.append(f"- Grey Zone: > {used_thresholds.distress_zone} and <= {used_thresholds.safe_zone}")
-            threshold_lines.append(f"- Distress Zone: <= {used_thresholds.distress_zone}")
-            threshold_lines.append("")
+        model_name = str(model).lower()
+    # Defensive fallback
+    if not model_name:
+        model_name = 'original'
+    coeffs = MODEL_COEFFICIENTS.get(model_name, MODEL_COEFFICIENTS['original'])
+    thresholds = Z_SCORE_THRESHOLDS.get(model_name, Z_SCORE_THRESHOLDS['original'])
+    # Build formula string
+    coeff_map = [
+        ("X1", coeffs.get("A", 0), "(Current Assets - Current Liabilities) / Total Assets"),
+        ("X2", coeffs.get("B", 0), "Retained Earnings / Total Assets"),
+        ("X3", coeffs.get("C", 0), "EBIT / Total Assets"),
+        ("X4", coeffs.get("D", 0), "Equity / Total Liabilities"),
+        ("X5", coeffs.get("E", 0), "Sales / Total Assets"),
+    ]
+    terms = []
+    for x, coeff, desc in coeff_map:
+        if coeff != 0:
+            terms.append(f"{coeff}*{x}")
+            x_labels.append((x, desc))
+            x_cols.append(x)
+    formula_str = "Z = " + " + ".join(terms)
+    formula_lines.append(f"## Z-Score Formula Used\n")
+    formula_lines.append(formula_str)
+    for x, desc in x_labels:
+        formula_lines.append(f"- {x} = {desc}")
+    formula_lines.append("")
+    threshold_lines.append("**Thresholds:**")
+    threshold_lines.append(f"- Safe Zone: > {thresholds['safe']}")
+    threshold_lines.append(f"- Grey Zone: > {thresholds['distress']} and <= {thresholds['safe']}")
+    threshold_lines.append(f"- Distress Zone: <= {thresholds['distress']}")
+    threshold_lines.append("")
     # Insert formula and thresholds into report
     lines.extend(formula_lines)
     lines.extend(threshold_lines)
@@ -335,20 +270,20 @@ def report_zscore_full_report(
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
     chart_md = None
     if ticker and out_path:
-        # Try GitHub-friendly relative path first (assumes report and image are in the same output/<TICKER>/ folder)
         github_chart_path = f"zscore_{ticker}_trend.png"
         local_chart_path = os.path.abspath(os.path.join("output", ticker, f"zscore_{ticker}_trend.png"))
+        out_dir = os.path.abspath(os.path.dirname(out_path))
+        chart_dir = os.path.dirname(local_chart_path)
+        if out_dir == chart_dir:
+            chart_md = f"\n![Z-Score and Price Trend Chart]({github_chart_path})\n"
+        else:
+            rel_chart_path = os.path.relpath(local_chart_path, out_dir).replace("\\", "/")
+            chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
+        chart_md += "\n"  # Add a new line before the caption
         if os.path.exists(local_chart_path):
-            # Convert both paths to absolute paths for comparison
-            out_dir = os.path.abspath(os.path.dirname(out_path))
-            chart_dir = os.path.dirname(local_chart_path)
-            if out_dir == chart_dir:
-                chart_md = f"\n![Z-Score and Price Trend Chart]({github_chart_path})\n"
-            else:
-                rel_chart_path = os.path.relpath(local_chart_path, out_dir).replace("\\", "/")
-                chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
-            chart_md += "\n"  # Add a new line before the caption
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
+        else:
+            chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (image not available yet; will be generated after analysis)*\n"
     if chart_md:
         lines.append(chart_md)
     # --- Z-Score Component Table (by Quarter) after the chart ---
