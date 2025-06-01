@@ -1,3 +1,23 @@
+## Checklist: Prompt Refinement Ideas
+
+### Implemented:
+- Diagnostic evaluation of financial health using Altman Z-Score and supporting ratios.
+- Plain-language explanations for technical terms and implications.
+- Tailored recommendations for CEO, CFO, Board of Directors, and Investors.
+- Structured analysis with sections for financial evaluation, recommendations, and communication strategies.
+- Use of management theories (e.g., Hofer, Bibeault, Hoskisson) to justify recommendations.
+- Reference to industry benchmarks and prior periods where possible.
+
+### Pending:
+- AI-powered anomaly detection for ratio trends.
+- "What-if" scenario analysis for CAPEX adjustments.
+- Advanced notifications for Z-Score thresholds.
+- Integration of RACI chart for execution ownership.
+- Currency conversion for non-USD firms.
+- Optimization of data caching to reduce API calls.
+
+---
+
 # Prompt Refinement Ideas for Financial Analysis & Commentary
 
 This document collects and organizes ideas for refining the prompt used to generate the "Financial Analysis & Commentary" section in the Altman Z-Score report. Use this as a living document to discuss, compare, and select the best approach for future automation or LLM-driven analysis.

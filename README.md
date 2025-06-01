@@ -1,18 +1,17 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.4 (2025-05-30)**
+**Version: 2.5 (2025-06-01)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.4 (May 30, 2025):**
-- Reporting layer always uses coefficients/thresholds from calculation (override_context)
-- No hard-coded formulas or thresholds in reporting output
-- Full fidelity for SIC/industry overrides and custom calibrations
-- Model/threshold overrides and assumptions are logged in report
-- All model constants and thresholds centralized in computation/constants.py
-- Robust error handling and logging throughout pipeline
+**Release v2.5 (June 1, 2025):**
+- Generalized pipeline for multiple tickers and portfolio analysis
+- Modularized data connectors and enhanced CLI for batch/portfolio analysis
+- Prepared for web dashboard, REST API, and Excel Add-In
+- Advanced notifications for Z-Score thresholds
+- Expanded tests and documentation for new features
 
 ---
 
@@ -61,13 +60,12 @@ Outputs are saved in `output/<TICKER>/`:
 ---
 
 ## Project Status & Roadmap
-- **V2.4 (Current):** Reporting layer always uses coefficients/thresholds from calculation; no hard-coded formulas or thresholds in reporting output; full fidelity for SIC/industry overrides and custom calibrations; model/threshold overrides and assumptions are logged in report; all model constants and thresholds centralized in computation/constants.py; robust error handling and logging throughout pipeline
-- **Short-Term (v2.4+):** See above action items for immediate priorities
-- **V2.5 Roadmap:**
-    - Forecasting: Add ability to forecast next quarter's Z-Score using consensus estimates and/or time series models
+- **V2.5 (Current):** Multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
+- **Short-Term:** See above action items for immediate priorities
+- **Planned/Future:**
+    - Z-Score forecasting using consensus estimates and/or time series models
     - Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
-    - Portfolio/Multi-Ticker Analysis: Generalize pipeline for multiple tickers, output per-ticker and aggregate summaries
-    - Testing & Documentation: Add/expand tests for new v2.5 features, update documentation for v2.5 features and usage
+- **V2.4:** Reporting layer always uses coefficients/thresholds from calculation; no hard-coded formulas or thresholds in reporting output; full fidelity for SIC/industry overrides and custom calibrations; model/threshold overrides and assumptions are logged in report; all model constants and thresholds centralized in computation/constants.py; robust error handling and logging throughout pipeline
 - **V2.2.2:** Script version included in every report; tested companies documentation and release process enforced; improved traceability
 - **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, robust report formatting
 - **V2.2:** Model selection & calibration overhaul, enhanced visualizations

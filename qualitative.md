@@ -1,3 +1,20 @@
+## Checklist: Qualitative Validation Ideas
+
+### Implemented:
+- Design of a prompt template summarizing company details, Z-Score, and financial highlights.
+- Integration of LLM call to generate qualitative validation.
+- Appending qualitative validation section to `zscore_full_report` with LLM summary, news headlines, and references.
+- Error handling for LLM call failures with fallback messaging.
+- Testing on multiple tickers to ensure relevance and accuracy of LLM output.
+- Documentation of the qualitative validation feature in `README.md` and `PLAN.md`.
+
+### Pending:
+- Caching of LLM responses for auditability and cost control.
+- Advanced notifications for Z-Score thresholds.
+- Refinement of prompt and output formatting based on user feedback.
+
+---
+
 # Implementation Plan: Qualitative Validation with LLM in Z-Score Reports
 
 ## Goal

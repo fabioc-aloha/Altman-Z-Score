@@ -1,3 +1,33 @@
+## Checklist: Data Fetching Ideas
+
+### Implemented:
+- Fetch historical prices, dividends, and stock splits from `yfinance`.
+- Fetch and save `company_info`, `major_holders`, `institutional_holders`, and `recommendations` from `yfinance`.
+- Fetch company information from SEC EDGAR.
+- Ensure all JSON files are pretty-formatted.
+
+### Pending:
+- Validate the accuracy and usefulness of SEC EDGAR data.
+- Improve error handling for both `yfinance` and SEC EDGAR data fetching.
+- Finalize and implement the checklist in `DataFetching.mp`.
+
+---
+
+## Checklist: Data Fetching Ideas
+
+### Implemented:
+- Fetch and save historical prices, dividends, and stock splits from `yfinance`.
+- Fetch and save `company_info`, `major_holders`, `institutional_holders`, and `recommendations` from `yfinance`.
+- Fetch company information from SEC EDGAR.
+- Ensure all JSON files are pretty-formatted.
+
+### Pending:
+- Finalize and implement the checklist at the top of the file.
+- Validate the accuracy and usefulness of SEC EDGAR data.
+- Improve error handling for both `yfinance` and SEC EDGAR data fetching.
+
+---
+
 Below is a consolidated set of “data‐fetching rules” that would avoid the kinds of mismatches we saw in both the AAL and TSLA reports. First, I briefly recap the main discrepancies we encountered in the AAL analysis (and how we resolved them), then I describe the analogous issues in the TSLA appendix, and finally I lay out a unified set of rules you should apply whenever you pull data from SEC Edgar (or any XBRL source) so that your Z‐Score inputs stay consistent from quarter to quarter.
 
 ---

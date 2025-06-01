@@ -15,7 +15,7 @@ USAGE:
 
 All outputs will be saved to output/<TICKER>/
 """
-__version__ = "2.4"
+__version__ = "2.5"
 
 import argparse
 import os

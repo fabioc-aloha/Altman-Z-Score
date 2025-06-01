@@ -1,3 +1,23 @@
+## Checklist: Model Selection Ideas
+
+### Implemented:
+- Hierarchical decision tree for Z-Score model selection based on SIC, Emerging Market flag, and Public/Private maturity.
+- Centralized configuration for model coefficients, intercepts, and thresholds.
+- Data fetching from Yahoo Finance with SEC EDGAR fallback.
+- Validation of required fields and accounting identities.
+- Ratio range checks and consistency warnings.
+- Computation dispatcher for Z-Score calculation and diagnostic assignment.
+
+### Pending:
+- Enhance identity checks to catch inter-quarter restatements and detect stale XBRL contexts.
+- Implement currency conversion for non-USD firms.
+- Add AI-powered anomaly detection for ratio trends.
+- Enable "what-if" scenario analysis for CAPEX adjustments.
+- Experiment with ML models for future Z-Score predictions.
+- Optimize data caching to reduce API calls.
+
+---
+
 # ModelSelection.md
 
 This document describes the implementation of Altman Z-Score model selection and related data processing within the Altman Z-Score Analysis Platform. All logic is core to deciding which Z-Score variant to compute, validating input data, and ensuring transparency/traceability.

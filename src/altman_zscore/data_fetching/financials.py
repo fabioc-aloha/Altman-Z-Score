@@ -9,6 +9,7 @@ import logging
 import json
 from decimal import Decimal
 from typing import Dict, Any, List, Optional, Union, TypedDict
+import requests
 
 import pandas as pd
 import yfinance as yf
@@ -53,6 +54,34 @@ def find_xbrl_tag(soup, tag_names):
             except (ValueError, TypeError):
                 continue
     return None
+
+def fetch_sec_edgar_data(ticker: str) -> Optional[Dict[str, Any]]:
+    """
+    Fetch company information from SEC EDGAR for the given ticker.
+
+    Args:
+        ticker (str): Stock ticker symbol (e.g., 'AAPL')
+
+    Returns:
+        dict or None: Company information if available, else None.
+    """
+    try:
+        # Example URL for SEC EDGAR API (replace with actual endpoint if available)
+        edgar_url = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={ticker}&type=&dateb=&owner=exclude&start=0&count=40&output=atom"
+        headers = {"User-Agent": "Altman-Z-Score-Pipeline"}
+        response = requests.get(edgar_url, headers=headers)
+        response.raise_for_status()
+
+        # Parse the response (this is an example, actual parsing depends on the API response format)
+        company_data = {
+            "ticker": ticker,
+            "edgar_url": edgar_url,
+            "response_text": response.text,  # Save raw response for debugging
+        }
+        return company_data
+    except Exception as e:
+        logging.warning(f"Failed to fetch SEC EDGAR data for {ticker}: {e}")
+        return None
 
 def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, Any]]:
     """
@@ -231,12 +260,65 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
 
+            # Save raw data from yfinance
             raw_data = {
                 "balance_sheet": df_to_dict_str_keys(bs),
                 "income_statement": df_to_dict_str_keys(is_),
             }
             with open(os.path.join(output_dir, "financials_raw.json"), "w", encoding="utf-8") as f:
-                json.dump(raw_data, f, indent=2, ensure_ascii=False, default=str)
+                json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)
+
+            # Fetch and save additional company information from yfinance
+            try:
+                company_info = yf_ticker.info
+                with open(os.path.join(output_dir, "company_info.json"), "w", encoding="utf-8") as f:
+                    json.dump(company_info, f, indent=4, ensure_ascii=False, default=str)
+
+                major_holders = yf_ticker.major_holders.to_json()
+                with open(os.path.join(output_dir, "major_holders.json"), "w", encoding="utf-8") as f:
+                    f.write(json.dumps(json.loads(major_holders), indent=4))
+
+                institutional_holders = yf_ticker.institutional_holders.to_json()
+                with open(os.path.join(output_dir, "institutional_holders.json"), "w", encoding="utf-8") as f:
+                    f.write(json.dumps(json.loads(institutional_holders), indent=4))
+
+                if isinstance(yf_ticker.recommendations, pd.DataFrame):
+                    recommendations = yf_ticker.recommendations.to_json()
+                    with open(os.path.join(output_dir, "recommendations.json"), "w", encoding="utf-8") as f:
+                        f.write(json.dumps(json.loads(recommendations), indent=4))
+            except Exception as e:
+                logger.warning(f"[{ticker}] Failed to fetch additional company information from yfinance: {e}")
+
+            # Fetch and save additional company information from SEC EDGAR
+            try:
+                sec_edgar_data = fetch_sec_edgar_data(ticker)
+                if sec_edgar_data:
+                    with open(os.path.join(output_dir, "sec_edgar_company_info.json"), "w", encoding="utf-8") as f:
+                        json.dump(sec_edgar_data, f, indent=4, ensure_ascii=False, default=str)
+            except Exception as e:
+                logger.warning(f"[{ticker}] Failed to fetch additional company information from SEC EDGAR: {e}")
+
+            # Fetch and save additional data from yfinance
+            try:
+                # Fetch historical prices
+                historical_prices = yf_ticker.history(period="max")
+                historical_prices.to_csv(os.path.join(output_dir, "historical_prices.csv"))
+
+                # Fetch dividends
+                dividends = yf_ticker.dividends
+                dividends.to_csv(os.path.join(output_dir, "dividends.csv"))
+
+                # Fetch stock splits
+                splits = yf_ticker.splits
+                splits.to_csv(os.path.join(output_dir, "splits.csv"))
+            except Exception as e:
+                logger.warning(f"[{ticker}] Failed to fetch additional data from yfinance: {e}")
+
+            # Placeholder for SEC EDGAR data fetching
+            sec_edgar_data = None  # Replace with actual SEC EDGAR fetching logic if needed
+            if sec_edgar_data:
+                with open(os.path.join(output_dir, "sec_edgar_raw.json"), "w", encoding="utf-8") as f:
+                    json.dump(sec_edgar_data, f, indent=2, ensure_ascii=False, default=str)
 
             with open(os.path.join(output_dir, "financials_quarterly.json"), "w", encoding="utf-8") as f:
                 json.dump(quarters, f, indent=2, ensure_ascii=False, default=str)

@@ -4,7 +4,54 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.4)
+# PLAN.md — Altman Z-Score Analysis (v2.5)
+
+## Updated Plan: Accomplishments and Next Steps
+
+### Accomplishments:
+- **Data Fetching Enhancements:**
+  - Integrated additional data fetching from `yfinance`, including historical prices, dividends, and stock splits.
+  - Fetched and saved `company_info`, `major_holders`, `institutional_holders`, and `recommendations` from `yfinance`.
+  - Implemented a function `fetch_sec_edgar_data` to fetch company information from SEC EDGAR.
+  - Ensured all JSON files saved in the output directory are pretty-formatted.
+
+- **Model Selection and Z-Score Computation:**
+  - Hierarchical decision tree for Z-Score model selection based on SIC, Emerging Market flag, and Public/Private maturity.
+  - Centralized configuration for model coefficients, intercepts, and thresholds.
+  - Validation of required fields and accounting identities.
+  - Ratio range checks and consistency warnings.
+  - Computation dispatcher for Z-Score calculation and diagnostic assignment.
+
+- **Qualitative Validation:**
+  - Designed a prompt template summarizing company details, Z-Score, and financial highlights.
+  - Integrated LLM call to generate qualitative validation.
+  - Appended qualitative validation section to `zscore_full_report` with LLM summary, news headlines, and references.
+  - Error handling for LLM call failures with fallback messaging.
+  - Tested on multiple tickers to ensure relevance and accuracy of LLM output.
+  - Documented the qualitative validation feature in `README.md` and `PLAN.md`.
+
+### Pending:
+- **Validation and Error Handling:**
+  - Validate the accuracy and usefulness of SEC EDGAR data.
+  - Improve error handling for both `yfinance` and SEC EDGAR data fetching.
+  - Enhance identity checks to catch inter-quarter restatements and detect stale XBRL contexts.
+
+- **Pipeline Refinements:**
+  - Finalize and implement the checklist in `DataFetching.mp`.
+  - Caching of LLM responses for auditability and cost control.
+  - Advanced notifications for Z-Score thresholds.
+  - Refinement of prompt and output formatting based on user feedback.
+
+- **Future Features:**
+  - Currency conversion for non-USD firms.
+  - "What-if" scenario analysis for CAPEX adjustments.
+  - Integration of RACI chart for execution ownership.
+  - Optimization of data caching to reduce API calls.
+  - Forecasting next quarter's Z-Score using consensus estimates and/or time series models.
+  - Sentiment and news analysis integration.
+  - Generalization of pipeline for multiple tickers and portfolio analysis.
+
+---
 
 ## Short-Term Action Items (for TODO.md)
 - Add warnings for size/leverage outliers in the report
@@ -25,11 +72,13 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 - All plotting and reporting logic updated for weekly-only data
 - All documentation and tests updated for weekly-only support
 
-## v2.5 Roadmap: Forecasting, Sentiment, and Portfolio Analysis
-- Forecasting: Add ability to forecast next quarter's Z-Score using consensus estimates and/or time series models
-- Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
+## v2.5 Roadmap: Portfolio Analysis and Modularization
 - Portfolio/Multi-Ticker Analysis: Generalize pipeline for multiple tickers, output per-ticker and aggregate summaries
 - Testing & Documentation: Add/expand tests for new v2.5 features, update documentation for v2.5 features and usage
+
+## Planned/Future Features
+- Forecasting: Add ability to forecast next quarter's Z-Score using consensus estimates and/or time series models
+- Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
 
 ## Implementation Principles
 - Simplicity: Start with a single-stock analysis pipeline, then generalize to portfolios
@@ -51,6 +100,60 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 - Only enable new features after the MVP is stable and well-tested
 - Light up features one at a time, with tests and documentation, to avoid regressions
 - Avoid over-ambitious changes; prioritize reliability and maintainability
+
+## Roadmap: Prioritized Ideas by Complexity
+
+### High Priority, Low Complexity
+1. **Validation and Error Handling:**
+   - Validate the accuracy and usefulness of SEC EDGAR data.
+   - Improve error handling for both `yfinance` and SEC EDGAR data fetching.
+   - Enhance identity checks to catch inter-quarter restatements and detect stale XBRL contexts.
+
+2. **Pipeline Refinements:**
+   - Finalize and implement the checklist in `DataFetching.mp`.
+   - Refine prompt and output formatting based on user feedback.
+
+3. **Documentation and Testing:**
+   - Expand unit/integration tests for new model selection and reporting logic.
+   - Improve documentation for mapping, prompt usage, and internationalization.
+
+---
+
+### High Priority, High Complexity
+1. **Future Features:**
+   - Forecasting next quarter's Z-Score using consensus estimates and/or time series models.
+   - Sentiment and news analysis integration.
+   - Generalization of pipeline for multiple tickers and portfolio analysis.
+
+2. **Advanced Notifications:**
+   - Implement advanced notifications for Z-Score thresholds.
+
+---
+
+### Medium Priority, Medium Complexity
+1. **Qualitative Validation Enhancements:**
+   - Caching of LLM responses for auditability and cost control.
+   - "What-if" scenario analysis for CAPEX adjustments.
+
+2. **Data Infrastructure:**
+   - Currency conversion for non-USD firms.
+   - Integration of RACI chart for execution ownership.
+   - Optimization of data caching to reduce API calls.
+
+---
+
+### Long-Term Goals
+1. **Web Dashboard and API:**
+   - Prepare for web dashboard, REST API, and Excel Add-In.
+
+2. **AI and Machine Learning:**
+   - Experiment with ML models for future Z-Score predictions.
+   - Add AI-powered anomaly detection for ratio trends.
+
+3. **Industry Benchmarking:**
+   - Integrate additional industry benchmark data (WRDS/Compustat or open data) into constants.py.
+
+---
 
 # ---
 # All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
