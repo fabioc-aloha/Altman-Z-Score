@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,97 +52,96 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |      X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|-------|-------|-------|---------|-------|-----------|--------------|
-| 2025 Q1   | 0.556 | 0.61  | 0.227 |  90.722 | 0.352 |    57.054 | Safe Zone    |
-| 2024 Q4   | 0.533 | 0.562 | 0.233 | 107.497 | 0.365 |    67.059 | Safe Zone    |
-| 2024 Q3   | 0.536 | 0.539 | 0.226 | 105.398 | 0.352 |    65.736 | Safe Zone    |
-| 2024 Q2   | 0.5   | 0.475 | 0.225 |  75.419 | 0.338 |    47.596 | Safe Zone    |
-| 2024 Q1   | 0.513 | 0.454 | 0.216 |  65.931 | 0.336 |    41.857 | Safe Zone    |
+| Quarter   |    X1 |    X2 |    X3 |      X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|-------|-------|---------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.556 | 0.61  | 0.227 |  90.722 | 0.352 |    57.054 | Safe Zone    |                       |
+| 2024 Q4   | 0.533 | 0.562 | 0.233 | 107.497 | 0.365 |    67.059 | Safe Zone    |                       |
+| 2024 Q3   | 0.536 | 0.539 | 0.226 | 105.398 | 0.352 |    65.736 | Safe Zone    |                       |
+| 2024 Q2   | 0.5   | 0.475 | 0.225 |  75.419 | 0.338 |    47.596 | Safe Zone    |                       |
+| 2024 Q1   | 0.513 | 0.454 | 0.216 |  65.931 | 0.336 |    41.857 | Safe Zone    |                       |
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-NVIDIA Corporation (NVDA) demonstrates strong liquidity, as indicated by its X1 component (Current Assets - Current Liabilities) / Total Assets, which has consistently remained above 0.5. This suggests that the company has sufficient short-term assets to cover its liabilities, indicating a robust liquidity position.
+NVIDIA Corporation (NVDA) demonstrates strong liquidity, as indicated by its X1 value (Current Assets - Current Liabilities) / Total Assets, which has consistently remained above 0.5. This suggests that the company can cover its short-term obligations comfortably.
 
 ### Profitability
-The profitability of NVDA is reflected in its X3 component (EBIT / Total Assets), which has shown a stable trend around 0.22 to 0.23. This indicates that the company is effectively generating earnings before interest and taxes relative to its total assets, showcasing efficient operational performance.
+The profitability metric (X3: EBIT / Total Assets) shows a stable performance, with values around 0.22 to 0.23. This indicates that NVIDIA is effectively generating earnings relative to its asset base, which is a positive sign for investors.
 
 ### Capital Efficiency
-The X2 component (Retained Earnings / Total Assets) has been fluctuating but remains above 0.45, indicating that NVDA retains a significant portion of its earnings, which is a positive sign of capital efficiency and a commitment to reinvestment for growth.
+The retained earnings ratio (X2: Retained Earnings / Total Assets) has shown a gradual increase, reflecting the company’s ability to reinvest profits into growth. This is crucial for sustaining long-term growth and shareholder value.
 
 ### Leverage
-The X4 component (Equity / Total Liabilities) is exceptionally high, with values exceeding 65, indicating that NVDA is primarily equity-financed. This low leverage ratio suggests a conservative approach to debt, reducing financial risk and enhancing stability.
+NVIDIA's leverage, represented by X4 (Equity / Total Liabilities), is exceptionally high, indicating a strong equity position relative to its liabilities. This low leverage ratio suggests that the company is not overly reliant on debt, which is favorable for financial stability.
 
 ### Z-Score Trend Interpretation
-The Z-Score for NVDA has consistently remained in the "Safe Zone," with values ranging from 41.857 to 67.059 over the last four quarters. This trend indicates a strong financial health status, with no immediate risk of bankruptcy. The upward trajectory of the Z-Score reflects effective management strategies and operational efficiencies.
+The Z-Score for NVIDIA has consistently remained in the "Safe Zone," with values ranging from 41.857 to 67.059 over the last four quarters. This trend indicates a robust financial health profile, suggesting that the company is well-positioned to withstand economic downturns and financial distress.
 
 ---
 
 ## 2. Turnaround and Renewal Management Theory Application
 
 ### Immediate Retrenchment
-Given the strong financial health indicated by the Z-Score, immediate retrenchment is not necessary for NVDA. However, if any unforeseen market challenges arise, the company should consider cost-cutting measures and operational efficiencies to maintain its competitive edge. This aligns with Bibeault's (1999) emphasis on the importance of immediate actions to stabilize a company facing distress.
+Given NVIDIA's strong financial position, immediate retrenchment is not necessary. However, the company should focus on optimizing operational efficiencies to maintain its competitive edge in the rapidly evolving semiconductor industry. This aligns with Hofer's (1980) turnaround strategies, emphasizing the need for cost control and resource allocation.
 
-### Long-term Repositioning
-For long-term repositioning, NVDA should focus on innovation and market expansion, particularly in emerging technologies such as AI and machine learning. Hofer's (1980) turnaround strategies suggest that companies should leverage their strengths to explore new market opportunities. Additionally, adopting agile practices as suggested by Beard (2024) can enhance NVDA's adaptability to market changes.
+### Long-Term Repositioning
+For long-term repositioning, NVIDIA should invest in research and development (R&D) to innovate and diversify its product offerings. Bibeault (1999) emphasizes the importance of strategic renewal, which is crucial for technology firms facing intense competition. Additionally, Hoskisson et al. (2004) suggest that restructuring and strategic realignment can enhance market positioning.
 
 ---
 
-## 3. Recommendations for Stakeholders
+## 3. Stakeholder Recommendations
 
-| Stakeholder Title                     | Executive Name | Responsibilities and Recommended Actions                                                                                                      |
-|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Jensen Huang   | Drive innovation strategy and oversee market expansion initiatives. Foster a culture of agility and responsiveness to market changes.         |
-| Chief Financial Officer               | Colette Kress  | Maintain financial health through prudent capital allocation. Monitor liquidity and leverage ratios closely to ensure continued stability.     |
-| Chief Marketing Officer               | Allison Dew        | Develop marketing strategies that highlight NVDA's leadership in AI and gaming sectors. Engage with customers to understand evolving needs.  |
-| Board Members                         | Various         | Provide oversight and strategic direction. Ensure alignment of management actions with long-term goals and stakeholder interests.              |
-| Employees                             | N/A             | Embrace a culture of innovation and continuous improvement. Participate in training programs to enhance skills relevant to new technologies.   |
-| Investors                             | N/A             | Monitor company performance and market trends. Consider holding shares given the strong Z-Score and growth potential.                         |
-| Creditors                             | N/A             | Maintain open communication regarding financial health. Ensure that NVDA continues to meet its debt obligations comfortably.                   |
-| Debtors                               | N/A             | Ensure timely payments to maintain good relationships with NVDA.                                                                                 |
-| Partner Companies                     | N/A             | Collaborate on joint ventures in emerging technologies. Share insights to enhance product offerings.                                          |
-| Customers                             | N/A             | Provide feedback on products and services. Engage with NVDA to understand future product developments.                                        |
+| Stakeholder Title                     | Executive Name | Responsibilities                         | Recommended Actions                                                                 |
+|---------------------------------------|----------------|-----------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Jensen Huang   | Overall strategy and leadership         | Focus on innovation and R&D investment to maintain competitive advantage.           |
+| Chief Financial Officer               | Colette Kress  | Financial management and reporting      | Optimize capital structure and explore strategic partnerships for growth.          |
+| Chief Marketing Officer               | Alison G.      | Marketing strategy and brand management | Enhance marketing efforts to promote new products and technologies.                 |
+| Board Members                         | Various        | Governance and oversight                | Ensure alignment of strategic goals with market trends and technological advancements. |
+| Employees                             | N/A            | Operational execution                    | Foster a culture of innovation and continuous improvement.                          |
+| Investors                             | N/A            | Capital allocation                       | Monitor financial performance and support strategic initiatives for growth.         |
+| Creditors                             | N/A            | Financial support                        | Maintain open communication regarding financial health and repayment plans.        |
+| Debtors                               | N/A            | Debt management                         | Ensure timely payments and maintain good credit relationships.                      |
+| Partner Companies                     | N/A            | Collaboration and joint ventures       | Explore collaborative opportunities in R&D and product development.                |
+| Customers                             | N/A            | Product usage and feedback              | Engage customers for feedback on new products and enhance customer service.        |
 
 ---
 
 ## 4. Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates through town hall meetings and newsletters to keep employees informed about strategic initiatives.
-- **External Communication:** Press releases and social media campaigns to highlight innovations and market achievements.
+- **Objective:** Maintain transparency with stakeholders regarding financial health and strategic direction.
+- **Channels:** Regular updates via press releases, investor calls, and social media.
 
 ### Marketing Strategy
-- Focus on digital marketing campaigns targeting AI and gaming sectors.
-- Collaborate with influencers and tech reviewers to enhance brand visibility.
+- **Objective:** Position NVIDIA as a leader in innovation within the semiconductor industry.
+- **Tactics:** Launch targeted marketing campaigns highlighting new product features and technological advancements.
 
 ### Execution Timeline
-- **Q1 2025:** Launch new marketing campaigns and internal training programs.
-- **Q2 2025:** Evaluate the effectiveness of marketing strategies and adjust as necessary.
-- **Q3 2025:** Review financial performance and adjust strategic initiatives based on market feedback.
-
-### Accountability Framework
-- Assign specific teams to oversee each initiative with clear KPIs to measure success.
-- Regular review meetings to assess progress and make necessary adjustments.
+| Phase               | Timeline         | Accountability            |
+|---------------------|------------------|---------------------------|
+| Immediate Actions    | Q2 2025          | CEO and CFO               |
+| R&D Investment       | Q3 2025 - Q4 2026| CMO and R&D Teams         |
+| Marketing Campaigns  | Q2 2025 - Q4 2025| CMO                       |
+| Stakeholder Updates   | Ongoing          | CEO                       |
 
 ---
 
 ## 5. Investor Recommendation
-Given the strong financial health indicated by the Z-Score and the potential for growth in emerging markets, it is recommended that investors **hold** their shares in NVDA. The company shows no immediate signs of distress and has a solid foundation for future growth. However, investors should consult their financial advisors before making any investment decisions.
+Given NVIDIA's strong Z-Score and financial health, investors are advised to **hold** their positions. The company is well-positioned for growth, but it is essential to monitor market conditions and competitive dynamics. **Disclaimer:** This is not financial advice; please consult your financial advisor before making investment decisions.
 
 ---
 
 ## 6. External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                     |
-|---------------------------------------|----------------------------|---------------------|----------------------------------------------------------------------------------------------|
-| Regulators                            | Regulatory Compliance       | Moderate            | Must comply with industry regulations, but NVDA has a strong compliance history.            |
-| Government Agencies                   | Policy Influence           | Low                 | Limited direct influence on NVDA's operations; however, policies can impact market dynamics.|
-| Unions                                | Labor Relations            | Low                 | NVDA has a non-unionized workforce, reducing union influence.                               |
-| Major Suppliers                       | Supply Chain Management    | Moderate            | Dependence on key suppliers for components; strong relationships are crucial.                |
-| Key Partners                          | Strategic Alliances        | High                | Partnerships with tech firms enhance innovation and market reach.                           |
-| Activist Investors                    | Shareholder Activism       | Moderate            | Can influence company policy through shareholder proposals.                                  |
-| Creditors                             | Financial Stability         | High                | Creditors have significant leverage due to financial obligations; maintaining good relations is essential. |
-| Large Customers                       | Demand Influence           | Moderate            | Major clients can influence product development and pricing strategies.                      |
+| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|------------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
+| Regulators                   | Regulatory compliance       | Medium              | Compliance with regulations affects operational capabilities.            |
+| Government Agencies          | Policy influence            | Low                 | Limited direct influence on company operations.                         |
+| Unions                       | Labor negotiations          | Medium              | Potential influence on labor relations and operational costs.           |
+| Major Suppliers              | Supply chain leverage       | High                | Critical for maintaining production efficiency and cost management.     |
+| Key Partners                 | Strategic alliances         | Medium              | Partnerships can enhance innovation and market reach.                   |
+| Activist Investors           | Shareholder activism        | Medium              | Can influence management decisions through shareholder proposals.       |
+| Creditors                    | Debt terms negotiation      | High                | Influence on financial flexibility and capital structure.               |
+| Large Customers              | Demand influence            | Medium              | Significant customers can impact revenue and product development focus. |
 
 ---
 
@@ -167,15 +165,9 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -191,7 +183,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 18,047.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 68,038.0               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 32,274.0               |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 79,327.0               |
+| 2025 Q1   | market_value_equity |                                         | 0.0                    |
 | 2025 Q1   | ebit                | EBIT                                    | 25,278.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 39,331.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -200,7 +192,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 16,479.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 53,950.0               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 30,114.0               |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 65,899.0               |
+| 2024 Q4   | market_value_equity |                                         | 0.0                    |
 | 2024 Q4   | ebit                | EBIT                                    | 22,377.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 35,082.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -209,7 +201,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 13,969.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 45,961.0               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 27,070.0               |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 58,157.0               |
+| 2024 Q3   | market_value_equity |                                         | 0.0                    |
 | 2024 Q3   | ebit                | EBIT                                    | 19,275.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 30,040.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -218,7 +210,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 15,223.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 36,598.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 27,930.0               |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 49,142.0               |
+| 2024 Q2   | market_value_equity |                                         | 0.0                    |
 | 2024 Q2   | ebit                | EBIT                                    | 17,343.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 26,044.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -227,7 +219,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 10,631.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 29,817.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 22,750.0               |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 42,978.0               |
+| 2024 Q1   | market_value_equity |                                         | 0.0                    |
 | 2024 Q1   | ebit                | EBIT                                    | 14,169.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 22,103.0               |
 

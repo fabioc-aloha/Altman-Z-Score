@@ -22,23 +22,21 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
 - X4 = Equity / Total Liabilities
-- X5 = Sales / Total Assets
 
 **Thresholds:**
-- Safe Zone: > 2.99
-- Grey Zone: > 1.81 and <= 2.99
-- Distress Zone: <= 1.81
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -53,98 +51,101 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    |
-|-----------|--------|-------|-------|-------|-------|-----------|---------------|
-| 2025 Q1   | -0.021 | 0.021 | 0.013 | 0.692 | 0.044 |     0.508 | Distress Zone |
-| 2024 Q4   | -0.034 | 0.018 | 0.012 | 0.609 | 0.039 |     0.428 | Distress Zone |
-| 2024 Q3   | -0.029 | 0.017 | 0.013 | 0.654 | 0.044 |     0.467 | Distress Zone |
-| 2024 Q2   | -0.016 | 0.015 | 0.01  | 0.574 | 0.039 |     0.419 | Distress Zone |
-| 2024 Q1   | -0.019 | 0.014 | 0.012 | 0.56  | 0.043 |     0.415 | Distress Zone |
+| Quarter   |     X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|--------|-------|-------|-------|-----------|---------------|-----------------------|
+| 2025 Q1   | -0.021 | 0.021 | 0.013 | 0.692 |     0.751 | Distress Zone |                       |
+| 2024 Q4   | -0.034 | 0.018 | 0.012 | 0.609 |     0.553 | Distress Zone |                       |
+| 2024 Q3   | -0.029 | 0.017 | 0.013 | 0.654 |     0.637 | Distress Zone |                       |
+| 2024 Q2   | -0.016 | 0.015 | 0.01  | 0.574 |     0.615 | Distress Zone |                       |
+| 2024 Q1   | -0.019 | 0.014 | 0.012 | 0.56  |     0.589 | Distress Zone |                       |
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Duke Energy Corporation (DUK) has shown negative values for X1 (Current Assets - Current Liabilities) / Total Assets, indicating a liquidity issue. This suggests that the company may struggle to cover its short-term obligations, which is critical for maintaining operational stability.
+The liquidity position of Duke Energy Corporation (DUK) is concerning, as indicated by the negative X1 value across the quarters analyzed. A negative X1 suggests that current liabilities exceed current assets, which raises red flags regarding the company's ability to meet short-term obligations. This liquidity issue is a significant factor contributing to the overall distress indicated by the Z-Score.
 
 ### Profitability
-The retained earnings ratio (X2) is low, reflecting limited profitability over time. This could indicate that the company has not been able to reinvest adequately in its operations or return value to shareholders.
+The profitability measure, represented by X3 (EBIT/Total Assets), shows minimal positive values, indicating that the company's operational efficiency in generating earnings from its assets is weak. This trend is detrimental to the overall financial health of DUK, as profitability is essential for sustaining operations and funding future growth.
 
 ### Capital Efficiency
-The EBIT (Earnings Before Interest and Taxes) to Total Assets ratio (X3) is also low, suggesting that the company is not generating sufficient earnings from its asset base. This inefficiency can hinder growth and investment opportunities.
+X2 (Retained Earnings/Total Assets) reflects a low retention of earnings relative to total assets, which suggests that the company is not effectively reinvesting its profits to enhance its asset base. This inefficiency can hinder long-term growth and stability, further exacerbating the financial distress indicated by the Z-Score.
 
 ### Leverage
-The equity to liabilities ratio (X4) is relatively better, but still concerning, as it indicates that a significant portion of the company's financing comes from debt. This high leverage can increase financial risk, especially in a volatile market.
+X4 (Equity/Total Liabilities) shows a relatively low ratio, indicating high leverage. This high level of debt relative to equity increases financial risk, especially in a distress situation where the company may struggle to service its debt obligations. High leverage can lead to increased vulnerability during economic downturns or operational challenges.
 
 ### Z-Score Trend Interpretation
-The Z-Score has consistently remained in the distress zone (below 1.81) over the last four quarters, indicating a high risk of bankruptcy. The downward trend in the Z-Score from 0.508 in Q1 2025 to 0.415 in Q1 2024 suggests worsening financial health. This trend necessitates immediate action to stabilize the company.
+The Z-Score trend for DUK has consistently remained in the distress zone (Z-Score < 1.23) over the last five quarters, indicating a persistent risk of bankruptcy. The declining trend in the Z-Score from 0.751 in Q1 2025 to 0.553 in Q4 2024 reflects a deteriorating financial condition. This trend necessitates immediate action to stabilize the company's financial health.
 
 ---
 
 ## Turnaround and Renewal Management Theory Application
 
 ### Phased Response Proposal
-1. **Immediate Retrenchment (Short-term Actions)**
-   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) emphasis on reducing operational costs during a crisis.
-   - **Asset Liquidation:** Consider selling non-core assets to generate cash. This is supported by Hofer's (1980) turnaround strategies, which advocate for asset management during distress.
+Based on the analysis, a phased response is recommended, distinguishing between immediate retrenchment and long-term repositioning.
 
-2. **Long-term Repositioning (Strategic Actions)**
-   - **Market Reassessment:** Conduct a thorough market analysis to identify growth opportunities and potential areas for divestment. Hoskisson et al. (2004) highlight the importance of strategic realignment in corporate restructuring.
-   - **Innovation and Investment:** Invest in renewable energy technologies to align with market trends and regulatory demands. Beard (2024) discusses the need for strategic renewal through innovation in technology firms.
+1. **Immediate Retrenchment:**
+   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) emphasis on immediate financial stabilization during corporate turnarounds.
+   - **Asset Liquidation:** Identify non-core assets for divestiture to generate cash and reduce debt levels, as suggested by Hofer (1980).
+
+2. **Long-Term Repositioning:**
+   - **Strategic Investment:** Reinvest in core operations and explore new revenue streams, focusing on sustainable energy solutions to align with market trends. This aligns with Hoskisson et al. (2004), advocating for strategic restructuring.
+   - **Stakeholder Engagement:** Foster relationships with stakeholders to enhance support for strategic initiatives, as Freeman (1984) highlights the importance of stakeholder management in corporate strategy.
 
 ---
 
 ## Stakeholder Recommendations
 
-| Stakeholder Title                     | Name                  | Responsibilities & Recommended Actions                                                                 |
-|---------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Lynn Good             | Lead the turnaround strategy, focusing on cost reduction and strategic realignment.                     |
-| Chief Financial Officer               | Brian D. Tierney      | Oversee financial restructuring, manage cash flow, and implement asset liquidation strategies.          |
-| Chief Marketing Officer               | Jason P. Hollar       | Reassess market positioning and develop marketing strategies to promote new initiatives.                |
-| Board Members                         | Various                | Provide oversight and support for strategic decisions; ensure alignment with long-term goals.           |
-| Employees                             | All Staff             | Engage in cost-saving initiatives and contribute ideas for operational improvements.                     |
-| Investors                             | Shareholders          | Monitor company performance and support management in strategic initiatives; consider holding shares.    |
-| Creditors                             | Various                | Work with management to restructure debt agreements and provide flexibility during the turnaround.      |
-| Debtors                               | Various                | Ensure timely payments to maintain cash flow; negotiate terms if necessary.                             |
-| Partner Companies                     | Various                | Collaborate on joint ventures or projects that align with strategic goals.                              |
-| Customers                             | End Users             | Maintain communication regarding service reliability and new offerings; foster loyalty during changes.   |
+| Stakeholder Title                     | Responsibilities                                   | Recommended Actions                                                                 |
+|---------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer (Lynn Good)  | Overall strategy and leadership                    | Lead the turnaround initiative, focusing on cost reduction and strategic investments. |
+| Chief Financial Officer (Diane Leopold)| Financial management and reporting                 | Implement immediate liquidity measures and monitor financial performance closely.     |
+| Chief Marketing Officer (Jason D. H. | Marketing strategy and brand management            | Develop a marketing strategy to promote new sustainable initiatives and improve brand perception. |
+| Board Members                         | Governance and oversight                            | Support management in strategic decision-making and ensure accountability.           |
+| Employees                             | Operational execution                               | Engage employees in cost-saving initiatives and encourage innovation in operations.   |
+| Investors                             | Capital provision and return expectations          | Communicate the turnaround plan and its potential benefits; consider holding shares.  |
+| Creditors                             | Debt management and financial stability            | Negotiate terms for debt restructuring to alleviate immediate financial pressures.    |
+| Debtors                               | Payment obligations                                 | Ensure timely payments to maintain cash flow; consider renegotiation if necessary.   |
+| Partner Companies                     | Collaboration and joint ventures                   | Explore partnerships in sustainable energy projects to enhance market position.      |
+| Customers                             | Product/service consumption                         | Communicate commitment to sustainability and reliability in service delivery.        |
+| Regulators                            | Compliance and oversight                           | Maintain transparency in financial reporting and compliance with regulations.        |
+| Major Suppliers                       | Supply chain management                             | Negotiate favorable terms to improve cash flow and reduce costs.                     |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about the turnaround process and their roles in it.
-- **External Communication:** Transparent communication with investors and customers about the company’s strategic direction and initiatives.
+- **Internal Communication:** Regular updates to employees on the turnaround progress and their role in the process.
+- **External Communication:** Transparent communication with investors and creditors about the financial situation and turnaround strategy.
 
 ### Marketing Strategy
-- **Rebranding:** Consider a rebranding initiative to emphasize the company's commitment to sustainability and innovation.
-- **Promotional Campaigns:** Launch campaigns highlighting new services or products, particularly in renewable energy.
+- **Brand Positioning:** Rebrand initiatives focusing on sustainability and reliability to attract environmentally conscious consumers.
+- **Promotional Campaigns:** Launch campaigns highlighting new sustainable energy solutions.
 
 ### Execution Timeline
-| Phase                | Timeline         | Accountability          |
-|----------------------|------------------|-------------------------|
-| Immediate Retrenchment| Q2 2025          | CFO and CEO             |
-| Market Reassessment   | Q3 2025          | CMO                     |
-| Innovation Investment  | Q4 2025          | CEO and Board Members   |
+- **Q2 2025:** Implement immediate cost-cutting measures and initiate asset liquidation.
+- **Q3 2025:** Launch marketing campaigns and begin strategic investments in core operations.
+- **Q4 2025:** Review progress and adjust strategies based on stakeholder feedback and financial performance.
+
+### Accountability Framework
+- Assign specific team leaders for each initiative with clear KPIs to measure success and report progress to the CEO.
 
 ---
 
-## Investor Recommendation
-Based on the current financial analysis and Z-Score trend, it is recommended that investors **hold** their shares in Duke Energy Corporation (DUK) while monitoring the implementation of the turnaround strategy. The company is in a distress zone, but with effective management actions, there may be potential for recovery. **Disclaimer:** This is not financial advice; please consult your financial advisor before making investment decisions.
+## Bargaining Power of External Stakeholders
+
+| External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|---------------------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
+| Regulators                            | Regulatory compliance       | High                | Regulatory bodies can impose penalties or restrictions affecting operations. |
+| Creditors                             | Financial leverage          | High                | Creditors can influence restructuring terms and conditions.              |
+| Major Suppliers                       | Supply chain dependency     | Medium              | Suppliers can affect operational costs and availability of materials.    |
+| Large Customers                       | Purchasing power           | Medium              | Large customers can negotiate terms and influence revenue stability.      |
+| Activist Investors                    | Shareholder activism        | Medium              | Activist investors can push for changes in management or strategy.        |
+| Government Agencies                   | Policy influence            | Low                 | Limited direct influence but can affect operational conditions through policy. |
 
 ---
 
-## External Stakeholder Bargaining Power Assessment
-
-| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                   |
-|------------------------------|----------------------------|---------------------|--------------------------------------------------------------------------------------------|
-| Regulators                   | Regulatory Compliance       | High                | Regulatory bodies can impose fines or sanctions, influencing operational capabilities.      |
-| Government Agencies          | Policy Influence            | Medium              | Government incentives for renewable energy can impact strategic direction.                  |
-| Unions                       | Labor Negotiations          | Medium              | Unions can influence labor costs and operational efficiency through negotiations.          |
-| Major Suppliers              | Supply Chain Leverage       | Medium              | Suppliers can affect costs and availability of materials, impacting profitability.          |
-| Key Partners                 | Strategic Alliances         | Medium              | Partnerships can enhance market reach and resource sharing, crucial for recovery.          |
-| Activist Investors           | Shareholder Activism        | High                | Activist investors can push for changes in management or strategy, impacting governance.    |
-| Creditors                    | Debt Restructuring          | High                | Creditors have significant leverage in restructuring negotiations, affecting financial stability. |
-| Large Customers              | Revenue Dependence          | Medium              | Large customers can influence pricing and contract terms, impacting revenue streams.       |
+## Investment Recommendation
+Based on the current financial analysis and Z-Score trend, it is recommended that investors **hold** their positions in Duke Energy Corporation (DUK) while monitoring the implementation of the turnaround strategy. The company is in a distress zone, and while there is potential for recovery, significant risks remain. Investors should consult their financial advisors for personalized advice.
 
 ---
 
@@ -161,22 +162,14 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-  - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -192,7 +185,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 16,625.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 3,986.0                |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 135,682.0              |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 49,697.0               |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 49,697.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 2,486.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 8,249.0                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -201,7 +194,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 19,357.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 3,431.0                |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 135,088.0              |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 49,153.0               |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 49,153.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 2,209.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 7,360.0                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -210,7 +203,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 17,427.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 3,052.0                |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 133,317.0              |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 48,160.0               |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 48,160.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 2,325.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 8,154.0                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -219,7 +212,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 15,482.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 2,635.0                |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 130,769.0              |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 47,745.0               |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 47,745.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 1,895.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 7,172.0                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -228,7 +221,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 15,546.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 2,542.0                |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 128,032.0              |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 47,589.0               |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 47,589.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 2,149.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 7,671.0                |
 

@@ -131,3 +131,49 @@ class FinancialDataValidator:
             val = f" (value: {i.value})" if hasattr(i, "value") and i.value is not None else ""
             lines.append(f"{prefix} {field}{i.issue}{val}")
         return " | ".join(lines)
+
+    def check_consistency(self, q):
+        """
+        Run consistency checks as described in ModelSelection.md pseudocode:
+        - TA >= CA
+        - TL >= CL
+        - BVE ≈ TA - TL
+        - Rounding discrepancies
+        Returns:
+            list: List of ValidationIssue (level=WARNING)
+        """
+        issues = []
+        # TA >= CA
+        ta = q.get("total_assets")
+        ca = q.get("current_assets")
+        if ta is not None and ca is not None and ta < ca:
+            issues.append(ValidationIssue(
+                field="total_assets/current_assets",
+                issue="Total Assets < Current Assets — check tags for TA or CA",
+                level=ValidationLevel.WARNING,
+                value=f"TA={ta}, CA={ca}"
+            ))
+        # TL >= CL
+        tl = q.get("total_liabilities")
+        cl = q.get("current_liabilities")
+        if tl is not None and cl is not None and tl < cl:
+            issues.append(ValidationIssue(
+                field="total_liabilities/current_liabilities",
+                issue="Total Liabilities < Current Liabilities — check tags for TL or CL",
+                level=ValidationLevel.WARNING,
+                value=f"TL={tl}, CL={cl}"
+            ))
+        # BVE ≈ TA - TL
+        bve = q.get("book_value_equity")
+        if ta is not None and tl is not None and bve is not None:
+            equity_diff = abs(bve - (ta - tl))
+            if equity_diff > 1_000_000:
+                issues.append(ValidationIssue(
+                    field="book_value_equity",
+                    issue="Shareholders’ Equity mismatch: BVE vs. TA - TL",
+                    level=ValidationLevel.WARNING,
+                    value=f"BVE={bve}, TA-TL={ta-tl}, Diff={equity_diff}"
+                ))
+        # Rounding discrepancies (if raw and rounded available)
+        # Not implemented here, as raw values are not always available in q
+        return issues

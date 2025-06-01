@@ -27,6 +27,7 @@ from altman_zscore.plotting import plot_zscore_trend
 from altman_zscore.reporting import report_zscore_full_report
 from altman_zscore.sic_lookup import sic_map
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.computation.model_selection import select_zscore_model
 
 
 # ANSI color codes for terminal output
@@ -176,9 +177,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     industry = getattr(profile, "industry", "Unknown")
     is_public = getattr(profile, "is_public", "Unknown")
     is_em = getattr(profile, "is_emerging_market", "Unknown")
-    maturity = getattr(profile, "maturity", None)
-
-    # 2. Determine Z-Score model before fetching financials
+    maturity = getattr(profile, "maturity", None)    # 2. Determine Z-Score model before fetching financials
     # Prefer robust SIC-based model selection
     model = None
     # Try to extract SIC code if present in industry string
@@ -189,13 +188,15 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             if p == "SIC" and i + 1 < len(parts):
                 sic_code = parts[i + 1]
                 break
+    
     maturity_str = str(maturity) if maturity is not None else ""
-    # Always call select_zscore_model_by_sic with a string, even if sic_code is None
-    model = select_zscore_model_by_sic(
-        str(sic_code or ""), is_public=(str(is_public).lower() == "true"), maturity=maturity_str
+    # Use new robust model selection logic
+    is_emerging = (maturity_str == "emerging") if maturity_str else False
+    model = select_zscore_model(
+        int(sic_code) if sic_code else None,
+        (str(is_public).lower() == "true"),
+        is_emerging
     )
-    if not model:
-        model = determine_zscore_model(profile)
 
     # 3. Fetch last 12 quarters of financials, only required fields for model
     # Pass an empty string for end_date (fetch_financials requires str, but we ignore it)
@@ -268,6 +269,11 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                     }
                 )
                 continue
+            # Consistency checks (ModelSelection.md)
+            consistency_issues = validator.check_consistency(q)
+            consistency_summary = validator.summarize_issues(consistency_issues)
+            if consistency_issues:
+                print_warning(f"Quarter {period_end}: CONSISTENCY WARNING: {consistency_summary}")
             # For private model, pass book_value_equity if present in q, else fallback to mve
             if model == "private":
                 metrics_dict = metrics.__dict__.copy()
@@ -288,6 +294,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                     "error": None,
                     "diagnostic": zscore_obj.diagnostic,  # Set to risk area
                     "validation_summary": diagnostic,  # Store validation summary separately
+                    "consistency_warning": consistency_summary if consistency_issues else None,
                     "model": str(model),
                     "api_payload": q.get("raw_payload"),
                     "field_mapping": q.get("field_mapping"),  # <-- Ensure field_mapping is included
@@ -360,36 +367,16 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                 sic_code = parts[i + 1]
                 break
     # Map SIC code to description (expanded mapping) now imported from sic_lookup.py
-    sic_desc = sic_map.get(str(sic_code)) if sic_code else None
-
-    # Refine model selection using decoded maturity and SIC code
-    model_hint = None
-    if sic_code:
-        if str(sic_code).startswith("37") or str(sic_code).startswith("36"):
-            model_hint = "original"  # Manufacturing/industrial
-        elif str(sic_code).startswith("73"):
-            model_hint = "tech"  # Software/tech
-        elif str(sic_code).startswith("60") or str(sic_code).startswith("61"):
-            model_hint = "service"  # Financial services
-        elif str(sic_code).startswith("87") or str(sic_code).startswith("89"):
-            model_hint = "service"  # Research/consulting/services
-        # Add more rules as needed
-    if maturity and str(maturity).lower() in ["private", "emerging"]:
-        model_hint = "private"
-    if model_hint:
-        model = model_hint
-    else:
-        model = determine_zscore_model(profile)
-
+    sic_desc = sic_map.get(str(sic_code)) if sic_code else None    # Model has already been correctly determined by select_zscore_model() above
+    # No need for secondary model selection logic
+    
     # Fetch stock prices for the Z-Score period (weekly overlay only)
     stock_prices = None
     weekly_stats = None
     try:
         # Extract start and end dates from our Z-Score dataframe
         quarters = pd.to_datetime(df["quarter_end"])
-        start_date = quarters.min().strftime("%Y-%m-%d")
-
-        # Extend end date to include more recent weeks after the financial data
+        start_date = quarters.min().strftime("%Y-%m-%d")        # Extend end date to include more recent weeks after the financial data
         # Add approximately 2 months to get closer to today's date
         from datetime import timedelta
 
@@ -398,6 +385,8 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         end_date = extended_end_date.strftime("%Y-%m-%d")
         # Fetch weekly price stats
         weekly_stats = get_weekly_price_stats(ticker, start_date, end_date)
+        # Assign weekly_stats to stock_prices for plotting
+        stock_prices = weekly_stats
         # Save price data to disk
         try:
             from altman_zscore.data_fetching.prices import save_price_data_to_disk

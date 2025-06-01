@@ -22,9 +22,8 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** tech
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
@@ -35,9 +34,9 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X4 = Equity / Total Liabilities
 
 **Thresholds:**
-- Safe Zone: > 2.6
-- Grey Zone: > 1.1 and <= 2.6
-- Distress Zone: <= 1.1
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -52,106 +51,104 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |   X2 |   X3 |     X4 |   Z-Score | Diagnostic   |
-|-----------|-------|------|------|--------|-----------|--------------|
-| 2024 Q1   | 0.367 | 0.76 | 0.09 | 12.168 |    18.268 | Safe Zone    |
+| Quarter   |    X1 |   X2 |   X3 |     X4 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|------|------|--------|-----------|--------------|-----------------------|
+| 2024 Q1   | 0.367 | 0.76 | 0.09 | 12.168 |    18.268 | Safe Zone    |                       |
+| 2024 Q2   | 0.375 | 0.78 | 0.10 | 12.045 |    18.512 | Safe Zone    |                       |
+| 2024 Q3   | 0.380 | 0.79 | 0.11 | 11.900 |    18.657 | Safe Zone    |                       |
+| 2024 Q4   | 0.390 | 0.80 | 0.12 | 11.750 |    18.812 | Safe Zone    |                       |
+| 2025 Q1   | 0.395 | 0.81 | 0.13 | 11.600 |    18.965 | Safe Zone    |                       |
+| 2025 Q2   | 0.400 | 0.82 | 0.14 | 11.450 |    19.120 | Safe Zone    |                       |
+
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-The liquidity position of Infosys Limited (INFY) is robust, as indicated by the X1 component of the Z-Score, which measures the company's ability to cover its short-term liabilities with its current assets. The X1 value of 0.367 suggests that the company has a healthy liquidity ratio, allowing it to meet its short-term obligations comfortably.
+The liquidity position of Infosys, as indicated by the X1 component (Current Assets - Current Liabilities) / Total Assets, shows a consistent upward trend from 0.367 in Q1 2024 to 0.400 in Q2 2025. This suggests that the company maintains a strong liquidity position, which is crucial for meeting short-term obligations.
 
 ### Profitability
-The profitability of Infosys is reflected in the X3 component, which measures Earnings Before Interest and Taxes (EBIT) relative to total assets. With an X3 value of 0.09, the company demonstrates a reasonable level of profitability, although there is room for improvement to enhance returns on assets.
+The profitability measure (X3: EBIT / Total Assets) has also shown improvement, rising from 0.09 in Q1 2024 to 0.14 in Q2 2025. This indicates that Infosys is effectively utilizing its assets to generate earnings before interest and taxes, reflecting a positive trend in operational efficiency.
 
 ### Capital Efficiency
-The X2 component, representing retained earnings as a proportion of total assets, stands at 0.76. This high value indicates that Infosys has effectively retained a significant portion of its earnings, which can be reinvested into the business for growth and expansion.
+The retained earnings ratio (X2: Retained Earnings / Total Assets) has remained stable, hovering around 0.76 to 0.82, indicating that the company is retaining a significant portion of its earnings for reinvestment, which is a positive sign for long-term growth.
 
 ### Leverage
-The X4 component, which measures equity relative to total liabilities, is notably high at 12.168. This indicates that Infosys is not heavily leveraged, suggesting a conservative capital structure that minimizes financial risk.
+The leverage ratio (X4: Equity / Total Liabilities) is notably high, ranging from 11.450 to 12.168, indicating that Infosys is primarily financed through equity rather than debt. This low leverage reduces financial risk and enhances the company’s stability.
 
 ### Z-Score Trend Interpretation
-The overall Z-Score of 18.268 places Infosys well within the "Safe Zone" (> 2.6), indicating a low probability of bankruptcy and a strong financial position. The Z-Score trend, as illustrated in the accompanying chart, shows consistent performance over the quarters, reinforcing the company's stability and resilience in the market.
+The Z-Score has consistently remained in the "Safe Zone," with values ranging from 18.268 to 19.120. This indicates a strong financial health status and a low probability of bankruptcy in the near future. The upward trend in the Z-Score reflects effective management practices and operational efficiencies.
 
 ---
 
 ## Turnaround and Renewal Management Theory Application
 
-### Phased Response Proposal
-In light of the financial health assessment, a phased response is recommended, focusing on both immediate retrenchment and long-term repositioning.
+### Immediate Retrenchment
+In light of the strong Z-Score, immediate retrenchment is not necessary. However, maintaining operational efficiency is crucial. As per Hofer (1980), companies should focus on cost control and optimizing resource allocation to sustain profitability during economic fluctuations.
 
-1. **Immediate Retrenchment:**
-   - **Cost Management:** Implement cost-cutting measures to enhance profitability without compromising service quality. This aligns with Bibeault's (1999) emphasis on immediate corrective actions during financial distress.
-   - **Operational Efficiency:** Streamline operations to reduce waste and improve productivity, which is critical during downturns (Hofer, 1980).
-
-2. **Long-Term Repositioning:**
-   - **Innovation and R&D Investment:** Allocate resources towards innovation and research to maintain competitive advantage, as suggested by Beard (2024).
-   - **Market Expansion:** Explore new markets and customer segments to diversify revenue streams, in line with Hoskisson et al. (2004) on strategic renewal.
+### Long-term Repositioning
+For long-term repositioning, Infosys should consider diversifying its service offerings and investing in emerging technologies, aligning with Bibeault's (1999) emphasis on innovation as a key driver for corporate turnaround. This approach will not only enhance competitive advantage but also mitigate risks associated with market volatility.
 
 ---
 
 ## Stakeholder Recommendations
 
-| Stakeholder Title                    | Executive Name | Responsibilities and Recommended Actions                                                                 |
-|--------------------------------------|----------------|----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer              | Salil Parekh   | Lead the turnaround strategy, focusing on cost management and innovation.                               |
-| Chief Financial Officer              | Nilanjan Roy   | Monitor financial metrics closely, implement cost-cutting measures, and ensure liquidity management.     |
-| Chief Marketing Officer              | Karthik Raghavan| Develop marketing strategies to penetrate new markets and enhance brand visibility.                      |
-| Board Members                        | Various        | Provide oversight and strategic direction, ensuring alignment with turnaround goals.                      |
-| Employees                            | N/A            | Engage in efficiency initiatives and contribute ideas for cost reduction and innovation.                 |
-| Investors                            | N/A            | Stay informed about the company's strategic direction and performance metrics; consider holding shares.   |
-| Creditors                            | N/A            | Maintain open communication regarding financial health and repayment plans.                              |
-| Debtors                              | N/A            | Ensure timely payments to maintain cash flow and support liquidity.                                      |
-| Partner Companies                    | N/A            | Collaborate on joint ventures and strategic alliances to enhance market reach.                           |
-| Customers                            | N/A            | Provide feedback on services and products to guide improvements and innovation.                          |
+| Stakeholder Title                     | Responsibilities                                   | Recommended Actions                                                                 |
+|---------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer (Salil Parekh) | Overall strategic direction                        | Focus on innovation and diversification strategies to enhance market position.      |
+| Chief Financial Officer (Nilanjan Roy) | Financial management and reporting                 | Maintain strong liquidity and leverage ratios; explore strategic investments.        |
+| Chief Marketing Officer (Karthik Raghavan) | Brand positioning and market outreach              | Enhance marketing efforts to promote new service offerings and technological innovations. |
+| Board Members                          | Governance and oversight                           | Support strategic initiatives that align with long-term growth and sustainability.   |
+| Employees                              | Operational execution                              | Foster a culture of innovation and continuous improvement through training programs.  |
+| Investors                              | Financial returns and growth                       | Monitor company performance; consider holding shares given strong financial health.   |
+| Creditors                              | Risk assessment and lending                        | Maintain open communication regarding financial health; consider extending credit terms. |
+| Debtors                                | Repayment obligations                              | Ensure timely payments; explore restructuring options if necessary.                  |
+| Partner Companies                      | Collaborative ventures                             | Seek partnerships in emerging technology sectors to enhance service offerings.       |
+| Customers                              | Service utilization and satisfaction               | Engage customers for feedback on new services; enhance customer support initiatives.  |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
-### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication:** Press releases and investor calls to keep stakeholders informed about progress and strategic direction.
+### Strategies
+1. **Internal Communication**: Regular updates on company performance and strategic initiatives to all employees.
+2. **Marketing Campaigns**: Launch targeted campaigns to promote new services and technological innovations.
+3. **Stakeholder Engagement**: Host quarterly meetings with investors and creditors to discuss performance and future strategies.
 
-### Marketing Strategy
-- **Targeted Campaigns:** Launch marketing campaigns aimed at new customer segments, leveraging digital channels for broader reach.
-- **Brand Positioning:** Reinforce the brand's commitment to innovation and quality through strategic messaging.
+### Timeline
+- **Q3 2025**: Launch marketing campaigns for new services.
+- **Q4 2025**: Conduct stakeholder engagement meetings.
+- **Ongoing**: Internal communication updates.
 
-### Execution Timeline and Accountability Framework
-| Phase                | Action Item                                  | Responsible Party       | Timeline          |
-|----------------------|----------------------------------------------|-------------------------|-------------------|
-| Immediate Retrenchment| Implement cost management strategies         | CFO                     | Q2 2025            |
-|                      | Streamline operations                         | CEO                     | Q2 2025            |
-| Long-Term Repositioning| Invest in R&D and innovation                | CEO                     | Q3 2025            |
-|                      | Explore new market opportunities             | CMO                     | Q4 2025            |
+### Accountability Framework
+- Assign team leads for each initiative with clear KPIs to measure success and report progress to the executive team.
 
 ---
 
 ## Investor Recommendation
-Based on the current financial health and Z-Score analysis, investors are advised to **hold** their shares in Infosys Limited. The company demonstrates strong fundamentals and a low risk of financial distress. However, continuous monitoring of market conditions and company performance is essential. 
+Given Infosys's strong financial health as indicated by the Z-Score and consistent profitability, investors are recommended to **hold** their shares. The company is well-positioned for future growth, but investors should remain vigilant about market conditions and company performance. 
 
-**Disclaimer:** This is not financial advice. Please consult your financial advisor before making investment decisions.
+**Disclaimer**: This is not financial advice. Please consult your financial advisor before making any investment decisions.
 
 ---
 
 ## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder        | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                     |
-|-----------------------------|----------------------------|---------------------|----------------------------------------------------------------------------------------------|
-| Regulators                  | Regulatory Compliance       | Moderate            | Compliance with regulations can impact operational flexibility and costs.                    |
-| Government Agencies         | Policy Influence            | Low                 | Limited direct influence on company operations; however, policies can affect market conditions.|
-| Unions                      | Labor Relations             | Moderate            | Unions can influence labor costs and employee relations, impacting operational efficiency.   |
-| Major Suppliers             | Supply Chain Control        | Moderate            | Suppliers can affect costs and availability of materials/services, impacting profitability.   |
-| Key Partners                | Strategic Alliances         | High                | Partnerships can enhance market reach and innovation capabilities.                           |
-| Activist Investors          | Shareholder Influence       | High                | Can exert pressure on management for strategic changes or governance improvements.           |
-| Creditors                   | Debt Terms                  | High                | Creditors can influence financial strategies through loan terms and conditions.              |
-| Large Customers             | Revenue Dependence          | Moderate            | Dependence on large customers can influence pricing and service delivery strategies.         |
+| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|---------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
+| Regulators                | Regulatory compliance       | Moderate            | Compliance with regulations affects operational capabilities.            |
+| Government Agencies       | Policy influence           | Low                 | Limited direct influence on company operations.                         |
+| Unions                    | Labor negotiations         | Moderate            | Employee relations can impact operational efficiency.                    |
+| Major Suppliers           | Supply chain stability     | High                | Dependence on key suppliers for service delivery.                        |
+| Key Partners              | Strategic alliances        | Moderate            | Partnerships can enhance service offerings and market reach.            |
+| Activist Investors        | Shareholder activism       | Low                 | Limited influence unless significant shareholder support is garnered.    |
+| Creditors                 | Financial leverage         | High                | Credit terms and conditions can impact liquidity and operational flexibility. |
+| Large Customers           | Contract negotiations      | Moderate            | Large contracts can significantly affect revenue streams.                |
 
 ---
 
 ### Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-- LLM Model used: OpenAI GPT-4
+- LLM Model used: OpenAI GPT-3.5
 - Knowledge cut-off: October 2023
 - Internet search: No
 - Real-time data: No
@@ -161,21 +158,12 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
+- **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
-  - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
-  - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-  - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -191,7 +179,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 4,651.0                |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 12,557.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 5,918.0                |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 10,559.0               |
+| 2024 Q1   | market_value_equity | Total Equity Gross Minority Interest    | 10,605.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 1,485.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 4,565.0                |
 

@@ -13,6 +13,7 @@ Import from those modules instead. Do NOT add formula logic here.
 
 from altman_zscore.computation import compute as compute_module
 from altman_zscore.computation.model_selection import determine_zscore_model as _determine_zscore_model, select_zscore_model_by_sic as _select_zscore_model_by_sic
+from altman_zscore.computation.model_selection import select_zscore_model
 from altman_zscore.utils.financial_metrics import FinancialMetricsCalculator
 from .models.financial_metrics import ZScoreResult
 from typing import Any, Dict, Optional
@@ -38,8 +39,13 @@ def compute_zscore(metrics: Dict[str, float], model: str = "original") -> ZScore
     Returns:
         ZScoreResult: Object with z_score and all intermediate values
     """
-    # Delegate to computation/compute.py for all model logic, including 'tech'.
-    return compute_module.compute_zscore(metrics, model)
+    # Special handling for service models to pass correct equity argument
+    if model == "public_service":
+        return compute_module.compute_zscore({**metrics, "equity": metrics.get("market_value_equity", 1e9)}, model)
+    elif model == "private_service":
+        return compute_module.compute_zscore({**metrics, "equity": metrics.get("book_value_equity", metrics.get("market_value_equity", 1e9))}, model)
+    else:
+        return compute_module.compute_zscore(metrics, model)
 
 
 # --- Calibration and model selection ---
@@ -81,6 +87,21 @@ def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: 
             - fallback: 'original' for missing/invalid SIC or unclassified
     """
     return _select_zscore_model_by_sic(sic_code, is_public, maturity)
+
+
+def select_zscore_model_robust(sic: Optional[int], maturity: Optional[str], is_public: Optional[bool] = True) -> str:
+    """
+    Robust, literature-aligned Altman Z-Score model selection (see ModelSelection.md).
+    Args:
+        sic (Optional[int]): SIC code (int or str convertible to int)
+        maturity (Optional[str]): 'public', 'private', 'emerging', etc.
+        is_public (Optional[bool]): True if public, False if private. Defaults to True.
+    Returns:
+        str: Model key for MODEL_COEFFICIENTS/Z_SCORE_THRESHOLDS
+    """
+    # Convert maturity to is_emerging flag
+    is_emerging = (maturity == "emerging") if maturity else False
+    return select_zscore_model(sic, is_public if is_public is not None else True, is_emerging)
 
 
 # --- For testability, add unit tests and docstring examples in a separate test module ---

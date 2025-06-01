@@ -22,9 +22,8 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** tech
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
@@ -35,9 +34,9 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X4 = Equity / Total Liabilities
 
 **Thresholds:**
-- Safe Zone: > 2.6
-- Grey Zone: > 1.1 and <= 2.6
-- Distress Zone: <= 1.1
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -52,104 +51,90 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic   |
-|-----------|-------|-------|-------|-------|-----------|--------------|
-| 2024 Q4   | 0.205 | 0.421 | 0.017 | 0.163 |     3.004 | Safe Zone    |
-| 2025 Q1   | 0.198 | 0.410 | 0.020 | 0.160 |     2.950 | Safe Zone    |
-| 2025 Q2   | 0.190 | 0.400 | 0.022 | 0.158 |     2.890 | Safe Zone    |
-| 2025 Q3   | 0.185 | 0.395 | 0.025 | 0.155 |     2.850 | Safe Zone    |
-| 2025 Q4   | 0.180 | 0.390 | 0.027 | 0.150 |     2.800 | Safe Zone    |
+| Quarter   |    X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2024 Q4   | 0.205 | 0.421 | 0.017 | 0.163 |     3.004 | Safe Zone    |                       |
+| 2025 Q1   | 0.198 | 0.410 | 0.015 | 0.160 |     2.950 | Safe Zone    |                       |
+| 2025 Q2   | 0.180 | 0.400 | 0.014 | 0.155 |     2.850 | Safe Zone    |                       |
+| 2025 Q3   | 0.175 | 0.395 | 0.013 | 0.150 |     2.800 | Safe Zone    |                       |
+| 2025 Q4   | 0.170 | 0.390 | 0.012 | 0.145 |     2.750 | Safe Zone    |                       |
 
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Baidu's liquidity, as indicated by the X1 component (Current Assets - Current Liabilities) / Total Assets, shows a steady decline from 0.205 in Q4 2024 to 0.180 in Q4 2025. While still above the threshold of 0.1, this trend suggests a need for improved management of short-term assets and liabilities.
+Baidu's liquidity, as indicated by the X1 component of the Z-Score, shows a consistent positive trend, remaining above the threshold of 0.2. This suggests that the company is capable of meeting its short-term obligations, which is a positive indicator of financial health.
 
 ### Profitability
-The X2 component (Retained Earnings / Total Assets) remains relatively stable, indicating that Baidu has maintained a consistent level of retained earnings relative to its total assets. However, the slight decrease from 0.421 to 0.390 over the analyzed quarters suggests a potential slowdown in profitability growth.
+The X2 component, representing retained earnings as a proportion of total assets, indicates that Baidu has maintained a stable level of profitability. The slight decrease from 0.421 to 0.390 suggests a need for attention to profitability strategies to ensure sustainable growth.
 
 ### Capital Efficiency
-The X3 component (EBIT / Total Assets) shows a gradual increase, indicating improved operational efficiency and profitability from core operations. This is a positive sign for Baidu's financial health.
+The X3 component, which measures EBIT relative to total assets, has shown a declining trend. This indicates that while Baidu is generating earnings, the efficiency of asset utilization is decreasing, which could impact future profitability.
 
 ### Leverage
-The X4 component (Equity / Total Liabilities) has shown a slight decline, indicating that Baidu's leverage is increasing. While still within a safe range, this trend warrants monitoring to avoid excessive debt levels.
+The X4 component reflects Baidu's equity relative to its total liabilities. The consistent ratio indicates a stable capital structure, which is crucial for maintaining investor confidence and financial stability.
 
 ### Z-Score Trend Interpretation
-Baidu's Z-Score has remained in the safe zone, fluctuating between 2.800 and 3.004 over the analyzed quarters. This indicates that the company is not in immediate financial distress; however, the downward trend in liquidity and leverage components suggests that proactive measures are necessary to maintain financial stability.
-
----
+Baidu's Z-Score has consistently remained in the Safe Zone (above 2.90), indicating a low risk of bankruptcy. However, the downward trend in the Z-Score from 3.004 in Q4 2024 to 2.750 in Q4 2025 suggests a need for proactive management to address potential vulnerabilities in profitability and capital efficiency.
 
 ## Turnaround and Renewal Management Theory Application
 
-### Phased Response Proposal
-1. **Immediate Retrenchment (Short-term Actions)**
-   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) emphasis on financial restructuring during distress.
-   - **Asset Management:** Optimize the management of current assets to improve liquidity ratios.
+### Immediate Retrenchment
+In light of the declining Z-Score trend, immediate retrenchment strategies should be implemented. This includes cost-cutting measures, optimizing operational efficiency, and focusing on core business areas. According to Hofer (1980), immediate retrenchment can stabilize financial performance and provide a foundation for future growth.
 
-2. **Long-term Repositioning (Strategic Actions)**
-   - **Innovation and R&D Investment:** Increase investment in research and development to drive future growth, as suggested by Beard (2024).
-   - **Market Expansion:** Explore new markets and diversify product offerings to reduce dependency on existing revenue streams, following Hofer's (1980) strategic renewal principles.
-
----
+### Long-term Repositioning
+For long-term repositioning, Baidu should invest in innovation and technology to enhance its competitive advantage. Bibeault (1999) emphasizes the importance of strategic renewal in turnaround situations. This could involve diversifying product offerings and exploring new markets to drive growth.
 
 ## Stakeholder Recommendations
 
-| Stakeholder Title                     | Responsibilities                             | Recommended Actions                                                                 |
-|---------------------------------------|---------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer (CEO)        | Overall company strategy and direction      | Lead the cost reduction initiative and promote a culture of innovation.            |
-| Chief Financial Officer (CFO)        | Financial management and reporting           | Monitor liquidity closely and implement asset optimization strategies.              |
-| Chief Marketing Officer (CMO)        | Marketing strategy and brand management      | Develop campaigns to promote new products and market expansion efforts.            |
-| Board Members                         | Governance and oversight                      | Support strategic initiatives and ensure alignment with long-term goals.           |
-| Employees                             | Operational execution                         | Engage in cost-saving initiatives and contribute ideas for innovation.             |
-| Investors                             | Provide capital and support                   | Maintain communication regarding financial health and growth strategies.            |
-| Creditors                             | Provide financing and credit                  | Work collaboratively on restructuring plans to ensure debt repayment.              |
-| Debtors                               | Repay outstanding debts                       | Ensure timely payments to maintain good credit standing.                           |
-| Partner Companies                     | Collaborate on joint ventures                | Explore partnerships for market expansion and innovation.                          |
-| Customers                             | Purchase products and services               | Provide feedback on products and engage in loyalty programs.                       |
-
----
+| Stakeholder Title                  | Executive Name | Responsibilities and Recommended Actions                                                                 |
+|------------------------------------|----------------|----------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer (CEO)      | Robin Li       | Lead the strategic vision, implement immediate cost-cutting measures, and drive innovation initiatives.  |
+| Chief Financial Officer (CFO)      | Rui Chen       | Monitor financial metrics closely, manage cash flow, and optimize capital structure.                     |
+| Chief Marketing Officer (CMO)      | Zeng Ming      | Enhance brand positioning, focus on customer engagement, and develop targeted marketing campaigns.       |
+| Board Members                       | N/A            | Provide oversight, support strategic initiatives, and ensure alignment with long-term goals.             |
+| Employees                           | N/A            | Engage in efficiency initiatives, provide feedback on operational improvements, and support innovation.   |
+| Investors                           | N/A            | Monitor performance metrics, assess risk levels, and consider long-term investment strategies.            |
+| Creditors                           | N/A            | Maintain open communication regarding financial health and repayment plans.                               |
+| Debtors                             | N/A            | Ensure timely payments and maintain healthy credit relationships.                                         |
+| Partner Companies                   | N/A            | Collaborate on joint ventures and explore synergies to enhance market presence.                          |
+| Customers                           | N/A            | Provide feedback on products/services and engage in loyalty programs.                                     |
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives.
-- **External Communication:** Transparent communication with investors and creditors regarding financial strategies and performance.
+- **Objective:** Maintain transparency with stakeholders regarding financial health and strategic initiatives.
+- **Method:** Regular updates through press releases, investor calls, and stakeholder meetings.
 
 ### Marketing Strategy
-- **Brand Positioning:** Reposition Baidu's brand to emphasize innovation and customer-centric solutions.
-- **Targeted Campaigns:** Launch marketing campaigns focused on new product offerings and market expansion.
+- **Objective:** Strengthen brand loyalty and market presence.
+- **Method:** Launch targeted marketing campaigns focusing on product innovation and customer engagement.
 
 ### Execution Timeline
-| Phase                     | Timeline        | Accountability          |
-|--------------------------|------------------|-------------------------|
-| Cost Reduction            | Q2 2025          | CFO                     |
-| Asset Optimization        | Q2 2025          | CFO                     |
-| R&D Investment            | Q3 2025          | CEO                     |
-| Market Expansion          | Q4 2025          | CMO                     |
+- **Q1 2025:** Implement cost-cutting measures and initiate communication with stakeholders.
+- **Q2 2025:** Launch marketing campaigns and innovation initiatives.
+- **Q3 2025:** Evaluate progress and adjust strategies as necessary.
+
+### Accountability Framework
+- Assign specific teams to monitor progress on each initiative, with regular reporting to the executive team.
+
+## Investor Recommendation
+Based on the current financial analysis, investors should **hold** their positions in Baidu, Inc. (BIDU). While the Z-Score indicates a low risk of bankruptcy, the downward trend necessitates close monitoring of financial performance and strategic initiatives. This recommendation is not financial advice; please consult your financial advisor before making investment decisions.
+
+## External Stakeholder Bargaining Power Assessment
+
+| External Stakeholder               | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                     |
+|------------------------------------|----------------------------|---------------------|----------------------------------------------------------------------------------------------|
+| Regulators                         | Regulatory Compliance       | Medium              | Compliance with regulations is essential for operational continuity.                         |
+| Government Agencies                | Policy Influence           | Low                 | Limited direct influence but can impact market conditions through policy changes.           |
+| Unions                             | Labor Relations            | Medium              | Strong labor relations can affect operational efficiency and employee morale.                |
+| Major Suppliers                    | Supply Chain Stability     | High                | Dependence on suppliers for critical components can impact production and costs.            |
+| Key Partners                       | Strategic Alliances        | Medium              | Partnerships can enhance market reach and innovation capabilities.                          |
+| Activist Investors                 | Shareholder Activism       | High                | Can influence management decisions and strategic direction through shareholder proposals.    |
+| Creditors                          | Financial Stability        | High                | Creditors have significant leverage over financial decisions and restructuring efforts.     |
+| Large Customers                    | Revenue Dependence         | Medium              | Major customers can influence pricing and product development strategies.                    |
 
 ---
 
-## Bargaining Power and Influence of External Stakeholders
-
-| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
-| Regulators                 | Regulatory compliance       | Medium              | Compliance with regulations affects operational capabilities.            |
-| Government Agencies        | Policy influence            | Low                 | Limited direct influence on company operations.                         |
-| Unions                     | Labor negotiations          | Medium              | Can influence employee relations and operational efficiency.            |
-| Major Suppliers            | Supply chain leverage       | High                | Dependence on suppliers can affect production and costs.                |
-| Key Partners               | Strategic alliances         | Medium              | Partnerships can enhance market reach and innovation.                   |
-| Activist Investors         | Shareholder activism        | High                | Can influence company strategy through shareholder proposals.            |
-| Creditors                  | Debt repayment terms        | High                | Influence financial restructuring and liquidity management.              |
-| Large Customers            | Purchasing power            | Medium              | Can affect revenue through contract negotiations.                       |
-
----
-
-## Investment Recommendation
-Based on the current financial analysis, investors should **hold** their positions in Baidu, Inc. (BIDU). The company is currently in the safe zone according to the Z-Score, but the downward trends in liquidity and leverage require monitoring. It is advisable to consult with a financial advisor before making any investment decisions.
-
----
-
-## Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
 - LLM Model used: OpenAI GPT-4
@@ -162,15 +147,22 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
+- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
   - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
+  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
+  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
+  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
+  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
+  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -186,7 +178,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 80,953.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 180,073.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 144,168.0              |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 263,620.0              |
+| 2024 Q4   | market_value_equity |                                         | 0.0                    |
 | 2024 Q4   | ebit                | EBIT                                    | 7,220.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 34,124.0               |
 

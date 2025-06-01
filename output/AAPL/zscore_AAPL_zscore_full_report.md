@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,101 +52,95 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|--------|--------|-------|--------|-------|-----------|--------------|
-| 2025 Q1   | -0.078 | -0.047 | 0.089 | 12.53  | 0.288 |     7.941 | Safe Zone    |
-| 2024 Q4   | -0.032 | -0.033 | 0.124 | 13.454 | 0.361 |     8.76  | Safe Zone    |
-| 2024 Q3   | -0.064 | -0.052 | 0.081 | 11.258 | 0.26  |     7.132 | Safe Zone    |
-| 2024 Q2   | -0.019 | -0.014 | 0.076 | 11.82  | 0.259 |     7.561 | Safe Zone    |
-| 2024 Q1   |  0.014 |  0.013 | 0.083 |  9.672 | 0.269 |     6.379 | Safe Zone    |
-## 1. Diagnostic Evaluation of Financial Health
+| Quarter   |     X1 |     X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|--------|--------|-------|--------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | -0.078 | -0.047 | 0.089 | 12.53  | 0.288 |     7.941 | Safe Zone    |                       |
+| 2024 Q4   | -0.032 | -0.033 | 0.124 | 13.454 | 0.361 |     8.76  | Safe Zone    |                       |
+| 2024 Q3   | -0.064 | -0.052 | 0.081 | 11.258 | 0.26  |     7.132 | Safe Zone    |                       |
+| 2024 Q2   | -0.019 | -0.014 | 0.076 | 11.82  | 0.259 |     7.561 | Safe Zone    |                       |
+| 2024 Q1   |  0.014 |  0.013 | 0.083 |  9.672 | 0.269 |     6.379 | Safe Zone    |                       |
+## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Apple Inc. has shown a consistent negative trend in its liquidity ratios, particularly in the current assets to current liabilities ratio (X1). This indicates that the company may face challenges in meeting its short-term obligations. The negative values suggest that current liabilities exceed current assets, which could lead to liquidity issues if not addressed.
+Apple Inc. has shown a consistent negative trend in its liquidity ratios, particularly in the X1 component (Current Assets - Current Liabilities) / Total Assets. This indicates that the company may face challenges in meeting its short-term obligations. The negative values signal a potential liquidity crisis, which could impact operational stability.
 
 ### Profitability
-The profitability measure (X3) indicates that Apple is generating earnings before interest and taxes (EBIT) relative to its total assets. The values are positive, suggesting that the company is effectively utilizing its assets to generate profit. However, the declining trend in X3 over the quarters indicates a potential concern for future profitability.
+The profitability component (X3: EBIT / Total Assets) remains positive, suggesting that Apple is generating earnings relative to its asset base. This is a strong indicator of operational efficiency, although the declining trend in X1 raises concerns about the sustainability of this profitability if liquidity issues persist.
 
 ### Capital Efficiency
-The retained earnings to total assets ratio (X2) is negative, which reflects a decrease in retained earnings relative to total assets. This could indicate that Apple is either not reinvesting enough of its profits back into the business or is facing challenges in maintaining profitability.
+The retained earnings ratio (X2: Retained Earnings / Total Assets) is negative, indicating that Apple has accumulated losses relative to its total assets. This could be a result of aggressive investment strategies or dividend payouts that exceed earnings, which may affect future growth potential.
 
 ### Leverage
-The equity to total liabilities ratio (X4) remains strong, indicating that Apple has a solid capital structure with a high level of equity compared to its liabilities. This suggests that the company is less reliant on debt financing, which is a positive sign for long-term financial health.
+The leverage ratio (X4: Equity / Total Liabilities) is robust, reflecting a strong capital structure. A high ratio indicates that Apple is less reliant on debt financing, which is a positive sign for long-term financial health.
 
 ### Z-Score Trend Interpretation
-The Z-Score for Apple has remained in the "Safe Zone" throughout the quarters analyzed, with values significantly above the threshold of 2.99. This indicates that, despite some liquidity and profitability concerns, Apple is not currently at risk of bankruptcy. However, the declining trends in liquidity and profitability metrics warrant attention and proactive management to ensure sustained financial health.
+The Z-Score has consistently remained in the "Safe Zone," with values well above the threshold of 2.99. This suggests that, despite liquidity concerns, Apple is not at immediate risk of bankruptcy. However, the declining trend in liquidity and profitability metrics warrants close monitoring and strategic intervention.
 
 ---
 
-## 2. Turnaround and Renewal Management Theory Application
+## Turnaround and Renewal Management Theory Application
 
-### Immediate Retrenchment
-Based on the findings, immediate actions should focus on improving liquidity and profitability. This aligns with Bibeault's (1999) turnaround strategies, which emphasize the need for immediate cost-cutting measures and operational efficiency improvements. Key actions may include:
+### Phased Response Proposal
+1. **Immediate Retrenchment (Short-term Actions)**
+   - **Cost Reduction:** Implement cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) emphasis on immediate financial stabilization during distress.
+   - **Asset Liquidation:** Consider divesting non-core assets to bolster cash reserves, as suggested by Hofer (1980).
+   - **Operational Efficiency:** Streamline operations to enhance profitability, focusing on high-margin products.
 
-- **Cost Reduction Initiatives:** Identify non-essential expenditures and streamline operations to improve cash flow.
-- **Inventory Management:** Optimize inventory levels to free up cash and improve liquidity.
-
-### Long-Term Repositioning
-For long-term sustainability, Apple should consider repositioning strategies as outlined by Hofer (1980) and Hoskisson et al. (2004). This could involve:
-
-- **Innovation and Product Development:** Invest in R&D to enhance product offerings and maintain competitive advantage.
-- **Market Expansion:** Explore new markets or segments to diversify revenue streams and reduce dependency on existing products.
-
----
-
-## 3. Stakeholder Recommendations
-
-| Stakeholder Title          | Name (if available) | Responsibilities and Recommended Actions                                                                 |
-|----------------------------|---------------------|----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer     | Tim Cook            | Lead the turnaround strategy, focusing on liquidity improvement and innovation.                          |
-| Chief Financial Officer     | Luca Maestri        | Implement cost-cutting measures and optimize cash flow management.                                       |
-| Chief Marketing Officer     | Greg Joswiak        | Enhance marketing strategies to boost sales and brand loyalty.                                          |
-| Board Members               | Various             | Provide oversight and support for strategic initiatives; ensure alignment with long-term goals.          |
-| Employees                   | N/A                 | Engage in efficiency improvements and innovation initiatives; contribute ideas for cost savings.         |
-| Investors                   | N/A                 | Monitor financial performance closely; consider long-term growth potential when making investment decisions. |
-| Creditors                   | N/A                 | Maintain open communication regarding financial health; assess risk exposure and adjust credit terms if necessary. |
-| Debtors                     | N/A                 | Ensure timely payments to maintain good relationships and creditworthiness.                              |
-| Partner Companies           | N/A                 | Collaborate on joint ventures or product development to enhance market presence.                        |
-| Customers                   | N/A                 | Provide feedback on products and services; engage in loyalty programs to enhance customer retention.     |
+2. **Long-term Repositioning (Strategic Actions)**
+   - **Innovation Investment:** Increase R&D spending to drive product innovation, aligning with Hoskisson et al. (2004) on the importance of strategic renewal.
+   - **Market Expansion:** Explore new markets and customer segments to diversify revenue streams, as recommended by Freeman (1984).
+   - **Stakeholder Engagement:** Foster stronger relationships with stakeholders to enhance brand loyalty and customer retention.
 
 ---
 
-## 4. Communication, Marketing, and Execution Strategies
+## Stakeholder Recommendations
+
+| Stakeholder Title                  | Responsibilities                                    | Recommended Actions                                                                 |
+|------------------------------------|----------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer (Tim Cook) | Overall strategic direction                         | Lead immediate cost-cutting initiatives and communicate the turnaround strategy.     |
+| Chief Financial Officer (Luca Maestri) | Financial oversight and reporting                 | Focus on improving liquidity ratios and managing cash flow effectively.             |
+| Chief Marketing Officer (Greg Joswiak) | Brand management and market positioning           | Enhance marketing efforts to promote high-margin products and engage new customers.  |
+| Board Members                       | Governance and strategic oversight                  | Support management in implementing turnaround strategies and monitor progress.       |
+| Employees                           | Operational execution                               | Foster a culture of innovation and efficiency; communicate changes transparently.    |
+| Investors                           | Financial support and expectations                  | Monitor financial health closely; consider long-term growth potential.               |
+| Creditors                           | Financial risk assessment                           | Maintain open communication regarding financial strategies and repayment plans.      |
+| Debtors                             | Payment obligations                                 | Ensure timely payments to maintain good relationships and creditworthiness.          |
+| Partner Companies                   | Collaborative opportunities                         | Explore joint ventures to enhance market reach and share resources.                 |
+| Customers                           | Brand loyalty and revenue generation                | Engage customers through targeted marketing campaigns and loyalty programs.          |
+
+---
+
+## Communication, Marketing, and Execution Strategies
+
+### Timeline and Accountability Framework
+- **Q1 2025:** Implement cost-cutting measures and initiate asset liquidation. Accountability: CFO.
+- **Q2 2025:** Launch marketing campaigns focused on high-margin products. Accountability: CMO.
+- **Q3 2025:** Assess the impact of cost reductions and adjust strategies as needed. Accountability: CEO.
+- **Q4 2025:** Review R&D investments and market expansion efforts. Accountability: CEO and Board.
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication:** Clear messaging to investors and customers about the steps being taken to improve financial performance.
-
-### Marketing Strategy
-- **Targeted Campaigns:** Focus on promoting new products and features that resonate with customer needs and preferences.
-- **Brand Loyalty Programs:** Enhance customer engagement through loyalty programs and personalized marketing efforts.
-
-### Execution Timeline
-| Phase                     | Action Item                            | Timeline         | Accountability          |
-|---------------------------|---------------------------------------|-------------------|-------------------------|
-| Immediate Retrenchment    | Implement cost-cutting measures       | 0-3 months        | CFO                     |
-| Long-Term Repositioning    | Launch new product development         | 6-12 months       | CEO and CMO            |
-| Continuous Monitoring      | Review financial metrics quarterly     | Ongoing           | CFO                     |
+- Regular updates to stakeholders through quarterly reports and town hall meetings.
+- Transparent communication regarding financial health and strategic decisions to build trust.
 
 ---
 
-## 5. Investor Recommendation
-Based on the current financial health and Z-Score analysis, investors should **hold** their positions in Apple Inc. The company remains in the safe zone, but attention must be paid to liquidity and profitability trends. It is advisable to consult with a financial advisor before making any investment decisions.
+## Investor Recommendation
+Based on the current financial health and Z-Score analysis, investors should **hold** their positions in Apple Inc. The company remains in the safe zone, but liquidity concerns necessitate close monitoring. It is advisable to consult with a financial advisor for personalized investment decisions.
 
 ---
 
-## 6. External Stakeholder Bargaining Power Assessment
+## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|----------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                  | Regulatory Compliance      | Moderate            | Must adhere to regulations, but not a direct influence on operations.     |
-| Government Agencies         | Policy Influence           | Low                 | Limited direct impact on financial decisions but can affect market conditions. |
-| Unions                      | Labor Relations            | Moderate            | Can influence employee relations and operational efficiency.              |
-| Major Suppliers             | Supply Chain Control       | High                | Significant influence on production costs and inventory management.       |
-| Key Partners                | Strategic Alliances        | Moderate            | Can impact market reach and product development through collaboration.    |
-| Activist Investors          | Shareholder Activism       | High                | Can exert pressure for changes in management or strategy.                |
-| Creditors                   | Financial Terms            | High                | Influence on financing terms and conditions based on financial health.    |
-| Large Customers             | Purchasing Power           | Moderate            | Can negotiate terms based on volume and loyalty.                         |
+| External Stakeholder                | Nature of Bargaining Power         | Degree of Influence | Rationale                                                                 |
+|-------------------------------------|------------------------------------|---------------------|--------------------------------------------------------------------------|
+| Regulators                          | Regulatory compliance               | Moderate            | Compliance with regulations is essential for operational continuity.     |
+| Government Agencies                 | Policy influence                    | Low                 | Limited direct influence on corporate strategy but can affect operations.|
+| Unions                              | Labor relations                     | Moderate            | Strong unions can impact labor costs and operational efficiency.         |
+| Major Suppliers                     | Supply chain dependency             | High                | Key suppliers can influence production costs and availability.           |
+| Key Partners                        | Strategic alliances                 | Moderate            | Partnerships can enhance market reach and resource sharing.             |
+| Activist Investors                  | Shareholder activism                | High                | Can influence management decisions through shareholder proposals.        |
+| Creditors                           | Debt repayment terms                | High                | Creditors can impose conditions on financing and repayment strategies.   |
+| Large Customers                     | Revenue dependency                  | Moderate            | Major customers can influence pricing and product offerings.            |
 
 ---
 
@@ -164,8 +157,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
-- **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
+- **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
@@ -189,7 +181,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 144,571.0              |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -15,552.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 264,437.0              |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 66,796.0               |
+| 2025 Q1   | market_value_equity | Stockholders Equity                     | 66,796.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 29,589.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 95,359.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -198,7 +190,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 144,365.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -11,221.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 277,327.0              |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 66,758.0               |
+| 2024 Q4   | market_value_equity | Stockholders Equity                     | 66,758.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 42,832.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 124,300.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -207,7 +199,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 176,392.0              |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -19,154.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 308,030.0              |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 56,950.0               |
+| 2024 Q3   | market_value_equity | Stockholders Equity                     | 56,950.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 29,591.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 94,930.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -216,7 +208,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 131,624.0              |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -4,726.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 264,904.0              |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 66,708.0               |
+| 2024 Q2   | market_value_equity | Stockholders Equity                     | 66,708.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 25,352.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 85,777.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -225,7 +217,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 123,822.0              |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 4,339.0                |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 263,217.0              |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 74,194.0               |
+| 2024 Q1   | market_value_equity | Stockholders Equity                     | 74,194.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 27,900.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 90,753.0               |
 

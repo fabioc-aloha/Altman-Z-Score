@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,100 +52,97 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |     X2 |     X3 |     X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|-------|--------|--------|--------|-------|-----------|--------------|
-| 2025 Q1   | 0.039 | -0.282 |  0.025 | 22.646 | 0.04  |    13.362 | Safe Zone    |
-| 2024 Q4   | 0.036 | -0.297 |  0.013 | 17.984 | 0.041 |    10.5   | Safe Zone    |
-| 2024 Q3   | 0.035 | -0.31  |  0.015 | 22.63  | 0.031 |    13.267 | Safe Zone    |
-| 2024 Q2   | 0.037 | -0.309 | -0.014 | 17.467 | 0.034 |    10.078 | Safe Zone    |
-| 2024 Q1   | 0.035 | -0.282 |  0.014 | 14.787 | 0.031 |     8.596 | Safe Zone    |
+| Quarter   |    X1 |     X2 |     X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|--------|--------|--------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.039 | -0.282 |  0.025 | 22.646 | 0.04  |    13.362 | Safe Zone    |                       |
+| 2024 Q4   | 0.036 | -0.297 |  0.013 | 17.984 | 0.041 |    10.5   | Safe Zone    |                       |
+| 2024 Q3   | 0.035 | -0.31  |  0.015 | 22.63  | 0.031 |    13.267 | Safe Zone    |                       |
+| 2024 Q2   | 0.037 | -0.309 | -0.014 | 17.467 | 0.034 |    10.078 | Safe Zone    |                       |
+| 2024 Q1   | 0.035 | -0.282 |  0.014 | 14.787 | 0.031 |     8.596 | Safe Zone    |                       |
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-The liquidity position of OR Royalties Inc. is indicated by the X1 component of the Z-Score, which measures the net working capital relative to total assets. The X1 value has shown a consistent upward trend, moving from 0.035 in Q1 2024 to 0.039 in Q1 2025. This suggests that the company is maintaining a stable liquidity position, which is crucial for meeting short-term obligations.
+The liquidity of OR Royalties Inc. is indicated by the X1 component of the Z-Score, which measures the company's ability to cover its short-term liabilities with its short-term assets. The X1 value has shown a consistent upward trend, indicating improving liquidity. For instance, the X1 value increased from 0.035 in Q1 2024 to 0.039 in Q1 2025, suggesting that the company is better positioned to meet its current obligations.
 
 ### Profitability
-The X2 component, representing retained earnings as a proportion of total assets, has been negative throughout the analyzed quarters, indicating that the company has accumulated losses. This trend is concerning as it reflects a lack of profitability and could signal potential issues in sustaining operations without external financing.
+Profitability is assessed through the X3 component (EBIT/Total Assets). The X3 values have remained relatively low, indicating that while the company is generating some earnings, it is not maximizing its asset utilization effectively. The X3 value increased slightly from 0.013 in Q4 2024 to 0.025 in Q1 2025, which is a positive sign but still reflects a need for improvement in operational efficiency.
 
 ### Capital Efficiency
-The X3 component, which measures earnings before interest and taxes (EBIT) relative to total assets, has remained low but positive, indicating that the company is generating some operational income relative to its asset base. However, the low values (ranging from 0.013 to 0.025) suggest that there is significant room for improvement in capital efficiency.
+The X2 component (Retained Earnings/Total Assets) has shown negative values, indicating that the company has not retained sufficient earnings relative to its total assets. This trend suggests that OR Royalties Inc. may be facing challenges in generating sustainable profits over time, which could hinder its long-term growth prospects.
 
 ### Leverage
-The X4 component, which assesses the equity-to-liabilities ratio, is notably high, indicating that OR Royalties Inc. is well-capitalized with a strong equity position relative to its liabilities. This is a positive sign, as it suggests that the company is less reliant on debt financing, which can be beneficial during periods of financial distress.
+The X4 component (Equity/Total Liabilities) indicates a strong leverage position, with values significantly above 1. This suggests that the company has a solid equity base relative to its liabilities, which is a positive indicator of financial stability. The X4 value increased from 14.787 in Q1 2024 to 22.646 in Q1 2025, reflecting a strong capital structure.
 
 ### Z-Score Trend Interpretation
-The Z-Score for OR Royalties Inc. has consistently remained in the "Safe Zone," with values ranging from 8.596 to 13.362 over the last five quarters. This indicates a low probability of bankruptcy and suggests that the company is currently financially stable. However, the negative retained earnings signal a need for strategic focus on profitability and operational efficiency.
+The Z-Score for OR Royalties Inc. has consistently remained in the "Safe Zone," with values ranging from 8.596 to 13.362 over the past five quarters. This indicates that the company is not at immediate risk of bankruptcy and has a relatively stable financial position. However, the negative trend in retained earnings and low profitability metrics suggest that while the company is currently safe, it may face challenges if these issues are not addressed.
 
 ---
 
 ## Proposed Phased Response Using Turnaround and Renewal Management Theory
 
 ### Immediate Retrenchment
-1. **Cost Reduction Initiatives**: Implement immediate cost-cutting measures to improve profitability. This aligns with Bibeault's (1999) emphasis on reducing operational costs during the turnaround phase.
-2. **Asset Optimization**: Evaluate underperforming assets and consider divestiture or reallocation to enhance capital efficiency, as suggested by Hoskisson et al. (2004).
+1. **Cost Reduction Initiatives**: Implement immediate cost-cutting measures to improve profitability. This aligns with Bibeault's (1999) emphasis on the need for immediate action in turnaround situations.
+2. **Asset Optimization**: Review and optimize asset utilization to enhance the EBIT/Total Assets ratio. This can be achieved by divesting non-core assets or underperforming segments.
 
-### Long-Term Repositioning
-1. **Strategic Renewal**: Develop a strategic plan focusing on innovation and market repositioning to enhance profitability. Beard (2024) highlights the importance of agility and innovation in technology firms for sustainable growth.
-2. **Stakeholder Engagement**: Foster stronger relationships with key stakeholders, including customers and investors, to ensure alignment with strategic goals, as per Freeman's (1984) stakeholder theory.
+### Long-term Repositioning
+1. **Strategic Renewal**: Develop a strategic plan focused on innovation and market repositioning, as suggested by Beard (2024). This could involve investing in new technologies or expanding into new markets.
+2. **Stakeholder Engagement**: Foster stronger relationships with stakeholders to ensure alignment and support for the company's long-term vision, as emphasized by Freeman (1984).
 
 ---
 
 ## Recommendations for Stakeholders
 
-| Stakeholder Title                     | Responsibilities                                      | Recommended Actions                                                                 |
-|---------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer (CEO)        | Overall strategic direction                           | Lead the cost reduction initiatives and oversee the strategic renewal process.      |
-| Chief Financial Officer (CFO)        | Financial management and reporting                    | Monitor cash flow closely and implement financial controls to enhance profitability. |
-| Chief Marketing Officer (CMO)        | Marketing strategy and customer engagement            | Develop targeted marketing campaigns to improve sales and customer retention.       |
-| Board Members                         | Governance and oversight                              | Support management in strategic decision-making and ensure accountability.          |
-| Employees                             | Operational execution                                 | Engage in training programs to enhance productivity and efficiency.                 |
-| Investors                             | Provide capital and support growth                    | Maintain open communication regarding financial health and strategic direction.     |
-| Creditors                             | Financial support and risk assessment                 | Reassess credit terms and maintain a collaborative relationship with management.    |
-| Debtors                               | Repayment of debts                                   | Ensure timely payments to maintain good credit standing.                            |
-| Partner Companies                     | Collaboration and joint ventures                      | Explore synergies and collaborative opportunities to enhance market presence.      |
-| Customers                             | Product and service consumption                       | Provide feedback to improve product offerings and customer service.                 |
+| Stakeholder Title                     | Name (if available) | Responsibilities and Recommended Actions                                                                 |
+|---------------------------------------|---------------------|-----------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer               | [CEO Name]          | Lead the turnaround strategy, focusing on cost reduction and strategic renewal initiatives.                |
+| Chief Financial Officer               | [CFO Name]          | Monitor financial metrics closely, implement cost-cutting measures, and optimize asset utilization.       |
+| Chief Marketing Officer               | [CMO Name]          | Develop marketing strategies to enhance brand visibility and customer engagement in new markets.          |
+| Board Members                         | [Board Members]     | Provide oversight and support for the turnaround strategy, ensuring alignment with long-term goals.       |
+| Employees                             | [Employee Group]    | Engage in cost-saving initiatives and contribute ideas for operational improvements.                       |
+| Investors                             | [Investor Group]    | Stay informed about the company's strategic direction and consider holding shares during the turnaround.   |
+| Creditors                             | [Creditor Group]    | Maintain open communication regarding financial health and repayment plans.                                |
+| Debtors                               | [Debtor Group]      | Ensure timely payments to maintain cash flow and support the company's recovery efforts.                   |
+| Partner Companies                     | [Partner Group]     | Collaborate on joint ventures or projects that can enhance market reach and profitability.                 |
+| Customers                             | [Customer Group]    | Provide feedback on products/services to help the company align offerings with market needs.               |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication**: Regular updates to employees on financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication**: Quarterly updates to investors and stakeholders outlining progress on strategic initiatives and financial performance.
+- **Internal Communication**: Regular updates to employees about the turnaround strategy and progress to maintain morale and engagement.
+- **External Communication**: Transparent communication with investors and creditors about financial health and strategic initiatives.
 
 ### Marketing Strategy
-- **Targeted Campaigns**: Focus on digital marketing strategies to reach potential customers effectively.
-- **Customer Feedback Loop**: Implement mechanisms to gather customer feedback for continuous improvement.
+- **Brand Repositioning**: Launch a marketing campaign to rebrand and promote new product offerings, targeting emerging market segments.
 
 ### Execution Timeline
-| Phase                | Timeline         | Accountability         |
-|----------------------|------------------|-------------------------|
-| Cost Reduction       | Q2 2025          | CFO                     |
-| Asset Optimization    | Q2-Q3 2025       | CEO                     |
-| Strategic Renewal    | Q3-Q4 2025       | CEO & CMO               |
-| Stakeholder Engagement| Ongoing          | Board Members           |
+- **Q2 2025**: Implement cost-cutting measures and begin asset optimization.
+- **Q3 2025**: Launch marketing campaign and engage stakeholders for feedback.
+- **Q4 2025**: Review progress and adjust strategies as necessary.
+
+### Accountability Framework
+- Assign specific team leaders for each initiative, with regular check-ins to assess progress and make adjustments.
 
 ---
 
-## Bargaining Power and Influence of External Stakeholders
-
-| External Stakeholder        | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|-----------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
-| Regulators                  | Regulatory compliance       | Medium              | Compliance with regulations can impact operational capabilities.         |
-| Government Agencies         | Policy influence            | Low                 | Limited direct influence but can affect market conditions.              |
-| Unions                      | Labor negotiations          | Medium              | Can influence employee relations and operational costs.                 |
-| Major Suppliers             | Supply chain leverage       | High                | Dependence on suppliers can affect production and costs.                |
-| Key Partners                | Strategic alliances         | Medium              | Partnerships can enhance market reach and operational capabilities.      |
-| Activist Investors          | Shareholder activism        | High                | Can influence management decisions and strategic direction.              |
-| Creditors                   | Financial terms             | High                | Influence on financing conditions and terms can impact liquidity.        |
-| Large Customers             | Purchasing power            | Medium              | Significant customers can negotiate better terms, affecting revenue.     |
+## Investor Recommendation
+Based on the current financial health and Z-Score analysis, investors are advised to **hold** their positions in OR Royalties Inc. The company is in a safe zone but needs to address profitability and retained earnings issues. This recommendation is not financial advice; please consult your financial advisor before making investment decisions.
 
 ---
 
-## Investment Recommendation
-Based on the current financial health and Z-Score analysis, investors should **hold** their positions in OR Royalties Inc. The company is in a stable financial position, but the negative retained earnings indicate a need for improvement in profitability. Investors should monitor the implementation of the proposed strategies and their impact on financial performance. 
+## External Stakeholder Bargaining Power Assessment
 
-**Disclaimer**: This is not financial advice. Please consult your financial advisor before making investment decisions.
+| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                      |
+|------------------------------|----------------------------|---------------------|-----------------------------------------------------------------------------------------------|
+| Regulators                   | Regulatory Compliance       | Moderate            | Must adhere to industry regulations, impacting operational flexibility.                       |
+| Government Agencies          | Policy Influence            | Low                 | Limited direct influence but can affect market conditions through policy changes.            |
+| Unions                       | Labor Relations             | Moderate            | Can influence employee morale and operational efficiency through negotiations.                |
+| Major Suppliers              | Supply Chain Control        | High                | Significant influence over costs and availability of critical resources.                      |
+| Key Partners                 | Strategic Alliances         | High                | Can impact market reach and operational capabilities through collaboration.                   |
+| Activist Investors           | Shareholder Activism        | Moderate            | Can influence management decisions through shareholder proposals and public campaigns.        |
+| Creditors                    | Financial Leverage          | High                | Significant influence over financial restructuring and repayment terms.                       |
+| Large Customers              | Revenue Dependency          | Moderate            | Can impact sales and revenue stability through purchasing decisions.                          |
 
 ---
 
@@ -163,6 +159,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
+- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
@@ -193,7 +190,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 13.5                   |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -392.0                 |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 174.8                  |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 1,213.9                |
+| 2025 Q1   | market_value_equity | Common Stock                            | 1,680.5                |
 | 2025 Q1   | ebit                | EBIT                                    | 35.2                   |
 | 2025 Q1   | sales               | Total Revenue                           | 54.9                   |
 | ---       | ---                 | ---                                     | ---                    |
@@ -202,7 +199,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 14.6                   |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -408.7                 |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 188.7                  |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 1,189.0                |
+| 2024 Q4   | market_value_equity | Common Stock                            | 1,675.9                |
 | 2024 Q4   | ebit                | EBIT                                    | 17.6                   |
 | 2024 Q4   | sales               | Total Revenue                           | 55.8                   |
 | ---       | ---                 | ---                                     | ---                    |
@@ -211,7 +208,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 14.1                   |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -428.7                 |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 153.3                  |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 1,231.2                |
+| 2024 Q3   | market_value_equity | Common Stock                            | 1,564.4                |
 | 2024 Q3   | ebit                | EBIT                                    | 21.1                   |
 | 2024 Q3   | sales               | Total Revenue                           | 42.4                   |
 | ---       | ---                 | ---                                     | ---                    |
@@ -220,7 +217,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 13.1                   |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -427.2                 |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 166.8                  |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 1,214.3                |
+| 2024 Q2   | market_value_equity | Common Stock                            | 1,541.5                |
 | 2024 Q2   | ebit                | EBIT                                    | -20.0                  |
 | 2024 Q2   | sales               | Total Revenue                           | 47.3                   |
 | ---       | ---                 | ---                                     | ---                    |
@@ -229,7 +226,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 12.8                   |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | -408.4                 |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 207.0                  |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 1,241.1                |
+| 2024 Q1   | market_value_equity | Common Stock                            | 1,559.1                |
 | 2024 Q1   | ebit                | EBIT                                    | 19.8                   |
 | 2024 Q1   | sales               | Total Revenue                           | 45.0                   |
 

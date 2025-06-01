@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,92 +52,102 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    |
-|-----------|-------|-------|-------|-------|-------|-----------|---------------|
-| 2024 Q4   | 0.266 | 0.579 | 0.064 | 0.423 | 0.13  |     1.723 | Distress Zone |
-| 2024 Q3   | 0.275 | 0.543 | 0.063 | 0.417 | 0.123 |     1.67  | Distress Zone |
-| 2024 Q2   | 0.258 | 0.523 | 0.052 | 0.412 | 0.113 |     1.572 | Distress Zone |
-| 2024 Q1   | 0.246 | 0.569 | 0.047 | 0.328 | 0.102 |     1.545 | Distress Zone |
+| Quarter   |    X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|-------|-------|-------|-------|-------|-----------|---------------|-----------------------|
+| 2024 Q4   | 0.266 | 0.579 | 0.064 | 0.423 | 0.13  |     1.723 | Distress Zone |                       |
+| 2024 Q3   | 0.275 | 0.543 | 0.063 | 0.417 | 0.123 |     1.67  | Distress Zone |                       |
+| 2024 Q2   | 0.258 | 0.523 | 0.052 | 0.412 | 0.113 |     1.572 | Distress Zone |                       |
+| 2024 Q1   | 0.246 | 0.569 | 0.047 | 0.328 | 0.102 |     1.545 | Distress Zone |                       |
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-The liquidity position of Taiwan Semiconductor Manufacturing Company (TSMC) is assessed through the X1 component of the Z-Score, which measures the net working capital relative to total assets. The X1 value has shown a slight increase from 0.246 in Q1 2024 to 0.266 in Q4 2024. However, it remains below the ideal threshold of 0.2, indicating potential liquidity issues. This suggests that TSMC may struggle to meet short-term obligations, which is critical in the capital-intensive semiconductor industry.
+The liquidity position of Taiwan Semiconductor Manufacturing Company (TSMC) is assessed through the X1 component of the Z-Score, which reflects the working capital ratio. The X1 value has shown a slight upward trend from 0.246 in Q1 2024 to 0.266 in Q4 2024, indicating a marginal improvement in liquidity. However, the value remains below the ideal threshold of 0.5, suggesting that TSMC may face challenges in meeting short-term obligations.
 
 ### Profitability
-Profitability is evaluated through the X3 component (EBIT/Total Assets). The X3 value has decreased from 0.047 in Q1 2024 to 0.064 in Q4 2024, indicating a slight improvement in operational efficiency. However, the overall profitability remains low, which could hinder TSMC's ability to reinvest in growth or pay dividends.
+Profitability is evaluated through the X3 component, which measures earnings before interest and taxes (EBIT) relative to total assets. The X3 value has decreased from 0.047 in Q1 2024 to 0.064 in Q4 2024, indicating a decline in operational efficiency and profitability. This trend is concerning, as it suggests that TSMC is generating less profit from its assets over time.
 
 ### Capital Efficiency
-The X2 component (Retained Earnings/Total Assets) reflects TSMC's ability to retain earnings for reinvestment. The X2 value has shown a downward trend from 0.569 in Q1 2024 to 0.579 in Q4 2024, indicating a decline in retained earnings relative to total assets. This trend suggests that TSMC may be facing challenges in generating sufficient profits to reinvest in its operations.
+The X2 component, representing retained earnings as a percentage of total assets, has also shown a downward trend, from 0.569 in Q1 2024 to 0.579 in Q4 2024. This indicates that TSMC's ability to reinvest profits into the business is weakening, which could hinder future growth and innovation.
 
 ### Leverage
-The X4 component (Equity/Total Liabilities) indicates TSMC's leverage position. The X4 value has remained relatively stable, fluctuating around 0.328 to 0.423. While this indicates a moderate level of leverage, it also suggests that TSMC may be relying on debt financing, which can be risky in a volatile market.
+The X4 component, which measures equity relative to total liabilities, has remained relatively stable, hovering around 0.423 to 0.417. While this indicates a moderate level of leverage, it also suggests that TSMC is not effectively utilizing its equity to reduce debt levels, which could pose risks in a downturn.
 
 ### Z-Score Trend Interpretation
-The overall Z-Score for TSMC has consistently remained in the distress zone, with values ranging from 1.545 to 1.723 over the last four quarters. This trend indicates a deteriorating financial health and raises concerns about the company's ability to sustain operations without significant restructuring or turnaround strategies.
+The overall Z-Score for TSMC has consistently remained in the distress zone, with values ranging from 1.545 to 1.723 over the last four quarters. This trend indicates a significant risk of financial distress and potential bankruptcy if corrective measures are not taken. The declining profitability and liquidity ratios are particularly alarming and warrant immediate attention.
 
 ---
 
 ## Turnaround and Renewal Management Theory Application
 
 ### Phased Response Proposal
-Based on the diagnostic evaluation, TSMC should adopt a phased response strategy that distinguishes between immediate retrenchment and long-term repositioning.
+To address the financial challenges faced by TSMC, a phased response is proposed, distinguishing between immediate retrenchment and long-term repositioning.
 
 1. **Immediate Retrenchment:**
-   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This aligns with Bibeault's (1999) turnaround strategies, which emphasize the importance of reducing expenses in the early stages of recovery.
-   - **Asset Liquidation:** Consider selling non-core assets to generate cash and improve working capital, as suggested by Hofer (1980).
+   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This may include reducing operational expenses, renegotiating supplier contracts, and freezing hiring.
+   - **Asset Liquidation:** Evaluate non-core assets for potential sale to generate cash and improve the working capital position.
+   - **Debt Restructuring:** Engage with creditors to negotiate more favorable terms or defer payments to alleviate short-term cash flow pressures.
 
 2. **Long-Term Repositioning:**
-   - **Strategic Investment:** Reinvest in R&D to enhance product offerings and maintain competitive advantage, as highlighted by Hoskisson et al. (2004).
-   - **Market Diversification:** Explore new markets or segments to reduce dependency on existing revenue streams, following the principles of strategic renewal outlined by Beard (2024).
+   - **Strategic Innovation:** Invest in R&D to enhance product offerings and maintain competitive advantage in the semiconductor industry. This aligns with Bibeault's (1999) emphasis on innovation as a key driver of corporate turnaround.
+   - **Market Diversification:** Explore new markets and customer segments to reduce dependency on existing revenue streams, as suggested by Hofer (1980).
+   - **Stakeholder Engagement:** Foster stronger relationships with stakeholders, including customers and suppliers, to enhance collaboration and support for strategic initiatives (Freeman, 1984).
 
 ---
 
 ## Stakeholder Recommendations
 
-| Stakeholder Title                     | Responsibilities                          | Recommended Actions                                                                 |
-|---------------------------------------|------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer (CEO)        | Overall strategy and direction           | Lead the turnaround strategy, focusing on cost reduction and strategic investments.  |
-| Chief Financial Officer (CFO)        | Financial management and reporting       | Enhance cash flow management and explore refinancing options to reduce debt burden. |
-| Chief Marketing Officer (CMO)        | Brand strategy and market positioning    | Develop a marketing strategy to communicate the turnaround plan to stakeholders.    |
-| Board Members                         | Governance and oversight                  | Support management in implementing turnaround strategies and monitor progress.       |
-| Employees                             | Operational execution                     | Engage employees in the turnaround process and communicate the importance of their roles. |
-| Investors                             | Financial support and expectations       | Communicate the turnaround strategy and expected outcomes to maintain investor confidence. |
-| Creditors                             | Financial support and risk management    | Negotiate for more favorable terms on existing debt to improve liquidity.            |
-| Debtors                               | Financial obligations                     | Ensure timely payments to maintain good relationships and avoid further liquidity issues. |
-| Partner Companies                     | Collaborative opportunities               | Explore joint ventures or partnerships to enhance market reach and capabilities.     |
-| Customers                             | Product demand and loyalty                | Communicate product improvements and maintain high service levels to retain customers. |
+| Stakeholder Title                     | Responsibilities                                   | Recommended Actions                                                                 |
+|---------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer (CEO)        | Overall strategy and direction                     | Lead the turnaround initiative, focusing on cost reduction and innovation.          |
+| Chief Financial Officer (CFO)        | Financial management and reporting                 | Implement immediate cost-cutting measures and explore debt restructuring options.   |
+| Chief Marketing Officer (CMO)        | Market positioning and customer engagement        | Develop marketing strategies to promote new products and enhance customer loyalty.  |
+| Board Members                         | Governance and oversight                           | Support management in strategic decision-making and monitor financial performance.   |
+| Employees                             | Operational execution                              | Communicate transparently about changes and involve them in the turnaround process.  |
+| Investors                             | Provide capital and support                        | Assess the company's recovery plan and consider holding or buying shares.          |
+| Creditors                             | Provide financing                                  | Engage in discussions for restructuring debt terms to support liquidity.            |
+| Debtors                               | Repayment obligations                              | Maintain open communication regarding repayment schedules and potential adjustments. |
+| Partner Companies                     | Collaboration and supply chain management         | Strengthen partnerships to enhance supply chain efficiency and reduce costs.       |
+| Customers                             | Demand for products                               | Ensure product quality and reliability to maintain customer trust and loyalty.      |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
-### Timeline and Accountability Framework
-- **Q2 2025:** Implement immediate cost-cutting measures and communicate the strategy to all stakeholders.
-- **Q3 2025:** Begin asset liquidation process and reinvest in R&D.
-- **Q4 2025:** Launch new marketing campaigns to promote product innovations and market diversification efforts.
+### Communication Strategy
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress to maintain morale and engagement.
+- **External Communication:** Transparent communication with investors and creditors regarding financial health and recovery plans.
+
+### Marketing Strategy
+- **Brand Reinforcement:** Highlight TSMC's commitment to innovation and quality in marketing campaigns to regain customer trust.
+- **Targeted Promotions:** Develop promotional strategies aimed at new market segments identified during the repositioning phase.
+
+### Execution Timeline
+- **Q1 2025:** Implement immediate cost-cutting measures and initiate debt restructuring discussions.
+- **Q2 2025:** Launch new marketing campaigns and begin R&D investments.
+- **Q3 2025:** Evaluate progress and adjust strategies as necessary.
 
 ### Accountability Framework
-- Assign specific teams to oversee each phase of the turnaround strategy, with regular progress reports to the CEO and Board Members.
+- Assign specific team leaders for each initiative, with regular progress reviews to ensure accountability and transparency.
 
 ---
 
 ## Investor Recommendation
-Given TSMC's current financial distress as indicated by the Z-Score below 1.81, investors should **hold** their positions while monitoring the implementation of the turnaround strategy. This recommendation is based on the potential for recovery through strategic actions. However, investors should consult their financial advisors before making any decisions.
+Based on the current financial analysis, investors should **hold** their positions in TSMC while monitoring the implementation of the turnaround strategy. The company's current Z-Score indicates significant risk, but potential improvements in operational efficiency and market positioning could enhance long-term value. **Disclaimer:** This is not financial advice; please consult your financial advisor before making investment decisions.
 
 ---
 
 ## External Stakeholder Bargaining Power Assessment
 
 | External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                            | Regulatory compliance       | Moderate             | TSMC must comply with industry regulations, impacting operational flexibility. |
-| Government Agencies                   | Policy influence            | Low                  | Limited direct influence but can affect market conditions through policy changes. |
-| Unions                                | Labor negotiations          | Moderate             | Unions can impact labor costs and operational efficiency through negotiations. |
-| Major Suppliers                       | Supply chain dependency     | High                 | Suppliers have significant leverage due to TSMC's reliance on critical materials. |
-| Key Partners                          | Strategic alliances         | Moderate             | Partnerships can enhance market reach but depend on mutual interests.     |
-| Activist Investors                    | Shareholder influence       | High                 | Can exert pressure on management to implement changes or improve performance. |
-| Creditors                             | Financial leverage          | High                 | Creditors can dictate terms of financing and influence liquidity management. |
-| Large Customers                       | Demand influence            | Moderate             | Large customers can impact revenue stability and pricing strategies.      |
+|---------------------------------------|----------------------------|---------------------|--------------------------------------------------------------------------|
+| Regulators                            | Regulatory compliance       | Moderate            | Regulatory requirements can impact operational flexibility.              |
+| Government Agencies                   | Policy influence           | Low                 | Limited direct influence on TSMC's operations.                          |
+| Unions                                | Labor negotiations         | Moderate            | Unions can influence labor costs and operational efficiency.             |
+| Major Suppliers                       | Supply chain leverage      | High                | Suppliers can impact production costs and timelines significantly.       |
+| Key Partners                          | Strategic alliances        | Moderate            | Partnerships can enhance market reach and operational capabilities.      |
+| Activist Investors                    | Shareholder activism       | High                | Can influence management decisions and strategic direction.              |
+| Creditors                             | Financial leverage         | High                | Creditors can impose terms that affect liquidity and operational flexibility. |
+| Large Customers                       | Demand influence           | Moderate            | Large customers can impact revenue stability and pricing strategies.     |
 
 ---
 
@@ -155,22 +164,13 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
-  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-  - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -186,7 +186,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 1,308,655.9            |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 3,872,973.4            |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 2,412,493.1            |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 4,244,266.5            |
+| 2024 Q4   | market_value_equity | Total Equity Gross Minority Interest    | 4,279,271.6            |
 | 2024 Q4   | ebit                | EBIT                                    | 425,713.0              |
 | 2024 Q4   | sales               | Total Revenue                           | 868,461.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -195,7 +195,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 1,080,399.1            |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 3,346,232.3            |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 2,143,735.9            |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 3,990,019.2            |
+| 2024 Q3   | market_value_equity | Total Equity Gross Minority Interest    | 4,021,922.3            |
 | 2024 Q3   | ebit                | EBIT                                    | 386,822.6              |
 | 2024 Q3   | sales               | Total Revenue                           | 759,692.1              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -204,7 +204,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 1,048,915.7            |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 3,127,527.8            |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 2,162,215.8            |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 3,791,402.9            |
+| 2024 Q2   | market_value_equity | Total Equity Gross Minority Interest    | 3,820,148.2            |
 | 2024 Q2   | ebit                | EBIT                                    | 308,948.7              |
 | 2024 Q2   | sales               | Total Revenue                           | 673,510.2              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -213,7 +213,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 1,026,180.1            |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 3,294,563.7            |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 2,122,174.8            |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 3,635,731.9            |
+| 2024 Q1   | market_value_equity | Total Equity Gross Minority Interest    | 3,665,716.3            |
 | 2024 Q1   | ebit                | EBIT                                    | 269,241.5              |
 | 2024 Q1   | sales               | Total Revenue                           | 592,644.2              |
 

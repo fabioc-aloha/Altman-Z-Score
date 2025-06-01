@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.1*X1 + 1.5*X2 + 3.0*X3 + 0.7*X4 + 1.2*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -36,9 +35,9 @@ Z = 1.1*X1 + 1.5*X2 + 3.0*X3 + 0.7*X4 + 1.2*X5
 - X5 = Sales / Total Assets
 
 **Thresholds:**
-- Safe Zone: > 3.1
-- Grey Zone: > 1.5 and <= 3.1
-- Distress Zone: <= 1.5
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
 
 
 
@@ -53,102 +52,101 @@ Z = 1.1*X1 + 1.5*X2 + 3.0*X3 + 0.7*X4 + 1.2*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|--------|--------|-------|-------|-------|-----------|--------------|
-| 2025 Q1   | -0.028 |  0.032 | 0.035 | 3.499 | 0.128 |     2.354 | Grey Zone    |
-| 2024 Q4   | -0.02  |  0.03  | 0.02  | 3.171 | 0.143 |     2.131 | Grey Zone    |
-| 2024 Q3   | -0.017 |  0.03  | 0.022 | 3.714 | 0.129 |     2.451 | Grey Zone    |
-| 2024 Q2   | -0.03  |  0.018 | 0.027 | 3.66  | 0.124 |     2.398 | Grey Zone    |
-| 2024 Q1   | -0.032 | -0.002 | 0.031 | 3.177 | 0.124 |     2.092 | Grey Zone    |
+| Quarter   |     X1 |     X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|--------|--------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | -0.028 |  0.032 | 0.035 | 3.499 | 0.128 |     2.354 | Grey Zone    |                       |
+| 2024 Q4   | -0.02  |  0.03  | 0.02  | 3.171 | 0.143 |     2.131 | Grey Zone    |                       |
+| 2024 Q3   | -0.017 |  0.03  | 0.022 | 3.714 | 0.129 |     2.451 | Grey Zone    |                       |
+| 2024 Q2   | -0.03  |  0.018 | 0.027 | 3.66  | 0.124 |     2.398 | Grey Zone    |                       |
+| 2024 Q1   | -0.032 | -0.002 | 0.031 | 3.177 | 0.124 |     2.092 | Grey Zone    |                       |
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-AstraZeneca PLC (AZN) has shown a negative trend in its liquidity ratio (X1), indicating that current assets are insufficient to cover current liabilities. This is a concerning sign as it suggests potential cash flow issues that could affect the company's ability to meet short-term obligations.
+AstraZeneca PLC (AZN) has shown a negative trend in its liquidity ratio (X1), indicating that current liabilities exceed current assets. This situation suggests potential challenges in meeting short-term obligations, which is a critical concern for stakeholders.
 
 ### Profitability
-The retained earnings ratio (X2) remains low but positive, indicating that the company has been able to retain some earnings over time. However, the low value suggests that profitability may not be robust enough to support significant growth or reinvestment.
+The profitability ratio (X3) indicates that AZN is generating earnings before interest and taxes (EBIT) relative to its total assets. The recent values hover around 0.02 to 0.035, which, while not alarming, suggests that profitability is not robust enough to significantly enhance the Z-Score.
 
 ### Capital Efficiency
-The EBIT to total assets ratio (X3) is modest, reflecting a reasonable level of operational efficiency. However, it is essential to monitor this metric closely as it can indicate how well the company is utilizing its assets to generate earnings.
+The retained earnings ratio (X2) reflects the company's ability to reinvest profits back into the business. The values around 0.03 indicate a modest level of retained earnings relative to total assets, which could limit growth opportunities.
 
 ### Leverage
-The equity to total liabilities ratio (X4) is strong, suggesting that AstraZeneca is not overly leveraged and has a solid capital structure. This is a positive indicator of financial stability, as it implies that the company can withstand financial distress better than its peers.
+The equity to liabilities ratio (X4) is strong at approximately 3.5, indicating that AZN has a solid capital structure with a low level of debt relative to equity. This is a positive sign, suggesting that the company is less vulnerable to financial distress.
 
 ### Z-Score Trend Interpretation
-The Z-Score has consistently remained in the grey zone (between 1.5 and 3.1) over the past quarters, indicating that while AstraZeneca is not in immediate danger of bankruptcy, it is also not in a strong financial position. The trend suggests a need for strategic intervention to improve financial health and move towards the safe zone.
+The Z-Score has fluctuated between 2.09 and 2.45 over the last four quarters, consistently landing in the Grey Zone (1.81 < Z < 2.99). This indicates that while AZN is not in immediate danger of bankruptcy, it is at risk and requires strategic management to improve its financial health.
 
 ---
 
-## 2. Proposed Phased Response
+## 2. Turnaround and Renewal Management Theory Application
 
 ### Immediate Retrenchment
-In line with Hofer's turnaround strategies (1980), immediate actions should focus on cost-cutting measures to stabilize cash flow. This includes:
+According to Hofer (1980), immediate retrenchment strategies should focus on cost-cutting measures, improving cash flow, and stabilizing operations. For AZN, this could involve:
+- Reducing operational costs through efficiency improvements.
+- Streamlining product lines to focus on high-margin products.
+- Enhancing cash flow management to ensure liquidity.
 
-- **Reducing operational costs:** Streamlining operations and eliminating non-essential expenditures.
-- **Improving cash management:** Tightening credit terms and accelerating receivables collection.
-
-### Long-term Repositioning
-For sustainable recovery, AstraZeneca should consider long-term strategies as outlined by Bibeault (1999) and Hoskisson et al. (2004):
-
-- **Investing in R&D:** Focusing on innovation to drive future growth, particularly in high-demand therapeutic areas.
-- **Market expansion:** Exploring new markets and partnerships to diversify revenue streams and reduce dependency on existing products.
+### Long-Term Repositioning
+Bibeault (1999) emphasizes the importance of long-term strategies for sustainable growth. AZN should consider:
+- Investing in R&D to innovate and expand its product portfolio.
+- Exploring strategic partnerships or acquisitions to enhance market presence.
+- Implementing a robust marketing strategy to improve brand positioning and customer engagement.
 
 ---
 
 ## 3. Recommendations for Stakeholders
 
-| Stakeholder Title                 | Responsibilities                                   | Recommended Actions                                                                 |
-|-----------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer (Pascal Soriot) | Overall strategy and leadership                   | Implement immediate cost-cutting measures and initiate long-term R&D investments.   |
-| Chief Financial Officer (Marc Dunoyer) | Financial management and reporting                 | Enhance cash flow management and monitor financial ratios closely.                  |
-| Chief Marketing Officer (Ruud Dobber) | Marketing strategy and brand management            | Develop targeted marketing campaigns to support new product launches.               |
-| Board Members                      | Governance and oversight                            | Review and approve strategic initiatives for cost reduction and market expansion.   |
-| Employees                          | Operational execution                               | Engage in cost-saving initiatives and contribute ideas for efficiency improvements.  |
-| Investors                          | Provide capital and support                         | Monitor financial health closely; consider holding shares until recovery is evident. |
-| Creditors                          | Provide financing                                   | Maintain open communication regarding cash flow and repayment plans.                |
-| Debtors                            | Repayment of debts                                 | Ensure timely payments to maintain good standing with creditors.                    |
-| Partner Companies                  | Collaborative projects                             | Explore joint ventures to enhance product offerings and market reach.               |
-| Customers                          | End-users of products                              | Maintain quality and availability of products to retain customer loyalty.           |
+| Stakeholder Title                     | Responsibilities                        | Recommended Actions                                                                                               |
+|---------------------------------------|----------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer (Pascal Soriot) | Overall company strategy and performance | Lead immediate cost-cutting initiatives and communicate a clear vision for long-term growth.                      |
+| Chief Financial Officer (Mene Pangalos) | Financial health and reporting         | Focus on improving liquidity ratios and managing debt levels effectively.                                         |
+| Chief Marketing Officer (Ruud Dobber) | Brand management and customer engagement | Develop a marketing strategy to enhance product visibility and customer loyalty.                                   |
+| Board Members                         | Governance and oversight                | Support management in strategic decision-making and ensure accountability in financial performance.                |
+| Employees                             | Operational execution                   | Engage in efficiency improvement programs and provide feedback on operational challenges.                          |
+| Investors                             | Financial returns                       | Monitor the company's turnaround strategies and assess the potential for long-term growth before making decisions. |
+| Creditors                             | Financial stability                     | Work with management to restructure any existing debt obligations if necessary.                                   |
+| Debtors                               | Payment obligations                     | Ensure timely payments and maintain open communication regarding any financial difficulties.                       |
+| Partner Companies                     | Collaborative opportunities             | Explore joint ventures or partnerships that can enhance product offerings and market reach.                       |
+| Customers                             | Product usage and feedback              | Provide feedback on product performance and engage with the company through loyalty programs.                      |
 
 ---
 
 ## 4. Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication:** Inform investors and creditors about the turnaround strategy and expected outcomes to maintain confidence.
+- **Internal Communication:** Regular updates to employees on financial health and strategic initiatives to foster transparency and engagement.
+- **External Communication:** Press releases and investor calls to keep stakeholders informed about progress and future plans.
 
 ### Marketing Strategy
-- **Targeted Campaigns:** Focus on high-demand therapeutic areas through digital marketing and partnerships with healthcare providers.
-- **Brand Positioning:** Reinforce AstraZeneca's commitment to innovation and patient care.
+- **Targeted Campaigns:** Focus on high-margin products and leverage digital marketing to reach broader audiences.
+- **Customer Engagement:** Implement loyalty programs and feedback mechanisms to enhance customer relationships.
 
 ### Execution Timeline
-| Phase               | Timeline        | Accountability          |
-|---------------------|----------------|-------------------------|
-| Immediate Retrenchment | 0-3 months    | CFO and CEO             |
-| R&D Investment       | 3-12 months    | CEO and R&D Director    |
-| Market Expansion     | 12-24 months   | CMO and Business Development Director |
+| Phase               | Action Items                                        | Timeline        | Accountability         |
+|---------------------|----------------------------------------------------|------------------|-------------------------|
+| Immediate Retrenchment | Cost-cutting measures, cash flow management      | 0-3 months       | CFO                     |
+| Mid-Term Strategy    | R&D investment, marketing strategy implementation   | 3-12 months      | CEO, CMO               |
+| Long-Term Growth      | Explore partnerships, product innovation            | 12+ months       | CEO, Board Members      |
 
 ---
 
 ## 5. Investment Recommendation
-
-Given the current financial health of AstraZeneca, characterized by a Z-Score in the grey zone, it is recommended that investors **hold** their positions. The company is not in immediate distress, but it requires strategic actions to improve its financial standing. Investors should consult their financial advisors for personalized advice.
+Based on the current Z-Score and financial health analysis, investors should **hold** their positions in AstraZeneca PLC (AZN) while monitoring the implementation of the proposed turnaround strategies. The company is not in immediate distress, but its position in the Grey Zone warrants caution. It is recommended that investors consult with their financial advisors for personalized advice.
 
 ---
 
-## 6. External Stakeholder Bargaining Power Assessment
+## 6. Bargaining Power and Influence of External Stakeholders
 
-| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                   | Regulatory compliance       | Moderate            | Compliance with healthcare regulations is critical for operations.       |
-| Government Agencies           | Policy influence            | Low                 | Limited direct influence but can affect market conditions.               |
-| Unions                       | Labor negotiations          | Moderate            | Can impact operational efficiency through labor relations.               |
-| Major Suppliers              | Supply chain leverage       | High                | Dependence on suppliers for raw materials can affect production costs.   |
-| Key Partners                 | Strategic alliances         | Moderate            | Partnerships can enhance market reach and product offerings.             |
-| Activist Investors           | Shareholder activism        | High                | Can influence management decisions and strategic direction.              |
-| Creditors                    | Financial leverage          | High                | Credit terms can significantly impact cash flow and financial stability.  |
-| Large Customers              | Purchasing power            | Moderate            | Significant customers can negotiate terms that affect revenue.           |
+| External Stakeholder           | Nature of Bargaining Power                | Degree of Influence | Rationale                                                                                   |
+|-------------------------------|------------------------------------------|---------------------|--------------------------------------------------------------------------------------------|
+| Regulators                    | Regulatory compliance                     | Moderate            | Compliance with health regulations can impact operations and market access.                |
+| Government Agencies           | Policy influence                         | Low                 | Limited direct influence but can affect market conditions through policy changes.          |
+| Unions                        | Labor negotiations                       | Moderate            | Unions can influence labor costs and employee relations, impacting operational efficiency.  |
+| Major Suppliers               | Supply chain stability                   | High                | Key suppliers can affect production capabilities and costs, influencing profitability.      |
+| Key Partners                  | Strategic alliances                      | Moderate            | Partnerships can enhance market reach and innovation capabilities.                          |
+| Activist Investors            | Shareholder activism                     | High                | They can influence management decisions and strategic direction through shareholder votes.  |
+| Creditors                     | Debt restructuring                       | High                | Creditors have significant leverage in financial negotiations, impacting liquidity.         |
+| Large Customers               | Demand influence                        | Moderate            | Major customers can influence pricing and product development through their purchasing power.|
 
 ---
 
@@ -165,7 +163,6 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
@@ -190,7 +187,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 29,129.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 3,364.0                |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 65,122.0               |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 41,039.0               |
+| 2025 Q1   | market_value_equity | Total Capitalization                    | 67,731.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 3,751.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 13,588.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -199,7 +196,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 27,866.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 3,160.0                |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 63,164.0               |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 40,786.0               |
+| 2024 Q4   | market_value_equity | Total Capitalization                    | 67,292.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 2,095.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 14,891.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -208,7 +205,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 25,926.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 3,138.0                |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 64,117.0               |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 40,719.0               |
+| 2024 Q3   | market_value_equity | Total Capitalization                    | 69,606.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 2,285.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 13,565.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -217,7 +214,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 28,566.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 1,847.0                |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 64,742.0               |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 39,512.0               |
+| 2024 Q2   | market_value_equity | Total Capitalization                    | 66,737.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 2,840.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 12,938.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -226,7 +223,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 28,901.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | -212.0                 |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 64,792.0               |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 37,445.0               |
+| 2024 Q1   | market_value_equity | Total Capitalization                    | 64,704.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 3,213.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 12,679.0               |
 

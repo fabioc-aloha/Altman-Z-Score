@@ -92,6 +92,14 @@ def report_zscore_full_report(
             lines.append(f"- **{k}:** {v}")
         lines.append("")
     # --- Model/Threshold Overrides and Assumptions Section ---
+    MODEL_LABELS = {
+        "original": "Original Z-Score (Public Manufacturing, 1968)",
+        "private": "Z′-Score (Private Manufacturing, 1983)",
+        "private_mfg": "Z′-Score (Private Manufacturing, 1983)",
+        "private_service": "Zʺ-Score (Private Non-Manufacturing, Book Equity, 1995)",
+        "service": "Zʺ-Score (Public Non-Manufacturing, 1995)",
+        "emerging": "EM-Score (Emerging Markets, mid-1990s)",
+    }
     override_context = None
     if hasattr(df, "zscore_results") and df.zscore_results:
         override_context = getattr(df.zscore_results[0], "override_context", None)
@@ -108,8 +116,23 @@ def report_zscore_full_report(
             for k, v in oc.items():
                 lines.append(f"- **{k}:** {v}")
             lines.append("")
-    model_name = str(model).lower()
-    lines.append("")
+    model_name = None
+    if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
+        model_name = df.zscore_results[0].model
+    elif 'model' in df.columns:
+        model_name = df['model'].iloc[0]
+    else:
+        model_name = str(model).lower()
+    # Defensive fallback
+    if not model_name:
+        model_name = 'original'
+    model_label = MODEL_LABELS.get(str(model_name).lower(), str(model_name))
+    # Insert model label into context section
+    if context_info is not None:
+        for idx, line in enumerate(lines):
+            if line.strip().startswith('- **Model:**'):
+                lines[idx] = f'- **Model:** {model_label} ({model_name})'
+                break
     # --- Dynamically build formula and threshold display ---
     from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
     formula_lines = []
@@ -258,7 +281,15 @@ def report_zscore_full_report(
         row_vals.append(diag or "")
         rows.append(row_vals)
     header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]
-    table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
+    # Add consistency warnings to the Z-Score Component Table if present
+    if "consistency_warning" in df.columns:
+        header.append("Consistency Warning")
+        for i, (_, row) in enumerate(df.iterrows()):
+            warning = row.get("consistency_warning")
+            rows[i].append(warning if warning else "")
+        table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
+    else:
+        table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
     # Do NOT append the Z-Score Component Table here
     import os  # Ensure os is imported before chart embedding logic
 
@@ -340,4 +371,3 @@ def report_zscore_full_report(
     return report
 
 
-# (md to docx conversion moved to md_to_docx.py for modularity)

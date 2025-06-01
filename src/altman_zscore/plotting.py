@@ -75,16 +75,15 @@ def get_output_ticker_dir(ticker):
 
 def get_zscore_thresholds(model):
     """Return distress and safe zone thresholds for the given model name."""
-    # These values are based on standard Altman Z-Score literature
-    if model == "original":
-        return {"distress_zone": 1.81, "safe_zone": 2.99}
-    elif model == "private":
-        return {"distress_zone": 1.23, "safe_zone": 2.90}
-    elif model in ("public", "em", "service", "tech"):
-        return {"distress_zone": 1.1, "safe_zone": 2.6}
-    else:
-        # Fallback to original model thresholds
-        return {"distress_zone": 1.81, "safe_zone": 2.99}
+    from altman_zscore.computation.constants import Z_SCORE_THRESHOLDS
+    
+    # Get thresholds from centralized constants
+    thresholds = Z_SCORE_THRESHOLDS.get(model, Z_SCORE_THRESHOLDS["original"])
+    
+    return {
+        "distress_zone": float(thresholds["distress"]),
+        "safe_zone": float(thresholds["safe"])
+    }
 
 
 def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_moving_averages=False):

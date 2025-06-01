@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,95 +52,98 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|--------|-------|-------|-------|-------|-----------|--------------|
-| 2025 Q1   | -0.066 | 0.377 | 0.029 | 4.79  | 0.692 |     4.112 | Safe Zone    |
-| 2024 Q4   | -0.059 | 0.359 | 0.025 | 3.853 | 0.644 |     3.47  | Safe Zone    |
-| 2024 Q3   | -0.074 | 0.357 | 0.027 | 3.321 | 0.666 |     3.159 | Safe Zone    |
-| 2024 Q2   | -0.075 | 0.343 | 0.031 | 2.826 | 0.636 |     2.823 | Grey Zone    |
-| 2024 Q1   | -0.062 | 0.356 | 0.033 | 2.677 | 0.687 |     2.825 | Grey Zone    |
-## 1. Diagnostic Evaluation of Financial Health
+| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|--------|-------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | -0.066 | 0.377 | 0.029 | 4.79  | 0.692 |     4.112 | Safe Zone    |                       |
+| 2024 Q4   | -0.059 | 0.359 | 0.025 | 3.853 | 0.644 |     3.47  | Safe Zone    |                       |
+| 2024 Q3   | -0.074 | 0.357 | 0.027 | 3.321 | 0.666 |     3.159 | Safe Zone    |                       |
+| 2024 Q2   | -0.075 | 0.343 | 0.031 | 2.826 | 0.636 |     2.823 | Grey Zone    |                       |
+| 2024 Q1   | -0.062 | 0.356 | 0.033 | 2.677 | 0.687 |     2.825 | Grey Zone    |                       |
+## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Walmart's liquidity position, as indicated by the X1 component (Current Assets - Current Liabilities) / Total Assets, shows a negative trend over the last few quarters. This suggests that the company may face challenges in meeting its short-term obligations, which could impact operational flexibility.
+Walmart's liquidity position, as indicated by the X1 component (Current Assets - Current Liabilities) / Total Assets, has shown a negative trend over the last few quarters, indicating potential liquidity challenges. A negative X1 suggests that current liabilities exceed current assets, which could lead to difficulties in meeting short-term obligations.
 
 ### Profitability
-The X2 component (Retained Earnings / Total Assets) reflects Walmart's ability to generate profits over time. The steady increase in retained earnings indicates a positive profitability trend, which is crucial for long-term sustainability.
+The X2 component (Retained Earnings / Total Assets) reflects Walmart's ability to generate profits over time. With a value around 0.377, Walmart maintains a reasonable level of retained earnings, indicating a solid historical profitability that supports its financial stability.
 
 ### Capital Efficiency
-The X3 component (EBIT / Total Assets) shows a modest but stable performance, indicating that Walmart is effectively utilizing its assets to generate earnings before interest and taxes. This is essential for maintaining operational efficiency.
+The X3 component (EBIT / Total Assets) is relatively low, hovering around 0.025 to 0.031, which suggests that Walmart's operational efficiency in generating earnings from its assets may be under pressure. This could be a result of increased competition or rising operational costs.
 
 ### Leverage
-The X4 component (Equity / Total Liabilities) indicates a strong leverage position, with a ratio significantly above 1. This suggests that Walmart is less reliant on debt financing, which is a positive indicator of financial stability.
+Walmart's leverage, as indicated by the X4 component (Equity / Total Liabilities), is strong at approximately 4.79. This high ratio indicates that Walmart is primarily financed through equity rather than debt, which is a positive sign for financial stability.
 
-### Z-Score Trend Interpretation
-The Z-Score trend shows that Walmart has consistently remained in the Safe Zone, with the latest score of 4.112 in Q1 2025. This indicates a low risk of bankruptcy and suggests that the company is financially healthy. However, the declining liquidity ratio raises concerns that should be addressed to maintain this status.
-
----
-
-## 2. Turnaround and Renewal Management Theory Application
-
-### Immediate Retrenchment
-Based on the findings, immediate actions should focus on improving liquidity. This can be achieved through cost-cutting measures, optimizing inventory management, and renegotiating supplier terms to enhance cash flow. According to Hofer (1980), immediate retrenchment is critical in stabilizing the financial position of a company facing liquidity issues.
-
-### Long-term Repositioning
-For long-term sustainability, Walmart should consider strategic repositioning. This includes investing in technology to enhance operational efficiency and customer experience, as suggested by Beard (2024). Additionally, diversifying product offerings and exploring new markets can help mitigate risks associated with market saturation.
+### Overall Z-Score Trend
+The Z-Score has fluctuated between the safe and grey zones, with a current score of 4.112, indicating that Walmart is in a safe zone. However, the declining trend in liquidity and capital efficiency components raises concerns about future performance. The company must address these issues to maintain its financial health.
 
 ---
 
-## 3. Recommendations for Stakeholders
+## Turnaround and Renewal Management Theory Application
 
-| Stakeholder Title           | Executive Name | Responsibilities & Recommended Actions                                                                 |
-|-----------------------------|----------------|----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer      | Doug McMillon  | Lead the strategic vision; prioritize liquidity improvement initiatives and long-term investments in technology. |
-| Chief Financial Officer      | Brett Biggs    | Implement cost-cutting measures; optimize working capital management; enhance cash flow forecasting.     |
-| Chief Marketing Officer      | Antonio Lucio   | Develop marketing strategies to promote new product lines; enhance customer engagement through digital channels. |
-| Board Members                | Various        | Provide oversight and support for strategic initiatives; ensure alignment with long-term goals.          |
-| Employees                    | N/A            | Engage in cost-saving initiatives; provide feedback on operational efficiencies; participate in training programs. |
-| Investors                    | N/A            | Monitor financial health; support strategic initiatives that enhance long-term value.                     |
-| Creditors                    | N/A            | Maintain open communication regarding financial health; consider flexible repayment terms if necessary.   |
-| Debtors                      | N/A            | Ensure timely payments to maintain cash flow; explore options for early payments to benefit from discounts. |
-| Partner Companies            | N/A            | Collaborate on joint marketing efforts; explore supply chain efficiencies.                               |
-| Customers                    | N/A            | Provide feedback on product offerings; engage with loyalty programs to enhance customer retention.        |
+### Phased Response Strategy
+1. **Immediate Retrenchment:**
+   - **Cost Reduction:** Implement immediate cost-cutting measures to improve liquidity. This could involve renegotiating supplier contracts, reducing overhead costs, and optimizing inventory management.
+   - **Operational Efficiency:** Focus on enhancing operational efficiency through process improvements and technology investments. This aligns with Hoskisson et al. (2004), who emphasize the importance of restructuring for improved performance.
+
+2. **Long-Term Repositioning:**
+   - **Market Reassessment:** Conduct a thorough market analysis to identify new growth opportunities, particularly in e-commerce and digital services. This aligns with Hofer's (1980) turnaround strategies, which advocate for strategic repositioning in response to market changes.
+   - **Innovation and Agility:** Foster a culture of innovation and agility within the organization, as suggested by Beard (2024), to adapt to changing consumer preferences and technological advancements.
 
 ---
 
-## 4. Communication, Marketing, and Execution Strategies
+## Stakeholder Recommendations
+
+| Stakeholder Title                     | Executive Name | Responsibilities and Recommended Actions                                                                 |
+|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Doug McMillon  | Lead the turnaround strategy, focusing on cost reduction and operational efficiency.                      |
+| Chief Financial Officer               | Brett Biggs    | Monitor liquidity metrics closely and implement financial restructuring as needed.                        |
+| Chief Marketing Officer               | Judith McKenna | Reassess marketing strategies to enhance brand positioning in e-commerce.                                 |
+| Board Members                         | Various        | Provide oversight and support for the turnaround strategy; ensure alignment with long-term goals.        |
+| Employees                             | N/A            | Engage in cost-saving initiatives and provide feedback on operational improvements.                       |
+| Investors                             | N/A            | Stay informed about the turnaround progress; consider long-term growth potential before making decisions. |
+| Creditors                             | N/A            | Monitor financial health; consider restructuring options if liquidity issues persist.                      |
+| Debtors                               | N/A            | Ensure timely payments to maintain good standing and support liquidity.                                   |
+| Partner Companies                     | N/A            | Collaborate on joint marketing initiatives to enhance market reach.                                       |
+| Customers                             | N/A            | Maintain communication about product availability and service improvements.                                |
+
+---
+
+## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives through newsletters and town hall meetings.
-- **External Communication:** Transparent communication with investors and creditors regarding financial performance and strategic direction.
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress to foster engagement and morale.
+- **External Communication:** Transparent communication with investors and customers about the company's direction and improvements.
 
 ### Marketing Strategy
-- **Digital Marketing Campaigns:** Focus on promoting new product lines and enhancing online shopping experiences.
-- **Customer Engagement:** Utilize social media platforms to gather customer feedback and improve service offerings.
+- **Digital Marketing Campaigns:** Increase focus on digital marketing to enhance online presence and attract e-commerce customers.
+- **Customer Engagement:** Implement loyalty programs to retain existing customers and attract new ones.
 
 ### Execution Timeline
-| Phase                | Action Items                                      | Timeline         | Accountability          |
-|----------------------|--------------------------------------------------|-------------------|-------------------------|
-| Immediate Retrenchment | Cost-cutting measures, liquidity improvement     | Q2 2025           | CFO                     |
-| Long-term Repositioning | Technology investments, market diversification   | Q3 2025 - Q4 2026 | CEO                     |
+| Phase                | Timeline        | Accountability         |
+|----------------------|-----------------|-------------------------|
+| Immediate Retrenchment | Q2 2025        | CFO and CEO             |
+| Market Reassessment   | Q3 2025        | CMO and Board Members    |
+| Innovation Initiatives | Q4 2025        | CEO and CMO             |
 
 ---
 
-## 5. Investment Recommendation
-
-Based on the current financial analysis, investors should **hold** their positions in Walmart. The company demonstrates strong financial health with a Z-Score in the Safe Zone, but attention must be paid to liquidity issues. Investors should consult their financial advisors for personalized advice.
+## Investor Recommendation
+Given Walmart's current Z-Score of 4.112, it is recommended that investors **hold** their positions. The company is currently in a safe zone, but attention must be paid to the declining liquidity and capital efficiency metrics. Investors should consult their financial advisors for personalized advice.
 
 ---
 
-## 6. External Stakeholder Bargaining Power Assessment
+## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder      | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                 | Regulatory Compliance       | Moderate            | Compliance with regulations can impact operational flexibility.           |
-| Government Agencies        | Policy Influence            | Low                 | Limited direct influence on Walmart's operations.                        |
-| Unions                     | Labor Negotiations          | Moderate            | Unions can influence labor costs and employee relations.                 |
-| Major Suppliers            | Supply Chain Negotiation    | High                | Suppliers can impact inventory costs and availability.                   |
-| Key Partners               | Strategic Alliances         | Moderate            | Partnerships can enhance market reach and operational efficiencies.      |
-| Activist Investors         | Shareholder Activism        | High                | They can influence corporate governance and strategic direction.         |
-| Creditors                  | Financial Terms             | High                | Creditors can impose terms that affect liquidity and financial stability. |
-| Large Customers            | Purchasing Power            | Moderate            | Large customers can negotiate favorable terms impacting revenue.         |
+| External Stakeholder        | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|-----------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                  | Regulatory Compliance       | Moderate            | Must comply with regulations affecting operations and financial reporting. |
+| Government Agencies         | Economic Support            | Low                 | Limited influence unless significant economic intervention is required.   |
+| Unions                      | Labor Relations             | Moderate            | Can influence labor costs and employee relations.                         |
+| Major Suppliers             | Supply Chain Negotiation    | High                | Significant influence on cost structures and inventory management.        |
+| Key Partners                | Strategic Alliances         | Moderate            | Influence through collaborative initiatives and joint ventures.           |
+| Activist Investors          | Shareholder Advocacy        | High                | Can exert pressure for changes in governance or strategy.                |
+| Creditors                   | Debt Negotiation            | High                | Influence through terms of credit and financial restructuring.            |
+| Large Customers             | Purchasing Power            | Moderate            | Can influence pricing and terms of service.                               |
 
 ---
 
@@ -158,16 +160,13 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
   - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
-  - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
-  - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-  - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
 
 
 
@@ -183,7 +182,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 96,584.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 98,313.0               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 163,131.0              |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 91,013.0               |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 91,013.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 7,680.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 180,554.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -192,7 +191,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 102,558.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 94,435.0               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 168,934.0              |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 88,108.0               |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 88,108.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 6,716.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 169,588.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -201,7 +200,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 95,260.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 90,788.0               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 163,668.0              |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 84,423.0               |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 84,423.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 6,892.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 169,335.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -210,7 +209,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 96,100.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 87,230.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 165,764.0              |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 81,293.0               |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 81,293.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 7,749.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 161,508.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -219,7 +218,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 92,415.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 89,814.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 161,828.0              |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 83,861.0               |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 83,861.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 8,213.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 173,388.0              |
 

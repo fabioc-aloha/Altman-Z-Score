@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,85 +52,106 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    |
-|-----------|-------|-------|-------|-------|-------|-----------|---------------|
-| 2024 Q4   | 0.067 | 0.372 | 0.03  | 0.004 | 0.131 |     0.833 | Distress Zone |
-| 2024 Q3   | 0.072 | 0.377 | 0.01  | 0.004 | 0.128 |     0.778 | Distress Zone |
-| 2024 Q2   | 0.059 | 0.348 | 0.02  | 0.005 | 0.126 |     0.753 | Distress Zone |
-| 2024 Q1   | 0.061 | 0.364 | 0.018 | 0.006 | 0.123 |     0.768 | Distress Zone |
+| Quarter   |    X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|-------|-------|-------|-------|-------|-----------|---------------|-----------------------|
+| 2024 Q4   | 0.067 | 0.372 | 0.03  | 0.004 | 0.131 |     0.833 | Distress Zone |                       |
+| 2024 Q3   | 0.072 | 0.377 | 0.01  | 0.004 | 0.128 |     0.778 | Distress Zone |                       |
+| 2024 Q2   | 0.059 | 0.348 | 0.02  | 0.005 | 0.126 |     0.753 | Distress Zone |                       |
+| 2024 Q1   | 0.061 | 0.364 | 0.018 | 0.006 | 0.123 |     0.768 | Distress Zone |                       |
 ## Diagnostic Evaluation of Financial Health
 
-### Overview
-The Altman Z-Score analysis for Toyota Motor Corporation (TM) indicates a concerning trend in financial health, with the company consistently falling within the "Distress Zone" over the last four quarters. The Z-Score has decreased from 0.768 in Q1 2024 to 0.833 in Q4 2024, suggesting a deterioration in financial stability.
+### Financial Health Overview
+Toyota Motor Corporation (TM) is currently facing significant financial distress, as indicated by its declining Z-Score, which has consistently remained in the "Distress Zone" over the last four quarters. The Z-Score has dropped from 0.833 in Q4 2024 to 0.753 in Q2 2024, suggesting a deteriorating financial condition. 
 
 ### Key Financial Metrics
-1. **Liquidity (X1)**: The liquidity ratio (Current Assets - Current Liabilities) / Total Assets has remained low, indicating potential challenges in meeting short-term obligations.
-2. **Profitability (X3)**: The EBIT / Total Assets ratio is also low, reflecting insufficient earnings relative to the asset base, which may hinder operational sustainability.
-3. **Capital Efficiency (X2)**: Retained Earnings / Total Assets is below optimal levels, suggesting that the company is not effectively reinvesting profits into growth.
-4. **Leverage (X4)**: The Equity / Total Liabilities ratio is alarmingly low, indicating high leverage and increased financial risk.
-5. **Sales Efficiency (X5)**: Sales / Total Assets is also low, which may indicate inefficiencies in utilizing assets to generate revenue.
+1. **Liquidity (X1)**: The liquidity ratio (Current Assets - Current Liabilities) / Total Assets is low at 0.067, indicating that Toyota has limited short-term financial flexibility.
+2. **Profitability (X3)**: The EBIT / Total Assets ratio is also low at 0.03, reflecting weak operational efficiency and profitability.
+3. **Capital Efficiency (X2)**: Retained Earnings / Total Assets is at 0.372, which shows that a significant portion of Toyota's assets is financed through retained earnings, but this is not enough to offset the liabilities.
+4. **Leverage (X4)**: The Equity / Total Liabilities ratio is alarmingly low at 0.004, indicating high leverage and potential solvency issues.
+5. **Sales Efficiency (X5)**: The Sales / Total Assets ratio is at 0.131, suggesting that Toyota is not generating sufficient sales relative to its asset base.
 
-### Interpretation of Z-Score Trend
-The consistent decline in the Z-Score indicates that Toyota is facing significant financial distress, characterized by low profitability, high leverage, and insufficient liquidity. This trend necessitates immediate management intervention to avert potential bankruptcy.
+### Z-Score Trend Interpretation
+The declining trend in the Z-Score, which has consistently remained below the threshold of 1.81, signals that Toyota is at a high risk of bankruptcy. This trend necessitates immediate action to stabilize the company’s financial position.
+
+---
 
 ## Turnaround and Renewal Management Theory Application
 
-### Proposed Phased Response
-1. **Immediate Retrenchment**:
-   - **Cost Reduction**: Implement immediate cost-cutting measures, including workforce optimization and operational efficiencies (Hofer, 1980).
-   - **Asset Liquidation**: Identify non-core assets for divestiture to improve liquidity and reduce debt levels (Bibeault, 1999).
+### Phased Response Proposal
+Based on turnaround management theories (Hofer, 1980; Bibeault, 1999), a phased response is recommended:
+
+1. **Immediate Retrenchment (Short-term)**:
+   - **Cost Reduction**: Implement immediate cost-cutting measures, including workforce reductions and operational efficiencies.
+   - **Asset Liquidation**: Identify non-core assets for sale to improve liquidity.
+   - **Debt Restructuring**: Engage with creditors to negotiate more favorable terms.
 
 2. **Long-term Repositioning**:
-   - **Strategic Innovation**: Invest in R&D for electric and autonomous vehicles to align with market trends and consumer preferences (Hoskisson et al., 2004).
-   - **Market Expansion**: Explore new markets and partnerships to diversify revenue streams and reduce dependency on traditional markets (Freeman, 1984).
+   - **Market Reassessment**: Conduct a thorough analysis of market trends and consumer preferences to realign product offerings.
+   - **Innovation Focus**: Invest in R&D for electric and hybrid vehicles to capture emerging market opportunities.
+   - **Strategic Partnerships**: Form alliances with technology firms to enhance product offerings and market reach.
 
-## Stakeholder Recommendations
+---
 
-| Stakeholder Title | Executive Name | Responsibilities | Recommended Actions |
-|-------------------|----------------|------------------|---------------------|
-| Chief Executive Officer | Akio Toyoda | Overall company strategy | Lead immediate cost-cutting initiatives and oversee strategic innovation efforts. |
-| Chief Financial Officer | Kenta Kon | Financial management | Focus on liquidity improvement through asset liquidation and renegotiation of debt terms. |
-| Chief Marketing Officer | Tetsuya Tada | Marketing strategy | Develop campaigns to promote new product lines and enhance brand image. |
-| Board Members | Various | Governance and oversight | Support management in strategic decisions and ensure accountability in turnaround efforts. |
-| Employees | N/A | Operational execution | Engage in efficiency programs and provide feedback on operational challenges. |
-| Investors | N/A | Financial support | Monitor company performance and consider additional funding options if necessary. |
-| Creditors | N/A | Financial stability | Work with management to restructure debt and improve repayment terms. |
-| Debtors | N/A | Financial obligations | Ensure timely payments to maintain cash flow. |
-| Partner Companies | N/A | Collaborative projects | Explore joint ventures in R&D for new technologies. |
-| Customers | N/A | Product consumption | Provide feedback on product offerings and preferences to guide innovation. |
+## Stakeholder Recommendations Table
+
+| Stakeholder Title                     | Name (if available) | Responsibilities & Recommended Actions                                                                 |
+|---------------------------------------|---------------------|---------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Akio Toyoda         | Lead the turnaround strategy, focusing on immediate cost reductions and long-term innovation.            |
+| Chief Financial Officer               | Kenta Kon           | Oversee financial restructuring, manage liquidity, and negotiate with creditors.                        |
+| Chief Marketing Officer               | Tetsuya Tada        | Reassess market strategies and reposition brand towards electric vehicles.                              |
+| Board Members                         | N/A                 | Support management in strategic decision-making and ensure accountability in execution.                 |
+| Employees                             | N/A                 | Engage in efficiency initiatives and contribute ideas for cost-saving measures.                         |
+| Investors                             | N/A                 | Monitor company performance closely; consider holding shares until turnaround is evident.                |
+| Creditors                             | N/A                 | Collaborate with management on debt restructuring to ensure company viability.                          |
+| Debtors                               | N/A                 | Maintain open communication regarding payment schedules and potential restructuring.                    |
+| Partner Companies                     | N/A                 | Explore joint ventures in technology to enhance product offerings.                                      |
+| Customers                             | N/A                 | Provide feedback on product preferences to guide future offerings.                                       |
+| Regulators                            | N/A                 | Ensure compliance with industry regulations during the turnaround process.                               |
+| Major Suppliers                       | N/A                 | Work closely with management to ensure supply chain stability during restructuring.                     |
+
+---
 
 ## Communication, Marketing, and Execution Strategies
 
-### Strategies
-1. **Internal Communication**: Regular updates to employees about the turnaround plan and their role in it.
-2. **External Communication**: Transparent communication with investors and creditors about financial health and recovery strategies.
-3. **Marketing Strategy**: Launch targeted marketing campaigns focusing on new product innovations and sustainability efforts.
+### Communication Strategy
+- **Internal Communication**: Regular updates to employees about the turnaround plan and progress.
+- **External Communication**: Transparent communication with investors and creditors about financial health and restructuring efforts.
 
-### Timeline and Accountability Framework
-- **Q1 2025**: Implement cost-cutting measures and initiate asset liquidation.
-- **Q2 2025**: Launch new marketing campaigns and begin R&D investments.
-- **Q3 2025**: Evaluate progress and adjust strategies as necessary.
+### Marketing Strategy
+- **Rebranding**: Shift marketing focus towards sustainability and innovation in electric vehicles.
+- **Customer Engagement**: Launch campaigns that highlight new product developments and sustainability efforts.
 
-## Investor Recommendation
-Given the current financial distress indicated by the Z-Score, investors should **hold** their positions in Toyota Motor Corporation while monitoring the company's turnaround efforts. It is crucial to consult with a financial advisor before making any investment decisions.
+### Execution Timeline
+| Phase                | Timeline           | Accountability          |
+|----------------------|-------------------|-------------------------|
+| Immediate Retrenchment| Q2 2025           | CFO and CEO             |
+| Debt Restructuring    | Q3 2025           | CFO                     |
+| Market Reassessment    | Q4 2025           | CMO                     |
+| Innovation Focus      | 2026 onwards      | CEO and R&D Team       |
 
 ---
 
 ## Bargaining Power and Influence of External Stakeholders
 
-| External Stakeholder | Nature of Bargaining Power | Degree of Influence | Rationale |
-|----------------------|---------------------------|---------------------|-----------|
-| Regulators | Regulatory compliance | High | Must adhere to safety and environmental regulations, affecting operational costs. |
-| Government Agencies | Financial support | Medium | Potential for subsidies or incentives for electric vehicle development. |
-| Unions | Labor negotiations | High | Strong influence on labor costs and operational flexibility. |
-| Major Suppliers | Supply chain stability | Medium | Dependence on suppliers for critical components can impact production. |
-| Key Partners | Collaborative ventures | Medium | Partnerships can enhance innovation and market reach. |
-| Activist Investors | Shareholder influence | High | Can push for changes in management or strategy based on performance. |
-| Creditors | Financial leverage | High | Control over debt terms and conditions, impacting liquidity. |
-| Large Customers | Demand influence | Medium | Significant customers can dictate terms and influence product offerings. |
+| External Stakeholder          | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|-------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                    | Regulatory Compliance       | High                | Must adhere to industry regulations and standards.                       |
+| Government Agencies           | Policy Influence            | Medium              | Potential for subsidies or support for electric vehicle initiatives.     |
+| Unions                        | Labor Relations             | Medium              | Influence over workforce decisions and negotiations.                     |
+| Major Suppliers               | Supply Chain Stability      | High                | Critical for maintaining production levels and costs.                    |
+| Key Partners                  | Strategic Alliances         | Medium              | Can provide technological support and market access.                     |
+| Activist Investors            | Shareholder Activism        | Medium              | May push for changes in management or strategy.                         |
+| Creditors                     | Financial Leverage          | High                | Significant influence over financial restructuring and terms.            |
+| Large Customers               | Purchasing Power            | Medium              | Can impact sales and revenue through demand fluctuations.                |
 
 ---
 
+## Investment Recommendation
+Based on the current financial distress indicated by the Z-Score, it is advisable for investors to **hold** their positions in Toyota Motor Corporation until there is clear evidence of a successful turnaround strategy being implemented. However, investors should consult their financial advisors for personalized advice.
+
+---
+
+## Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
 - LLM Model used: OpenAI GPT-3.5
@@ -144,7 +164,6 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
@@ -152,6 +171,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
+  - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
 
 
 
@@ -167,7 +187,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 29,441,013.0           |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 35,241,066.0           |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 57,817,890.0           |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 35,910,271.0           |
+| 2024 Q4   | market_value_equity | Stockholders Equity                     | 35,910,271.0           |
 | 2024 Q4   | ebit                | EBIT                                    | 2,805,596.0            |
 | 2024 Q4   | sales               | Total Revenue                           | 12,391,095.0           |
 | ---       | ---                 | ---                                     | ---                    |
@@ -176,7 +196,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 27,973,539.0           |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 33,617,132.0           |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 53,902,633.0           |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 34,368,513.0           |
+| 2024 Q3   | market_value_equity | Stockholders Equity                     | 34,368,513.0           |
 | 2024 Q3   | ebit                | EBIT                                    | 896,996.0              |
 | 2024 Q3   | sales               | Total Revenue                           | 11,444,570.0           |
 | ---       | ---                 | ---                                     | ---                    |
@@ -185,7 +205,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 30,205,278.0           |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 32,741,232.0           |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 57,257,948.0           |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 35,737,743.0           |
+| 2024 Q2   | market_value_equity | Stockholders Equity                     | 35,737,743.0           |
 | 2024 Q2   | ebit                | EBIT                                    | 1,888,767.0            |
 | 2024 Q2   | sales               | Total Revenue                           | 11,837,880.0           |
 | ---       | ---                 | ---                                     | ---                    |
@@ -194,7 +214,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 29,177,909.0           |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 32,795,365.0           |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 54,874,958.0           |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 34,220,991.0           |
+| 2024 Q1   | market_value_equity | Stockholders Equity                     | 34,220,991.0           |
 | 2024 Q1   | ebit                | EBIT                                    | 1,594,001.0            |
 | 2024 Q1   | sales               | Total Revenue                           | 11,072,605.0           |
 

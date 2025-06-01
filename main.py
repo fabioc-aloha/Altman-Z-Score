@@ -100,32 +100,16 @@ def main():
                                 score_str = f"{z_score:.2f} (Grey)"
                             else:
                                 score_str = f"{z_score:.2f} (Safe)"
-                        formatted_results.append(f"{quarter}: {score_str}")
-                    for result in formatted_results:
-                        print(result)
+                        formatted_results.append(f"{quarter}: {score_str}")                    
+                        for result in formatted_results:
+                            print(result)
                     elapsed = end_time - start_time
                     print_success(f"Analysis completed in {elapsed:.2f} seconds")
                     plot_path = f"output/{ticker}/zscore_{ticker}_trend.png"
                     if not no_plot:
                         print_info(f"Z-Score plot saved to {plot_path}")
-                    if not no_plot:
-                        from altman_zscore.plotting import plot_zscore_trend
-                        from altman_zscore.zscore_models import OriginalZScore
-                        output_dir = f"output/{ticker}"
-                        weekly_prices = None
-                        try:
-                            weekly_prices = pd.read_csv(f"{output_dir}/weekly_prices.csv")
-                        except Exception:
-                            weekly_prices = None
-                        model = OriginalZScore()
-                        plot_zscore_trend(
-                            df,
-                            ticker,
-                            model,
-                            output_dir,
-                            stock_prices=weekly_prices,
-                            show_moving_averages=show_moving_averages
-                        )
+                    # Note: Plotting is already handled by analyze_single_stock_zscore_trend
+                    # The chart uses the correct model selected by the analysis logic
                 else:
                     print_warning(f"No valid Z-Scores calculated for {ticker}")
             else:

@@ -22,9 +22,8 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
@@ -35,9 +34,9 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X4 = Equity / Total Liabilities
 
 **Thresholds:**
-- Safe Zone: > 2.6
-- Grey Zone: > 1.1 and <= 2.6
-- Distress Zone: <= 1.1
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -52,29 +51,29 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |     X3 |    X4 |   Z-Score | Diagnostic    |
-|-----------|--------|--------|--------|-------|-----------|---------------|
-| 2025 Q1   | -0.109 | -1.062 | -0.01  | 0.127 |    -4.109 | Distress Zone |
-| 2024 Q4   | -0.097 | -1.012 | -0.001 | 0.172 |    -3.762 | Distress Zone |
-| 2024 Q3   | -0.095 | -0.986 |  0.012 | 0.197 |    -3.553 | Distress Zone |
-| 2024 Q2   | -0.067 | -0.953 |  0.008 | 0.21  |    -3.274 | Distress Zone |
-| 2024 Q1   | -0.069 | -0.955 | -0.007 | 0.152 |    -3.455 | Distress Zone |
+| Quarter   |     X1 |     X2 |     X3 |    X4 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|--------|--------|--------|-------|-----------|---------------|-----------------------|
+| 2025 Q1   | -0.109 | -1.062 | -0.01  | 0.127 |    -4.109 | Distress Zone |                       |
+| 2024 Q4   | -0.097 | -1.012 | -0.001 | 0.172 |    -3.762 | Distress Zone |                       |
+| 2024 Q3   | -0.095 | -0.986 |  0.012 | 0.197 |    -3.553 | Distress Zone |                       |
+| 2024 Q2   | -0.067 | -0.953 |  0.008 | 0.21  |    -3.274 | Distress Zone |                       |
+| 2024 Q1   | -0.069 | -0.955 | -0.007 | 0.152 |    -3.455 | Distress Zone |                       |
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-AMC Entertainment Holdings, Inc. (AMC) is currently facing significant liquidity challenges, as indicated by the negative X1 value across all quarters analyzed. This suggests that current liabilities exceed current assets, which raises concerns about the company’s ability to meet short-term obligations. A negative X1 value indicates a potential liquidity crisis, which is critical for operational sustainability.
+AMC Entertainment Holdings, Inc. has consistently shown negative values for the liquidity ratio (X1), indicating that current liabilities exceed current assets. This trend suggests a potential liquidity crisis, as the company may struggle to meet its short-term obligations.
 
 ### Profitability
-The X2 component, representing retained earnings as a percentage of total assets, is also negative, indicating that AMC has accumulated losses rather than retained earnings. This is a significant red flag, as it suggests that the company has not been able to generate sufficient profits to reinvest in its operations or to provide returns to shareholders.
+The profitability measure (X3) has also been negative, reflecting that earnings before interest and taxes (EBIT) are insufficient to cover total assets. This indicates that the company is not generating enough operational income to sustain its asset base, which is a significant concern for stakeholders.
 
 ### Capital Efficiency
-The X3 value, which measures earnings before interest and taxes (EBIT) relative to total assets, is negative in all quarters. This indicates that AMC is not generating positive operating income relative to its asset base, further exacerbating its financial distress.
+The retained earnings ratio (X2) is negative, indicating that the company has accumulated losses rather than profits over time. This lack of retained earnings can hinder future growth and investment opportunities, as it reflects a history of operational challenges.
 
 ### Leverage
-The X4 component shows a positive value, indicating that equity is greater than total liabilities, which is a favorable sign. However, this alone does not mitigate the overall distress indicated by the other components.
+The equity to liabilities ratio (X4) shows a positive value, suggesting that while AMC has some equity cushion, it is still heavily leveraged. The reliance on debt financing can increase financial risk, especially in a volatile market environment.
 
 ### Z-Score Trend Interpretation
-The Z-Score for AMC has consistently remained in the distress zone, with values ranging from -4.109 to -3.274 over the analyzed quarters. This persistent distress signals a critical need for immediate intervention to prevent potential bankruptcy. The trend indicates a worsening financial situation, necessitating urgent strategic actions.
+The Z-Score for AMC has consistently remained in the distress zone, with values significantly below the threshold of 1.23. The trend indicates a worsening financial condition over the past quarters, with the latest Z-Score at -4.109 for Q1 2025. This alarming trend necessitates immediate action to avert potential bankruptcy.
 
 ---
 
@@ -82,75 +81,75 @@ The Z-Score for AMC has consistently remained in the distress zone, with values 
 
 ### Phased Response Proposal
 1. **Immediate Retrenchment (Short-term Actions)**
-   - **Cost Reduction:** Implement immediate cost-cutting measures, including layoffs, renegotiation of supplier contracts, and reduction of discretionary spending. This aligns with Bibeault’s (1999) principles of corporate turnaround, emphasizing the need to stabilize cash flow.
-   - **Asset Liquidation:** Identify non-core assets for sale to improve liquidity. This approach is supported by Hofer’s (1980) turnaround strategies, which advocate for asset management to enhance financial health.
+   - **Cost Reduction:** Implement immediate cost-cutting measures to stabilize cash flow. This aligns with Bibeault's (1999) principles of corporate turnaround, emphasizing the need for quick financial stabilization.
+   - **Asset Liquidation:** Consider selling non-core assets to improve liquidity, as suggested by Hofer (1980), who advocates for divesting underperforming segments during a crisis.
 
 2. **Long-term Repositioning (Strategic Actions)**
-   - **Business Model Innovation:** Explore new revenue streams, such as enhancing digital offerings or partnerships with streaming services. This aligns with Beard’s (2024) emphasis on strategic renewal through innovation.
-   - **Stakeholder Engagement:** Foster relationships with key stakeholders, including investors and customers, to rebuild trust and support. Freeman’s (1984) stakeholder theory highlights the importance of stakeholder management in strategic renewal.
+   - **Market Reassessment:** Conduct a thorough market analysis to identify new opportunities and threats. Hoskisson et al. (2004) highlight the importance of strategic realignment in corporate restructuring.
+   - **Innovation and Diversification:** Invest in innovative technologies and diversify service offerings to attract new customer segments, as recommended by Beard (2024). This can help AMC adapt to changing consumer preferences and market conditions.
 
 ---
 
-## Recommendations for Stakeholders
+## Stakeholder Recommendations
 
-| Stakeholder Title                     | Executive Name | Responsibilities                          | Recommended Actions                                                                 |
-|---------------------------------------|----------------|------------------------------------------|-------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Adam Aron       | Overall strategic direction              | Lead immediate cost-cutting measures and communicate transparently with stakeholders.|
-| Chief Financial Officer               | Sean Goodman    | Financial management                     | Focus on liquidity management and explore asset liquidation opportunities.          |
-| Chief Marketing Officer               | Elizabeth Frank  | Marketing strategy                       | Develop campaigns to enhance customer engagement and loyalty.                      |
-| Board Members                         | Various         | Governance and oversight                 | Support management in strategic decisions and ensure accountability.               |
-| Employees                             | N/A             | Operational execution                    | Engage in open communication about changes and involve them in the turnaround process.|
-| Investors                             | N/A             | Financial support                        | Monitor company performance closely and consider providing additional capital if needed.|
-| Creditors                             | N/A             | Financial support                        | Work with AMC to restructure debt and provide flexible repayment options.           |
-| Debtors                               | N/A             | Financial obligations                    | Ensure timely payments to maintain cash flow.                                      |
-| Partner Companies                     | N/A             | Collaborative opportunities              | Explore partnerships that can enhance revenue streams.                             |
-| Customers                             | N/A             | Brand loyalty                            | Engage with customers to understand their needs and enhance service offerings.     |
+| Stakeholder Title                  | Responsibilities                                   | Recommended Actions                                                                 |
+|------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer (CEO)      | Overall leadership and strategic direction        | Lead the turnaround initiative, focusing on immediate cost reductions and strategic pivots. |
+| Chief Financial Officer (CFO)      | Financial management and reporting                 | Implement rigorous cash flow management and explore refinancing options to reduce debt. |
+| Chief Marketing Officer (CMO)      | Marketing strategy and customer engagement        | Develop targeted marketing campaigns to rebuild brand loyalty and attract new customers. |
+| Board Members                       | Governance and oversight                           | Provide support for strategic decisions and ensure accountability in the turnaround process. |
+| Employees                           | Operational execution                              | Engage employees in the turnaround process, fostering a culture of innovation and accountability. |
+| Investors                           | Financial backing and support                      | Monitor performance closely; consider holding shares until a clear recovery strategy is implemented. |
+| Creditors                           | Financial support and risk management              | Negotiate for more favorable terms or restructuring of existing debt to alleviate financial pressure. |
+| Debtors                             | Financial obligations                              | Ensure timely payments to maintain good relationships and avoid further financial strain. |
+| Partner Companies                   | Collaborative ventures                             | Explore joint ventures or partnerships to enhance service offerings and market reach. |
+| Customers                           | Revenue generation                                 | Communicate transparently about changes and improvements to regain trust and loyalty. |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress.
-- **External Communication:** Transparent communication with investors and creditors about financial health and strategic plans.
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress to maintain morale and engagement.
+- **External Communication:** Transparent communication with investors and customers about the company's challenges and recovery plans.
 
 ### Marketing Strategy
-- **Customer Engagement Campaigns:** Launch initiatives to retain and attract customers, focusing on loyalty programs and promotions.
+- **Rebranding Campaign:** Launch a rebranding initiative to refresh the company image and attract new customers.
+- **Promotional Offers:** Introduce promotional offers to incentivize attendance and increase revenue.
 
 ### Execution Timeline
-- **Q2 2025:** Implement immediate cost-cutting measures and initiate asset liquidation.
-- **Q3 2025:** Launch new marketing campaigns and begin exploring business model innovations.
-- **Q4 2025:** Review progress and adjust strategies based on stakeholder feedback and financial performance.
-
-### Accountability Framework
-- Assign specific team leaders for each initiative and establish KPIs to measure success.
+| Phase                  | Action Item                        | Timeline          | Accountability       |
+|-----------------------|-----------------------------------|-------------------|----------------------|
+| Immediate Retrenchment| Cost-cutting measures             | 0-3 months        | CFO                  |
+| Long-term Repositioning| Market analysis                   | 3-6 months        | CEO & CMO            |
+| Innovation            | New service development           | 6-12 months       | CMO                  |
 
 ---
 
 ## Investor Recommendation
-Given AMC's current financial distress indicated by a Z-Score well below the safe zone, investors should **consider holding** their positions while closely monitoring the company's turnaround efforts. However, due to the high risk of further financial deterioration, it may be prudent to consult with a financial advisor before making any investment decisions.
+Given AMC's current financial distress and negative Z-Score trend, investors should **hold** their positions while monitoring the company's turnaround efforts. This recommendation is based on the potential for recovery if the proposed strategies are effectively implemented. However, investors should consult their financial advisors before making any decisions.
 
 ---
 
 ## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                | Regulatory compliance       | Medium              | Can impose regulations affecting operations and financial reporting.      |
-| Government Agencies       | Financial support           | Low                 | Limited direct influence but can provide support through grants or loans. |
-| Unions                    | Labor negotiations          | Medium              | Can influence labor costs and employee relations.                        |
-| Major Suppliers           | Supply chain leverage       | High                | Can affect operational costs and availability of materials.              |
-| Key Partners              | Strategic collaboration     | Medium              | Can provide opportunities for joint ventures or partnerships.            |
-| Activist Investors        | Shareholder activism        | High                | Can influence management decisions through shareholder proposals.        |
-| Creditors                 | Debt restructuring          | High                | Have significant leverage in negotiations regarding debt repayment terms. |
-| Large Customers           | Revenue influence           | Medium              | Can impact sales volume and revenue stability.                           |
+| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|------------------------------|---------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                   | Regulatory compliance      | Moderate            | Must adhere to industry regulations, which can impact operational flexibility. |
+| Government Agencies          | Financial support          | Low                 | Limited direct influence but can provide support through grants or relief. |
+| Unions                       | Labor negotiations         | Moderate            | Can influence labor costs and employee relations, impacting operational efficiency. |
+| Major Suppliers              | Supply chain leverage      | High                | Can dictate terms of supply, impacting cost structures and inventory management. |
+| Key Partners                 | Collaborative ventures     | Moderate            | Can provide strategic alliances but require mutual benefit and alignment. |
+| Activist Investors           | Shareholder influence      | High                | Can pressure management for changes in strategy or governance. |
+| Creditors                    | Debt obligations           | High                | Significant influence over financial restructuring and terms of repayment. |
+| Large Customers              | Revenue generation         | Moderate            | Can impact sales volume and pricing strategies through purchasing power. |
 
 ---
 
 ## Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-- LLM Model used: OpenAI GPT-4
+- LLM Model used: OpenAI GPT-3.5
 - Knowledge cut-off: October 2023
 - Internet search: No
 - Real-time data: No
@@ -160,15 +159,22 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
+- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
   - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
+  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
+  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
+  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
+  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
+  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -184,7 +190,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 1,511.1                |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -8,548.9               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 9,790.8                |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | -1,737.8               |
+| 2025 Q1   | market_value_equity |                                         | 0.0                    |
 | 2025 Q1   | ebit                | EBIT                                    | -81.4                  |
 | 2025 Q1   | sales               | Total Revenue                           | 862.5                  |
 | ---       | ---                 | ---                                     | ---                    |
@@ -193,7 +199,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 1,744.8                |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -8,346.8               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 10,008.0               |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | -1,760.5               |
+| 2024 Q4   | market_value_equity |                                         | 0.0                    |
 | 2024 Q4   | ebit                | EBIT                                    | -11.0                  |
 | 2024 Q4   | sales               | Total Revenue                           | 1,306.4                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -202,7 +208,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 1,578.9                |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -8,211.2               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 10,009.4               |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | -1,685.3               |
+| 2024 Q3   | market_value_equity |                                         | 0.0                    |
 | 2024 Q3   | ebit                | EBIT                                    | 97.8                   |
 | 2024 Q3   | sales               | Total Revenue                           | 1,348.8                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -211,7 +217,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 1,651.2                |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -8,190.5               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 10,291.3               |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | -1,696.6               |
+| 2024 Q2   | market_value_equity |                                         | 0.0                    |
 | 2024 Q2   | ebit                | EBIT                                    | 66.9                   |
 | 2024 Q2   | sales               | Total Revenue                           | 1,030.6                |
 | ---       | ---                 | ---                                     | ---                    |
@@ -220,7 +226,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 1,503.0                |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | -8,157.7               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 10,569.7               |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | -2,031.0               |
+| 2024 Q1   | market_value_equity |                                         | 0.0                    |
 | 2024 Q1   | ebit                | EBIT                                    | -60.5                  |
 | 2024 Q1   | sales               | Total Revenue                           | 951.4                  |
 

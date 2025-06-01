@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,102 +52,106 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|--------|-------|-------|-------|-------|-----------|--------------|
-| 2025 Q1   | -0.08  | 1.048 | 0.04  | 5.637 | 0.161 |     5.046 | Safe Zone    |
-| 2024 Q4   | -0.066 | 1.04  | 0.05  | 5.453 | 0.178 |     4.99  | Safe Zone    |
-| 2024 Q3   | -0.071 | 0.991 | 0.043 | 5.364 | 0.172 |     4.833 | Safe Zone    |
-| 2024 Q2   | -0.073 | 1.012 | 0.033 | 5.256 | 0.168 |     4.761 | Safe Zone    |
-| 2024 Q1   | -0.083 | 1.03  | 0.04  | 5.327 | 0.169 |     4.84  | Safe Zone    |
+| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|--------|-------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | -0.08  | 1.048 | 0.04  | 5.637 | 0.161 |     5.046 | Safe Zone    |                       |
+| 2024 Q4   | -0.066 | 1.04  | 0.05  | 5.453 | 0.178 |     4.99  | Safe Zone    |                       |
+| 2024 Q3   | -0.071 | 0.991 | 0.043 | 5.364 | 0.172 |     4.833 | Safe Zone    |                       |
+| 2024 Q2   | -0.073 | 1.012 | 0.033 | 5.256 | 0.168 |     4.761 | Safe Zone    |                       |
+| 2024 Q1   | -0.083 | 1.03  | 0.04  | 5.327 | 0.169 |     4.84  | Safe Zone    |                       |
 ## Diagnostic Evaluation of Financial Health
 
-### Overview
-Procter & Gamble Company (PG) has demonstrated a strong financial position as indicated by its Z-Score, which has consistently remained in the "Safe Zone" over the last five quarters. The Z-Score trend shows a slight decline from 5.046 in Q1 2025 to 4.761 in Q2 2024, but it remains well above the threshold of 2.99, indicating a low risk of bankruptcy.
+### Liquidity
+Procter & Gamble (PG) has shown a negative trend in its liquidity ratio (X1), indicating that current liabilities exceed current assets. This suggests potential short-term liquidity issues, which could impact the company's ability to meet its obligations promptly.
 
-### Key Financial Metrics
-1. **Liquidity (X1)**: The liquidity ratio (X1) has been negative across the quarters, indicating that current liabilities exceed current assets. This suggests potential liquidity challenges, although the overall Z-Score remains robust due to other strong components.
-   
-2. **Profitability (X2)**: The retained earnings to total assets ratio (X2) is consistently above 1, reflecting strong profitability and retained earnings growth, which is a positive indicator of the company's ability to reinvest in its operations.
+### Profitability
+The retained earnings ratio (X2) remains strong, reflecting a solid historical profitability and reinvestment strategy. This is a positive indicator of the company’s ability to generate profits over time.
 
-3. **Capital Efficiency (X3)**: The EBIT to total assets ratio (X3) has shown slight fluctuations but remains positive, indicating effective management of assets to generate earnings before interest and taxes.
+### Capital Efficiency
+The earnings before interest and taxes (EBIT) to total assets ratio (X3) indicates a moderate level of operational efficiency. While the ratio is positive, it suggests that there may be room for improvement in asset utilization.
 
-4. **Leverage (X4)**: The equity to total liabilities ratio (X4) is significantly high, suggesting that PG is less reliant on debt financing, which reduces financial risk.
-
-5. **Sales Efficiency (X5)**: The sales to total assets ratio (X5) is stable, indicating that the company effectively utilizes its assets to generate sales.
+### Leverage
+The equity to total liabilities ratio (X4) is robust, indicating that PG is primarily financed through equity rather than debt. This low leverage reduces financial risk and enhances stability, especially in volatile market conditions.
 
 ### Z-Score Trend Interpretation
-The Z-Score trend indicates that while PG is performing well overall, the negative liquidity ratio suggests a need for immediate attention to improve working capital management. The company should focus on strategies to enhance liquidity while maintaining its strong profitability and leverage positions.
+The Z-Score has consistently remained in the "Safe Zone," with a score of 5.046 in Q1 2025. This indicates that PG is not at immediate risk of bankruptcy, but the declining liquidity ratio raises concerns that should be addressed to maintain this status. The trend suggests a need for strategic adjustments to improve liquidity while sustaining profitability and capital efficiency.
 
 ---
 
 ## Turnaround and Renewal Management Theory Application
 
-### Phased Response Strategy
-Based on the analysis, a phased response strategy is recommended, distinguishing between immediate retrenchment and long-term repositioning.
+### Phased Response Proposal
+1. **Immediate Retrenchment (Short-term Actions)**
+   - **Cost Reduction:** Implement cost-cutting measures to improve liquidity, including operational efficiencies and potential workforce adjustments (Hofer, 1980).
+   - **Asset Management:** Liquidate non-core assets to bolster cash reserves and improve the current ratio.
 
-1. **Immediate Retrenchment**:
-   - **Focus on Liquidity Improvement**: Implement cost-cutting measures and optimize inventory management to improve cash flow. This aligns with Bibeault's (1999) emphasis on immediate actions to stabilize financial health during distress.
-
-2. **Long-Term Repositioning**:
-   - **Strategic Renewal**: Invest in innovation and marketing to enhance product offerings and market share. This aligns with Hofer's (1980) turnaround strategies that advocate for long-term strategic renewal to ensure sustainable growth.
+2. **Long-term Repositioning (Strategic Actions)**
+   - **Market Diversification:** Explore new market segments or product lines to enhance revenue streams and reduce dependency on existing markets (Bibeault, 1999).
+   - **Innovation Focus:** Invest in R&D to drive product innovation, aligning with consumer trends and preferences (Beard, 2024).
+   - **Stakeholder Engagement:** Foster stronger relationships with stakeholders to enhance brand loyalty and customer retention (Freeman, 1984).
 
 ---
 
-## Stakeholder Recommendations
+## Recommendations for Stakeholders
 
 | Stakeholder Title                     | Executive Name | Responsibilities and Recommended Actions                                                                 |
 |---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Jon Moeller    | Lead the liquidity improvement initiative; communicate the importance of cash flow management to all staff. |
-| Chief Financial Officer               | Andre Schulten | Implement cost-cutting measures and optimize working capital; ensure accurate financial reporting.         |
-| Chief Marketing Officer               | Marc Pritchard | Develop marketing strategies to promote new products; focus on customer engagement to drive sales.        |
-| Board Members                         | Various        | Oversee the implementation of the turnaround strategy; ensure alignment with long-term goals.             |
-| Employees                             | N/A            | Engage in cost-saving initiatives; provide feedback on operational efficiencies.                           |
-| Investors                             | N/A            | Monitor financial performance; consider holding shares due to strong Z-Score but remain cautious of liquidity. |
-| Creditors                             | N/A            | Maintain open communication regarding cash flow; consider restructuring terms if necessary.               |
-| Debtors                               | N/A            | Ensure timely payments to improve cash flow; negotiate terms if needed.                                   |
-| Partner Companies                     | N/A            | Collaborate on joint marketing initiatives; explore cost-sharing opportunities.                           |
-| Customers                             | N/A            | Engage with the brand through promotions; provide feedback on product offerings.                           |
+| Chief Executive Officer               | Jon Moeller     | Lead the strategic review process; prioritize liquidity improvement initiatives.                          |
+| Chief Financial Officer               | Andre Schulten  | Oversee cost reduction strategies; manage asset liquidation processes.                                    |
+| Chief Marketing Officer               | Marc Pritchard  | Develop marketing strategies for new product launches; enhance brand engagement.                         |
+| Board Members                         | Various         | Provide oversight and strategic direction; ensure alignment with long-term goals.                        |
+| Employees                             | N/A             | Engage in efficiency initiatives; contribute ideas for cost-saving measures.                             |
+| Investors                             | N/A             | Monitor financial health; support strategic initiatives that enhance shareholder value.                   |
+| Creditors                             | N/A             | Maintain open communication regarding financial strategies; assess risk exposure.                        |
+| Debtors                               | N/A             | Ensure timely payments; negotiate terms if necessary to maintain cash flow.                             |
+| Partner Companies                     | N/A             | Collaborate on joint ventures or co-marketing opportunities to expand market reach.                     |
+| Customers                             | N/A             | Provide feedback on product offerings; engage with loyalty programs to enhance retention.                 |
+| Regulators                            | N/A             | Ensure compliance with financial regulations; maintain transparency in reporting.                         |
+| Major Suppliers                       | N/A             | Negotiate favorable terms to improve cash flow; explore bulk purchasing agreements.                      |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
-### Strategies
-1. **Communication**: Regular updates to stakeholders regarding financial health and strategic initiatives.
-2. **Marketing**: Launch targeted campaigns to promote new products and enhance brand loyalty.
-3. **Execution**: Establish a task force to oversee liquidity improvement initiatives with clear accountability.
+### Communication Strategy
+- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
+- **External Communication:** Press releases and investor calls to keep stakeholders informed about progress and strategic direction.
 
-### Timeline
-- **Q3 2025**: Implement cost-cutting measures and optimize inventory.
-- **Q4 2025**: Launch new marketing campaigns and assess liquidity improvements.
+### Marketing Strategy
+- **Brand Reinforcement:** Focus on digital marketing campaigns to enhance brand visibility and customer engagement.
+- **Product Launches:** Schedule product launches aligned with market research insights to maximize impact.
+
+### Execution Timeline
+- **Q2 2025:** Implement cost reduction measures and initiate asset liquidation.
+- **Q3 2025:** Launch new marketing campaigns and begin product innovation initiatives.
+- **Q4 2025:** Review progress and adjust strategies based on stakeholder feedback and financial performance.
 
 ### Accountability Framework
-- Assign specific team members to lead each initiative, with regular progress reports to the executive team.
+- Assign specific teams to each initiative with clear KPIs to measure success and report progress regularly to the executive team.
 
 ---
 
 ## Investor Recommendation
-Given the current financial health indicated by a Z-Score in the safe zone, investors are recommended to **hold** their shares. However, they should remain vigilant regarding liquidity challenges and monitor the company's strategic responses. This is not financial advice; please consult your financial advisor before making investment decisions.
+Based on the current financial health and Z-Score analysis, investors should **hold** their positions in Procter & Gamble. The company demonstrates strong fundamentals but must address liquidity concerns to sustain its safe status. It is advisable to consult with a financial advisor before making any investment decisions.
 
 ---
 
-## External Stakeholder Bargaining Power Assessment
+## Bargaining Power and Influence of External Stakeholders
 
-| External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|---------------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                            | Regulatory Compliance       | Medium              | Must adhere to industry regulations; can impact operations if non-compliant. |
-| Government Agencies                   | Policy Influence            | Low                 | Limited direct influence but can affect market conditions.               |
-| Unions                                | Labor Negotiations          | Medium              | Can influence labor costs and employee relations.                        |
-| Major Suppliers                       | Supply Chain Dependence     | High                | Critical for production; can negotiate terms based on demand.            |
-| Key Partners                          | Strategic Alliances         | Medium              | Collaborations can enhance market reach; influence through partnerships.  |
-| Activist Investors                    | Shareholder Activism        | High                | Can push for changes in management or strategy based on performance.     |
-| Creditors                             | Financial Leverage          | High                | Influence through debt terms and conditions; can impact liquidity.       |
-| Large Customers                       | Purchasing Power            | Medium              | Can negotiate pricing and terms based on volume; influence revenue.      |
+| External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                       |
+|---------------------------------------|----------------------------|---------------------|------------------------------------------------------------------------------------------------|
+| Regulators                            | Regulatory Compliance       | Moderate            | Influence through regulations that impact financial reporting and operational practices.       |
+| Government Agencies                   | Policy Influence            | Low                 | Limited direct influence but can affect market conditions through policy changes.             |
+| Unions                                | Labor Relations             | Moderate            | Influence on labor costs and employee relations; can impact operational efficiency.            |
+| Major Suppliers                       | Supply Chain Dependence     | High                | Significant influence on pricing and availability of raw materials; critical for production.   |
+| Key Partners                          | Strategic Alliances         | Moderate            | Influence through collaborative opportunities and joint ventures that can enhance market reach.|
+| Activist Investors                    | Shareholder Activism        | High                | Can exert pressure for changes in strategy or governance; influence company direction.        |
+| Creditors                             | Financial Leverage          | High                | Significant influence over financial strategies and liquidity management.                      |
+| Large Customers                       | Purchasing Power            | Moderate            | Influence through demand for products; can affect sales and revenue stability.                |
 
 ---
 
 ## Disclaimer
-**Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
 - LLM Model used: OpenAI GPT-3.5
 - Knowledge cut-off: October 2023
@@ -166,7 +169,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
-  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
+  - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
@@ -185,7 +188,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 34,248.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 128,919.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 70,439.0               |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 51,491.0               |
+| 2025 Q1   | market_value_equity | Treasury Stock                          | 138,073.0              |
 | 2025 Q1   | ebit                | EBIT                                    | 4,878.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 19,776.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -194,7 +197,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 33,797.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 127,544.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 71,196.0               |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 50,380.0               |
+| 2024 Q4   | market_value_equity | Treasury Stock                          | 137,112.0              |
 | 2024 Q4   | ebit                | EBIT                                    | 6,085.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 21,882.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -203,7 +206,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 36,420.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 125,361.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 74,342.0               |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 51,049.0               |
+| 2024 Q3   | market_value_equity | Treasury Stock                          | 134,823.0              |
 | 2024 Q3   | ebit                | EBIT                                    | 5,378.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 21,737.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -212,7 +215,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 33,627.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 123,811.0              |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 71,812.0               |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 49,488.0               |
+| 2024 Q2   | market_value_equity | Treasury Stock                          | 133,379.0              |
 | 2024 Q2   | ebit                | EBIT                                    | 4,090.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 20,532.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -221,7 +224,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 32,340.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 123,132.0              |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 69,265.0               |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 49,257.0               |
+| 2024 Q1   | market_value_equity | Treasury Stock                          | 132,172.0              |
 | 2024 Q1   | ebit                | EBIT                                    | 4,825.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 20,195.0               |
 

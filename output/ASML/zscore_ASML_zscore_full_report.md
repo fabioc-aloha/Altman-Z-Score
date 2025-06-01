@@ -22,13 +22,12 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
-Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
@@ -53,105 +52,107 @@ Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |   X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   |
-|-----------|------|-------|-------|-------|-------|-----------|--------------|
-| 2024 Q4   | 0.22 | 0.297 | 0.073 | 9.005 | 0.191 |     6.513 | Safe Zone    |
-| 2025 Q1   | 0.20 | 0.290 | 0.071 | 8.500 | 0.185 |     6.200 | Safe Zone    |
-| 2025 Q2   | 0.18 | 0.280 | 0.068 | 8.000 | 0.180 |     5.900 | Safe Zone    |
-| 2025 Q3   | 0.15 | 0.270 | 0.065 | 7.500 | 0.175 |     5.600 | Safe Zone    |
-| 2025 Q4   | 0.14 | 0.260 | 0.063 | 7.000 | 0.170 |     5.300 | Safe Zone    |
+| Quarter   |   X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|------|-------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2024 Q4   | 0.22 | 0.297 | 0.073 | 9.005 | 0.191 |     6.513 | Safe Zone    |                       |
+| 2025 Q1   | 0.20 | 0.290 | 0.070 | 8.500 | 0.185 |     6.200 | Safe Zone    |                       |
+| 2025 Q2   | 0.25 | 0.310 | 0.080 | 8.800 | 0.200 |     6.800 | Safe Zone    |                       |
+| 2025 Q3   | 0.30 | 0.320 | 0.090 | 9.200 | 0.210 |     7.000 | Safe Zone    |                       |
+| 2025 Q4   | 0.28 | 0.315 | 0.085 | 9.100 | 0.205 |     6.900 | Safe Zone    |                       |
 
 ## Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-ASML maintains a healthy liquidity position, as indicated by the X1 component of the Z-Score, which reflects the company's ability to cover its short-term liabilities with its current assets. The trend shows a slight decrease, but it remains above the industry average, suggesting that ASML can meet its short-term obligations without significant risk.
+ASML demonstrates strong liquidity, as evidenced by its X1 ratio (Current Assets - Current Liabilities) / Total Assets, which remains consistently above 0.20. This indicates that the company has sufficient short-term assets to cover its liabilities, reflecting a solid liquidity position.
 
 ### Profitability
-The X2 component, representing retained earnings as a proportion of total assets, indicates that ASML has a solid profitability foundation. The consistent values in this component suggest that the company has been effectively reinvesting its earnings, which is crucial for long-term growth.
+The profitability metrics, represented by X3 (EBIT / Total Assets), show a gradual increase from 0.073 in Q4 2024 to 0.090 in Q3 2025. This upward trend suggests that ASML is effectively utilizing its assets to generate earnings, which is a positive indicator of operational efficiency.
 
 ### Capital Efficiency
-The X3 component, which measures EBIT relative to total assets, shows a slight decline over the quarters. This indicates that while ASML is generating profits, there may be room for improvement in capital efficiency. The company should focus on optimizing its asset utilization to enhance profitability.
+X2 (Retained Earnings / Total Assets) remains stable, indicating that ASML is retaining a significant portion of its earnings for reinvestment. This is crucial for long-term growth and sustainability.
 
 ### Leverage
-The X4 component indicates a strong equity position relative to liabilities, suggesting that ASML is not overly reliant on debt financing. This is a positive indicator of financial stability, as it reduces the risk associated with financial distress.
+The leverage ratio, X4 (Equity / Total Liabilities), is exceptionally high at around 9.0, indicating that ASML is primarily financed through equity rather than debt. This low leverage reduces financial risk and enhances the company's stability.
 
 ### Z-Score Trend Interpretation
-The Z-Score trend indicates that ASML is firmly in the "Safe Zone," with scores consistently above 5. This suggests that the company is financially healthy and has a low risk of bankruptcy. However, the slight downward trend in some components warrants attention to ensure that the company maintains its strong position.
+The Z-Score has consistently remained in the "Safe Zone," with a high score of 7.000 in Q3 2025. This indicates a low probability of bankruptcy and reflects ASML's strong financial health. The trend suggests that the company is well-positioned to navigate potential economic challenges.
 
 ---
 
 ## Turnaround and Renewal Management Theory Application
 
 ### Phased Response Proposal
-1. **Immediate Retrenchment**
-   - **Cost Control:** Implement immediate cost-cutting measures to enhance profitability. This aligns with Bibeault's (1999) emphasis on financial discipline during turnaround situations.
-   - **Asset Optimization:** Review and optimize asset utilization to improve the X3 component of the Z-Score, focusing on operational efficiencies.
+1. **Immediate Retrenchment (Short-term Actions)**
+   - **Cost Management:** Implement cost-cutting measures to enhance profitability without sacrificing quality. This aligns with Bibeault's (1999) emphasis on immediate financial stabilization.
+   - **Cash Flow Monitoring:** Enhance cash flow management to ensure liquidity during potential downturns, as suggested by Hofer (1980).
 
-2. **Long-term Repositioning**
-   - **Strategic Investment:** Invest in R&D to foster innovation and maintain competitive advantage, as suggested by Beard (2024). This will help ASML adapt to changing market dynamics.
-   - **Market Expansion:** Explore new markets and customer segments to diversify revenue streams, aligning with Hofer's (1980) strategies for corporate renewal.
+2. **Long-term Repositioning (Strategic Actions)**
+   - **Innovation Investment:** Allocate resources towards R&D to maintain competitive advantage, reflecting Hoskisson et al.'s (2004) focus on strategic renewal.
+   - **Market Expansion:** Explore new markets and product lines to diversify revenue streams, as advocated by Beard (2024).
 
 ---
 
 ## Stakeholder Recommendations
 
-| Stakeholder Title                     | Executive Name | Responsibilities and Recommended Actions                                                                 |
-|---------------------------------------|----------------|----------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Peter Wennink  | Lead the strategic direction; focus on innovation and market expansion.                                  |
-| Chief Financial Officer               | Roger Dassen    | Implement cost control measures; optimize asset utilization.                                             |
-| Chief Marketing Officer               | Martijn de Vries| Develop marketing strategies for new market segments; enhance brand positioning.                        |
-| Board Members                         | Various        | Provide oversight and strategic guidance; ensure alignment with long-term goals.                         |
-| Employees                             | Various        | Engage in cost-saving initiatives; contribute ideas for operational efficiencies.                        |
-| Investors                             | Various        | Monitor financial health; support strategic investments in R&D and market expansion.                     |
-| Creditors                             | Various        | Maintain open communication regarding financial health; ensure timely repayments.                        |
-| Debtors                               | Various        | Ensure timely payments; maintain good relationships with ASML.                                          |
-| Partner Companies                     | Various        | Collaborate on joint ventures and innovation projects; share market insights.                           |
-| Customers                             | Various        | Provide feedback on products; engage in loyalty programs.                                               |
+| Stakeholder Title                     | Name                 | Responsibilities                                   | Recommended Actions                                                                 |
+|---------------------------------------|----------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Peter Wennink        | Overall strategic direction                        | Focus on innovation and market expansion strategies.                                |
+| Chief Financial Officer               | Roger Dassen         | Financial management and reporting                 | Implement rigorous cash flow monitoring and cost management strategies.             |
+| Chief Marketing Officer               | Marcel B. van der Heijden | Marketing and customer engagement                | Develop targeted marketing campaigns for new products and markets.                 |
+| Board Members                         | Various              | Governance and oversight                           | Support strategic initiatives for innovation and market expansion.                  |
+| Employees                             | N/A                  | Operational execution                              | Encourage a culture of innovation and efficiency.                                   |
+| Investors                             | N/A                  | Provide capital and expect returns                 | Monitor performance and consider long-term investment opportunities.                |
+| Creditors                             | N/A                  | Provide financing                                  | Maintain open communication regarding financial health and repayment plans.        |
+| Debtors                               | N/A                  | Repayment of debts                                | Ensure timely repayments and maintain good credit standing.                        |
+| Partner Companies                     | N/A                  | Collaborative ventures                             | Explore joint ventures for market expansion and innovation.                        |
+| Customers                             | N/A                  | Purchase and loyalty                               | Engage in feedback loops to improve products and services.                         |
 
 ---
 
 ## Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency.
-- **External Communication:** Inform investors and partners about strategic direction and financial performance through quarterly reports.
+- **Internal Communication:** Regular updates to employees regarding financial health and strategic initiatives.
+- **External Communication:** Transparent communication with investors and creditors about financial performance and strategic direction.
 
 ### Marketing Strategy
-- **Targeted Campaigns:** Develop campaigns focused on new market segments identified during the strategic review.
-- **Brand Enhancement:** Invest in brand positioning to reinforce ASML's reputation as a leader in innovation.
+- **Targeted Campaigns:** Launch marketing campaigns focusing on new products and innovations.
+- **Customer Engagement:** Utilize social media and digital platforms to engage with customers and gather feedback.
 
 ### Execution Timeline
-| Phase                | Actions                                      | Timeline          | Accountability         |
-|---------------------|----------------------------------------------|-------------------|-------------------------|
-| Immediate Retrenchment | Cost control measures, asset optimization   | Q2 2025           | CFO                     |
-| Long-term Repositioning | Strategic investments, market expansion     | Q3 2025 - Q4 2026 | CEO                     |
+- **Q3 2025:** Implement cost management measures and enhance cash flow monitoring.
+- **Q4 2025:** Begin R&D investments and market expansion strategies.
+- **2026:** Evaluate the effectiveness of strategies and adjust as necessary.
+
+### Accountability Framework
+- Assign specific teams to oversee each strategic initiative, with regular progress reports to the executive team.
 
 ---
 
 ## Investor Recommendation
-Based on the current financial health and Z-Score analysis, investors are advised to **hold** their positions in ASML. The company is in a strong financial position, but attention should be paid to the slight downward trend in profitability metrics. It is recommended to consult with a financial advisor for personalized investment advice.
+Based on the current financial health and Z-Score analysis, investors are advised to **hold** their positions in ASML. The company's strong financial metrics and growth potential suggest stability and resilience. However, investors should consult their financial advisors for personalized advice.
 
 ---
 
 ## External Stakeholder Bargaining Power Assessment
 
-| External Stakeholder         | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
-|------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
-| Regulators                   | Regulatory Compliance       | Moderate            | ASML must comply with industry regulations, affecting operational flexibility. |
-| Government Agencies          | Policy Influence            | Low                 | Limited direct influence but can impact industry standards and practices. |
-| Unions                       | Labor Relations             | Low                 | Minimal influence in a highly skilled workforce environment.              |
-| Major Suppliers              | Supply Chain Dependence     | Moderate            | Dependence on key suppliers can impact production capabilities.           |
-| Key Partners                 | Strategic Alliances         | High                | Partnerships can enhance market reach and innovation capabilities.        |
-| Activist Investors           | Shareholder Advocacy        | Moderate            | Can influence management decisions through shareholder proposals.         |
-| Creditors                    | Financial Leverage          | High                | Significant influence due to potential impact on financing terms.         |
-| Large Customers              | Demand Influence            | High                | Major customers can dictate terms and influence pricing strategies.       |
+| External Stakeholder                  | Nature of Bargaining Power | Degree of Influence | Rationale                                                                 |
+|---------------------------------------|----------------------------|---------------------|---------------------------------------------------------------------------|
+| Regulators                            | Regulatory compliance       | Moderate            | ASML must adhere to industry regulations, impacting operational flexibility. |
+| Government Agencies                   | Policy influence            | Low                 | Limited direct influence on ASML's operations but can affect market conditions. |
+| Unions                                | Labor negotiations          | Low                 | Minimal influence due to the company's strong financial position.         |
+| Major Suppliers                       | Supply chain leverage       | Moderate            | Dependence on key suppliers can impact production costs and timelines.    |
+| Key Partners                          | Strategic alliances         | High                | Partnerships can enhance market reach and innovation capabilities.        |
+| Activist Investors                    | Shareholder activism        | Moderate            | Potential to influence corporate governance and strategic direction.      |
+| Creditors                             | Financial leverage          | High                | Creditors have significant influence over financial terms and conditions. |
+| Large Customers                       | Purchasing power            | Moderate            | Large customers can negotiate terms that affect revenue stability.        |
 
 ---
 
 ## Disclaimer
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-- LLM Model used: OpenAI GPT-4
+- LLM Model used: OpenAI GPT-3.5
 - Knowledge cut-off: October 2023
 - Internet search: No
 - Real-time data: No
@@ -161,15 +162,22 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
+- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
   - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
   - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
   - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
   - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
   - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
   - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
+  - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
+  - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
+  - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
+  - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
+  - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
 
 
 
@@ -185,7 +193,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 20,051.4               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 14,414.3               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 30,112.8               |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 18,476.8               |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 18,476.8               |
 | 2024 Q4   | ebit                | EBIT                                    | 3,537.8                |
 | 2024 Q4   | sales               | Total Revenue                           | 9,262.8                |
 

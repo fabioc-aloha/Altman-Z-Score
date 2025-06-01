@@ -22,9 +22,8 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** original
-- **Analysis Date:** 2025-05-30
-
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-05-31
 
 ## Z-Score Formula Used
 
@@ -35,9 +34,9 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X4 = Equity / Total Liabilities
 
 **Thresholds:**
-- Safe Zone: > 2.6
-- Grey Zone: > 1.1 and <= 2.6
-- Distress Zone: <= 1.1
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -52,96 +51,100 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic   |
-|-----------|--------|-------|-------|-------|-----------|--------------|
-| 2025 Q1   | -0.055 | 0.316 | 0.029 | 2.322 |     3.302 | Safe Zone    |
-| 2024 Q4   | -0.06  | 0.322 | 0.026 | 2.335 |     3.281 | Safe Zone    |
-| 2024 Q3   | -0.031 | 0.322 | 0.029 | 2.7   |     3.877 | Safe Zone    |
-| 2024 Q2   | -0.044 | 0.323 | 0.023 | 2.444 |     3.486 | Safe Zone    |
-| 2024 Q1   | -0.054 | 0.317 | 0.003 | 2.358 |     3.172 | Safe Zone    |
-## Diagnostic Evaluation of Financial Health
+| Quarter   |     X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|--------|-------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | -0.055 | 0.316 | 0.029 | 2.322 |     3.302 | Safe Zone    |                       |
+| 2024 Q4   | -0.06  | 0.322 | 0.026 | 2.335 |     3.281 | Safe Zone    |                       |
+| 2024 Q3   | -0.031 | 0.322 | 0.029 | 2.7   |     3.877 | Safe Zone    |                       |
+| 2024 Q2   | -0.044 | 0.323 | 0.023 | 2.444 |     3.486 | Safe Zone    |                       |
+| 2024 Q1   | -0.054 | 0.317 | 0.003 | 2.358 |     3.172 | Safe Zone    |                       |
+## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-UnitedHealth Group (UNH) has shown a consistent negative trend in its liquidity ratio (X1), which indicates that current assets are not sufficient to cover current liabilities. This trend, while concerning, is mitigated by the overall strength of the company’s balance sheet, as evidenced by its Z-Score consistently remaining in the "Safe Zone" (Z > 2.6).
+The liquidity position of UnitedHealth Group Incorporated (UNH) is indicated by the X1 component of the Z-Score, which measures the difference between current assets and current liabilities relative to total assets. The negative values of X1 across the quarters suggest that UNH has been facing challenges in meeting its short-term obligations, which could be a concern for stakeholders.
 
 ### Profitability
-The retained earnings ratio (X2) remains relatively stable, reflecting a solid historical profitability. This stability is crucial for long-term sustainability and indicates that the company has been able to reinvest profits effectively.
+The X3 component, representing EBIT (Earnings Before Interest and Taxes) relative to total assets, indicates a stable profitability trend, albeit at a low level. This suggests that while UNH is generating some earnings, the efficiency of asset utilization could be improved.
 
 ### Capital Efficiency
-The EBIT to total assets ratio (X3) has shown slight fluctuations but remains positive, indicating that the company is generating earnings before interest and taxes efficiently relative to its asset base. This is a positive sign of operational efficiency.
+The X2 component, which measures retained earnings as a proportion of total assets, shows a consistent level of retained earnings, indicating that UNH has been able to reinvest profits back into the business. This is a positive sign for long-term sustainability.
 
 ### Leverage
-The equity to total liabilities ratio (X4) is strong, suggesting that UNH is well-capitalized and has a lower risk of financial distress. This high leverage ratio indicates that the company relies less on debt financing, which is a favorable position in times of economic uncertainty.
+The X4 component, which assesses equity relative to total liabilities, remains strong, indicating that UNH has a solid capital structure with a good buffer against financial distress. This is crucial for maintaining investor confidence and creditworthiness.
 
 ### Z-Score Trend Interpretation
-The Z-Score trend for UNH has remained above 3.0 for the past several quarters, indicating a strong financial position and low risk of bankruptcy. The consistent performance in the "Safe Zone" suggests that the company is managing its financial health effectively, although the declining liquidity ratio should be monitored closely.
+The Z-Score has consistently remained in the safe zone (above 2.90) over the analyzed quarters, indicating that UNH is not at immediate risk of bankruptcy. However, the declining trend in X1 and X3 components suggests potential liquidity and profitability issues that need to be addressed to maintain this status.
 
 ---
 
-## Turnaround and Renewal Management Theory Application
+## 2. Turnaround and Renewal Management Theory Application
 
 ### Phased Response Proposal
 Based on the analysis, a two-phased response is recommended:
 
 1. **Immediate Retrenchment:**
-   - **Focus on Liquidity Improvement:** Implement measures to enhance cash flow, such as optimizing working capital management and reducing unnecessary expenditures. This aligns with Hofer's (1980) turnaround strategies, which emphasize the need for immediate financial stabilization.
+   - Focus on improving liquidity by optimizing working capital management. This includes reducing inventory levels and accelerating accounts receivable collections.
+   - Implement cost-cutting measures to enhance profitability, such as reviewing operational efficiencies and renegotiating supplier contracts.
 
-2. **Long-term Repositioning:**
-   - **Strategic Investments in Growth Areas:** Identify and invest in high-growth segments of the healthcare market, leveraging the company's existing strengths. Bibeault (1999) highlights the importance of strategic renewal for long-term success, which is applicable here as UNH seeks to innovate and expand its service offerings.
-
----
-
-## Recommendations for Stakeholders
-
-| Stakeholder Title                     | Name                | Responsibilities and Recommended Actions                                                                                     |
-|---------------------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Chief Executive Officer               | Andrew Witty        | Lead the strategic direction, focusing on liquidity improvement and long-term growth investments.                            |
-| Chief Financial Officer               | John Rex            | Oversee financial restructuring efforts, enhance cash flow management, and monitor liquidity ratios closely.                 |
-| Chief Marketing Officer               | Heather C. McNally  | Develop marketing strategies to promote new services and enhance brand positioning in growth markets.                       |
-| Board Members                         | Various             | Provide oversight and strategic guidance, ensuring alignment with turnaround and renewal strategies.                          |
-| Employees                             | Various             | Engage in cost-saving initiatives and contribute ideas for operational efficiency improvements.                               |
-| Investors                             | Various             | Monitor financial health and support strategic initiatives; consider holding shares based on current performance.            |
-| Creditors                             | Various             | Maintain open communication regarding financial health; consider flexible repayment terms to support liquidity.               |
-| Debtors                               | Various             | Ensure timely payments to improve cash flow; consider renegotiating terms if necessary.                                      |
-| Partner Companies                     | Various             | Collaborate on joint ventures or strategic partnerships to enhance service offerings and market reach.                       |
-| Customers                             | Various             | Provide feedback on services; engage with the company to ensure needs are met, fostering loyalty and retention.               |
+2. **Long-Term Repositioning:**
+   - Invest in technology and innovation to improve service delivery and customer engagement, aligning with Beard's (2024) emphasis on strategic renewal in technology firms.
+   - Explore new market opportunities and diversify service offerings to enhance revenue streams, as suggested by Hoskisson et al. (2004).
 
 ---
 
-## Communication, Marketing, and Execution Strategies
+## 3. Recommendations for Stakeholders
+
+| Stakeholder Title                     | Name (if available) | Responsibilities & Recommended Actions                                                                                               |
+|---------------------------------------|----------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Chief Executive Officer               | Andrew Witty         | Lead the turnaround strategy, focusing on liquidity improvement and operational efficiency.                                           |
+| Chief Financial Officer               | John Rex             | Oversee financial restructuring, optimize working capital, and manage investor relations to maintain confidence.                       |
+| Chief Marketing Officer               | Heather C. McNally   | Develop marketing strategies to enhance customer engagement and promote new service offerings.                                        |
+| Board Members                         | Various              | Provide oversight and strategic guidance, ensuring alignment with turnaround goals and long-term vision.                               |
+| Employees                             | Various              | Engage in cost-saving initiatives and provide feedback on operational efficiencies.                                                   |
+| Investors                             | Various              | Monitor financial health and support strategic initiatives; consider holding shares based on current performance.                       |
+| Creditors                             | Various              | Work collaboratively with UNH to restructure debt if necessary, ensuring continued support for operations.                             |
+| Debtors                               | Various              | Ensure timely payments to maintain cash flow; consider renegotiating terms if necessary.                                              |
+| Partner Companies                     | Various              | Collaborate on joint ventures or service expansions to enhance market presence and share resources.                                    |
+| Customers                             | Various              | Provide feedback on service quality and needs; engage with new offerings as they are developed.                                        |
+| Regulators                            | Various              | Ensure compliance with healthcare regulations and support UNH in maintaining operational standards.                                     |
+| Major Suppliers                       | Various              | Work with UNH to optimize supply chain efficiencies and negotiate favorable terms.                                                     |
+
+---
+
+## 4. Communication, Marketing, and Execution Strategies
 
 ### Communication Strategy
-- **Internal Communication:** Regular updates to employees about financial health and strategic initiatives to foster transparency and engagement.
-- **External Communication:** Press releases and investor calls to keep stakeholders informed about progress and strategic direction.
+- **Internal Communication:** Regular updates to employees about the turnaround strategy and progress to foster engagement and morale.
+- **External Communication:** Transparent communication with investors and creditors about financial health and strategic initiatives.
 
 ### Marketing Strategy
-- **Targeted Campaigns:** Focus on promoting new services in high-growth areas, utilizing digital marketing and social media to reach potential customers effectively.
+- Launch targeted marketing campaigns to promote new services and engage existing customers, leveraging digital platforms.
 
 ### Execution Timeline
-| Phase                     | Timeline          | Accountability         |
-|--------------------------|-------------------|-------------------------|
-| Immediate Retrenchment   | 0-6 months        | CFO and CEO             |
-| Long-term Repositioning   | 6-24 months       | CEO and CMO             |
+| Phase                | Timeline         | Accountability          |
+|----------------------|------------------|--------------------------|
+| Immediate Retrenchment | Q2 2025          | CFO and COO              |
+| Long-Term Repositioning | Q3 2025 - Q4 2026 | CEO and CMO              |
 
 ---
 
-## Investor Recommendation
-Based on the current financial health and Z-Score analysis, investors should **hold** their positions in UnitedHealth Group (UNH). The company is in a strong financial position, but attention should be paid to liquidity trends. It is recommended that investors consult their financial advisors for personalized advice.
+## 5. Investment Recommendation
+Based on the current financial health and Z-Score analysis, investors are advised to **hold** their positions in UNH. The company shows a stable Z-Score, but attention to liquidity and profitability is necessary for future growth. This is not financial advice; please consult your financial advisor before making investment decisions.
 
 ---
 
-## External Stakeholder Bargaining Power Assessment
+## 6. Bargaining Power and Influence of External Stakeholders
 
-| External Stakeholder        | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                      |
-|-----------------------------|----------------------------|---------------------|-----------------------------------------------------------------------------------------------|
-| Regulators                  | Regulatory Compliance       | High                | Must adhere to healthcare regulations, impacting operational flexibility and financial strategy.|
-| Government Agencies         | Policy Influence            | Medium              | Can affect funding and reimbursement policies, influencing revenue streams.                   |
-| Unions                      | Labor Negotiations          | Medium              | Influence labor costs and employee relations, impacting operational efficiency.                |
-| Major Suppliers             | Supply Chain Leverage       | Medium              | Can negotiate terms based on demand and supply dynamics, affecting cost structures.           |
-| Key Partners                | Strategic Alliances         | High                | Partnerships can enhance service offerings and market reach, impacting competitive positioning.|
-| Activist Investors          | Shareholder Activism        | Medium              | Can influence corporate governance and strategic direction through shareholder proposals.     |
-| Creditors                   | Debt Terms                  | High                | Have significant leverage in financial negotiations, impacting liquidity and operational flexibility.|
-| Large Customers             | Purchasing Power            | Medium              | Can influence pricing and service terms, affecting revenue stability.                         |
+| External Stakeholder       | Nature of Bargaining Power | Degree of Influence | Rationale                                                                                      |
+|----------------------------|----------------------------|---------------------|-----------------------------------------------------------------------------------------------|
+| Regulators                 | Regulatory Compliance       | High                | UNH must adhere to healthcare regulations, impacting operational flexibility.                  |
+| Government Agencies        | Policy Influence            | Medium              | Government policies can affect reimbursement rates and operational guidelines.                 |
+| Unions                     | Labor Negotiation           | Medium              | Unions can influence labor costs and employee relations, impacting operational efficiency.     |
+| Major Suppliers            | Supply Chain Leverage       | Medium              | Suppliers can affect costs and availability of services, impacting profitability.              |
+| Key Partners               | Strategic Alliances         | Medium              | Partnerships can enhance service offerings and market reach, influencing competitive position. |
+| Activist Investors         | Shareholder Activism        | High                | Activist investors can push for changes in strategy or management, impacting governance.       |
+| Creditors                  | Financial Terms             | High                | Creditors have significant influence over financial restructuring and liquidity management.    |
+| Large Customers            | Contractual Obligations     | Medium              | Large customers can negotiate terms that affect revenue stability and cash flow.              |
 
 ---
 
@@ -158,7 +161,6 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ### References and Data Sources
 - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
 - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-- **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
 - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
 - **Theoretical Frameworks and Resources:**
   - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
@@ -189,7 +191,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 113,471.0              |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 97,934.0               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 204,621.0              |
-| 2025 Q1   | book_value_equity   | Common Stock Equity                     | 95,038.0               |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 95,038.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 9,104.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 109,575.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -198,7 +200,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 103,769.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 96,036.0               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 195,687.0              |
-| 2024 Q4   | book_value_equity   | Common Stock Equity                     | 92,658.0               |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 92,658.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 7,794.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 100,807.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -207,7 +209,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 101,565.0              |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 96,518.0               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 194,854.0              |
-| 2024 Q3   | book_value_equity   | Common Stock Equity                     | 94,535.0               |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 94,535.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 8,688.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 100,820.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -216,7 +218,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 104,670.0              |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 92,400.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 186,822.0              |
-| 2024 Q2   | book_value_equity   | Common Stock Equity                     | 89,359.0               |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 89,359.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 6,650.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 98,855.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -225,7 +227,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 104,431.0              |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 90,118.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 187,292.0              |
-| 2024 Q1   | book_value_equity   | Common Stock Equity                     | 86,688.0               |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 86,688.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 845.0                  |
 | 2024 Q1   | sales               | Total Revenue                           | 99,796.0               |
 
