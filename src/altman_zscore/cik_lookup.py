@@ -12,14 +12,10 @@ Features:
     - Rate limiting for SEC EDGAR compliance
     - Portfolio validation utilities
 
-Usage:
-    from altman_zscore.cik_lookup import lookup_cik, lookup_ciks
-
-    # Single lookup
-    cik = lookup_cik("AAPL")
-
-    # Batch lookup
-    ciks = lookup_ciks(["AAPL", "MSFT", "GOOGL"])
+Functions:
+    lookup_cik(ticker): Look up CIK number for a ticker symbol.
+    validate_cik(ticker, expected_cik): Validate a CIK number matches what we expect from SEC.
+    validate_portfolio_ciks(portfolio): Validate CIKs for all tickers in a portfolio.
 """
 
 import logging

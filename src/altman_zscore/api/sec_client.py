@@ -12,6 +12,7 @@ from typing import Any, Dict, Optional
 import requests
 
 from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
+from altman_zscore.utils.paths import get_output_dir
 
 logger = logging.getLogger(__name__)
 
@@ -182,19 +183,20 @@ class SECClient:
             logger.error(f"Error looking up CIK for {ticker}: {str(e)}")
             return None
 
-    def get_company_info(self, ticker_or_cik: str) -> Optional[Dict[str, Any]]:
+    def get_company_info(self, ticker_or_cik: str, save_to_file: bool = False) -> Optional[Dict[str, Any]]:
         """
-        Get company info from SEC EDGAR.
+        Get company info from SEC EDGAR. Optionally save to output/{TICKER}/company_info.json.
 
         Args:
             ticker_or_cik: Stock ticker symbol or CIK number
+            save_to_file: If True, save the result to output/{TICKER}/company_info.json
 
         Returns:
             Company info including CIK if found, None otherwise
         """
         try:
-            # If input might be a ticker, try to get CIK first
             cik = ticker_or_cik
+            ticker = ticker_or_cik.upper() if not ticker_or_cik.isdigit() else None
             if not ticker_or_cik.isdigit():
                 cik = self.lookup_cik(ticker_or_cik)
                 if not cik:
@@ -213,6 +215,11 @@ class SECClient:
 
             company_info = response.json()
             company_info["cik"] = padded_cik
+            if save_to_file and ticker:
+                import json
+                out_path = get_output_dir("company_info.json", ticker=ticker)
+                with open(out_path, "w", encoding="utf-8") as f:
+                    json.dump(company_info, f, indent=2, ensure_ascii=False)
             return company_info
 
         except Exception as e:

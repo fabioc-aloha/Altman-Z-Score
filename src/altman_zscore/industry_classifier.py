@@ -1,5 +1,11 @@
 """
 Industry classifier for Altman Z-Score pipeline (MVP scaffold).
+
+This module provides a function to classify companies by industry, public/private status, and emerging market status.
+Uses SEC EDGAR and Yahoo Finance for robust classification.
+
+Functions:
+    classify_company(ticker): Returns a CompanyProfile for the given ticker using SEC EDGAR first, then Yahoo Finance as fallback.
 """
 
 # All imports should be at the top of the file, per Python best practices.

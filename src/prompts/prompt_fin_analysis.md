@@ -1,74 +1,126 @@
-# Altman Z-Score Financial Analysis Prompt
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations and Altman Z-Score outputs along with this prompt. Your output must **adapt to the company's current risk category**:
 
-You are an expert financial analyst. Use the following instructions and references to generate a structured, theory-informed analysis and recommendations report for the company.
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
 
-## Instructions
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. Follow these structured sections:
 
-1. Begin with a diagnostic evaluation of financial health, referencing liquidity, profitability, capital efficiency, and leverage, and interpret the Z-Score trend in context.
-2. Apply turnaround and renewal management theory to propose a phased response, distinguishing between immediate retrenchment and long-term repositioning. Reference and cite relevant management theories and literature (e.g., Hofer, Bibeault, Hoskisson, Freeman, Altman, etc.) as listed below.
-3. Organize recommendations for stakeholders in a clear table format. Include, at minimum, the following: Chief Executive Officer, Chief Financial Officer, Chief Marketing Officer, Board Members, Employees, Investors, Creditors, Debtors, Partner Companies, and Customers. Spell out all stakeholder titles and add executive names when available. In addition, include any other stakeholders that are relevant for the specific company, industry, risk level, country, or culture (e.g., regulators, government agencies, unions, major suppliers, or key partners). For each stakeholder, clarify their responsibilities and recommended actions in the recovery process, grounding each in the cited theories where appropriate. Tailor recommendations to the company’s risk level and context.
-4. Suggest communication, marketing and execution strategies, including a timeline and accountability framework, to support successful implementation.
-5. Use plain language, justify all recommendations with data and theory, cite the provided references where relevant, and avoid generic statements.
-6. Make recommendation to investors if they should buy, sell or hold based on the company risk. Disclaim that this is not financial advise, that the reader should talke to their financial advisor.
-7. Organize in a clear table format: Assess the bargaining power and influence that all relevant external stakeholders have with the company leadership at this stage of the Z-Score and financial analysis. Include, as appropriate for the company, industry, risk level, country, or culture: regulators, government agencies, unions, major suppliers, key partners, activist investors, creditors, large customers, and any other external parties with significant leverage or influence. For each, specify the nature and degree of their bargaining power, and provide a brief rationale. Format the output as a professional table.
-8. At the end of your analysis, include a clearly marked disclaimer section with the following information:
-   - Model name and version
-   - Your knowledge cut-off date
-   - Whether you have access to real-time or post-cutoff information
-   - Whether you have the ability to search the internet or access real-time data
-   Use this template:
-   ---
-   **Disclaimer:**
-   Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-   - LLM Model used: [OpeanAi LLM model name and version, who are you?]
-   - Knowledge cut-off: [date]
-   - Internet search: [yes/no]
-   - Real-time data: [yes/no]
-   ---
-   Do not omit the disclaimer. It must always be present at the end of your output.
+---
+## Company Profile
+* Use the information provided to describe the company business, competitors, products and services.
+* Write a summary of the findings in a quick and easy to understand couple of paragraph.
 
-9. After the disclaimer, include a clearly marked section titled "References and Data Sources". In this section, list only the references and data sources actually used in your analysis and recommendations. Do not include unused frameworks or sources. Use the following template as a guide:
-   ---
-   ### References and Data Sources
-   - **Financials:** SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly/annual reports.
-   - **Market Data:** Yahoo Finance (historical prices, market value of equity).
-   - **Field Mapping & Validation:** Automated mapping with code-level synonym fallback and Pydantic schema validation. See Raw Data Field Mapping Table above.
-   - **Computation:** All Z-Score calculations use the Altman Z-Score model as described in the report, with robust error handling and logging.
-   - **Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score]. Author: Fabio Correa.
-   - **Theoretical Frameworks and Resources:** (only list the ones actually used in this analysis)
-     - Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
-     - Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
-     - Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
-     - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-     - Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
-     - Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
-     - Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-     - Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-     - Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-     - Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-     - Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-     - Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-     - Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
-   - *Add any additional references or data sources you used in your analysis.*
-   ---
-   Do not omit the references section. It must always be present at the end of your output. Only mention the frameworks and sources actually used in the analysis and recommendations to stakeholders.
+## 1. Diagnostic Evaluation of Financial Health
 
-## Theoretical Frameworks and Resources
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance and industry benchmarks.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
 
-- Altman Z-Score Analysis Project (https://github.com/fabioc-aloha/Altman-Z-Score)
-- Hofer, C. W. (1980). Turnaround strategies. Journal of Business Strategy, 1(1), 19–31.
-- Bibeault, D. B. (1999). Corporate turnaround: How managers turn losers into winners. Beard Books.
-- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). Corporate restructuring: Managing the strategy, structure, and process of change. McGraw-Hill Education.
-- Beard, D. (2024). Strategic renewal in technology firms: Agile practices and innovation. Journal of Organizational Change, 31(2), 145–160.
-- Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.
-- Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. Journal of Finance, 23(4), 589–609.
-- Altman, E. I., & Hotchkiss, E. (2006). Corporate financial distress and bankruptcy: Predict and avoid bankruptcy, analyze and invest in distressed debt (3rd ed.). Wiley.
-- Brigham, E. F., & Daves, P. R. (2021). Intermediate financial management (14th ed.). Cengage Learning.
-- Higgins, R. C. (2019). Analysis for financial management (12th ed.). McGraw-Hill Education.
-- Palepu, K. G., & Healy, P. M. (2020). Business analysis and valuation: Using financial statements (6th ed.). Cengage Learning.
-- Platt, H. D. (2004). Principles of corporate renewal (2nd ed.). University of Michigan Press.
-- Shepherd, D. A., & Rudd, J. M. (2014). The influence of ethical leadership on organizational renewal. Academy of Management Perspectives, 28(3), 257–275.
+---
 
-*You may edit this file to customize the analysis prompt, add new instructions, or update references. The contents of this file will be used directly as the prompt for the LLM analysis.*
+## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+
+* Use the Z-Score risk level to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+---
+
+## 3. Internal Stakeholder Recommendations (Tailored Table)
+
+Create a table with the following columns:
+
+| Title | Responsibilities | Recommended Actions (Cited) |
+| ----- | ---------------- | --------------------------- |
+
+* Include, at minimum: CEO, CFO, CMO, Board, Employees, Shareholders, Creditors, Customers, Partners
+* Tailor actions and tone to company risk level:
+
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Define internal and external communication plans that reflect the company’s risk level (e.g., calm assurance vs. urgent clarity).
+* Detail **milestones**, **accountable parties**, and **timelines** (1–3, 4–6, 7–12, 13–18 months).
+* Tailor **marketing tactics** (e.g., investor confidence restoration vs. innovation campaigns).
+
+---
+
+## 5. Plain-Language Justification & Citation
+
+* Use accessible, professional language.
+* Tie every action to **empirical data or cited theory**, adjusted to the risk profile.
+* Avoid generic claims.
+
+---
+
+## 6. Investor Recommendation (Risk-Aware)
+
+* Provide a risk-aligned recommendation: **Buy / Hold / Sell**, based on Z-Score insights.
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 7. External Stakeholder Bargaining Power (Table)
+
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+| ----------------------- | -------------------------- | ------------------- | ----------------------- |
+
+* Adapt rationale based on company’s **perceived weakness or strength** in negotiation.
+* Apply theories from Freeman (1984), Platt (2004), and others as relevant.
+
+---
+
+## 8. Mandatory Disclaimer (Must Appear at End)
+
+```
+---
+**Disclaimer:**
+Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
+- **LLM Model used:** [OpenAI o4-mini]
+- **Knowledge cut-off:** [Date]
+- **Internet search:** [yes/no]
+- **Real-time data:** [yes/no]
+---
+```
+
+---
+
+## 9. References and Data Sources (Must Appear at End)
+
+```
+---
+### References and Data Sources
+- **Financials:** [e.g., SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports]
+- **Market Data:** [e.g., Yahoo Finance historical prices]
+- **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
+- **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
+- **Theoretical Frameworks:** (only those used)
+  - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+  - Hofer, C. W. (1980). *Turnaround Strategies.*
+  - Bibeault, D. B. (1999). *Corporate Turnaround.*
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+  - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
+  - [Include additional used sources here]
+---
+```
 
 ---

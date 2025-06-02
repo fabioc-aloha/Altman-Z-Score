@@ -4,7 +4,10 @@ Financial data validation utilities for Altman Z-Score pipeline.
 This module provides Pydantic-based validation and diagnostics for financial data
 used in Z-Score computation. Handles missing fields, outliers, and edge-case reporting.
 
-Note: This code follows PEP 8 style guidelines.
+Classes:
+    ValidationLevel (Enum): Severity level for validation issues.
+    ValidationIssue: Represents a validation issue for a field.
+    FinancialDataValidator: Validates financial data for Altman Z-Score computation.
 """
 
 from enum import Enum
@@ -32,6 +35,7 @@ class FinancialDataValidator:
         validate(q, industry=None): Validate a single quarter's data.
         validate_data(q, industry=None): Alias for validate.
         summarize_issues(issues): Summarize validation issues for diagnostics/reporting.
+        check_consistency(q): Run consistency checks for financial data.
     """
 
     REQUIRED_FIELDS = [
@@ -134,13 +138,16 @@ class FinancialDataValidator:
 
     def check_consistency(self, q):
         """
-        Run consistency checks as described in ModelSelection.md pseudocode:
-        - TA >= CA
-        - TL >= CL
-        - BVE ≈ TA - TL
-        - Rounding discrepancies
+        Run consistency checks for financial data as described in ModelSelection.md pseudocode:
+            - TA >= CA (Total Assets >= Current Assets)
+            - TL >= CL (Total Liabilities >= Current Liabilities)
+            - BVE ≈ TA - TL (Shareholders’ Equity ≈ Total Assets - Total Liabilities)
+            - Rounding discrepancies (not implemented; raw values not always available)
+
+        Args:
+            q (dict): Financial data for a quarter.
         Returns:
-            list: List of ValidationIssue (level=WARNING)
+            list: List of ValidationIssue (level=WARNING) for any detected inconsistencies.
         """
         issues = []
         # TA >= CA

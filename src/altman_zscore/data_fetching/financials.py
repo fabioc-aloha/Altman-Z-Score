@@ -66,19 +66,14 @@ def fetch_sec_edgar_data(ticker: str) -> Optional[Dict[str, Any]]:
         dict or None: Company information if available, else None.
     """
     try:
-        # Example URL for SEC EDGAR API (replace with actual endpoint if available)
-        edgar_url = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={ticker}&type=&dateb=&owner=exclude&start=0&count=40&output=atom"
-        headers = {"User-Agent": "Altman-Z-Score-Pipeline"}
-        response = requests.get(edgar_url, headers=headers)
-        response.raise_for_status()
+        from altman_zscore.api.sec_client import SECClient
+        client = SECClient()
+        company_data = client.get_company_info(ticker, save_to_file=True)
+        if company_data is None:
+            return None
 
-        # Parse the response (this is an example, actual parsing depends on the API response format)
-        company_data = {
-            "ticker": ticker,
-            "edgar_url": edgar_url,
-            "response_text": response.text,  # Save raw response for debugging
-        }
         return company_data
+
     except Exception as e:
         logging.warning(f"Failed to fetch SEC EDGAR data for {ticker}: {e}")
         return None

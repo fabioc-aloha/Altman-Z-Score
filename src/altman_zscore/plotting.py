@@ -9,6 +9,10 @@ Key Features:
 - Handles missing/invalid data gracefully
 - Compatible with Codespaces and local environments
 - All outputs saved to output/<TICKER>/
+
+Functions:
+    print_info(msg): Print an info message with cyan color if supported.
+    ... (other public plotting/reporting functions documented inline)
 """
 
 import matplotlib.pyplot as plt

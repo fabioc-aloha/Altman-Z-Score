@@ -5,6 +5,7 @@
 $large_caps = @(
     'AAPL',  # Apple
     'MSFT',  # Microsoft
+    'SONO',  # Sonos (tech, high R&D)
     'GOOGL', # Alphabet
     'AMZN',  # Amazon
     'META',  # Meta Platforms

@@ -2,6 +2,10 @@
 Plotting building block functions for Altman Z-Score and price trend visualizations.
 
 This module contains modular plotting utilities to be used by the main plotting orchestration functions.
+
+Functions:
+    plot_zscore(ax, q_pos, q_scores, show_moving_averages): Plot Z-Score values with moving averages.
+    ... (other public plotting block functions documented inline)
 """
 
 import numpy as np

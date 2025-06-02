@@ -9,6 +9,10 @@ This module is now modularized. All core logic has been moved to:
 - utils/financial_metrics.py (safe_div and related utilities)
 
 Import from those modules instead. Do NOT add formula logic here.
+
+Functions:
+    compute_zscore(metrics, model): Compute the Altman Z-Score for a given set of financial metrics and model.
+    ... (other dispatcher/model selection functions documented inline)
 """
 
 from altman_zscore.computation import compute as compute_module

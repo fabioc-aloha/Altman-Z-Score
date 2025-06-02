@@ -1,13 +1,30 @@
 """
 Helper functions for preparing price statistics for plotting in Altman Z-Score visualizations.
+
+This module provides utilities for aligning dates and preparing price data for consistent and accurate visualization in Z-Score trend charts.
+
+Functions:
+    align_dates_to_grid(date_series, freq):
+        Aligns a pandas Series of dates to a regular grid (weekly or monthly).
+    prepare_price_stats_for_plotting(price_stats, using_weekly, date_to_pos, min_date, max_date):
+        Prepares and filters price statistics for plotting Z-Score and price trends.
+    prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, max_date):
+        Prepares weekly-grain price stats for plotting.
+    prepare_monthly_price_stats_for_plotting(price_stats, date_to_pos, min_date, max_date):
+        Prepares monthly-grain price stats for plotting.
 """
 
 import pandas as pd
 
-
 def align_dates_to_grid(date_series, freq="W"):
     """
-    Align dates to weekly or monthly grid to ensure consistent mapping.
+    Align a pandas Series of dates to a regular grid (weekly or monthly).
+
+    Args:
+        date_series (pd.Series): Series of datetime-like values.
+        freq (str): Frequency to align to ('W' for weekly, 'M' for monthly).
+    Returns:
+        pd.Series: Series of aligned dates.
     """
     dates = pd.to_datetime(date_series)
     if freq == "W":
@@ -20,8 +37,18 @@ def align_dates_to_grid(date_series, freq="W"):
 
 def prepare_price_stats_for_plotting(price_stats, using_weekly, date_to_pos, min_date, max_date):
     """
-    Normalize, filter, map, and sort price stats for plotting.
-    Returns: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
+    Prepare and filter price statistics for plotting Z-Score and price trends.
+
+    This function normalizes, filters, maps, and sorts price stats for plotting Z-Score and price trends.
+
+    Args:
+        price_stats (pd.DataFrame): DataFrame with price statistics.
+        using_weekly (bool): Whether to use weekly or monthly periods.
+        date_to_pos (dict): Mapping from period to plot position.
+        min_date (datetime): Minimum date to include.
+        max_date (datetime): Maximum date to include.
+    Returns:
+        tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
         return None, None, None, None
@@ -52,7 +79,16 @@ def prepare_price_stats_for_plotting(price_stats, using_weekly, date_to_pos, min
 def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, max_date):
     """
     Prepare weekly-grain price stats for plotting.
-    Returns: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
+
+    This function processes weekly price statistics, aligns dates to Mondays, filters by date range, and returns sorted lists for plotting.
+
+    Args:
+        price_stats (pd.DataFrame): DataFrame with price statistics.
+        date_to_pos (dict): Mapping from period to plot position.
+        min_date (datetime): Minimum date to include.
+        max_date (datetime): Maximum date to include.
+    Returns:
+        tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
         print("[DEBUG] Empty price stats")
@@ -118,7 +154,16 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
 def prepare_monthly_price_stats_for_plotting(price_stats, date_to_pos, min_date, max_date):
     """
     Prepare monthly-grain price stats for plotting.
-    Returns: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
+
+    This function processes monthly price statistics, aligns dates to the first of each month, filters by date range, and returns sorted lists for plotting.
+
+    Args:
+        price_stats (pd.DataFrame): DataFrame with price statistics.
+        date_to_pos (dict): Mapping from period to plot position.
+        min_date (datetime): Minimum date to include.
+        max_date (datetime): Maximum date to include.
+    Returns:
+        tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
         print("[DEBUG] Empty price stats")

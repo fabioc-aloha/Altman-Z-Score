@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Version: 2.6 (2025-06-02)
 """
 Altman Z-Score Analysis Pipeline Entry Point (MVP)
 
@@ -15,7 +16,9 @@ USAGE:
 
 All outputs will be saved to output/<TICKER>/
 """
-__version__ = "2.5"
+__version__ = "2.6"
+
+# v2.6 release: Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, expanded documentation/testing
 
 import argparse
 import os

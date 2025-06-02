@@ -5,7 +5,9 @@ This module provides functions and utilities for analyzing the Altman Z-Score
 of a single stock. It includes data fetching, validation, computation, and
 reporting functionalities.
 
-Note: This code follows PEP 8 style guidelines.
+Functions:
+    print_info(msg): Print an info message with cyan color.
+    ... (other public analysis functions documented inline)
 """
 
 import json

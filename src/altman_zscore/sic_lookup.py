@@ -8,16 +8,18 @@ industries based on their SIC codes.
 Note: This code follows PEP 8 style guidelines.
 """
 
-# Updated docstring for sic_map
 sic_map = {
-    """
-    Dictionary mapping SIC codes to industry descriptions.
-
-    Keys:
-        str: SIC code as a string.
-    Values:
-        str: Industry description corresponding to the SIC code.
-    """
+    # Dictionary mapping SIC codes to industry descriptions.
+    #
+    # Keys:
+    #     str: SIC code as a string.
+    # Values:
+    #     str: Industry description corresponding to the SIC code.
+    #
+    # Example:
+    #     "3711": "Motor Vehicles & Passenger Car Bodies"
+    #
+    # This mapping is used for classifying companies into industries based on their SIC codes.
     "0111": "Wheat",
     "1311": "Crude Petroleum & Natural Gas",
     "1389": "Oil & Gas Field Services",
@@ -54,3 +56,19 @@ sic_map = {
     "8999": "Services, NEC",
     # Add more as needed
 }
+
+def get_sic_description(sic_code: str) -> str:
+    """
+    Return the industry description for a given SIC code.
+
+    Args:
+        sic_code (str): The SIC code as a string (e.g., "3711").
+
+    Returns:
+        str: The industry description if found, otherwise "Unknown Industry".
+
+    Example:
+        >>> get_sic_description("3711")
+        'Motor Vehicles & Passenger Car Bodies'
+    """
+    return sic_map.get(sic_code, "Unknown Industry")

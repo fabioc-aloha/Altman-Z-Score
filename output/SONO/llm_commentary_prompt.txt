@@ -1,0 +1,427 @@
+
+
+# Company Profile (from Yahoo Finance)
+{'52WeekChange': -0.34936708,
+ 'SandP52WeekChange': 0.1189177,
+ 'address1': '301 Coromar Drive',
+ 'ask': 10.08,
+ 'askSize': 4,
+ 'auditRisk': 4,
+ 'averageDailyVolume10Day': 1534750,
+ 'averageDailyVolume3Month': 1967493,
+ 'averageVolume': 1967493,
+ 'averageVolume10days': 1534750,
+ 'beta': 2.051,
+ 'bid': 10.01,
+ 'bidSize': 4,
+ 'boardRisk': 5,
+ 'bookValue': 3.189,
+ 'city': 'Santa Barbara',
+ 'companyOfficers': [{'age': 54,
+                      'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Mr. Thomas  Conrad',
+                      'title': 'President, Interim CEO & Director',
+                      'totalPay': 75000,
+                      'unexercisedValue': 0,
+                      'yearBorn': 1970},
+                     {'age': 55,
+                      'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Ms. Saori  Casey',
+                      'title': 'Chief Financial Officer',
+                      'totalPay': 556704,
+                      'unexercisedValue': 0,
+                      'yearBorn': 1969},
+                     {'age': 65,
+                      'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Mr. Edward P. Lazarus J.D.',
+                      'title': 'Chief Strategy Officer, Chief Legal Officer & Corporate Secretary',
+                      'totalPay': 485350,
+                      'unexercisedValue': 206000,
+                      'yearBorn': 1959},
+                     {'age': 47,
+                      'exercisedValue': 26475,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Mr. Nicholas  Millington',
+                      'title': 'Chief Innovation Officer',
+                      'totalPay': 459866,
+                      'unexercisedValue': 0,
+                      'yearBorn': 1977},
+                     {'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Mr. James  Baglanis',
+                      'title': 'Head of Corporate Finance, Investor Relations & Treasury',
+                      'unexercisedValue': 0},
+                     {'age': 56,
+                      'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Mr. Christopher Scott Mason',
+                      'title': 'SVP of Global Business Services & Chief Information Officer',
+                      'unexercisedValue': 0,
+                      'yearBorn': 1968},
+                     {'age': 34,
+                      'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Ms. Shamayne  Braman',
+                      'title': 'Chief People Officer',
+                      'totalPay': 459277,
+                      'unexercisedValue': 0,
+                      'yearBorn': 1990},
+                     {'exercisedValue': 0,
+                      'fiscalYear': 2024,
+                      'maxAge': 1,
+                      'name': 'Ms. Dunja  LaRosa',
+                      'title': 'Chief Revenue Officer',
+                      'unexercisedValue': 0}],
+ 'compensationAsOfEpochDate': 1735603200,
+ 'compensationRisk': 8,
+ 'corporateActions': [],
+ 'country': 'United States',
+ 'cryptoTradeable': False,
+ 'currency': 'USD',
+ 'currentPrice': 10.05,
+ 'currentRatio': 1.564,
+ 'customPriceAlertConfidence': 'HIGH',
+ 'dateShortInterest': 1747267200,
+ 'dayHigh': 10.25,
+ 'dayLow': 9.84,
+ 'debtToEquity': 16.462,
+ 'displayName': 'Sonos',
+ 'earningsCallTimestampEnd': 1746649800,
+ 'earningsCallTimestampStart': 1746649800,
+ 'earningsTimestamp': 1746648120,
+ 'earningsTimestampEnd': 1754510400,
+ 'earningsTimestampStart': 1754510400,
+ 'ebitda': 23542000,
+ 'ebitdaMargins': 0.01609,
+ 'enterpriseToEbitda': 45.621,
+ 'enterpriseToRevenue': 0.734,
+ 'enterpriseValue': 1074018432,
+ 'epsCurrentYear': 0.445,
+ 'epsForward': -0.15,
+ 'epsTrailingTwelveMonths': -0.56,
+ 'esgPopulated': False,
+ 'exchange': 'NMS',
+ 'exchangeDataDelayedBy': 0,
+ 'exchangeTimezoneName': 'America/New_York',
+ 'exchangeTimezoneShortName': 'EDT',
+ 'executiveTeam': [],
+ 'fiftyDayAverage': 9.7822,
+ 'fiftyDayAverageChange': 0.26780033,
+ 'fiftyDayAverageChangePercent': 0.027376289,
+ 'fiftyTwoWeekChangePercent': -34.936707,
+ 'fiftyTwoWeekHigh': 16.3,
+ 'fiftyTwoWeekHighChange': -6.249999,
+ 'fiftyTwoWeekHighChangePercent': -0.38343555,
+ 'fiftyTwoWeekLow': 7.63,
+ 'fiftyTwoWeekLowChange': 2.42,
+ 'fiftyTwoWeekLowChangePercent': 0.31716907,
+ 'fiftyTwoWeekRange': '7.63 - 16.3',
+ 'financialCurrency': 'USD',
+ 'firstTradeDateMilliseconds': 1533216600000,
+ 'floatShares': 105305923,
+ 'forwardEps': -0.15,
+ 'forwardPE': -67.0,
+ 'freeCashflow': 120991752,
+ 'fullExchangeName': 'NasdaqGS',
+ 'fullTimeEmployees': 1708,
+ 'gmtOffSetMilliseconds': -14400000,
+ 'governanceEpochDate': 1748736000,
+ 'grossMargins': 0.44672,
+ 'grossProfits': 653608000,
+ 'hasPrePostMarketData': True,
+ 'heldPercentInsiders': 0.02341,
+ 'heldPercentInstitutions': 0.93232,
+ 'impliedSharesOutstanding': 120087000,
+ 'industry': 'Consumer Electronics',
+ 'industryDisp': 'Consumer Electronics',
+ 'industryKey': 'consumer-electronics',
+ 'isEarningsDateEstimate': True,
+ 'language': 'en-US',
+ 'lastFiscalYearEnd': 1727481600,
+ 'longBusinessSummary': 'Sonos, Inc., together with its subsidiaries, designs, develops, manufactures, and sells audio '
+                        'products and services in the Americas, Europe, the Middle East, Africa, and the Asia Pacific. '
+                        'The company offers wireless, portable, and home theater speakers; and headphones, components, '
+                        'and accessories. It offers its products through physical stores, websites, online retailers, '
+                        'and custom installers. The company was formerly known as Rincon Audio, Inc. and changed its '
+                        'name to Sonos, Inc. in May 2004. Sonos, Inc. was incorporated in 2002 and is headquartered in '
+                        'Santa Barbara, California.',
+ 'longName': 'Sonos, Inc.',
+ 'market': 'us_market',
+ 'marketCap': 1206874368,
+ 'marketState': 'REGULAR',
+ 'maxAge': 86400,
+ 'messageBoardId': 'finmb_10654809',
+ 'mostRecentQuarter': 1743206400,
+ 'netIncomeToCommon': -69291000,
+ 'nextFiscalYearEnd': 1759017600,
+ 'numberOfAnalystOpinions': 4,
+ 'open': 10.52,
+ 'operatingCashflow': 122256000,
+ 'operatingMargins': -0.14446001,
+ 'overallRisk': 7,
+ 'payoutRatio': 0.0,
+ 'phone': '805 965 3001',
+ 'previousClose': 10.28,
+ 'priceEpsCurrentYear': 22.58427,
+ 'priceHint': 2,
+ 'priceToBook': 3.1514583,
+ 'priceToSalesTrailing12Months': 0.82485336,
+ 'profitMargins': -0.04736,
+ 'quickRatio': 0.911,
+ 'quoteSourceName': 'Nasdaq Real Time Price',
+ 'quoteType': 'EQUITY',
+ 'recommendationKey': 'none',
+ 'region': 'US',
+ 'regularMarketChange': -0.22999954,
+ 'regularMarketChangePercent': -2.2373497,
+ 'regularMarketDayHigh': 10.25,
+ 'regularMarketDayLow': 9.84,
+ 'regularMarketDayRange': '9.84 - 10.25',
+ 'regularMarketOpen': 10.52,
+ 'regularMarketPreviousClose': 10.28,
+ 'regularMarketPrice': 10.05,
+ 'regularMarketTime': 1748881618,
+ 'regularMarketVolume': 654495,
+ 'returnOnAssets': -0.02546,
+ 'returnOnEquity': -0.15804,
+ 'revenueGrowth': 0.028,
+ 'revenuePerShare': 12.044,
+ 'sector': 'Technology',
+ 'sectorDisp': 'Technology',
+ 'sectorKey': 'technology',
+ 'shareHolderRightsRisk': 8,
+ 'sharesOutstanding': 120087000,
+ 'sharesPercentSharesOut': 0.0551,
+ 'sharesShort': 6621148,
+ 'sharesShortPreviousMonthDate': 1744675200,
+ 'sharesShortPriorMonth': 5486652,
+ 'shortName': 'Sonos, Inc.',
+ 'shortPercentOfFloat': 0.078200005,
+ 'shortRatio': 3.09,
+ 'sourceInterval': 15,
+ 'state': 'CA',
+ 'symbol': 'SONO',
+ 'targetHighPrice': 15.0,
+ 'targetLowPrice': 7.0,
+ 'targetMeanPrice': 11.825,
+ 'targetMedianPrice': 12.65,
+ 'totalCash': 223507008,
+ 'totalCashPerShare': 1.861,
+ 'totalDebt': 63026000,
+ 'totalRevenue': 1463138048,
+ 'tradeable': False,
+ 'trailingAnnualDividendRate': 0.0,
+ 'trailingAnnualDividendYield': 0.0,
+ 'trailingEps': -0.56,
+ 'trailingPegRatio': None,
+ 'triggerable': True,
+ 'twoHundredDayAverage': 12.25725,
+ 'twoHundredDayAverageChange': -2.2072496,
+ 'twoHundredDayAverageChangePercent': -0.18007708,
+ 'typeDisp': 'Equity',
+ 'volume': 654509,
+ 'website': 'https://www.sonos.com',
+ 'zip': '93117'}
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations and Altman Z-Score outputs along with this prompt. Your output must **adapt to the company's current risk category**:
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. Follow these structured sections:
+
+---
+## Company Profile
+* Use the information provided to describe the company business, competitors, products and services.
+* Write a summary of the findings in a quick and easy to understand couple of paragraph.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance and industry benchmarks.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+
+---
+
+## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+
+* Use the Z-Score risk level to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+---
+
+## 3. Internal Stakeholder Recommendations (Tailored Table)
+
+Create a table with the following columns:
+
+| Title | Responsibilities | Recommended Actions (Cited) |
+| ----- | ---------------- | --------------------------- |
+
+* Include, at minimum: CEO, CFO, CMO, Board, Employees, Shareholders, Creditors, Customers, Partners
+* Tailor actions and tone to company risk level:
+
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Define internal and external communication plans that reflect the company’s risk level (e.g., calm assurance vs. urgent clarity).
+* Detail **milestones**, **accountable parties**, and **timelines** (1–3, 4–6, 7–12, 13–18 months).
+* Tailor **marketing tactics** (e.g., investor confidence restoration vs. innovation campaigns).
+
+---
+
+## 5. Plain-Language Justification & Citation
+
+* Use accessible, professional language.
+* Tie every action to **empirical data or cited theory**, adjusted to the risk profile.
+* Avoid generic claims.
+
+---
+
+## 6. Investor Recommendation (Risk-Aware)
+
+* Provide a risk-aligned recommendation: **Buy / Hold / Sell**, based on Z-Score insights.
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 7. External Stakeholder Bargaining Power (Table)
+
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+| ----------------------- | -------------------------- | ------------------- | ----------------------- |
+
+* Adapt rationale based on company’s **perceived weakness or strength** in negotiation.
+* Apply theories from Freeman (1984), Platt (2004), and others as relevant.
+
+---
+
+## 8. Mandatory Disclaimer (Must Appear at End)
+
+```
+---
+**Disclaimer:**
+Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
+- **LLM Model used:** [OpenAI o4-mini]
+- **Knowledge cut-off:** [Date]
+- **Internet search:** [yes/no]
+- **Real-time data:** [yes/no]
+---
+```
+
+---
+
+## 9. References and Data Sources (Must Appear at End)
+
+```
+---
+### References and Data Sources
+- **Financials:** [e.g., SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports]
+- **Market Data:** [e.g., Yahoo Finance historical prices]
+- **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
+- **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
+- **Theoretical Frameworks:** (only those used)
+  - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+  - Hofer, C. W. (1980). *Turnaround Strategies.*
+  - Bibeault, D. B. (1999). *Corporate Turnaround.*
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+  - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
+  - [Include additional used sources here]
+---
+```
+
+---
+
+
+---
+
+# Altman Z-Score Analysis Report: Sonos, Inc. (SONO)
+
+---
+## Introduction
+This report provides a comprehensive, theory-informed financial health analysis of the selected company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, with all findings and recommendations grounded in referenced academic and industry sources. The analysis is generated by an expert LLM-driven pipeline, ensuring transparency, reproducibility, and robust source attribution.
+
+**Author:** Fabio Correa
+
+**Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score).
+
+**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.
+
+Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
+---
+
+**Script Version:** v2.5
+
+## Analysis Context and Z-Score Model Selection Criteria
+
+- **Industry:** SIC 3651 (SIC 3651)
+- **Ticker:** SONO
+- **Public:** True
+- **Emerging Market:** False
+- **Maturity:** Mature Company
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-06-02
+
+## Z-Score Formula Used
+
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
+- X1 = (Current Assets - Current Liabilities) / Total Assets
+- X2 = Retained Earnings / Total Assets
+- X3 = EBIT / Total Assets
+- X4 = Equity / Total Liabilities
+- X5 = Sales / Total Assets
+
+**Thresholds:**
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
+
+
+
+---
+
+# Graphical View of the Z-Score Analysis
+
+
+![Z-Score and Price Trend Chart](zscore_SONO_trend.png)
+
+*Figure: Z-Score and stock price trend for SONO (image not available yet; will be generated after analysis)*
+
+
+## Z-Score Component Table (by Quarter)
+| Quarter   |    X1 |     X2 |     X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|--------|--------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.206 | -0.089 | -0.075 | 3.13  | 0.328 |     2.082 | Grey Zone    |                       |
+| 2024 Q4   | 0.249 | -0.001 |  0.046 | 3.653 | 0.572 |     3.212 | Safe Zone    |                       |
+| 2024 Q3   | 0.202 | -0.056 | -0.068 | 3.026 | 0.279 |     2.035 | Grey Zone    |                       |
+| 2024 Q2   | 0.247 |  0.002 |  0.013 | 3.568 | 0.413 |     2.898 | Grey Zone    |                       |
+| 2024 Q1   | 0.302 | -0.002 | -0.076 | 5.303 | 0.273 |     3.564 | Safe Zone    |                       |

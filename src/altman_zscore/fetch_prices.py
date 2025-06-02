@@ -5,7 +5,13 @@ This module provides functions to retrieve historical stock price data
 using the yfinance API, with retry logic and validation to handle edge cases.
 It supports fetching prices for specific dates, calculating price changes, and saving data.
 
-Note: This code follows PEP 8 style guidelines.
+Functions:
+    get_last_business_day(date_str): Convert a date string to the last business day if it falls on a weekend.
+    get_market_data(ticker, date, days_buffer): Fetch market data for a stock with retry logic and date buffer.
+    get_closest_price(df, target_date): Get the closing price closest to the target date.
+    get_quarter_price_change(ticker, start, end): Calculate the percentage price change for a stock between two dates.
+    get_start_end_prices(ticker, start_date, end_date): Retrieve the start and end prices for a stock between two dates.
+    save_price_data_to_disk(df, ticker, file_prefix): Save price data DataFrame to disk in CSV and JSON formats.
 """
 
 import json
@@ -13,6 +19,7 @@ import os
 import warnings
 from datetime import datetime, timedelta
 from time import sleep
+import time
 
 import pandas as pd
 import yfinance as yf
@@ -82,13 +89,13 @@ def get_market_data(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFram
                 days_buffer *= 2
                 start_date = (date_obj - timedelta(days=days_buffer)).strftime("%Y-%m-%d")
                 end_date = (date_obj + timedelta(days=days_buffer)).strftime("%Y-%m-%d")
-                sleep(2**attempt)  # Exponential backoff
+                time.sleep(2**attempt)  # Exponential backoff
                 continue
 
         except Exception as e:
             last_error = str(e)
             if attempt < 2:
-                sleep(2**attempt)  # Exponential backoff
+                time.sleep(2**attempt)  # Exponential backoff
                 continue
 
     # If we get here, all attempts failed

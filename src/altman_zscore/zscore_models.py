@@ -16,7 +16,14 @@ from typing import Any, Dict, Optional
 
 
 class CompanyStage(Enum):
-    """Enum for company lifecycle stages"""
+    """
+    Enum for company lifecycle stages.
+
+    Values:
+        EARLY: Early-stage company
+        GROWTH: Growth-stage company
+        MATURE: Mature company
+    """
 
     EARLY = auto()
     GROWTH = auto()
@@ -24,7 +31,13 @@ class CompanyStage(Enum):
 
 
 class CompanyType(Enum):
-    """Enum for company types"""
+    """
+    Enum for company types.
+
+    Values:
+        PUBLIC: Public company
+        PRIVATE: Private company
+    """
 
     PUBLIC = auto()
     PRIVATE = auto()
@@ -42,22 +55,14 @@ class ModelThresholds:
         distress_zone (Decimal): Threshold for the distress zone.
 
     Methods:
-        get_diagnostic(score, company_type):
-            Provides diagnostic information based on the Z-Score.
-        original():
-            Returns thresholds for the original Z-Score model.
-        private_company():
-            Returns thresholds for private companies.
-        non_manufacturing():
-            Returns thresholds for non-manufacturing companies.
-        tech_early_stage():
-            Returns thresholds for early-stage tech companies.
-        tech_growth_stage():
-            Returns thresholds for growth-stage tech companies.
-        tech_mature_stage():
-            Returns thresholds for mature tech companies.
-        saas_company():
-            Returns thresholds for SaaS companies.
+        get_diagnostic(score, company_type): Provides diagnostic information based on the Z-Score.
+        original(): Returns thresholds for the original Z-Score model.
+        private_company(): Returns thresholds for private companies.
+        non_manufacturing(): Returns thresholds for non-manufacturing companies.
+        tech_early_stage(): Returns thresholds for early-stage tech companies.
+        tech_growth_stage(): Returns thresholds for growth-stage tech companies.
+        tech_mature_stage(): Returns thresholds for mature tech companies.
+        saas_company(): Returns thresholds for SaaS companies.
     """
 
     safe_zone: Decimal
@@ -70,11 +75,10 @@ class ModelThresholds:
         Get detailed diagnostic information based on Z-Score and company type.
 
         Args:
-            score: The calculated Z-Score
-            company_type: Optional company type for specialized interpretation
-
+            score (Decimal): The calculated Z-Score.
+            company_type (str, optional): Optional company type for specialized interpretation.
         Returns:
-            Dict containing diagnostic status and interpretation
+            dict: Diagnostic status and interpretation.
         """
         if score > self.safe_zone:
             status = "Safe Zone"
@@ -179,12 +183,9 @@ class ModelCoefficients:
         sales_to_assets (Decimal): Coefficient for sales to assets.
 
     Methods:
-        original():
-            Returns coefficients for the original Z-Score model.
-        private_company():
-            Returns coefficients for private companies.
-        non_manufacturing():
-            Returns coefficients for non-manufacturing companies.
+        original(): Returns coefficients for the original Z-Score model.
+        private_company(): Returns coefficients for private companies.
+        non_manufacturing(): Returns coefficients for non-manufacturing companies.
     """
 
     working_capital_to_assets: Decimal
@@ -229,7 +230,21 @@ class ModelCoefficients:
 
 @dataclass
 class TechCalibration:
-    """Tech-specific calibration parameters"""
+    """Tech-specific calibration parameters
+
+    Attributes:
+        rd_intensity_threshold (Decimal): R&D intensity threshold.
+        data_asset_factor (Decimal): Data asset factor.
+        computing_efficiency_factor (Decimal): Computing efficiency factor.
+        customer_acquisition_factor (Decimal): Customer acquisition factor.
+        coefficients (ModelCoefficients): Model coefficients.
+        thresholds (ModelThresholds): Model thresholds.
+
+    Methods:
+        saas(): Returns calibration for SaaS companies.
+        ai_ml(stage): Returns calibration for AI/ML companies based on company stage.
+        hardware(): Returns calibration for hardware tech companies.
+    """
 
     rd_intensity_threshold: Decimal
     data_asset_factor: Decimal

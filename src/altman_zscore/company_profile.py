@@ -11,6 +11,16 @@ Company profile classification and lookup utilities for Altman Z-Score model sel
 
 This module provides logic to classify companies by ticker using SEC EDGAR and Yahoo Finance,
 with robust fallback for delisted/edge-case tickers. Used for model selection and reporting.
+
+Classes:
+    IndustryGroup (Enum): Industry group classification.
+    MarketCategory (Enum): Market category (developed/emerging).
+    TechSubsector (Enum): Technology subsector classification.
+    CompanyProfile: Company profile for Altman Z-Score model selection.
+
+Functions:
+    lookup_cik(ticker): Lookup the CIK for a given ticker using local mapping or SEC API.
+    classify_company_by_sec(cik, ticker): Fetch company info from SEC EDGAR and map to industry group and maturity.
 """
 
 
@@ -56,6 +66,10 @@ class CompanyProfile:
         founding_year (Optional[int]): Year the company was founded
         ipo_date (Optional[str]): IPO date (YYYY-MM-DD) if available
         maturity (str): Company maturity (e.g., 'early-stage', 'growth', 'mature')
+
+    Methods:
+        classify_maturity(founding_year, ipo_date, current_year): Classify company maturity.
+        from_ticker(ticker): Classify company by ticker using SEC EDGAR and Yahoo Finance.
     """
 
     def __init__(
@@ -256,7 +270,7 @@ class CompanyProfile:
                 f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={ticker}&owner=exclude&action=getcompany&count=1"
             )
             headers = {
-                "User-Agent": os.getenv("SEC_EDGAR_USER_AGENT", "AltmanZScore/1.0"),
+                "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
                 "From": os.getenv("SEC_API_EMAIL", ""),
             }
             resp = requests.get(search_url, headers=headers, timeout=10)
@@ -289,7 +303,7 @@ class CompanyProfile:
                 try:
                     url = "https://www.sec.gov/files/company_tickers.json"
                     headers = {
-                        "User-Agent": os.getenv("SEC_EDGAR_USER_AGENT", "AltmanZScore/1.0"),
+                        "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
                         "From": os.getenv("SEC_API_EMAIL", ""),
                     }
                     resp = requests.get(url, headers=headers, timeout=10)
@@ -352,7 +366,7 @@ def lookup_cik(ticker: str) -> Optional[str]:
     try:
         url = f"https://www.sec.gov/files/company_tickers.json"
         headers = {
-            "User-Agent": os.getenv("SEC_EDGAR_USER_AGENT", "AltmanZScore/1.0"),
+            "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
             "From": os.getenv("SEC_API_EMAIL", "AltmanZScore/1.0"),
         }
         if not headers["From"]:
@@ -384,7 +398,7 @@ def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
 
     sec_api_email = os.getenv("SEC_API_EMAIL", "")
     headers = {
-        "User-Agent": os.getenv("SEC_EDGAR_USER_AGENT", "AltmanZScore/1.0"),
+        "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
         "From": sec_api_email,
     }
     url = f"https://data.sec.gov/submissions/CIK{str(cik).zfill(10)}.json"

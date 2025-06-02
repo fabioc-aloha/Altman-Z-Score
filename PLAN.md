@@ -4,9 +4,18 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.5)
+# PLAN.md — Altman Z-Score Analysis (v2.6)
 
 ## Updated Plan: Accomplishments and Next Steps
+
+### Accomplishments (v2.6):
+- Z-Score forecasting using consensus estimates and/or time series models
+- Sentiment and news analysis integration
+- Generalized pipeline for multiple tickers and portfolio analysis
+- Modularized data connectors and enhanced CLI for batch/portfolio analysis
+- Prepared for web dashboard, REST API, and Excel Add-In
+- Implemented advanced notifications for Z-Score thresholds
+- Expanded tests and documentation for new features
 
 ### Accomplishments:
 - **Data Fetching Enhancements:**

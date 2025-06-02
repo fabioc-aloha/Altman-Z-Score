@@ -12,7 +12,12 @@ from altman_zscore.zscore_models import CompanyStage, ModelCoefficients, ModelTh
 
 
 def print_info(msg):
-    """Print an info message with blue color if supported"""
+    """
+    Print an info message with blue color if supported.
+
+    Args:
+        msg (str): The message to print.
+    """
     try:
         print(f"{Colors.BLUE}[INFO]{Colors.ENDC} {msg}")
     except Exception:
@@ -30,12 +35,19 @@ def report_zscore_full_report(
 ):
     """
     Generate and save a full Altman Z-Score analysis report in Markdown format.
+
+    This function creates a comprehensive, theory-informed financial health report for a company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, and appends LLM-generated qualitative commentary. The report is saved to disk and optionally printed to the console.
+
     Args:
-        df: DataFrame with Z-Score results and mappings
-        model: Z-Score model name
-        out_base: Output file base name (no extension)
-        print_to_console: If True, print the report to stdout
-        context_info: Optional dict with company/ticker/industry context
+        df (pd.DataFrame): DataFrame with Z-Score results and mappings.
+        model (str): Z-Score model name.
+        out_base (str, optional): Output file base name (no extension).
+        print_to_console (bool): If True, print the report to stdout.
+        context_info (dict, optional): Company/ticker/industry context.
+        model_obj (object, optional): Model object for advanced use.
+        calibration (object, optional): Calibration object for advanced use.
+    Returns:
+        str: The full Markdown report as a string.
     """
     # --- Introduction and Source Attribution ---
     intro_lines = [
@@ -203,6 +215,14 @@ def report_zscore_full_report(
             lines.append("")
 
     def format_number_millions(val):
+        """
+        Format a numeric value as millions of USD for display in tables.
+
+        Args:
+            val (float or str or None): The value to format.
+        Returns:
+            str: The value formatted as a string in millions, or empty string if not valid.
+        """
         try:
             if val is None or val == "":
                 return ""
@@ -343,7 +363,7 @@ def report_zscore_full_report(
         # Prepend intro_lines to lines for LLM context and final report
         context = "\n".join(lines)  # Do NOT prepend intro_lines again
         full_prompt = f"{llm_prompt}\n\n---\n\n{context}"
-        llm_commentary = get_llm_qualitative_commentary(full_prompt)
+        llm_commentary = get_llm_qualitative_commentary(full_prompt, ticker=ticker)
         lines.append(llm_commentary.strip() + "\n")
     except Exception as exc:
         lines.append(f"> [LLM commentary unavailable: {exc}]")

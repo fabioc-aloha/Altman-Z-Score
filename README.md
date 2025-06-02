@@ -1,16 +1,18 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.5 (2025-06-01)**
+**Version: 2.6 (2025-06-02)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.5 (June 1, 2025):**
-- Generalized pipeline for multiple tickers and portfolio analysis
-- Modularized data connectors and enhanced CLI for batch/portfolio analysis
-- Prepared for web dashboard, REST API, and Excel Add-In
-- Advanced notifications for Z-Score thresholds
+**Release v2.6 (June 2, 2025):**
+- Add Z-Score forecasting using consensus estimates and/or time series models
+- Integrate sentiment and news analysis APIs
+- Generalize pipeline for multiple tickers and portfolio analysis
+- Modularize data connectors and enhance CLI for batch/portfolio analysis
+- Prepare for web dashboard, REST API, and Excel Add-In
+- Implement advanced notifications for Z-Score thresholds
 - Expanded tests and documentation for new features
 
 ---
@@ -60,7 +62,7 @@ Outputs are saved in `output/<TICKER>/`:
 ---
 
 ## Project Status & Roadmap
-- **V2.5 (Current):** Multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
+- **V2.6 (Current):** Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
 - **Short-Term:** See above action items for immediate priorities
 - **Planned/Future:**
     - Z-Score forecasting using consensus estimates and/or time series models
