@@ -1,0 +1,22 @@
+[
+  {
+    "quarter_end":"2024-12-31 00:00:00",
+    "zscore":6.5119078596,
+    "zscore_str":"6.51",
+    "components":{
+      "X1":0.2199236051,
+      "X2":0.2966540165,
+      "X3":0.0728098194,
+      "X4":9.0029635332,
+      "X5":0.1906333866
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"48589600000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"30737400000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"20051400000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"14414300000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"30112800000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Total Equity Gross Minority Interest\", \"value\": \"18476800000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"3537800000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"9262800000.0\", \"missing\": false}}"
+  }
+]

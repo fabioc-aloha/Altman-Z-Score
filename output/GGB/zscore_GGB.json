@@ -1,0 +1,102 @@
+[
+  {
+    "quarter_end":"2025-03-31 00:00:00",
+    "zscore":1.0074297644,
+    "zscore_str":"1.01",
+    "components":{
+      "X1":0.2337197026,
+      "X2":0.2838138234,
+      "X3":0.0156230175,
+      "X4":0.1250523166,
+      "X5":0.2030394209
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"85576170000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"32193864000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"12193027000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"24287700000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"29356720000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Common Stock Equity\", \"value\": \"56017077000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"1336958000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"17375336000.0\", \"missing\": false}}"
+  },
+  {
+    "quarter_end":"2024-12-31 00:00:00",
+    "zscore":0.9860282508,
+    "zscore_str":"0.99",
+    "components":{
+      "X1":0.2513178531,
+      "X2":0.279195514,
+      "X3":0.0067443693,
+      "X4":0.1292348881,
+      "X5":0.1937757559
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"86814493000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"32669423000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"10851391000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"24238217000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"28640707000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Common Stock Equity\", \"value\": \"57948759000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"585509000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"16822544000.0\", \"missing\": false}}"
+  },
+  {
+    "quarter_end":"2024-09-30 00:00:00",
+    "zscore":1.1430226194,
+    "zscore_str":"1.14",
+    "components":{
+      "X1":0.2662360216,
+      "X2":0.3065307184,
+      "X3":0.0245601913,
+      "X4":0.1683926184,
+      "X5":0.2123121855
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"81851317000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"32817966000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"11026197000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"25089943000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"26335380000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Common Stock Equity\", \"value\": \"55294999000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"2010284000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"17378032000.0\", \"missing\": false}}"
+  },
+  {
+    "quarter_end":"2024-06-30 00:00:00",
+    "zscore":1.049405798,
+    "zscore_str":"1.05",
+    "components":{
+      "X1":0.2497741363,
+      "X2":0.2912264362,
+      "X3":0.0146066232,
+      "X4":0.1535131692,
+      "X5":0.2016500657
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"82399264000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"31828120000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"11246915000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"23996844000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"27057358000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Common Stock Equity\", \"value\": \"55130309000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"1203575000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"16615817000.0\", \"missing\": false}}"
+  },
+  {
+    "quarter_end":"2024-03-31 00:00:00",
+    "zscore":1.1926525571,
+    "zscore_str":"1.19",
+    "components":{
+      "X1":0.2481796088,
+      "X2":0.3344675865,
+      "X3":0.0319808448,
+      "X4":0.1840270466,
+      "X5":0.2106293898
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": {\"canonical_field\": \"total_assets\", \"mapped_raw_field\": \"Total Assets\", \"value\": \"76961069000.0\", \"missing\": false}, \"current_assets\": {\"canonical_field\": \"current_assets\", \"mapped_raw_field\": \"Current Assets\", \"value\": \"29742522000.0\", \"missing\": false}, \"current_liabilities\": {\"canonical_field\": \"current_liabilities\", \"mapped_raw_field\": \"Current Liabilities\", \"value\": \"10642354000.0\", \"missing\": false}, \"retained_earnings\": {\"canonical_field\": \"retained_earnings\", \"mapped_raw_field\": \"Retained Earnings\", \"value\": \"25740983000.0\", \"missing\": false}, \"total_liabilities\": {\"canonical_field\": \"total_liabilities\", \"mapped_raw_field\": \"Total Liabilities Net Minority Interest\", \"value\": \"24850126000.0\", \"missing\": false}, \"market_value_equity\": {\"canonical_field\": \"market_value_equity\", \"mapped_raw_field\": \"Common Stock Equity\", \"value\": \"51919411000.0\", \"missing\": false}, \"ebit\": {\"canonical_field\": \"ebit\", \"mapped_raw_field\": \"EBIT\", \"value\": \"2461280000.0\", \"missing\": false}, \"sales\": {\"canonical_field\": \"sales\", \"mapped_raw_field\": \"Total Revenue\", \"value\": \"16210263000.0\", \"missing\": false}}"
+  }
+]

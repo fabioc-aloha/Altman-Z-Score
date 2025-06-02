@@ -65,94 +65,88 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ## Company Profile
 
-Amazon.com, Inc. (AMZN) is a leading global technology company based in Seattle, Washington, primarily known for its e-commerce platform. Founded in 1994, Amazon has expanded its operations to include cloud computing (Amazon Web Services), digital streaming, and artificial intelligence. The company competes with other major players in the retail and technology sectors, including Walmart, Alibaba, and Microsoft. Amazon's diverse product offerings range from consumer electronics and household goods to digital content and subscription services.
+Amazon.com, Inc. (AMZN) is a leading multinational technology company based in Seattle, Washington, primarily known for its e-commerce platform. Founded in 1994, Amazon has expanded its operations to include cloud computing (Amazon Web Services), digital streaming, and artificial intelligence. The company competes with other major players in the retail and tech sectors, including Walmart, Alibaba, and Microsoft. Amazon's diverse product offerings range from consumer electronics to groceries, making it a significant player in both online and brick-and-mortar retail.
 
-In recent years, Amazon has focused on enhancing its logistics capabilities and expanding its Prime membership program, which offers customers benefits such as free shipping and access to exclusive content. The company's strong brand recognition and customer loyalty have positioned it as a dominant force in the retail industry, contributing to its robust financial performance.
+In summary, Amazon has established itself as a dominant force in the global marketplace, leveraging its vast logistics network and technological innovations to maintain a competitive edge. The company's strong brand recognition and customer loyalty further enhance its market position, allowing it to adapt and thrive in a rapidly changing retail landscape.
 
 ---
 
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Amazon's liquidity position, as indicated by its current ratio (X1), shows a positive trend with a value of 0.013 in Q1 2025. While this is relatively low, it is important to note that Amazon operates with a high volume of transactions and a significant cash flow from operations, which mitigates liquidity concerns.
+Amazon's liquidity position, as indicated by its current ratio (X1), remains robust, with a value of 0.013 in Q1 2025. This suggests that the company has sufficient current assets to cover its current liabilities, although the ratio is relatively low compared to industry benchmarks. 
 
 ### Profitability
-The profitability metric (X3) reflects Amazon's ability to generate earnings before interest and taxes (EBIT) relative to its total assets. The current value of 0.035 indicates a stable profitability trend, consistent with the company's growth strategy and market position.
+The profitability metrics, represented by retained earnings (X2) and EBIT (X3), show that Amazon is generating consistent profits. The retained earnings ratio of 0.295 indicates a strong accumulation of profits over time, while the EBIT to total assets ratio of 0.035 reflects effective operational management.
 
 ### Capital Efficiency
-Amazon's retained earnings (X2) as a percentage of total assets stands at 0.295, demonstrating effective capital management and reinvestment strategies. This indicates that the company is successfully retaining earnings to fuel future growth.
+Amazon's capital efficiency is highlighted by its equity to total liabilities ratio (X4) of 5.987, indicating a strong capital structure with minimal reliance on debt. This is a positive sign for investors, as it suggests lower financial risk.
 
 ### Leverage
-The leverage ratio (X4) of 5.987 indicates a strong equity position relative to liabilities, showcasing Amazon's ability to manage debt effectively. This high ratio suggests a low risk of financial distress, as the company is well-capitalized.
+The sales to total assets ratio (X5) of 0.242 indicates that Amazon is effectively utilizing its assets to generate revenue. This is consistent with the company's strategy of reinvesting profits into growth initiatives.
 
 ### Z-Score Trajectory and Risk Status
-With a Z-Score of 4.377, Amazon is firmly in the **Safe Zone**. This score reflects a strong financial position, indicating low risk of bankruptcy and a solid foundation for future growth. The Z-Score has shown consistent improvement over the past quarters, reinforcing the company's financial stability.
+Amazon's Z-Score of 4.377 places it firmly in the Safe Zone, indicating a low risk of bankruptcy. The company's Z-Score has shown consistent strength over the past quarters, reflecting its solid financial health and operational efficiency.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
 
-Given Amazon's **Safe Zone** status, the focus should be on **innovation, repositioning**, and stakeholder alignment for sustained growth. The following theoretical frameworks can guide strategic initiatives:
+Given Amazon's position in the Safe Zone, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
 
-- **Hofer (1980)** emphasizes the importance of innovation in maintaining competitive advantage. Amazon should continue to invest in technology and logistics to enhance customer experience.
-- **Freeman (1984)** highlights stakeholder alignment. Engaging with customers, employees, and investors will be crucial in sustaining growth and ensuring long-term success.
+- **Innovation**: Invest in new technologies and services to enhance customer experience and operational efficiency.
+- **Repositioning**: Explore new market segments and diversify product offerings to mitigate risks associated with market saturation.
+- **Stakeholder Alignment**: Engage with stakeholders, including employees, customers, and investors, to ensure alignment on strategic goals and initiatives.
 
-### Recommended Strategic Initiatives
-1. **Invest in Technology**: Continue to enhance the capabilities of Amazon Web Services (AWS) and explore new technologies such as AI and machine learning to improve operational efficiency.
-2. **Sustainability Initiatives**: Implement eco-friendly practices and promote sustainable products to align with consumer preferences and regulatory requirements.
-3. **Global Expansion**: Explore new international markets to diversify revenue streams and reduce dependency on domestic sales.
+Theoretical frameworks applicable to this strategy include:
+
+- **Hoskisson et al. (2004)** for strategic restructuring, emphasizing the need for continuous adaptation in a dynamic market.
+- **Freeman (1984)** on stakeholder alignment, highlighting the importance of maintaining strong relationships with all stakeholders to drive long-term success.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations (Tailored Table)
 
-| Title        | Responsibilities                          | Recommended Actions (Cited)                                       |
-|--------------|------------------------------------------|------------------------------------------------------------------|
-| CEO          | Overall strategic direction              | Drive innovation and sustainability initiatives (Hofer, 1980)   |
-| CFO          | Financial management                     | Optimize capital allocation for growth investments                |
-| CMO          | Marketing strategies                     | Enhance customer engagement through targeted marketing campaigns  |
-| Board        | Governance and oversight                 | Ensure alignment of strategic initiatives with stakeholder interests (Freeman, 1984) |
-| Employees    | Operational execution                    | Foster a culture of innovation and continuous improvement        |
-| Shareholders | Investment oversight                     | Communicate growth strategies and performance transparently      |
-| Creditors    | Financial stability                      | Maintain strong credit relationships through consistent performance |
-| Customers    | Product and service utilization          | Enhance customer experience through personalized services        |
-| Partners     | Collaborative initiatives                | Explore strategic partnerships to expand service offerings       |
+| Title          | Responsibilities                     | Recommended Actions (Cited)                                   |
+|----------------|-------------------------------------|--------------------------------------------------------------|
+| CEO            | Overall strategic direction         | Focus on innovation and market expansion (Hoskisson et al.)  |
+| CFO            | Financial management                | Maintain strong liquidity and invest in growth initiatives    |
+| CMO            | Marketing strategy                  | Enhance brand positioning through targeted campaigns           |
+| Board           | Governance and oversight            | Ensure alignment with long-term strategic goals                |
+| Employees      | Operational execution               | Foster a culture of innovation and continuous improvement      |
+| Shareholders    | Investment returns                  | Communicate growth strategies and performance transparently    |
+| Creditors      | Financial stability                  | Maintain strong credit relationships through transparency      |
+| Customers      | Satisfaction and loyalty            | Enhance customer experience through personalized services      |
+| Partners       | Collaborative opportunities         | Explore strategic partnerships for mutual growth               |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
 
-### Internal Communication Plan
-- **Objective**: Foster a culture of transparency and innovation.
-- **Approach**: Regular updates on strategic initiatives and performance metrics through town halls and newsletters.
+### Internal and External Communication Plans
+- **Internal**: Regular updates on strategic initiatives and performance metrics to foster transparency and engagement among employees.
+- **External**: Clear communication with investors and stakeholders regarding growth strategies and market positioning to build confidence.
 
-### External Communication Plan
-- **Objective**: Build investor confidence and customer loyalty.
-- **Approach**: Utilize press releases, social media, and investor calls to communicate growth strategies and sustainability efforts.
+### Milestones, Accountable Parties, and Timelines
+- **1–3 Months**: Launch new marketing campaigns (CMO), assess current product offerings (CEO).
+- **4–6 Months**: Evaluate customer feedback and adjust strategies (Employees), initiate new partnerships (Partners).
+- **7–12 Months**: Review financial performance and adjust budgets (CFO), report progress to stakeholders (Board).
+- **13–18 Months**: Assess market expansion results and refine strategies (CEO).
 
-### Milestones and Timelines
-| Timeline     | Milestones                                   | Accountable Parties |
-|--------------|----------------------------------------------|---------------------|
-| 1–3 Months   | Launch new marketing campaign                | CMO                 |
-| 4–6 Months   | Implement sustainability initiatives         | CEO, CFO            |
-| 7–12 Months  | Expand AWS offerings                         | CTO                 |
-| 13–18 Months | Evaluate international market entry          | CEO, Board          |
-
-### Marketing Tactics
-- Focus on innovation campaigns highlighting new products and services.
-- Promote sustainability initiatives to attract environmentally conscious consumers.
+### Tailored Marketing Tactics
+- Focus on innovation campaigns to highlight new products and services, enhancing brand visibility and customer engagement.
 
 ---
 
 ## 5. Plain-Language Justification & Citation
 
-Amazon's strong financial health, as indicated by its Z-Score of 4.377, positions it well for continued growth. The company's effective management of liquidity, profitability, and leverage supports its ability to invest in innovation and sustainability. By aligning stakeholder interests and focusing on strategic initiatives, Amazon can maintain its competitive advantage and drive long-term success.
+Amazon's strong financial health, as indicated by its Z-Score of 4.377, allows for a focus on growth and innovation. By investing in new technologies and enhancing customer experiences, the company can maintain its competitive edge. This approach is supported by Hoskisson et al. (2004), which emphasizes the importance of strategic restructuring in dynamic markets.
 
 ---
 
 ## 6. Investor Recommendation (Risk-Aware)
 
-**Recommendation**: **Buy**. Given Amazon's strong Z-Score and financial stability, it presents a favorable investment opportunity for growth-oriented investors.
+**Recommendation**: **Buy**. Given Amazon's strong Z-Score and robust financial health, the company is well-positioned for continued growth and innovation.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -161,12 +155,11 @@ Amazon's strong financial health, as indicated by its Z-Score of 4.377, position
 ## 7. External Stakeholder Bargaining Power (Table)
 
 | Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
-|-------------------------|---------------------------|---------------------|--------------------------|
-| Customers               | High                      | High                | Strong brand loyalty and extensive product offerings (Freeman, 1984) |
-| Suppliers               | Moderate                  | Medium              | Dependence on key suppliers for logistics and technology |
-| Investors               | High                      | High                | Significant influence on strategic direction through shareholder votes |
-| Regulators              | High                      | Medium              | Regulatory compliance impacts operational flexibility |
-| Competitors             | High                      | High                | Intense competition necessitates continuous innovation |
+|-------------------------|---------------------------|---------------------|-------------------------|
+| Customers               | High                      | High                | Strong brand loyalty and customer base (Freeman, 1984) |
+| Shareholders            | Moderate                  | Moderate            | Expectation of returns and growth (Platt, 2004) |
+| Suppliers               | Moderate                  | Moderate            | Dependence on supplier relationships for product availability |
+| Creditors               | Low                       | Low                 | Strong financial position reduces reliance on debt |
 
 ---
 
@@ -190,14 +183,15 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ```
 ---
 ### References and Data Sources
-- **Financials:** Yahoo Finance; company quarterly/annual reports
+- **Financials:** SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports
 - **Market Data:** Yahoo Finance historical prices
 - **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
 - **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
-- **Theoretical Frameworks:** (only those used)
+- **Theoretical Frameworks:** 
   - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
-  - Hofer, C. W. (1980). *Turnaround Strategies.*
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
   - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
 ---
 ```
 
@@ -215,7 +209,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 176,171.0              |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 189,993.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 337,389.0              |
-| 2025 Q1   | market_value_equity | Stockholders Equity                     | 305,867.0              |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 305,867.0              |
 | 2025 Q1   | ebit                | EBIT                                    | 22,220.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 155,667.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -224,7 +218,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 179,431.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 172,866.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 338,924.0              |
-| 2024 Q4   | market_value_equity | Stockholders Equity                     | 285,970.0              |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 285,970.0              |
 | 2024 Q4   | ebit                | EBIT                                    | 22,919.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 187,792.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -233,7 +227,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 161,477.0              |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 152,862.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 325,475.0              |
-| 2024 Q3   | market_value_equity | Stockholders Equity                     | 259,151.0              |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 259,151.0              |
 | 2024 Q3   | ebit                | EBIT                                    | 18,640.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 158,877.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -242,7 +236,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 158,172.0              |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 137,534.0              |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 318,371.0              |
-| 2024 Q2   | market_value_equity | Stockholders Equity                     | 236,447.0              |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 236,447.0              |
 | 2024 Q2   | ebit                | EBIT                                    | 15,834.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 147,977.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -251,7 +245,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 152,965.0              |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 124,049.0              |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 314,308.0              |
-| 2024 Q1   | market_value_equity | Stockholders Equity                     | 216,661.0              |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 216,661.0              |
 | 2024 Q1   | ebit                | EBIT                                    | 13,627.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 143,313.0              |
 

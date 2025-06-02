@@ -65,86 +65,84 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ## Company Profile
 
-Procter & Gamble Co. (P&G) is a leading multinational consumer goods corporation headquartered in Cincinnati, Ohio. The company specializes in a wide range of products across various categories, including personal care, household cleaning, and health care. P&G's portfolio includes well-known brands such as Tide, Pampers, Gillette, and Crest. The company operates in a highly competitive market, facing rivals like Unilever, Colgate-Palmolive, and Kimberly-Clark, among others.
+Procter & Gamble Co. (P&G) is a leading multinational consumer goods corporation headquartered in Cincinnati, Ohio. The company specializes in a wide range of personal care and hygiene products, including well-known brands such as Tide, Pampers, Gillette, and Crest. P&G operates in a highly competitive market, facing rivals like Unilever, Colgate-Palmolive, and Johnson & Johnson. The company’s extensive product portfolio and strong brand equity position it favorably within the consumer goods sector.
 
-In summary, Procter & Gamble is a robust player in the consumer goods industry, known for its strong brand equity and extensive product offerings. The company has consistently focused on innovation and sustainability, which has helped it maintain a competitive edge in the market.
+In summary, P&G is a mature company with a robust market presence and a diverse product range. Its financial health, as indicated by the Altman Z-Score, suggests a strong position in the Safe Zone, reflecting its ability to generate consistent profits and maintain liquidity.
 
 ---
 
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-P&G's liquidity position, as indicated by the X1 component (Current Assets - Current Liabilities) / Total Assets, is negative, suggesting potential challenges in meeting short-term obligations. However, the overall Z-Score remains strong due to other favorable components.
+P&G's liquidity position, as indicated by the X1 component of the Z-Score, shows a negative value (-0.08), suggesting that current liabilities exceed current assets. However, the overall Z-Score indicates that the company is still in the Safe Zone, implying that it can manage its short-term obligations effectively despite this liquidity challenge.
 
 ### Profitability
-The profitability metric (X3: EBIT / Total Assets) shows a modest return, reflecting P&G's ability to generate earnings relative to its asset base. This is crucial for sustaining operations and funding future growth.
+The profitability metric (X3) reflects a positive EBIT to total assets ratio of 0.04, which is consistent with industry benchmarks. This indicates that P&G is generating adequate earnings relative to its asset base, contributing positively to its overall financial health.
 
 ### Capital Efficiency
-The retained earnings ratio (X2: Retained Earnings / Total Assets) is robust, indicating that P&G has effectively reinvested profits back into the business, supporting long-term growth and stability.
+The retained earnings ratio (X2) at 1.048 shows that P&G has a strong accumulation of profits over time, which supports its equity position and reflects a history of reinvestment in the business.
 
 ### Leverage
-P&G's leverage, represented by the equity to liabilities ratio (X4), is exceptionally high, suggesting a strong capital structure with low reliance on debt. This positions the company favorably in terms of financial stability.
+The leverage ratio (X4) of 5.637 indicates that P&G has a solid equity base compared to its liabilities, suggesting a low risk of insolvency. This high ratio is a positive indicator of financial stability.
 
-### Z-Score Trajectory
-The Z-Score has consistently remained in the Safe Zone (> 2.99) over the past quarters, indicating a low risk of bankruptcy. This trend reflects P&G's strong operational performance and effective management strategies.
+### Z-Score Trajectory and Risk Status
+The Z-Score of 5.046 places P&G firmly in the Safe Zone, indicating a low risk of bankruptcy. The trajectory of the Z-Score over the past quarters shows stability and consistent performance, reinforcing the company's strong financial position.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
 
-Given that P&G is in the **Safe Zone**, the focus should be on sustaining growth and innovation:
+Given that P&G is in the Safe Zone, the focus should be on sustaining growth and innovation. 
 
-- **Innovation and Repositioning**: P&G should continue to invest in R&D to enhance product offerings and adapt to changing consumer preferences. This aligns with Beard's (2024) emphasis on tech-sector renewal, where innovation is key to maintaining market leadership.
-
-- **Stakeholder Alignment**: Engaging stakeholders effectively, as suggested by Freeman (1984), will be crucial for P&G to align its strategic goals with stakeholder expectations, ensuring long-term sustainability.
-
-- **Strategic Enablement**: The company should focus on leadership development and strategic enablement to foster a culture of innovation and agility, ensuring it can respond swiftly to market changes.
+- **Phased Response**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+- **Theoretical Frameworks**:
+  - **Freeman (1984)** on stakeholder alignment: P&G should continue to engage with its stakeholders, including customers, employees, and shareholders, to ensure that its strategic initiatives align with their expectations and needs.
+  - **Hoskisson et al. (2004)** for strategic restructuring: P&G can explore strategic partnerships and acquisitions to enhance its market position and diversify its product offerings further.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations (Tailored Table)
 
-| Title         | Responsibilities                           | Recommended Actions (Cited)                                                                 |
-|---------------|-------------------------------------------|---------------------------------------------------------------------------------------------|
-| CEO           | Overall strategic direction               | Drive innovation initiatives and ensure alignment with stakeholder interests (Freeman, 1984). |
-| CFO           | Financial management and reporting        | Maintain strong capital structure; explore strategic investments to enhance profitability.   |
-| CMO           | Marketing and brand management            | Focus on consumer insights to guide product development and marketing strategies.            |
-| Board         | Governance and oversight                   | Ensure strategic alignment with long-term goals and risk management practices.               |
-| Employees     | Execution of company strategy             | Foster a culture of innovation and continuous improvement through training and development.  |
-| Shareholders  | Investment returns                        | Communicate growth strategies and performance metrics transparently to build investor confidence. |
-| Creditors     | Financial stability                       | Maintain strong relationships through transparent communication and timely reporting.        |
-| Customers     | Product satisfaction and loyalty         | Engage in regular feedback loops to enhance product offerings and customer service.          |
-| Partners      | Collaborative opportunities               | Explore joint ventures or partnerships that align with P&G's strategic goals.               |
+| Title         | Responsibilities                          | Recommended Actions (Cited)                                   |
+|---------------|------------------------------------------|--------------------------------------------------------------|
+| CEO           | Overall strategic direction              | Focus on innovation and market expansion (Hoskisson et al., 2004) |
+| CFO           | Financial management and reporting       | Maintain strong liquidity management and explore investment opportunities |
+| CMO           | Marketing strategy and brand management  | Enhance brand positioning through targeted marketing campaigns |
+| Board         | Governance and oversight                  | Ensure alignment of strategic initiatives with stakeholder interests (Freeman, 1984) |
+| Employees     | Execution of company strategy            | Foster a culture of innovation and continuous improvement |
+| Shareholders  | Investment and return expectations       | Communicate growth strategies and performance metrics transparently |
+| Creditors     | Financial stability and risk management  | Maintain strong relationships and ensure timely repayments |
+| Customers     | Product satisfaction and loyalty         | Engage in feedback loops to enhance product offerings |
+| Partners      | Collaborative opportunities              | Explore joint ventures to leverage complementary strengths |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
 
 ### Internal and External Communication Plans
-- **Internal**: Regular updates on innovation initiatives and performance metrics to foster transparency and engagement among employees.
-- **External**: Marketing campaigns highlighting P&G's commitment to sustainability and innovation to enhance brand reputation.
+- **Internal**: Regular updates on strategic initiatives and performance metrics to ensure transparency and alignment.
+- **External**: Focus on investor relations, highlighting growth strategies and financial performance to build confidence.
 
-### Milestones and Timelines
-- **1-3 Months**: Launch internal innovation workshops; initiate consumer feedback surveys.
-- **4-6 Months**: Develop new product prototypes based on feedback; assess market trends.
-- **7-12 Months**: Launch new products; evaluate marketing effectiveness and adjust strategies as needed.
-- **13-18 Months**: Review overall performance; refine strategic initiatives based on market response.
+### Milestones, Accountable Parties, and Timelines
+- **1–3 Months**: Launch new marketing campaigns (CMO), assess current product lines (CEO).
+- **4–6 Months**: Evaluate partnership opportunities (Board), conduct stakeholder engagement sessions (CEO).
+- **7–12 Months**: Review financial performance and adjust strategies as needed (CFO).
+- **13–18 Months**: Implement new product innovations based on market feedback (CMO).
 
-### Marketing Tactics
-- **Innovation Campaigns**: Highlight new product launches and sustainability efforts to attract environmentally conscious consumers.
-- **Investor Confidence Restoration**: Regularly communicate financial performance and strategic direction to reassure investors of P&G's stability and growth potential.
+### Tailored Marketing Tactics
+- Focus on innovation campaigns to highlight new product launches and sustainability initiatives, reinforcing P&G's commitment to quality and customer satisfaction.
 
 ---
 
 ## 5. Plain-Language Justification & Citation
 
-P&G's strong Z-Score indicates a solid financial foundation, allowing the company to focus on innovation and growth. By investing in R&D and aligning with stakeholder interests, P&G can maintain its competitive edge and ensure long-term sustainability. This approach is supported by Freeman's stakeholder theory, emphasizing the importance of aligning corporate strategy with stakeholder expectations.
+P&G's strong financial position, as evidenced by its Z-Score of 5.046, indicates a low risk of bankruptcy and a solid foundation for growth. The company's focus on innovation and stakeholder engagement will be critical in maintaining its competitive edge and ensuring long-term success (Freeman, 1984; Hoskisson et al., 2004).
 
 ---
 
 ## 6. Investor Recommendation (Risk-Aware)
 
-**Recommendation**: **Buy**. Given P&G's strong financial health and consistent performance in the Safe Zone, it presents a favorable investment opportunity.
+**Recommendation**: **Buy**. Given P&G's strong financial health and growth potential, investors should consider buying shares to capitalize on future growth opportunities.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -152,12 +150,13 @@ P&G's strong Z-Score indicates a solid financial foundation, allowing the compan
 
 ## 7. External Stakeholder Bargaining Power (Table)
 
-| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited)                                       |
-|-------------------------|---------------------------|---------------------|---------------------------------------------------------------|
-| Consumers               | High                      | High                | Strong brand loyalty and consumer preference for quality products (Freeman, 1984). |
-| Suppliers               | Moderate                  | Moderate            | Dependence on quality raw materials; potential for negotiation leverage. |
-| Investors               | High                      | High                | Expectation for returns and transparency; significant influence on corporate strategy. |
-| Regulators              | High                      | High                | Compliance with regulations is critical for operational continuity. |
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+|-------------------------|---------------------------|---------------------|--------------------------|
+| Customers               | High                      | High                | Strong brand loyalty and market presence (Freeman, 1984) |
+| Suppliers               | Moderate                  | Medium              | Dependence on quality suppliers for raw materials |
+| Shareholders            | High                      | High                | Significant influence on strategic direction and governance |
+| Creditors               | Moderate                  | Medium              | Financial stability reduces risk perception |
+| Regulatory Bodies       | High                      | High                | Compliance with regulations is critical for operations |
 
 ---
 
@@ -181,8 +180,8 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ```
 ---
 ### References and Data Sources
-- **Financials:** SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports.
-- **Market Data:** Yahoo Finance historical prices.
+- **Financials:** SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports
+- **Market Data:** Yahoo Finance historical prices
 - **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
 - **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
 - **Theoretical Frameworks:** 
@@ -190,9 +189,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
   - Hofer, C. W. (1980). *Turnaround Strategies.*
   - Bibeault, D. B. (1999). *Corporate Turnaround.*
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
-  - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
   - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
-  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
 ---
 ```
 
@@ -210,7 +207,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 34,248.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 128,919.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 70,439.0               |
-| 2025 Q1   | market_value_equity | Stockholders Equity                     | 52,272.0               |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 51,491.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 4,878.0                |
 | 2025 Q1   | sales               | Total Revenue                           | 19,776.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -219,7 +216,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 33,797.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 127,544.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 71,196.0               |
-| 2024 Q4   | market_value_equity | Stockholders Equity                     | 51,168.0               |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 50,380.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 6,085.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 21,882.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -228,7 +225,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 36,420.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 125,361.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 74,342.0               |
-| 2024 Q3   | market_value_equity | Stockholders Equity                     | 51,840.0               |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 51,049.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 5,378.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 21,737.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -237,7 +234,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 33,627.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 123,811.0              |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 71,812.0               |
-| 2024 Q2   | market_value_equity | Stockholders Equity                     | 50,286.0               |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 49,488.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 4,090.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 20,532.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -246,7 +243,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 32,340.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 123,132.0              |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 69,265.0               |
-| 2024 Q1   | market_value_equity | Stockholders Equity                     | 50,058.0               |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 49,257.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 4,825.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 20,195.0               |
 

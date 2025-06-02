@@ -47,7 +47,7 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 ![Z-Score and Price Trend Chart](zscore_META_trend.png)
 
-*Figure: Z-Score and stock price trend for META (see output folder for full-resolution image)*
+*Figure: Z-Score and stock price trend for META (image not available yet; will be generated after analysis)*
 
 
 ## Z-Score Component Table (by Quarter)
@@ -63,92 +63,81 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 ---
 
 ## Company Profile
+Meta Platforms, Inc., formerly known as Facebook, Inc., is a leading technology company headquartered in Menlo Park, California. The company operates in the social media and technology sector, primarily focusing on social networking services and products. Meta's flagship products include Facebook, Instagram, WhatsApp, and Oculus, which cater to billions of users worldwide. The company competes with other major players in the tech industry, such as Google, Twitter, and TikTok, by continuously innovating and expanding its product offerings.
 
-Meta Platforms, Inc. (formerly Facebook Inc.) is a leading technology company based in Menlo Park, California, primarily engaged in social media services and products. The company operates platforms such as Facebook, Instagram, and WhatsApp, providing users with social networking, messaging, and content sharing capabilities. Meta competes with other tech giants like Google, Twitter, and TikTok, focusing on user engagement, advertising revenue, and innovative technologies such as augmented and virtual reality.
-
-In recent years, Meta has expanded its portfolio to include initiatives in the metaverse, aiming to redefine social interactions in digital spaces. The company's strong brand recognition, extensive user base, and significant investments in technology position it as a formidable player in the tech sector.
-
-## Summary of Findings
-The analysis indicates that Meta Platforms, Inc. is currently in the **Safe Zone** according to the Altman Z-Score framework, with a Z-Score of **16.748**. This suggests a robust financial position characterized by strong liquidity, profitability, capital efficiency, and low leverage. The company has consistently maintained a high Z-Score trajectory, reflecting its ability to generate earnings and manage its liabilities effectively. 
-
----
+In recent years, Meta has faced scrutiny over privacy concerns and regulatory challenges, but it has also made significant investments in virtual reality and the metaverse, positioning itself for future growth. Overall, Meta's strong brand recognition and extensive user base provide a solid foundation for its ongoing business operations.
 
 ## 1. Diagnostic Evaluation of Financial Health
+Meta Platforms, Inc. currently operates in the **Safe Zone** with a Z-Score of **16.748**, indicating a strong financial position. 
 
 ### Liquidity
-Meta's liquidity position is strong, as evidenced by a current ratio significantly above industry benchmarks. This indicates that the company can easily meet its short-term obligations, which is crucial for maintaining operational stability.
-
+- **Current Ratio (X1)**: 0.201, which indicates that the company has sufficient current assets to cover its current liabilities.
+  
 ### Profitability
-The company exhibits high profitability metrics, with a consistent EBIT margin that outperforms competitors. This reflects effective cost management and a strong revenue-generating capacity, particularly through advertising.
+- **Retained Earnings (X2)**: 0.362, showcasing a solid accumulation of profits over time, which is a positive indicator of profitability.
 
 ### Capital Efficiency
-Meta demonstrates excellent capital efficiency, with a high return on assets (ROA) and return on equity (ROE). This indicates that the company effectively utilizes its assets and equity to generate profits, contributing positively to its overall financial health.
+- **EBIT (X3)**: 0.066, reflecting the company's ability to generate earnings before interest and taxes relative to its total assets.
 
 ### Leverage
-The leverage ratio is notably low, suggesting that Meta is not overly reliant on debt financing. This conservative approach to capital structure enhances financial stability and reduces risk exposure.
+- **Equity to Total Liabilities (X4)**: 13.147, demonstrating a strong equity position relative to its liabilities, indicating low financial risk.
 
-### Z-Score Trajectory and Risk Status
-The Z-Score trajectory shows a consistent upward trend, reinforcing the company's position in the Safe Zone. The analysis aligns with Altman’s (1968) and Altman & Hotchkiss (2006) frameworks, indicating a low probability of bankruptcy and a strong financial outlook.
+### Z-Score Trajectory
+The Z-Score has shown a consistent upward trajectory over the past quarters, indicating improved financial health and stability. This trend suggests that Meta is effectively managing its resources and maintaining profitability, which is crucial for long-term sustainability.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+Given that Meta is in the **Safe Zone**, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
 
-### Safe Zone Recommendations
-Given Meta's strong financial health, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
+- **Innovation**: As per Beard (2024), the tech sector thrives on continuous innovation. Meta should invest in R&D to enhance its existing platforms and explore new technologies, particularly in the metaverse and augmented reality.
+  
+- **Repositioning**: Aligning the brand with emerging trends and user preferences will be essential. This includes enhancing user privacy and security features to rebuild trust and attract new users.
 
-- **Innovation**: Invest in R&D to enhance existing platforms and explore new technologies, particularly in the metaverse and AI.
-- **Repositioning**: Adapt marketing strategies to emphasize Meta's commitment to user privacy and security, addressing public concerns.
-- **Stakeholder Alignment**: Engage with shareholders and employees to foster a culture of transparency and collaboration, ensuring alignment with long-term strategic goals.
-
-### Theoretical Frameworks
-- **Hoskisson et al. (2004)**: Emphasizes the importance of strategic restructuring to adapt to market changes, which is relevant for Meta as it navigates evolving consumer preferences.
-- **Freeman (1984)**: Highlights stakeholder alignment, crucial for maintaining investor confidence and employee morale.
+- **Stakeholder Alignment**: According to Freeman (1984), aligning the interests of stakeholders is crucial for long-term success. Meta should engage with its users, employees, and investors to ensure their needs and concerns are addressed.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations (Tailored Table)
 
-| Title         | Responsibilities                          | Recommended Actions (Cited)                                      |
-|---------------|------------------------------------------|------------------------------------------------------------------|
-| CEO           | Overall strategic direction              | Drive innovation initiatives and ensure alignment with stakeholders. |
-| CFO           | Financial management and reporting       | Maintain low leverage and optimize capital allocation for growth.   |
-| CMO           | Marketing strategy and brand management  | Focus on repositioning the brand to enhance user trust and engagement. |
-| Board         | Governance and oversight                  | Ensure strategic alignment with long-term goals and stakeholder interests. |
-| Employees     | Operational execution                     | Foster a culture of innovation and collaboration across teams.      |
-| Shareholders  | Investment and financial returns         | Communicate growth strategies and performance metrics transparently.  |
-| Creditors     | Financial stability and risk management   | Maintain strong liquidity to ensure timely debt servicing.          |
-| Customers     | User engagement and satisfaction         | Enhance user experience through continuous platform improvements.    |
-| Partners      | Strategic alliances and collaborations   | Explore partnerships that align with Meta's innovation goals.       |
+| Title         | Responsibilities                          | Recommended Actions (Cited)                                         |
+|---------------|------------------------------------------|---------------------------------------------------------------------|
+| CEO           | Overall strategic direction              | Focus on innovation and stakeholder engagement (Freeman, 1984).    |
+| CFO           | Financial management and reporting       | Maintain strong liquidity and leverage ratios; explore investment opportunities. |
+| CMO           | Marketing and brand strategy             | Enhance brand positioning through targeted marketing campaigns.      |
+| Board         | Governance and oversight                  | Ensure alignment with long-term strategic goals and stakeholder interests. |
+| Employees     | Operational execution                    | Foster a culture of innovation and collaboration.                   |
+| Shareholders  | Investment returns                       | Communicate growth strategies and performance transparently.        |
+| Creditors     | Financial stability                      | Maintain strong financial ratios to ensure continued support.       |
+| Customers     | User engagement and satisfaction        | Invest in user experience improvements and privacy features.        |
+| Partners      | Strategic alliances                      | Explore partnerships that enhance technological capabilities.        |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
+### Internal Communication Plan
+- **Tone**: Calm assurance focusing on growth and innovation.
+- **Milestones**:
+  - **1–3 Months**: Launch new marketing campaigns emphasizing innovation.
+  - **4–6 Months**: Introduce new features based on user feedback.
+  - **7–12 Months**: Evaluate user engagement metrics and adjust strategies accordingly.
+  - **13–18 Months**: Report on financial performance and strategic initiatives to stakeholders.
 
-### Internal and External Communication Plans
-- **Internal**: Regular updates on innovation initiatives and financial performance to foster transparency and engagement.
-- **External**: Marketing campaigns emphasizing Meta's commitment to user privacy, security, and innovation.
-
-### Milestones, Accountable Parties, and Timelines
-- **1–3 Months**: Launch new marketing campaigns; accountable: CMO.
-- **4–6 Months**: Initiate R&D projects for metaverse technologies; accountable: CEO.
-- **7–12 Months**: Review and adjust financial strategies based on market feedback; accountable: CFO.
-- **13–18 Months**: Evaluate stakeholder engagement effectiveness; accountable: Board.
-
-### Tailored Marketing Tactics
-- Focus on **innovation campaigns** to highlight new features and technologies, enhancing investor confidence and user engagement.
+### External Communication Plan
+- **Tone**: Transparent and proactive in addressing concerns.
+- **Marketing Tactics**: 
+  - Launch campaigns highlighting new privacy features and user benefits.
+  - Engage in community outreach to rebuild trust and enhance brand image.
 
 ---
 
 ## 5. Plain-Language Justification & Citation
-
-Meta's strong financial health, as indicated by its Z-Score of 16.748, supports a strategic focus on innovation and stakeholder alignment. This approach is grounded in empirical data demonstrating the company's robust profitability and liquidity, as well as theoretical frameworks emphasizing the importance of strategic restructuring and stakeholder engagement (Hoskisson et al., 2004; Freeman, 1984).
+Meta's strong Z-Score indicates a robust financial position, allowing for strategic investments in innovation and stakeholder engagement. By focusing on these areas, the company can maintain its competitive edge and ensure long-term growth. The recommendations are grounded in established theories, such as Freeman's stakeholder alignment, which emphasizes the importance of addressing stakeholder needs for sustainable success.
 
 ---
 
 ## 6. Investor Recommendation (Risk-Aware)
-
-**Recommendation**: **Buy**. Given the strong Z-Score and positive financial outlook, investing in Meta Platforms, Inc. is advisable.
+**Recommendation**: **Buy**. Given the strong Z-Score and positive financial trajectory, Meta Platforms, Inc. presents a favorable investment opportunity.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -156,18 +145,16 @@ Meta's strong financial health, as indicated by its Z-Score of 16.748, supports 
 
 ## 7. External Stakeholder Bargaining Power (Table)
 
-| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
-|-------------------------|---------------------------|---------------------|--------------------------|
-| Customers               | High                      | High                | Significant user base drives revenue; user satisfaction is critical. |
-| Shareholders            | Medium                    | Medium              | Influence through voting rights and financial expectations. |
-| Creditors               | Low                       | Low                 | Strong liquidity reduces reliance on debt financing. |
-| Partners                | Medium                    | Medium              | Strategic partnerships enhance innovation capabilities. |
-| Regulators              | High                      | High                | Regulatory scrutiny impacts operational strategies and public perception. |
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited)                      |
+|-------------------------|---------------------------|---------------------|----------------------------------------------|
+| Users                   | High                      | High                | Users drive engagement and revenue (Freeman, 1984). |
+| Regulators              | Medium                    | High                | Regulatory scrutiny impacts operations (Platt, 2004). |
+| Investors               | High                      | High                | Investors influence capital availability (Freeman, 1984). |
+| Competitors             | Medium                    | Medium              | Competitive landscape affects market share (Hoskisson et al., 2004). |
 
 ---
 
 ## 8. Mandatory Disclaimer
-
 ```
 ---
 **Disclaimer:**
@@ -182,20 +169,21 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ---
 
 ## 9. References and Data Sources
-
 ```
 ---
 ### References and Data Sources
-- **Financials:** SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports.
+- **Financials:** Yahoo Finance; company quarterly/annual reports.
 - **Market Data:** Yahoo Finance historical prices.
 - **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
 - **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
-- **Theoretical Frameworks:**
+- **Theoretical Frameworks:** 
   - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+  - Hofer, C. W. (1980). *Turnaround Strategies.*
+  - Bibeault, D. B. (1999). *Corporate Turnaround.*
   - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
-  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
   - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
-  - [Include additional used sources here]
+  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
 ---
 ```
 
@@ -213,7 +201,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 33,890.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 101,326.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 95,184.0               |
-| 2025 Q1   | market_value_equity | Stockholders Equity                     | 185,029.0              |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 185,029.0              |
 | 2025 Q1   | ebit                | EBIT                                    | 18,622.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 42,314.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -222,7 +210,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 33,596.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 102,506.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 93,417.0               |
-| 2024 Q4   | market_value_equity | Stockholders Equity                     | 182,637.0              |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 182,637.0              |
 | 2024 Q4   | ebit                | EBIT                                    | 23,803.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 48,385.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -231,7 +219,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 33,330.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 84,972.0               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 91,879.0               |
-| 2024 Q3   | market_value_equity | Stockholders Equity                     | 164,529.0              |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 164,529.0              |
 | 2024 Q3   | ebit                | EBIT                                    | 18,030.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 40,589.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -240,7 +228,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 27,004.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 81,188.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 73,475.0               |
-| 2024 Q2   | market_value_equity | Stockholders Equity                     | 156,763.0              |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 156,763.0              |
 | 2024 Q2   | ebit                | EBIT                                    | 15,234.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 39,071.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -249,7 +237,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 28,101.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 76,793.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 73,315.0               |
-| 2024 Q1   | market_value_equity | Stockholders Equity                     | 149,529.0              |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 149,529.0              |
 | 2024 Q1   | ebit                | EBIT                                    | 14,310.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 36,455.0               |
 

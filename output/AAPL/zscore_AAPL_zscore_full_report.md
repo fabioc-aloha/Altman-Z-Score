@@ -65,88 +65,86 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ## Company Profile
 
-Apple Inc. is a leading technology company headquartered in Cupertino, California. It is renowned for its innovative products, including the iPhone, iPad, Mac computers, Apple Watch, and a suite of software services such as iOS, macOS, and iCloud. Apple operates in the highly competitive electronic computers sector (SIC 3571) and is recognized for its strong brand loyalty and ecosystem integration. Key competitors include Samsung, Microsoft, and Google, each vying for market share in consumer electronics and software.
+Apple Inc. is a leading technology company headquartered in Cupertino, California. It is renowned for its innovative products, including the iPhone, iPad, Mac computers, Apple Watch, and Apple TV, as well as its software services like iOS, macOS, and iCloud. Apple operates in the highly competitive electronic computers sector (SIC 3571) and is recognized for its strong brand loyalty and ecosystem integration. Key competitors include Samsung, Microsoft, and Google, each vying for market share in various segments of consumer electronics and software.
 
-In summary, Apple Inc. has established itself as a dominant player in the technology industry, leveraging its brand strength and innovative capabilities. The company's financial health, as indicated by its Altman Z-Score, suggests a robust position within the Safe Zone, reflecting its ability to sustain growth and navigate market challenges effectively.
+The company's financial health is robust, as indicated by its consistently high Altman Z-Score, placing it firmly in the Safe Zone. This status reflects strong liquidity, profitability, and capital efficiency, positioning Apple for continued growth and innovation in the technology sector.
 
 ---
 
 ## 1. Diagnostic Evaluation of Financial Health
 
 ### Liquidity
-Apple's liquidity position, as indicated by its current assets relative to current liabilities (X1), shows a negative value, suggesting that the company may face challenges in meeting short-term obligations. However, this is offset by a strong overall asset base.
+Apple's liquidity position is solid, with a current ratio that indicates sufficient short-term assets to cover liabilities. The negative X1 value suggests that current liabilities exceed current assets, but this is offset by strong cash reserves and operational cash flow.
 
 ### Profitability
-The profitability metric (X3) indicates that Apple generates a solid EBIT relative to its total assets, reflecting effective operational management and revenue generation capabilities.
+The company's profitability metrics, particularly EBIT (Earnings Before Interest and Taxes), demonstrate strong operational performance. The X3 value indicates effective asset utilization, contributing positively to the overall Z-Score.
 
 ### Capital Efficiency
-The retained earnings ratio (X2) demonstrates that Apple has a significant amount of retained earnings, which is a positive indicator of its ability to reinvest in growth and innovation.
+Apple's retained earnings (X2) reflect a history of profitable reinvestment, enhancing its equity base (X4). The high equity-to-liabilities ratio indicates a conservative capital structure, reducing financial risk.
 
 ### Leverage
-Apple's leverage ratio (X4) is exceptionally high, indicating a strong equity position relative to liabilities. This suggests that the company is well-capitalized and has a lower risk of insolvency.
+The leverage ratios are favorable, with a significant equity cushion relative to total liabilities. This low leverage minimizes the risk of insolvency, further supporting the company's strong Z-Score.
 
 ### Z-Score Trajectory
-The Z-Score for Apple Inc. stands at 7.941, placing it firmly in the Safe Zone. This score has shown consistency over the past quarters, indicating a stable financial trajectory. The company is well-positioned to leverage its financial strength for future growth opportunities.
+The Z-Score has consistently remained above 2.99, indicating a stable financial position in the Safe Zone. This trajectory suggests that Apple has effectively managed its financial resources and operational risks, positioning itself favorably against industry benchmarks.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
 
-Given Apple's classification in the Safe Zone, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
+Given Apple's current status in the Safe Zone, the focus should be on sustained growth and innovation:
 
-- **Innovation**: Apple should continue investing in R&D to enhance its product offerings and explore new technologies, such as augmented reality and artificial intelligence.
-- **Repositioning**: The company can explore new market segments and diversify its product lines to mitigate risks associated with market saturation in its core products.
-- **Stakeholder Alignment**: Engaging with stakeholders, including customers, employees, and investors, will be crucial in maintaining brand loyalty and driving future growth.
+- **Innovation and Repositioning**: Apple should continue to invest in research and development to enhance its product offerings and explore new market opportunities. This aligns with Beard's (2024) emphasis on tech-sector renewal, where continuous innovation is crucial for maintaining competitive advantage.
 
-Relevant theoretical frameworks include:
-- **Hofer (1980)**: Emphasizing the importance of innovation and strategic repositioning in mature companies.
-- **Freeman (1984)**: Highlighting stakeholder alignment as a critical factor for long-term success.
+- **Stakeholder Alignment**: Engaging with stakeholders, including customers, employees, and investors, is vital. Freeman's (1984) stakeholder theory highlights the importance of aligning corporate strategies with stakeholder interests to foster loyalty and support.
+
+- **Strategic Enablement**: Leadership development programs should be prioritized to cultivate a culture of innovation and adaptability within the organization. This will ensure that Apple remains agile in responding to market changes and consumer preferences.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations (Tailored Table)
 
-| Title         | Responsibilities                          | Recommended Actions (Cited)                                     |
-|---------------|------------------------------------------|-----------------------------------------------------------------|
-| CEO           | Overall leadership and strategic vision  | Drive innovation initiatives and explore new market segments.   |
-| CFO           | Financial management and reporting       | Maintain strong capital structure and invest in R&D.            |
-| CMO           | Marketing and brand strategy             | Enhance customer engagement through targeted marketing campaigns. |
-| Board         | Governance and oversight                  | Support strategic initiatives and monitor performance metrics.   |
-| Employees     | Operational execution                     | Foster a culture of innovation and continuous improvement.      |
-| Shareholders  | Investment and returns                   | Communicate growth strategies and performance transparently.     |
-| Creditors     | Financial stability                       | Maintain strong credit relationships and ensure timely payments. |
-| Customers     | Product usage and feedback               | Engage in feedback loops to enhance product offerings.          |
-| Partners      | Strategic alliances                       | Explore partnerships for technology advancements and market reach.|
+| Title       | Responsibilities                          | Recommended Actions (Cited)                                      |
+|-------------|------------------------------------------|------------------------------------------------------------------|
+| CEO         | Overall company strategy and vision      | Drive innovation initiatives and foster a culture of creativity (Beard, 2024). |
+| CFO         | Financial management and reporting        | Maintain strong liquidity and invest in growth opportunities (Hoskisson et al., 2004). |
+| CMO         | Marketing and customer engagement         | Enhance brand loyalty through targeted marketing campaigns (Freeman, 1984). |
+| Board       | Governance and oversight                   | Ensure alignment of strategic goals with stakeholder interests (Freeman, 1984). |
+| Employees   | Operational execution                      | Encourage feedback and participation in innovation processes (Bibeault, 1999). |
+| Shareholders | Investment and returns                    | Communicate growth strategies and performance metrics transparently (Freeman, 1984). |
+| Creditors   | Financial support and risk management     | Maintain open lines of communication regarding financial health (Hoskisson et al., 2004). |
+| Customers   | Product usage and satisfaction            | Engage in continuous dialogue to understand evolving needs (Freeman, 1984). |
+| Partners    | Strategic alliances and collaborations    | Explore joint ventures for new product development (Hoskisson et al., 2004). |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
 
-### Internal and External Communication Plans
-- **Internal**: Regular updates on innovation initiatives and financial performance to foster transparency and engagement.
-- **External**: Marketing campaigns focused on new product launches and sustainability efforts to enhance brand image.
+### Internal Communication
+- **Tone**: Calm assurance, focusing on growth and innovation.
+- **Milestones**: 
+  - 1-3 months: Launch new product initiatives.
+  - 4-6 months: Implement leadership development programs.
+  - 7-12 months: Evaluate market response and adjust strategies.
+  - 13-18 months: Assess overall performance and stakeholder engagement.
 
-### Milestones, Accountable Parties, and Timelines
-- **1–3 Months**: Launch marketing campaigns for new products (CMO).
-- **4–6 Months**: Evaluate R&D investments and adjust strategies (CFO).
-- **7–12 Months**: Monitor stakeholder engagement and satisfaction (CEO).
-- **13–18 Months**: Assess market expansion efforts and report outcomes (Board).
-
-### Marketing Tactics
-- Focus on innovation campaigns to restore investor confidence and attract new customers.
-- Highlight sustainability initiatives to align with consumer values and enhance brand loyalty.
+### External Communication
+- **Tone**: Transparent and engaging, highlighting innovation and growth.
+- **Marketing Tactics**: 
+  - Launch campaigns showcasing new products and features.
+  - Utilize social media and digital platforms to enhance customer engagement.
 
 ---
 
 ## 5. Plain-Language Justification & Citation
 
-Apple's strong financial position, as evidenced by its Z-Score of 7.941, indicates that the company is well-equipped to invest in innovation and explore new markets. This aligns with Hofer's (1980) emphasis on the importance of strategic repositioning in mature firms. By maintaining stakeholder alignment (Freeman, 1984), Apple can ensure sustained growth and resilience in a competitive landscape.
+Apple's strong financial health, as evidenced by its high Z-Score, supports its ongoing investment in innovation and market expansion. The company's ability to maintain liquidity while fostering profitability positions it well for future growth. By aligning stakeholder interests and focusing on strategic enablement, Apple can continue to thrive in the competitive technology landscape.
 
 ---
 
 ## 6. Investor Recommendation (Risk-Aware)
 
-**Recommendation: Buy**. Given Apple's strong Z-Score and robust financial health, it is advisable for investors to consider buying shares in the company. 
+**Recommendation**: **Buy**. Given Apple's strong Z-Score and financial health, it is well-positioned for continued growth and innovation.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -155,12 +153,11 @@ Apple's strong financial position, as evidenced by its Z-Score of 7.941, indicat
 ## 7. External Stakeholder Bargaining Power (Table)
 
 | Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
-|-------------------------|----------------------------|---------------------|-------------------------|
-| Customers               | High                       | High                | Strong brand loyalty and demand for innovative products (Freeman, 1984). |
-| Suppliers               | Moderate                   | Medium              | Dependence on key suppliers for components (Platt, 2004). |
-| Investors               | High                       | High                | Significant influence on company direction through capital investment (Freeman, 1984). |
-| Regulators              | Moderate                   | Medium              | Compliance requirements can impact operations (Hoskisson et al., 2004). |
-| Competitors             | High                       | High                | Competitive pressure drives innovation and market positioning (Beard, 2024). |
+|-------------------------|---------------------------|---------------------|-------------------------|
+| Customers               | High                      | High                | Strong brand loyalty and demand for innovative products (Freeman, 1984). |
+| Suppliers               | Moderate                  | Moderate            | Dependence on key suppliers for components (Hoskisson et al., 2004). |
+| Investors               | High                      | High                | Significant influence on strategic direction and capital allocation (Freeman, 1984). |
+| Regulators              | Moderate                  | Moderate            | Compliance requirements impact operational flexibility (Hoskisson et al., 2004). |
 
 ---
 
@@ -213,7 +210,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 144,571.0              |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -15,552.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 264,437.0              |
-| 2025 Q1   | market_value_equity |                                         | 0.0                    |
+| 2025 Q1   | market_value_equity | Common Stock Equity                     | 66,796.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 29,589.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 95,359.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -222,7 +219,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 144,365.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -11,221.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 277,327.0              |
-| 2024 Q4   | market_value_equity |                                         | 0.0                    |
+| 2024 Q4   | market_value_equity | Common Stock Equity                     | 66,758.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 42,832.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 124,300.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -231,7 +228,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 176,392.0              |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -19,154.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 308,030.0              |
-| 2024 Q3   | market_value_equity |                                         | 0.0                    |
+| 2024 Q3   | market_value_equity | Common Stock Equity                     | 56,950.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 29,591.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 94,930.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -240,7 +237,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 131,624.0              |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -4,726.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 264,904.0              |
-| 2024 Q2   | market_value_equity |                                         | 0.0                    |
+| 2024 Q2   | market_value_equity | Common Stock Equity                     | 66,708.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 25,352.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 85,777.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -249,7 +246,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 123,822.0              |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 4,339.0                |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 263,217.0              |
-| 2024 Q1   | market_value_equity |                                         | 0.0                    |
+| 2024 Q1   | market_value_equity | Common Stock Equity                     | 74,194.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 27,900.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 90,753.0               |
 

@@ -1,0 +1,192 @@
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations and Altman Z-Score outputs along with this prompt. Your output must **adapt to the company's current risk category**:
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. Follow these structured sections:
+
+---
+## Company Profile
+* Use the information provided to describe the company business, competitors, products and services.
+* Write a summary of the findings in a quick and easy to understand couple of paragraph.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance and industry benchmarks.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+
+---
+
+## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+
+* Use the Z-Score risk level to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+---
+
+## 3. Internal Stakeholder Recommendations (Tailored Table)
+
+Create a table with the following columns:
+
+| Title | Responsibilities | Recommended Actions (Cited) |
+| ----- | ---------------- | --------------------------- |
+
+* Include, at minimum: CEO, CFO, CMO, Board, Employees, Shareholders, Creditors, Customers, Partners
+* Tailor actions and tone to company risk level:
+
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Define internal and external communication plans that reflect the company’s risk level (e.g., calm assurance vs. urgent clarity).
+* Detail **milestones**, **accountable parties**, and **timelines** (1–3, 4–6, 7–12, 13–18 months).
+* Tailor **marketing tactics** (e.g., investor confidence restoration vs. innovation campaigns).
+
+---
+
+## 5. Plain-Language Justification & Citation
+
+* Use accessible, professional language.
+* Tie every action to **empirical data or cited theory**, adjusted to the risk profile.
+* Avoid generic claims.
+
+---
+
+## 6. Investor Recommendation (Risk-Aware)
+
+* Provide a risk-aligned recommendation: **Buy / Hold / Sell**, based on Z-Score insights.
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 7. External Stakeholder Bargaining Power (Table)
+
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+| ----------------------- | -------------------------- | ------------------- | ----------------------- |
+
+* Adapt rationale based on company’s **perceived weakness or strength** in negotiation.
+* Apply theories from Freeman (1984), Platt (2004), and others as relevant.
+
+---
+
+## 8. Mandatory Disclaimer (Must Appear at End)
+
+```
+---
+**Disclaimer:**
+Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
+- **LLM Model used:** [OpenAI o4-mini]
+- **Knowledge cut-off:** [Date]
+- **Internet search:** [yes/no]
+- **Real-time data:** [yes/no]
+---
+```
+
+---
+
+## 9. References and Data Sources (Must Appear at End)
+
+```
+---
+### References and Data Sources
+- **Financials:** [e.g., SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports]
+- **Market Data:** [e.g., Yahoo Finance historical prices]
+- **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
+- **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
+- **Theoretical Frameworks:** (only those used)
+  - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+  - Hofer, C. W. (1980). *Turnaround Strategies.*
+  - Bibeault, D. B. (1999). *Corporate Turnaround.*
+  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+  - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
+  - [Include additional used sources here]
+---
+```
+
+---
+
+
+---
+
+# Altman Z-Score Analysis Report: Johnson & Johnson (JNJ)
+
+---
+## Introduction
+This report provides a comprehensive, theory-informed financial health analysis of the selected company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, with all findings and recommendations grounded in referenced academic and industry sources. The analysis is generated by an expert LLM-driven pipeline, ensuring transparency, reproducibility, and robust source attribution.
+
+**Author:** Fabio Correa
+
+**Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score).
+
+**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.
+
+Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
+---
+
+**Script Version:** v2.6
+
+## Analysis Context and Z-Score Model Selection Criteria
+
+- **Industry:** Pharmaceutical Preparations (SIC 2834)
+- **Ticker:** JNJ
+- **Public:** True
+- **Emerging Market:** False
+- **Maturity:** Mature Company
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-06-02
+
+## Z-Score Formula Used
+
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
+- X1 = (Current Assets - Current Liabilities) / Total Assets
+- X2 = Retained Earnings / Total Assets
+- X3 = EBIT / Total Assets
+- X4 = Equity / Total Liabilities
+- X5 = Sales / Total Assets
+
+**Thresholds:**
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
+
+
+
+---
+
+# Graphical View of the Z-Score Analysis
+
+
+![Z-Score and Price Trend Chart](zscore_JNJ_trend.png)
+
+*Figure: Z-Score and stock price trend for JNJ (image not available yet; will be generated after analysis)*
+
+
+## Z-Score Component Table (by Quarter)
+| Quarter   |    X1 |   X2 |   X3 |    X4 |   X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|------|------|-------|------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.076 |    0 |    0 | 3.38  |    0 |     2.119 | Grey Zone    |                       |
+| 2024 Q4   | 0.031 |    0 |    0 | 3.161 |    0 |     1.933 | Grey Zone    |                       |
+| 2024 Q3   | 0.008 |    0 |    0 | 3.505 |    0 |     2.113 | Grey Zone    |                       |
+| 2024 Q2   | 0.021 |    0 |    0 | 3.109 |    0 |     1.891 | Grey Zone    |                       |
+| 2024 Q1   | 0.048 |    0 |    0 | 3.587 |    0 |     2.21  | Grey Zone    |                       |
