@@ -1,24 +1,58 @@
 #!/usr/bin/env python3
 # Version: 2.7.1 (2025-06-10)
 """
-Altman Z-Score Analysis Pipeline Entry Point (MVP)
+Altman Z-Score Analysis Platform - Main Entry Point
 
-This script serves as the main entry point and pipeline coordinator for
-single-stock or multi-stock Altman Z-Score trend analysis. It delegates analysis to the
-core logic in src/altman_zscore/one_stock_analysis.py.
+A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with
+enhanced LLM-powered qualitative insights. This script orchestrates the analysis
+pipeline for single or multiple stock tickers.
 
-Note: This code follows PEP 8 style guidelines.
+Version 2.7.1 Features:
+- Enhanced executive/officer information injection into LLM qualitative analysis
+- Improved company profile data integration from multiple sources (Yahoo Finance + SEC EDGAR)
+- Fixed missing officer data handling in LLM prompts
+- Robust fallback data sourcing with transparent error reporting
+- Industry-specific Z-Score model selection and calibration
+- Comprehensive financial metrics validation using Pydantic schemas
+- Automated trend visualization and report generation
+
+Data Sources:
+- Primary: Yahoo Finance (real-time financials and market data)
+- Fallback: SEC EDGAR/XBRL (official regulatory filings)
+- Executive Data: Multi-source aggregation for comprehensive profiles
+
+Output Structure:
+All outputs are saved to output/<TICKER>/:
+- zscore_<TICKER>_zscore_full_report.md (comprehensive analysis with LLM insights)
+- zscore_<TICKER>_trend.png (trend visualization chart)
+- zscore_<TICKER>.csv and .json (raw analytical data)
+- <TICKER>_NOT_AVAILABLE.txt (marker for unavailable tickers)
 
 USAGE:
     python main.py AAPL MSFT TSLA
     python main.py TSLA --start 2023-01-01
-    python main.py AAPL MSFT --moving-averages --no-plot
+    python main.py AAPL MSFT --no-plot
 
-All outputs will be saved to output/<TICKER>/
+Examples:
+    # Single stock analysis
+    python main.py AAPL
+    
+    # Multi-stock portfolio analysis
+    python main.py AAPL MSFT GOOGL TSLA
+    
+    # Custom date range analysis
+    python main.py AAPL --start 2022-01-01
+    
+    # Analysis without chart generation
+    python main.py AAPL MSFT --no-plot
+
+Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
 __version__ = "2.7.1"
 
-# v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, fixed issue with missing officer data in LLM prompts
+# v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, 
+# improved company profiles with multi-source data integration, fixed missing officer data 
+# handling in LLM prompts for more robust analysis
 
 import argparse
 import os
@@ -42,30 +76,56 @@ from altman_zscore.one_stock_analysis import (  # noqa: E402
 def parse_args():
     """Parse command line arguments for the Altman Z-Score analysis."""
     parser = argparse.ArgumentParser(
-        description="Single Stock Altman Z-Score Trend Analysis"
+        description="Altman Z-Score Analysis Platform v2.7.1 - Comprehensive financial analysis with LLM insights",
+        epilog="Examples:\n"
+               "  python main.py AAPL                    # Single stock analysis\n"
+               "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
+               "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
+               "  python main.py AAPL --no-plot          # Skip chart generation",
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
         "tickers",
         type=str,
         nargs='+',
-        help="Stock ticker symbol(s), space separated (e.g., AAPL MSFT TSLA)"
+        help="Stock ticker symbol(s) for analysis (e.g., AAPL MSFT TSLA). "
+             "Each ticker generates comprehensive reports with Z-Score trends, "
+             "LLM qualitative analysis, and executive/officer profiles."
     )
     parser.add_argument(
-        "--start",        type=str,
+        "--start",
+        type=str,
         default="2024-01-01",
-        help="Start date (YYYY-MM-DD) for analysis (default: 2024-01-01)"
+        help="Start date for analysis in YYYY-MM-DD format (default: 2024-01-01). "
+             "Analysis will include all available quarterly data from this date forward."
     )
     parser.add_argument(
         "--no-plot",
         action="store_true",
-        help="Disable plot generation (default: False)"
+        help="Disable trend chart generation (default: False). "
+             "When enabled, saves processing time but skips visual trend analysis."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
 
 
 def main():
-    """Main entry point for the Altman Z-Score analysis pipeline."""
+    """
+    Main entry point for the Altman Z-Score Analysis Platform.
+    
+    Orchestrates comprehensive financial analysis including:
+    - Multi-source data fetching (Yahoo Finance + SEC EDGAR fallback)
+    - Industry-specific Z-Score model selection and calculation
+    - Enhanced LLM qualitative analysis with executive/officer profiles
+    - Trend visualization and comprehensive report generation
+    - Robust error handling with transparent reporting
+    
+    For each ticker, generates:
+    - Full analytical report with LLM insights (.md)
+    - Trend visualization chart (.png)
+    - Raw data outputs (.csv, .json)
+    - Error markers for unavailable tickers
+    """
     args = parse_args()
     ticker_list = [t.upper() for t in args.tickers]
     start_date = args.start

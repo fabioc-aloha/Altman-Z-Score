@@ -1,135 +1,131 @@
 
 
 # Key Executives and Officers (from Yahoo Finance)
-{'officers': [{'age': 63,
-               'name': 'Mr. Timothy D. Cook',
+{'officers': [{'age': 57,
+               'name': 'Mr. Satya  Nadella',
                'source': 'yfinance',
-               'title': 'CEO & Director',
-               'totalPay': 16520856,
-               'yearBorn': 1961},
-              {'age': 60,
-               'name': 'Mr. Jeffrey E. Williams',
-               'source': 'yfinance',
-               'title': 'Chief Operating Officer',
-               'totalPay': 5020737,
-               'yearBorn': 1964},
-              {'age': 60,
-               'name': 'Ms. Katherine L. Adams',
-               'source': 'yfinance',
-               'title': 'Senior VP, General Counsel & Secretary',
-               'totalPay': 5022182,
-               'yearBorn': 1964},
-              {'age': 57,
-               'name': "Ms. Deirdre  O'Brien",
-               'source': 'yfinance',
-               'title': 'Chief People Officer & Senior VP of Retail',
-               'totalPay': 5022182,
+               'title': 'Chairman & CEO',
+               'totalPay': 7869791,
                'yearBorn': 1967},
-              {'age': 52,
-               'name': 'Mr. Kevan  Parekh',
+              {'age': 65,
+               'name': 'Mr. Bradford L. Smith LCA',
                'source': 'yfinance',
-               'title': 'Senior VP & CFO',
+               'title': 'President & Vice Chairman',
+               'totalPay': 4755618,
+               'yearBorn': 1959},
+              {'age': 52,
+               'name': 'Ms. Amy E. Hood',
+               'source': 'yfinance',
+               'title': 'Executive VP & CFO',
+               'totalPay': 4704250,
+               'yearBorn': 1972},
+              {'age': 50,
+               'name': 'Mr. Judson B. Althoff',
+               'source': 'yfinance',
+               'title': 'Executive VP & Chief Commercial Officer',
+               'totalPay': 4534974,
+               'yearBorn': 1974},
+              {'age': 52,
+               'name': 'Ms. Carolina  Dybeck Happe',
+               'source': 'yfinance',
+               'title': 'Executive VP & COO',
                'totalPay': None,
                'yearBorn': 1972},
-              {'age': None,
-               'name': 'Mr. Chris  Kondo',
+              {'age': 58,
+               'name': 'Ms. Alice L. Jolla',
                'source': 'yfinance',
-               'title': 'Senior Director of Corporate Accounting',
+               'title': 'Corporate VP & Chief Accounting Officer',
+               'totalPay': None,
+               'yearBorn': 1966},
+              {'age': None,
+               'name': 'Jonathan  Neilson',
+               'source': 'yfinance',
+               'title': 'Vice President of Investor Relations',
                'totalPay': None,
                'yearBorn': None},
               {'age': None,
-               'name': 'Suhasini  Chandramouli',
+               'name': 'Mr. Hossein  Nowbar',
                'source': 'yfinance',
-               'title': 'Director of Investor Relations',
+               'title': 'Chief Legal Officer',
                'totalPay': None,
                'yearBorn': None},
               {'age': None,
-               'name': 'Ms. Kristin Huguet Quayle',
+               'name': 'Mr. Frank X. Shaw',
                'source': 'yfinance',
-               'title': 'Vice President of Worldwide Communications',
+               'title': 'Chief Communications Officer',
                'totalPay': None,
                'yearBorn': None},
-              {'age': None,
-               'name': 'Mr. Greg  Joswiak',
+              {'age': 53,
+               'name': 'Mr. Takeshi  Numoto',
                'source': 'yfinance',
-               'title': 'Senior Vice President of Worldwide Marketing',
+               'title': 'Executive VP & Chief Marketing Officer',
                'totalPay': None,
-               'yearBorn': None},
-              {'age': 50,
-               'name': 'Mr. Adrian  Perica',
-               'source': 'yfinance',
-               'title': 'Vice President of Corporate Development',
-               'totalPay': None,
-               'yearBorn': 1974}]}
+               'yearBorn': 1971}]}
 
 
 
 # Company Profile (from Yahoo Finance)
-{'addresses': {'business': {'city': 'CUPERTINO',
+{'addresses': {'business': {'city': 'REDMOND',
                             'country': None,
                             'countryCode': None,
                             'foreignStateTerritory': None,
                             'isForeignLocation': None,
-                            'stateOrCountry': 'CA',
-                            'stateOrCountryDescription': 'CA',
-                            'street1': 'ONE APPLE PARK WAY',
+                            'stateOrCountry': 'WA',
+                            'stateOrCountryDescription': 'WA',
+                            'street1': 'ONE MICROSOFT WAY',
                             'street2': None,
-                            'zipCode': '95014'},
-               'mailing': {'city': 'CUPERTINO',
+                            'zipCode': '98052-6399'},
+               'mailing': {'city': 'REDMOND',
                            'country': None,
                            'countryCode': None,
                            'foreignStateTerritory': None,
                            'isForeignLocation': 0,
-                           'stateOrCountry': 'CA',
-                           'stateOrCountryDescription': 'CA',
-                           'street1': 'ONE APPLE PARK WAY',
+                           'stateOrCountry': 'WA',
+                           'stateOrCountryDescription': 'WA',
+                           'street1': 'ONE MICROSOFT WAY',
                            'street2': None,
-                           'zipCode': '95014'}},
+                           'zipCode': '98052-6399'}},
  'category': 'Large accelerated filer',
- 'cik': '0000320193',
+ 'cik': '0000789019',
  'description': '',
- 'ein': '942404110',
+ 'ein': '911144442',
  'entityType': 'operating',
  'exchanges': ['Nasdaq'],
- 'fiscalYearEnd': '0927',
+ 'fiscalYearEnd': '0630',
  'flags': '',
- 'formerNames': [{'from': '2007-01-10T00:00:00.000Z', 'name': 'APPLE INC', 'to': '2019-08-05T00:00:00.000Z'},
-                 {'from': '1994-01-26T00:00:00.000Z', 'name': 'APPLE COMPUTER INC', 'to': '2007-01-04T00:00:00.000Z'},
-                 {'from': '1997-07-28T00:00:00.000Z',
-                  'name': 'APPLE COMPUTER INC/ FA',
-                  'to': '1997-07-28T00:00:00.000Z'}],
+ 'formerNames': [],
  'insiderTransactionForIssuerExists': 1,
- 'insiderTransactionForOwnerExists': 0,
+ 'insiderTransactionForOwnerExists': 1,
  'investorWebsite': '',
- 'name': 'Apple Inc.',
+ 'name': 'MICROSOFT CORP',
  'ownerOrg': '06 Technology',
- 'phone': '(408) 996-1010',
- 'sic': '3571',
- 'sicDescription': 'Electronic Computers',
- 'stateOfIncorporation': 'CA',
- 'stateOfIncorporationDescription': 'CA',
- 'tickers': ['AAPL'],
+ 'phone': '425-882-8080',
+ 'sic': '7372',
+ 'sicDescription': 'Services-Prepackaged Software',
+ 'stateOfIncorporation': 'WA',
+ 'stateOfIncorporationDescription': 'WA',
+ 'tickers': ['MSFT'],
  'website': ''}
 
 
 
 # Key SEC EDGAR Company Info (trimmed)
-{'business_address': {'city': 'CUPERTINO',
-                      'stateOrCountry': 'CA',
-                      'stateOrCountryDescription': 'CA',
-                      'street1': 'ONE APPLE PARK WAY',
-                      'zipCode': '95014'},
+{'business_address': {'city': 'REDMOND',
+                      'stateOrCountry': 'WA',
+                      'stateOrCountryDescription': 'WA',
+                      'street1': 'ONE MICROSOFT WAY',
+                      'zipCode': '98052-6399'},
  'category': 'Large accelerated filer',
- 'cik': '0000320193',
- 'ein': '942404110',
+ 'cik': '0000789019',
+ 'ein': '911144442',
  'exchanges': ['Nasdaq'],
- 'fiscalYearEnd': '0927',
- 'name': 'Apple Inc.',
- 'phone': '(408) 996-1010',
- 'sic': '3571',
- 'sicDescription': 'Electronic Computers',
- 'stateOfIncorporation': 'CA',
- 'tickers': ['AAPL'],
+ 'fiscalYearEnd': '0630',
+ 'name': 'MICROSOFT CORP',
+ 'phone': '425-882-8080',
+ 'sic': '7372',
+ 'sicDescription': 'Services-Prepackaged Software',
+ 'stateOfIncorporation': 'WA',
+ 'tickers': ['MSFT'],
  'website': ''}
 
 
@@ -289,7 +285,7 @@ Conclude your report with a clearly written references and data sources section,
 
 ---
 
-# Altman Z-Score Analysis Report: Apple Inc. (AAPL)
+# Altman Z-Score Analysis Report: Microsoft Corporation (MSFT)
 
 ---
 ## Introduction
@@ -308,27 +304,26 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 
 ## Analysis Context and Z-Score Model Selection Criteria
 
-- **Industry:** Electronic Computers (SIC 3571)
-- **Ticker:** AAPL
+- **Industry:** Prepackaged Software (SIC 7372)
+- **Ticker:** MSFT
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
-- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
 - **Analysis Date:** 2025-06-02
 
 ## Z-Score Formula Used
 
-Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
+Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 - X1 = (Current Assets - Current Liabilities) / Total Assets
 - X2 = Retained Earnings / Total Assets
 - X3 = EBIT / Total Assets
 - X4 = Equity / Total Liabilities
-- X5 = Sales / Total Assets
 
 **Thresholds:**
-- Safe Zone: > 2.99
-- Grey Zone: > 1.81 and <= 2.99
-- Distress Zone: <= 1.81
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
 
 
 
@@ -337,16 +332,16 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 # Graphical View of the Z-Score Analysis
 
 
-![Z-Score and Price Trend Chart](zscore_AAPL_trend.png)
+![Z-Score and Price Trend Chart](zscore_MSFT_trend.png)
 
-*Figure: Z-Score and stock price trend for AAPL (see output folder for full-resolution image)*
+*Figure: Z-Score and stock price trend for MSFT (see output folder for full-resolution image)*
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|--------|--------|-------|--------|-------|-----------|--------------|-----------------------|
-| 2025 Q1   | -0.078 | -0.047 | 0.089 | 12.53  | 0.288 |     7.941 | Safe Zone    | No issues             |
-| 2024 Q4   | -0.032 | -0.033 | 0.124 | 13.454 | 0.361 |     8.76  | Safe Zone    | No issues             |
-| 2024 Q3   | -0.064 | -0.052 | 0.081 | 11.258 | 0.26  |     7.132 | Safe Zone    | No issues             |
-| 2024 Q2   | -0.019 | -0.014 | 0.076 | 11.82  | 0.259 |     7.561 | Safe Zone    | No issues             |
-| 2024 Q1   |  0.014 |  0.013 | 0.083 |  9.672 | 0.269 |     6.379 | Safe Zone    | No issues             |
+| Quarter   |    X1 |    X2 |    X3 |     X4 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|-------|-------|--------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.075 | 0.391 | 0.057 | 11.569 |    14.297 | Safe Zone    | No issues             |
+| 2024 Q4   | 0.072 | 0.381 | 0.056 | 13.498 |    16.262 | Safe Zone    | No issues             |
+| 2024 Q3   | 0.066 | 0.361 | 0.059 | 13.514 |    16.199 | Safe Zone    | No issues             |
+| 2024 Q2   | 0.067 | 0.338 | 0.055 | 13.528 |    16.115 | Safe Zone    | No issues             |
+| 2024 Q1   | 0.059 | 0.329 | 0.057 | 13.403 |    15.916 | Safe Zone    | No issues             |

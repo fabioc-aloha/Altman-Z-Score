@@ -129,7 +129,7 @@ Create a table with the following columns:
 
 At the end of your report, include the following as a single, natural sentence within the narrative (not as a heading, code block, or blockquote):
 
-In closing, please note that this analysis was generated using the OpenAI o4-mini model. Generative AI is not a financial advisor and can make mistakes. The information provided is based on data available as of [Date]. Internet search: [yes/no]. Real-time data: [yes/no]. Always consult your financial advisor before making any investment decisions.
+In closing, please note that this analysis was generated using an OpenAI model. Generative AI is not a financial advisor and can make mistakes. Always consult your financial advisor before making any investment decisions.
 
 ---
 

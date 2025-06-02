@@ -1,135 +1,117 @@
 
 
 # Key Executives and Officers (from Yahoo Finance)
-{'officers': [{'age': 63,
-               'name': 'Mr. Timothy D. Cook',
+{'officers': [{'age': 54,
+               'name': 'Mr. Thomas  Conrad',
                'source': 'yfinance',
-               'title': 'CEO & Director',
-               'totalPay': 16520856,
-               'yearBorn': 1961},
-              {'age': 60,
-               'name': 'Mr. Jeffrey E. Williams',
+               'title': 'President, Interim CEO & Director',
+               'totalPay': 75000,
+               'yearBorn': 1970},
+              {'age': 55,
+               'name': 'Ms. Saori  Casey',
                'source': 'yfinance',
-               'title': 'Chief Operating Officer',
-               'totalPay': 5020737,
-               'yearBorn': 1964},
-              {'age': 60,
-               'name': 'Ms. Katherine L. Adams',
+               'title': 'Chief Financial Officer',
+               'totalPay': 556704,
+               'yearBorn': 1969},
+              {'age': 65,
+               'name': 'Mr. Edward P. Lazarus J.D.',
                'source': 'yfinance',
-               'title': 'Senior VP, General Counsel & Secretary',
-               'totalPay': 5022182,
-               'yearBorn': 1964},
-              {'age': 57,
-               'name': "Ms. Deirdre  O'Brien",
+               'title': 'Chief Strategy Officer, Chief Legal Officer & Corporate Secretary',
+               'totalPay': 485350,
+               'yearBorn': 1959},
+              {'age': 47,
+               'name': 'Mr. Nicholas  Millington',
                'source': 'yfinance',
-               'title': 'Chief People Officer & Senior VP of Retail',
-               'totalPay': 5022182,
-               'yearBorn': 1967},
-              {'age': 52,
-               'name': 'Mr. Kevan  Parekh',
-               'source': 'yfinance',
-               'title': 'Senior VP & CFO',
-               'totalPay': None,
-               'yearBorn': 1972},
+               'title': 'Chief Innovation Officer',
+               'totalPay': 459866,
+               'yearBorn': 1977},
               {'age': None,
-               'name': 'Mr. Chris  Kondo',
+               'name': 'Mr. James  Baglanis',
                'source': 'yfinance',
-               'title': 'Senior Director of Corporate Accounting',
+               'title': 'Head of Corporate Finance, Investor Relations & Treasury',
                'totalPay': None,
                'yearBorn': None},
+              {'age': 56,
+               'name': 'Mr. Christopher Scott Mason',
+               'source': 'yfinance',
+               'title': 'SVP of Global Business Services & Chief Information Officer',
+               'totalPay': None,
+               'yearBorn': 1968},
+              {'age': 34,
+               'name': 'Ms. Shamayne  Braman',
+               'source': 'yfinance',
+               'title': 'Chief People Officer',
+               'totalPay': 459277,
+               'yearBorn': 1990},
               {'age': None,
-               'name': 'Suhasini  Chandramouli',
+               'name': 'Ms. Dunja  LaRosa',
                'source': 'yfinance',
-               'title': 'Director of Investor Relations',
+               'title': 'Chief Revenue Officer',
                'totalPay': None,
-               'yearBorn': None},
-              {'age': None,
-               'name': 'Ms. Kristin Huguet Quayle',
-               'source': 'yfinance',
-               'title': 'Vice President of Worldwide Communications',
-               'totalPay': None,
-               'yearBorn': None},
-              {'age': None,
-               'name': 'Mr. Greg  Joswiak',
-               'source': 'yfinance',
-               'title': 'Senior Vice President of Worldwide Marketing',
-               'totalPay': None,
-               'yearBorn': None},
-              {'age': 50,
-               'name': 'Mr. Adrian  Perica',
-               'source': 'yfinance',
-               'title': 'Vice President of Corporate Development',
-               'totalPay': None,
-               'yearBorn': 1974}]}
+               'yearBorn': None}]}
 
 
 
 # Company Profile (from Yahoo Finance)
-{'addresses': {'business': {'city': 'CUPERTINO',
+{'addresses': {'business': {'city': 'SANTA BARBARA',
                             'country': None,
                             'countryCode': None,
                             'foreignStateTerritory': None,
                             'isForeignLocation': None,
                             'stateOrCountry': 'CA',
                             'stateOrCountryDescription': 'CA',
-                            'street1': 'ONE APPLE PARK WAY',
+                            'street1': '301 COROMAR DRIVE',
                             'street2': None,
-                            'zipCode': '95014'},
-               'mailing': {'city': 'CUPERTINO',
+                            'zipCode': '93117'},
+               'mailing': {'city': 'SANTA BARBARA',
                            'country': None,
                            'countryCode': None,
                            'foreignStateTerritory': None,
                            'isForeignLocation': 0,
                            'stateOrCountry': 'CA',
                            'stateOrCountryDescription': 'CA',
-                           'street1': 'ONE APPLE PARK WAY',
+                           'street1': '301 COROMAR DRIVE',
                            'street2': None,
-                           'zipCode': '95014'}},
+                           'zipCode': '93117'}},
  'category': 'Large accelerated filer',
- 'cik': '0000320193',
+ 'cik': '0001314727',
  'description': '',
- 'ein': '942404110',
+ 'ein': '030479476',
  'entityType': 'operating',
  'exchanges': ['Nasdaq'],
- 'fiscalYearEnd': '0927',
  'flags': '',
- 'formerNames': [{'from': '2007-01-10T00:00:00.000Z', 'name': 'APPLE INC', 'to': '2019-08-05T00:00:00.000Z'},
-                 {'from': '1994-01-26T00:00:00.000Z', 'name': 'APPLE COMPUTER INC', 'to': '2007-01-04T00:00:00.000Z'},
-                 {'from': '1997-07-28T00:00:00.000Z',
-                  'name': 'APPLE COMPUTER INC/ FA',
-                  'to': '1997-07-28T00:00:00.000Z'}],
+ 'formerNames': [],
  'insiderTransactionForIssuerExists': 1,
  'insiderTransactionForOwnerExists': 0,
  'investorWebsite': '',
- 'name': 'Apple Inc.',
- 'ownerOrg': '06 Technology',
- 'phone': '(408) 996-1010',
- 'sic': '3571',
- 'sicDescription': 'Electronic Computers',
- 'stateOfIncorporation': 'CA',
- 'stateOfIncorporationDescription': 'CA',
- 'tickers': ['AAPL'],
+ 'name': 'Sonos Inc',
+ 'ownerOrg': '04 Manufacturing',
+ 'phone': '805-965-3001',
+ 'sic': '3651',
+ 'sicDescription': 'Household Audio & Video Equipment',
+ 'stateOfIncorporation': 'DE',
+ 'stateOfIncorporationDescription': 'DE',
+ 'tickers': ['SONO'],
  'website': ''}
 
 
 
 # Key SEC EDGAR Company Info (trimmed)
-{'business_address': {'city': 'CUPERTINO',
+{'business_address': {'city': 'SANTA BARBARA',
                       'stateOrCountry': 'CA',
                       'stateOrCountryDescription': 'CA',
-                      'street1': 'ONE APPLE PARK WAY',
-                      'zipCode': '95014'},
+                      'street1': '301 COROMAR DRIVE',
+                      'zipCode': '93117'},
  'category': 'Large accelerated filer',
- 'cik': '0000320193',
- 'ein': '942404110',
+ 'cik': '0001314727',
+ 'ein': '030479476',
  'exchanges': ['Nasdaq'],
- 'fiscalYearEnd': '0927',
- 'name': 'Apple Inc.',
- 'phone': '(408) 996-1010',
- 'sic': '3571',
- 'sicDescription': 'Electronic Computers',
- 'stateOfIncorporation': 'CA',
- 'tickers': ['AAPL'],
+ 'name': 'Sonos Inc',
+ 'phone': '805-965-3001',
+ 'sic': '3651',
+ 'sicDescription': 'Household Audio & Video Equipment',
+ 'stateOfIncorporation': 'DE',
+ 'tickers': ['SONO'],
  'website': ''}
 
 
@@ -289,7 +271,7 @@ Conclude your report with a clearly written references and data sources section,
 
 ---
 
-# Altman Z-Score Analysis Report: Apple Inc. (AAPL)
+# Altman Z-Score Analysis Report: Sonos, Inc. (SONO)
 
 ---
 ## Introduction
@@ -308,8 +290,8 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 
 ## Analysis Context and Z-Score Model Selection Criteria
 
-- **Industry:** Electronic Computers (SIC 3571)
-- **Ticker:** AAPL
+- **Industry:** SIC 3651 (SIC 3651)
+- **Ticker:** SONO
 - **Public:** True
 - **Emerging Market:** False
 - **Maturity:** Mature Company
@@ -337,16 +319,16 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 # Graphical View of the Z-Score Analysis
 
 
-![Z-Score and Price Trend Chart](zscore_AAPL_trend.png)
+![Z-Score and Price Trend Chart](zscore_SONO_trend.png)
 
-*Figure: Z-Score and stock price trend for AAPL (see output folder for full-resolution image)*
+*Figure: Z-Score and stock price trend for SONO (see output folder for full-resolution image)*
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|--------|--------|-------|--------|-------|-----------|--------------|-----------------------|
-| 2025 Q1   | -0.078 | -0.047 | 0.089 | 12.53  | 0.288 |     7.941 | Safe Zone    | No issues             |
-| 2024 Q4   | -0.032 | -0.033 | 0.124 | 13.454 | 0.361 |     8.76  | Safe Zone    | No issues             |
-| 2024 Q3   | -0.064 | -0.052 | 0.081 | 11.258 | 0.26  |     7.132 | Safe Zone    | No issues             |
-| 2024 Q2   | -0.019 | -0.014 | 0.076 | 11.82  | 0.259 |     7.561 | Safe Zone    | No issues             |
-| 2024 Q1   |  0.014 |  0.013 | 0.083 |  9.672 | 0.269 |     6.379 | Safe Zone    | No issues             |
+| Quarter   |    X1 |     X2 |     X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
+|-----------|-------|--------|--------|-------|-------|-----------|--------------|-----------------------|
+| 2025 Q1   | 0.206 | -0.089 | -0.075 | 3.13  | 0.328 |     2.082 | Grey Zone    | No issues             |
+| 2024 Q4   | 0.249 | -0.001 |  0.046 | 3.653 | 0.572 |     3.212 | Safe Zone    | No issues             |
+| 2024 Q3   | 0.202 | -0.056 | -0.068 | 3.026 | 0.279 |     2.035 | Grey Zone    | No issues             |
+| 2024 Q2   | 0.247 |  0.002 |  0.013 | 3.568 | 0.413 |     2.898 | Grey Zone    | No issues             |
+| 2024 Q1   | 0.302 | -0.002 | -0.076 | 5.303 | 0.273 |     3.564 | Safe Zone    | No issues             |
