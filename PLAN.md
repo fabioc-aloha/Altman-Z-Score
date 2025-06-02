@@ -4,11 +4,11 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.7)
+# PLAN.md — Altman Z-Score Analysis (v2.7.1)
 
 ## Updated Plan: Accomplishments and Next Steps
 
-### Accomplishments (v2.7):
+### Accomplishments (v2.7.1):
 - Robust fallback to SEC EDGAR for financials if yfinance fails
 - Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
 - Documentation and release process updated for new fallback and error handling features

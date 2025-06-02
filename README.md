@@ -1,16 +1,18 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.7 (2025-06-10)**
+**Version: 2.7.1 (2025-06-10)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.7 (June 10, 2025):**
-- Robust fallback to SEC EDGAR for financials if yfinance fails
-- Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
-- Documentation and release process updated for new fallback and error handling features
-- See PLAN.md for architectural decisions and LEARNINGS.md for edge cases
+**Release v2.7.1 (June 10, 2025):**
+- Enhanced executive/officer information injection into LLM qualitative analysis
+- Improved officer data handling for more detailed company profiles in reports
+- Fixed issue with missing officer data in LLM prompts
+- Additional code comments and documentation for the data pipeline
+- Maintenance updates and dependency version bumps
+- See RELEASE_CHECKLIST.md for detailed release notes
 
 ---
 
@@ -55,7 +57,7 @@ Outputs are saved in `output/<TICKER>/`:
 ---
 
 ## Project Status & Roadmap
-- **V2.7 (Current):** Robust fallback to SEC EDGAR for financials, improved error reporting for balance-sheet-only cases, updated documentation and release process
+- **V2.7.1 (Current):** Enhanced executive/officer data injection into LLM prompts, improved company profiles, fixed missing officer data issue
 - **Short-Term:** See above action items for immediate priorities
 - **Planned/Future:**
     - Further LLM prompt tuning and mapping improvements
@@ -63,6 +65,7 @@ Outputs are saved in `output/<TICKER>/`:
     - UI/UX improvements and web dashboard enhancements
     - Z-Score forecasting using consensus estimates and/or time series models
     - Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
+- **V2.7:** Robust fallback to SEC EDGAR for financials, improved error reporting for balance-sheet-only cases, updated documentation and release process
 - **V2.6:** Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
 - **V2.4:** Reporting layer always uses coefficients/thresholds from calculation; no hard-coded formulas or thresholds in reporting output; full fidelity for SIC/industry overrides and custom calibrations; model/threshold overrides and assumptions are logged in report; all model constants and thresholds centralized in computation/constants.py; robust error handling and logging throughout pipeline
 - **V2.2.2:** Script version included in every report; tested companies documentation and release process enforced; improved traceability
@@ -76,6 +79,7 @@ See `PLAN.md` and `TODO.md` for the full roadmap and actionable tasks.
 ## Key Features
 - **Robust Data Fallback:** If yfinance fails to provide financials, the pipeline automatically falls back to SEC EDGAR/XBRL. If only partial data is available (e.g., only balance sheet, no income statement), the pipeline will transparently report this and explain why no Z-Score can be computed.
 - **Transparent Error Reporting:** For tickers where only balance sheet data is available from SEC EDGAR (e.g., TUP), the output and logs will clearly state that no Z-Score can be computed due to missing income statement data.
+- **Optimized LLM Integration:** Smart data trimming for SEC EDGAR and Yahoo Finance data reduces noise and token usage in LLM prompts while preserving essential information for analysis.
 - **Centralized Model Logic:** All model coefficients and thresholds are stored in `src/altman_zscore/computation/constants.py`—no hard-coded values in the codebase. All model changes must be made in this file for transparency and maintainability.
 - **Altman Z-Score Trend Analysis:** Computes and visualizes Z-Score trends for any US-listed company using real, live data
 - **Industry-Aware Model Selection:** Automatically selects the correct Z-Score model based on SIC code, industry, region, and company maturity

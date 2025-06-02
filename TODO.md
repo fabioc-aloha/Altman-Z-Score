@@ -39,6 +39,12 @@ See [vision.md](./vision.md) for the full vision statement.
 - [ ] Expand integration and regression tests for new logic
 - [ ] Continue modularization and documentation of new features
 
+### Current & Next Steps (v2.7.1)
+- [x] Update all documentation and version numbers for v2.7.1
+- [x] Tag and push v2.7.1 release to remote repository
+- [x] Review user feedback and bug reports from v2.7.1
+- [ ] Collect and prioritize user feedback from v2.7.1
+
 ### Prompt & Mapping Tasks
 - [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
 - [x] Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)

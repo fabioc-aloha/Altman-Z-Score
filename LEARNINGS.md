@@ -6,12 +6,15 @@ All technical learnings and decisions in this document are guided by the project
 
 See [vision.md](./vision.md) for the full vision statement.
 
-# LEARNINGS.md — Altman Z-Score Analysis (v2.7)
+# LEARNINGS.md — Altman Z-Score Analysis (v2.7.1)
 
-## Version 2.7 (June 10, 2025)
-- Implemented robust fallback to SEC EDGAR for financials if yfinance fails.
-- Discovered and handled the edge case where only balance sheet data is available from SEC EDGAR (e.g., TUP): the pipeline now transparently reports this and does not attempt to compute a Z-Score if income statement data is missing.
-- Error messages for missing or partial financials are now propagated to the reporting layer for user clarity.
+## Version 2.7.1 (June 10, 2025)
+- Enhanced executive/officer data injection into LLM qualitative analysis prompts
+- Improved company profiles with more comprehensive officer information
+- Fixed issue with missing officer data in LLM prompts
+- Maintained robust fallback to SEC EDGAR for financials if yfinance fails
+- Continued handling of edge cases where only balance sheet data is available from SEC EDGAR
+- Error messages for missing or partial financials are propagated to the reporting layer for user clarity
 
 # LEARNINGS.md — Altman Z-Score Analysis (v2.2.2)
 

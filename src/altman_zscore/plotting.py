@@ -90,7 +90,7 @@ def get_zscore_thresholds(model):
     }
 
 
-def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_moving_averages=False):
+def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     """
     Plot the Altman Z-Score trend with colored risk bands and save as PNG.
     If stock_prices provided, overlays weekly stock price trend on secondary y-axis.
@@ -101,14 +101,13 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
         model (str): Z-Score model name
         out_base (str): Output file base path (without extension)
         stock_prices (pd.DataFrame, optional): DataFrame with columns ['quarter_end', 'price'] for overlaying stock prices
-        show_moving_averages (bool, optional): Whether to show moving averages for Z-Score and price trends. Default: False
     Returns:
         None. Saves PNG to output/ and prints absolute path.
     Notes:
         - Handles missing/invalid data gracefully.
-        - Adds value labels and robust legend.        - Output directory is created if missing.
+        - Adds value labels and robust legend.
+        - Output directory is created if missing.
         - Shows weekly price trend on secondary y-axis when stock_prices provided.
-        - Moving averages: 3-period for Z-Score, 5-period for price data.
     """
     plot_df = df[df["zscore"].notnull()]
     if plot_df.empty:
@@ -261,7 +260,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
     valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
     if valid_quarters:
         q_pos, q_scores = zip(*valid_quarters)
-        _plot_zscore(ax, q_pos, q_scores, show_moving_averages)
+        _plot_zscore(ax, q_pos, q_scores)
 
     # Format x-axis
     _format_axes(ax, date_labels, using_weekly, date_range)
@@ -351,7 +350,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None, show_movin
         plt.show()
 
 
-def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages=False):
+def plot_zscore_trend_pipeline(df, ticker, model, out_base):
     """
     Orchestrates the Z-Score and weekly price trend plotting pipeline.
     Only processes and saves the data necessary for the plot.
@@ -495,10 +494,8 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base, show_moving_averages
         va="center",
         fontweight="bold",
         zorder=1000,
-    )
-
-    # Plot Z-Score
-    _plot_zscore(ax, q_pos, q_scores, show_moving_averages)
+    )    # Plot Z-Score
+    _plot_zscore(ax, q_pos, q_scores)
 
     # Format axes
     _format_axes(ax, date_labels, using_weekly, date_range)

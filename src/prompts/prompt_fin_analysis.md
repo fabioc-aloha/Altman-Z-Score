@@ -8,8 +8,11 @@ Your recommendations and tone should reflect the Z-Score status, using cautionar
 
 ---
 ## Company Profile
-* Use the information provided to describe the company business, competitors, products and services.
-* Write a summary of the findings in a quick and easy to understand couple of paragraph.
+* Use the information provided to describe:
+  - Company business, competitors, products and services
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings)
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
 
 ## 1. Diagnostic Evaluation of Financial Health
 
@@ -40,23 +43,58 @@ Your recommendations and tone should reflect the Z-Score status, using cautionar
 
 Create a table with the following columns:
 
-| Title | Responsibilities | Recommended Actions (Cited) |
-| ----- | ---------------- | --------------------------- |
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
 
-* Include, at minimum: CEO, CFO, CMO, Board, Employees, Shareholders, Creditors, Customers, Partners
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
 * Tailor actions and tone to company risk level:
-
   * **Distress**: Emphasize urgency, transparency, short-term wins
   * **Grey**: Encourage disciplined change with measured optimism
   * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
 
-* Define internal and external communication plans that reflect the company’s risk level (e.g., calm assurance vs. urgent clarity).
-* Detail **milestones**, **accountable parties**, and **timelines** (1–3, 4–6, 7–12, 13–18 months).
-* Tailor **marketing tactics** (e.g., investor confidence restoration vs. innovation campaigns).
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
 
 ---
 

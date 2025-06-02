@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 2.6 (2025-06-02)
+# Version: 2.7.1 (2025-06-10)
 """
 Altman Z-Score Analysis Pipeline Entry Point (MVP)
 
@@ -16,9 +16,9 @@ USAGE:
 
 All outputs will be saved to output/<TICKER>/
 """
-__version__ = "2.6"
+__version__ = "2.7.1"
 
-# v2.6 release: Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, expanded documentation/testing
+# v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, fixed issue with missing officer data in LLM prompts
 
 import argparse
 import os
@@ -56,11 +56,6 @@ def parse_args():
         help="Start date (YYYY-MM-DD) for analysis (default: 2024-01-01)"
     )
     parser.add_argument(
-        "--moving-averages",
-        action="store_true",
-        help="Show moving averages in Z-Score and price plots (default: False)"
-    )
-    parser.add_argument(
         "--no-plot",
         action="store_true",
         help="Disable plot generation (default: False)"
@@ -74,7 +69,6 @@ def main():
     args = parse_args()
     ticker_list = [t.upper() for t in args.tickers]
     start_date = args.start
-    show_moving_averages = args.moving_averages
     no_plot = args.no_plot
     for ticker in ticker_list:
         try:

@@ -32,10 +32,11 @@ class SECResponseError(SECError):
 class SECClient:
     """
     Client for interacting with SEC EDGAR API.
-    """
-
+    """    
     BASE_URL = "https://data.sec.gov"
     BROWSE_EDGAR_URL = "https://www.sec.gov/cgi-bin/browse-edgar"
+    SUBMISSIONS_BASE_URL = "https://data.sec.gov/submissions/"
+    ARCHIVES_BASE_URL = "https://www.sec.gov/Archives/"
     COMPANY_SEARCH = "/submissions/CIK{}.json"
     COMPANY_FACTS = "/api/xbrl/companyfacts/CIK{}.json"
     COMPANY_CONCEPT = "/api/xbrl/companyconcept/CIK{}/us-gaap/{}.json"
@@ -63,20 +64,13 @@ class SECClient:
         """Create and configure requests session."""
         session = requests.Session()
         if self.user_agent:
-            session.headers.update(
-                {
-                    "User-Agent": self.user_agent,
-                    "Accept": "application/json",
-                }
-            )
+            # Only add headers with non-None values
+            session.headers["User-Agent"] = self.user_agent
+            session.headers["Accept"] = "application/json"
         else:
             # Fallback for legacy support
-            session.headers.update(
-                {
-                    "User-Agent": f"altman-zscore-analyzer {self.email}",
-                    "Accept": "application/json",
-                }
-            )
+            session.headers["User-Agent"] = f"altman-zscore-analyzer {self.email}"
+            session.headers["Accept"] = "application/json"
         return session
 
     def _ensure_rate_limit(self):
@@ -302,3 +296,131 @@ class SECClient:
             return "SERVICE"
         else:
             return "OTHER"
+
+    def get_executive_officers(self, ticker: str, cik: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """
+        Fetch executive officers information from the latest DEF 14A filing.
+
+        Args:
+            ticker (str): Stock ticker symbol
+            cik (str, optional): Company CIK. If not provided, will be looked up.
+
+        Returns:
+            dict or None: Executive officers information if available, else None
+        """
+        try:
+            if cik is None:
+                cik = self.lookup_cik(ticker)
+                if not cik:
+                    logging.warning(f"No CIK found for ticker {ticker}")
+                    return None
+
+            # Get latest DEF 14A filing
+            url = f"{self.SUBMISSIONS_BASE_URL}{cik}/index.json"
+            response = self.session.get(url)  # Use session headers
+            if not response.ok:
+                logging.warning(f"Failed to get filings index for CIK {cik}: {response.status_code}")
+                return None
+
+            data = response.json()
+            filings = data.get('filings', {}).get('recent', {})
+            if not filings:
+                logging.warning(f"No filings found for CIK {cik}")
+                return None
+
+            # Find latest DEF 14A filing
+            form_types = filings.get('form', [])
+            accession_numbers = filings.get('accessionNumber', [])
+            primary_docs = filings.get('primaryDocument', [])
+
+            def_14a_indices = [i for i, form in enumerate(form_types) if form == 'DEF 14A']
+            if not def_14a_indices:
+                logging.warning(f"No DEF 14A filings found for CIK {cik}")
+                return None
+
+            # Get latest DEF 14A
+            latest_def_14a_idx = def_14a_indices[0]
+            accession_number = accession_numbers[latest_def_14a_idx].replace('-', '')
+            primary_doc = primary_docs[latest_def_14a_idx]
+
+            # Get the filing content
+            filing_url = f"{self.ARCHIVES_BASE_URL}{cik}/{accession_number}/{primary_doc}"
+            response = self.session.get(filing_url)  # Use session headers
+            if not response.ok:
+                logging.warning(f"Failed to get DEF 14A filing content: {response.status_code}")
+                return None
+
+            from bs4 import BeautifulSoup
+            from bs4.element import Tag, NavigableString
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+            headers = [
+                "executive officers",
+                "executive officer",
+                "named executive officers",
+                "executive management",
+                "senior management",
+            ]
+            officers_data = []
+            text = soup.get_text().lower()
+            comp_headers = [
+                "salary",
+                "compensation",
+                "total compensation",
+                "stock awards",
+                "option awards",
+            ]
+            for header in headers:
+                if header in text:
+                    section = soup.find(string=lambda x: isinstance(x, str) and header in x.lower())
+                    if not section:
+                        continue
+                    # Only traverse parents if not NavigableString
+                    current = section
+                    for _ in range(3):
+                        if hasattr(current, 'parent') and current.parent is not None:
+                            current = current.parent
+                        else:
+                            break
+                    # Only call find_all if not NavigableString
+                    if not isinstance(current, NavigableString) and isinstance(current, Tag):
+                        tables = current.find_all('table')
+                        for table in tables:
+                            if not isinstance(table, Tag):
+                                continue
+                            rows = table.find_all('tr')
+                            if len(rows) < 2:
+                                continue
+                            header_row = rows[0].get_text().lower()
+                            if any(h in header_row for h in comp_headers):
+                                for row in rows[1:]:
+                                    if not isinstance(row, Tag):
+                                        continue
+                                    cells = row.find_all(['td', 'th'])
+                                    if len(cells) >= 2:
+                                        name = cells[0].get_text().strip()
+                                        title = cells[1].get_text().strip()
+                                        compensation = None
+                                        for cell in cells[2:]:
+                                            text = cell.get_text().strip()
+                                            if any(h in text.lower() for h in ['total', 'compensation', 'salary']):
+                                                try:
+                                                    comp_str = ''.join(c for c in text if c.isdigit() or c == '.')
+                                                    compensation = float(comp_str) if comp_str else None
+                                                    break
+                                                except (ValueError, TypeError):
+                                                    pass
+                                        if name and title and not any(o['name'] == name for o in officers_data):
+                                            officer = {
+                                                'name': name,
+                                                'title': title,
+                                                'totalPay': compensation
+                                            }
+                                            officers_data.append(officer)
+            if not officers_data:
+                logging.warning(f"No executive officer data found in DEF 14A for {ticker}")
+                return None
+            return {'officers': officers_data}
+        except Exception as e:
+            logging.error(f"Error fetching executive officers for {ticker}: {e}")
+            return None

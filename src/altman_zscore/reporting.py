@@ -306,7 +306,7 @@ def report_zscore_full_report(
         header.append("Consistency Warning")
         for i, (_, row) in enumerate(df.iterrows()):
             warning = row.get("consistency_warning")
-            rows[i].append(warning if warning else "")
+            rows[i].append(warning if warning else "No issues")
         table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
     else:
         table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")

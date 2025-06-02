@@ -13,8 +13,8 @@ from matplotlib.lines import Line2D
 from scipy.interpolate import make_interp_spline
 
 
-def plot_zscore(ax, q_pos, q_scores, show_moving_averages):
-    """Plot Z-Score values with moving averages, handling pandas Series gracefully."""
+def plot_zscore(ax, q_pos, q_scores):
+    """Plot Z-Score values."""
     try:
         # Convert positions and scores to float arrays, handling pandas Series
         positions = [float(pos) for pos in (q_pos.values if hasattr(q_pos, "values") else q_pos)]
@@ -27,25 +27,6 @@ def plot_zscore(ax, q_pos, q_scores, show_moving_averages):
 
         # Plot Z-Score points
         ax.plot(positions, scores, marker="s", label="Z-Score", color="blue", zorder=2)
-
-        # Add moving averages if requested and enough data points
-        if show_moving_averages and len(scores) >= 3:
-            z_scores_array = np.array(scores)
-            ma_window = min(3, len(z_scores_array))
-            ma_values = [
-                np.mean(z_scores_array[i - ma_window + 1: i + 1]) for i in range(ma_window - 1, len(z_scores_array))
-            ]
-            ma_positions = [positions[i] for i in range(ma_window - 1, len(z_scores_array))]
-            ax.plot(
-                ma_positions,
-                ma_values,
-                linestyle="--",
-                color="darkblue",
-                alpha=0.7,
-                linewidth=2,
-                label=f"Z-Score {ma_window}-Period MA",
-                zorder=1,
-            )
 
         # Add value labels
         for pos, z_val in zip(positions, scores):

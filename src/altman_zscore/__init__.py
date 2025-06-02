@@ -27,10 +27,13 @@ See the README.md for usage instructions and documentation.
 Note: This code follows PEP 8 style guidelines.
 """
 
+__version__ = "2.7.1"
+
 from .models.financial_metrics import FinancialMetrics
 
 # All imports should be at the top of the file, per Python best practices.
 
 __all__ = [
     "FinancialMetrics",
+    "__version__",
 ]

@@ -115,9 +115,9 @@ Canonical fields: {canonical_fields}\n
 def _extract_trimmed_sec_info(sec_info: dict) -> dict:
     """
     Extract only the most relevant fields from SEC EDGAR company info for prompt injection.
-    Exclude the 'filings' field entirely.
+    Include company info, executive data, and recent executive filings.
     """
-    return {
+    base_info = {
         "name": sec_info.get("name"),
         "cik": sec_info.get("cik"),
         "sic": sec_info.get("sic"),
@@ -132,17 +132,119 @@ def _extract_trimmed_sec_info(sec_info: dict) -> dict:
         "ein": sec_info.get("ein"),
         "website": sec_info.get("website"),
     }
+    
+    # Extract executive info from filings if available
+    try:
+        filings = sec_info.get("filings", {}).get("recent", {})
+        if not isinstance(filings, dict):
+            return base_info
+
+        # Get all the filing arrays, handling potential missing keys
+        accession_numbers = filings.get("accessionNumber", [])
+        descriptions = filings.get("description", [])
+        forms = filings.get("form", [])
+        filing_dates = filings.get("filingDate", [])
+        file_numbers = filings.get("fileNumber", [])
+        
+        # Calculate the length to process based on available data
+        num_filings = min(100, len(accession_numbers))
+        
+        exec_filings = []
+        for i in range(num_filings):
+            desc = descriptions[i] if i < len(descriptions) else ""
+            form = forms[i] if i < len(forms) else ""
+            date = filing_dates[i] if i < len(filing_dates) else ""
+            acc_num = accession_numbers[i] if i < len(accession_numbers) else ""
+            
+            # Convert to string and uppercase for comparison
+            desc = str(desc).upper() if desc else ""
+            form = str(form).upper() if form else ""
+            
+            # Check if this is an executive-related filing
+            is_exec_filing = (
+                any(term in form for term in ["FORM 4", "FORM 3", "FORM 5"]) or
+                any(term in desc for term in [
+                    "RSU", "CEO", "CFO", "DIRECTOR", "EXECUTIVE", 
+                    "BENEFICIAL OWNERSHIP", "STOCK AWARD", "OPTION"
+                ])
+            )
+            
+            if is_exec_filing:
+                exec_filing = {
+                    "date": date,
+                    "description": desc,
+                    "type": form,
+                    "accessionNumber": acc_num
+                }
+                exec_filings.append(exec_filing)
+        
+        if exec_filings:
+            base_info["recent_executive_filings"] = exec_filings[:20]  # Keep only the 20 most recent
+            
+    except Exception as e:
+        print(f"Error processing SEC filings: {str(e)}")
+    
+    return base_info
 
 
 def _extract_trimmed_company_info(company_info: dict) -> dict:
     """
     Extract only the most relevant fields from Yahoo Finance company info for prompt injection.
-    Exclude the 'filings' field entirely and remove None values.
+    Include company info, executive/officer data, and institutional ownership.
     """
-    # Remove specific fields we don't want
+    # Start with base fields except filings
     filtered = {k: v for k, v in company_info.items() if k != "filings" and v is not None}
-
-    # Process nested dictionaries
+    
+    # Extract executive officer information
+    exec_info = []
+    
+    # Look for executives in various fields
+    exec_fields = [
+        "officers", "executives", "management", "directors",
+        "keyExecutives", "companyOfficers", "boardMembers",
+        "insiderHolders", "institutionalHolders"  # These might also contain executive info
+    ]
+    
+    for field in exec_fields:
+        if field in company_info and company_info[field]:
+            execs = company_info[field]
+            if not isinstance(execs, list):
+                continue
+                
+            for e in execs:
+                if not isinstance(e, dict):
+                    continue
+                    
+                # Check if this is likely an executive entry
+                name = e.get("name", e.get("holderName", "Unknown"))
+                title = e.get("title", e.get("position", e.get("relationship", "Unknown")))
+                
+                if "Unknown" in (name, title):
+                    continue
+                    
+                exec_data = {
+                    "name": name,
+                    "title": title
+                }
+                
+                # Optional fields - only add if they exist and are not None
+                optional_fields = {
+                    "age": e.get("age"),
+                    "yearBorn": e.get("yearBorn"),
+                    "since": e.get("since", e.get("yearsWithCompany")),
+                    "compensation": e.get("totalCompensation"),
+                    "shares": e.get("totalHolding", e.get("shares")),
+                    "dateReported": e.get("latestTransDate", e.get("reportDate")),
+                }
+                
+                exec_data.update({k: v for k, v in optional_fields.items() if v is not None})
+                exec_info.append(exec_data)
+    
+    # Add executive info if found
+    if exec_info:
+        filtered["executive_information"] = exec_info
+        
+    # Process nested dictionaries and remove any None values
     for k, v in list(filtered.items()):
         if isinstance(v, dict):
             # Recursively clean nested dictionaries
@@ -152,8 +254,25 @@ def _extract_trimmed_company_info(company_info: dict) -> dict:
         elif isinstance(v, list):
             # Clean up lists to remove None values and empty dicts
             filtered[k] = [x for x in v if x is not None and (not isinstance(x, dict) or any(x.values()))]
-            if not filtered[k]:  # Remove if empty
-                del filtered[k]
+                
+    # Add institutional holder information if available
+    if "institutionalHolders" in company_info:
+        inst_holders = company_info["institutionalHolders"]
+        if isinstance(inst_holders, list):
+            filtered["institutionalOwnership"] = [
+                {k: v for k, v in holder.items() if v is not None}
+                for holder in inst_holders
+                if isinstance(holder, dict) and any(v is not None for v in holder.values())
+            ]
+    
+    if "majorHolders" in company_info:
+        major_holders = company_info["majorHolders"]
+        if isinstance(major_holders, list):
+            filtered["majorHolders"] = [
+                {k: v for k, v in holder.items() if v is not None}
+                for holder in major_holders
+                if isinstance(holder, dict) and any(v is not None for v in holder.values())
+            ]
 
     return filtered
 
@@ -190,13 +309,26 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         )
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
-    # Inject company_info.json content if ticker is provided
+    # Inject company_info.json and company_officers.json content if ticker is provided
+    company_officers_str = ""
     company_info_str = ""
     sec_info_str = ""
     if ticker:
         from altman_zscore.utils.paths import get_output_dir
+        company_officers_path = get_output_dir("company_officers.json", ticker=ticker)
         company_info_path = get_output_dir("company_info.json", ticker=ticker)
         sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
+        if os.path.exists(company_officers_path):
+            try:
+                with open(company_officers_path, "r", encoding="utf-8") as officers_file:
+                    officers_json = json.load(officers_file)
+                import io
+                import pprint
+                buf = io.StringIO()
+                pprint.pprint(officers_json, stream=buf, compact=True, width=120)
+                company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
+            except Exception as e:
+                company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
         if os.path.exists(company_info_path):
             try:
                 with open(company_info_path, "r", encoding="utf-8") as info_file:
@@ -230,8 +362,8 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
                     sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
             except Exception as e:
                 sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
-    # Prepend the company info and trimmed SEC info to the user prompt
-    full_prompt = f"{company_info_str}{sec_info_str}\n{prompt}"
+    # Prepend the company officers, company info, and trimmed SEC info to the user prompt
+    full_prompt = f"{company_officers_str}{company_info_str}{sec_info_str}\n{prompt}"
     # Save the prompt to a file for traceability if ticker is provided
     if ticker:
         try:

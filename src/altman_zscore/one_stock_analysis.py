@@ -144,22 +144,15 @@ def filter_valid_quarters(fin_info, start_date: str):
 
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     """
-    Main entry point for single-stock Altman Z-Score trend analysis.
+    Analyze single stock Altman Z-Score trend from start_date to today.
 
     Args:
-        ticker (str): Stock ticker symbol (e.g., 'AAPL')
-        start_date (str, optional): Only include quarters ending on or after this date (YYYY-MM-DD)
-    Returns:
-        pd.DataFrame: DataFrame with columns: ['quarter_end', 'zscore', 'valid', 'error', ...]
+        ticker (str): The stock ticker symbol
+        start_date (str): Start date in YYYY-MM-DD format
+        show_moving_averages (bool): Whether to show moving averages in plots. Default: False
 
-    Workflow:
-        1. Check if company exists and isn't bankrupt/delisted
-        2. Classify company (industry, maturity, etc.)
-        3. Select Z-Score model based on profile and SIC code
-        4. Fetch last 12 quarters of financials (robust fallback logic)
-        5. Validate and compute Z-Score for each quarter
-        6. Output results to CSV, JSON, and plot
-        7. Save all diagnostics and error reports to output/
+    Returns:
+        pd.DataFrame: DataFrame with Z-Score trend data
     """
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
 

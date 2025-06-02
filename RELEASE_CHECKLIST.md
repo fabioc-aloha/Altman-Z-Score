@@ -1,32 +1,23 @@
 # Altman Z-Score Release Checklist
 
-## Version: 2.7 (2025-06-10)
+## Version: 2.7.1 (2025-06-10)
 
 ---
 
-## Pre-Release
-- [x] Update version numbers in all relevant files (README, main.py, etc.)
-- [x] Review and update CHANGELOG/PLAN.md for all major changes
-- [x] Have the user manually review a sample of reports for formula/threshold accuracy
-- [x] Update documentation for new/changed features (including SEC EDGAR fallback and error reporting for balance-sheet-only cases)
+# Release Checklist: v2.7.1
 
-## Major Features/Changes in v2.7
-- [x] Robust fallback to SEC EDGAR for financials if yfinance fails
-- [x] Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
-- [x] Documentation and release process updated for new fallback and error handling features
-
-## Release
-- [x] Tag release in git (v2.7)
-- [x] Push to remote repository
-- [x] Announce release and update documentation links
+- [x] Update version numbers in all relevant files (setup, docs, etc.)
+- [x] Review and update CHANGELOG for v2.7.1
+- [x] Run all unit and integration tests (local and CI)
+- [x] Verify LLM prompt injection for company officers and all new features
+- [x] Validate output for at least one ticker end-to-end
+- [ ] Review and update documentation (README, PLAN.md, TODO.md)
+- [ ] Update main.py, docstrings and usage. Reflect that in readme
+- [ ] Check for new/removed dependencies and update requirements.txt
+- [ ] Tag release in version control (git tag v2.7.1)
+- [ ] Push tag and code to remote repository
+- [ ] Announce release (GitHub, project channels)
 
 ---
 
-## Post-Release
-- [x] Monitor for bug reports or regressions
-- [x] Solicit feedback from users
-- [x] Plan next milestone in PLAN.md
-
----
-
-*Checklist last reset for v2.7 (2025-06-10)*
+(Fresh checklist for v2.7.1. All items are unchecked. Add new items as needed for this release.)

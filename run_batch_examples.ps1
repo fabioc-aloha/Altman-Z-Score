@@ -125,9 +125,9 @@ Invoke-ZScoreBatch $large_caps 'large_caps'
 Invoke-ZScoreBatch $distressed 'distressed'
 Invoke-ZScoreBatch $tech_em 'tech_em'
 Invoke-ZScoreBatch $latam_br 'latam_br'
-Invoke-ZScoreBatch $europe 'europe'
-Invoke-ZScoreBatch $asia 'asia'
-Invoke-ZScoreBatch $edge_cases 'edge_cases'
-Invoke-ZScoreBatch $industry_mix 'industry_mix'
+# Invoke-ZScoreBatch $europe 'europe'
+# Invoke-ZScoreBatch $asia 'asia'
+# Invoke-ZScoreBatch $edge_cases 'edge_cases'
+# Invoke-ZScoreBatch $industry_mix 'industry_mix'
 
 Write-Host "Batch processing complete. Check the output directories for reports."
