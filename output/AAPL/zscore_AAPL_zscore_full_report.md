@@ -65,113 +65,99 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ## Company Profile
 
-Apple Inc., headquartered at One Apple Park Way, Cupertino, CA, is a leading technology company primarily engaged in designing, manufacturing, and selling consumer electronics, software, and services. Its flagship products include the iPhone, iPad, Mac computers, Apple Watch, and Apple TV, alongside a suite of software services such as iCloud, Apple Music, and the App Store. Apple operates in a highly competitive environment, facing rivals like Samsung, Microsoft, and Google, which challenge its market share across various segments.
+Apple Inc., headquartered in Cupertino, California, is a leading technology company known for its innovative products and services, including the iPhone, iPad, Mac computers, Apple Watch, and various software solutions. The company operates in the highly competitive electronic computers sector (SIC 3571) and is recognized for its strong brand loyalty and ecosystem of products and services. Key competitors include Samsung, Microsoft, and Google, each vying for market share in consumer electronics and software.
 
-The executive leadership team at Apple is spearheaded by CEO Timothy D. Cook, who has been instrumental in driving the company's strategic vision and operational execution. Other key executives include Jeffrey E. Williams, the Chief Operating Officer, who oversees global operations; Katherine L. Adams, the Senior VP and General Counsel, responsible for legal affairs; and Deirdre O'Brien, the Chief People Officer and Senior VP of Retail, focusing on human resources and retail strategies. The leadership team is complemented by Kevan Parekh, the Senior VP and CFO, who manages financial stewardship and risk management. Notably, the executive compensation structure reflects significant investment in leadership talent, with Cook's total pay reported at $16.5 million.
+The executive leadership team at Apple is spearheaded by CEO Timothy D. Cook, who has been instrumental in driving the company's strategic vision and operational execution. Other key executives include Jeffrey E. Williams, Chief Operating Officer, and Katherine L. Adams, Senior VP and General Counsel. The leadership team is complemented by Deirdre O'Brien, Chief People Officer, and Kevan Parekh, Senior VP and CFO, who oversee critical areas such as human resources and financial stewardship. Notably, the executive compensation packages reflect the company's performance and market position, with Cook earning a total pay of approximately $16.5 million.
 
 ---
 
 ## 1. Diagnostic Evaluation of Financial Health
 
-Apple Inc. currently resides in the **Safe Zone** of the Altman Z-Score framework, with a Z-Score of 7.941 as of Q1 2025. This score indicates a robust financial health status, suggesting a low risk of bankruptcy. 
+### Financial Analysis
 
-### Liquidity
-Apple's liquidity position is characterized by a negative X1 value (-0.078), indicating that current liabilities exceed current assets. While this may raise concerns, the overall financial strength mitigates immediate liquidity risks.
-
-### Profitability
-The profitability metric (X3) stands at 0.089, reflecting a solid earnings performance relative to total assets. This is consistent with Apple's historical trend of strong profit margins and effective cost management.
-
-### Capital Efficiency
-The retained earnings ratio (X2) is slightly negative (-0.047), which may indicate challenges in reinvesting profits back into the business. However, Apple's substantial cash reserves provide a buffer against this metric.
-
-### Leverage
-Apple's leverage is exceptionally strong, with an X4 value of 12.53, showcasing a high equity-to-liabilities ratio. This indicates that the company is well-capitalized and can withstand financial downturns.
+- **Liquidity:** The current ratio (X1) is negative, indicating that current liabilities exceed current assets. This raises concerns about short-term liquidity.
+- **Profitability:** The EBIT to total assets ratio (X3) shows a positive trend, suggesting that the company is generating earnings efficiently relative to its asset base.
+- **Capital Efficiency:** Retained earnings (X2) are negative, which may indicate challenges in retaining profits for reinvestment.
+- **Leverage:** The equity to total liabilities ratio (X4) is strong, suggesting that the company is well-capitalized and has a solid equity base to support its operations.
 
 ### Z-Score Trajectory
-The Z-Score trajectory has remained consistently high over the past several quarters, reinforcing the company's stable financial footing. This positive trend indicates effective management and operational resilience.
+
+The Z-Score for Apple Inc. has consistently remained in the **Safe Zone**, with the latest score at 7.941. This indicates a strong financial position and low risk of bankruptcy. The trajectory shows stability and resilience, with no significant fluctuations over the past quarters.
 
 ---
 
-## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+## 2. Turnaround & Renewal Theory Application
 
-Given Apple's position in the **Safe Zone**, the strategic focus should be on **innovation, repositioning**, and stakeholder alignment for sustained growth. 
+Given Apple Inc.'s position in the **Safe Zone**, the focus should be on **innovation, repositioning**, and aligning with stakeholders for sustained growth. 
 
-- **Innovation**: Emphasizing research and development to enhance product offerings and maintain competitive advantage (Beard, 2024).
-- **Repositioning**: Exploring new markets and diversifying product lines to capture emerging consumer trends.
-- **Stakeholder Alignment**: Engaging with stakeholders to ensure that corporate strategies align with shareholder interests (Freeman, 1984).
+- **Innovation:** Invest in R&D to enhance product offerings and explore new markets.
+- **Repositioning:** Consider strategic partnerships or acquisitions to expand the product ecosystem.
+- **Stakeholder Alignment:** Engage with shareholders, customers, and employees to ensure alignment with the company’s long-term vision.
 
-The application of Hofer's (1980) turnaround sequencing can guide Apple in maintaining its growth trajectory while addressing potential market disruptions.
+The application of Hofer's (1980) turnaround sequencing suggests that Apple should prioritize innovation as a means of maintaining competitive advantage, while Freeman's (1984) stakeholder theory emphasizes the importance of aligning interests across all parties involved.
 
 ---
 
-## 3. Internal Stakeholder Recommendations (Tailored Table)
+## 3. Internal Stakeholder Recommendations
 
 | Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
 | ---------- | ---------------- | ---------------------- | --------------------------- |
-| CEO & Director (Timothy D. Cook) | Strategic vision, operational execution | Revenue growth, market share | Foster innovation and explore new markets (Beard, 2024) |
-| CFO & Finance Team (Kevan Parekh) | Financial stewardship, risk management | Profit margins, cash flow | Optimize capital allocation for R&D investments |
-| COO (Jeffrey E. Williams) | Global operations management | Operational efficiency | Enhance supply chain resilience and sustainability |
-| Senior VP, General Counsel (Katherine L. Adams) | Legal compliance, risk mitigation | Compliance metrics | Strengthen legal frameworks around new product launches |
-| Chief People Officer (Deirdre O'Brien) | HR strategy, talent management | Employee engagement, retention rates | Invest in employee development and diversity initiatives |
-| Board Members | Oversight and governance | Governance metrics | Regularly review strategic alignment with market trends |
+| CEO (Timothy D. Cook) | Strategic vision, operational execution | Revenue growth, market share | Focus on innovation and product development |
+| CFO (Kevan Parekh) | Financial stewardship, risk management | Profit margins, cash flow | Maintain strong liquidity and manage costs |
+| COO (Jeffrey E. Williams) | Operational efficiency | Production costs, supply chain efficiency | Optimize supply chain and production processes |
+| CPO (Deirdre O'Brien) | HR strategy, employee engagement | Employee satisfaction, retention rates | Enhance employee engagement programs |
+| Board Members | Oversight and governance | Compliance, strategic alignment | Ensure alignment with long-term strategic goals |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
 
 ### Multi-Level Communication Strategy
-- **Executive Leadership Communications**: Regular updates on strategic initiatives and innovation efforts.
-- **Investor Relations**: Transparent communication regarding financial performance and growth outlook.
-- **Internal Communications**: Engage employees through change management initiatives and innovation workshops.
-- **External Relations**: Maintain strong customer and partner relationships through targeted marketing campaigns.
+
+- **Executive Leadership Communications:** Regular updates on strategic initiatives and performance metrics.
+- **Investor Relations:** Transparent communication regarding financial performance and future outlook.
+- **Internal Communications:** Foster a culture of engagement and transparency among employees.
+- **External Relations:** Maintain strong relationships with customers and partners through targeted marketing campaigns.
 
 ### Phased Execution Plan
-- **Near-term (1-3 months)**: Launch new marketing campaigns for existing products and enhance customer engagement.
-- **Mid-term (4-6 months)**: Implement R&D initiatives focused on emerging technologies.
-- **Long-term (7-18 months)**: Explore strategic partnerships and acquisitions to diversify product offerings.
 
-Each phase will have designated executive sponsors, with success metrics tied to revenue growth and market penetration.
-
----
-
-## 5. Plain-Language Justification & Citation
-
-Apple's strong financial health, as evidenced by its Z-Score, supports a focus on innovation and market expansion. The company's ability to maintain high profitability and low leverage positions it well for future growth. Empirical data from Altman (1968) and Beard (2024) underscores the importance of strategic alignment and stakeholder engagement in achieving sustained success.
+- **Near-term (1-3 months):** Focus on immediate product enhancements and marketing strategies.
+- **Mid-term (4-6 months):** Launch new products and assess market response.
+- **Long-term (7-18 months):** Evaluate strategic partnerships and potential acquisitions.
 
 ---
 
-## 6. Investor Recommendation (Risk-Aware)
+## 5. Investor Recommendation (Risk-Aware)
 
-**Recommendation: Buy**. Given Apple's strong Z-Score and robust financial health, the company is well-positioned for continued growth and innovation.
+**Recommendation: Buy**
+
+Given Apple's strong Z-Score of 7.941 and its consistent performance in the Safe Zone, the recommendation is to **buy**. The company demonstrates robust financial health, a solid market position, and a commitment to innovation, making it a favorable investment opportunity.
 
 > “This is not financial advice—consult your financial advisor.”
 
 ---
 
-## 7. External Stakeholder Bargaining Power (Table)
+## 6. External Stakeholder Bargaining Power
 
 | Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
 | ----------------------- | -------------------------- | ------------------- | ----------------------- |
-| Customers | High | High | Strong brand loyalty and demand for innovative products (Freeman, 1984) |
-| Suppliers | Medium | Medium | Dependence on key suppliers for components, but diversified sourcing strategies mitigate risks |
-| Shareholders | High | High | Significant influence on corporate governance and strategic direction |
-| Regulators | Medium | Medium | Compliance with regulations is critical, but Apple's strong legal team mitigates risks |
+| Customers | High | High | Strong brand loyalty and ecosystem create high customer retention. |
+| Suppliers | Moderate | Medium | Dependence on key suppliers for components, but diversified sourcing mitigates risk. |
+| Shareholders | High | High | Significant influence on company strategy and governance through voting rights. |
+| Employees | Moderate | Medium | Employee satisfaction impacts productivity and retention, but overall influence is limited. |
 
 ---
 
-## 8. Mandatory Disclaimer
+## 7. References and Data Sources
 
-In closing, please note that this analysis was generated using an OpenAI model. Generative AI is not a financial advisor and can make mistakes. Always consult your financial advisor before making any investment decisions.
-
----
-
-## 9. References and Data Sources
-
-**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
 - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
 - Hofer, C. W. (1980). *Turnaround Strategies.*
-- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
-- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.* 
+
+--- 
+
+This report provides a comprehensive overview of Apple Inc.'s financial health and strategic recommendations based on its Altman Z-Score analysis.
 
 
 
@@ -187,7 +173,7 @@ In closing, please note that this analysis was generated using an OpenAI model. 
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 144,571.0              |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | -15,552.0              |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 264,437.0              |
-| 2025 Q1   | market_value_equity | Common Stock                            | 88,711.0               |
+| 2025 Q1   | market_value_equity | Capital Stock                           | 88,711.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 29,589.0               |
 | 2025 Q1   | sales               | Total Revenue                           | 95,359.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -196,7 +182,7 @@ In closing, please note that this analysis was generated using an OpenAI model. 
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 144,365.0              |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | -11,221.0              |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 277,327.0              |
-| 2024 Q4   | market_value_equity | Common Stock                            | 84,768.0               |
+| 2024 Q4   | market_value_equity | Capital Stock                           | 84,768.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 42,832.0               |
 | 2024 Q4   | sales               | Total Revenue                           | 124,300.0              |
 | ---       | ---                 | ---                                     | ---                    |
@@ -205,7 +191,7 @@ In closing, please note that this analysis was generated using an OpenAI model. 
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 176,392.0              |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | -19,154.0              |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 308,030.0              |
-| 2024 Q3   | market_value_equity | Common Stock                            | 83,276.0               |
+| 2024 Q3   | market_value_equity | Capital Stock                           | 83,276.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 29,591.0               |
 | 2024 Q3   | sales               | Total Revenue                           | 94,930.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -214,7 +200,7 @@ In closing, please note that this analysis was generated using an OpenAI model. 
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 131,624.0              |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | -4,726.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 264,904.0              |
-| 2024 Q2   | market_value_equity | Common Stock                            | 79,850.0               |
+| 2024 Q2   | market_value_equity | Capital Stock                           | 79,850.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 25,352.0               |
 | 2024 Q2   | sales               | Total Revenue                           | 85,777.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -223,7 +209,7 @@ In closing, please note that this analysis was generated using an OpenAI model. 
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 123,822.0              |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 4,339.0                |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 263,217.0              |
-| 2024 Q1   | market_value_equity | Common Stock                            | 78,815.0               |
+| 2024 Q1   | market_value_equity | Capital Stock                           | 78,815.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 27,900.0               |
 | 2024 Q1   | sales               | Total Revenue                           | 90,753.0               |
 
