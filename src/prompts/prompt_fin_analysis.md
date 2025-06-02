@@ -89,38 +89,26 @@ Create a table with the following columns:
 
 ## 8. Mandatory Disclaimer (Must Appear at End)
 
-```
----
-**Disclaimer:**
-Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
-- **LLM Model used:** [OpenAI o4-mini]
-- **Knowledge cut-off:** [Date]
-- **Internet search:** [yes/no]
-- **Real-time data:** [yes/no]
----
-```
+At the end of your report, include the following as a single, natural sentence within the narrative (not as a heading, code block, or blockquote):
+
+In closing, please note that this analysis was generated using the OpenAI o4-mini model. Generative AI is not a financial advisor and can make mistakes. The information provided is based on data available as of [Date]. Internet search: [yes/no]. Real-time data: [yes/no]. Always consult your financial advisor before making any investment decisions.
 
 ---
 
 ## 9. References and Data Sources (Must Appear at End)
 
-```
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. For example:
+
 ---
-### References and Data Sources
-- **Financials:** [e.g., SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports]
-- **Market Data:** [e.g., Yahoo Finance historical prices]
-- **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
-- **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
-- **Theoretical Frameworks:** (only those used)
-  - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
-  - Hofer, C. W. (1980). *Turnaround Strategies.*
-  - Bibeault, D. B. (1999). *Corporate Turnaround.*
-  - Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
-  - Beard, D. (2024). “Strategic Renewal in Technology Firms.”
-  - Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
-  - Platt, H. D. (2004). *Principles of Corporate Renewal.*
-  - [Include additional used sources here]
----
-```
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
 
 ---

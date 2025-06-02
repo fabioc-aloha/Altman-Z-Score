@@ -112,6 +112,52 @@ Canonical fields: {canonical_fields}\n
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
 
 
+def _extract_trimmed_sec_info(sec_info: dict) -> dict:
+    """
+    Extract only the most relevant fields from SEC EDGAR company info for prompt injection.
+    Exclude the 'filings' field entirely.
+    """
+    return {
+        "name": sec_info.get("name"),
+        "cik": sec_info.get("cik"),
+        "sic": sec_info.get("sic"),
+        "sicDescription": sec_info.get("sicDescription"),
+        "stateOfIncorporation": sec_info.get("stateOfIncorporation"),
+        "fiscalYearEnd": sec_info.get("fiscalYearEnd"),
+        "category": sec_info.get("category"),
+        "business_address": sec_info.get("addresses", {}).get("business", {}),
+        "phone": sec_info.get("phone"),
+        "tickers": sec_info.get("tickers"),
+        "exchanges": sec_info.get("exchanges"),
+        "ein": sec_info.get("ein"),
+        "website": sec_info.get("website"),
+    }
+
+
+def _extract_trimmed_company_info(company_info: dict) -> dict:
+    """
+    Extract only the most relevant fields from Yahoo Finance company info for prompt injection.
+    Exclude the 'filings' field entirely and remove None values.
+    """
+    # Remove specific fields we don't want
+    filtered = {k: v for k, v in company_info.items() if k != "filings" and v is not None}
+
+    # Process nested dictionaries
+    for k, v in list(filtered.items()):
+        if isinstance(v, dict):
+            # Recursively clean nested dictionaries
+            filtered[k] = {sk: sv for sk, sv in v.items() if sv is not None}
+            if not filtered[k]:  # Remove if empty
+                del filtered[k]
+        elif isinstance(v, list):
+            # Clean up lists to remove None values and empty dicts
+            filtered[k] = [x for x in v if x is not None and (not isinstance(x, dict) or any(x.values()))]
+            if not filtered[k]:  # Remove if empty
+                del filtered[k]
+
+    return filtered
+
+
 def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) -> str:
     """
     Generate a qualitative commentary for the Altman Z-Score report using Azure OpenAI LLM.
@@ -146,23 +192,46 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         system_prompt = f.read()
     # Inject company_info.json content if ticker is provided
     company_info_str = ""
+    sec_info_str = ""
     if ticker:
         from altman_zscore.utils.paths import get_output_dir
         company_info_path = get_output_dir("company_info.json", ticker=ticker)
+        sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
         if os.path.exists(company_info_path):
             try:
                 with open(company_info_path, "r", encoding="utf-8") as info_file:
                     company_info = json.load(info_file)
-                # Truncate or summarize if too large
+                # First extract the trimmed info
+                trimmed_company = _extract_trimmed_company_info(company_info)
                 import io
                 import pprint
                 buf = io.StringIO()
-                pprint.pprint(company_info, stream=buf, compact=True, width=120)
+                pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
                 company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
             except Exception as e:
                 company_info_str = f"\n[Could not load company_info.json: {e}]\n"
-    # Prepend the company info to the user prompt
-    full_prompt = f"{company_info_str}\n{prompt}"
+        if os.path.exists(sec_info_path):
+            try:
+                with open(sec_info_path, "r", encoding="utf-8") as sec_file:
+                    sec_info = json.load(sec_file)
+                    # First extract the trimmed info
+                    trimmed = _extract_trimmed_sec_info(sec_info)
+                    # Remove any None values to reduce noise
+                    trimmed = {k: v for k, v in trimmed.items() if v is not None}
+                    # Also filter out None values from nested dictionaries like business_address
+                    if "business_address" in trimmed:
+                        trimmed["business_address"] = {k: v for k, v in trimmed["business_address"].items() if v is not None}
+                        if not trimmed["business_address"]:  # Remove if empty
+                            del trimmed["business_address"]
+                    import io
+                    import pprint
+                    buf = io.StringIO()
+                    pprint.pprint(trimmed, stream=buf, compact=True, width=120)
+                    sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
+            except Exception as e:
+                sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
+    # Prepend the company info and trimmed SEC info to the user prompt
+    full_prompt = f"{company_info_str}{sec_info_str}\n{prompt}"
     # Save the prompt to a file for traceability if ticker is provided
     if ticker:
         try:
