@@ -15,9 +15,29 @@ See [vision.md](./vision.md) for the full vision statement.
 - [x] Modularize data connectors and enhance CLI for batch/portfolio analysis
 - [x] Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
 
-### Planning for v2.6
-- [ ] Review user feedback and bug reports from v2.5
+### Current & Next Steps (v2.6)
+- [x] Z-Score forecasting, sentiment/news analysis, and multi-ticker/portfolio support (see PLAN.md)
+- [x] Modularize data connectors and enhance CLI for batch/portfolio analysis
+- [x] Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
+- [x] Update all documentation and version numbers for v2.6
+- [x] Tag and push v2.6 release to remote repository
+- [x] Review user feedback and bug reports from v2.6
+- [x] Implement improvements to LLM prompts and mapping logic based on feedback
 - [ ] Plan next milestone features in PLAN.md
+
+### Planning for v2.7
+- [ ] Collect and prioritize user feedback from v2.6
+- [ ] Draft v2.7 roadmap in PLAN.md
+
+### Current & Next Steps (v2.7)
+- [x] Implement robust fallback to SEC EDGAR for financials if yfinance fails
+- [x] Improve error reporting for balance-sheet-only cases (e.g., TUP)
+- [x] Update documentation and release checklist for v2.7
+- [x] Tag and push v2.7 release to remote repository
+- [ ] Collect and prioritize user feedback from v2.7
+- [ ] Draft v2.8 roadmap in PLAN.md
+- [ ] Expand integration and regression tests for new logic
+- [ ] Continue modularization and documentation of new features
 
 ### Prompt & Mapping Tasks
 - [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions

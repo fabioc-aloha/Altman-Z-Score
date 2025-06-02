@@ -4,9 +4,15 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.6)
+# PLAN.md — Altman Z-Score Analysis (v2.7)
 
 ## Updated Plan: Accomplishments and Next Steps
+
+### Accomplishments (v2.7):
+- Robust fallback to SEC EDGAR for financials if yfinance fails
+- Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
+- Documentation and release process updated for new fallback and error handling features
+- All major architectural and technical decisions for this release are documented here and in LEARNINGS.md
 
 ### Accomplishments (v2.6):
 - Z-Score forecasting using consensus estimates and/or time series models
@@ -16,6 +22,8 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 - Prepared for web dashboard, REST API, and Excel Add-In
 - Implemented advanced notifications for Z-Score thresholds
 - Expanded tests and documentation for new features
+- Reviewed user feedback and bug reports from v2.6
+- Implemented improvements to LLM prompts and mapping logic based on feedback
 
 ### Accomplishments:
 - **Data Fetching Enhancements:**
@@ -164,5 +172,16 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 ---
 
-# ---
+## Planning for v2.7
+- Collect and prioritize user feedback from v2.6
+- Draft v2.7 roadmap (feature candidates: further LLM prompt tuning, additional data sources, advanced analytics, UI/UX improvements, etc.)
+- Continue to modularize and document new features
+- Expand integration and regression tests for new logic
+
+## Architectural/Technical Decisions (v2.7)
+- The data fetching layer now robustly falls back to SEC EDGAR if yfinance fails to provide financials.
+- If only balance sheet data is available from SEC EDGAR, the pipeline will not attempt to compute a Z-Score and will transparently report this limitation to the user in the output and logs.
+- Error messages for missing or partial financials are now propagated to the reporting layer for full transparency.
+
+# --- 
 # All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.

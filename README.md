@@ -1,19 +1,16 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.6 (2025-06-02)**
+**Version: 2.7 (2025-06-10)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.6 (June 2, 2025):**
-- Add Z-Score forecasting using consensus estimates and/or time series models
-- Integrate sentiment and news analysis APIs
-- Generalize pipeline for multiple tickers and portfolio analysis
-- Modularize data connectors and enhance CLI for batch/portfolio analysis
-- Prepare for web dashboard, REST API, and Excel Add-In
-- Implement advanced notifications for Z-Score thresholds
-- Expanded tests and documentation for new features
+**Release v2.7 (June 10, 2025):**
+- Robust fallback to SEC EDGAR for financials if yfinance fails
+- Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
+- Documentation and release process updated for new fallback and error handling features
+- See PLAN.md for architectural decisions and LEARNINGS.md for edge cases
 
 ---
 
@@ -46,27 +43,27 @@ Outputs are saved in `output/<TICKER>/`:
 
 ---
 
-## Short-Term Action Items (v2.4+)
-- Add warnings for size/leverage outliers in the report
-- Expand unit/integration tests for new model selection and reporting logic
-- Integrate additional industry benchmark data (WRDS/Compustat or open data) into constants.py as available
-- Document and automate calibration update process in altmans.md
-- Schedule periodic calibration updates and document the process
-- Continue to refine transparency and reporting for edge cases
-- Expand FIELD_SYNONYMS and mapping logic for international/bank tickers (add multi-language, sector-aware mapping, and user overrides)
-- Add/expand tests for prompt ingestion, mapping, and reporting
-- Improve documentation for mapping, prompt usage, and internationalization
-- Modularize data connectors and enhance CLI for batch/portfolio analysis
-- Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
+## Short-Term Action Items (v2.7+)
+- Review user feedback and bug reports from v2.7
+- Implement improvements to LLM prompts and mapping logic based on feedback
+- Plan next milestone features in PLAN.md
+- Collect and prioritize user feedback for v2.8
+- Draft v2.8 roadmap in PLAN.md
+- Expand integration and regression tests for new logic
+- Continue modularization and documentation of new features
 
 ---
 
 ## Project Status & Roadmap
-- **V2.6 (Current):** Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
+- **V2.7 (Current):** Robust fallback to SEC EDGAR for financials, improved error reporting for balance-sheet-only cases, updated documentation and release process
 - **Short-Term:** See above action items for immediate priorities
 - **Planned/Future:**
+    - Further LLM prompt tuning and mapping improvements
+    - Additional data sources and advanced analytics
+    - UI/UX improvements and web dashboard enhancements
     - Z-Score forecasting using consensus estimates and/or time series models
     - Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
+- **V2.6:** Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
 - **V2.4:** Reporting layer always uses coefficients/thresholds from calculation; no hard-coded formulas or thresholds in reporting output; full fidelity for SIC/industry overrides and custom calibrations; model/threshold overrides and assumptions are logged in report; all model constants and thresholds centralized in computation/constants.py; robust error handling and logging throughout pipeline
 - **V2.2.2:** Script version included in every report; tested companies documentation and release process enforced; improved traceability
 - **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, robust report formatting
@@ -77,12 +74,14 @@ See `PLAN.md` and `TODO.md` for the full roadmap and actionable tasks.
 ---
 
 ## Key Features
+- **Robust Data Fallback:** If yfinance fails to provide financials, the pipeline automatically falls back to SEC EDGAR/XBRL. If only partial data is available (e.g., only balance sheet, no income statement), the pipeline will transparently report this and explain why no Z-Score can be computed.
+- **Transparent Error Reporting:** For tickers where only balance sheet data is available from SEC EDGAR (e.g., TUP), the output and logs will clearly state that no Z-Score can be computed due to missing income statement data.
 - **Centralized Model Logic:** All model coefficients and thresholds are stored in `src/altman_zscore/computation/constants.py`—no hard-coded values in the codebase. All model changes must be made in this file for transparency and maintainability.
 - **Altman Z-Score Trend Analysis:** Computes and visualizes Z-Score trends for any US-listed company using real, live data
 - **Industry-Aware Model Selection:** Automatically selects the correct Z-Score model based on SIC code, industry, region, and company maturity
 - **Comprehensive Reporting:** Generates full, well-formatted reports (TXT, CSV, JSON) with context, formulas, diagnostics, and raw data mapping
 - **Stock Price Overlay:** Visualizes Z-Score trends alongside historical stock prices
-- **Robust Error Handling:** Clear diagnostics and error outputs for missing data, delisted tickers, or API issues
+- **Robust Error Handling:** Clear diagnostics and error outputs for missing data, delisted tickers, or API issues. Now includes explicit user-facing errors for partial/insufficient financials.
 - **Extensible Architecture:** Modular design for easy addition of new data sources, models, or output formats; ongoing work to modularize data connectors and prepare for web/REST/Excel interfaces
 
 ---

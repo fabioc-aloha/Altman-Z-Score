@@ -13,7 +13,7 @@ This report provides a comprehensive, theory-informed financial health analysis 
 Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 ---
 
-**Script Version:** v2.5
+**Script Version:** v2.6
 
 ## Analysis Context and Z-Score Model Selection Criteria
 
@@ -48,7 +48,7 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ![Z-Score and Price Trend Chart](zscore_TSLA_trend.png)
 
-*Figure: Z-Score and stock price trend for TSLA (image not available yet; will be generated after analysis)*
+*Figure: Z-Score and stock price trend for TSLA (see output folder for full-resolution image)*
 
 
 ## Z-Score Component Table (by Quarter)
@@ -62,91 +62,76 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 # Altman Z-Score Analysis Report: Tesla, Inc. (TSLA)
 
 ---
-
 ## Company Profile
+Tesla, Inc. is a leading American electric vehicle (EV) manufacturer headquartered in Austin, Texas. The company designs, manufactures, and sells electric vehicles, battery energy storage systems, and solar energy products. Tesla's primary competitors include traditional automotive giants like Ford and General Motors, as well as other EV manufacturers such as Rivian and Lucid Motors. Tesla's innovative approach to technology and sustainability has positioned it as a market leader in the rapidly evolving automotive industry.
 
-Tesla, Inc. is a leading manufacturer and seller of electric vehicles (EVs) and energy generation and storage systems, headquartered in Austin, Texas. The company operates primarily through two segments: Automotive and Energy Generation and Storage. The Automotive segment includes the design, manufacture, and sale of electric vehicles, alongside services such as vehicle insurance and financing. The Energy segment focuses on solar energy generation and energy storage solutions for residential, commercial, and industrial customers.
-
-Tesla competes with other major automotive manufacturers, including traditional automakers transitioning to electric vehicles (e.g., Ford, General Motors) and other EV-focused companies like Rivian and Lucid Motors. Tesla's innovative approach, strong brand recognition, and extensive charging infrastructure give it a competitive edge in the rapidly evolving automotive landscape.
-
-In summary, Tesla has established itself as a dominant player in the electric vehicle market, leveraging its technological advancements and brand loyalty to maintain a strong market position. The company's financial health, as indicated by its Altman Z-Score, suggests a robust outlook for continued growth and innovation.
-
----
+In recent years, Tesla has expanded its product offerings beyond electric vehicles to include energy solutions, such as solar panels and energy storage systems. This diversification aligns with the company's mission to accelerate the world's transition to sustainable energy. The company's strong brand recognition, innovative technology, and commitment to sustainability have contributed to its competitive advantage in the market.
 
 ## 1. Diagnostic Evaluation of Financial Health
-
 ### Liquidity
-Tesla's current ratio stands at 1.996, indicating that the company has nearly double the current assets compared to its current liabilities. This is a positive sign of liquidity, suggesting that Tesla can comfortably meet its short-term obligations.
+Tesla's liquidity position, as indicated by its current ratio (X1), shows a healthy balance of current assets to current liabilities, averaging around 0.237 in the latest quarter. This suggests that Tesla can comfortably meet its short-term obligations, which is critical for maintaining operational stability.
 
 ### Profitability
-The company's profit margins are relatively modest, with a gross margin of 17.66% and a net profit margin of approximately 6.38%. However, the earnings growth has been negative at -70.7%, indicating challenges in maintaining profitability in the face of rising costs and competitive pressures.
+The profitability metrics, particularly retained earnings (X2) and EBIT (X3), indicate a robust performance. Tesla's retained earnings have shown consistent growth, reflecting the company's ability to reinvest profits into its operations. The EBIT margin, although modest at 0.005, suggests that Tesla is generating operational income, albeit with room for improvement.
 
 ### Capital Efficiency
-Tesla's return on equity (ROE) is at 8.77%, which is reasonable for the automotive industry, but it reflects the need for improved capital efficiency. The return on assets (ROA) is at 3.72%, suggesting that while Tesla is generating profits, there is room for improvement in asset utilization.
+Tesla's equity to total liabilities ratio (X4) is exceptionally strong at 16.798, indicating a solid capital structure with minimal reliance on debt financing. This high leverage ratio positions Tesla favorably against potential downturns, as it has a significant equity cushion.
 
-### Leverage
-The debt-to-equity ratio is notably high at 17.41, indicating that Tesla is heavily leveraged. While this can amplify returns, it also increases financial risk, particularly in a volatile market.
-
-### Z-Score Trajectory
-Tesla's Z-Score has consistently remained in the Safe Zone, with a current score of 10.934. This indicates a strong financial position and a low risk of bankruptcy. The trajectory of the Z-Score has shown stability and growth, suggesting that Tesla is well-positioned for future success.
+### Overall Z-Score Assessment
+Tesla's Z-Score trajectory has consistently remained in the **Safe Zone**, with the latest score reaching 10.934. This indicates a low risk of bankruptcy and a strong financial position relative to industry benchmarks. The company's ability to maintain a high Z-Score over multiple quarters reflects effective management and operational efficiency.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application (Risk-Tailored)
+Given Tesla's current position in the **Safe Zone**, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
 
-Given Tesla's current status in the Safe Zone, the focus should be on **innovation, repositioning**, and **stakeholder alignment** for sustained growth. 
+- **Innovation**: Tesla should continue to invest in R&D to enhance its product offerings and maintain its competitive edge in the EV market. This aligns with Beard (2024), which emphasizes the importance of innovation in tech-sector renewal.
+  
+- **Repositioning**: As the market evolves, Tesla should consider repositioning its brand to appeal to a broader audience, including more affordable EV options to capture market share from traditional automakers.
 
-- **Innovation**: Tesla should continue to invest in R&D to enhance its product offerings, including advancements in battery technology and autonomous driving capabilities. This aligns with Beard's (2024) insights on tech-sector renewal, emphasizing the importance of innovation in maintaining competitive advantage.
-
-- **Repositioning**: Tesla can explore new market segments, such as expanding its energy storage solutions for commercial applications, which can diversify revenue streams and reduce dependency on automotive sales.
-
-- **Stakeholder Alignment**: Engaging with stakeholders, including customers, employees, and investors, is crucial. Freeman's (1984) stakeholder theory suggests that aligning interests can lead to better decision-making and enhanced corporate reputation.
+- **Stakeholder Alignment**: Engaging with stakeholders, including customers, employees, and investors, is crucial for fostering loyalty and support. Freeman (1984) highlights the importance of stakeholder alignment in achieving long-term success.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations (Tailored Table)
 
-| Title          | Responsibilities                      | Recommended Actions (Cited)                                   |
-|----------------|--------------------------------------|--------------------------------------------------------------|
-| CEO            | Strategic vision and leadership      | Drive innovation initiatives and explore new market segments. |
-| CFO            | Financial management and reporting    | Monitor debt levels and optimize capital structure.           |
-| CMO            | Marketing and brand strategy         | Enhance marketing campaigns focusing on sustainability and innovation. |
-| Board           | Governance and oversight             | Ensure alignment of strategic goals with stakeholder interests. |
-| Employees      | Operational execution                | Foster a culture of innovation and continuous improvement.    |
-| Shareholders   | Investment and returns               | Communicate growth strategies and performance transparently.  |
-| Creditors      | Financial support and risk management | Maintain open lines of communication regarding financial health. |
-| Customers      | Product satisfaction and loyalty     | Engage in feedback loops to enhance product offerings.       |
-| Partners       | Collaborative ventures               | Explore strategic partnerships for technology and market expansion. |
+| Title        | Responsibilities                               | Recommended Actions (Cited)                                      |
+|--------------|------------------------------------------------|------------------------------------------------------------------|
+| CEO          | Overall strategic direction                    | Drive innovation initiatives and explore new market segments.    |
+| CFO          | Financial oversight and capital allocation     | Maintain strong liquidity and consider strategic investments.      |
+| CMO          | Marketing and brand positioning                | Enhance brand messaging to emphasize sustainability and innovation.|
+| Board        | Governance and strategic guidance              | Support R&D initiatives and monitor market trends closely.        |
+| Employees    | Operational execution                          | Foster a culture of innovation and continuous improvement.        |
+| Shareholders | Investment returns and company growth          | Communicate growth strategies and performance metrics transparently.|
+| Creditors    | Financial stability and risk management        | Maintain strong relationships and ensure timely debt servicing.   |
+| Customers    | Product satisfaction and loyalty               | Engage in feedback loops to improve product offerings.            |
+| Partners     | Collaboration and strategic alliances          | Explore partnerships for technology sharing and market expansion.  |
 
 ---
 
 ## 4. Communication, Marketing & Execution Strategy
+### Internal and External Communication Plans
+- **Internal**: Regular updates on innovation projects and financial performance to foster transparency and engagement among employees.
+- **External**: Marketing campaigns focused on sustainability and innovation to enhance brand perception and attract new customers.
 
-### Internal Communication Plan
-- **Tone**: Calm assurance, focusing on growth and innovation.
-- **Milestones**: 
-  - 1–3 months: Launch new marketing campaigns highlighting innovation.
-  - 4–6 months: Evaluate R&D progress and market expansion opportunities.
-  - 7–12 months: Assess stakeholder engagement and satisfaction.
-  - 13–18 months: Review financial performance and adjust strategies as needed.
+### Milestones, Accountable Parties, and Timelines
+- **1–3 Months**: Launch new marketing campaign (CMO), initiate R&D projects (CEO).
+- **4–6 Months**: Review financial performance (CFO), assess market response to new products (CMO).
+- **7–12 Months**: Evaluate innovation outcomes (CEO), adjust strategies based on stakeholder feedback (Board).
+- **13–18 Months**: Expand product line based on market trends (CEO), enhance stakeholder engagement initiatives (CFO).
 
-### External Communication Plan
-- **Tone**: Transparent and proactive, addressing market expectations.
-- **Marketing Tactics**: 
-  - Focus on sustainability and technological advancements in campaigns.
-  - Highlight customer testimonials and success stories to build brand loyalty.
+### Tailored Marketing Tactics
+- Focus on innovation campaigns that highlight Tesla's advancements in EV technology and sustainability efforts to restore investor confidence and attract new customers.
 
 ---
 
 ## 5. Plain-Language Justification & Citation
-
-Tesla's strong liquidity and consistent Z-Score in the Safe Zone indicate a solid financial foundation. However, the company must address profitability challenges and high leverage to sustain growth. By investing in innovation and aligning with stakeholders, Tesla can continue to thrive in the competitive automotive landscape (Freeman, 1984; Beard, 2024).
+Tesla's strong financial health, as evidenced by its high Z-Score, allows it to pursue aggressive growth strategies. By investing in innovation and maintaining strong stakeholder relationships, Tesla can continue to lead the EV market. This approach is supported by Beard (2024) and Freeman (1984), emphasizing the importance of innovation and stakeholder alignment in achieving long-term success.
 
 ---
 
 ## 6. Investor Recommendation (Risk-Aware)
-
-**Recommendation**: **Buy**. Tesla's strong financial health and growth potential make it an attractive investment opportunity.
+**Recommendation**: **Buy**. Given Tesla's strong financial position and growth potential, investors should consider acquiring shares to capitalize on future growth opportunities.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -155,12 +140,12 @@ Tesla's strong liquidity and consistent Z-Score in the Safe Zone indicate a soli
 ## 7. External Stakeholder Bargaining Power (Table)
 
 | Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
-|-------------------------|----------------------------|---------------------|-------------------------|
-| Customers               | High                       | High                | Strong brand loyalty and demand for EVs (Freeman, 1984). |
-| Suppliers               | Moderate                   | Moderate            | Dependence on specific suppliers for components. |
-| Investors               | High                       | High                | Significant influence on company direction and funding. |
-| Regulators              | High                       | High                | Compliance with environmental and safety regulations is critical. |
-| Competitors             | Moderate                   | Moderate            | Competitive pressure influences pricing and innovation. |
+|-------------------------|---------------------------|---------------------|--------------------------|
+| Customers               | High                      | High                | Customers drive demand for EVs, influencing pricing and product features (Freeman, 1984). |
+| Suppliers               | Moderate                  | Moderate            | Suppliers provide critical components; Tesla's scale gives it some leverage (Platt, 2004). |
+| Investors               | High                      | High                | Investors influence capital availability and strategic direction (Freeman, 1984). |
+| Regulators              | High                      | High                | Regulatory policies impact operational capabilities and market access (Hoskisson et al., 2004). |
+| Competitors             | Moderate                  | Moderate            | Competitors influence market dynamics and pricing strategies (Bibeault, 1999). |
 
 ---
 
@@ -171,9 +156,9 @@ Tesla's strong liquidity and consistent Z-Score in the Safe Zone indicate a soli
 **Disclaimer:**
 Generative AI is not a financial advisor and can make mistakes. Consult your financial advisor before making investment decisions.
 - **LLM Model used:** [OpenAI o4-mini]
-- **Knowledge cut-off:** [October 2023]
-- **Internet search:** [no]
-- **Real-time data:** [no]
+- **Knowledge cut-off:** [Date]
+- **Internet search:** [yes/no]
+- **Real-time data:** [yes/no]
 ---
 ```
 
@@ -184,11 +169,11 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 ```
 ---
 ### References and Data Sources
-- **Financials:** Yahoo Finance; company quarterly/annual reports.
+- **Financials:** SEC EDGAR/XBRL filings; Yahoo Finance; company quarterly/annual reports.
 - **Market Data:** Yahoo Finance historical prices.
 - **Computation:** Altman Z-Score calculations following Altman (1968) with robust error handling.
 - **Source Attribution:** Open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Author: Fabio Correa.
-- **Theoretical Frameworks:** 
+- **Theoretical Frameworks:**
   - Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
   - Hofer, C. W. (1980). *Turnaround Strategies.*
   - Bibeault, D. B. (1999). *Corporate Turnaround.*
@@ -213,7 +198,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2025 Q1   | current_liabilities | Current Liabilities                     | 29,753.0               |
 | 2025 Q1   | retained_earnings   | Retained Earnings                       | 35,618.0               |
 | 2025 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 49,693.0               |
-| 2025 Q1   | market_value_equity | Common Stock Equity                     | 74,653.0               |
+| 2025 Q1   | market_value_equity | Total Equity Gross Minority Interest    | 75,418.0               |
 | 2025 Q1   | ebit                | EBIT                                    | 680.0                  |
 | 2025 Q1   | sales               | Total Revenue                           | 19,335.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -222,7 +207,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q4   | current_liabilities | Current Liabilities                     | 28,821.0               |
 | 2024 Q4   | retained_earnings   | Retained Earnings                       | 35,209.0               |
 | 2024 Q4   | total_liabilities   | Total Liabilities Net Minority Interest | 48,390.0               |
-| 2024 Q4   | market_value_equity | Common Stock Equity                     | 72,913.0               |
+| 2024 Q4   | market_value_equity | Total Equity Gross Minority Interest    | 73,680.0               |
 | 2024 Q4   | ebit                | EBIT                                    | 2,862.0                |
 | 2024 Q4   | sales               | Total Revenue                           | 25,707.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -231,7 +216,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q3   | current_liabilities | Current Liabilities                     | 30,577.0               |
 | 2024 Q3   | retained_earnings   | Retained Earnings                       | 32,656.0               |
 | 2024 Q3   | total_liabilities   | Total Liabilities Net Minority Interest | 49,142.0               |
-| 2024 Q3   | market_value_equity | Common Stock Equity                     | 69,931.0               |
+| 2024 Q3   | market_value_equity | Total Equity Gross Minority Interest    | 70,710.0               |
 | 2024 Q3   | ebit                | EBIT                                    | 2,876.0                |
 | 2024 Q3   | sales               | Total Revenue                           | 25,182.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -240,7 +225,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q2   | current_liabilities | Current Liabilities                     | 27,729.0               |
 | 2024 Q2   | retained_earnings   | Retained Earnings                       | 30,489.0               |
 | 2024 Q2   | total_liabilities   | Total Liabilities Net Minority Interest | 45,569.0               |
-| 2024 Q2   | market_value_equity | Common Stock Equity                     | 66,468.0               |
+| 2024 Q2   | market_value_equity | Total Equity Gross Minority Interest    | 67,263.0               |
 | 2024 Q2   | ebit                | EBIT                                    | 1,973.0                |
 | 2024 Q2   | sales               | Total Revenue                           | 25,500.0               |
 | ---       | ---                 | ---                                     | ---                    |
@@ -249,7 +234,7 @@ Generative AI is not a financial advisor and can make mistakes. Consult your fin
 | 2024 Q1   | current_liabilities | Current Liabilities                     | 29,453.0               |
 | 2024 Q1   | retained_earnings   | Retained Earnings                       | 29,011.0               |
 | 2024 Q1   | total_liabilities   | Total Liabilities Net Minority Interest | 44,046.0               |
-| 2024 Q1   | market_value_equity | Common Stock Equity                     | 64,378.0               |
+| 2024 Q1   | market_value_equity | Total Equity Gross Minority Interest    | 65,180.0               |
 | 2024 Q1   | ebit                | EBIT                                    | 1,964.0                |
 | 2024 Q1   | sales               | Total Revenue                           | 21,301.0               |
 

@@ -250,6 +250,21 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
 
         quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
         if quarters:
+            # After collecting quarters, check if all non-asset/liability fields are zero for every quarter
+            non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
+            all_zero = True
+            for q in quarters:
+                if any(Decimal(str(q.get(f, 0))) != 0 for f in non_asset_fields):
+                    all_zero = False
+                    break
+            if all_zero:
+                logger.error(f"[{ticker}] SEC EDGAR fallback: Only balance sheet data available; all income statement fields are zero. No Z-Score can be computed.")
+                return {
+                    "error": "SEC EDGAR filings for this ticker do not contain the required income statement fields (e.g., sales, EBIT, retained earnings). Only balance sheet data is available. No Z-Score can be computed.",
+                    "quarters": quarters,
+                    "missing_fields_by_quarter": missing_fields_by_quarter
+                }
+
             # Only now, after confirming valid data, write diagnostics
             output_dir = get_output_dir(None, ticker=ticker)
             if not os.path.exists(output_dir):
@@ -329,4 +344,72 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
     except Exception as e:
         logger.error(f"[{ticker}] Exception in fetch_financials: {e}")
         print(f"[ERROR] Could not fetch financials for {ticker}: {e}")
-        return None
+        # --- SEC EDGAR fallback for financials ---
+        try:
+            from altman_zscore.api.sec_client import SECClient
+            sec_client = SECClient()
+            cik = sec_client.lookup_cik(ticker)
+            if not cik:
+                logger.error(f"[{ticker}] SEC EDGAR fallback: No CIK found for ticker.")
+                return None
+            facts = sec_client.get_company_facts(cik)
+            quarters = []
+            missing_fields_by_quarter = []
+            periods = {}
+            for field in fields_to_fetch:
+                xbrl_names = FIELD_MAPPING.get(field, [])
+                for xbrl_name in xbrl_names:
+                    fact = facts.get("facts", {}).get("us-gaap", {}).get(xbrl_name)
+                    if not fact:
+                        continue
+                    for item in fact.get("units", {}).values():
+                        for entry in item:
+                            end = entry.get("end")
+                            val = entry.get("val")
+                            if not end or val is None:
+                                continue
+                            if end not in periods:
+                                periods[end] = {}
+                            periods[end][field] = Decimal(str(val))
+            critical_fields = ["total_assets", "current_assets", "current_liabilities", "retained_earnings"]
+            for period_end, data in periods.items():
+                missing = [f for f in critical_fields if f not in data or data[f] is None]
+                # Allow up to 2 missing critical fields for partial analysis
+                if len(missing) > 2:
+                    logger.warning(f"[{ticker}] {period_end}: Skipping SEC quarter due to missing: {', '.join(missing)}")
+                    continue
+                # Fill missing fields with 0 and mark as missing
+                for f in fields_to_fetch:
+                    if f not in data or data[f] is None:
+                        data[f] = Decimal("0")
+                data["period_end"] = period_end
+                quarters.append(data)
+                missing_fields_by_quarter.append(missing)
+            quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
+            if quarters:
+                # After collecting quarters, check if all non-asset/liability fields are zero for every quarter (SEC fallback)
+                non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
+                all_zero = True
+                for q in quarters:
+                    if any(Decimal(str(q.get(f, 0))) != 0 for f in non_asset_fields):
+                        all_zero = False
+                        break
+                if all_zero:
+                    logger.error(f"[{ticker}] SEC EDGAR fallback: Only balance sheet data available; all income statement fields are zero. No Z-Score can be computed.")
+                    return {
+                        "error": "SEC EDGAR filings for this ticker do not contain the required income statement fields (e.g., sales, EBIT, retained earnings). Only balance sheet data is available. No Z-Score can be computed.",
+                        "quarters": quarters,
+                        "missing_fields_by_quarter": missing_fields_by_quarter
+                    }
+                output_dir = get_output_dir(None, ticker=ticker)
+                if not os.path.exists(output_dir):
+                    os.makedirs(output_dir)
+                with open(os.path.join(output_dir, "financials_quarterly.json"), "w", encoding="utf-8") as f:
+                    json.dump(quarters, f, indent=2, ensure_ascii=False, default=str)
+                return {"quarters": quarters, "missing_fields_by_quarter": missing_fields_by_quarter}
+            else:
+                logger.error(f"[{ticker}] SEC EDGAR fallback: No usable financial data found.")
+                return None
+        except Exception as sec_e:
+            logger.error(f"[{ticker}] SEC EDGAR fallback failed: {sec_e}")
+            return None
