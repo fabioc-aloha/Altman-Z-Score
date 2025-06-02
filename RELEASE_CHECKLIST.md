@@ -11,11 +11,11 @@
 - [x] Run all unit and integration tests (local and CI)
 - [x] Verify LLM prompt injection for company officers and all new features
 - [x] Validate output for at least one ticker end-to-end
-- [ ] Review and update documentation (README, PLAN.md, TODO.md)
-- [ ] Update main.py, docstrings and usage. Reflect that in readme
-- [ ] Check for new/removed dependencies and update requirements.txt
-- [ ] Tag release in version control (git tag v2.7.1)
-- [ ] Push tag and code to remote repository
+- [x] Review and update documentation (README, PLAN.md, TODO.md)
+- [x] Update main.py, docstrings and usage. Reflect that in readme
+- [x] Check for new/removed dependencies and update requirements.txt
+- [x] Tag release in version control (git tag v2.7.1)
+- [x] Push tag and code to remote repository
 - [ ] Announce release (GitHub, project channels)
 
 ---
