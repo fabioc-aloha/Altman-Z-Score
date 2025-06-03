@@ -48,6 +48,7 @@ See [vision.md](./vision.md) for the full vision statement.
 ### Current & Next Steps (v2.7.3)
 - [x] Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
 - [x] Updated documentation and version numbers for v2.7.3
+- [x] Modularize and refactor data_fetching/financials.py (see REFACTORING_PLAN.md for details)
 - [ ] Collect and prioritize user feedback from v2.7.3
 - [ ] Draft v2.8 roadmap in PLAN.md
 

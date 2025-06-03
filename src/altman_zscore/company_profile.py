@@ -5,6 +5,7 @@ from typing import Optional
 import requests
 
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.company_profile_helpers import find_field, is_emerging_market_country, get_industry_group, get_market_category, classify_maturity, extract_cik_from_sec_html, get_sec_headers, get_emerging_countries, classify_company_by_sec
 
 """
 Company profile classification and lookup utilities for Altman Z-Score model selection.
@@ -102,37 +103,7 @@ class CompanyProfile:
 
     @staticmethod
     def classify_maturity(founding_year, ipo_date, current_year=None):
-        """
-        Classify company as 'early-stage', 'growth', or 'mature' using founding year and IPO date.
-        """
-        import datetime
-
-        if not current_year:
-            current_year = datetime.datetime.now().year
-        if ipo_date:
-            try:
-                ipo_year = int(str(ipo_date)[:4])
-                years_since_ipo = current_year - ipo_year
-                if years_since_ipo < 3:
-                    return "early-stage"
-                elif years_since_ipo < 7:
-                    return "growth"
-                else:
-                    return "mature"
-            except Exception:
-                pass
-        if founding_year:
-            try:
-                years_since_founding = current_year - int(founding_year)
-                if years_since_founding < 3:
-                    return "early-stage"
-                elif years_since_founding < 7:
-                    return "growth"
-                else:
-                    return "mature"
-            except Exception:
-                pass
-        return "mature"  # Default fallback
+        return classify_maturity(founding_year, ipo_date, current_year)
 
     @staticmethod
     def from_ticker(ticker):
@@ -168,74 +139,21 @@ class CompanyProfile:
             with open(output_path, "w") as f:
                 json.dump(yf_info, f, indent=2)
 
-            # Helper to search for the first non-empty value among possible keys
-            def find_field(possible_keys):
-                for key in possible_keys:
-                    val = yf_info.get(key)
-                    if val:
-                        return val
-                return None
-
             # Dynamically resolve fields
-            industry = find_field(["industry", "industryKey", "industryDisp", "sector", "sectorKey", "sectorDisp"])
-            country = find_field(["country", "countryKey", "countryDisp"])
-            exchange = find_field(["exchange", "fullExchangeName", "exchangeTimezoneName"])
-            founding_year = find_field(["founded", "startYear", "foundingYear"])
-            ipo_date = find_field(["ipoDate", "ipoYear", "ipo"])
+            industry = find_field(yf_info, ["industry", "industryKey", "industryDisp", "sector", "sectorKey", "sectorDisp"])
+            country = find_field(yf_info, ["country", "countryKey", "countryDisp"])
+            exchange = find_field(yf_info, ["exchange", "fullExchangeName", "exchangeTimezoneName"])
+            founding_year = find_field(yf_info, ["founded", "startYear", "foundingYear"])
+            ipo_date = find_field(yf_info, ["ipoDate", "ipoYear", "ipo"])
             is_public = True
-            emerging_countries = [
-                "china",
-                "india",
-                "brazil",
-                "russia",
-                "south africa",
-                "mexico",
-                "indonesia",
-                "turkey",
-                "thailand",
-                "malaysia",
-                "philippines",
-                "chile",
-                "colombia",
-                "poland",
-                "egypt",
-                "hungary",
-                "qatar",
-                "uae",
-                "peru",
-                "greece",
-                "czech republic",
-                "pakistan",
-                "saudi arabia",
-                "south korea",
-                "taiwan",
-                "vietnam",
-            ]
             country_str = (country or "").lower()
-            is_em = country_str in emerging_countries
-            maturity = CompanyProfile.classify_maturity(founding_year, ipo_date)
+            is_em = is_emerging_market_country(country_str)
+            maturity = classify_maturity(founding_year, ipo_date)
+            market_category = get_market_category(is_em)
             # print(f"[DEBUG] yfinance info for {ticker}: industry={industry}, country={country}, exchange={exchange}")
             if industry:
                 # Map to enums if possible
-                ig = None
-                ind_lower = str(industry).lower()
-                if "tech" in ind_lower:
-                    ig = IndustryGroup.TECH
-                elif "bank" in ind_lower or "financ" in ind_lower:
-                    ig = IndustryGroup.FINANCIAL
-                elif (
-                    "manufactur" in ind_lower
-                    or "consumer electronics" in ind_lower
-                    or "hardware" in ind_lower
-                    or "semiconductor" in ind_lower
-                ):
-                    ig = IndustryGroup.MANUFACTURING
-                elif "service" in ind_lower:
-                    ig = IndustryGroup.SERVICE
-                elif "entertain" in ind_lower:
-                    ig = IndustryGroup.SERVICE
-                else:
-                    ig = IndustryGroup.OTHER
+                ig = get_industry_group(industry)
                 # print(f"[DEBUG] yfinance classification for {ticker}: ig={ig}, is_em={is_em}")
                 return CompanyProfile(
                     ticker,
@@ -243,7 +161,7 @@ class CompanyProfile:
                     is_public,
                     is_em,
                     ig,
-                    MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED,
+                    market_category,
                     country=country,
                     exchange=exchange,
                     founding_year=founding_year,
@@ -276,20 +194,8 @@ class CompanyProfile:
             resp = requests.get(search_url, headers=headers, timeout=10)
             cik = None
             if resp.status_code == 200:
-                import re
-
-                # Try multiple patterns for CIK extraction
-                patterns = [
-                    r"CIK=(\d+)",
-                    r"CIK#: (\d+)",
-                    r"CIK (\d+)",
-                    r"cik=(\d+)",
-                ]
-                for pat in patterns:
-                    match = re.search(pat, resp.text)
-                    if match:
-                        cik = match.group(1).zfill(10)
-                        break
+                # Use extract_cik_from_sec_html for CIK extraction from SEC HTML
+                cik = extract_cik_from_sec_html(resp.text)
                 if cik:
                     # print(f"[DEBUG] Fallback SEC HTML CIK for {ticker}: {cik}")
                     profile = classify_company_by_sec(cik, ticker)
@@ -365,10 +271,7 @@ def lookup_cik(ticker: str) -> Optional[str]:
     # Fallback: SEC's public ticker-CIK mapping
     try:
         url = f"https://www.sec.gov/files/company_tickers.json"
-        headers = {
-            "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
-            "From": os.getenv("SEC_API_EMAIL", "AltmanZScore/1.0"),
-        }
+        headers = get_sec_headers()
         if not headers["From"]:
             import warnings
 
@@ -382,109 +285,3 @@ def lookup_cik(ticker: str) -> Optional[str]:
     except Exception:
         pass
     return None
-
-
-def classify_company_by_sec(cik: str, ticker: str) -> CompanyProfile:
-    """
-    Fetch company info from SEC EDGAR, extract SIC code, and map to industry group and maturity.
-
-    Args:
-        cik (str): 10-digit CIK
-        ticker (str): Stock ticker symbol
-    Returns:
-        CompanyProfile: Populated profile (may have limited info if SEC fetch fails)
-    """
-    import requests
-
-    sec_api_email = os.getenv("SEC_API_EMAIL", "")
-    headers = {
-        "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
-        "From": sec_api_email,
-    }
-    url = f"https://data.sec.gov/submissions/CIK{str(cik).zfill(10)}.json"
-    try:
-        resp = requests.get(url, headers=headers, timeout=10)
-        resp.raise_for_status()
-        data = resp.json()
-        sic = str(data.get("sic", ""))
-        country = data.get("addresses", {}).get("business", {}).get("country", None)
-        ig = IndustryGroup.OTHER
-        maturity = None
-        # --- Robust maturity assignment logic ---
-        if sic:
-            try:
-                sic_int = int(sic)
-                # Industry group mapping
-                if 3570 <= sic_int <= 3579 or 3670 <= sic_int <= 3679 or 7370 <= sic_int <= 7379:
-                    ig = IndustryGroup.TECH
-                    # Tech: public = mature, private = growth/early
-                    maturity = "mature"
-                elif 6000 <= sic_int <= 6999:
-                    ig = IndustryGroup.FINANCIAL
-                    maturity = "mature"
-                elif 2000 <= sic_int <= 3999:
-                    ig = IndustryGroup.MANUFACTURING
-                    # Manufacturing: public = mature, private = growth/early
-                    maturity = "mature"
-                elif 7000 <= sic_int <= 8999:
-                    ig = IndustryGroup.SERVICE
-                    # Service: public = mature, private = growth/early
-                    maturity = "mature"
-                else:
-                    ig = IndustryGroup.OTHER
-                    maturity = "mature"  # Default to mature for public, developed market
-                # Example: If SIC is in biotech/early-stage, could set 'growth' or 'early' (future extensibility)
-                # If SIC is 2834 (biotech), set to 'growth' or 'early' (not implemented here)
-            except Exception:
-                maturity = "mature"  # Fallback for parse errors
-        else:
-            maturity = "mature"  # Fallback if no SIC but public and developed
-        emerging_countries = [
-            "china",
-            "india",
-            "brazil",
-            "russia",
-            "south africa",
-            "mexico",
-            "indonesia",
-            "turkey",
-            "thailand",
-            "malaysia",
-            "philippines",
-            "chile",
-            "colombia",
-            "poland",
-            "egypt",
-            "hungary",
-            "qatar",
-            "uae",
-            "peru",
-            "greece",
-            "czech republic",
-            "pakistan",
-            "saudi arabia",
-            "south korea",
-            "taiwan",
-            "vietnam",
-        ]
-        country_str = (country or "").lower()
-        is_em = country_str in emerging_countries
-        return CompanyProfile(
-            ticker,
-            industry=f"SIC {sic}" if sic else None,
-            is_public=True,
-            is_emerging_market=is_em,
-            industry_group=ig,
-            market_category=MarketCategory.EMERGING if is_em else MarketCategory.DEVELOPED,
-            country=country,
-            exchange=None,
-            maturity=maturity,
-        )
-    except Exception as e:
-        print(f"[CompanyProfile] SEC EDGAR real-time fetch failed for {ticker}: {e}")
-        return CompanyProfile(
-            ticker,
-            industry_group=IndustryGroup.OTHER,
-            market_category=MarketCategory.DEVELOPED,
-            maturity="mature",
-        )

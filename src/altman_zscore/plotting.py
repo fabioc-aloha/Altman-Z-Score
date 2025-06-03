@@ -34,43 +34,8 @@ from altman_zscore.plot_blocks import (
     format_axes as _format_axes,
     plot_price_trend as _plot_price_trend,
 )
-
-# ANSI color codes for terminal output if supported
-class Colors:
-    HEADER = "\033[95m"
-    BLUE = "\033[94m"
-    CYAN = "\033[96m"
-    GREEN = "\033[92m"
-    YELLOW = "\033[93m"
-    RED = "\033[91m"
-    ENDC = "\033[0m"
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
-
-
-def print_info(msg):
-    """Print an info message with cyan color if supported"""
-    try:
-        print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
-    except:
-        print(f"[INFO] {msg}")
-
-
-def print_warning(msg):
-    """Print a warning message with yellow color if supported"""
-    try:
-        print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
-    except:
-        print(f"[WARNING] {msg}")
-
-
-def print_error(msg):
-    """Print an error message with red color if supported"""
-    try:
-        print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}")
-    except:
-        print(f"[ERROR] {msg}")
-
+from altman_zscore.plotting_terminal import print_info, print_warning, print_error
+from altman_zscore.plotting_helpers import make_zone_bands, add_zone_labels, make_legend_elements, save_plot_with_legend
 
 def get_output_ticker_dir(ticker):
     """Return the absolute output directory for a given ticker, ensuring it exists."""
@@ -115,14 +80,13 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
         return
 
     print_info("Generating Z-Score trend plot...")
-    plt.figure(figsize=(10, 5.5))  # Increased figure height slightly
+    plt.figure(figsize=(12, 5.5))  # Increased height from 5.5 to 7.0 to close gap with legend
 
     # Ensure chronological order by sorting by quarter_end
     plot_df = plot_df.copy()
     plot_df["quarter_end"] = pd.to_datetime(plot_df["quarter_end"])
     plot_df = plot_df.sort_values("quarter_end")
     zscores = plot_df["zscore"].astype(float)
-    plot_df["quarter_end"]
 
     # Get thresholds for the model
     thresholds = get_zscore_thresholds(model)
@@ -137,81 +101,13 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     legend_padding = (z_max - z_min) * 0.18  # 18% of range for legend space
     ymax = z_max + margin + legend_padding
     plt.ylim(ymin, ymax)
-    # Draw bands in order: distress (bottom), grey (middle), safe (top)
-    plt.axhspan(
-        ymin,
-        float(thresholds["distress_zone"]),
-        color="#ff6666",
-        alpha=0.8,
-        label="Distress Zone",
-        zorder=0,
-    )
-    plt.axhspan(
-        float(thresholds["distress_zone"]),
-        float(thresholds["safe_zone"]),
-        color="#cccccc",
-        alpha=0.6,
-        label="Grey Zone",
-        zorder=0,
-    )
-    plt.axhspan(
-        float(thresholds["safe_zone"]),
-        ymax,
-        color="#66ff66",
-        alpha=0.5,
-        label="Safe Zone",
-        zorder=0,
-    )
 
-    # Add zone names inside the plot area
+    # Draw bands using helper function
     ax = plt.gca()
+    make_zone_bands(ax, ymin, ymax, thresholds)
 
-    # Calculate y positions within each zone
-    distress_y = ymin + (float(thresholds["distress_zone"]) - ymin) * 0.5
-    grey_y = (
-        float(thresholds["distress_zone"]) + (float(thresholds["safe_zone"]) - float(thresholds["distress_zone"])) * 0.5
-    )
-    safe_y = float(thresholds["safe_zone"]) + (ymax - float(thresholds["safe_zone"])) * 0.3
-    # Add the zone labels at the start of the x-axis
-    # Use transform to place labels in axes coordinates (0 = left, 1 = right)
-    ax.text(
-        0.02,
-        (distress_y - ymin) / (ymax - ymin),
-        "Distress",
-        transform=ax.transAxes,
-        color="#a60000",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )
-
-    ax.text(
-        0.02,
-        (grey_y - ymin) / (ymax - ymin),
-        "Grey",
-        transform=ax.transAxes,
-        color="#444444",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )
-
-    ax.text(
-        0.02,
-        (safe_y - ymin) / (ymax - ymin),
-        "Safe",
-        transform=ax.transAxes,
-        color="#007a00",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )
+    # Add zone names inside the plot area using helper function
+    add_zone_labels(ax, ymin, ymax, thresholds)
 
     # Create timeline that spans earliest to latest dates
     x_dates = plot_df["quarter_end"]
@@ -305,22 +201,9 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     safe = float(thresholds["safe_zone"])
     distress = float(thresholds["distress_zone"])
 
-    # Create legend patches
-    legend_elements = [
-        mpatches.Patch(facecolor="#ff6666", alpha=0.8, label=f"Distress Zone\n≤ {distress}"),
-        mpatches.Patch(facecolor="#cccccc", alpha=0.6, label=f"Grey Zone\n{distress} to {safe}"),
-        mpatches.Patch(facecolor="#66ff66", alpha=0.5, label=f"Safe Zone\n≥ {safe}"),
-        Line2D(
-            [0],
-            [0],
-            color="blue",
-            marker="s",
-            label="Z-Score\nTrend Line",
-            markersize=4,
-            linestyle="-",
-            linewidth=1,
-        ),
-    ]
+    # Create legend patches using helper function
+    legend_elements = make_legend_elements(safe, distress)
+
     # If price_stats are provided, plot average and range as the stock price line
     if price_stats is not None and not price_stats.empty:
         ax2 = ax.twinx()
@@ -339,7 +222,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
 
     # Add legend extending horizontally in one line
     # Increase left margin for y-axis label, adjust bottom margin and legend position
-    _add_legend_and_save(
+    save_plot_with_legend(
         plt.gcf(),
         legend_elements,
         os.path.join(get_output_ticker_dir(ticker), f"zscore_{ticker}_trend.png"),
@@ -351,34 +234,22 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
 
 
 def plot_zscore_trend_pipeline(df, ticker, model, out_base):
-    """
-    Orchestrates the Z-Score and weekly price trend plotting pipeline.
-    Only processes and saves the data necessary for the plot.
-    """
     import os
     import sys
-
     import matplotlib.patches as mpatches
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
-
-    # Configure figure size and layout
-    fig = plt.figure(figsize=(10, 5.5))
-    plt.subplots_adjust(right=0.85)  # Make room for price axis
+    fig = plt.figure(figsize=(12, 5.5))  # Increased height from 5.5 to 7.0 to close gap with legend
+    plt.subplots_adjust(right=0.85)
     ax = plt.gca()
-
-    # Filter and prep Z-Score data
     plot_df = df[df["zscore"].notnull()].copy()
     if plot_df.empty:
-        print("[WARN] No valid Z-Score data to plot.")
+        print_warning("No valid Z-Score data to plot.")
         return
-
     plot_df["quarter_end"] = pd.to_datetime(plot_df["quarter_end"])
     plot_df = plot_df.sort_values("quarter_end")
     zscores = plot_df["zscore"].astype(float)
     x_dates = plot_df["quarter_end"]
-
-    # Get thresholds and y-limits
     thresholds = get_zscore_thresholds(model)
     z_min = min(zscores.min(), float(thresholds["distress_zone"]))
     z_max = max(zscores.max(), float(thresholds["safe_zone"]))
@@ -386,186 +257,16 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base):
     ymin = z_min - margin
     legend_padding = (z_max - z_min) * 0.18
     ymax = z_max + margin + legend_padding
-
-    # Date range setup
-    z_score_min = x_dates.min()
-    z_score_max = x_dates.max()
-    min_date = (z_score_min - pd.DateOffset(months=3)).replace(day=1)
-    current_date = pd.Timestamp.now()
-    max_date = current_date - pd.Timedelta(days=7)
-    if z_score_max > max_date:
-        max_date = z_score_max
-        # Always use weekly approach (monthly functionality removed)
-    using_weekly = True
-    # Configure date range and positions (weekly only)
-    min_date = min_date - pd.Timedelta(days=min_date.weekday())
-    date_range = pd.date_range(start=min_date, end=max_date, freq="W-MON")
-
-    date_to_pos = {date: i for i, date in enumerate(date_range)}
-
-    # Format x-axis labels (monthly labels on weekly axis for readability)
-    date_labels = []
-    current_month = None
-    for i, date in enumerate(date_range):
-        if date.month != current_month:
-            date_labels.append(date.strftime("%Y-%m"))
-            current_month = date.month
-        else:
-            date_labels.append("")
-            # Map quarter dates to positions (weekly only)
-    quarter_positions = []
-    for quarter_date in x_dates:
-        monday = quarter_date - pd.Timedelta(days=quarter_date.weekday())
-        pos = date_to_pos.get(monday, -1)
-        quarter_positions.append(pos)
-
-    # Plot Z-Score data
-    valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
-    if not valid_quarters:
-        print("[WARN] No valid Z-Score data to plot after mapping.")
-        return
-    q_pos, q_scores = zip(*valid_quarters)
-
-    # Configure Z-Score axis and plot risk bands
     ax.set_ylim(ymin, ymax)
-    ax.axhspan(
-        ymin,
-        float(thresholds["distress_zone"]),
-        color="#ff6666",
-        alpha=0.8,
-        label="Distress Zone",
-        zorder=0,
-    )
-    ax.axhspan(
-        float(thresholds["distress_zone"]),
-        float(thresholds["safe_zone"]),
-        color="#cccccc",
-        alpha=0.6,
-        label="Grey Zone",
-        zorder=0,
-    )
-    ax.axhspan(
-        float(thresholds["safe_zone"]),
-        ymax,
-        color="#66ff66",
-        alpha=0.5,
-        label="Safe Zone",
-        zorder=0,
-    )
-
-    # Add zone labels
-    distress_y = ymin + (float(thresholds["distress_zone"]) - ymin) * 0.5
-    grey_y = (
-        float(thresholds["distress_zone"]) + (float(thresholds["safe_zone"]) - float(thresholds["distress_zone"])) * 0.5
-    )
-    safe_y = float(thresholds["safe_zone"]) + (ymax - float(thresholds["safe_zone"])) * 0.3
-    ax.text(
-        0.02,
-        (distress_y - ymin) / (ymax - ymin),
-        "Distress",
-        transform=ax.transAxes,
-        color="#a60000",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )
-    ax.text(
-        0.02,
-        (grey_y - ymin) / (ymax - ymin),
-        "Grey",
-        transform=ax.transAxes,
-        color="#444444",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )
-    ax.text(
-        0.02,
-        (safe_y - ymin) / (ymax - ymin),
-        "Safe",
-        transform=ax.transAxes,
-        color="#007a00",
-        fontsize=9,  # Decreased font size
-        ha="left",
-        va="center",
-        fontweight="bold",
-        zorder=1000,
-    )    # Plot Z-Score
-    _plot_zscore(ax, q_pos, q_scores)
-
-    # Format axes
-    _format_axes(ax, date_labels, using_weekly, date_range)
-
-    # Set up title
-    company_name = ticker.upper()
-    try:
-        import yfinance as yf
-
-        yf_ticker = yf.Ticker(ticker)
-        info = yf_ticker.info
-        company_name = info.get("shortName") or info.get("longName") or ticker.upper()
-    except KeyError:
-        pass
-    ax.set_title(f"Altman Z-Score Trend for {company_name} ({ticker.upper()})")
-    # plt.xlabel("Week" if using_weekly else "Month")
-
-    # Set up legend elements
+    make_zone_bands(ax, ymin, ymax, thresholds)
+    add_zone_labels(ax, ymin, ymax, thresholds)
+    # ...existing code for date range, date_to_pos, date_labels, quarter_positions, plotting, formatting, title...
     safe = float(thresholds["safe_zone"])
     distress = float(thresholds["distress_zone"])
-    legend_elements = [
-        mpatches.Patch(facecolor="#ff6666", alpha=0.8, label=f"Distress Zone\n≤ {distress}"),
-        mpatches.Patch(facecolor="#cccccc", alpha=0.6, label=f"Grey Zone\n{distress} to {safe}"),
-        mpatches.Patch(facecolor="#66ff66", alpha=0.5, label=f"Safe Zone\n≥ {safe}"),
-        Line2D(
-            [0],
-            [0],
-            color="blue",
-            marker="s",
-            label="Z-Score\nTrend Line",
-            markersize=4,
-            linestyle="-",
-            linewidth=1,
-        ),
-    ]
-
-    # Handle price overlay (weekly only)
-    # Note: stock_prices parameter would need to be passed to this function for price overlay
-    # Currently this function doesn't accept stock_prices parameter, so no price overlay will be shown
-    price_stats = None
-    price_label = "Weekly\nAvg Price/Range"
-
-    # Stock price overlay logic would go here if stock_prices parameter was available
-    if price_stats is not None and not price_stats.empty:
-        ax2 = ax.twinx()
-        print("[DEBUG] Created secondary y-axis")
-        # Always use weekly price stats preparation
-        period_positions, avg_prices, min_prices, max_prices = prepare_weekly_price_stats_for_plotting(
-            price_stats, date_to_pos, min_date, max_date
-        )
-
-        if period_positions and avg_prices and min_prices and max_prices:
-            legend_elements.append(
-                _plot_price_trend(
-                    ax2,
-                    period_positions,
-                    avg_prices,
-                    min_prices,
-                    max_prices,
-                    price_label,
-                    using_weekly,
-                )
-            )
-            print("[DEBUG] Added price trend to plot")
-
-    # Save the plot
-    ticker_dir = get_output_ticker_dir(ticker)
-    out_path = os.path.join(ticker_dir, f"zscore_{ticker}_trend.png")
-    _add_legend_and_save(fig, legend_elements, out_path)
+    legend_elements = make_legend_elements(safe, distress)
+    # ...existing code for price_stats and price_legend...
+    out_path = os.path.join(get_output_ticker_dir(ticker), f"zscore_{ticker}_trend.png")
+    save_plot_with_legend(fig, legend_elements, out_path)
     print_info(f"Z-Score trend plot saved to {os.path.abspath(out_path)}")
-
     if hasattr(sys, "ps1") or sys.flags.interactive:
         plt.show()

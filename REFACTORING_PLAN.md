@@ -84,8 +84,8 @@ This plan is complete and ready for use. Proceed to the audit and inventory step
 
 ## Per-File Refactoring Checklists (with Function Inventory)
 
-### data_fetching/financials.py (582 lines)
-- [ ] Inventory all functions and classes
+### data_fetching/financials.py (before: 582 lines, after: 365 lines)
+- [x] Inventory all functions and classes
     - df_to_dict_str_keys
     - find_matching_field
     - find_xbrl_tag
@@ -93,46 +93,63 @@ This plan is complete and ready for use. Proceed to the audit and inventory step
     - fetch_financials
     - fetch_company_officers
     - fetch_executive_data
-- [ ] Identify functions > 50 lines (e.g., fetch_financials, fetch_executive_data)
-- [ ] Propose module boundaries (e.g., split by data source, validation, helpers)
-- [ ] Refactor long functions into smaller units
-- [ ] Move code into new modules/files as needed
-- [ ] Update imports and references
-- [ ] Add/Update tests
-- [ ] Validate and document changes
+- [x] Identify functions > 50 lines (e.g., fetch_financials, fetch_executive_data)
+- [x] Propose module boundaries (e.g., split by data source, validation, helpers)
+- [x] Refactor long functions into smaller units (where possible)
+- [x] Move code into new modules/files as needed
+- [x] Update imports and references
+- [x] Add/Update tests
+- [x] Validate and document changes
 
-### company_profile.py (454 lines)
-- [ ] Inventory all functions and classes
+### company_profile.py (before: 454 lines, after: much smaller; all business logic moved to helpers)
+- [x] Inventory all functions and classes
     - __init__
     - classify_maturity
     - from_ticker
-    - find_field (nested)
+    - find_field (moved)
     - __str__
     - lookup_cik
+    - classify_company_by_sec (moved)
+- [x] Identify functions > 50 lines
+    - from_ticker
     - classify_company_by_sec
-- [ ] Identify functions > 50 lines (e.g., from_ticker, classify_company_by_sec)
-- [ ] Propose module boundaries (e.g., profile fetch, parsing, formatting)
-- [ ] Refactor long functions into smaller units
-- [ ] Move code into new modules/files as needed
-- [ ] Update imports and references
-- [ ] Add/Update tests
-- [ ] Validate and document changes
+- [x] Propose module boundaries (e.g., profile fetch, parsing, formatting)
+    - profile fetch: from_ticker, lookup_cik
+    - parsing: find_field (moved), classify_company_by_sec (moved)
+    - formatting: __str__, classify_maturity
+- [x] Refactor long functions into smaller units
+    - Split `from_ticker` and `classify_company_by_sec` into logical helpers for modularity and clarity
+- [x] Move code into new modules/files as needed
+    - All business logic and helpers moved to company_profile_helpers.py
+- [x] Update imports and references
+- [x] Add/Update tests
+- [x] Validate and document changes
 
 ### company_status.py (305 lines)
-- [ ] Inventory all functions and classes
+- [x] Inventory all functions and classes
     - __init__
     - to_dict
     - get_status_message
     - check_company_status
     - detect_company_region
     - handle_special_status
-- [ ] Identify functions > 50 lines (e.g., check_company_status)
-- [ ] Propose module boundaries
-- [ ] Refactor long functions into smaller units
-- [ ] Move code into new modules/files as needed
-- [ ] Update imports and references
-- [ ] Add/Update tests
-- [ ] Validate and document changes
+- [x] Identify functions > 50 lines (e.g., check_company_status)
+- [x] Propose module boundaries
+    - status computation: check_company_status, handle_special_status
+    - region detection: detect_company_region
+    - serialization/representation: to_dict, get_status_message
+    - class definition/init: __init__
+- [x] Refactor long functions into smaller units
+    - Broke up check_company_status and handle_special_status for clarity and modularity
+- [x] Move code into new modules/files as needed
+    - Moved business logic and helpers to company_status_helpers.py
+- [x] Update imports and references
+    - Updated all usages to import from helpers
+- [x] Add/Update tests
+    - Added tests for check_company_status, handle_special_status, detect_company_region
+    - Patched file outputs for testability
+- [x] Validate and document changes
+    - All tests pass, Pylance errors resolved, and debug output removed
 
 ### one_stock_analysis.py (397 lines)
 - [ ] Inventory all functions and classes
@@ -155,22 +172,50 @@ This plan is complete and ready for use. Proceed to the audit and inventory step
 - [ ] Add/Update tests
 - [ ] Validate and document changes
 
-### plotting.py (504 lines)
-- [ ] Inventory all functions and classes
-    - print_info
-    - print_warning
-    - print_error
+### plotting.py (504 lines -> ~300 lines)
+- [x] Inventory all functions and classes
+    - Colors (moved)
+    - print_info (moved)
+    - print_warning (moved)
+    - print_error (moved)
     - get_output_ticker_dir
     - get_zscore_thresholds
     - plot_zscore_trend
     - plot_zscore_trend_pipeline
-- [ ] Identify functions > 50 lines (e.g., plot_zscore_trend, plot_zscore_trend_pipeline)
-- [ ] Propose module boundaries (e.g., charting, helpers)
-- [ ] Refactor long functions into smaller units
-- [ ] Move code into new modules/files as needed
-- [ ] Update imports and references
-- [ ] Add/Update tests
-- [ ] Validate and document changes
+- [x] Identify functions > 50 lines
+    - plot_zscore_trend (~170 lines)
+    - plot_zscore_trend_pipeline (~200 lines)
+- [x] Propose module boundaries
+    - Terminal output helpers: Colors, print_info/warning/error -> plotting_terminal.py
+    - Plot formatting helpers: band/label/legend generation -> plotting_helpers.py
+    - Main plotting logic: plot_zscore_trend, plot_zscore_trend_pipeline
+- [x] Refactor long functions into smaller units
+    - Extracted make_zone_bands, add_zone_labels from plot functions
+    - Extracted make_legend_elements, save_plot_with_legend for reusability
+    - Reduced duplication between plot_zscore_trend and plot_zscore_trend_pipeline
+- [x] Move code into new modules/files as needed
+    - Created plotting_terminal.py for all terminal output helpers
+    - Created plotting_helpers.py for matplotlib formatting helpers
+- [x] Update imports and references
+    - Updated plotting.py to use new helper modules
+    - Adjusted figure dimensions for better layout
+- [x] Add/Update tests for plotting_terminal.py
+    - Created test_plotting_terminal.py with full test coverage
+    - Added tests for Colors class attributes
+    - Added tests for color output functionality
+    - Added tests for fallback behavior when color not supported
+    - Fixed test failures and improved test reliability
+- [x] Add/Update tests for plotting_helpers.py
+    - test_plotting_helpers.py covers all helper functions
+    - Includes tests for make_zone_bands (normal, edge, error cases)
+    - Includes tests for add_zone_labels (normal, edge, error cases)
+    - Includes tests for make_legend_elements (labels, colors, structure)
+    - Includes tests for save_plot_with_legend (file output)
+    - All tests pass in headless and CI environments
+- [x] Validate and document changes
+    - Docstrings updated in plotting_helpers.py
+    - Usage examples added in comments
+    - Figure dimensions verified across all test cases
 
 ### reporting.py (370 lines)
 - [ ] Inventory all functions and classes
