@@ -8,6 +8,10 @@ See [vision.md](./vision.md) for the full vision statement.
 
 # LEARNINGS.md — Altman Z-Score Analysis (v2.7.1)
 
+## Version 2.7.3 (June 3, 2025)
+- Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
+- Updated documentation and version numbers for v2.7.3
+
 ## Version 2.7.1 (June 3, 2025)
 - Enhanced executive/officer data injection into LLM qualitative analysis prompts
 - Improved company profiles with more comprehensive officer information

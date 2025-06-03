@@ -45,6 +45,12 @@ See [vision.md](./vision.md) for the full vision statement.
 - [x] Review user feedback and bug reports from v2.7.1
 - [ ] Collect and prioritize user feedback from v2.7.1
 
+### Current & Next Steps (v2.7.3)
+- [x] Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
+- [x] Updated documentation and version numbers for v2.7.3
+- [ ] Collect and prioritize user feedback from v2.7.3
+- [ ] Draft v2.8 roadmap in PLAN.md
+
 ### Prompt & Mapping Tasks
 - [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
 - [x] Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)

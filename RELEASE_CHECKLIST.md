@@ -1,9 +1,9 @@
-# Release Checklist for v2.7.2
+# Release Checklist for v2.7.3
 
-This checklist ensures a clean, well-documented, and reproducible release for Altman Z-Score Analysis Platform version 2.7.2.
+This checklist ensures a clean, well-documented, and reproducible release for Altman Z-Score Analysis Platform version 2.7.3.
 
 ## 1. Documentation Verification
-- [ ] Review and update `CHANGELOG.md` with all notable changes for v2.7.2 (date, features, fixes, enhancements)
+- [ ] Review and update `CHANGELOG.md` with all notable changes for v2.7.3 (date, features, fixes, enhancements)
 - [ ] Ensure `DataFetching.md` reflects the latest implementation status and checkmarks
 - [ ] Update `PLAN.md` with any new architectural or technical decisions
 - [ ] Update `TODO.md` to mark completed tasks and add any new actionable items
@@ -17,14 +17,14 @@ This checklist ensures a clean, well-documented, and reproducible release for Al
 - [ ] Confirm that all new/modified features are covered by documentation and changelog
 
 ## 3. Versioning & Metadata
-- [ ] Update version number to `2.7.2` in all relevant files (if applicable)
-- [ ] Update the release date in `CHANGELOG.md` for v2.7.2
+- [ ] Update version number to `2.7.3` in all relevant files (if applicable)
+- [ ] Update the release date in `CHANGELOG.md` for v2.7.3
 
 ## 4. Git Preparation
 - [ ] Stage all changes: `git add .`
 - [ ] Review changes: `git status` and `git diff` as needed
-- [ ] Commit with message: `Release v2.7.2`
-- [ ] Tag the release: `git tag v2.7.2`
+- [ ] Commit with message: `Release v2.7.3`
+- [ ] Tag the release: `git tag v2.7.3`
 - [ ] Push changes and tags: `git push && git push --tags`
 
 ## 5. Post-Release

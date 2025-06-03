@@ -4,7 +4,11 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.7.1)
+# PLAN.md — Altman Z-Score Analysis (v2.7.3)
+
+## v2.7.3 Release (2025-06-03)
+- Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
+- Updated documentation and version numbers for v2.7.3
 
 ## Updated Plan: Accomplishments and Next Steps
 

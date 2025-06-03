@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 2.7.1 (2025-06-10)
+# Version: 2.7.3 (2025-06-03)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
@@ -7,14 +7,10 @@ A robust, modular Python tool for comprehensive Altman Z-Score trend analysis wi
 enhanced LLM-powered qualitative insights. This script orchestrates the analysis
 pipeline for single or multiple stock tickers.
 
-Version 2.7.1 Features:
-- Enhanced executive/officer information injection into LLM qualitative analysis
-- Improved company profile data integration from multiple sources (Yahoo Finance + SEC EDGAR)
-- Fixed missing officer data handling in LLM prompts
-- Robust fallback data sourcing with transparent error reporting
-- Industry-specific Z-Score model selection and calibration
-- Comprehensive financial metrics validation using Pydantic schemas
-- Automated trend visualization and report generation
+Version 2.7.3 Features:
+- Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
+- Updated documentation and version numbers for v2.7.3
+- No breaking changes; all outputs and APIs remain stable
 
 Data Sources:
 - Primary: Yahoo Finance (real-time financials and market data)
@@ -48,7 +44,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "2.7.1"
+__version__ = "2.7.3"
 
 # v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, 
 # improved company profiles with multi-source data integration, fixed missing officer data 
