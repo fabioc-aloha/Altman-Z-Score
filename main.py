@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 2.7.3 (2025-06-03)
+# Version: 2.7.4 (2025-06-03)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
@@ -7,9 +7,11 @@ A robust, modular Python tool for comprehensive Altman Z-Score trend analysis wi
 enhanced LLM-powered qualitative insights. This script orchestrates the analysis
 pipeline for single or multiple stock tickers.
 
-Version 2.7.3 Features:
-- Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
-- Updated documentation and version numbers for v2.7.3
+Version 2.7.4 Features:
+- Major plotting refactor: plotting.py split into helpers and terminal modules
+- Full test coverage for plotting_helpers and plotting_terminal
+- Improved error handling and modularity in plotting pipeline
+- Updated documentation and version numbers for v2.7.4
 - No breaking changes; all outputs and APIs remain stable
 
 Data Sources:
@@ -44,7 +46,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "2.7.3"
+__version__ = "2.7.4"
 
 # v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, 
 # improved company profiles with multi-source data integration, fixed missing officer data 

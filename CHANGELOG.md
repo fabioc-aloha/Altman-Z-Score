@@ -5,6 +5,13 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.4] - 2025-06-03
+- Major plotting refactor: plotting.py split into helpers and terminal modules
+- Full test coverage for plotting_helpers and plotting_terminal
+- Improved error handling and modularity in plotting pipeline
+- Updated documentation and version numbers for v2.7.4
+- No breaking changes; all outputs and APIs remain stable
+
 ## [2.7.3] - 2025-06-03
 
 ### Changed

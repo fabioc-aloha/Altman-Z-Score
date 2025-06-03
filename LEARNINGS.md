@@ -8,6 +8,13 @@ See [vision.md](./vision.md) for the full vision statement.
 
 # LEARNINGS.md — Altman Z-Score Analysis (v2.7.1)
 
+## Version 2.7.4 (June 3, 2025)
+- Major plotting refactor: plotting.py split into helpers and terminal modules
+- Full test coverage for plotting_helpers and plotting_terminal
+- Improved error handling and modularity in plotting pipeline
+- Updated documentation and version numbers for v2.7.4
+- No breaking changes; all outputs and APIs remain stable
+
 ## Version 2.7.3 (June 3, 2025)
 - Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
 - Updated documentation and version numbers for v2.7.3

@@ -1,37 +1,25 @@
-# Release Checklist for v2.7.3
+# Release Checklist
 
-This checklist ensures a clean, well-documented, and reproducible release for Altman Z-Score Analysis Platform version 2.7.3.
-
-## 1. Documentation Verification
-- [ ] Review and update `CHANGELOG.md` with all notable changes for v2.7.3 (date, features, fixes, enhancements)
-- [ ] Ensure `DataFetching.md` reflects the latest implementation status and checkmarks
-- [ ] Update `PLAN.md` with any new architectural or technical decisions
-- [ ] Update `TODO.md` to mark completed tasks and add any new actionable items
-- [ ] Review `LEARNINGS.md` for any new insights or lessons learned
-- [ ] Ensure `README.md` is up to date (usage, features, requirements, badges, etc.)
-- [ ] Check that all documentation files use consistent formatting and headers
-
-## 2. Code & Output Review
-- [ ] Run all tests and validation scripts; ensure all pass
-- [ ] Verify output files in `output/` for completeness and correctness
-- [ ] Confirm that all new/modified features are covered by documentation and changelog
-
-## 3. Versioning & Metadata
-- [ ] Update version number to `2.7.3` in all relevant files (if applicable)
-- [ ] Update the release date in `CHANGELOG.md` for v2.7.3
-
-## 4. Git Preparation
-- [ ] Stage all changes: `git add .`
-- [ ] Review changes: `git status` and `git diff` as needed
-- [ ] Commit with message: `Release v2.7.3`
-- [ ] Tag the release: `git tag v2.7.3`
-- [ ] Push changes and tags: `git push && git push --tags`
-
-## 5. Post-Release
-- [ ] Announce the release (if applicable)
-- [ ] Archive or backup the release
-- [ ] Create a new section in `CHANGELOG.md` for the next version
+- [ ] Update version number in all relevant files (README.md, setup.py, etc.)
+- [ ] Update CHANGELOG.md with new version and summary of changes
+- [ ] Ensure all tests pass (CI and local)
+- [ ] Manually test all major features and outputs
+- [ ] Review and update documentation (README.md, PLAN.md, TODO.md, LEARNINGS.md)
+- [ ] Check for dead code, unused files, and unnecessary dependencies
+- [ ] Tag the release in git (e.g., vX.Y.Z)
+- [ ] Push all commits and tags to remote
+- [ ] Announce release (if public)
 
 ---
 
-**Tip:** Check off each item as you complete it to ensure a smooth and reproducible release process.
+## Pre-Release Validation
+- [ ] Run full test suite
+- [ ] Validate outputs for at least 3 tickers (success, partial, error)
+- [ ] Review logs for warnings/errors
+- [ ] Confirm all new/changed files are included in the repo
+
+---
+
+## Post-Release
+- [ ] Monitor for bug reports or regressions
+- [ ] Update roadmap and backlog

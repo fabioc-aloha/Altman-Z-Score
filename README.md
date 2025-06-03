@@ -1,14 +1,16 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.7.3 (2025-06-03)**
+**Version: 2.7.4 (2025-06-03)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.7.3 (June 3, 2025):**
-- Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
-- Updated documentation and version numbers for v2.7.3
+**Release v2.7.4 (June 3, 2025):**
+- Major plotting refactor: plotting.py split into helpers and terminal modules
+- Full test coverage for plotting_helpers and plotting_terminal
+- Improved error handling and modularity in plotting pipeline
+- Updated documentation and version numbers for v2.7.4
 - No breaking changes; all outputs and APIs remain stable
 - See RELEASE_CHECKLIST.md for detailed release notes
 

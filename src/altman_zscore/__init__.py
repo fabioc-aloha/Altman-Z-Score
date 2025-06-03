@@ -27,7 +27,7 @@ See the README.md for usage instructions and documentation.
 Note: This code follows PEP 8 style guidelines.
 """
 
-__version__ = "2.7.3"
+__version__ = "2.7.4"
 
 from .models.financial_metrics import FinancialMetrics
 
