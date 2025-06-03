@@ -93,7 +93,7 @@
  'exchanges': ['Nasdaq'],
  'fiscalYearEnd': '1231',
  'flags': '',
- 'formerNames': [{'from': '2005-02-17T00:00:00.000Z', 'name': 'TESLA MOTORS INC', 'to': '2017-01-27T00:00:00.000Z'}],
+ 'formerNames': [{'from': '2005-02-17T05:00:00.000Z', 'name': 'TESLA MOTORS INC', 'to': '2017-01-27T05:00:00.000Z'}],
  'insiderTransactionForIssuerExists': 1,
  'insiderTransactionForOwnerExists': 0,
  'investorWebsite': '',
@@ -294,7 +294,7 @@ Disclaimer: The developer disclaims any responsibility for the accuracy, complet
 - **Emerging Market:** False
 - **Maturity:** Mature Company
 - **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
-- **Analysis Date:** 2025-06-02
+- **Analysis Date:** 2025-06-03
 
 ## Z-Score Formula Used
 
@@ -319,7 +319,7 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 ![Z-Score and Price Trend Chart](zscore_TSLA_trend.png)
 
-*Figure: Z-Score and stock price trend for TSLA (see output folder for full-resolution image)*
+*Figure: Z-Score and stock price trend for TSLA (image not available yet; will be generated after analysis)*
 
 
 ## Z-Score Component Table (by Quarter)

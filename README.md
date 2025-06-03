@@ -1,12 +1,12 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.7.1 (2025-06-10)**
+**Version: 2.7.1 (2025-06-03)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.7.1 (June 10, 2025):**
+**Release v2.7.1 (June 3, 2025):**
 - Enhanced executive/officer information injection into LLM qualitative analysis
 - Improved officer data handling for more detailed company profiles in reports
 - Fixed issue with missing officer data in LLM prompts
@@ -38,41 +38,9 @@ Outputs are saved in `output/<TICKER>/`:
 ---
 
 ## Documentation & Release Process
-- All companies in `output/` are tracked in `output/TESTED_COMPANIES.md` (release-blocking)
 - Version numbers and changelogs are up to date in documentation
 - See `PLAN.md` and `TODO.md` for roadmap and actionable tasks
 - See `LEARNINGS.md` for technical notes and known issues
-
----
-
-## Short-Term Action Items (v2.7+)
-- Review user feedback and bug reports from v2.7
-- Implement improvements to LLM prompts and mapping logic based on feedback
-- Plan next milestone features in PLAN.md
-- Collect and prioritize user feedback for v2.8
-- Draft v2.8 roadmap in PLAN.md
-- Expand integration and regression tests for new logic
-- Continue modularization and documentation of new features
-
----
-
-## Project Status & Roadmap
-- **V2.7.1 (Current):** Enhanced executive/officer data injection into LLM prompts, improved company profiles, fixed missing officer data issue
-- **Short-Term:** See above action items for immediate priorities
-- **Planned/Future:**
-    - Further LLM prompt tuning and mapping improvements
-    - Additional data sources and advanced analytics
-    - UI/UX improvements and web dashboard enhancements
-    - Z-Score forecasting using consensus estimates and/or time series models
-    - Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
-- **V2.7:** Robust fallback to SEC EDGAR for financials, improved error reporting for balance-sheet-only cases, updated documentation and release process
-- **V2.6:** Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, and expanded documentation/testing
-- **V2.4:** Reporting layer always uses coefficients/thresholds from calculation; no hard-coded formulas or thresholds in reporting output; full fidelity for SIC/industry overrides and custom calibrations; model/threshold overrides and assumptions are logged in report; all model constants and thresholds centralized in computation/constants.py; robust error handling and logging throughout pipeline
-- **V2.2.2:** Script version included in every report; tested companies documentation and release process enforced; improved traceability
-- **V2.2.1:** Prompt-driven reporting overhaul, user-editable prompt folder, improved attribution, robust report formatting
-- **V2.2:** Model selection & calibration overhaul, enhanced visualizations
-
-See `PLAN.md` and `TODO.md` for the full roadmap and actionable tasks.
 
 ---
 
@@ -96,7 +64,7 @@ See `PLAN.md` and `TODO.md` for the full roadmap and actionable tasks.
   ```sh
   pip install -r requirements.txt
   ```
-- Use Python 3.11+ (see `docs/venv_setup.md` for virtual environment instructions)
+- Use Python 3.11+ (see virtual environment setup instructions below)
 
 ---
 

@@ -1,0 +1,333 @@
+
+
+# Key Executives and Officers (from Yahoo Finance)
+{'officers': [{'age': 51,
+               'name': 'Mr. Gustavo Werneck Da Cunha',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers, CEO & Director',
+               'totalPay': None,
+               'yearBorn': 1973},
+              {'age': 61,
+               'name': 'Mr. Claudio  Gerdau Johannpeter',
+               'source': 'yfinance',
+               'title': 'Independent Vice Chairman of the Board',
+               'totalPay': None,
+               'yearBorn': 1963},
+              {'age': 52,
+               'name': 'Mr. Marcos Eduardo Faraco Wahrhaftig',
+               'source': 'yfinance',
+               'title': 'Executive VP of Strategy & Member of Board of Executive Officers',
+               'totalPay': None,
+               'yearBorn': 1972},
+              {'age': 42,
+               'name': 'Mr. Rafael Dorneles Japur',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers, Executive VP, CFO & Director of Investor Relations',
+               'totalPay': None,
+               'yearBorn': 1982},
+              {'age': 62,
+               'name': 'Mr. Cesar Obino da Rosa Peres',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers & Commercial Officer of Gerdau Steel Brasil',
+               'totalPay': None,
+               'yearBorn': 1962},
+              {'age': 50,
+               'name': 'Mr. Wendel Gomes da Silva',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers and Director of Mining & Raw Materials',
+               'totalPay': None,
+               'yearBorn': 1974},
+              {'age': 47,
+               'name': 'Mr. Aldo Tapia Castillo',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers',
+               'totalPay': None,
+               'yearBorn': 1977},
+              {'age': None,
+               'name': 'Flavia Dias da Silva de Souza',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers',
+               'totalPay': None,
+               'yearBorn': None},
+              {'age': None,
+               'name': 'Carlos Eduardo Vieira da Silva',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers',
+               'totalPay': None,
+               'yearBorn': None},
+              {'age': None,
+               'name': 'Mauricio  Metz',
+               'source': 'yfinance',
+               'title': 'Member of Board of Executive Officers & VP',
+               'totalPay': None,
+               'yearBorn': None}]}
+
+
+
+# Company Profile (from Yahoo Finance)
+{'addresses': {'business': {'city': 'SAO PAULO, SP',
+                            'country': None,
+                            'countryCode': None,
+                            'foreignStateTerritory': None,
+                            'isForeignLocation': None,
+                            'stateOrCountry': 'D5',
+                            'stateOrCountryDescription': 'Brazil',
+                            'street1': 'AV DOUTORA RUTH CARDOSO, 8,501',
+                            'street2': '8TH FLOOR',
+                            'zipCode': '05425-070'},
+               'mailing': {'city': 'SAO PAULO, SP',
+                           'country': None,
+                           'countryCode': None,
+                           'foreignStateTerritory': None,
+                           'isForeignLocation': 0,
+                           'stateOrCountry': 'D5',
+                           'stateOrCountryDescription': 'Brazil',
+                           'street1': 'AV DOUTORA RUTH CARDOSO, 8,501',
+                           'street2': '8TH FLOOR',
+                           'zipCode': '05425-070'}},
+ 'category': 'Large accelerated filer',
+ 'cik': '0001073404',
+ 'description': '',
+ 'ein': '000000000',
+ 'entityType': 'other',
+ 'exchanges': ['NYSE'],
+ 'fiscalYearEnd': '1231',
+ 'flags': '',
+ 'formerNames': [{'from': '2000-02-14T00:00:00.000Z', 'name': 'GERDAU SA', 'to': '2005-02-03T00:00:00.000Z'}],
+ 'insiderTransactionForIssuerExists': 0,
+ 'insiderTransactionForOwnerExists': 0,
+ 'investorWebsite': '',
+ 'name': 'GERDAU S.A.',
+ 'ownerOrg': '04 Manufacturing',
+ 'phone': '011-55-51-3323-2703',
+ 'sic': '3310',
+ 'sicDescription': 'Steel Works, Blast Furnaces & Rolling & Finishing Mills',
+ 'stateOfIncorporation': 'D5',
+ 'stateOfIncorporationDescription': 'Brazil',
+ 'tickers': ['GGB'],
+ 'website': ''}
+
+
+
+# Key SEC EDGAR Company Info (trimmed)
+{'business_address': {'city': 'SAO PAULO, SP',
+                      'stateOrCountry': 'D5',
+                      'stateOrCountryDescription': 'Brazil',
+                      'street1': 'AV DOUTORA RUTH CARDOSO, 8,501',
+                      'street2': '8TH FLOOR',
+                      'zipCode': '05425-070'},
+ 'category': 'Large accelerated filer',
+ 'cik': '0001073404',
+ 'ein': '000000000',
+ 'exchanges': ['NYSE'],
+ 'fiscalYearEnd': '1231',
+ 'name': 'GERDAU S.A.',
+ 'phone': '011-55-51-3323-2703',
+ 'sic': '3310',
+ 'sicDescription': 'Steel Works, Blast Furnaces & Rolling & Finishing Mills',
+ 'stateOfIncorporation': 'D5',
+ 'tickers': ['GGB'],
+ 'website': ''}
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations and Altman Z-Score outputs along with this prompt. You use plain language and reader friedly presentation skills. Your output must **adapt to the company's current risk category**:
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. Justify your decisions and recommendations. Follow these structured sections:
+
+---
+## Company Profile
+* Use the information provided to describe:
+  - Company business, competitors, products and services
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings)
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance and industry benchmarks.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Use the Z-Score risk level to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Provide a risk-aligned recommendation: **Buy / Hold / Sell**, based on Z-Score insights. Justify the recommendation. 
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. External Stakeholder Bargaining Power
+
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+| ----------------------- | -------------------------- | ------------------- | ----------------------- |
+
+* Adapt rationale based on company’s **perceived weakness or strength** in negotiation.
+* Apply theories from Freeman (1984), Platt (2004), and others as relevant.
+
+---
+
+## 7. References and Data Sources
+
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+
+---
+
+# Altman Z-Score Analysis Report: Gerdau S.A. (GGB)
+
+---
+## Introduction
+This report provides a comprehensive, theory-informed financial health analysis of the selected company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, with all findings and recommendations grounded in referenced academic and industry sources. The analysis is generated by an expert LLM-driven pipeline, ensuring transparency, reproducibility, and robust source attribution.
+
+**Author:** Fabio Correa
+
+**Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score).
+
+**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.
+
+Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
+---
+
+**Script Version:** v2.7.1
+
+## Analysis Context and Z-Score Model Selection Criteria
+
+- **Industry:** SIC 3310 (SIC 3310)
+- **Ticker:** GGB
+- **Public:** True
+- **Emerging Market:** False
+- **Maturity:** Mature Company
+- **Model:** Original Z-Score (Public Manufacturing, 1968) (original)
+- **Analysis Date:** 2025-06-03
+
+## Z-Score Formula Used
+
+Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
+- X1 = (Current Assets - Current Liabilities) / Total Assets
+- X2 = Retained Earnings / Total Assets
+- X3 = EBIT / Total Assets
+- X4 = Equity / Total Liabilities
+- X5 = Sales / Total Assets
+
+**Thresholds:**
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
+
+
+
+---
+
+# Graphical View of the Z-Score Analysis
+
+
+![Z-Score and Price Trend Chart](zscore_GGB_trend.png)
+
+*Figure: Z-Score and stock price trend for GGB (image not available yet; will be generated after analysis)*
+
+
+## Z-Score Component Table (by Quarter)
+| Quarter   |    X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|-------|-------|-------|-------|-------|-----------|---------------|-----------------------|
+| 2025 Q1   | 0.234 | 0.284 | 0.016 | 0.125 | 0.203 |     1.007 | Distress Zone | No issues             |
+| 2024 Q4   | 0.251 | 0.279 | 0.007 | 0.129 | 0.194 |     0.986 | Distress Zone | No issues             |
+| 2024 Q3   | 0.266 | 0.307 | 0.025 | 0.168 | 0.212 |     1.143 | Distress Zone | No issues             |
+| 2024 Q2   | 0.25  | 0.291 | 0.015 | 0.154 | 0.202 |     1.049 | Distress Zone | No issues             |
+| 2024 Q1   | 0.248 | 0.334 | 0.032 | 0.184 | 0.211 |     1.193 | Distress Zone | No issues             |

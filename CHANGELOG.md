@@ -5,7 +5,17 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.1] - 2025-06-10
+## [2.7.2] - 2025-06-03
+
+### Documentation
+- Verified and updated DataFetching.md with comprehensive checkmarks and implementation status
+- Added RELEASE_CHECKLIST.md for reproducible release process
+- Ensured all documentation files are consistent and up to date
+
+### Technical
+- No code changes; documentation and release process improvements only
+
+## [2.7.1] - 2025-06-03
 
 ### Added
 - Enhanced executive/officer information injection into LLM qualitative analysis

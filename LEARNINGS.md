@@ -8,7 +8,7 @@ See [vision.md](./vision.md) for the full vision statement.
 
 # LEARNINGS.md — Altman Z-Score Analysis (v2.7.1)
 
-## Version 2.7.1 (June 10, 2025)
+## Version 2.7.1 (June 3, 2025)
 - Enhanced executive/officer data injection into LLM qualitative analysis prompts
 - Improved company profiles with more comprehensive officer information
 - Fixed issue with missing officer data in LLM prompts
@@ -27,7 +27,6 @@ See [vision.md](./vision.md) for the full vision statement.
 ## Notes
 - See README.md for usage and release process
 - See PLAN.md and TODO.md for roadmap and actionable tasks
-- See output/TESTED_COMPANIES.md for tested companies and outcomes
 
 ---
 All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.

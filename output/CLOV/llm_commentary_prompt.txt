@@ -1,0 +1,333 @@
+
+
+# Key Executives and Officers (from Yahoo Finance)
+{'officers': [{'age': 45,
+               'name': 'Mr. Vivek  Garipalli',
+               'source': 'yfinance',
+               'title': 'Co-Founder & Executive Chairman',
+               'totalPay': None,
+               'yearBorn': 1979},
+              {'age': 45,
+               'name': 'Mr. Andrew  Toy',
+               'source': 'yfinance',
+               'title': 'Co-Founder, CEO & Director',
+               'totalPay': 1585003,
+               'yearBorn': 1979},
+              {'age': 52,
+               'name': 'Mr. Peter J. Kuipers',
+               'source': 'yfinance',
+               'title': 'Chief Financial Officer',
+               'totalPay': 367213,
+               'yearBorn': 1972},
+              {'age': 48,
+               'name': 'Mr. Brady  Priest J.D.',
+               'source': 'yfinance',
+               'title': 'Chief Executive Officer of Home Care',
+               'totalPay': 1455970,
+               'yearBorn': 1976},
+              {'age': 55,
+               'name': 'Ms. Jamie L. Reynoso',
+               'source': 'yfinance',
+               'title': 'Chief Executive Officer of Medicare Advantage',
+               'totalPay': 1793296,
+               'yearBorn': 1969},
+              {'age': 43,
+               'name': 'Mr. Conrad  Wai',
+               'source': 'yfinance',
+               'title': 'CEO of Counterpart Health',
+               'totalPay': 1466847,
+               'yearBorn': 1981},
+              {'age': None,
+               'name': 'Ms. Wendy  Richey',
+               'source': 'yfinance',
+               'title': 'Chief Compliance Officer',
+               'totalPay': None,
+               'yearBorn': None},
+              {'age': 45,
+               'name': 'Ms. Karen  Soares',
+               'source': 'yfinance',
+               'title': 'General Counsel, Senior VP & Corporate Secretary',
+               'totalPay': 513197,
+               'yearBorn': 1979},
+              {'age': None,
+               'name': 'Ms. Rachel  Fish',
+               'source': 'yfinance',
+               'title': 'Chief People Officer',
+               'totalPay': None,
+               'yearBorn': None},
+              {'age': 44,
+               'name': 'Dr. Kumar  Dharmarajan',
+               'source': 'yfinance',
+               'title': 'Chief Medical Officer of Clover Assistant',
+               'totalPay': None,
+               'yearBorn': 1980}]}
+
+
+
+# Company Profile (from Yahoo Finance)
+{'addresses': {'business': {'city': 'JERSEY CITY',
+                            'country': None,
+                            'countryCode': None,
+                            'foreignStateTerritory': None,
+                            'isForeignLocation': None,
+                            'stateOrCountry': 'NJ',
+                            'stateOrCountryDescription': 'NJ',
+                            'street1': '30 MONTGOMERY STREET',
+                            'street2': None,
+                            'zipCode': '07302'},
+               'mailing': {'city': 'WILMINGTON',
+                           'country': None,
+                           'countryCode': None,
+                           'foreignStateTerritory': None,
+                           'isForeignLocation': 0,
+                           'stateOrCountry': 'DE',
+                           'stateOrCountryDescription': 'DE',
+                           'street1': 'C/O THE CORPORATION TRUST COMPANY',
+                           'street2': '1209 ORANGE STREET',
+                           'zipCode': '19801'}},
+ 'category': 'Accelerated filer',
+ 'cik': '0001801170',
+ 'description': '',
+ 'ein': '981515192',
+ 'entityType': 'operating',
+ 'exchanges': ['Nasdaq'],
+ 'fiscalYearEnd': '1231',
+ 'flags': '',
+ 'formerNames': [{'from': '2020-01-31T05:00:00.000Z',
+                  'name': 'Social Capital Hedosophia Holdings Corp. III',
+                  'to': '2021-01-07T05:00:00.000Z'}],
+ 'insiderTransactionForIssuerExists': 1,
+ 'insiderTransactionForOwnerExists': 1,
+ 'investorWebsite': '',
+ 'name': 'CLOVER HEALTH INVESTMENTS, CORP. /DE',
+ 'ownerOrg': '02 Finance',
+ 'phone': '(201) 432-2133',
+ 'sic': '6324',
+ 'sicDescription': 'Hospital & Medical Service Plans',
+ 'stateOfIncorporation': 'DE',
+ 'stateOfIncorporationDescription': 'DE',
+ 'tickers': ['CLOV'],
+ 'website': ''}
+
+
+
+# Key SEC EDGAR Company Info (trimmed)
+{'business_address': {'city': 'JERSEY CITY',
+                      'stateOrCountry': 'NJ',
+                      'stateOrCountryDescription': 'NJ',
+                      'street1': '30 MONTGOMERY STREET',
+                      'zipCode': '07302'},
+ 'category': 'Accelerated filer',
+ 'cik': '0001801170',
+ 'ein': '981515192',
+ 'exchanges': ['Nasdaq'],
+ 'fiscalYearEnd': '1231',
+ 'name': 'CLOVER HEALTH INVESTMENTS, CORP. /DE',
+ 'phone': '(201) 432-2133',
+ 'sic': '6324',
+ 'sicDescription': 'Hospital & Medical Service Plans',
+ 'stateOfIncorporation': 'DE',
+ 'tickers': ['CLOV'],
+ 'website': ''}
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations and Altman Z-Score outputs along with this prompt. You use plain language and reader friedly presentation skills. Your output must **adapt to the company's current risk category**:
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. Justify your decisions and recommendations. Follow these structured sections:
+
+---
+## Company Profile
+* Use the information provided to describe:
+  - Company business, competitors, products and services
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings)
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance and industry benchmarks.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Use the Z-Score risk level to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Provide a risk-aligned recommendation: **Buy / Hold / Sell**, based on Z-Score insights. Justify the recommendation. 
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. External Stakeholder Bargaining Power
+
+| Stakeholder Name / Type | Nature of Bargaining Power | Degree of Influence | Brief Rationale (Cited) |
+| ----------------------- | -------------------------- | ------------------- | ----------------------- |
+
+* Adapt rationale based on company’s **perceived weakness or strength** in negotiation.
+* Apply theories from Freeman (1984), Platt (2004), and others as relevant.
+
+---
+
+## 7. References and Data Sources
+
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+
+---
+
+# Altman Z-Score Analysis Report: Clover Health Investments, Corp (CLOV)
+
+---
+## Introduction
+This report provides a comprehensive, theory-informed financial health analysis of the selected company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, with all findings and recommendations grounded in referenced academic and industry sources. The analysis is generated by an expert LLM-driven pipeline, ensuring transparency, reproducibility, and robust source attribution.
+
+**Author:** Fabio Correa
+
+**Source Attribution:** This report and analysis pipeline are generated using the open-source Altman Z-Score Analysis project, available at [https://github.com/fabioc-aloha/Altman-Z-Score](https://github.com/fabioc-aloha/Altman-Z-Score).
+
+**License:** This software is distributed under the Attribution Non-Commercial License (MIT-based). See the LICENSE file for details.
+
+Disclaimer: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
+---
+
+**Script Version:** v2.7.1
+
+## Analysis Context and Z-Score Model Selection Criteria
+
+- **Industry:** SIC 6324 (SIC 6324)
+- **Ticker:** CLOV
+- **Public:** True
+- **Emerging Market:** False
+- **Maturity:** Mature Company
+- **Model:** Zʺ-Score (Public Non-Manufacturing, 1995) (service)
+- **Analysis Date:** 2025-06-03
+
+## Z-Score Formula Used
+
+Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
+- X1 = (Current Assets - Current Liabilities) / Total Assets
+- X2 = Retained Earnings / Total Assets
+- X3 = EBIT / Total Assets
+- X4 = Equity / Total Liabilities
+
+**Thresholds:**
+- Safe Zone: > 2.90
+- Grey Zone: > 1.23 and <= 2.90
+- Distress Zone: <= 1.23
+
+
+
+---
+
+# Graphical View of the Z-Score Analysis
+
+
+![Z-Score and Price Trend Chart](zscore_CLOV_trend.png)
+
+*Figure: Z-Score and stock price trend for CLOV (image not available yet; will be generated after analysis)*
+
+
+## Z-Score Component Table (by Quarter)
+| Quarter   |    X1 |     X2 |     X3 |    X4 |   Z-Score | Diagnostic    | Consistency Warning   |
+|-----------|-------|--------|--------|-------|-----------|---------------|-----------------------|
+| 2025 Q1   | 0.198 | -3.776 | -0.002 | 6.038 |    -4.683 | Distress Zone | No issues             |
+| 2024 Q4   | 0.223 | -3.793 | -0.037 | 5.476 |    -5.4   | Distress Zone | No issues             |
+| 2024 Q3   | 0.234 | -3.339 | -0.013 | 3.779 |    -5.471 | Distress Zone | No issues             |
+| 2024 Q2   | 0.334 | -3.221 |  0.011 | 1.467 |    -6.699 | Distress Zone | No issues             |
+| 2024 Q1   | 0.292 | -3.244 | -0.033 | 0.872 |    -7.965 | Distress Zone | No issues             |
