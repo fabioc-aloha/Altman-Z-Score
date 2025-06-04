@@ -50,6 +50,17 @@ BANKRUPTCY_INDICATORS = [
     "debt restructuring",
 ]
 
+from altman_zscore.computation.constants import (
+    ERROR_MSG_TICKER_NOT_FOUND,
+    ERROR_MSG_SYMBOL_NOT_FOUND,
+    ERROR_MSG_DELISTED,
+    ERROR_MSG_NO_TRADING,
+    ERROR_MSG_KNOWN_BANKRUPTCY,
+    ERROR_MSG_COMPANY_NOT_FOUND_SEC,
+    ERROR_MSG_ERROR_RETRIEVING,
+    ERROR_MSG_STATUS_CHECK_FAILED,
+)
+
 def detect_company_region(info: dict) -> str:
     """
     Attempt to detect the country/region of a company from Yahoo/SEC info dict.
@@ -85,13 +96,13 @@ def handle_special_status(status) -> bool:
     Returns:
         bool: True if processing should stop (special case detected), False if analysis should continue
     """
-    # Import here for test monkeypatching
     from altman_zscore.utils.paths import get_output_dir, write_ticker_not_available
+    from altman_zscore.utils.io import save_dataframe
     if status.exists and status.is_active and not status.is_bankrupt and not status.is_delisted:
         return False
     ticker = status.ticker
     message = status.get_status_message()
-    reason = status.status_reason or "Company status check failed"
+    reason = status.status_reason or ERROR_MSG_STATUS_CHECK_FAILED
     print(message, reason)
     write_ticker_not_available(ticker, reason=message)
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
@@ -111,8 +122,8 @@ def handle_special_status(status) -> bool:
     try:
         import pandas as pd
         df = pd.DataFrame(error_result)
-        df.to_csv(f"{out_base}_error.csv", index=False)
-        df.to_json(f"{out_base}_error.json", orient="records", indent=2)
+        save_dataframe(df, f"{out_base}_error.csv", fmt="csv")
+        save_dataframe(df, f"{out_base}_error.json", fmt="json")
         logger.info(f"Status error output saved to {out_base}_error.csv and {out_base}_error.json")
         print(f"DEBUG: Wrote error_result files to {out_base}_error.csv/json")
     except Exception as e:
@@ -141,6 +152,7 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
     """
     # Import here for test monkeypatching
     from altman_zscore.utils.paths import get_output_dir
+    from altman_zscore.api.yahoo_helpers import fetch_yfinance_data
     if CompanyStatusClass is None:
         from altman_zscore.company_status import CompanyStatus
         CompanyStatusClass = CompanyStatus
@@ -151,34 +163,40 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
         status.is_active = False
         status.exists = True
         status.bankruptcy_date = KNOWN_BANKRUPTCIES[ticker.upper()]
-        status.status_reason = f"Known bankruptcy case (filed on {status.bankruptcy_date})"
+        status.status_reason = ERROR_MSG_KNOWN_BANKRUPTCY.format(date=status.bankruptcy_date)
         logger.info(f"{ticker} identified as a known bankruptcy case")
         return status  # Return immediately for known bankruptcies
     try:
-        ticker_obj = yf.Ticker(ticker)
-        info = ticker_obj.info
+        yf_data = fetch_yfinance_data(ticker)
+        if yf_data is None:
+            status.exists = False
+            status.is_active = False
+            status.error_message = ERROR_MSG_TICKER_NOT_FOUND
+            return status
+        ticker_obj = yf.Ticker(ticker)  # For legacy compatibility (news, etc.)
+        info = yf_data["info"]
         output_path = get_output_dir("yf_info.json", ticker=ticker)
         with open(output_path, "w") as f:
             json.dump(info, f, indent=2)
         if not info or info.get("quoteType") == "NONE":
             status.exists = False
             status.is_active = False
-            status.error_message = "Ticker not found in Yahoo Finance"
+            status.error_message = ERROR_MSG_TICKER_NOT_FOUND
             return status
         if "symbol" not in info:
             status.exists = False
             status.is_active = False
-            status.error_message = "Ticker symbol not found in Yahoo Finance"
+            status.error_message = ERROR_MSG_SYMBOL_NOT_FOUND
             return status
         if info.get("quoteType") == "DELISTED":
             status.is_active = False
             status.is_delisted = True
-            status.status_reason = "Delisted according to Yahoo Finance"
+            status.status_reason = ERROR_MSG_DELISTED
         try:
             hist = ticker_obj.history(period="1mo")
             if hist.empty:
                 status.is_active = False
-                status.status_reason = "No recent trading data available"
+                status.status_reason = ERROR_MSG_NO_TRADING
             else:
                 last_date = hist.index[-1]
                 import pandas as pd
@@ -205,7 +223,7 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
             logger.warning(f"Error checking history for {ticker}: {e}")
     except Exception as e:
         logger.warning(f"Error fetching Yahoo Finance info for {ticker}: {e}")
-        status.error_message = f"Error retrieving data: {str(e)}"
+        status.error_message = ERROR_MSG_ERROR_RETRIEVING.format(error=str(e))
         if "404" in str(e):
             status.exists = False
             status.is_active = False
@@ -236,13 +254,14 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
             logger.debug(f"Error checking news for {ticker}: {e}")
     if not status.is_active and not status.is_delisted and not status.is_bankrupt:
         try:
+            from altman_zscore.api.sec_client import SECClient
             sec_url = (
-                f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={ticker}&Find=Search&owner=exclude&action=getcompany"
+                f"{SECClient.BROWSE_EDGAR_URL}?CIK={ticker}&Find=Search&owner=exclude&action=getcompany"
             )
             sec_response = requests.get(sec_url, headers={"User-Agent": "Mozilla/5.0"})
             if sec_response.status_code == 404 or "No matching companies" in sec_response.text:
                 status.exists = False
-                status.status_reason = "Company not found in SEC EDGAR database"
+                status.status_reason = ERROR_MSG_COMPANY_NOT_FOUND_SEC
         except Exception as e:
             logger.warning(f"Error checking SEC status for {ticker}: {e}")
     return status

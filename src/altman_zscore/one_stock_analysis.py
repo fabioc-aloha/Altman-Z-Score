@@ -30,6 +30,8 @@ from altman_zscore.reporting import report_zscore_full_report
 from altman_zscore.sic_lookup import sic_map
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.computation.model_selection import select_zscore_model
+from altman_zscore.company_status_helpers import check_company_status, handle_special_status
+from altman_zscore.utils.io import save_dataframe
 
 
 # ANSI color codes for terminal output
@@ -100,16 +102,13 @@ def get_zscore_path(ticker, ext=None):
     return f"{os.path.join(base, f'zscore_{ticker}')}{ext if ext else ''}"
 
 
-def check_company_status(ticker: str):
-    """Check if the company exists and isn't bankrupt/delisted."""
-    try:
-        status = classify_company(ticker)
-        if not status:
-            print_error(f"The ticker {ticker} does not appear to exist. Analysis aborted.")
-            sys.exit(1)
-        return status
-    except ValueError as e:
-        logger.warning(f"Error checking company status: {e}. Continuing with analysis.")
+def check_company_status_and_handle(ticker: str):
+    """Centralized company status check and special status handling."""
+    status = check_company_status(ticker)
+    if handle_special_status(status):
+        import sys
+        sys.exit(1)
+    return status
 
 
 def classify_and_prepare_output(ticker: str):
@@ -278,16 +277,18 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model):
 
 
 def _save_results_to_disk(df, out_base, error=False):
-    """Save results DataFrame to CSV and JSON."""
+    """Save results DataFrame to CSV and JSON using DRY utility."""
     suffix = "_error" if error else ""
+    csv_path = f"{out_base}{suffix}.csv"
+    json_path = f"{out_base}{suffix}.json"
     try:
-        df.to_csv(f"{out_base}{suffix}.csv", index=False)
-        print_info(f"Results saved to CSV: {out_base}{suffix}.csv")
+        save_dataframe(df, csv_path, fmt="csv")
+        print_info(f"Results saved to CSV: {csv_path}")
     except Exception as e:
         print_error(f"Could not save CSV: {e}")
     try:
-        df.to_json(f"{out_base}{suffix}.json", orient="records", indent=2)
-        print_info(f"Results saved to JSON: {out_base}{suffix}.json")
+        save_dataframe(df, json_path, fmt="json")
+        print_info(f"Results saved to JSON: {json_path}")
     except Exception as e:
         print_error(f"Could not save JSON: {e}")
 
@@ -373,7 +374,7 @@ def _generate_report_and_plot(df, model, out_base, context_info, ticker, stock_p
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
-    check_company_status(ticker)
+    check_company_status_and_handle(ticker)
     profile, out_base = classify_and_prepare_output(ticker)
     model, sic_code = _select_zscore_model_from_profile(profile)
     quarters = _fetch_and_validate_financials(ticker, model, start_date, out_base)

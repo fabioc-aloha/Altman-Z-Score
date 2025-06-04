@@ -184,8 +184,9 @@ class CompanyProfile:
             # If still no CIK, try to scrape the most recent SEC filing for the ticker
             # (This is a last-ditch effort for delisted/edge-case tickers)
             # Use SEC EDGAR search API to find the most recent filing for the ticker
+            from altman_zscore.api.sec_client import SECClient
             search_url = (
-                f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={ticker}&owner=exclude&action=getcompany&count=1"
+                f"{SECClient.BROWSE_EDGAR_URL}?CIK={ticker}&owner=exclude&action=getcompany&count=1"
             )
             headers = {
                 "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
@@ -207,7 +208,7 @@ class CompanyProfile:
             # FINAL fallback: search SEC's company_tickers.json for a historical match
             if not cik:
                 try:
-                    url = "https://www.sec.gov/files/company_tickers.json"
+                    url = SECClient.COMPANY_TICKERS_URL
                     headers = {
                         "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
                         "From": os.getenv("SEC_API_EMAIL", ""),
@@ -270,7 +271,8 @@ def lookup_cik(ticker: str) -> Optional[str]:
         pass
     # Fallback: SEC's public ticker-CIK mapping
     try:
-        url = f"https://www.sec.gov/files/company_tickers.json"
+        from altman_zscore.api.sec_client import SECClient
+        url = SECClient.COMPANY_TICKERS_URL
         headers = get_sec_headers()
         if not headers["From"]:
             import warnings

@@ -13,11 +13,12 @@ import requests
 
 from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.utils.error_helpers import AltmanZScoreError
 
 logger = logging.getLogger(__name__)
 
 
-class SECError(Exception):
+class SECError(AltmanZScoreError):
     """Base exception for SEC API errors."""
 
 
@@ -40,6 +41,7 @@ class SECClient:
     COMPANY_SEARCH = "/submissions/CIK{}.json"
     COMPANY_FACTS = "/api/xbrl/companyfacts/CIK{}.json"
     COMPANY_CONCEPT = "/api/xbrl/companyconcept/CIK{}/us-gaap/{}.json"
+    COMPANY_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
     # SEC EDGAR requires 100ms between requests (10 requests per second)
     REQUEST_RATE = 10  # requests per second

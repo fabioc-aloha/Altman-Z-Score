@@ -5,6 +5,15 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2025-06-04
+
+### DRY Refactor & Release Checklist
+- Major DRY refactor: centralized all error handling, constants, and logic in dedicated modules (see PLAN.md for details)
+- All custom exceptions now inherit from AltmanZScoreError; error handling is fully DRY-compliant
+- All error messages, status messages, and field mappings are now centralized
+- All outputs, APIs, and tests remain stable
+- Documentation and release checklist updated for v2.8.1
+
 ## [2.8.0] - 2025-06-04
 
 ### Major Refactor & Modularization

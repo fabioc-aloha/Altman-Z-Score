@@ -11,6 +11,13 @@ Classes:
 """
 
 from enum import Enum
+from altman_zscore.computation.constants import (
+    ERROR_MSG_ALL_FIELDS_MISSING,
+    ERROR_MSG_MISSING_FIELD,
+    ERROR_MSG_NEGATIVE_ASSETS,
+    ERROR_MSG_NEGATIVE_SALES,
+    ERROR_MSG_LIABILITIES_RATIO,
+)
 
 
 class ValidationLevel(Enum):
@@ -64,7 +71,7 @@ class FinancialDataValidator:
                 issues.append(
                     ValidationIssue(
                         field=field,
-                        issue=f"Missing required field: {field}",
+                        issue=ERROR_MSG_MISSING_FIELD.format(field=field),
                         level=ValidationLevel.ERROR,
                     )
                 )
@@ -74,7 +81,7 @@ class FinancialDataValidator:
             issues.append(
                 ValidationIssue(
                     field=None,
-                    issue="All required fields are missing or zero (possible empty or placeholder quarter)",
+                    issue=ERROR_MSG_ALL_FIELDS_MISSING,
                     level=ValidationLevel.ERROR,
                 )
             )
@@ -83,7 +90,7 @@ class FinancialDataValidator:
             issues.append(
                 ValidationIssue(
                     field="total_assets",
-                    issue="Total assets is negative (suspicious)",
+                    issue=ERROR_MSG_NEGATIVE_ASSETS,
                     level=ValidationLevel.WARNING,
                     value=q["total_assets"],
                 )
@@ -92,7 +99,7 @@ class FinancialDataValidator:
             issues.append(
                 ValidationIssue(
                     field="sales",
-                    issue="Sales is negative (suspicious)",
+                    issue=ERROR_MSG_NEGATIVE_SALES,
                     level=ValidationLevel.WARNING,
                     value=q["sales"],
                 )
@@ -104,7 +111,7 @@ class FinancialDataValidator:
                 issues.append(
                     ValidationIssue(
                         field="total_liabilities",
-                        issue="Total liabilities > 10x total assets (possible data error)",
+                        issue=ERROR_MSG_LIABILITIES_RATIO,
                         level=ValidationLevel.WARNING,
                         value=ratio,
                     )

@@ -12,6 +12,9 @@ Functions:
     get_quarter_price_change(ticker, start, end): Calculate the percentage price change for a stock between two dates.
     get_start_end_prices(ticker, start_date, end_date): Retrieve the start and end prices for a stock between two dates.
     save_price_data_to_disk(df, ticker, file_prefix): Save price data DataFrame to disk in CSV and JSON formats.
+
+Example usage of centralized terminal output formatting (for demonstration; remove or adapt as needed):
+    _demo_terminal_output()
 """
 
 import json
@@ -25,6 +28,10 @@ import pandas as pd
 import yfinance as yf
 
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.utils.logging import get_logger
+from altman_zscore.utils.terminal import print_info, print_warning, print_error, print_success, print_header
+
+logger = get_logger(__name__)
 
 # Filter out yfinance warnings related to auto_adjust changes
 warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
@@ -209,48 +216,29 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
 
 def save_price_data_to_disk(df: pd.DataFrame, ticker: str, file_prefix: str) -> tuple[str, str]:
     """
-    Save price data DataFrame to disk in CSV and JSON formats.
-
-    Args:
-        df (pd.DataFrame): DataFrame containing price data.
-        ticker (str): Stock symbol.
-        file_prefix (str): Prefix for the output filename.
-
-    Returns:
-        tuple[str, str]: Tuple containing paths to the CSV and JSON files.
-
-    Raises:
-        ValueError: If the DataFrame is empty or None.
-        IOError: If there's an error saving the files.
+    Save price data DataFrame to disk in CSV and JSON formats using DRY utilities.
     """
+    from altman_zscore.utils.io import get_output_file_path, save_dataframe
     if df is None or df.empty:
         raise ValueError("No price data to save")
-
-    # Get output directory
-    output_dir = get_output_dir()
-
-    # Define file paths
-    csv_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.csv")
-    json_path = os.path.join(output_dir, f"{file_prefix}_{ticker.lower()}.json")
-
+    csv_path = get_output_file_path(ticker, file_prefix, ext="csv")
+    json_path = get_output_file_path(ticker, file_prefix, ext="json")
     try:
-        # Convert datetime columns to string for JSON serialization
         df_copy = df.copy()
         datetime_cols = [col for col in df_copy.columns if pd.api.types.is_datetime64_any_dtype(df_copy[col])]
         for col in datetime_cols:
             df_copy[col] = df_copy[col].dt.strftime("%Y-%m-%d")
-
-        # Save to CSV
-        df_copy.to_csv(csv_path, index=False)
-
-        # Save to JSON (orient='records' for list of objects)
-        with open(json_path, "w") as f:
-            json_str = df_copy.to_json(orient="records", date_format="iso")
-            if json_str is not None:
-                json.dump(json.loads(json_str), f, indent=2)
-            else:
-                json.dump([], f, indent=2)
-
+        save_dataframe(df_copy, csv_path, fmt="csv")
+        save_dataframe(df_copy, json_path, fmt="json")
         return csv_path, json_path
     except Exception as e:
         raise IOError(f"Error saving price data to disk: {str(e)}")
+
+
+# Example usage of centralized terminal output formatting (for demonstration; remove or adapt as needed)
+def _demo_terminal_output():
+    print_header("Altman Z-Score Price Fetching Utilities")
+    print_info("This is an info message.")
+    print_warning("This is a warning message.")
+    print_error("This is an error message.")
+    print_success("This is a success message.")

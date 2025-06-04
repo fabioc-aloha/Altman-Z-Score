@@ -19,43 +19,18 @@ from altman_zscore.company_status_helpers import (
     detect_company_region,
     handle_special_status,
     check_company_status,
+    KNOWN_BANKRUPTCIES,
+    BANKRUPTCY_INDICATORS,
+)
+from altman_zscore.computation.constants import (
+    STATUS_MSG_BANKRUPT,
+    STATUS_MSG_DELISTED,
+    STATUS_MSG_NOT_FOUND,
+    STATUS_MSG_INACTIVE,
+    STATUS_MSG_ACTIVE,
 )
 
 logger = logging.getLogger(__name__)
-
-# Known bankrupt companies with dates (YYYY-MM-DD)
-KNOWN_BANKRUPTCIES = {
-    "BIG": "2024-04-24",  # Big Lots
-    "SEARS": "2018-10-15",  # Sears Holdings
-    "SHLDQ": "2018-10-15",  # Sears Holdings (OTC ticker)
-    "LEHMAN": "2008-09-15",  # Lehman Brothers
-    "LEHMQ": "2008-09-15",  # Lehman Brothers (OTC ticker)
-    "FTX": "2022-11-11",  # FTX Trading
-    "WLMRT": "2002-07-21",  # WorldCom/MCI
-    "ENRON": "2001-12-02",  # Enron
-    "BLOCKBUSTER": "2010-09-23",  # Blockbuster
-    "BBBY": "2023-04-23",  # Bed Bath & Beyond
-    "HTZ": "2020-05-22",  # Hertz (they've since emerged)
-    "GTXMQ": "2009-06-01",  # General Motors (old ticker before restructuring)
-    "HMHC": "2012-07-19",  # Houghton Mifflin Harcourt
-    "MTLQQ": "2020-07-28",  # Metaldyne Performance Group
-    "RJETQ": "2016-07-07",  # Republic Airways
-    "TWTRQ": "2013-10-04",  # Tweeter Home Entertainment (not Twitter)
-}
-
-# Common bankruptcy-related terms
-BANKRUPTCY_INDICATORS = [
-    "bankruptcy",
-    "chapter 11",
-    "chapter 7",
-    "liquidation",
-    "restructuring",
-    "insolvency",
-    "bankrupt",
-    "receivership",
-    "filing for protection",
-    "debt restructuring",
-]
 
 
 class CompanyStatus:
@@ -101,19 +76,14 @@ class CompanyStatus:
 
     def get_status_message(self) -> str:
         """Generate a user-friendly status message."""
-        # Bankruptcy is highest priority status since it's most important to know
         if self.is_bankrupt:
             bankruptcy_info = f" (filed on {self.bankruptcy_date})" if self.bankruptcy_date else ""
-            return f"{self.ticker} has filed for bankruptcy{bankruptcy_info}."
-
+            return STATUS_MSG_BANKRUPT.format(ticker=self.ticker, bankruptcy_info=bankruptcy_info)
         if self.is_delisted:
             delisting_info = f" (last traded on {self.last_trading_date})" if self.last_trading_date else ""
-            return f"{self.ticker} has been delisted{delisting_info}."
-
+            return STATUS_MSG_DELISTED.format(ticker=self.ticker, delisting_info=delisting_info)
         if not self.exists:
-            return f"The ticker '{self.ticker}' does not appear to exist."
-
+            return STATUS_MSG_NOT_FOUND.format(ticker=self.ticker)
         if not self.is_active:
-            return f"{self.ticker} exists but is not currently active. {self.status_reason or ''}"
-
-        return f"{self.ticker} appears to be an active company."
+            return STATUS_MSG_INACTIVE.format(ticker=self.ticker, status_reason=self.status_reason or "")
+        return STATUS_MSG_ACTIVE.format(ticker=self.ticker)

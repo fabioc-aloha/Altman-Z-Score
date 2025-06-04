@@ -115,7 +115,7 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
             cik = client.lookup_cik(ticker)
             if cik:
                 # Get company submissions
-                url = f"https://data.sec.gov/submissions/CIK{cik.zfill(10)}.json"
+                url = f"{SECClient.SUBMISSIONS_BASE_URL}CIK{cik.zfill(10)}.json"
                 import requests
                 response = requests.get(url, 
                     headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
@@ -139,7 +139,7 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
                             filing_date = filing_dates[latest_def_14a_idx]
 
                             # Get the filing content
-                            filing_url = f"https://www.sec.gov/Archives/{cik}/{accession_number}/{primary_doc}"
+                            filing_url = f"{SECClient.ARCHIVES_BASE_URL}{cik}/{accession_number}/{primary_doc}"
                             response = requests.get(filing_url, 
                                 headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
                             

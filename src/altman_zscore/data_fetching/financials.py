@@ -20,6 +20,8 @@ from altman_zscore.computation.constants import FIELD_MAPPING, MODEL_FIELDS
 from altman_zscore.data_fetching.sec_edgar import fetch_sec_edgar_data, find_xbrl_tag
 from altman_zscore.data_fetching.executives import fetch_company_officers, fetch_executive_data
 from altman_zscore.data_fetching.financials_core import df_to_dict_str_keys, find_matching_field
+from altman_zscore.api.yahoo_helpers import fetch_yfinance_data, fetch_yfinance_full
+from altman_zscore.utils.error_helpers import DataFetchingError, raise_with_context
 
 # Refactor complete: All helpers and data-fetching logic are now modularized.
 # All tests have passed after this refactor (see test log).
@@ -62,9 +64,14 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
     ai_mapping = None
 
     try:
-        yf_ticker = yf.Ticker(ticker)
-        bs = yf_ticker.quarterly_balance_sheet
-        is_ = yf_ticker.quarterly_financials
+        # --- Centralized yfinance data fetching ---
+        yf_data = fetch_yfinance_full(ticker)
+        if yf_data is None:
+            logger.error(f"[{ticker}] No usable yfinance data found. Skipping to SEC EDGAR fallback.")
+            raise ValueError(f"No usable yfinance data found for {ticker}.")
+        bs = yf_data["balance_sheet"]
+        is_ = yf_data["income_statement"]
+        info = yf_data["info"]
         
         # Log what periods/columns are present
         logger.info(f"[{ticker}] Balance sheet columns: {list(bs.columns)}")
@@ -111,6 +118,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                                     direct_mapping[field] = mapped
                 except Exception as e:
                     logger.warning(f"AI field mapping failed: {e}. Will use only direct mapping.")
+                    # Optionally, could raise_with_context(DataFetchingError, "AI field mapping failed", str(e))
 
         # Process quarters using the combined mapping
         for period in common_periods:
@@ -227,33 +235,25 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
             with open(os.path.join(output_dir, "financials_raw.json"), "w", encoding="utf-8") as f:
                 json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)            # Fetch and save additional company information from yfinance
             try:
-                company_info = yf_ticker.info
+                company_info = yf_data["info"]
                 with open(os.path.join(output_dir, "company_info.json"), "w", encoding="utf-8") as f:
                     json.dump(company_info, f, indent=4, ensure_ascii=False, default=str)
 
-                major_holders = yf_ticker.major_holders.to_json()
-                with open(os.path.join(output_dir, "major_holders.json"), "w", encoding="utf-8") as f:
-                    if major_holders is not None:
-                        json.dump(json.loads(major_holders), f, indent=4)
-                    else:
-                        json.dump({}, f, indent=4)
-
-                institutional_holders = yf_ticker.institutional_holders.to_json()
-                with open(os.path.join(output_dir, "institutional_holders.json"), "w", encoding="utf-8") as f:
-                    if institutional_holders is not None:
-                        json.dump(json.loads(institutional_holders), f, indent=4)
-                    else:
-                        json.dump({}, f, indent=4)
-
-                if isinstance(yf_ticker.recommendations, pd.DataFrame):
-                    recommendations = yf_ticker.recommendations.to_json()
-                    with open(os.path.join(output_dir, "recommendations.json"), "w", encoding="utf-8") as f:
-                        if recommendations is not None:
-                            json.dump(json.loads(recommendations), f, indent=4)
-                        else:
-                            json.dump({}, f, indent=4)
+                if yf_data["major_holders"] is not None:
+                    yf_data["major_holders"].to_json(os.path.join(output_dir, "major_holders.json"))
+                if yf_data["institutional_holders"] is not None:
+                    yf_data["institutional_holders"].to_json(os.path.join(output_dir, "institutional_holders.json"))
+                if isinstance(yf_data["recommendations"], pd.DataFrame):
+                    yf_data["recommendations"].to_json(os.path.join(output_dir, "recommendations.json"))
+                if isinstance(yf_data["historical_prices"], pd.DataFrame):
+                    yf_data["historical_prices"].to_csv(os.path.join(output_dir, "historical_prices.csv"))
+                if isinstance(yf_data["dividends"], pd.Series):
+                    yf_data["dividends"].to_csv(os.path.join(output_dir, "dividends.csv"))
+                if isinstance(yf_data["splits"], pd.Series):
+                    yf_data["splits"].to_csv(os.path.join(output_dir, "splits.csv"))
             except Exception as e:
                 logger.warning(f"[{ticker}] Failed to fetch additional company information from yfinance: {e}")
+                # Optionally, could raise_with_context(DataFetchingError, "Failed to fetch yfinance company info", str(e))
 
             # Fetch and save additional company information from SEC EDGAR
             try:
@@ -263,22 +263,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                         json.dump(sec_edgar_data, f, indent=4, ensure_ascii=False, default=str)
             except Exception as e:
                 logger.warning(f"[{ticker}] Failed to fetch additional company information from SEC EDGAR: {e}")
-
-            # Fetch and save additional data from yfinance
-            try:
-                # Fetch historical prices
-                historical_prices = yf_ticker.history(period="max")
-                historical_prices.to_csv(os.path.join(output_dir, "historical_prices.csv"))
-
-                # Fetch dividends
-                dividends = yf_ticker.dividends
-                dividends.to_csv(os.path.join(output_dir, "dividends.csv"))
-
-                # Fetch stock splits
-                splits = yf_ticker.splits
-                splits.to_csv(os.path.join(output_dir, "splits.csv"))
-            except Exception as e:
-                logger.warning(f"[{ticker}] Failed to fetch additional data from yfinance: {e}")
+                # Optionally, could raise_with_context(DataFetchingError, "Failed to fetch SEC EDGAR company info", str(e))
 
             # Placeholder for SEC EDGAR data fetching
             sec_edgar_data = None  # Replace with actual SEC EDGAR fetching logic if needed
@@ -300,6 +285,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
     except Exception as e:
         logger.error(f"[{ticker}] Exception in fetch_financials: {e}")
         print(f"[ERROR] Could not fetch financials for {ticker}: {e}")
+        raise_with_context(DataFetchingError, f"Could not fetch financials for {ticker}", str(e))
         # --- SEC EDGAR fallback for financials ---
         try:
             from altman_zscore.api.sec_client import SECClient
@@ -368,4 +354,4 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                 return None
         except Exception as sec_e:
             logger.error(f"[{ticker}] SEC EDGAR fallback failed: {sec_e}")
-            return None
+            raise_with_context(DataFetchingError, f"SEC EDGAR fallback failed for {ticker}", str(sec_e))

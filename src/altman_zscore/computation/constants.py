@@ -246,3 +246,69 @@ CALIBRATION_UPDATE: Dict[str, str] = {
     "update_source": "SEC EDGAR / Compustat / Salomon Smith Barney (1995 EM publication).",
 }
 
+# -------------------------------------------------------------------
+# 8) ERROR MESSAGES: Centralized error message strings for DRY compliance.
+# -------------------------------------------------------------------
+ERROR_MSG_TICKER_NOT_FOUND = "Ticker not found in Yahoo Finance"
+ERROR_MSG_SYMBOL_NOT_FOUND = "Ticker symbol not found in Yahoo Finance"
+ERROR_MSG_DELISTED = "Delisted according to Yahoo Finance"
+ERROR_MSG_NO_TRADING = "No recent trading data available"
+ERROR_MSG_KNOWN_BANKRUPTCY = "Known bankruptcy case (filed on {date})"
+ERROR_MSG_COMPANY_NOT_FOUND_SEC = "Company not found in SEC EDGAR database"
+ERROR_MSG_ERROR_RETRIEVING = "Error retrieving data: {error}"
+ERROR_MSG_ALL_FIELDS_MISSING = "All required fields are missing or zero (possible empty or placeholder quarter)"
+ERROR_MSG_MISSING_FIELD = "Missing required field: {field}"
+ERROR_MSG_NEGATIVE_ASSETS = "Total assets is negative (suspicious)"
+ERROR_MSG_NEGATIVE_SALES = "Sales is negative (suspicious)"
+ERROR_MSG_LIABILITIES_RATIO = "Total liabilities > 10x total assets (possible data error)"
+ERROR_MSG_STATUS_CHECK_FAILED = "Company status check failed"
+
+# -------------------------------------------------------------------
+# 9) STATUS MESSAGE TEMPLATES: Centralized user-facing status messages for DRY compliance.
+# -------------------------------------------------------------------
+STATUS_MSG_BANKRUPT = "{ticker} has filed for bankruptcy{bankruptcy_info}."
+STATUS_MSG_DELISTED = "{ticker} has been delisted{delisting_info}."
+STATUS_MSG_NOT_FOUND = "The ticker '{ticker}' does not appear to exist."
+STATUS_MSG_INACTIVE = "{ticker} exists but is not currently active. {status_reason}"
+STATUS_MSG_ACTIVE = "{ticker} appears to be an active company."
+
+# -------------------------------------------------------------------
+# 10) FIELD_SYNONYMS: Map alternate field names to canonical field names for DRY compliance.
+# -------------------------------------------------------------------
+FIELD_SYNONYMS: Dict[str, str] = {
+    # Assets
+    "Assets": "total_assets",
+    "Total Assets": "total_assets",
+    "AssetsTotal": "total_assets",
+    # Current Assets
+    "Current Assets": "current_assets",
+    "AssetsCurrent": "current_assets",
+    # Current Liabilities
+    "Current Liabilities": "current_liabilities",
+    "LiabilitiesCurrent": "current_liabilities",
+    # Retained Earnings
+    "Retained Earnings": "retained_earnings",
+    "RetainedEarnings": "retained_earnings",
+    # Total Liabilities
+    "Total Liabilities Net Minority Interest": "total_liabilities",
+    "Total Liabilities": "total_liabilities",
+    "Liabilities": "total_liabilities",
+    # Book Value Equity
+    "Common Stock Equity": "book_value_equity",
+    "Stockholders Equity": "book_value_equity",
+    "Total Equity Gross Minority Interest": "book_value_equity",
+    # EBIT
+    "EBIT": "ebit",
+    "Operating Income": "ebit",
+    "OperatingIncome": "ebit",
+    # Sales/Revenue
+    "Total Revenue": "sales",
+    "Revenues": "sales",
+    "Sales": "sales",
+    "Revenue": "sales",
+    "Operating Revenue": "sales",
+    # Market Value Equity (if used)
+    "Market Value of Equity": "market_value_equity",
+    # Add more synonyms as needed for new data sources or edge cases
+}
+

@@ -54,6 +54,7 @@ See [vision.md](./vision.md) for the full vision statement.
 
 ### Current & Next Steps (v2.7.4)
 - [x] Updated documentation and version numbers for v2.7.4
+- [x] DRY error handling phase complete: error_helpers.py created, all custom exceptions now inherit from AltmanZScoreError, and core modules refactored to use DRY error helpers (2025-06-04)
 - [ ] Collect and prioritize user feedback from v2.7.4
 
 ### Prompt & Mapping Tasks

@@ -130,7 +130,8 @@ def classify_company_by_sec(cik: str, ticker: str):
     # Import here to avoid circular import
     from altman_zscore.company_profile import CompanyProfile, IndustryGroup, MarketCategory
     headers = get_sec_headers()
-    url = f"https://data.sec.gov/submissions/CIK{str(cik).zfill(10)}.json"
+    from altman_zscore.api.sec_client import SECClient
+    url = f"{SECClient.SUBMISSIONS_BASE_URL}CIK{str(cik).zfill(10)}.json"
     try:
         resp = requests.get(url, headers=headers, timeout=10)
         resp.raise_for_status()

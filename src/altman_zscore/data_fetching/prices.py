@@ -11,6 +11,7 @@ import pandas as pd
 import yfinance as yf
 
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.utils.io import save_dataframe, get_output_file_path
 
 # Filter out yfinance warnings related to auto_adjust changes
 warnings.filterwarnings("ignore", category=UserWarning, module="yfinance")
@@ -272,21 +273,15 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
 def save_price_data_to_disk(df: pd.DataFrame, ticker: str, file_prefix: str) -> tuple[str, str]:
     if df is None or df.empty:
         raise ValueError("No price data to save")
-
-    csv_path = get_output_dir(f"{file_prefix}.csv", ticker=ticker)
-    json_path = get_output_dir(f"{file_prefix}.json", ticker=ticker)
+    csv_path = get_output_file_path(ticker, file_prefix, ext="csv")
+    json_path = get_output_file_path(ticker, file_prefix, ext="json")
     try:
         df_copy = df.copy()
         datetime_cols = [col for col in df_copy.columns if pd.api.types.is_datetime64_any_dtype(df_copy[col])]
         for col in datetime_cols:
             df_copy[col] = df_copy[col].dt.strftime("%Y-%m-%d")
-        df_copy.to_csv(csv_path, index=False)
-        with open(json_path, "w") as f:
-            json_str = df_copy.to_json(orient="records", date_format="iso")
-            if json_str is not None:
-                json.dump(json.loads(json_str), f, indent=2)
-            else:
-                json.dump([], f, indent=2)
+        save_dataframe(df_copy, csv_path, fmt="csv")
+        save_dataframe(df_copy, json_path, fmt="json")
         return csv_path, json_path
     except Exception as e:
         raise IOError(f"Error saving price data to disk: {str(e)}")

@@ -202,3 +202,32 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 # --- 
 # All pre-release and tested companies checklist items are now tracked in RELEASE_CHECKLIST.md. See that file for required actions before every release.
+
+# DRY Improvement Plan (June 2025)
+
+## Checklist: Eliminate Duplication and Centralize Logic
+
+- [x] Centralize KNOWN_BANKRUPTCIES in company_status_helpers.py (done)
+- [x] Centralize BANKRUPTCY_INDICATORS in company_status_helpers.py and import where needed
+- [x] Ensure all field mapping constants (FIELD_MAPPING, MODEL_FIELDS) are defined in computation/constants.py and imported everywhere else
+    - All references to FIELD_MAPPING and MODEL_FIELDS now import from computation/constants.py. No duplicate definitions remain in the codebase. See data_fetching/financials.py and financials_core.py for usage.
+- [x] Centralize SEC EDGAR endpoint string as a constant or helper function
+    - All SEC EDGAR endpoint URLs are now defined as constants in SECClient (api/sec_client.py) and imported everywhere else. No hardcoded SEC URLs remain in the codebase.
+- [x] Centralize common error message strings as constants
+    - All error message strings are now defined in computation/constants.py and imported everywhere else. No duplicate or hardcoded error messages remain in the codebase. See company_status_helpers.py and data_validation.py for usage.
+- [x] Centralize yfinance data fetching/validation logic in a helper function
+    - All yfinance data fetching and validation is now handled by fetch_yfinance_data and fetch_yfinance_full in api/yahoo_helpers.py. All usages in company_status_helpers.py and data_fetching/financials.py now use these helpers. No duplicate yfinance logic remains.
+- [x] Ensure all delisting/bankruptcy/inactive checks are only in company_status_helpers.py
+    - All status checks for delisting, bankruptcy, and inactive companies are now routed through check_company_status and handle_special_status in company_status_helpers.py. The main analysis pipeline in one_stock_analysis.py now uses these helpers, and no duplicate or stray logic remains elsewhere.
+- [x] Review and centralize status message logic in CompanyStatus class
+    - All user-facing status message templates are now defined as constants in computation/constants.py and used in CompanyStatus.get_status_message. No hardcoded status messages remain in the class.
+- [x] Centralize output/report file naming and DataFrame-to-file logic (CSV/JSON) in utils/io.py; refactor all usages in one_stock_analysis.py, data_fetching/prices.py, fetch_prices.py, and company_status_helpers.py to use these helpers. (2025-06-04: All direct usages in these modules now refactored; DRY compliance achieved for output logic.)
+- [x] Centralize logging setup and terminal output formatting (info, warning, error, header, etc.) in utils/logging.py and utils/terminal.py; refactor modules to use these helpers. (2025-06-04: Centralized logging and terminal output helpers created and adopted in fetch_prices.py. Validated for SONO and MSFT.)
+- [x] Centralize model/field synonyms (e.g., mapping of alternate field names to canonical names) for DRY compliance in computation/constants.py or a dedicated synonyms module. Refactor all usages to import from this central location. (2025-06-04: FIELD_SYNONYMS now in computation/constants.py and used in financials_core.py for all synonym resolution.)
+- [x] Centralize LLM prompt templates (e.g., field mapping, financial analysis) in src/prompts/ and ensure all code references these files for DRY compliance. (2025-06-04: All prompt templates are now stored in src/prompts/ and referenced from there.)
+- [x] Centralize exception/error handling patterns (e.g., error message templates, error logging, and exception raising) in computation/constants.py and/or a dedicated error_helpers.py. Refactor modules to use these patterns for DRY compliance. (2025-06-04: error_helpers.py created; all custom exceptions now inherit from AltmanZScoreError; data_fetching/financials.py and api/sec_client.py refactored to use DRY error helpers. No stray exception logic remains.)
+
+---
+
+- Review and check off each item as it is completed
+- Update this plan as new DRY opportunities are discovered or completed
