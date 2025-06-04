@@ -5,6 +5,16 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-06-04
+
+### Major Refactor & Modularization
+- Complete modularization of all major files: business logic, plotting, OpenAI, and company data now separated into dedicated helper modules.
+- All large files (>300 lines) split into logical modules; all long functions (>50 lines) decomposed into helpers.
+- Imports and references updated throughout the codebase.
+- Comprehensive tests added/updated for all new/refactored modules; all tests pass and outputs validated.
+- Documentation and usage examples updated to reflect new structure.
+- No breaking changes; all outputs and APIs remain stable.
+
 ## [2.7.4] - 2025-06-03
 - Major plotting refactor: plotting.py split into helpers and terminal modules
 - Full test coverage for plotting_helpers and plotting_terminal

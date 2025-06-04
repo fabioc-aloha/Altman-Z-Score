@@ -6,6 +6,16 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 # PLAN.md — Altman Z-Score Analysis (v2.7.4)
 
+## v2.8.0 Release (2025-06-04)
+- Major refactor: full modularization of all core files and helpers
+- All large files split into logical modules; all long functions decomposed into helpers
+- Imports and references updated throughout
+- Comprehensive tests for all modules; all outputs and APIs remain stable
+- Documentation and usage examples updated to reflect new structure
+- No breaking changes; all outputs and APIs remain stable
+
+---
+
 ## v2.7.4 Release (2025-06-03)
 - Major plotting refactor: plotting.py split into helpers and terminal modules
 - Full test coverage for plotting_helpers and plotting_terminal

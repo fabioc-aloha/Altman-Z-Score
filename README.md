@@ -1,18 +1,17 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.7.4 (2025-06-03)**
+**Version: 2.8.0 (2025-06-04)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
 
 ---
 
-**Release v2.7.4 (June 3, 2025):**
-- Major plotting refactor: plotting.py split into helpers and terminal modules
-- Full test coverage for plotting_helpers and plotting_terminal
-- Improved error handling and modularity in plotting pipeline
-- Updated documentation and version numbers for v2.7.4
-- No breaking changes; all outputs and APIs remain stable
-- See RELEASE_CHECKLIST.md for detailed release notes
+**Release v2.8.0 (June 4, 2025):**
+- Major refactor: full modularization of all core files and helpers
+- All large files split into logical modules; all long functions decomposed into helpers
+- Imports and references updated throughout
+- Comprehensive tests for all modules; all outputs and APIs remain stable
+- See CHANGELOG.md for details
 
 ---
 
@@ -55,6 +54,20 @@ Outputs are saved in `output/<TICKER>/`:
 - **Stock Price Overlay:** Visualizes Z-Score trends alongside historical stock prices
 - **Robust Error Handling:** Clear diagnostics and error outputs for missing data, delisted tickers, or API issues. Now includes explicit user-facing errors for partial/insufficient financials.
 - **Extensible Architecture:** Modular design for easy addition of new data sources, models, or output formats; ongoing work to modularize data connectors and prepare for web/REST/Excel interfaces
+
+---
+
+## Modular Architecture (v2.8.0+)
+The codebase is now fully modularized for maintainability and extensibility. Key modules include:
+- `one_stock_analysis.py` and `one_stock_analysis_helpers.py`: Main pipeline and helpers
+- `company_profile.py` and `company_profile_helpers.py`: Company data logic
+- `company_status.py` and `company_status_helpers.py`: Company status logic
+- `plotting.py`, `plotting_helpers.py`, `plotting_terminal.py`: Plotting and visualization
+- `api/openai_client.py`, `api/openai_helpers.py`: LLM integration
+- `zscore_models.py`, `enums.py`, `model_thresholds.py`, `zscore_model_base.py`: Z-Score models and configuration
+- `computation/formulas.py`: Core financial formulas
+
+All modules are independently testable. See `tests/` for coverage.
 
 ---
 
