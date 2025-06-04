@@ -8,7 +8,8 @@ import tabulate
 
 from altman_zscore.utils.colors import Colors
 from altman_zscore.utils.paths import get_output_dir
-from altman_zscore.zscore_models import CompanyStage, ModelCoefficients, ModelThresholds, TechCalibration
+from altman_zscore.enums import CompanyStage
+from altman_zscore.model_thresholds import ModelCoefficients, ModelThresholds, TechCalibration
 
 
 def print_info(msg):
@@ -24,32 +25,8 @@ def print_info(msg):
         print(f"[INFO] {msg}")
 
 
-def report_zscore_full_report(
-    df,
-    model,
-    out_base=None,
-    print_to_console=True,
-    context_info=None,
-    model_obj=None,
-    calibration=None,
-):
-    """
-    Generate and save a full Altman Z-Score analysis report in Markdown format.
-
-    This function creates a comprehensive, theory-informed financial health report for a company using the Altman Z-Score framework. It integrates quantitative diagnostics, turnaround management theory, and stakeholder recommendations, and appends LLM-generated qualitative commentary. The report is saved to disk and optionally printed to the console.
-
-    Args:
-        df (pd.DataFrame): DataFrame with Z-Score results and mappings.
-        model (str): Z-Score model name.
-        out_base (str, optional): Output file base name (no extension).
-        print_to_console (bool): If True, print the report to stdout.
-        context_info (dict, optional): Company/ticker/industry context.
-        model_obj (object, optional): Model object for advanced use.
-        calibration (object, optional): Calibration object for advanced use.
-    Returns:
-        str: The full Markdown report as a string.
-    """
-    # --- Introduction and Source Attribution ---
+def _get_report_intro_and_title(context_info):
+    """Build the report title and introduction section."""
     intro_lines = [
         "---",
         "## Introduction",
@@ -68,12 +45,11 @@ def report_zscore_full_report(
     company_name = None
     try:
         import yfinance as yf
-
         yf_ticker = yf.Ticker(context_info["Ticker"]) if context_info and "Ticker" in context_info else None
         if yf_ticker:
             info = yf_ticker.info
             company_name = info.get("shortName") or info.get("longName")
-    except KeyError:
+    except Exception:
         company_name = None
     if not company_name and context_info and "Ticker" in context_info:
         company_name = context_info["Ticker"].upper()
@@ -81,16 +57,19 @@ def report_zscore_full_report(
         title = f"# Altman Z-Score Analysis Report: {company_name} ({context_info['Ticker'].upper()})"
     else:
         title = "# Altman Z-Score Analysis Report"
-    # Place title at the very top, then intro_lines, then the rest
-    lines = [title, ""] + intro_lines
-    # --- Script Version Section ---
+    return [title, ""] + intro_lines
+
+
+def _get_script_version():
     try:
         from main import __version__ as pipeline_version
     except ImportError:
         pipeline_version = "unknown"
-    lines.append(f"**Script Version:** v{pipeline_version}")
-    lines.append("")
-    lines.append("## Analysis Context and Z-Score Model Selection Criteria\n")
+    return f"**Script Version:** v{pipeline_version}"
+
+
+def _get_context_section(context_info):
+    lines = ["## Analysis Context and Z-Score Model Selection Criteria\n"]
     if context_info:
         industry_val = context_info.get("Industry")
         sic_val = context_info.get("SIC Code")
@@ -103,7 +82,10 @@ def report_zscore_full_report(
                 continue
             lines.append(f"- **{k}:** {v}")
         lines.append("")
-    # --- Model/Threshold Overrides and Assumptions Section ---
+    return lines
+
+
+def _get_model_label_and_overrides(df, model, context_info):
     MODEL_LABELS = {
         "original": "Original Z-Score (Public Manufacturing, 1968)",
         "private": "Z′-Score (Private Manufacturing, 1983)",
@@ -112,22 +94,23 @@ def report_zscore_full_report(
         "service": "Zʺ-Score (Public Non-Manufacturing, 1995)",
         "emerging": "EM-Score (Emerging Markets, mid-1990s)",
     }
+    override_lines = []
     override_context = None
     if hasattr(df, "zscore_results") and df.zscore_results:
         override_context = getattr(df.zscore_results[0], "override_context", None)
         if override_context:
-            lines.append("### Model/Threshold Overrides and Assumptions\n")
+            override_lines.append("### Model/Threshold Overrides and Assumptions\n")
             for k, v in override_context.items():
-                lines.append(f"- **{k}:** {v}")
-            lines.append("")
+                override_lines.append(f"- **{k}:** {v}")
+            override_lines.append("")
     elif "override_context" in df.columns:
         oc = df["override_context"].iloc[0]
         if oc:
             override_context = oc
-            lines.append("### Model/Threshold Overrides and Assumptions\n")
+            override_lines.append("### Model/Threshold Overrides and Assumptions\n")
             for k, v in oc.items():
-                lines.append(f"- **{k}:** {v}")
-            lines.append("")
+                override_lines.append(f"- **{k}:** {v}")
+            override_lines.append("")
     model_name = None
     if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
         model_name = df.zscore_results[0].model
@@ -135,36 +118,26 @@ def report_zscore_full_report(
         model_name = df['model'].iloc[0]
     else:
         model_name = str(model).lower()
-    # Defensive fallback
     if not model_name:
         model_name = 'original'
     model_label = MODEL_LABELS.get(str(model_name).lower(), str(model_name))
-    # Insert model label into context section
+    # Patch context_info if needed
     if context_info is not None:
-        for idx, line in enumerate(lines):
+        for idx, line in enumerate(override_lines):
             if line.strip().startswith('- **Model:**'):
-                lines[idx] = f'- **Model:** {model_label} ({model_name})'
+                override_lines[idx] = f'- **Model:** {model_label} ({model_name})'
                 break
-    # --- Dynamically build formula and threshold display ---
+    return model_label, model_name, override_lines
+
+
+def _get_formula_and_threshold_section(model_name):
     from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
     formula_lines = []
     threshold_lines = []
     x_labels = []
-    x_cols = []  # Ensure x_cols is always defined
-    # Use the model name from the first row of the DataFrame if available
-    model_name = None
-    if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
-        model_name = df.zscore_results[0].model
-    elif 'model' in df.columns:
-        model_name = df['model'].iloc[0]
-    else:
-        model_name = str(model).lower()
-    # Defensive fallback
-    if not model_name:
-        model_name = 'original'
+    x_cols = []
     coeffs = MODEL_COEFFICIENTS.get(model_name, MODEL_COEFFICIENTS['original'])
     thresholds = Z_SCORE_THRESHOLDS.get(model_name, Z_SCORE_THRESHOLDS['original'])
-    # Build formula string
     coeff_map = [
         ("X1", coeffs.get("A", 0), "(Current Assets - Current Liabilities) / Total Assets"),
         ("X2", coeffs.get("B", 0), "Retained Earnings / Total Assets"),
@@ -189,10 +162,11 @@ def report_zscore_full_report(
     threshold_lines.append(f"- Grey Zone: > {thresholds['distress']} and <= {thresholds['safe']}")
     threshold_lines.append(f"- Distress Zone: <= {thresholds['distress']}")
     threshold_lines.append("")
-    # Insert formula and thresholds into report
-    lines.extend(formula_lines)
-    lines.extend(threshold_lines)
-    # --- Warning Section for Missing Fields and Reliability Impact ---
+    return formula_lines, threshold_lines, x_cols
+
+
+def _get_missing_fields_section(df):
+    lines = []
     if hasattr(df, "missing_fields") and df.missing_fields:
         lines.append(
             "> **Warning:** The following required fields were missing for one or more quarters: "
@@ -201,7 +175,6 @@ def report_zscore_full_report(
         )
         lines.append("")
     elif hasattr(df, "zscore_results") and df.zscore_results:
-        # Check for missing fields in zscore_results if present
         missing = set()
         for res in df.zscore_results:
             if hasattr(res, "missing_fields") and res.missing_fields:
@@ -213,25 +186,22 @@ def report_zscore_full_report(
                 + ". Z-Score components for these fields are omitted or estimated. Interpret results with caution."
             )
             lines.append("")
+    return lines
 
-    def format_number_millions(val):
-        """
-        Format a numeric value as millions of USD for display in tables.
 
-        Args:
-            val (float or str or None): The value to format.
-        Returns:
-            str: The value formatted as a string in millions, or empty string if not valid.
-        """
-        try:
-            if val is None or val == "":
-                return ""
-            val = float(val)
-            val_m = val / 1_000_000
-            return f"{val_m:,.1f}"
-        except ValueError:
-            return str(val)
+def _format_number_millions(val):
+    try:
+        if val is None or val == "":
+            return ""
+        val = float(val)
+        val_m = val / 1_000_000
+        return f"{val_m:,.1f}"
+    except ValueError:
+        return str(val)
 
+
+def _get_field_mapping_table(df):
+    import tabulate
     mapping_rows = []
     mapping_header = ["Quarter", "Canonical Field", "Mapped Raw Field", "Value (USD millions)"]
     for idx, row in enumerate(df.iterrows()):
@@ -240,7 +210,6 @@ def report_zscore_full_report(
         q_str = str(q)
         try:
             import pandas as pd
-
             dt = pd.to_datetime(q)
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
@@ -249,7 +218,6 @@ def report_zscore_full_report(
         if isinstance(field_mapping, str):
             try:
                 import json
-
                 field_mapping = json.loads(field_mapping)
             except Exception:
                 field_mapping = {}
@@ -258,25 +226,25 @@ def report_zscore_full_report(
         for canon, mapping in field_mapping.items():
             mapped_raw = mapping.get("mapped_raw_field")
             val = mapping.get("value")
-            mapping_rows.append(
-                [
-                    q_str,
-                    canon,
-                    mapped_raw if mapped_raw is not None else "",
-                    format_number_millions(val),
-                ]
-            )
+            mapping_rows.append([
+                q_str,
+                canon,
+                mapped_raw if mapped_raw is not None else "",
+                _format_number_millions(val),
+            ])
         if idx < len(df) - 1:
             mapping_rows.append(["---", "---", "---", "---"])
-    mapping_table_str = tabulate.tabulate(mapping_rows, headers=mapping_header, tablefmt="github")
-    # Do NOT append the Raw Data Field Mapping Table here
+    return tabulate.tabulate(mapping_rows, headers=mapping_header, tablefmt="github")
+
+
+def _get_zscore_component_table(df, x_cols):
+    import tabulate
     rows = []
     for _, row in df.iterrows():
         q = row.get("quarter_end")
         q_str = str(q)
         try:
             import pandas as pd
-
             dt = pd.to_datetime(q)
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
@@ -287,7 +255,6 @@ def report_zscore_full_report(
         if isinstance(comps, str):
             try:
                 import json
-
                 comps = json.loads(comps)
             except Exception:
                 comps = {}
@@ -301,23 +268,20 @@ def report_zscore_full_report(
         row_vals.append(diag or "")
         rows.append(row_vals)
     header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]
-    # Add consistency warnings to the Z-Score Component Table if present
     if "consistency_warning" in df.columns:
         header.append("Consistency Warning")
         for i, (_, row) in enumerate(df.iterrows()):
             warning = row.get("consistency_warning")
             rows[i].append(warning if warning else "No issues")
-        table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
-    else:
-        table_str = tabulate.tabulate(rows, headers=header, tablefmt="github")
-    # Do NOT append the Z-Score Component Table here
-    import os  # Ensure os is imported before chart embedding logic
+    return tabulate.tabulate(rows, headers=header, tablefmt="github")
 
-    lines.append("\n\n---\n\n# Graphical View of the Z-Score Analysis\n")
-    # --- Chart Section (standalone section before LLM commentary) ---
+
+def _get_chart_md(context_info, out_base):
+    import os
     ticker = context_info.get("Ticker") if context_info else None
     out_path = None
     if out_base:
+        from altman_zscore.utils.paths import get_output_dir
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
     chart_md = None
     if ticker and out_path:
@@ -330,20 +294,18 @@ def report_zscore_full_report(
         else:
             rel_chart_path = os.path.relpath(local_chart_path, out_dir).replace("\\", "/")
             chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
-        chart_md += "\n"  # Add a new line before the caption
+        chart_md += "\n"
         if os.path.exists(local_chart_path):
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
         else:
             chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (image not available yet; will be generated after analysis)*\n"
-    if chart_md:
-        lines.append(chart_md)
-    # --- Z-Score Component Table (by Quarter) after the chart ---
-    lines.append("\n## Z-Score Component Table (by Quarter)")
-    lines.append(table_str)
-    # --- LLM Commentary Section ---
+    return chart_md
+
+
+def _get_llm_commentary_section(lines, context_info):
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary
-
+        import os
         prompt_path_new = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "..", "prompts", "prompt_fin_analysis.md")
         )
@@ -360,34 +322,54 @@ def report_zscore_full_report(
             )
         with open(prompt_path, "r", encoding="utf-8") as f:
             llm_prompt = f.read()
-        # Prepend intro_lines to lines for LLM context and final report
-        context = "\n".join(lines)  # Do NOT prepend intro_lines again
+        context = "\n".join(lines)
         full_prompt = f"{llm_prompt}\n\n---\n\n{context}"
+        ticker = context_info.get("Ticker") if context_info else None
         llm_commentary = get_llm_qualitative_commentary(full_prompt, ticker=ticker)
-        lines.append(llm_commentary.strip() + "\n")
+        return llm_commentary.strip() + "\n"
     except Exception as exc:
-        lines.append(f"> [LLM commentary unavailable: {exc}]")
-    # --- Appendix: Input Data Tables ---
-    lines.append("\n\n---\n\n# Appendix\n")
-    lines.append("## Raw Data Field Mapping Table (by Quarter)")
-    lines.append(mapping_table_str)
-    lines.append("")
-    lines.append("All values are shown in millions of USD as reported by the data source.")
-    lines.append("")
-    import os  # Ensure os is imported for chart embedding logic
+        return f"> [LLM commentary unavailable: {exc}]"
 
+
+def report_zscore_full_report(
+    df,
+    model,
+    out_base=None,
+    print_to_console=True,
+    context_info=None,
+    model_obj=None,
+    calibration=None,
+):
+    lines = []
+    lines += _get_report_intro_and_title(context_info)
+    lines.append(_get_script_version())
+    lines += _get_context_section(context_info)
+    model_label, model_name, override_lines = _get_model_label_and_overrides(df, model, context_info)
+    lines += override_lines
+    formula_lines, threshold_lines, x_cols = _get_formula_and_threshold_section(model_name)
+    lines += formula_lines
+    lines += threshold_lines
+    lines += _get_missing_fields_section(df)
+    # Field mapping table is generated but not appended to report (per original logic)
+    # mapping_table_str = _get_field_mapping_table(df)
+    table_str = _get_zscore_component_table(df, x_cols)
+    import os
+    lines.append("\n\n---\n\n# Graphical View of the Z-Score Analysis\n")
+    chart_md = _get_chart_md(context_info, out_base)
+    if chart_md:
+        lines.append(chart_md)
+    lines.append("\n## Z-Score Component Table (by Quarter)")
+    lines.append(table_str)
+    lines.append(_get_llm_commentary_section(lines, context_info))
+    lines.append("\n\n---\n\n# Appendix\n")
+    report_md = "\n".join(lines)
     if out_base:
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
-    # Removed hardcoded References and Data Sources section. The LLM now generates this section per prompt instructions.
-    # Prepend intro_lines to lines for the final report output
-    report = "\n".join(lines)  # Do NOT prepend intro_lines again
-    if out_path:
-        try:
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(report + "\n")
-            print_info(f"[SUCCESS] Full report saved to {out_path}")
-        except (OSError, IOError) as exc:
-            print_info(f"[ERROR] Could not save report to {out_path}: {exc}")
-    return report
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(report_md)
+        print_info(f"Full Z-Score report saved to {out_path}")
+    if print_to_console:
+        print(report_md)
+    return report_md
 
 

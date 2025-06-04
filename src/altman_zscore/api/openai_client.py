@@ -2,6 +2,15 @@ import os
 import json
 import requests
 from typing import Optional
+from .openai_helpers import (
+    resolve_prompt_path,
+    load_prompt_file,
+    strip_code_block_markers,
+    parse_llm_json_response,
+    inject_company_context,
+    extract_trimmed_sec_info,
+    extract_trimmed_company_info,
+)
 
 
 class AzureOpenAIClient:
@@ -59,24 +68,8 @@ class AzureOpenAIClient:
         Raises:
             RuntimeError: If the LLM response cannot be parsed as JSON.
         """
-        # --- Prompt Ingestion for Field Mapping ---
-        # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
-        prompt_path_new = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_field_mapping.md"
-        )
-        prompt_path_legacy = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_field_mapping.md"
-        )
-        if os.path.exists(prompt_path_new):
-            prompt_path = prompt_path_new
-        elif os.path.exists(prompt_path_legacy):
-            prompt_path = prompt_path_legacy
-        else:
-            raise FileNotFoundError(
-                f"Could not find prompt_field_mapping.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}"
-            )
-        with open(prompt_path, "r", encoding="utf-8") as f:
-            system_prompt = f.read()
+        prompt_path = resolve_prompt_path("prompt_field_mapping.md")
+        system_prompt = load_prompt_file(prompt_path)
         user_prompt = f"""
 Raw fields: {raw_fields}\n
 Canonical fields: {canonical_fields}\n
@@ -88,21 +81,10 @@ Canonical fields: {canonical_fields}\n
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        # --- Use LLM for all language/synonym mapping ---
-        # The LLM prompt is now responsible for robust, multilingual, and semantic field mapping.
-        # The Python code will only apply user-supplied mapping overrides if present, and otherwise trust the LLM output.
         response = self.chat_completion(messages, temperature=0.0, max_tokens=4096)
         try:
             content = response["choices"][0]["message"]["content"]
-            import json
-
-            # Strip code block markers if present
-            if content.strip().startswith("```"):
-                content = content.strip().split("\n", 1)[-1]
-                if content.endswith("```"):
-                    content = content.rsplit("```", 1)[0]
-            mapping = json.loads(content)
-            # Apply user-supplied mapping overrides if present
+            mapping = parse_llm_json_response(content)
             if mapping_overrides:
                 for canonical, override_field in mapping_overrides.items():
                     if override_field in raw_fields:
@@ -110,171 +92,6 @@ Canonical fields: {canonical_fields}\n
             return mapping
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
-
-
-def _extract_trimmed_sec_info(sec_info: dict) -> dict:
-    """
-    Extract only the most relevant fields from SEC EDGAR company info for prompt injection.
-    Include company info, executive data, and recent executive filings.
-    """
-    base_info = {
-        "name": sec_info.get("name"),
-        "cik": sec_info.get("cik"),
-        "sic": sec_info.get("sic"),
-        "sicDescription": sec_info.get("sicDescription"),
-        "stateOfIncorporation": sec_info.get("stateOfIncorporation"),
-        "fiscalYearEnd": sec_info.get("fiscalYearEnd"),
-        "category": sec_info.get("category"),
-        "business_address": sec_info.get("addresses", {}).get("business", {}),
-        "phone": sec_info.get("phone"),
-        "tickers": sec_info.get("tickers"),
-        "exchanges": sec_info.get("exchanges"),
-        "ein": sec_info.get("ein"),
-        "website": sec_info.get("website"),
-    }
-    
-    # Extract executive info from filings if available
-    try:
-        filings = sec_info.get("filings", {}).get("recent", {})
-        if not isinstance(filings, dict):
-            return base_info
-
-        # Get all the filing arrays, handling potential missing keys
-        accession_numbers = filings.get("accessionNumber", [])
-        descriptions = filings.get("description", [])
-        forms = filings.get("form", [])
-        filing_dates = filings.get("filingDate", [])
-        file_numbers = filings.get("fileNumber", [])
-        
-        # Calculate the length to process based on available data
-        num_filings = min(100, len(accession_numbers))
-        
-        exec_filings = []
-        for i in range(num_filings):
-            desc = descriptions[i] if i < len(descriptions) else ""
-            form = forms[i] if i < len(forms) else ""
-            date = filing_dates[i] if i < len(filing_dates) else ""
-            acc_num = accession_numbers[i] if i < len(accession_numbers) else ""
-            
-            # Convert to string and uppercase for comparison
-            desc = str(desc).upper() if desc else ""
-            form = str(form).upper() if form else ""
-            
-            # Check if this is an executive-related filing
-            is_exec_filing = (
-                any(term in form for term in ["FORM 4", "FORM 3", "FORM 5"]) or
-                any(term in desc for term in [
-                    "RSU", "CEO", "CFO", "DIRECTOR", "EXECUTIVE", 
-                    "BENEFICIAL OWNERSHIP", "STOCK AWARD", "OPTION"
-                ])
-            )
-            
-            if is_exec_filing:
-                exec_filing = {
-                    "date": date,
-                    "description": desc,
-                    "type": form,
-                    "accessionNumber": acc_num
-                }
-                exec_filings.append(exec_filing)
-        
-        if exec_filings:
-            base_info["recent_executive_filings"] = exec_filings[:20]  # Keep only the 20 most recent
-            
-    except Exception as e:
-        print(f"Error processing SEC filings: {str(e)}")
-    
-    return base_info
-
-
-def _extract_trimmed_company_info(company_info: dict) -> dict:
-    """
-    Extract only the most relevant fields from Yahoo Finance company info for prompt injection.
-    Include company info, executive/officer data, and institutional ownership.
-    """
-    # Start with base fields except filings
-    filtered = {k: v for k, v in company_info.items() if k != "filings" and v is not None}
-    
-    # Extract executive officer information
-    exec_info = []
-    
-    # Look for executives in various fields
-    exec_fields = [
-        "officers", "executives", "management", "directors",
-        "keyExecutives", "companyOfficers", "boardMembers",
-        "insiderHolders", "institutionalHolders"  # These might also contain executive info
-    ]
-    
-    for field in exec_fields:
-        if field in company_info and company_info[field]:
-            execs = company_info[field]
-            if not isinstance(execs, list):
-                continue
-                
-            for e in execs:
-                if not isinstance(e, dict):
-                    continue
-                    
-                # Check if this is likely an executive entry
-                name = e.get("name", e.get("holderName", "Unknown"))
-                title = e.get("title", e.get("position", e.get("relationship", "Unknown")))
-                
-                if "Unknown" in (name, title):
-                    continue
-                    
-                exec_data = {
-                    "name": name,
-                    "title": title
-                }
-                
-                # Optional fields - only add if they exist and are not None
-                optional_fields = {
-                    "age": e.get("age"),
-                    "yearBorn": e.get("yearBorn"),
-                    "since": e.get("since", e.get("yearsWithCompany")),
-                    "compensation": e.get("totalCompensation"),
-                    "shares": e.get("totalHolding", e.get("shares")),
-                    "dateReported": e.get("latestTransDate", e.get("reportDate")),
-                }
-                
-                exec_data.update({k: v for k, v in optional_fields.items() if v is not None})
-                exec_info.append(exec_data)
-    
-    # Add executive info if found
-    if exec_info:
-        filtered["executive_information"] = exec_info
-        
-    # Process nested dictionaries and remove any None values
-    for k, v in list(filtered.items()):
-        if isinstance(v, dict):
-            # Recursively clean nested dictionaries
-            filtered[k] = {sk: sv for sk, sv in v.items() if sv is not None}
-            if not filtered[k]:  # Remove if empty
-                del filtered[k]
-        elif isinstance(v, list):
-            # Clean up lists to remove None values and empty dicts
-            filtered[k] = [x for x in v if x is not None and (not isinstance(x, dict) or any(x.values()))]
-                
-    # Add institutional holder information if available
-    if "institutionalHolders" in company_info:
-        inst_holders = company_info["institutionalHolders"]
-        if isinstance(inst_holders, list):
-            filtered["institutionalOwnership"] = [
-                {k: v for k, v in holder.items() if v is not None}
-                for holder in inst_holders
-                if isinstance(holder, dict) and any(v is not None for v in holder.values())
-            ]
-    
-    if "majorHolders" in company_info:
-        major_holders = company_info["majorHolders"]
-        if isinstance(major_holders, list):
-            filtered["majorHolders"] = [
-                {k: v for k, v in holder.items() if v is not None}
-                for holder in major_holders
-                if isinstance(holder, dict) and any(v is not None for v in holder.values())
-            ]
-
-    return filtered
 
 
 def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) -> str:
@@ -294,95 +111,113 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         RuntimeError: If the LLM response cannot be parsed as text.
     """
     client = AzureOpenAIClient()
-    # Try both new (src/prompts/) and legacy (src/altman_zscore/prompts/) locations for backward compatibility
-    prompt_path_new = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "..", "prompts", "prompt_fin_analysis.md"
-    )
-    prompt_path_legacy = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "prompt_fin_analysis.md")
-    if os.path.exists(prompt_path_new):
-        prompt_path = prompt_path_new
-    elif os.path.exists(prompt_path_legacy):
-        prompt_path = prompt_path_legacy
-    else:
-        raise FileNotFoundError(
-            f"Could not find prompt_fin_analysis.md in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}"
-        )
-    with open(prompt_path, "r", encoding="utf-8") as f:
-        system_prompt = f.read()
-    # Inject company_info.json and company_officers.json content if ticker is provided
-    company_officers_str = ""
-    company_info_str = ""
-    sec_info_str = ""
-    if ticker:
-        from altman_zscore.utils.paths import get_output_dir
-        company_officers_path = get_output_dir("company_officers.json", ticker=ticker)
-        company_info_path = get_output_dir("company_info.json", ticker=ticker)
-        sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
-        if os.path.exists(company_officers_path):
-            try:
-                with open(company_officers_path, "r", encoding="utf-8") as officers_file:
-                    officers_json = json.load(officers_file)
-                import io
-                import pprint
-                buf = io.StringIO()
-                pprint.pprint(officers_json, stream=buf, compact=True, width=120)
-                company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
-            except Exception as e:
-                company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
-        if os.path.exists(company_info_path):
-            try:
-                with open(company_info_path, "r", encoding="utf-8") as info_file:
-                    company_info = json.load(info_file)
-                # First extract the trimmed info
-                trimmed_company = _extract_trimmed_company_info(company_info)
-                import io
-                import pprint
-                buf = io.StringIO()
-                pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
-                company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
-            except Exception as e:
-                company_info_str = f"\n[Could not load company_info.json: {e}]\n"
-        if os.path.exists(sec_info_path):
-            try:
-                with open(sec_info_path, "r", encoding="utf-8") as sec_file:
-                    sec_info = json.load(sec_file)
-                    # First extract the trimmed info
-                    trimmed = _extract_trimmed_sec_info(sec_info)
-                    # Remove any None values to reduce noise
-                    trimmed = {k: v for k, v in trimmed.items() if v is not None}
-                    # Also filter out None values from nested dictionaries like business_address
-                    if "business_address" in trimmed:
-                        trimmed["business_address"] = {k: v for k, v in trimmed["business_address"].items() if v is not None}
-                        if not trimmed["business_address"]:  # Remove if empty
-                            del trimmed["business_address"]
-                    import io
-                    import pprint
-                    buf = io.StringIO()
-                    pprint.pprint(trimmed, stream=buf, compact=True, width=120)
-                    sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
-            except Exception as e:
-                sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
-    # Prepend the company officers, company info, and trimmed SEC info to the user prompt
+    prompt_path = resolve_prompt_path("prompt_fin_analysis.md")
+    system_prompt = load_prompt_file(prompt_path)
+    company_officers_str, company_info_str, sec_info_str = inject_company_context(ticker)
     full_prompt = f"{company_officers_str}{company_info_str}{sec_info_str}\n{prompt}"
-    # Save the prompt to a file for traceability if ticker is provided
     if ticker:
         try:
             from altman_zscore.utils.paths import get_output_dir
-            prompt_path = get_output_dir("llm_commentary_prompt.txt", ticker=ticker)
-            os.makedirs(os.path.dirname(prompt_path), exist_ok=True)
-            with open(prompt_path, "w", encoding="utf-8") as pf:
-                pf.write(full_prompt)
-        except Exception as e:
-            print(f"[WARN] Could not save LLM prompt to file for ticker {ticker}: {e}")
-    messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": full_prompt}]
-    response = client.chat_completion(messages, temperature=0.2, max_tokens=4096)
+            prompt_save_path = get_output_dir("llm_commentary_prompt.txt", ticker=ticker)
+            with open(prompt_save_path, "w", encoding="utf-8") as f:
+                f.write(full_prompt)
+        except Exception:
+            pass
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": full_prompt},
+    ]
+    response = client.chat_completion(messages, temperature=0.0, max_tokens=4096)
     try:
         content = response["choices"][0]["message"]["content"]
-        # Remove code block markers if present
-        if content.strip().startswith("```"):
-            content = content.strip().split("\n", 1)[-1]
-            if content.endswith("```"):
-                content = content.rsplit("```", 1)[0]
         return content.strip()
     except Exception as e:
         raise RuntimeError(f"Failed to parse LLM commentary: {e}\nResponse: {response}")
+
+
+def _resolve_prompt_path(prompt_filename):
+    """Resolve prompt file path, supporting both new and legacy locations."""
+    prompt_path_new = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "..", "prompts", prompt_filename
+    )
+    prompt_path_legacy = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "prompts", prompt_filename
+    )
+    if os.path.exists(prompt_path_new):
+        return prompt_path_new
+    elif os.path.exists(prompt_path_legacy):
+        return prompt_path_legacy
+    else:
+        raise FileNotFoundError(
+            f"Could not find {prompt_filename} in either src/prompts/ or src/altman_zscore/prompts/. Checked: {prompt_path_new}, {prompt_path_legacy}"
+        )
+
+
+def _load_prompt_file(prompt_path):
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def _strip_code_block_markers(content):
+    content = content.strip()
+    if content.startswith("```"):
+        content = content.split("\n", 1)[-1]
+        if content.endswith("```"):
+            content = content.rsplit("```", 1)[0]
+    return content
+
+
+def _parse_llm_json_response(content):
+    content = _strip_code_block_markers(content)
+    return json.loads(content)
+
+
+def _inject_company_context(ticker):
+    """Return context strings for company officers, info, and SEC info for a ticker."""
+    company_officers_str = ""
+    company_info_str = ""
+    sec_info_str = ""
+    if not ticker:
+        return company_officers_str, company_info_str, sec_info_str
+    from altman_zscore.utils.paths import get_output_dir
+    company_officers_path = get_output_dir("company_officers.json", ticker=ticker)
+    company_info_path = get_output_dir("company_info.json", ticker=ticker)
+    sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
+    if os.path.exists(company_officers_path):
+        try:
+            with open(company_officers_path, "r", encoding="utf-8") as officers_file:
+                officers_json = json.load(officers_file)
+            import io, pprint
+            buf = io.StringIO()
+            pprint.pprint(officers_json, stream=buf, compact=True, width=120)
+            company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
+        except Exception as e:
+            company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
+    if os.path.exists(company_info_path):
+        try:
+            with open(company_info_path, "r", encoding="utf-8") as info_file:
+                company_info = json.load(info_file)
+            trimmed_company = extract_trimmed_company_info(company_info)
+            import io, pprint
+            buf = io.StringIO()
+            pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
+            company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
+        except Exception as e:
+            company_info_str = f"\n[Could not load company_info.json: {e}]\n"
+    if os.path.exists(sec_info_path):
+        try:
+            with open(sec_info_path, "r", encoding="utf-8") as sec_file:
+                sec_info = json.load(sec_file)
+                trimmed = extract_trimmed_sec_info(sec_info)
+                trimmed = {k: v for k, v in trimmed.items() if v is not None}
+                if "business_address" in trimmed:
+                    trimmed["business_address"] = {k: v for k, v in trimmed["business_address"].items() if v is not None}
+                    if not trimmed["business_address"]:
+                        del trimmed["business_address"]
+                import io, pprint
+                buf = io.StringIO()
+                pprint.pprint(trimmed, stream=buf, compact=True, width=120)
+                sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
+        except Exception as e:
+            sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
+    return company_officers_str, company_info_str, sec_info_str
