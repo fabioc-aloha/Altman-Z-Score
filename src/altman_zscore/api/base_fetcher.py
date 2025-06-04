@@ -6,9 +6,9 @@ from typing import Dict, Union
 
 from bs4 import BeautifulSoup
 
-from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel, ValidationRule
-from ..fetch_financials import find_xbrl_tag
-from ..industry_classifier import CompanyProfile
+from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+from ..data_fetching.sec_edgar import find_xbrl_tag
+from ..company_profile import CompanyProfile
 
 # Define a type for financial values that can be float or Decimal
 FinancialValue = Union[float, Decimal]
@@ -94,37 +94,37 @@ class BaseFinancialFetcher(ABC):
         Returns:
             List of validation issues
         """
-        # Add basic validation rules
-        base_rules = [
-            ValidationRule(
-                field="revenue_margin",
-                description="Revenue margin should be positive",
-                level=ValidationLevel.ERROR,
-                min_value=0.0,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-            ValidationRule(
-                field="operating_margin",
-                description="Operating margin should be reasonable",
-                level=ValidationLevel.WARNING,
-                min_value=-0.2,  # Allow some operating losses for growth companies
-                max_value=0.4,  # Flag unusually high margins
-                required=False,
-            ),
-            ValidationRule(
-                field="return_on_assets",
-                description="Return on assets should be reasonable",
-                level=ValidationLevel.WARNING,
-                min_value=-0.1,  # Allow some losses
-                max_value=0.3,  # Flag unusually high returns
-                required=False,
-            ),
-        ]
-
-        # Add rules to validator
-        for rule in base_rules:
-            self.validator.add_rule(rule)
-
-        return self.validator.validate(data)
+        issues = []
+        # Base validation logic for key metrics
+        if "revenue_margin" in data:
+            val = data["revenue_margin"]
+            if val is None or val < 0:
+                issues.append(ValidationIssue(
+                    field="revenue_margin",
+                    issue="Revenue margin should be positive",
+                    level=ValidationLevel.ERROR,
+                    value=val
+                ))
+        if "operating_margin" in data:
+            val = data["operating_margin"]
+            if val is not None:
+                if val < -0.2 or val > 0.4:
+                    issues.append(ValidationIssue(
+                        field="operating_margin",
+                        issue="Operating margin is outside reasonable range (-0.2 to 0.4)",
+                        level=ValidationLevel.WARNING,
+                        value=val
+                    ))
+        if "return_on_assets" in data:
+            val = data["return_on_assets"]
+            if val is not None:
+                if val < -0.1 or val > 0.3:
+                    issues.append(ValidationIssue(
+                        field="return_on_assets",
+                        issue="Return on assets is outside reasonable range (-0.1 to 0.3)",
+                        level=ValidationLevel.WARNING,
+                        value=val
+                    ))
+        # Use the built-in validator for required fields and suspicious values
+        issues.extend(self.validator.validate(data))
+        return issues

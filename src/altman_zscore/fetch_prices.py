@@ -246,8 +246,10 @@ def save_price_data_to_disk(df: pd.DataFrame, ticker: str, file_prefix: str) -> 
         # Save to JSON (orient='records' for list of objects)
         with open(json_path, "w") as f:
             json_str = df_copy.to_json(orient="records", date_format="iso")
-            # Parse and re-dump to format the JSON with indentation
-            json.dump(json.loads(json_str), f, indent=2)
+            if json_str is not None:
+                json.dump(json.loads(json_str), f, indent=2)
+            else:
+                json.dump([], f, indent=2)
 
         return csv_path, json_path
     except Exception as e:

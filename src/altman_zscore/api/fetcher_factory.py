@@ -2,7 +2,7 @@
 
 from typing import Dict, Type
 
-from ..industry_classifier import CompanyProfile, IndustryGroup  # Ensure these symbols exist
+from ..company_profile import CompanyProfile, IndustryGroup  # Ensure these symbols exist
 from .base_fetcher import BaseFinancialFetcher
 from .manufacturing_fetcher import ManufacturingFinancialFetcher
 from .service_fetcher import ServiceFinancialFetcher
@@ -29,9 +29,9 @@ def create_fetcher(company_profile: CompanyProfile) -> BaseFinancialFetcher:
         If a company doesn't fit into the main industry categories, the base fetcher
         is used which provides common financial metrics applicable to all industries.
     """
-    if company_profile.is_tech_or_ai:
+    if company_profile.industry_group == IndustryGroup.TECH or company_profile.industry_group == IndustryGroup.AI:
         industry = "TECH"
-    elif company_profile.is_manufacturing:
+    elif company_profile.industry_group == IndustryGroup.MANUFACTURING:
         industry = "MANUFACTURING"
     elif company_profile.industry_group == IndustryGroup.SERVICE:
         industry = "SERVICE"

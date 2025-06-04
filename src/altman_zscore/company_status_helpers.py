@@ -180,11 +180,24 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
                 status.status_reason = "No recent trading data available"
             else:
                 last_date = hist.index[-1]
-                status.last_trading_date = last_date.strftime("%Y-%m-%d")
+                import pandas as pd
+                # If last_date is a pandas Index, get the last value as a Timestamp
+                if isinstance(last_date, pd.Index):
+                    last_date = last_date.to_list()[-1]
+                # If last_date is a pandas Timestamp, convert to datetime
+                if isinstance(last_date, pd.Timestamp):
+                    last_date_dt = last_date.to_pydatetime()
+                else:
+                    last_date_dt = last_date
+                status.last_trading_date = last_date_dt.strftime("%Y-%m-%d") if hasattr(last_date_dt, "strftime") else str(last_date_dt)
                 today = date.today()
-                last_trade_date = last_date.date() if hasattr(last_date, "date") else last_date
-                days_since_last_trade = (today - last_trade_date).days
-                if days_since_last_trade > 5:
+                # If last_date_dt is datetime, get .date(), else use as is
+                if hasattr(last_date_dt, "date"):
+                    last_trade_date = last_date_dt.date()
+                else:
+                    last_trade_date = last_date_dt
+                days_since_last_trade = (today - last_trade_date).days if hasattr(last_trade_date, "__sub__") else None
+                if days_since_last_trade is not None and days_since_last_trade > 5:
                     status.is_active = False
                     status.status_reason = f"No trading activity for {days_since_last_trade} days"
         except Exception as e:

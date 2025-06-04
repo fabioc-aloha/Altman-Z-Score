@@ -225,9 +225,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                 "income_statement": df_to_dict_str_keys(is_),
             }
             with open(os.path.join(output_dir, "financials_raw.json"), "w", encoding="utf-8") as f:
-                json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)
-
-            # Fetch and save additional company information from yfinance
+                json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)            # Fetch and save additional company information from yfinance
             try:
                 company_info = yf_ticker.info
                 with open(os.path.join(output_dir, "company_info.json"), "w", encoding="utf-8") as f:
@@ -235,16 +233,25 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
 
                 major_holders = yf_ticker.major_holders.to_json()
                 with open(os.path.join(output_dir, "major_holders.json"), "w", encoding="utf-8") as f:
-                    f.write(json.dumps(json.loads(major_holders), indent=4))
+                    if major_holders is not None:
+                        json.dump(json.loads(major_holders), f, indent=4)
+                    else:
+                        json.dump({}, f, indent=4)
 
                 institutional_holders = yf_ticker.institutional_holders.to_json()
                 with open(os.path.join(output_dir, "institutional_holders.json"), "w", encoding="utf-8") as f:
-                    f.write(json.dumps(json.loads(institutional_holders), indent=4))
+                    if institutional_holders is not None:
+                        json.dump(json.loads(institutional_holders), f, indent=4)
+                    else:
+                        json.dump({}, f, indent=4)
 
                 if isinstance(yf_ticker.recommendations, pd.DataFrame):
                     recommendations = yf_ticker.recommendations.to_json()
                     with open(os.path.join(output_dir, "recommendations.json"), "w", encoding="utf-8") as f:
-                        f.write(json.dumps(json.loads(recommendations), indent=4))
+                        if recommendations is not None:
+                            json.dump(json.loads(recommendations), f, indent=4)
+                        else:
+                            json.dump({}, f, indent=4)
             except Exception as e:
                 logger.warning(f"[{ticker}] Failed to fetch additional company information from yfinance: {e}")
 

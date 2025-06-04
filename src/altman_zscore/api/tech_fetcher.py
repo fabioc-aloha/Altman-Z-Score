@@ -4,7 +4,8 @@ from typing import Dict, List
 
 from bs4 import BeautifulSoup
 
-from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel, ValidationRule
+from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+from ..data_fetching.sec_edgar import find_xbrl_tag
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
 
 
@@ -20,8 +21,6 @@ class TechFinancialFetcher(BaseFinancialFetcher):
         Returns:
             Dictionary of tech-specific metrics
         """
-        from ..fetch_financials import find_with_period, find_xbrl_tag
-
         metrics = {}
 
         # Try to get R&D expenses
@@ -31,22 +30,12 @@ class TechFinancialFetcher(BaseFinancialFetcher):
             "us-gaap:ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
         ]
         if rd := find_xbrl_tag(soup, rd_concepts):
-            metrics["research_and_development_expense"] = rd  # Match the test's field name
+            metrics["research_and_development_expense"] = rd
 
         # Try to get revenue growth from sequential periods
-        revenue_concepts = [
-            "us-gaap:Revenues",
-            "us-gaap:RevenuesFromContractWithCustomerExcludingAssessedTax",
-            "us-gaap:RevenuesNetOfInterestExpense",
-            "us-gaap:Revenues",
-        ]
-        dated_revenues = find_with_period(soup, revenue_concepts)
-        if len(dated_revenues) >= 2:
-            # Sort by date descending
-            dated_revenues.sort(key=lambda x: x[0], reverse=True)
-            current, prior = dated_revenues[0][1], dated_revenues[1][1]
-            if prior > 0:
-                metrics["revenue_growth"] = (current - prior) / prior
+        # NOTE: find_with_period is not implemented, so fallback to None for revenue_growth
+        # If you want to implement this, you need to parse periods and values from soup
+        # For now, skip revenue_growth calculation
 
         # Try to get subscription revenue for SaaS
         subscription_concepts = [
@@ -60,58 +49,54 @@ class TechFinancialFetcher(BaseFinancialFetcher):
 
         return metrics
 
-    def validate_data(self, data: Dict[str, FinancialValue], profile) -> List[ValidationIssue]:
+    def validate_data(self, data: Dict[str, FinancialValue], company_profile) -> List[ValidationIssue]:
         """Validate tech company metrics."""
-        # Create a fresh validator for tech-specific rules
-        validator = FinancialDataValidator()
-
-        # Add tech-specific validation rules
-        rules = [
-            ValidationRule(
-                field="revenue_margin",
-                description="Tech companies should maintain high gross margins (>50%)",
-                level=ValidationLevel.WARNING,
-                min_value=0.50,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-            ValidationRule(
-                field="research_and_development_expense",
-                description="R&D expenses should be at least 10% of revenue for tech companies",
-                level=ValidationLevel.WARNING,
-                ratio_denominator="revenue",
-                ratio_min=0.10,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-            ValidationRule(
-                field="subscription_revenue",
-                description="SaaS companies should have >60% recurring revenue",
-                level=ValidationLevel.WARNING,
-                ratio_denominator="revenue",
-                ratio_min=0.60,
-                required=False,
-            ),
-            ValidationRule(
-                field="revenue_growth",
-                description="Tech companies should maintain strong growth (>20% YoY)",
-                level=ValidationLevel.WARNING,
-                min_value=0.20,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-        ]
-
-        # Add rules to validator
-        for rule in rules:
-            validator.add_rule(rule)
-
-        # Call validate_data on the parent class first to include base rules
-        issues = super().validate_data(data, profile)
-
-        # Add tech-specific validation issues
-        issues.extend(validator.validate(data))
+        issues = super().validate_data(data, company_profile)
+        # Tech-specific validation logic
+        if "revenue_margin" in data:
+            val = data["revenue_margin"]
+            if val is not None and val < 0.5:
+                issues.append(ValidationIssue(
+                    field="revenue_margin",
+                    issue="Tech companies should maintain high gross margins (>50%)",
+                    level=ValidationLevel.WARNING,
+                    value=val
+                ))
+        if "research_and_development_expense" in data and "revenue" in data:
+            rd = data["research_and_development_expense"]
+            revenue = data["revenue"]
+            try:
+                ratio = float(rd) / float(revenue)
+            except Exception:
+                ratio = None
+            if revenue and rd is not None and ratio is not None and ratio < 0.10:
+                issues.append(ValidationIssue(
+                    field="research_and_development_expense",
+                    issue="R&D expenses should be at least 10% of revenue for tech companies",
+                    level=ValidationLevel.WARNING,
+                    value=rd
+                ))
+        if "subscription_revenue" in data and "revenue" in data:
+            subs = data["subscription_revenue"]
+            revenue = data["revenue"]
+            try:
+                ratio = float(subs) / float(revenue)
+            except Exception:
+                ratio = None
+            if revenue and subs is not None and ratio is not None and ratio < 0.60:
+                issues.append(ValidationIssue(
+                    field="subscription_revenue",
+                    issue="SaaS companies should have >60% recurring revenue",
+                    level=ValidationLevel.WARNING,
+                    value=subs
+                ))
+        if "revenue_growth" in data:
+            val = data["revenue_growth"]
+            if val is not None and val < 0.20:
+                issues.append(ValidationIssue(
+                    field="revenue_growth",
+                    issue="Tech companies should maintain strong growth (>20% YoY)",
+                    level=ValidationLevel.WARNING,
+                    value=val
+                ))
         return issues

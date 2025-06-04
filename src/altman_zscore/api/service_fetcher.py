@@ -4,7 +4,8 @@ from typing import Dict, List
 
 from bs4 import BeautifulSoup
 
-from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel, ValidationRule
+from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+from ..data_fetching.sec_edgar import find_xbrl_tag
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
 
 
@@ -20,8 +21,6 @@ class ServiceFinancialFetcher(BaseFinancialFetcher):
         Returns:
             Dictionary of service-specific metrics
         """
-        from ..fetch_financials import find_xbrl_tag
-
         # Get base metrics first
         metrics = super().get_industry_metrics(soup)
 
@@ -66,51 +65,26 @@ class ServiceFinancialFetcher(BaseFinancialFetcher):
 
         return metrics
 
-    def validate_data(self, data: Dict[str, FinancialValue], profile) -> List[ValidationIssue]:
+    def validate_data(self, data: Dict[str, FinancialValue], company_profile) -> List[ValidationIssue]:
         """Validate service company metrics."""
-        # Create a validator for service-specific rules
-        validator = FinancialDataValidator()
-
-        # Add service-specific validation rules
-        rules = [
-            ValidationRule(
-                field="service_cost",
-                description="Service costs should be less than 75% of revenue for healthy margins",
-                level=ValidationLevel.WARNING,
-                ratio_denominator="revenue",
-                ratio_min=0,  # Any positive value
-                ratio_max=0.75,
-                required=True,  # This is a critical service company metric
-                allow_zero=False,  # Service costs can't be zero
-                allow_negative=False,
-            ),
-            ValidationRule(
-                field="revenue_per_employee_cost",
-                description="Revenue should be at least 2x employee costs for profitability",
-                level=ValidationLevel.WARNING,
-                min_value=2.0,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-            ValidationRule(
-                field="service_delivery_efficiency",
-                description="Service delivery efficiency should be at least 25%",
-                level=ValidationLevel.WARNING,
-                min_value=0.25,
-                required=False,
-                allow_zero=False,
-                allow_negative=False,
-            ),
-        ]
-
-        # Add rules to validator
-        for rule in rules:
-            validator.add_rule(rule)
-
-        # Call validate_data on the parent class first to include base rules
-        issues = super().validate_data(data, profile)
-
-        # Add service-specific validation issues
-        issues.extend(validator.validate(data))
+        issues = super().validate_data(data, company_profile)
+        # Service-specific validation logic
+        if "revenue_per_employee_cost" in data:
+            val = data["revenue_per_employee_cost"]
+            if val is not None and val < 2.0:
+                issues.append(ValidationIssue(
+                    field="revenue_per_employee_cost",
+                    issue="Revenue should be at least 2x employee costs for profitability",
+                    level=ValidationLevel.WARNING,
+                    value=val
+                ))
+        if "service_delivery_efficiency" in data:
+            val = data["service_delivery_efficiency"]
+            if val is not None and val < 0.25:
+                issues.append(ValidationIssue(
+                    field="service_delivery_efficiency",
+                    issue="Service delivery efficiency should be at least 25%",
+                    level=ValidationLevel.WARNING,
+                    value=val
+                ))
         return issues
