@@ -168,7 +168,7 @@ def _select_zscore_model_from_profile(profile):
 
 
 def _fetch_and_validate_financials(ticker, model, start_date, out_base):
-    """Fetch and validate financials, return valid quarters or error DataFrame."""
+    """Fetch and validate financials, return (fin_info, valid_quarters) tuple."""
     fin_info = fetch_financials(ticker, "", model)
     if fin_info is None:
         error_result = [{
@@ -190,11 +190,11 @@ def _fetch_and_validate_financials(ticker, model, start_date, out_base):
         raise ValueError(
             f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period."
         )
-    return list(reversed(valid_quarters))
+    return fin_info, list(reversed(valid_quarters))
 
 
-def _process_quarters_and_compute_zscores(quarters, ticker, model):
-    """Compute Z-Scores and validation for each quarter."""
+def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=None):
+    """Compute Z-Scores and validation for each quarter. Attach raw_quarters if provided."""
     yahoo = YahooFinanceClient()
     results = []
     for q in quarters:
@@ -273,7 +273,9 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model):
     for r in results:
         if "api_payload" in r:
             r["api_payload"] = safe_payload(r["api_payload"])
-    return pd.DataFrame(results)
+    df = pd.DataFrame(results)
+    # Do NOT assign custom attributes to DataFrame
+    return df
 
 
 def _save_results_to_disk(df, out_base, error=False):
@@ -377,14 +379,18 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
     check_company_status_and_handle(ticker)
     profile, out_base = classify_and_prepare_output(ticker)
     model, sic_code = _select_zscore_model_from_profile(profile)
-    quarters = _fetch_and_validate_financials(ticker, model, start_date, out_base)
-    df = _process_quarters_and_compute_zscores(quarters, ticker, model)
+    fin_info, quarters = _fetch_and_validate_financials(ticker, model, start_date, out_base)
+    raw_quarters = fin_info.get("quarters") if fin_info else None
+    df = _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=raw_quarters)
     _save_results_to_disk(df, out_base)
     for _, row in df.iterrows():
         if row.get("error"):
             print_warning(f"{row['quarter_end']}: {row['error']}")
     stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base)
+    # Build context_info and add extra data
     context_info = _prepare_context_info(ticker, profile, model, sic_code)
+    context_info["raw_quarters"] = raw_quarters if raw_quarters is not None else quarters
+    context_info["weekly_prices"] = stock_prices
     _generate_report_and_plot(df, model, out_base, context_info, ticker, stock_prices)
     return df
 

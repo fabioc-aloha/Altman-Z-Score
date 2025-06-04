@@ -109,7 +109,7 @@ def _get_model_label_and_overrides(df, model, context_info):
             override_context = oc
             override_lines.append("### Model/Threshold Overrides and Assumptions\n")
             for k, v in oc.items():
-                override_lines.append(f"- **{k}:** {v}")
+                override_lines.append(f"- **{k}: {v}")
             override_lines.append("")
     model_name = None
     if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
@@ -124,7 +124,7 @@ def _get_model_label_and_overrides(df, model, context_info):
     # Patch context_info if needed
     if context_info is not None:
         for idx, line in enumerate(override_lines):
-            if line.strip().startswith('- **Model:**'):
+            if line.strip().startsWith('- **Model:**'):
                 override_lines[idx] = f'- **Model:** {model_label} ({model_name})'
                 break
     return model_label, model_name, override_lines
@@ -302,10 +302,107 @@ def _get_chart_md(context_info, out_base):
     return chart_md
 
 
+def get_key_financial_ratios(quarters, fin_raw=None):
+    """Return a list of dicts with key financial ratios for each period, and a formatted string for the latest period."""
+    import pandas as pd
+    def get_any(d, keys):
+        for k in keys:
+            if k in d and d[k] not in (None, ""):
+                return d[k]
+        return None
+    ratio_rows = []
+    ratio_header = [
+        "Period End", "Current Ratio", "Quick Ratio", "Debt/Equity", "Gross Margin", "Net Margin", "ROA", "ROE"
+    ]
+    latest_ratio_dict = None
+    for q in quarters:
+        try:
+            ca = float(q.get("current_assets", 0))
+            cl = float(q.get("current_liabilities", 0))
+            inv = float(q.get("inventory", 0) or 0)
+            ta = float(q.get("total_assets", 0))
+            tl = float(q.get("total_liabilities", 0))
+            eq = ta - tl
+            period = q.get("period_end")
+            ni = get_any(q, ["net_income", "Net Income", "netIncome", "net_income_common_stockholders"]) or 0
+            gp = get_any(q, ["gross_profit", "Gross Profit", "grossProfit"]) or 0
+            # If missing, try to get from fin_raw
+            if fin_raw and (not ni or float(ni) == 0 or ni == "0.0") and fin_raw.get("income_statement"):
+                period_key = None
+                for k in fin_raw["income_statement"].keys():
+                    if str(period)[:10] in k:
+                        period_key = k
+                        break
+                if period_key:
+                    ni = get_any(fin_raw["income_statement"][period_key], [
+                        "Net Income", "Net Income Common Stockholders", "Net Income Including Noncontrolling Interests", "Net Income From Continuing And Discontinued Operation", "net_income", "netIncome", "Net Income Continuous Operations"
+                    ]) or 0
+                    gp = get_any(fin_raw["income_statement"][period_key], ["Gross Profit", "gross_profit", "grossProfit"]) or 0
+            ni = float(ni) if ni not in (None, "") else 0
+            gp = float(gp) if gp not in (None, "") else 0
+            sales = float(q.get("sales", 0))
+            current_ratio = ca / cl if cl else None
+            quick_ratio = (ca - inv) / cl if cl else None
+            debt_equity = tl / eq if eq else None
+            gross_margin = gp / sales if sales else None
+            net_margin = ni / sales if sales else None
+            roa = ni / ta if ta else None
+            roe = ni / eq if eq else None
+            if period:
+                try:
+                    period = str(pd.to_datetime(period).date())
+                except Exception:
+                    pass
+            ratio_row = [
+                period or "",
+                f"{current_ratio:.5f}" if current_ratio is not None else "",
+                f"{quick_ratio:.5f}" if quick_ratio is not None else "",
+                f"{debt_equity:.5f}" if debt_equity is not None else "",
+                f"{gross_margin:.5f}" if gross_margin is not None else "",
+                f"{net_margin:.5f}" if net_margin is not None else "",
+                f"{roa:.5f}" if roa is not None else "",
+                f"{roe:.5f}" if roe is not None else "",
+            ]
+            ratio_rows.append(ratio_row)
+            latest_ratio_dict = {
+                "period": period or "",
+                "current_ratio": current_ratio,
+                "quick_ratio": quick_ratio,
+                "debt_equity": debt_equity,
+                "gross_margin": gross_margin,
+                "net_margin": net_margin,
+                "roa": roa,
+                "roe": roe,
+            }
+        except Exception:
+            continue
+    # Formatted string for latest period
+    latest_str = ""
+    if latest_ratio_dict:
+        latest_str = f"\n**Key Financial Ratios (latest period: {latest_ratio_dict['period']}):**\n"
+        if latest_ratio_dict["current_ratio"] is not None:
+            latest_str += f"- Current Ratio: {latest_ratio_dict['current_ratio']:.5f}\n"
+        if latest_ratio_dict["quick_ratio"] is not None:
+            latest_str += f"- Quick Ratio: {latest_ratio_dict['quick_ratio']:.5f}\n"
+        if latest_ratio_dict["debt_equity"] is not None:
+            latest_str += f"- Debt/Equity: {latest_ratio_dict['debt_equity']:.5f}\n"
+        if latest_ratio_dict["gross_margin"] is not None:
+            latest_str += f"- Gross Margin: {latest_ratio_dict['gross_margin']:.5f}\n"
+        if latest_ratio_dict["net_margin"] is not None:
+            latest_str += f"- Net Margin: {latest_ratio_dict['net_margin']:.5f}\n"
+        if latest_ratio_dict["roa"] is not None:
+            latest_str += f"- ROA: {latest_ratio_dict['roa']:.5f}\n"
+        if latest_ratio_dict["roe"] is not None:
+            latest_str += f"- ROE: {latest_ratio_dict['roe']:.5f}\n"
+    return ratio_header, ratio_rows, latest_str
+
+
 def _get_llm_commentary_section(lines, context_info):
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary
         import os
+        import json
+        import pandas as pd
         prompt_path_new = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "..", "prompts", "prompt_fin_analysis.md")
         )
@@ -322,13 +419,287 @@ def _get_llm_commentary_section(lines, context_info):
             )
         with open(prompt_path, "r", encoding="utf-8") as f:
             llm_prompt = f.read()
+        # --- Inject only the latest key financial ratios section at the very top (no weekly prices table) ---
+        ratios_section = ""
+        try:
+            df = None
+            if context_info and "_df" in context_info:
+                df = context_info["_df"]
+            elif hasattr(context_info, "get") and callable(context_info.get):
+                df = context_info.get("_df")
+            quarters = context_info["raw_quarters"] if context_info and "raw_quarters" in context_info else None
+            if not quarters and df is not None and isinstance(df, pd.DataFrame):
+                quarters = df.to_dict(orient="records")
+            ticker = None
+            if context_info and "Ticker" in context_info:
+                tval = context_info["Ticker"]
+                if isinstance(tval, str):
+                    ticker = tval.upper()
+                elif tval is not None:
+                    ticker = str(tval)
+            fin_raw = {}
+            if ticker:
+                fin_raw_path = os.path.join("output", ticker, "financials_raw.json")
+                if os.path.exists(fin_raw_path):
+                    with open(fin_raw_path, "r", encoding="utf-8") as f:
+                        fin_raw = json.load(f)
+            _, _, latest_str = get_key_financial_ratios(quarters or [], fin_raw)
+            ratios_section = latest_str
+        except Exception:
+            pass
+        # Place ratios_section at the very top, before any other context (including officers, company profile, etc.)
         context = "\n".join(lines)
-        full_prompt = f"{llm_prompt}\n\n---\n\n{context}"
-        ticker = context_info.get("Ticker") if context_info else None
-        llm_commentary = get_llm_qualitative_commentary(full_prompt, ticker=ticker)
+        # Remove any weekly prices table from the context injection (if present)
+        import re
+        context = re.sub(r"- \*\*weekly_prices:\*\*.*?\[\d+ rows x \d+ columns\]\n", "", context, flags=re.DOTALL)
+        if ratios_section:
+            context = ratios_section.strip() + "\n\n" + context
+        ticker = None
+        if context_info and "Ticker" in context_info:
+            tval = context_info["Ticker"]
+            if isinstance(tval, str):
+                ticker = tval
+            elif tval is not None:
+                ticker = str(tval)
+        llm_commentary = get_llm_qualitative_commentary(f"{context}\n\n---\n\n{llm_prompt}", ticker=ticker)
         return llm_commentary.strip() + "\n"
     except Exception as exc:
         return f"> [LLM commentary unavailable: {exc}]"
+
+
+def _get_appendix_section(df, context_info=None, out_base=None):
+    """Generate appendix section with raw financial data, weekly prices, ratios, provenance, quality, metadata, parameters, and versioning."""
+    import os
+    import json
+    import platform
+    import pandas as pd
+    from datetime import datetime
+    appendix_md = []
+
+    # --- Restore: Raw Financial Data Table ---
+    quarters = None
+    if context_info and "raw_quarters" in context_info:
+        quarters = context_info["raw_quarters"]
+    if not quarters:
+        if hasattr(df, "to_dict"):
+            quarters = df.to_dict(orient="records")
+    appendix_md.append("\n**Appendix: Raw Financial Data Used for Z-Score Calculation (in millions USD)**\n")
+    if not quarters or not isinstance(quarters, list) or len(quarters) == 0:
+        appendix_md.append("No raw financial data available for appendix.")
+    else:
+        fields = [
+            "period_end", "current_assets", "current_liabilities", "retained_earnings", "ebit", "total_assets", "total_liabilities", "sales"
+        ]
+        present_fields = [f for f in fields if any(f in q for q in quarters)]
+        header = [f.replace("_", " ").title() for f in present_fields]
+        def fmt_millions(val):
+            try:
+                v = float(val)
+                return f"{v/1_000_000:.1f}"
+            except Exception:
+                return str(val) if val is not None else ""
+        def fmt_date(val):
+            try:
+                if not val:
+                    return ""
+                if isinstance(val, str):
+                    return pd.to_datetime(val[:10]).strftime("%Y-%m-%d")
+                elif hasattr(val, 'strftime'):
+                    return val.strftime("%Y-%m-%d")
+                else:
+                    return str(val)
+            except Exception:
+                return str(val)
+        rows = []
+        for q in quarters:
+            row = [fmt_date(q.get(f, "")) if f == "period_end" else fmt_millions(q.get(f, "")) for f in present_fields]
+            rows.append(row)
+        appendix_md.append("| " + " | ".join(header) + " |")
+        appendix_md.append("|" + "|".join(["---"] * len(header)) + "|")
+        for row in rows:
+            appendix_md.append("| " + " | ".join(str(x) if x is not None else "" for x in row) + " |")
+
+    # --- Restore: Weekly Prices Table ---
+    weekly_prices = None
+    if context_info and "weekly_prices" in context_info:
+        weekly_prices = context_info["weekly_prices"]
+    if not weekly_prices:
+        weekly_prices = getattr(df, "weekly_prices", None)
+    if weekly_prices is not None and hasattr(weekly_prices, "to_dict"):
+        appendix_md.append("\n**Appendix: Weekly Prices Used for Z-Score Analysis**\n")
+        try:
+            wp_df = weekly_prices
+            columns = list(wp_df.columns)
+            if len(columns) > 12:
+                columns = columns[:12]
+            header = [str(c).replace("_", " ").title() for c in columns]
+            appendix_md.append("| " + " | ".join(header) + " |")
+            appendix_md.append("|" + "|".join(["---"] * len(header)) + "|")
+            def fmt_price(val):
+                try:
+                    return f"{float(val):.3f}"
+                except Exception:
+                    return str(val) if val is not None else ""
+            for _, row in wp_df.iterrows():
+                formatted_row = []
+                for c in columns:
+                    if c in ("avg_price", "min_price", "max_price"):
+                        formatted_row.append(fmt_price(row[c]))
+                    elif c == "week":
+                        try:
+                            v = row[c]
+                            if isinstance(v, str):
+                                formatted_row.append(pd.to_datetime(v[:10]).strftime("%Y-%m-%d"))
+                            elif hasattr(v, 'strftime'):
+                                formatted_row.append(v.strftime("%Y-%m-%d"))
+                            else:
+                                formatted_row.append(str(v))
+                        except Exception:
+                            formatted_row.append(str(row[c]))
+                    else:
+                        formatted_row.append(str(row[c]) if row[c] is not None else "")
+                appendix_md.append("| " + " | ".join(formatted_row) + " |")
+        except Exception as e:
+            appendix_md.append(f"[Could not render weekly prices table: {e}]")
+
+    # 1. Key Financial Ratios Table (per period)
+    appendix_md.append("\n**Appendix: Key Financial Ratios (per period)**\n")
+    try:
+        import glob
+        quarters = None
+        if context_info and "raw_quarters" in context_info:
+            quarters = context_info["raw_quarters"]
+        if not quarters and hasattr(df, "to_dict"):
+            quarters = df.to_dict(orient="records")
+        if not quarters or not isinstance(quarters, list):
+            quarters = []
+        ticker = None
+        if context_info and "Ticker" in context_info:
+            ticker = context_info["Ticker"].upper()
+        fin_raw = {}
+        if ticker:
+            fin_raw_path = os.path.join("output", ticker, "financials_raw.json")
+            if os.path.exists(fin_raw_path):
+                with open(fin_raw_path, "r", encoding="utf-8") as f:
+                    fin_raw = json.load(f)
+        ratio_header, ratio_rows, _ = get_key_financial_ratios(quarters, fin_raw)
+        if ratio_rows:
+            appendix_md.append("| " + " | ".join(ratio_header) + " |")
+            appendix_md.append("|" + "|".join(["---"] * len(ratio_header)) + "|")
+            for row in ratio_rows:
+                appendix_md.append("| " + " | ".join(row) + " |")
+        else:
+            appendix_md.append("No ratio data available.")
+    except Exception as e:
+        appendix_md.append(f"[Could not compute ratios: {e}]")
+
+    # 2. Data Provenance
+    appendix_md.append("\n**Appendix: Data Provenance**\n")
+    try:
+        provenance_lines = []
+        # Try to get fetch timestamps from DataFrame or context_info
+        if hasattr(df, "provenance"):
+            prov = getattr(df, "provenance")
+            for k, v in prov.items():
+                provenance_lines.append(f"- {k}: {v}")
+        # Try to find output files for this ticker
+        ticker = None
+        if context_info and "Ticker" in context_info:
+            ticker = context_info["Ticker"].upper()
+        if ticker:
+            out_dir = os.path.join("output", ticker)
+            for fname in ["financials_quarterly.json", "weekly_prices.json", "company_info.json", "yf_info.json"]:
+                fpath = os.path.join(out_dir, fname)
+                if os.path.exists(fpath):
+                    ts = datetime.fromtimestamp(os.path.getmtime(fpath)).strftime("%Y-%m-%d %H:%M:%S")
+                    provenance_lines.append(f"- {fname}: last modified {ts}")
+        if provenance_lines:
+            appendix_md.extend(provenance_lines)
+        else:
+            appendix_md.append("No provenance data available.")
+    except Exception as e:
+        appendix_md.append(f"[Could not get provenance: {e}]")
+
+    # 3. Data Quality/Completeness Summary
+    appendix_md.append("\n**Appendix: Data Quality/Completeness Summary**\n")
+    try:
+        missing_summary = []
+        if hasattr(df, "missing_fields") and df.missing_fields:
+            missing_summary.append(
+                "> **Warning:** The following required fields were missing for one or more quarters: "
+                + ", ".join(sorted(set(df.missing_fields)))
+            )
+        elif hasattr(df, "zscore_results") and df.zscore_results:
+            missing = set()
+            for res in df.zscore_results:
+                if hasattr(res, "missing_fields") and res.missing_fields:
+                    missing.update(res.missing_fields)
+            if missing:
+                missing_summary.append(
+                    "> **Warning:** The following required fields were missing for one or more quarters: "
+                    + ", ".join(sorted(missing))
+                )
+        if context_info and "raw_quarters" in context_info:
+            quarters = context_info["raw_quarters"]
+        if not quarters:
+            if hasattr(df, "to_dict"):
+                quarters = df.to_dict(orient="records")
+        if quarters:
+            for q in quarters:
+                if "missing_fields" in q and q["missing_fields"]:
+                    period = q.get("period_end", "?")
+                    missing_fields = q["missing_fields"]
+                    missing_summary.append(f"- {period}: missing {', '.join(missing_fields)}")
+        if missing_summary:
+            appendix_md.extend(missing_summary)
+        else:
+            appendix_md.append("No missing/estimated fields detected.")
+    except Exception as e:
+        appendix_md.append(f"[Could not summarize data quality: {e}]")
+
+    # 5. Company Metadata
+    appendix_md.append("\n**Appendix: Company Metadata**\n")
+    try:
+        ticker = None
+        if context_info and "Ticker" in context_info:
+            ticker = context_info["Ticker"].upper()
+        meta_lines = []
+        meta = {}
+        if ticker:
+            out_dir = os.path.join("output", ticker)
+            for fname in ["company_info.json", "yf_info.json"]:
+                fpath = os.path.join(out_dir, fname)
+                if os.path.exists(fpath):
+                    with open(fpath, "r", encoding="utf-8") as f:
+                        try:
+                            data = json.load(f)
+                            meta.update(data)
+                        except Exception:
+                            continue
+        # Compose metadata table
+        meta_fields = [
+            ("Name", meta.get("name") or meta.get("shortName") or meta.get("longName")),
+            ("Sector", meta.get("sector") or meta.get("sectorDisp")),
+            ("Industry", meta.get("industry") or meta.get("industryDisp")),
+            ("Country", meta.get("country")),
+            ("Market Cap", f"{meta.get('marketCap'):,}" if meta.get("marketCap") else None),
+            ("Employees", str(meta.get("fullTimeEmployees")) if meta.get("fullTimeEmployees") else None),
+            ("Fiscal Year End", meta.get("fiscalYearEnd")),
+            ("Exchange", meta.get("exchange") or meta.get("exchanges")),
+            ("CIK", meta.get("cik")),
+            ("SIC", meta.get("sic")),
+            ("Website", meta.get("website")),
+        ]
+        appendix_md.append("| Field | Value |\n|---|---|")
+        for k, v in meta_fields:
+            if v:
+                appendix_md.append(f"| {k} | {v} |")
+        if not any(v for _, v in meta_fields):
+            appendix_md.append("No metadata available.")
+    except Exception as e:
+        appendix_md.append(f"[Could not get company metadata: {e}]")
+
+    return "\n".join(appendix_md)
 
 
 def report_zscore_full_report(
@@ -356,12 +727,13 @@ def report_zscore_full_report(
     import os
     lines.append("\n\n---\n\n# Graphical View of the Z-Score Analysis\n")
     chart_md = _get_chart_md(context_info, out_base)
-    if chart_md:
+    if (chart_md):
         lines.append(chart_md)
     lines.append("\n## Z-Score Component Table (by Quarter)")
     lines.append(table_str)
     lines.append(_get_llm_commentary_section(lines, context_info))
-    lines.append("\n\n---\n\n# Appendix\n")
+    lines.append("\n\n---\n\n# Appendices\n")
+    lines += _get_appendix_section(df, context_info=context_info, out_base=out_base)
     report_md = "\n".join(lines)
     if out_base:
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
