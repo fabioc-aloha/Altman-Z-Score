@@ -4,10 +4,16 @@ Z-Score Text Reporting Utilities
 This module provides functions to generate and save Altman Z-Score text reports and tables.
 """
 
+import os
+import json
+import re
+import pandas as pd
 import tabulate
+from datetime import datetime
+from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
+from altman_zscore.utils.paths import get_output_dir
 
 from altman_zscore.utils.colors import Colors
-from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.enums import CompanyStage
 from altman_zscore.model_thresholds import ModelCoefficients, ModelThresholds, TechCalibration
 
@@ -101,7 +107,7 @@ def _get_model_label_and_overrides(df, model, context_info):
         if override_context:
             override_lines.append("### Model/Threshold Overrides and Assumptions\n")
             for k, v in override_context.items():
-                override_lines.append(f"- **{k}:** {v}")
+                override_lines.append(f"- **{k}: {v}")
             override_lines.append("")
     elif "override_context" in df.columns:
         oc = df["override_context"].iloc[0]
@@ -131,7 +137,6 @@ def _get_model_label_and_overrides(df, model, context_info):
 
 
 def _get_formula_and_threshold_section(model_name):
-    from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
     formula_lines = []
     threshold_lines = []
     x_labels = []
@@ -201,7 +206,6 @@ def _format_number_millions(val):
 
 
 def _get_field_mapping_table(df):
-    import tabulate
     mapping_rows = []
     mapping_header = ["Quarter", "Canonical Field", "Mapped Raw Field", "Value (USD millions)"]
     for idx, row in enumerate(df.iterrows()):
@@ -209,7 +213,6 @@ def _get_field_mapping_table(df):
         q = row.get("quarter_end")
         q_str = str(q)
         try:
-            import pandas as pd
             dt = pd.to_datetime(q)
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
@@ -217,7 +220,6 @@ def _get_field_mapping_table(df):
         field_mapping = row.get("field_mapping")
         if isinstance(field_mapping, str):
             try:
-                import json
                 field_mapping = json.loads(field_mapping)
             except Exception:
                 field_mapping = {}
@@ -238,13 +240,11 @@ def _get_field_mapping_table(df):
 
 
 def _get_zscore_component_table(df, x_cols):
-    import tabulate
     rows = []
     for _, row in df.iterrows():
         q = row.get("quarter_end")
         q_str = str(q)
         try:
-            import pandas as pd
             dt = pd.to_datetime(q)
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
@@ -254,7 +254,6 @@ def _get_zscore_component_table(df, x_cols):
         diag = row.get("diagnostic")
         if isinstance(comps, str):
             try:
-                import json
                 comps = json.loads(comps)
             except Exception:
                 comps = {}
@@ -277,11 +276,9 @@ def _get_zscore_component_table(df, x_cols):
 
 
 def _get_chart_md(context_info, out_base):
-    import os
     ticker = context_info.get("Ticker") if context_info else None
     out_path = None
     if out_base:
-        from altman_zscore.utils.paths import get_output_dir
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
     chart_md = None
     if ticker and out_path:
@@ -304,7 +301,6 @@ def _get_chart_md(context_info, out_base):
 
 def get_key_financial_ratios(quarters, fin_raw=None):
     """Return a list of dicts with key financial ratios for each period, and a formatted string for the latest period."""
-    import pandas as pd
     def get_any(d, keys):
         for k in keys:
             if k in d and d[k] not in (None, ""):
@@ -400,9 +396,6 @@ def get_key_financial_ratios(quarters, fin_raw=None):
 def _get_llm_commentary_section(lines, context_info):
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary
-        import os
-        import json
-        import pandas as pd
         prompt_path_new = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "..", "prompts", "prompt_fin_analysis.md")
         )
@@ -450,7 +443,6 @@ def _get_llm_commentary_section(lines, context_info):
         # Place ratios_section at the very top, before any other context (including officers, company profile, etc.)
         context = "\n".join(lines)
         # Remove any weekly prices table from the context injection (if present)
-        import re
         context = re.sub(r"- \*\*weekly_prices:\*\*.*?\[\d+ rows x \d+ columns\]\n", "", context, flags=re.DOTALL)
         if ratios_section:
             context = ratios_section.strip() + "\n\n" + context
@@ -469,21 +461,15 @@ def _get_llm_commentary_section(lines, context_info):
 
 def _get_appendix_section(df, context_info=None, out_base=None):
     """Generate appendix section with raw financial data, weekly prices, ratios, provenance, quality, metadata, parameters, and versioning."""
-    import os
-    import json
-    import platform
-    import pandas as pd
-    from datetime import datetime
     appendix_md = []
 
     # --- Restore: Raw Financial Data Table ---
     quarters = None
     if context_info and "raw_quarters" in context_info:
         quarters = context_info["raw_quarters"]
-    if not quarters:
-        if hasattr(df, "to_dict"):
-            quarters = df.to_dict(orient="records")
-    appendix_md.append("\n**Appendix: Raw Financial Data Used for Z-Score Calculation (in millions USD)**\n")
+    if isinstance(quarters, pd.DataFrame):
+        quarters = quarters.to_dict(orient="records")
+    # Now safe to check for emptiness
     if not quarters or not isinstance(quarters, list) or len(quarters) == 0:
         appendix_md.append("No raw financial data available for appendix.")
     else:
@@ -525,52 +511,90 @@ def _get_appendix_section(df, context_info=None, out_base=None):
         weekly_prices = context_info["weekly_prices"]
     if not weekly_prices:
         weekly_prices = getattr(df, "weekly_prices", None)
-    if weekly_prices is not None and hasattr(weekly_prices, "to_dict"):
+    if weekly_prices is not None:
         appendix_md.append("\n**Appendix: Weekly Prices Used for Z-Score Analysis**\n")
         try:
             wp_df = weekly_prices
-            columns = list(wp_df.columns)
-            if len(columns) > 12:
-                columns = columns[:12]
-            header = [str(c).replace("_", " ").title() for c in columns]
-            appendix_md.append("| " + " | ".join(header) + " |")
-            appendix_md.append("|" + "|".join(["---"] * len(header)) + "|")
-            def fmt_price(val):
-                try:
-                    return f"{float(val):.3f}"
-                except Exception:
-                    return str(val) if val is not None else ""
-            for _, row in wp_df.iterrows():
-                formatted_row = []
-                for c in columns:
-                    if c in ("avg_price", "min_price", "max_price"):
-                        formatted_row.append(fmt_price(row[c]))
-                    elif c == "week":
-                        try:
-                            v = row[c]
-                            if isinstance(v, str):
-                                formatted_row.append(pd.to_datetime(v[:10]).strftime("%Y-%m-%d"))
-                            elif hasattr(v, 'strftime'):
-                                formatted_row.append(v.strftime("%Y-%m-%d"))
-                            else:
-                                formatted_row.append(str(v))
-                        except Exception:
-                            formatted_row.append(str(row[c]))
-                    else:
-                        formatted_row.append(str(row[c]) if row[c] is not None else "")
-                appendix_md.append("| " + " | ".join(formatted_row) + " |")
+            # Handle both DataFrame and list-of-dict
+            if isinstance(wp_df, pd.DataFrame):
+                columns = list(wp_df.columns)
+                if len(columns) > 12:
+                    columns = columns[:12]
+                header = [str(c).replace("_", " ").title() for c in columns]
+                appendix_md.append("| " + " | ".join(header) + " |")
+                appendix_md.append("|" + "|".join(["---"] * len(header)) + "|")
+                def fmt_price(val):
+                    try:
+                        return f"{float(val):.3f}"
+                    except Exception:
+                        return str(val) if val is not None else ""
+                for _, row in wp_df.iterrows():
+                    formatted_row = []
+                    for c in columns:
+                        if c in ("avg_price", "min_price", "max_price"):
+                            formatted_row.append(fmt_price(row[c]))
+                        elif c == "week":
+                            try:
+                                v = row[c]
+                                if isinstance(v, str):
+                                    formatted_row.append(pd.to_datetime(v[:10]).strftime("%Y-%m-%d"))
+                                elif hasattr(v, 'strftime'):
+                                    formatted_row.append(v.strftime("%Y-%m-%d"))
+                                else:
+                                    formatted_row.append(str(v))
+                            except Exception:
+                                formatted_row.append(str(row[c]))
+                        else:
+                            formatted_row.append(str(row[c]) if row[c] is not None else "")
+                    appendix_md.append("| " + " | ".join(formatted_row) + " |")
+            elif isinstance(wp_df, list) and wp_df and isinstance(wp_df[0], dict):
+                columns = list(wp_df[0].keys())
+                if len(columns) > 12:
+                    columns = columns[:12]
+                header = [str(c).replace("_", " ").title() for c in columns]
+                appendix_md.append("| " + " | ".join(header) + " |")
+                appendix_md.append("|" + "|".join(["---"] * len(header)) + "|")
+                def fmt_price(val):
+                    try:
+                        return f"{float(val):.3f}"
+                    except Exception:
+                        return str(val) if val is not None else ""
+                for row in wp_df:
+                    formatted_row = []
+                    for c in columns:
+                        if c in ("avg_price", "min_price", "max_price"):
+                            formatted_row.append(fmt_price(row.get(c)))
+                        elif c == "week":
+                            try:
+                                v = row.get(c)
+                                if isinstance(v, str):
+                                    formatted_row.append(pd.to_datetime(v[:10]).strftime("%Y-%m-%d"))
+                                elif hasattr(v, 'strftime'):
+                                    formatted_row.append(v.strftime("%Y-%m-%d"))
+                                else:
+                                    formatted_row.append(str(v))
+                            except Exception:
+                                formatted_row.append(str(row.get(c)))
+                        else:
+                            formatted_row.append(str(row.get(c)) if row.get(c) is not None else "")
+                    appendix_md.append("| " + " | ".join(formatted_row) + " |")
+            else:
+                appendix_md.append("[Could not render weekly prices table: Unrecognized data format]")
         except Exception as e:
             appendix_md.append(f"[Could not render weekly prices table: {e}]")
 
     # 1. Key Financial Ratios Table (per period)
     appendix_md.append("\n**Appendix: Key Financial Ratios (per period)**\n")
     try:
-        import glob
         quarters = None
         if context_info and "raw_quarters" in context_info:
             quarters = context_info["raw_quarters"]
+        if isinstance(quarters, pd.DataFrame):
+            quarters = quarters.to_dict(orient="records")
         if not quarters and hasattr(df, "to_dict"):
             quarters = df.to_dict(orient="records")
+        if isinstance(quarters, pd.DataFrame):
+            quarters = quarters.to_dict(orient="records")
         if not quarters or not isinstance(quarters, list):
             quarters = []
         ticker = None
@@ -624,31 +648,63 @@ def _get_appendix_section(df, context_info=None, out_base=None):
     appendix_md.append("\n**Appendix: Data Quality/Completeness Summary**\n")
     try:
         missing_summary = []
-        if hasattr(df, "missing_fields") and df.missing_fields:
-            missing_summary.append(
-                "> **Warning:** The following required fields were missing for one or more quarters: "
-                + ", ".join(sorted(set(df.missing_fields)))
-            )
-        elif hasattr(df, "zscore_results") and df.zscore_results:
-            missing = set()
-            for res in df.zscore_results:
-                if hasattr(res, "missing_fields") and res.missing_fields:
-                    missing.update(res.missing_fields)
-            if missing:
+        if hasattr(df, "missing_fields"):
+            missing_fields = getattr(df, "missing_fields")
+            if isinstance(missing_fields, pd.DataFrame):
+                missing_fields = list(missing_fields.columns) if not missing_fields.empty else []
+            elif isinstance(missing_fields, dict):
+                missing_fields = list(missing_fields.keys())
+            elif isinstance(missing_fields, (list, set)):
+                missing_fields = [str(x) for x in missing_fields]
+            if missing_fields:
                 missing_summary.append(
                     "> **Warning:** The following required fields were missing for one or more quarters: "
-                    + ", ".join(sorted(missing))
+                    + ", ".join(sorted(missing_fields))
                 )
+        elif hasattr(df, "zscore_results"):
+            zscore_results = getattr(df, "zscore_results")
+            if zscore_results is not None:  # Handle both list and DataFrame cases
+                missing = set()
+                if isinstance(zscore_results, pd.DataFrame):
+                    zscore_results = zscore_results.to_dict(orient="records")
+                if isinstance(zscore_results, (list, tuple)):
+                    for res in zscore_results:
+                        if hasattr(res, "missing_fields"):
+                            res_fields = getattr(res, "missing_fields")
+                            if isinstance(res_fields, pd.DataFrame):
+                                res_fields = list(res_fields.columns) if not res_fields.empty else []
+                            elif isinstance(res_fields, dict):
+                                res_fields = list(res_fields.keys())
+                            elif isinstance(res_fields, (list, set)):
+                                res_fields = [str(x) for x in res_fields]
+                            if res_fields:
+                                missing.update(res_fields)
+                if missing:
+                    missing_summary.append(
+                        "> **Warning:** The following required fields were missing for one or more quarters: "
+                        + ", ".join(sorted(missing))
+                    )
+
+        quarters = None
         if context_info and "raw_quarters" in context_info:
             quarters = context_info["raw_quarters"]
-        if not quarters:
-            if hasattr(df, "to_dict"):
-                quarters = df.to_dict(orient="records")
-        if quarters:
+        if isinstance(quarters, pd.DataFrame):
+            quarters = quarters.to_dict(orient="records")
+        if not quarters and hasattr(df, "to_dict"):
+            quarters = df.to_dict(orient="records")
+        if isinstance(quarters, pd.DataFrame):
+            quarters = quarters.to_dict(orient="records")
+        if quarters and isinstance(quarters, list):
             for q in quarters:
-                if "missing_fields" in q and q["missing_fields"]:
+                missing_fields = q.get("missing_fields", [])
+                if isinstance(missing_fields, pd.DataFrame):
+                    missing_fields = list(missing_fields.columns) if not missing_fields.empty else []
+                elif isinstance(missing_fields, dict):
+                    missing_fields = list(missing_fields.keys())
+                elif isinstance(missing_fields, (list, set)):
+                    missing_fields = [str(x) for x in missing_fields]
+                if missing_fields:
                     period = q.get("period_end", "?")
-                    missing_fields = q["missing_fields"]
                     missing_summary.append(f"- {period}: missing {', '.join(missing_fields)}")
         if missing_summary:
             appendix_md.extend(missing_summary)
@@ -702,46 +758,123 @@ def _get_appendix_section(df, context_info=None, out_base=None):
     return "\n".join(appendix_md)
 
 
-def report_zscore_full_report(
-    df,
-    model,
-    out_base=None,
-    print_to_console=True,
-    context_info=None,
-    model_obj=None,
-    calibration=None,
-):
+def _standardize_report_data(df, context_info=None):
+    """
+    Standardize data format for report generation.
+    Data is assumed to be validated by previous pipeline steps.
+    Returns tuple of (processed_quarters, raw_quarters, missing_fields)
+    """
+    processed_quarters = df.to_dict(orient="records") if isinstance(df, pd.DataFrame) else []
+    raw_quarters = []
+    missing_fields = set()
+    
+    # Get raw quarters from context if available
+    if context_info and "raw_quarters" in context_info:
+        raw_data = context_info["raw_quarters"]
+        raw_quarters = raw_data.to_dict(orient="records") if isinstance(raw_data, pd.DataFrame) else raw_data if isinstance(raw_data, list) else []
+
+    # Collect missing fields - already validated, just need to standardize format
+    missing_fields_attr = getattr(df, "missing_fields", None)
+    if missing_fields_attr is not None:
+        if isinstance(missing_fields_attr, pd.DataFrame):
+            missing_fields.update(missing_fields_attr.columns)
+        elif isinstance(missing_fields_attr, dict):
+            missing_fields.update(missing_fields_attr.keys())
+        elif isinstance(missing_fields_attr, (list, set)):
+            missing_fields.update(str(x) for x in missing_fields_attr)
+
+    # Handle zscore_results missing fields if present
+    zscore_results = getattr(df, "zscore_results", None)
+    if zscore_results is not None:
+        if isinstance(zscore_results, pd.DataFrame):
+            results = zscore_results.to_dict(orient="records")
+        else:
+            results = zscore_results if isinstance(zscore_results, (list, tuple)) else []
+        
+        for res in results:
+            res_missing = getattr(res, "missing_fields", None)
+            if res_missing is not None:
+                if isinstance(res_missing, pd.DataFrame):
+                    missing_fields.update(res_missing.columns)
+                elif isinstance(res_missing, dict):
+                    missing_fields.update(res_missing.keys())
+                elif isinstance(res_missing, (list, set)):
+                    missing_fields.update(str(x) for x in res_missing)
+    
+    return processed_quarters, raw_quarters, sorted(missing_fields)
+
+
+def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None, model_obj=None, calibration=None):
+    """Generate a full Z-Score analysis report."""
+    # Ensure context_info exists
+    if context_info is None:
+        context_info = {}
+    
+    # Standardize data format
+    processed_quarters, raw_quarters, missing_fields = _standardize_report_data(df, context_info)
+    context_info["_standardized"] = {
+        "processed_quarters": processed_quarters,
+        "raw_quarters": raw_quarters,
+        "missing_fields": missing_fields
+    }
+      # Build report sections
     lines = []
-    lines += _get_report_intro_and_title(context_info)
+    
+    # Core report content
+    lines.extend(_get_report_intro_and_title(context_info))
     lines.append(_get_script_version())
-    lines += _get_context_section(context_info)
+    lines.extend(_get_context_section(context_info))
+    
+    # Model info and formula
     model_label, model_name, override_lines = _get_model_label_and_overrides(df, model, context_info)
-    lines += override_lines
+    lines.extend(override_lines)
     formula_lines, threshold_lines, x_cols = _get_formula_and_threshold_section(model_name)
-    lines += formula_lines
-    lines += threshold_lines
-    lines += _get_missing_fields_section(df)
-    # Field mapping table is generated but not appended to report (per original logic)
-    # mapping_table_str = _get_field_mapping_table(df)
-    table_str = _get_zscore_component_table(df, x_cols)
-    import os
+    lines.extend(formula_lines)
+    lines.extend(threshold_lines)
+    
+    # Missing fields warning
+    if missing_fields:
+        lines.append(
+            "> **Warning:** The following required fields were missing for one or more quarters: "
+            + ", ".join(sorted(missing_fields))
+            + ". Z-Score components for these fields are omitted or estimated. Interpret results with caution."
+        )
+        lines.append("")
+    
+    # Analysis results
     lines.append("\n\n---\n\n# Graphical View of the Z-Score Analysis\n")
-    chart_md = _get_chart_md(context_info, out_base)
-    if (chart_md):
+    if chart_md := _get_chart_md(context_info, out_base):
         lines.append(chart_md)
     lines.append("\n## Z-Score Component Table (by Quarter)")
-    lines.append(table_str)
-    lines.append(_get_llm_commentary_section(lines, context_info))
+    lines.append(_get_zscore_component_table(df, x_cols))
+    
+    # Generate LLM commentary with the report content constructed so far
+    commentary = _get_llm_commentary_section(lines, context_info)
+    lines.append(commentary)
     lines.append("\n\n---\n\n# Appendices\n")
-    lines += _get_appendix_section(df, context_info=context_info, out_base=out_base)
+    lines.extend(_get_appendix_section(df, context_info=context_info, out_base=out_base).split('\n'))
+    
+    # Generate final report
     report_md = "\n".join(lines)
-    if out_base:
+    if not report_md.strip():
+        print_info("[WARNING] report_md is empty. No report will be saved.")
+        return None
+    
+    # Save report if path provided
+    if out_base and (ticker := str(context_info.get("Ticker", "")).upper()):
+        if not out_base.startswith(f"{ticker}/") and not out_base.startswith(f"{ticker}\\"):
+            out_base = os.path.join(ticker, out_base)
+        
         out_path = get_output_dir(relative_path=f"{out_base}_zscore_full_report.md")
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(report_md)
         print_info(f"Full Z-Score report saved to {out_path}")
+    
     if print_to_console:
         print(report_md)
+    
     return report_md
 
 

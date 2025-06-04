@@ -362,15 +362,29 @@ def _prepare_context_info(ticker, profile, model, sic_code):
 
 def _generate_report_and_plot(df, model, out_base, context_info, ticker, stock_prices):
     try:
-        report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=context_info)
+        # Explicitly sanitize the context_info before passing it to the report generator
+        # This prevents DataFrame truthiness errors
+        sanitized_context = {k: v for k, v in context_info.items()}
+        
+        if "weekly_prices" in sanitized_context and isinstance(sanitized_context["weekly_prices"], pd.DataFrame):
+            sanitized_context["weekly_prices"] = sanitized_context["weekly_prices"].to_dict(orient="records")
+            
+        if "raw_quarters" in sanitized_context and isinstance(sanitized_context["raw_quarters"], pd.DataFrame):
+            sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].to_dict(orient="records")
+            
+        # Generate the report with sanitized context
+        report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=sanitized_context)
     except Exception as e:
         print_warning(f"Could not generate full Z-Score report: {e}")
+        
+    # Plot the Z-Score trend
     try:
+        print_info("Generating Z-Score trend plot...")
         plot_zscore_trend(df, ticker, model, out_base, stock_prices=stock_prices)
     except ImportError:
-        print("[WARN] matplotlib not installed, skipping plot.")
+        print_warning("matplotlib not installed, skipping plot.")
     except Exception as e:
-        print(f"[WARN] Could not plot Z-Score trend: {e}")
+        print_warning(f"Could not plot Z-Score trend: {e}")
 
 
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01") -> pd.DataFrame:

@@ -4,7 +4,15 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.7.4)
+# PLAN.md — Altman Z-Score Analysis (v2.8.2)
+
+## v2.8.2 Release (2025-06-04)
+- Fixed critical issue with Z-Score report generation that caused duplicate content in reports
+- Enhanced DataFrame handling in the reporting pipeline to prevent truthiness ambiguity errors
+- Improved context data sanitization before passing to report generation functions
+- Better error handling for data type conversions
+- Fixed PEP 8 compliance for import statements in reporting module
+- All tests passing, no breaking changes to APIs or outputs
 
 ## v2.8.0 Release (2025-06-04)
 - Major refactor: full modularization of all core files and helpers

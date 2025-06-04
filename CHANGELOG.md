@@ -5,6 +5,15 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2025-06-04
+
+### Bug Fixes & Reporting Improvements
+- Fixed critical issue with Z-Score report generation that caused duplicate content in reports
+- Enhanced DataFrame handling in the reporting pipeline to prevent truthiness ambiguity errors
+- Improved context data sanitization before passing to report generation functions
+- Better error handling for various data type conversions
+- Fixed PEP 8 compliance for import statements in reporting module
+
 ## [2.8.1] - 2025-06-04
 
 ### DRY Refactor & Release Checklist

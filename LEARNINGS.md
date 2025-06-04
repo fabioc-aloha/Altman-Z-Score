@@ -6,7 +6,14 @@ All technical learnings and decisions in this document are guided by the project
 
 See [vision.md](./vision.md) for the full vision statement.
 
-# LEARNINGS.md — Altman Z-Score Analysis (v2.7.1)
+# LEARNINGS.md — Altman Z-Score Analysis (v2.8.2)
+
+## Version 2.8.2 (June 4, 2025)
+- Fixed critical issue with Z-Score report generation that caused duplicate content in reports
+- Enhanced DataFrame handling in the reporting pipeline to prevent truthiness ambiguity errors
+- Improved context data sanitization before passing to report generation functions
+- Better error handling for data type conversions
+- Fixed PEP 8 compliance for import statements in reporting module
 
 ## Version 2.7.4 (June 3, 2025)
 - Major plotting refactor: plotting.py split into helpers and terminal modules
