@@ -5,18 +5,18 @@
 - [x] Ensure all tests pass (CI and local)
 - [x] Manually test all major features and outputs
 - [x] Review and update documentation (README.md, PLAN.md, TODO.md, LEARNINGS.md)
-- [ ] Check for dead code, unused files, and unnecessary dependencies
-- [ ] Tag the release in git (e.g., v2.8.2)
-- [ ] Push all commits and tags to remote
+- [x] Check for dead code, unused files, and unnecessary dependencies
+- [x] Tag the release in git (e.g., v2.8.2)
+- [x] Push all commits and tags to remote
 - [ ] Announce release (if public)
 
 ---
 
 ## Pre-Release Validation
 - [x] Run full test suite
-- [ ] Validate outputs for at least 3 tickers (success, partial, error)
-- [ ] Review logs for warnings/errors
-- [ ] Confirm all new/changed files are included in the repo
+- [x] Validate outputs for at least 3 tickers (success, partial, error)
+- [x] Review logs for warnings/errors
+- [x] Confirm all new/changed files are included in the repo
 
 ---
 
