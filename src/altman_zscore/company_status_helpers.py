@@ -24,6 +24,7 @@ KNOWN_BANKRUPTCIES = {
     "LEHMAN": "2008-09-15",  # Lehman Brothers
     "LEHMQ": "2008-09-15",  # Lehman Brothers (OTC ticker)
     "FTX": "2022-11-11",  # FTX Trading
+    "TUP": "2023-07-20",  # Tupperware filed Chapter 11
     "WLMRT": "2002-07-21",  # WorldCom/MCI
     "ENRON": "2001-12-02",  # Enron
     "BLOCKBUSTER": "2010-09-23",  # Blockbuster
