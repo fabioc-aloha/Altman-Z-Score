@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-# Version: 2.8.2 (2025-06-04)
+# Version: 2.8.5 (2025-06-05)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with
 enhanced LLM-powered qualitative insights. This script orchestrates the analysis
 pipeline for single or multiple stock tickers.
-
-Version 2.8.2 Features:
-- Fixed Z-Score report generation issue preventing duplicate reports
-- Enhanced DataFrame handling to prevent truthiness ambiguity errors
-- Improved context data handling in the reporting pipeline
-- Better error handling for data type conversions
-- No breaking changes; all outputs and APIs remain stable
 
 Data Sources:
 - Primary: Yahoo Finance (real-time financials and market data)
@@ -46,7 +39,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "2.8.2"
+__version__ = "2.8.5"
 
 # v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, 
 # improved company profiles with multi-source data integration, fixed missing officer data 
@@ -74,7 +67,7 @@ from altman_zscore.one_stock_analysis import (  # noqa: E402
 def parse_args():
     """Parse command line arguments for the Altman Z-Score analysis."""
     parser = argparse.ArgumentParser(
-        description="Altman Z-Score Analysis Platform v2.7.1 - Comprehensive financial analysis with LLM insights",
+        description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
         epilog="Examples:\n"
                "  python main.py AAPL                    # Single stock analysis\n"
                "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"

@@ -1,17 +1,8 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.8.2 (2025-06-04)**
+**Version: 2.8.5 (2025-06-05)**
 
 A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
-
----
-
-**Release v2.8.2 (June 4, 2025):**
-- Fixed Z-Score report generation issue preventing duplicate reports
-- Enhanced DataFrame handling to prevent truthiness ambiguity errors
-- Improved context data handling in the reporting pipeline
-- Better error handling for data type conversions 
-- See CHANGELOG.md for details
 
 ---
 
@@ -43,21 +34,7 @@ Outputs are saved in `output/<TICKER>/`:
 
 ---
 
-## Key Features
-- **Robust Data Fallback:** If yfinance fails to provide financials, the pipeline automatically falls back to SEC EDGAR/XBRL. If only partial data is available (e.g., only balance sheet, no income statement), the pipeline will transparently report this and explain why no Z-Score can be computed.
-- **Transparent Error Reporting:** For tickers where only balance sheet data is available from SEC EDGAR (e.g., TUP), the output and logs will clearly state that no Z-Score can be computed due to missing income statement data.
-- **Optimized LLM Integration:** Smart data trimming for SEC EDGAR and Yahoo Finance data reduces noise and token usage in LLM prompts while preserving essential information for analysis.
-- **Centralized Model Logic:** All model coefficients and thresholds are stored in `src/altman_zscore/computation/constants.py`—no hard-coded values in the codebase. All model changes must be made in this file for transparency and maintainability.
-- **Altman Z-Score Trend Analysis:** Computes and visualizes Z-Score trends for any US-listed company using real, live data
-- **Industry-Aware Model Selection:** Automatically selects the correct Z-Score model based on SIC code, industry, region, and company maturity
-- **Comprehensive Reporting:** Generates full, well-formatted reports (TXT, CSV, JSON) with context, formulas, diagnostics, and raw data mapping
-- **Stock Price Overlay:** Visualizes Z-Score trends alongside historical stock prices
-- **Robust Error Handling:** Clear diagnostics and error outputs for missing data, delisted tickers, or API issues. Now includes explicit user-facing errors for partial/insufficient financials.
-- **Extensible Architecture:** Modular design for easy addition of new data sources, models, or output formats; ongoing work to modularize data connectors and prepare for web/REST/Excel interfaces
-
----
-
-## Modular Architecture (v2.8.0+)
+## Modular Architecture
 The codebase is now fully modularized for maintainability and extensibility. Key modules include:
 - `one_stock_analysis.py` and `one_stock_analysis_helpers.py`: Main pipeline and helpers
 - `company_profile.py` and `company_profile_helpers.py`: Company data logic
