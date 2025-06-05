@@ -55,48 +55,23 @@ Replace `<TICKER1> <TICKER2> ...` with one or more stock ticker symbols (e.g., `
 
 The following table shows available reports for all analyzed tickers:
 
-| Ticker | Full Report | Trend Chart | CSV Data | JSON Data |
-|--------|-------------|-------------|----------|-----------|
-| AAPL | [Report](output/AAPL/zscore_AAPL_zscore_full_report.md) | [Chart](output/AAPL/zscore_AAPL_trend.png) | [CSV](output/AAPL/zscore_AAPL.csv) | [JSON](output/AAPL/zscore_AAPL.json) |
-| AMZN | [Report](output/AMZN/zscore_AMZN_zscore_full_report.md) | [Chart](output/AMZN/zscore_AMZN_trend.png) | [CSV](output/AMZN/zscore_AMZN.csv) | [JSON](output/AMZN/zscore_AMZN.json) |
-| ASML | [Report](output/ASML/zscore_ASML_zscore_full_report.md) | [Chart](output/ASML/zscore_ASML_trend.png) | [CSV](output/ASML/zscore_ASML.csv) | [JSON](output/ASML/zscore_ASML.json) |
-| BABA | [Report](output/BABA/zscore_BABA_zscore_full_report.md) | [Chart](output/BABA/zscore_BABA_trend.png) | [CSV](output/BABA/zscore_BABA.csv) | [JSON](output/BABA/zscore_BABA.json) |
-| BIDU | [Report](output/BIDU/zscore_BIDU_zscore_full_report.md) | [Chart](output/BIDU/zscore_BIDU_trend.png) | [CSV](output/BIDU/zscore_BIDU.csv) | [JSON](output/BIDU/zscore_BIDU.json) |
-| CAT | [Report](output/CAT/zscore_CAT_zscore_full_report.md) | [Chart](output/CAT/zscore_CAT_trend.png) | [CSV](output/CAT/zscore_CAT.csv) | [JSON](output/CAT/zscore_CAT.json) |
-| CRESY | [Report](output/CRESY/zscore_CRESY_zscore_full_report.md) | [Chart](output/CRESY/zscore_CRESY_trend.png) | [CSV](output/CRESY/zscore_CRESY.csv) | [JSON](output/CRESY/zscore_CRESY.json) |
-| CVNA | [Report](output/CVNA/zscore_CVNA_zscore_full_report.md) | [Chart](output/CVNA/zscore_CVNA_trend.png) | [CSV](output/CVNA/zscore_CVNA.csv) | [JSON](output/CVNA/zscore_CVNA.json) |
-| DUK | [Report](output/DUK/zscore_DUK_zscore_full_report.md) | [Chart](output/DUK/zscore_DUK_trend.png) | [CSV](output/DUK/zscore_DUK.csv) | [JSON](output/DUK/zscore_DUK.json) |
-| F | [Report](output/F/zscore_F_zscore_full_report.md) | [Chart](output/F/zscore_F_trend.png) | [CSV](output/F/zscore_F.csv) | [JSON](output/F/zscore_F.json) |
-| GGB | [Report](output/GGB/zscore_GGB_zscore_full_report.md) | [Chart](output/GGB/zscore_GGB_trend.png) | [CSV](output/GGB/zscore_GGB.csv) | [JSON](output/GGB/zscore_GGB.json) |
-| GOOG | [Report](output/GOOG/zscore_GOOG_zscore_full_report.md) | [Chart](output/GOOG/zscore_GOOG_trend.png) | [CSV](output/GOOG/zscore_GOOG.csv) | [JSON](output/GOOG/zscore_GOOG.json) |
-| GOOGL | [Report](output/GOOGL/zscore_GOOGL_zscore_full_report.md) | [Chart](output/GOOGL/zscore_GOOGL_trend.png) | [CSV](output/GOOGL/zscore_GOOGL.csv) | [JSON](output/GOOGL/zscore_GOOGL.json) |
-| HMC | [Report](output/HMC/zscore_HMC_zscore_full_report.md) | [Chart](output/HMC/zscore_HMC_trend.png) | [CSV](output/HMC/zscore_HMC.csv) | [JSON](output/HMC/zscore_HMC.json) |
-| INFY | [Report](output/INFY/zscore_INFY_zscore_full_report.md) | [Chart](output/INFY/zscore_INFY_trend.png) | [CSV](output/INFY/zscore_INFY.csv) | [JSON](output/INFY/zscore_INFY.json) |
-| JD | [Report](output/JD/zscore_JD_zscore_full_report.md) | [Chart](output/JD/zscore_JD_trend.png) | [CSV](output/JD/zscore_JD.csv) | [JSON](output/JD/zscore_JD.json) |
-| MELI | [Report](output/MELI/zscore_MELI_zscore_full_report.md) | [Chart](output/MELI/zscore_MELI_trend.png) | [CSV](output/MELI/zscore_MELI.csv) | [JSON](output/MELI/zscore_MELI.json) |
-| META | [Report](output/META/zscore_META_zscore_full_report.md) | [Chart](output/META/zscore_META_trend.png) | [CSV](output/META/zscore_META.csv) | [JSON](output/META/zscore_META.json) |
-| MSFT | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | [Chart](output/MSFT/zscore_MSFT_trend.png) | [CSV](output/MSFT/zscore_MSFT.csv) | [JSON](output/MSFT/zscore_MSFT.json) |
-| NTES | [Report](output/NTES/zscore_NTES_zscore_full_report.md) | [Chart](output/NTES/zscore_NTES_trend.png) | [CSV](output/NTES/zscore_NTES.csv) | [JSON](output/NTES/zscore_NTES.json) |
-| NVDA | [Report](output/NVDA/zscore_NVDA_zscore_full_report.md) | [Chart](output/NVDA/zscore_NVDA_trend.png) | [CSV](output/NVDA/zscore_NVDA.csv) | [JSON](output/NVDA_zscore_NVDA.json) |
-| PBR | [Report](output/PBR/zscore_PBR_zscore_full_report.md) | [Chart](output/PBR/zscore_PBR_trend.png) | [CSV](output/PBR/zscore_PBR.csv) | [JSON](output/PBR/zscore_PBR.json) |
-| PG | [Report](output/PG/zscore_PG_zscore_full_report.md) | [Chart](output/PG/zscore_PG_trend.png) | [CSV](output/PG/zscore_PG.csv) | [JSON](output/PG/zscore_PG.json) |
-| PLTR | [Report](output/PLTR/zscore_PLTR_zscore_full_report.md) | [Chart](output/PLTR/zscore_PLTR_trend.png) | [CSV](output/PLTR/zscore_PLTR.csv) | [JSON](output/PLTR/zscore_PLTR.json) |
-| SAP | [Report](output/SAP/zscore_SAP_zscore_full_report.md) | [Chart](output/SAP/zscore_SAP_trend.png) | [CSV](output/SAP/zscore_SAP.csv) | [JSON](output/SAP/zscore_SAP.json) |
-| SBS | [Report](output/SBS/zscore_SBS_zscore_full_report.md) | [Chart](output/SBS/zscore_SBS_trend.png) | [CSV](output/SBS/zscore_SBS.csv) | [JSON](output/SBS/zscore_SBS.json) |
-| SFTBY | [Report](output/SFTBY/zscore_SFTBY_zscore_full_report.md) | [Chart](output/SFTBY/zscore_SFTBY_trend.png) | [CSV](output/SFTBY/zscore_SFTBY.csv) | [JSON](output/SFTBY/zscore_SFTBY.json) |
-| SIEGY | [Report](output/SIEGY/zscore_SIEGY_zscore_full_report.md) | [Chart](output/SIEGY/zscore_SIEGY_trend.png) | [CSV](output/SIEGY/zscore_SIEGY.csv) | [JSON](output/SIEGY/zscore_SIEGY.json) |
-| SHOP | [Report](output/SHOP/zscore_SHOP_zscore_full_report.md) | [Chart](output/SHOP/zscore_SHOP_trend.png) | [CSV](output/SHOP/zscore_SHOP.csv) | [JSON](output/SHOP/zscore_SHOP.json) |
-| SNOW | [Report](output/SNOW/zscore_SNOW_zscore_full_report.md) | [Chart](output/SNOW/zscore_SNOW_trend.png) | [CSV](output/SNOW/zscore_SNOW.csv) | [JSON](output/SNOW/zscore_SNOW.json) |
-| SONO | [Report](output/SONO/zscore_SONO_zscore_full_report.md) | [Chart](output/SONO/zscore_SONO_trend.png) | [CSV](output/SONO/zscore_SONO.csv) | [JSON](output/SONO/zscore_SONO.json) |
-| SONY | [Report](output/SONY/zscore_SONY_zscore_full_report.md) | [Chart](output/SONY/zscore_SONY_trend.png) | [CSV](output/SONY/zscore_SONY.csv) | [JSON](output/SONY/zscore_SONY.json) |
-| TM | [Report](output/TM/zscore_TM_zscore_full_report.md) | [Chart](output/TM/zscore_TM_trend.png) | [CSV](output/TM/zscore_TM.csv) | [JSON](output/TM/zscore_TM.json) |
-| TSM | [Report](output/TSM/zscore_TSM_zscore_full_report.md) | [Chart](output/TSM/zscore_TSM_trend.png) | [CSV](output/TSM/zscore_TSM.csv) | [JSON](output/TSM/zscore_TSM.json) |
-| TSLA | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | [Chart](output/TSLA/zscore_TSLA_trend.png) | [CSV](output/TSLA/zscore_TSLA.csv) | [JSON](output/TSLA/zscore_TSLA.json) |
-| UBER | [Report](output/UBER/zscore_UBER_zscore_full_report.md) | [Chart](output/UBER/zscore_UBER_trend.png) | [CSV](output/UBER/zscore_UBER.csv) | [JSON](output/UBER/zscore_UBER.json) |
-| UNH | [Report](output/UNH/zscore_UNH_zscore_full_report.md) | [Chart](output/UNH/zscore_UNH_trend.png) | [CSV](output/UNH/zscore_UNH.csv) | [JSON](output/UNH/zscore_UNH.json) |
-| VALE | [Report](output/VALE/zscore_VALE_zscore_full_report.md) | [Chart](output/VALE/zscore_VALE_trend.png) | [CSV](output/VALE/zscore_VALE.csv) | [JSON](output/VALE/zscore_VALE.json) |
-| WMT | [Report](output/WMT/zscore_WMT_zscore_full_report.md) | [Chart](output/WMT/zscore_WMT_trend.png) | [CSV](output/WMT/zscore_WMT.csv) | [JSON](output/WMT/zscore_WMT.json) |
-
+| Logo | Company Name | Full Report | Trend Chart |
+|------|-------------|-------------|-------------|
+| <img src="output/AAPL/AAPL_logo.png" alt="AAPL" width="40" height="40"/> | Apple Inc | [Report](output/AAPL/zscore_AAPL_zscore_full_report.md) | [Chart](output/AAPL/zscore_AAPL_trend.png) |
+| <img src="output/AMZN/AMZN_logo.png" alt="AMZN" width="40" height="40"/> | Amazon.com Inc | [Report](output/AMZN/zscore_AMZN_zscore_full_report.md) | [Chart](output/AMZN/zscore_AMZN_trend.png) |
+| <img src="output/BIDU/BIDU_logo.png" alt="BIDU" width="40" height="40"/> | Baidu Inc | [Report](output/BIDU/zscore_BIDU_zscore_full_report.md) | [Chart](output/BIDU/zscore_BIDU_trend.png) |
+| <img src="output/CVNA/CVNA_logo.png" alt="CVNA" width="40" height="40"/> | Carvana Co | [Report](output/CVNA/zscore_CVNA_zscore_full_report.md) | [Chart](output/CVNA/zscore_CVNA_trend.png) |
+| <img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" width="40" height="40"/> | Alphabet Inc | [Report](output/GOOGL/zscore_GOOGL_zscore_full_report.md) | [Chart](output/GOOGL/zscore_GOOGL_trend.png) |
+| <img src="output/JPM/JPM_logo.png" alt="JPM" width="40" height="40"/> | JPMorgan Chase & Co | [Report](output/JPM/zscore_JPM_zscore_full_report.md) | [Chart](output/JPM/zscore_JPM_trend.png) |
+| <img src="output/MELI/MELI_logo.png" alt="MELI" width="40" height="40"/> | MercadoLibre Inc | [Report](output/MELI/zscore_MELI_zscore_full_report.md) | [Chart](output/MELI/zscore_MELI_trend.png) |
+| <img src="output/META/META_logo.png" alt="META" width="40" height="40"/> | Meta Platforms Inc | [Report](output/META/zscore_META_zscore_full_report.md) | [Chart](output/META/zscore_META_trend.png) |
+| <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="40" height="40"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | [Chart](output/MSFT/zscore_MSFT_trend.png) |
+| <img src="output/NVDA/NVDA_logo.png" alt="NVDA" width="40" height="40"/> | NVIDIA Corp | [Report](output/NVDA/zscore_NVDA_zscore_full_report.md) | [Chart](output/NVDA/zscore_NVDA_trend.png) |
+| <img src="output/PG/PG_logo.png" alt="PG" width="40" height="40"/> | Procter & Gamble Co | [Report](output/PG/zscore_PG_zscore_full_report.md) | [Chart](output/PG/zscore_PG_trend.png) |
+| <img src="output/PLTR/PLTR_logo.png" alt="PLTR" width="40" height="40"/> | Palantir Technologies Inc | [Report](output/PLTR/zscore_PLTR_zscore_full_report.md) | [Chart](output/PLTR/zscore_PLTR_trend.png) |
+| <img src="output/SNOW/SNOW_logo.png" alt="SNOW" width="40" height="40"/> | Snowflake Inc | [Report](output/SNOW/zscore_SNOW_zscore_full_report.md) | [Chart](output/SNOW/zscore_SNOW_trend.png) |
+| <img src="output/SONO/SONO_logo.png" alt="SONO" width="40" height="40"/> | Sonos Inc | [Report](output/SONO/zscore_SONO_zscore_full_report.md) | [Chart](output/SONO/zscore_SONO_trend.png) |
+| <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="40" height="40"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | [Chart](output/TSLA/zscore_TSLA_trend.png) |
 
 ---
 
@@ -128,6 +103,21 @@ The following table shows available reports for all analyzed tickers:
 
 ## License
 MIT (see LICENSE file)
+
+---
+
+## Data/API Credits & Disclaimers
+
+This project uses data and APIs from the following sources:
+- **Yahoo Finance** (yfinance): Market data and financials. Not affiliated with or endorsed by Yahoo. Data may be delayed or incomplete. See Yahoo's terms of use.
+- **Finnhub.io**: Company profiles, logos, and additional financial data. Not affiliated with or endorsed by Finnhub. Data provided under Finnhub's free and paid API terms.
+- **SEC EDGAR/XBRL**: Official regulatory filings. Data is public domain but may be subject to update delays or errors.
+
+**Disclaimers:**
+- All trademarks, service marks, and company names are the property of their respective owners.
+- This project is not affiliated with, endorsed by, or sponsored by Yahoo, Finnhub, the SEC, or any other data provider.
+- Data is provided "as is" for informational and educational purposes only. No warranty is made as to accuracy, completeness, or timeliness. Use at your own risk.
+- Always consult the official data provider's terms of service and licensing before commercial use.
 
 ---
 

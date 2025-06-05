@@ -15,6 +15,9 @@ from datetime import datetime
 from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
 from altman_zscore.utils.paths import get_output_dir
 import logging
+import shutil
+from PIL import Image
+from src.altman_zscore.api import FinnhubClient
 
 from altman_zscore.utils.colors import Colors
 from altman_zscore.enums import CompanyStage
@@ -807,7 +810,35 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     }
       # Build report sections
     lines = []
-    
+
+    # Insert company logo at the top if available or fetch if missing
+    ticker = context_info.get("Ticker") if context_info else None
+    logo_md = None
+    if ticker:
+        logo_dir = os.path.join("output", ticker)
+        logo_path = os.path.join(logo_dir, f"{ticker}_logo.png")
+        # If logo does not exist, try to fetch and save as {TICKER}_logo.png (200x200)
+        if not os.path.exists(logo_path):
+            try:
+                client = FinnhubClient()
+                # Ensure FinnhubClient saves the logo as {TICKER}_logo.png at 200x200
+                client.get_company_profile(ticker, logo_size=(200, 200), logo_path=logo_path)
+            except Exception as e:
+                logging.warning(f"Could not fetch company logo for {ticker}: {e}")
+        # Now ensure the logo is 200x200
+        if os.path.exists(logo_path):
+            try:
+                with Image.open(logo_path) as img:
+                    if img.size != (200, 200):
+                        img = img.convert('RGBA')
+                        img = img.resize((200, 200), Image.Resampling.LANCZOS)
+                        img.save(logo_path, format='PNG', optimize=True)
+                logo_md = f'![Company Logo]({ticker}_logo.png)\n'
+            except Exception as e:
+                logging.warning(f"Could not process company logo for report: {e}")
+    if logo_md:
+        lines.append(logo_md)
+
     # Core report content
     lines.extend(_get_report_intro_and_title(context_info))
     lines.append(_get_script_version())

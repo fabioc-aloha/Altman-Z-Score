@@ -81,3 +81,27 @@ See [vision.md](./vision.md) for the full vision statement.
 
 For full roadmap and competitive tasks, see `PLAN.md` and `competition roadmap.md`.
 
+## URGENT
+- [ ] Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
+- [ ] https://finnhub.io/docs/api
+- https://github.com/Finnhub-Stock-API/finnhub-python
+
+import finnhub
+finnhub_client = finnhub.Client(api_key="d10uiopr01qse6le5hsgd10uiopr01qse6le5ht0")
+
+print(finnhub_client.company_profile2(symbol='AAPL'))
+
+{
+  "country": "US",
+  "currency": "USD",
+  "exchange": "NASDAQ/NMS (GLOBAL MARKET)",
+  "ipo": "1980-12-12",
+  "marketCapitalization": 1415993,
+  "name": "Apple Inc",
+  "phone": "14089961010",
+  "shareOutstanding": 4375.47998046875,
+  "ticker": "AAPL",
+  "weburl": "https://www.apple.com/",
+  "logo": "https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png",
+  "finnhubIndustry":"Technology"
+}
