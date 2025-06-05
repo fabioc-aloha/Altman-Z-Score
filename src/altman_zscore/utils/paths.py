@@ -9,6 +9,9 @@ Note: This code follows PEP 8 style guidelines.
 """
 
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_output_dir(relative_path=None, ticker=None):
@@ -26,20 +29,31 @@ def get_output_dir(relative_path=None, ticker=None):
         OSError: If the directory cannot be created.
     """
     output_dir = os.path.abspath("./output")
-    os.makedirs(output_dir, exist_ok=True)
+    try:
+        os.makedirs(output_dir, exist_ok=True)
+    except Exception as e:
+        logger.error(f"Could not create output directory {output_dir}: {e}")
+        raise
 
     if ticker:
         ticker_dir = os.path.join(output_dir, ticker.upper())
-        os.makedirs(ticker_dir, exist_ok=True)
+        try:
+            os.makedirs(ticker_dir, exist_ok=True)
+        except Exception as e:
+            logger.error(f"Could not create ticker directory {ticker_dir}: {e}")
+            raise
         base_dir = ticker_dir
     else:
         base_dir = output_dir
 
     if relative_path:
         full_path = os.path.join(base_dir, relative_path)
-        # If the relative_path looks like a file, create its parent directory
         dirpath = os.path.dirname(full_path) if "." in os.path.basename(full_path) else full_path
-        os.makedirs(dirpath, exist_ok=True)
+        try:
+            os.makedirs(dirpath, exist_ok=True)
+        except Exception as e:
+            logger.error(f"Could not create directory {dirpath}: {e}")
+            raise
         return full_path
     else:
         return base_dir
@@ -57,6 +71,10 @@ def write_ticker_not_available(ticker, reason=None):
     message = f"Ticker '{ticker}' is not available or does not exist."
     if reason:
         message += f"\nReason: {reason}"
-    with open(marker_path, "w", encoding="utf-8") as f:
-        f.write(message + "\n")
+    try:
+        with open(marker_path, "w", encoding="utf-8") as f:
+            f.write(message + "\n")
+    except Exception as e:
+        logger.error(f"Could not write marker file {marker_path}: {e}")
+        raise
     return marker_path

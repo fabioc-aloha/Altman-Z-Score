@@ -3,19 +3,19 @@ Terminal output formatting helpers for Altman Z-Score analysis.
 Centralizes info, warning, error, and header print functions using Colors.
 """
 from .colors import Colors
-import sys
+import logging
 
 def print_info(msg: str):
-    print(f"{Colors.BLUE}[INFO]{Colors.ENDC} {msg}")
+    raise NotImplementedError("print_info is deprecated. Use logging.info directly.")
 
 def print_warning(msg: str):
-    print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}", file=sys.stderr)
+    raise NotImplementedError("print_warning is deprecated. Use logging.warning directly.")
 
 def print_error(msg: str):
-    print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}", file=sys.stderr)
+    raise NotImplementedError("print_error is deprecated. Use logging.error directly.")
 
 def print_success(msg: str):
-    print(f"{Colors.GREEN}[SUCCESS]{Colors.ENDC} {msg}")
+    raise NotImplementedError("print_success is deprecated. Use logging.info directly.")
 
 def print_header(msg: str):
-    print(f"\n{Colors.BLUE}{Colors.BOLD}{msg}{Colors.ENDC}\n")
+    raise NotImplementedError("print_header is deprecated. Use logging.info directly.")

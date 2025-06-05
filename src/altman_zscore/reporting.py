@@ -1,6 +1,8 @@
 """
 Z-Score Text Reporting Utilities
 
+All output in this module must use the logging module. Direct print statements are prohibited.
+
 This module provides functions to generate and save Altman Z-Score text reports and tables.
 """
 
@@ -12,23 +14,11 @@ import tabulate
 from datetime import datetime
 from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
 from altman_zscore.utils.paths import get_output_dir
+import logging
 
 from altman_zscore.utils.colors import Colors
 from altman_zscore.enums import CompanyStage
 from altman_zscore.model_thresholds import ModelCoefficients, ModelThresholds, TechCalibration
-
-
-def print_info(msg):
-    """
-    Print an info message with blue color if supported.
-
-    Args:
-        msg (str): The message to print.
-    """
-    try:
-        print(f"{Colors.BLUE}[INFO]{Colors.ENDC} {msg}")
-    except Exception:
-        print(f"[INFO] {msg}")
 
 
 def _get_report_intro_and_title(context_info):
@@ -856,7 +846,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     # Generate final report
     report_md = "\n".join(lines)
     if not report_md.strip():
-        print_info("[WARNING] report_md is empty. No report will be saved.")
+        logging.warning("[WARNING] report_md is empty. No report will be saved.")
         return None
     
     # Save report if path provided
@@ -869,11 +859,9 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(report_md)
-        print_info(f"Full Z-Score report saved to {out_path}")
-    
+        logging.info(f"Full Z-Score report saved to {out_path}")
     if print_to_console:
-        print(report_md)
-    
+        logging.info(report_md)
     return report_md
 
 

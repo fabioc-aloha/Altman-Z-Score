@@ -48,28 +48,23 @@ class Colors:
 
 
 def print_info(msg):
-    """Print an info message with cyan color"""
-    print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
+    logging.info(msg)
 
 
 def print_success(msg):
-    """Print a success message with green color"""
-    print(f"{Colors.GREEN}[SUCCESS]{Colors.ENDC} {msg}")
+    logging.info(msg)
 
 
 def print_warning(msg):
-    """Print a warning message with yellow color"""
-    print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
+    logging.warning(msg)
 
 
 def print_error(msg):
-    """Print an error message with red color"""
-    print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}")
+    logging.error(msg)
 
 
 def print_header(msg):
-    """Print a header with bold blue color"""
-    print(f"\n{Colors.BLUE}{Colors.BOLD}{msg}{Colors.ENDC}\n")
+    logging.info(msg)
 
 
 load_dotenv()

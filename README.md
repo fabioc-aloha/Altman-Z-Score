@@ -1,31 +1,57 @@
 # Altman Z-Score Analysis Platform
 
-**Version: 2.8.5 (2025-06-05)**
+**Version: 2.8.6 (2025-06-05)**
 
-A robust, modular Python tool for single-stock Altman Z-Score trend analysis. Designed for reliability, transparency, and extensibility—ideal for professionals, researchers, and advanced investors.
+A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
+
+---
+
+## Architecture Overview
+1. **Input Layer:** Accepts ticker(s) and analysis date; validates input.
+2. **Data Fetching Layer:** Fetches financials (SEC EDGAR/XBRL) and market data (Yahoo Finance).
+3. **Validation Layer:** Validates raw data using Pydantic schemas; reports missing/invalid fields.
+4. **Computation Layer:** Computes Altman Z-Score using validated data; returns result object.
+5. **Reporting Layer:** Outputs results to CSV, JSON, or stdout; logs all steps and errors.
+
+### Key Principles
+- **Modularity:** Each phase is implemented as a separate, testable module.
+- **Robustness:** Strong error handling, logging, and data validation at every step.
+- **Extensibility:** Easy to add new data sources, models, or output formats.
+- **Testability:** Each module is independently testable with clear interfaces.
+
+### Data Sources
+- **Primary:** Yahoo Finance (real-time financials and market data)
+- **Fallback:** SEC EDGAR/XBRL (official regulatory filings)
+- **Executive Data:** Multi-source aggregation for comprehensive profiles
+
+### Output Structure
+All outputs are saved to `output/<TICKER>/`:
+- `zscore_<TICKER>_zscore_full_report.md` (comprehensive analysis with LLM insights)
+- `zscore_<TICKER>_trend.png` (trend visualization chart)
+- `zscore_<TICKER>.csv` and `.json` (raw analytical data)
+- `<TICKER>_NOT_AVAILABLE.txt` (marker for unavailable tickers)
 
 ---
 
 ## Usage
 To analyze one or more stocks, run:
 ```sh
-python main.py <TICKER1> <TICKER2> ... [--start YYYY-MM-DD] [--moving-averages] [--no-plot]
+python main.py <TICKER1> <TICKER2> ... [--start YYYY-MM-DD] [--no-plot] [--test] [--log-level DEBUG]
 ```
+
 Examples:
 ```sh
 python main.py AAPL MSFT TSLA
 python main.py TSLA --start 2023-01-01
-python main.py AAPL MSFT --moving-averages --no-plot
+python main.py AAPL MSFT --no-plot
+python main.py --test
+python main.py --log-level DEBUG
 ```
 Replace `<TICKER1> <TICKER2> ...` with one or more stock ticker symbols (e.g., `AAPL`, `MSFT`).
 
-Outputs are saved in `output/<TICKER>/`:
-- Full report: `zscore_<TICKER>_zscore_full_report.md`
-- Trend chart: `zscore_<TICKER>_trend.png`
-- Raw data: `zscore_<TICKER>.csv` and `.json`
-- If a ticker is not available, only a `TICKER_NOT_AVAILABLE.txt` marker file will be present.
+---
 
-### Sample Reports
+## Sample Reports
 
 The following table shows available reports for all analyzed tickers:
 

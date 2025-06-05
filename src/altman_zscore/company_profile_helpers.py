@@ -1,6 +1,9 @@
+import logging
 """
 Helper functions for company profile parsing and classification.
 """
+
+logger = logging.getLogger(__name__)
 
 def find_field(yf_info, possible_keys):
     """
@@ -179,6 +182,6 @@ def classify_company_by_sec(cik: str, ticker: str):
             maturity=maturity,
         )
     except Exception as e:
-        print(f"[CompanyProfile] SEC EDGAR real-time fetch failed for {ticker}: {e}")
+        logger.error(f"[CompanyProfile] SEC EDGAR real-time fetch failed for {ticker}: {e}")
         return None
 # ...helpers will be moved here from company_profile.py...

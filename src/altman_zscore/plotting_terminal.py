@@ -1,3 +1,5 @@
+import logging
+
 """
 Terminal output helpers for plotting and reporting modules.
 """
@@ -14,22 +16,10 @@ class Colors:
     UNDERLINE = "\033[4m"
 
 def print_info(msg):
-    """Print an info message with cyan color if supported"""
-    try:
-        print(f"{Colors.CYAN}[INFO]{Colors.ENDC} {msg}")
-    except:
-        print(f"[INFO] {msg}")
+    logging.info(msg)
 
 def print_warning(msg):
-    """Print a warning message with yellow color if supported"""
-    try:
-        print(f"{Colors.YELLOW}[WARNING]{Colors.ENDC} {msg}")
-    except:
-        print(f"[WARNING] {msg}")
+    logging.warning(msg)
 
 def print_error(msg):
-    """Print an error message with red color if supported"""
-    try:
-        print(f"{Colors.RED}[ERROR]{Colors.ENDC} {msg}")
-    except:
-        print(f"[ERROR] {msg}")
+    logging.error(msg)

@@ -6,6 +6,9 @@ Centralizes DataFrame-to-file logic and output file naming for DRY compliance.
 import os
 import pandas as pd
 from typing import Optional, Literal
+import logging
+
+logger = logging.getLogger(__name__)
 
 def get_output_file_path(ticker: str, basename: str, ext: str = "csv", subdir: Optional[str] = None) -> str:
     """
@@ -44,6 +47,8 @@ def save_dataframe(
             else:
                 df.to_json(path, orient=orient)
         else:
+            logger.error(f"Unsupported file format: {fmt}")
             raise ValueError(f"Unsupported file format: {fmt}")
     except Exception as e:
+        logger.error(f"Could not save DataFrame to {path}: {e}")
         raise RuntimeError(f"Could not save DataFrame to {path}: {e}")

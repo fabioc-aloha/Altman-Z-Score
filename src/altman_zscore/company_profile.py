@@ -1,11 +1,14 @@
 import os
 from enum import Enum
 from typing import Optional
+import logging
 
 import requests
 
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.company_profile_helpers import find_field, is_emerging_market_country, get_industry_group, get_market_category, classify_maturity, extract_cik_from_sec_html, get_sec_headers, get_emerging_countries, classify_company_by_sec
+
+logger = logging.getLogger(__name__)
 
 """
 Company profile classification and lookup utilities for Altman Z-Score model selection.
@@ -126,7 +129,7 @@ class CompanyProfile:
                 if profile and profile.industry_group is not None:
                     return profile
         except Exception as e:
-            print(f"[CompanyProfile] SEC EDGAR failed for {ticker}: {e}")
+            logger.error(f"[CompanyProfile] SEC EDGAR failed for {ticker}: {e}")
         # 2. Try yfinance as fallback
         try:
             import json
@@ -169,9 +172,9 @@ class CompanyProfile:
                     maturity=maturity,
                 )
             else:
-                print(f"[WARN] yfinance returned no industry/sector for {ticker}. Raw info: {yf_info}")
+                logger.warning(f"[WARN] yfinance returned no industry/sector for {ticker}. Raw info: {yf_info}")
         except Exception as e:
-            print(f"[CompanyProfile] yfinance failed for {ticker}: {e}")
+            logger.error(f"[CompanyProfile] yfinance failed for {ticker}: {e}")
         # 3. If yfinance returns no industry/sector, try to fetch the most recent SEC filing for the ticker (even if delisted)
         try:
             # Try to get a historical CIK from local mapping or fallback file
@@ -223,11 +226,11 @@ class CompanyProfile:
                             profile = classify_company_by_sec(cik, ticker)
                             if profile and (profile.industry or profile.industry_group):
                                 return profile
-                    print(f"[ERROR] Ticker {ticker} not found in SEC company_tickers.json (delisted or never listed)")
+                    logger.error(f"[ERROR] Ticker {ticker} not found in SEC company_tickers.json (delisted or never listed)")
                 except Exception as e:
-                    print(f"[CompanyProfile] Could not fetch company_tickers.json for {ticker}: {e}")
+                    logger.error(f"[CompanyProfile] Could not fetch company_tickers.json for {ticker}: {e}")
         except Exception as e:
-            print(f"[CompanyProfile] Could not fetch historical CIK/profile for {ticker}: {e}")
+            logger.error(f"[CompanyProfile] Could not fetch historical CIK/profile for {ticker}: {e}")
         # No static fallback
         import inspect
 
@@ -241,11 +244,9 @@ class CompanyProfile:
                 missing_quarter = values.get("quarter", None)
                 break
         if missing_quarter:
-            print(
-                f"[ERROR] Could not classify company for ticker {ticker} (no industry/sector from yfinance) for quarter {missing_quarter}"
-            )
+            logger.error(f"[ERROR] Could not classify company for ticker {ticker} (no industry/sector from yfinance) for quarter {missing_quarter}")
         else:
-            print(f"[ERROR] Could not classify company for ticker {ticker} (no industry/sector from yfinance)")
+            logger.error(f"[ERROR] Could not classify company for ticker {ticker} (no industry/sector from yfinance)")
         return None
 
     def __str__(self):

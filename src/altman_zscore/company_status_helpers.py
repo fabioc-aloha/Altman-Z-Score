@@ -103,7 +103,7 @@ def handle_special_status(status) -> bool:
     ticker = status.ticker
     message = status.get_status_message()
     reason = status.status_reason or ERROR_MSG_STATUS_CHECK_FAILED
-    print(message, reason)
+    logger.warning(f"{message} {reason}")
     write_ticker_not_available(ticker, reason=message)
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
     error_result = [
@@ -118,26 +118,22 @@ def handle_special_status(status) -> bool:
             "status_info": status.to_dict(),
         }
     ]
-    print(f"DEBUG: About to write error_result files to {out_base}_error.csv/json")
+    logger.info(f"About to write error_result files to {out_base}_error.csv/json")
     try:
         import pandas as pd
         df = pd.DataFrame(error_result)
         save_dataframe(df, f"{out_base}_error.csv", fmt="csv")
         save_dataframe(df, f"{out_base}_error.json", fmt="json")
         logger.info(f"Status error output saved to {out_base}_error.csv and {out_base}_error.json")
-        print(f"DEBUG: Wrote error_result files to {out_base}_error.csv/json")
     except Exception as e:
-        print(f"DEBUG: Could not save error output: {e}")
         logger.error(f"Could not save error output: {e}")
-    print(f"DEBUG: About to write status.json to {get_output_dir(None, ticker=ticker)}/status.json")
+    logger.info(f"About to write status.json to {get_output_dir(None, ticker=ticker)}/status.json")
     try:
         with open(f"{get_output_dir(None, ticker=ticker)}/status.json", "w") as f:
             json.dump(status.to_dict(), f, indent=2)
-        print(f"DEBUG: Wrote status.json to {get_output_dir(None, ticker=ticker)}/status.json")
+        logger.info(f"Wrote status.json to {get_output_dir(None, ticker=ticker)}/status.json")
     except Exception as e:
-        print(f"DEBUG: Could not save status.json: {e}")
         logger.error(f"Could not save status.json: {e}")
-    logger.warning(f"{message} {reason}")
     return True
 
 def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus':
