@@ -34,20 +34,6 @@ Outputs are saved in `output/<TICKER>/`:
 
 ---
 
-## Modular Architecture
-The codebase is now fully modularized for maintainability and extensibility. Key modules include:
-- `one_stock_analysis.py` and `one_stock_analysis_helpers.py`: Main pipeline and helpers
-- `company_profile.py` and `company_profile_helpers.py`: Company data logic
-- `company_status.py` and `company_status_helpers.py`: Company status logic
-- `plotting.py`, `plotting_helpers.py`, `plotting_terminal.py`: Plotting and visualization
-- `api/openai_client.py`, `api/openai_helpers.py`: LLM integration
-- `zscore_models.py`, `enums.py`, `model_thresholds.py`, `zscore_model_base.py`: Z-Score models and configuration
-- `computation/formulas.py`: Core financial formulas
-
-All modules are independently testable. See `tests/` for coverage.
-
----
-
 ## Environment Setup
 - Copy `.env.example` to `.env` and fill in your API keys and configuration
 - Install dependencies:
