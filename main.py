@@ -41,9 +41,6 @@ Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
 __version__ = "2.8.5"
 
-# v2.7.1 release: Enhanced executive/officer information injection into LLM qualitative analysis, 
-# improved company profiles with multi-source data integration, fixed missing officer data 
-# handling in LLM prompts for more robust analysis
 
 import argparse
 import os
@@ -100,6 +97,28 @@ def parse_args():
     return parser.parse_args()
 
 
+def format_zscore_results(df):
+    """Format Z-Score results for reporting."""
+    result_df = df[['quarter_end', 'zscore']].copy()
+    result_df.columns = ['Quarter', 'Z-Score']
+    result_df = result_df.sort_values('Quarter', ascending=False)
+    formatted_results = []
+    for _, row in result_df.iterrows():
+        quarter = row['Quarter']
+        z_score = row['Z-Score']
+        if pd.isna(z_score):
+            score_str = "N/A"
+        else:
+            if z_score < 1.8:
+                score_str = f"{z_score:.2f} (Distress)"
+            elif z_score < 3.0:
+                score_str = f"{z_score:.2f} (Grey)"
+            else:
+                score_str = f"{z_score:.2f} (Safe)"
+        formatted_results.append(f"{quarter}: {score_str}")
+    return formatted_results
+
+
 def main():
     """
     Main entry point for the Altman Z-Score Analysis Platform.
@@ -132,32 +151,15 @@ def main():
             if df is not None and not df.empty and 'zscore' in df.columns:
                 valid_scores = df[df['zscore'].notnull()]
                 if not valid_scores.empty:
-                    result_df = df[['quarter_end', 'zscore']].copy()
-                    result_df.columns = ['Quarter', 'Z-Score']
-                    result_df = result_df.sort_values('Quarter', ascending=False)
-                    formatted_results = []
-                    for _, row in result_df.iterrows():
-                        quarter = row['Quarter']
-                        z_score = row['Z-Score']
-                        if pd.isna(z_score):
-                            score_str = "N/A"
-                        else:
-                            if z_score < 1.8:
-                                score_str = f"{z_score:.2f} (Distress)"
-                            elif z_score < 3.0:
-                                score_str = f"{z_score:.2f} (Grey)"
-                            else:
-                                score_str = f"{z_score:.2f} (Safe)"
-                        formatted_results.append(f"{quarter}: {score_str}")                    
-                        for result in formatted_results:
-                            print(result)
+                    formatted_results = format_zscore_results(df)
+                    for result in formatted_results:
+                        print(result)
                     elapsed = end_time - start_time
                     print_success(f"Analysis completed in {elapsed:.2f} seconds")
-                    plot_path = f"output/{ticker}/zscore_{ticker}_trend.png"
+                    plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
                     if not no_plot:
                         print_info(f"Z-Score plot saved to {plot_path}")
                     # Note: Plotting is already handled by analyze_single_stock_zscore_trend
-                    # The chart uses the correct model selected by the analysis logic
                 else:
                     print_warning(f"No valid Z-Scores calculated for {ticker}")
             else:
