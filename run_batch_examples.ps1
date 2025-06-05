@@ -124,7 +124,7 @@ function Invoke-ZScoreBatch($tickers, $groupName) {
 Invoke-ZScoreBatch $large_caps 'large_caps'
 Invoke-ZScoreBatch $distressed 'distressed'
 Invoke-ZScoreBatch $tech_em 'tech_em'
-Invoke-ZScoreBatch $latam_br 'latam_br'
+# Invoke-ZScoreBatch $latam_br 'latam_br'
 # Invoke-ZScoreBatch $europe 'europe'
 # Invoke-ZScoreBatch $asia 'asia'
 # Invoke-ZScoreBatch $edge_cases 'edge_cases'

@@ -292,10 +292,7 @@ def _get_chart_md(context_info, out_base):
             rel_chart_path = os.path.relpath(local_chart_path, out_dir).replace("\\", "/")
             chart_md = f"\n![Z-Score and Price Trend Chart]({rel_chart_path})\n"
         chart_md += "\n"
-        if os.path.exists(local_chart_path):
-            chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
-        else:
-            chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (image not available yet; will be generated after analysis)*\n"
+        chart_md += f"*Figure: Z-Score and stock price trend for {ticker.upper()} (see output folder for full-resolution image)*\n"
     return chart_md
 
 
