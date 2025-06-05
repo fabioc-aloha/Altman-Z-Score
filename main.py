@@ -185,7 +185,7 @@ def main():
         print(f"[ERROR] Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.", file=sys.stderr)
         sys.exit(2)
     logging.basicConfig(
-        level=getattr(logging, log_level, logging.INFO),
+        level=getattr(logging, log_level, logging.WARNING),  # Default to WARNING if not specified
         format='[%(levelname)s] %(message)s'
     )
     # Validate start date format
