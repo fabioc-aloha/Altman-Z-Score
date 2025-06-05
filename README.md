@@ -62,20 +62,18 @@ The following table shows available reports for all analyzed tickers:
 | ASML | [Report](output/ASML/zscore_ASML_zscore_full_report.md) | [Chart](output/ASML/zscore_ASML_trend.png) | [CSV](output/ASML/zscore_ASML.csv) | [JSON](output/ASML/zscore_ASML.json) |
 | BIDU | [Report](output/BIDU/zscore_BIDU_zscore_full_report.md) | [Chart](output/BIDU/zscore_BIDU_trend.png) | [CSV](output/BIDU/zscore_BIDU.csv) | [JSON](output/BIDU/zscore_BIDU.json) |
 | CVNA | [Report](output/CVNA/zscore_CVNA_zscore_full_report.md) | [Chart](output/CVNA/zscore_CVNA_trend.png) | [CSV](output/CVNA/zscore_CVNA.csv) | [JSON](output/CVNA/zscore_CVNA.json) |
+| F | [Report](output/F/zscore_F_zscore_full_report.md) | [Chart](output/F/zscore_F_trend.png) | [CSV](output/F/zscore_F.csv) | [JSON](output/F/zscore_F.json) |
+| GOOG | [Report](output/GOOG/zscore_GOOG_zscore_full_report.md) | [Chart](output/GOOG/zscore_GOOG_trend.png) | [CSV](output/GOOG/zscore_GOOG.csv) | [JSON](output/GOOG/zscore_GOOG.json) |
 | GOOGL | [Report](output/GOOGL/zscore_GOOGL_zscore_full_report.md) | [Chart](output/GOOGL/zscore_GOOGL_trend.png) | [CSV](output/GOOGL/zscore_GOOGL.csv) | [JSON](output/GOOGL/zscore_GOOGL.json) |
-| JNJ | [Report](output/JNJ/zscore_JNJ_zscore_full_report.md) | [Chart](output/JNJ/zscore_JNJ_trend.png) | [CSV](output/JNJ/zscore_JNJ.csv) | [JSON](output/JNJ/zscore_JNJ.json) |
-| JPM | [Report](output/JPM/zscore_JPM_zscore_full_report.md) | [Chart](output/JPM/zscore_JPM_trend.png) | [CSV](output/JPM/zscore_JPM.csv) | [JSON](output/JPM/zscore_JPM.json) |
 | MELI | [Report](output/MELI/zscore_MELI_zscore_full_report.md) | [Chart](output/MELI/zscore_MELI_trend.png) | [CSV](output/MELI/zscore_MELI.csv) | [JSON](output/MELI/zscore_MELI.json) |
 | META | [Report](output/META/zscore_META_zscore_full_report.md) | [Chart](output/META/zscore_META_trend.png) | [CSV](output/META/zscore_META.csv) | [JSON](output/META/zscore_META.json) |
 | MSFT | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | [Chart](output/MSFT/zscore_MSFT_trend.png) | [CSV](output/MSFT/zscore_MSFT.csv) | [JSON](output/MSFT/zscore_MSFT.json) |
 | NVDA | [Report](output/NVDA/zscore_NVDA_zscore_full_report.md) | [Chart](output/NVDA/zscore_NVDA_trend.png) | [CSV](output/NVDA/zscore_NVDA.csv) | [JSON](output/NVDA/zscore_NVDA.json) |
 | PG | [Report](output/PG/zscore_PG_zscore_full_report.md) | [Chart](output/PG/zscore_PG_trend.png) | [CSV](output/PG/zscore_PG.csv) | [JSON](output/PG/zscore_PG.json) |
 | PLTR | [Report](output/PLTR/zscore_PLTR_zscore_full_report.md) | [Chart](output/PLTR/zscore_PLTR_trend.png) | [CSV](output/PLTR/zscore_PLTR.csv) | [JSON](output/PLTR/zscore_PLTR.json) |
-| RIDEQ | [Report](output/RIDEQ/zscore_RIDEQ_zscore_full_report.md) | [Chart](output/RIDEQ/zscore_RIDEQ_trend.png) | [CSV](output/RIDEQ/zscore_RIDEQ.csv) | [JSON](output/RIDEQ/zscore_RIDEQ.json) |
 | SHOP | [Report](output/SHOP/zscore_SHOP_zscore_full_report.md) | [Chart](output/SHOP/zscore_SHOP_trend.png) | [CSV](output/SHOP/zscore_SHOP.csv) | [JSON](output/SHOP/zscore_SHOP.json) |
 | SNOW | [Report](output/SNOW/zscore_SNOW_zscore_full_report.md) | [Chart](output/SNOW/zscore_SNOW_trend.png) | [CSV](output/SNOW/zscore_SNOW.csv) | [JSON](output/SNOW/zscore_SNOW.json) |
 | SONO | [Report](output/SONO/zscore_SONO_zscore_full_report.md) | [Chart](output/SONO/zscore_SONO_trend.png) | [CSV](output/SONO/zscore_SONO.csv) | [JSON](output/SONO/zscore_SONO.json) |
-| SQ | [Report](output/SQ/zscore_SQ_zscore_full_report.md) | [Chart](output/SQ/zscore_SQ_trend.png) | [CSV](output/SQ/zscore_SQ.csv) | [JSON](output/SQ/zscore_SQ.json) |
 | TSLA | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | [Chart](output/TSLA/zscore_TSLA_trend.png) | [CSV](output/TSLA/zscore_TSLA.csv) | [JSON](output/TSLA/zscore_TSLA.json) |
 | UBER | [Report](output/UBER/zscore_UBER_zscore_full_report.md) | [Chart](output/UBER/zscore_UBER_trend.png) | [CSV](output/UBER/zscore_UBER.csv) | [JSON](output/UBER/zscore_UBER.json) |
 

@@ -11,6 +11,7 @@
 - [x] Tag the release in git (e.g., v2.8.6)
 - [x] Push all commits and tags to remote
 - [x] Announce release (if public)
+- [ ] Scan the output directory and update the table of available reports in README.md (ensure all tickers in output/ are included, sorted alphabetically, and only those with all four report files are listed; use `ls output/` to get the list of folders)
 
 ---
 
