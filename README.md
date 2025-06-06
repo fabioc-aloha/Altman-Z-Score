@@ -1,3 +1,6 @@
+
+![Altman Z-Score Analysis Platform](banner.png)
+
 # Altman Z-Score Analysis Platform
 
 **Version: 2.9.0 (2025-06-05)**

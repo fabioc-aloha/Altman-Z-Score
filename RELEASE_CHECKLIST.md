@@ -1,14 +1,14 @@
 # Release Checklist v2.9.0 (2025-06-05)
 
 - [x] Update version in README.md and main.py
-- [ ] Update CHANGELOG.md with new features, bugfixes, and breaking changes
-- [ ] Ensure all tests pass (unit, integration, CLI)
+- [x] Update CHANGELOG.md with new features, bugfixes, and breaking changes
+- [x] Ensure all tests pass (unit, integration, CLI)
 - [x] Run `generate_readme_table.py` and update README sample reports table
-- [ ] Verify all new/changed features are documented in README.md and PLAN.md
-- [ ] Update requirements.txt if dependencies changed
-- [ ] Review and update PLAN.md and TODO.md for next phase
-- [ ] Tag release in git and push to remote
-- [ ] Announce release (if applicable)
+- [x] Verify all new/changed features are documented in README.md and PLAN.md
+- [x] Update requirements.txt if dependencies changed
+- [x] Review and update PLAN.md and TODO.md for next phase
+- [x] Tag release in git and push to remote
+- [x] Announce release (if applicable)
 
 ---
 
