@@ -5,6 +5,24 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2025-06-05
+
+### Added/Changed
+- Automated company logo download, resizing, and standardized naming in Finnhub API client and reporting pipeline.
+- Markdown reports now include company logo at the top, with consistent sizing and file naming.
+- Automated README sample reports table generation: logos, company names, report/chart links, and API credits/disclaimers are now dynamically generated for all tickers in `output/`.
+- Added `generate_readme_table.py` script to automate README table updates.
+- Updated release checklist for v2.9.0 and preserved previous release history.
+- Updated version numbers in `README.md` and `main.py` to 2.9.0.
+
+### Technical
+- Improved modularity and error handling in logo and report generation logic.
+- Ensured no redundant logo downloads or resizings; robust file existence checks.
+- All automation scripts and reporting logic compatible with local and cloud environments.
+
+### Breaking Changes
+- None. All outputs and APIs remain stable.
+
 ## [2.8.6] - 2025-06-05
 
 ### Added/Changed
