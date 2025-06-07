@@ -10,7 +10,7 @@ See [vision.md](./vision.md) for the full vision statement.
 
 ## Completed Milestones
 
-### v3.0.0 (2025-06-07) ✅ FULLY COMPLETED
+### v3.0.1 (2025-06-07) ✅ FULLY COMPLETED
 - Full modular reorganization: All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
 - All imports fixed: Updated to use new modular paths
 - Integration testing: Added `tests/test_integration_main.py` to catch import/runtime errors

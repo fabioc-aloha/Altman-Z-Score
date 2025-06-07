@@ -2,7 +2,7 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.0.0 (2025-06-07)**
+**Version: 3.0.1 (2025-06-07)**
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
 
@@ -99,9 +99,8 @@ The following table shows available reports for all analyzed tickers:
 
 ---
 
-## Documentation & Release Process
-- Version numbers and changelogs are up to date in documentation
-- See `PLAN.md` and `TODO.md` for roadmap and actionable tasks
+## Documentation & Project Roadmap
+- For the unified project plan, roadmap, actionable tasks, and technical references, see [TODO.md](./TODO.md)
 - See `LEARNINGS.md` for technical notes and known issues
 
 ---
@@ -119,8 +118,6 @@ The following table shows available reports for all analyzed tickers:
 ## Development & Contribution
 - All changes must pass existing and new tests
 - New features require updated tests and documentation
-- See `PLAN.md` for the feature roadmap and major decisions
-- See `TODO.md` for actionable tasks and environment setup
 - Document significant learnings in `LEARNINGS.md`
 
 ---
@@ -151,23 +148,27 @@ For more details, see the full documentation in this repository and referenced f
 
 ```
 src/altman_zscore/
-    api/                # API clients and integrations (e.g., Finnhub, OpenAI)
+    api/                # API clients and integrations (Finnhub, OpenAI, SEC, Yahoo, etc.)
     company/            # Company profile, status, helpers, CIK/SIC lookup
-    computation/        # Z-Score computation, constants, formulas
-    core/               # Main pipeline, orchestration, progress tracking
+    computation/        # Z-Score computation, constants, formulas, DRY helpers
+    core/               # Main pipeline, orchestration, progress tracking, reporting
     data_fetching/      # Financial and market data fetching (Yahoo, SEC, etc.)
-    market/             # Market data helpers
-    misc/               # Shared utilities
+    market/             # Market data helpers and utilities
+    misc/               # Shared utilities and miscellaneous helpers
     models/             # Z-Score models, thresholds, enums, industry classifier
     plotting/           # Visualization, plotting helpers, terminal output
-    validation/         # Data validation (Pydantic schemas, etc.)
-    utils/              # Paths, IO, logging, etc.
+    schemas/            # Pydantic schemas and data validation models
+    utils/              # Paths, IO, logging, error handling, etc.
+    validation/         # Data validation logic
+    prompts/            # LLM prompt templates
     ...
+output/                 # Analysis results, reports, and plots (per ticker)
+tests/                  # Unit and integration tests
 ```
 
 - Each folder contains focused, testable modules.
 - All imports use the new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`).
-- See `PLAN.md` for architectural decisions and `TODO.md` for actionable tasks.
+- For the project plan, roadmap, and actionable tasks, see [TODO.md](./TODO.md)
 
 ---
 
