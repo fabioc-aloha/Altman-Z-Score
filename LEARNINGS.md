@@ -6,13 +6,30 @@ All technical learnings and decisions in this document are guided by the project
 
 See [vision.md](./vision.md) for the full vision statement.
 
-# LEARNINGS.md — Altman Z-Score Analysis (v2.9.0)
+# LEARNINGS.md — Altman Z-Score Analysis (v3.0.0)
 
-## Version 2.9.0 (June 7, 2025)
-- Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
-- Documentation and usage examples updated to reflect new structure
-- All tests passing after reorganization
+## Version 3.0.0 (June 7, 2025) ✅ FULLY COMPLETED
+- **✅ Full modular reorganization:** All code successfully grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- **✅ Import path fixes:** Updated all imports to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
+- **✅ Critical import error resolution:** Fixed multiple import errors that occurred during reorganization:
+  - `fetcher_factory.py`: Changed `..company_profile` to `..company.company_profile`
+  - `industry_classifier.py`: Changed `.company_profile` to `..company.company_profile`
+  - Fixed import paths in `output_generation.py`, `reporting.py`, `file_operations.py`, `one_stock_analysis.py`, `main.py`, `company_status_helpers.py`
+- **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors in main pipeline
+- **✅ Main pipeline verification:** Successfully runs `python main.py msft` without import errors
+- **✅ Test fixes:** Resolved pytest collection issues in `test_finnhub.py` by removing `sys.exit(1)` and renaming helper functions
+- **✅ Documentation updated:** All documentation reflects new structure and completed modularization
+- **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
+- **✅ Modularization & refactoring complete:** All refactoring work finished and fully tested
+- **🎯 Ready for production:** v3.0.0 is now ready for deployment and user feedback collection
+
+### Key Learnings from v3.0.0 Modularization:
+1. **Import path complexity:** Relative imports (`..company.company_profile`) can be tricky when reorganizing modules - use tools to systematically search and fix
+2. **Integration testing value:** Simple integration tests that run the main pipeline can catch import errors that unit tests miss
+3. **Systematic approach:** Using file search, semantic search, and grep search tools helps identify all import dependencies
+4. **Test collection issues:** `sys.exit(1)` in test files can break pytest collection - remove or conditionally use
+5. **Incremental verification:** Testing the main pipeline after each batch of import fixes helps isolate issues
+6. **Documentation consistency:** Keep documentation updated with completed tasks to track progress accurately
 
 ## Version 2.8.2 (June 4, 2025)
 - Fixed critical issue with Z-Score report generation that caused duplicate content in reports

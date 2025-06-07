@@ -4,205 +4,124 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis (v2.8.2)
+# PLAN.md — Altman Z-Score Analysis Project
 
-## v2.8.2 Release (2025-06-04)
-- Fixed critical issue with Z-Score report generation that caused duplicate content in reports
-- Enhanced DataFrame handling in the reporting pipeline to prevent truthiness ambiguity errors
-- Improved context data sanitization before passing to report generation functions
-- Better error handling for data type conversions
-- Fixed PEP 8 compliance for import statements in reporting module
-- All tests passing, no breaking changes to APIs or outputs
+## Current Version: v3.0.0 (2025-06-07) ✅ FULLY COMPLETED
 
-## v2.8.0 Release (2025-06-04)
-- Major refactor: full modularization of all core files and helpers
-- All large files split into logical modules; all long functions decomposed into helpers
-- Imports and references updated throughout
-- Comprehensive tests for all modules; all outputs and APIs remain stable
-- Documentation and usage examples updated to reflect new structure
-- No breaking changes; all outputs and APIs remain stable
+### Completed Modularization Milestone
+- **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- **✅ All imports fixed:** Updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
+- **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors in main pipeline
+- **✅ Critical import fixes:** Resolved all ModuleNotFoundError issues across the codebase:
+  - Fixed `fetcher_factory.py`: `..company_profile` → `..company.company_profile`
+  - Fixed `industry_classifier.py`: `.company_profile` → `..company.company_profile`
+  - Fixed import paths in `output_generation.py`, `reporting.py`, `file_operations.py`, etc.
+- **✅ Main pipeline verified:** Successfully runs `python main.py msft` without import errors
+- **✅ Improved LLM prompt templates:** Enhanced code injection for reporting with more complete, context-aware analysis
+- **✅ Documentation updated:** All documentation reflects new structure and completed modularization
+- **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
+- **✅ Cleaned up obsolete files:** Removed duplicate files marked with 'D' in VS Code after reorganization
+- **✅ Modularization & refactoring complete:** All refactoring work finished and fully tested
 
-## v2.9.0 Release (2025-06-07)
-- Full modular reorganization: all Python files grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
-- Documentation and usage examples updated to reflect new structure
-- All tests passing after reorganization
-- No breaking changes to APIs or outputs
+**🎯 v3.0.0 is now ready for production deployment and user feedback collection.**
 
 ---
 
-## v2.7.4 Release (2025-06-03)
-- Major plotting refactor: plotting.py split into helpers and terminal modules
-- Full test coverage for plotting_helpers and plotting_terminal
-- Improved error handling and modularity in plotting pipeline
-- Updated documentation and version numbers for v2.7.4
-- No breaking changes; all outputs and APIs remain stable
+## Development History & Key Achievements
 
-## Updated Plan: Accomplishments and Next Steps
+### Major Project Milestones
+- **v3.0.0 (2025-06-07):** Complete modularization, directory restructuring, and import path fixes - fully tested and production-ready
+- **v2.8.x (2025-06-04):** Modularization of core files, improved error handling, comprehensive tests
+- **v2.7.x (2025-06-03):** Major plotting refactoring, SEC EDGAR fallback implementation, improved error reporting 
+- **v2.6.x:** Z-Score forecasting, sentiment/news analysis, multi-ticker portfolio support
 
-### Accomplishments (v2.7.1):
-- Robust fallback to SEC EDGAR for financials if yfinance fails
-- Improved error reporting: pipeline now transparently reports when only balance sheet data is available (e.g., TUP), and no Z-Score can be computed due to missing income statement data
-- Documentation and release process updated for new fallback and error handling features
-- All major architectural and technical decisions for this release are documented here and in LEARNINGS.md
+### Core System Features
+- **Data Fetching:** Multi-source data retrieval from Yahoo Finance, SEC EDGAR, and Finnhub
+- **Model Selection:** Hierarchical decision tree for Z-Score model selection based on company characteristics
+- **Validation:** Robust error handling, data consistency checks, and fallback mechanisms
+- **Computation:** Flexible Z-Score calculation with multiple model support
+- **Reporting:** Comprehensive analysis reports with qualitative validation and market context
+- **Visualization:** Interactive and static plotting with trend analysis
 
-### Accomplishments (v2.6):
-- Z-Score forecasting using consensus estimates and/or time series models
-- Sentiment and news analysis integration
-- Generalized pipeline for multiple tickers and portfolio analysis
-- Modularized data connectors and enhanced CLI for batch/portfolio analysis
-- Prepared for web dashboard, REST API, and Excel Add-In
-- Implemented advanced notifications for Z-Score thresholds
-- Expanded tests and documentation for new features
-- Reviewed user feedback and bug reports from v2.6
-- Implemented improvements to LLM prompts and mapping logic based on feedback
+## Next Steps (v3.1 Planning)
 
-### Accomplishments:
-- **Data Fetching Enhancements:**
-  - Integrated additional data fetching from `yfinance`, including historical prices, dividends, and stock splits.
-  - Fetched and saved `company_info`, `major_holders`, `institutional_holders`, and `recommendations` from `yfinance`.
-  - Implemented a function `fetch_sec_edgar_data` to fetch company information from SEC EDGAR.
-  - Ensured all JSON files saved in the output directory are pretty-formatted.
+### Practical Use & User Feedback (Current Phase)
+- Production deployment of v3.0.0 for real-world testing and feedback collection
+- Monitor performance and identify any pain points in the modular structure
+- Document insights from practical usage in LEARNINGS.md
+- Draft v3.1 roadmap based on user feedback and operational insights
 
-- **Model Selection and Z-Score Computation:**
-  - Hierarchical decision tree for Z-Score model selection based on SIC, Emerging Market flag, and Public/Private maturity.
-  - Centralized configuration for model coefficients, intercepts, and thresholds.
-  - Validation of required fields and accounting identities.
-  - Ratio range checks and consistency warnings.
-  - Computation dispatcher for Z-Score calculation and diagnostic assignment.
+### Future Development Priorities
 
-- **Qualitative Validation:**
-  - Designed a prompt template summarizing company details, Z-Score, and financial highlights.
-  - Integrated LLM call to generate qualitative validation.
-  - Appended qualitative validation section to `zscore_full_report` with LLM summary, news headlines, and references.
-  - Error handling for LLM call failures with fallback messaging.
-  - Tested on multiple tickers to ensure relevance and accuracy of LLM output.
-  - Documented the qualitative validation feature in `README.md` and `PLAN.md`.
+#### High Priority Improvements
+- Advanced error handling for edge cases discovered in production
+- Performance optimization based on real-world usage patterns
+- Enhanced caching strategies to reduce API calls and improve response times
 
-### Pending:
-- **Validation and Error Handling:**
-  - Validate the accuracy and usefulness of SEC EDGAR data.
-  - Improve error handling for both `yfinance` and SEC EDGAR data fetching.
-  - Enhance identity checks to catch inter-quarter restatements and detect stale XBRL contexts.
+#### User Experience Enhancements
+- Interactive dashboard for real-time analysis
+- Enhanced CLI with additional command options and interactive mode
+- Export format extensions (Excel, PowerBI, PDF)
+- Custom notification system for Z-Score threshold alerts
 
-- **Pipeline Refinements:**
-  - Finalize and implement the checklist in `DataFetching.mp`.
-  - Caching of LLM responses for auditability and cost control.
-  - Advanced notifications for Z-Score thresholds.
-  - Refinement of prompt and output formatting based on user feedback.
+#### Data & Analysis Extensions
+- Currency conversion for non-USD firms
+- "What-if" scenario analysis for financial planning
+- Advanced forecasting using consensus estimates
+- Industry-specific model calibration refinements
 
-- **Future Features:**
-  - Currency conversion for non-USD firms.
-  - "What-if" scenario analysis for CAPEX adjustments.
-  - Integration of RACI chart for execution ownership.
-  - Optimization of data caching to reduce API calls.
-  - Forecasting next quarter's Z-Score using consensus estimates and/or time series models.
-  - Sentiment and news analysis integration.
-  - Generalization of pipeline for multiple tickers and portfolio analysis.
+#### Integration & API Development
+- REST API for programmatic access
+- Database backend for historical data storage
+- Third-party tool integrations
+- Excel Add-In development
 
----
+## Project Architecture & Implementation Principles
 
-## Short-Term Action Items (for TODO.md)
-- Add warnings for size/leverage outliers in the report
-- Expand unit/integration tests for new model selection and reporting logic
-- Integrate additional industry benchmark data (WRDS/Compustat or open data) into constants.py as available
-- Document and automate calibration update process in altmans.md
-- Schedule periodic calibration updates and document the process
-- Continue to refine transparency and reporting for edge cases
-- Expand FIELD_SYNONYMS and mapping logic for international/bank tickers (add multi-language, sector-aware mapping, and user overrides)
-- Add/expand tests for prompt ingestion, mapping, and reporting
-- Improve documentation for mapping, prompt usage, and internationalization
-- Modularize data connectors and enhance CLI for batch/portfolio analysis
-- Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
-- Begin v2.5: Z-Score forecasting, sentiment/news analysis, and multi-ticker/portfolio support
+### Core Architecture
+1. **Input Layer:** Accepts ticker(s) and analysis date; validates input
+2. **Data Fetching Layer:** Fetches financials (SEC EDGAR/XBRL) and market data (Yahoo Finance, Finnhub)
+3. **Validation Layer:** Validates raw data using Pydantic schemas; reports missing/invalid fields
+4. **Computation Layer:** Computes Altman Z-Score using validated data; returns result object
+5. **Reporting Layer:** Outputs results to CSV, JSON, or stdout; logs all steps and errors
 
-## Current Version: v2.4 (May 30, 2025)
-- Weekly-only simplification, CLI/pipeline/docs/tests updated, dispatcher/model logic improved
-- All plotting and reporting logic updated for weekly-only data
-- All documentation and tests updated for weekly-only support
+### Implementation Principles
+- **Simplicity:** Start with single-stock analysis, then generalize to portfolios
+- **Modularity:** Clean separation of data fetching, validation, computation, and reporting
+- **Testability:** Each module independently testable with clear interfaces
+- **Robustness:** Strong error handling, logging, and data validation
+- **Extensibility:** Easy to add new data sources, models, or output formats
 
-## v2.5 Roadmap: Portfolio Analysis and Modularization
-- Portfolio/Multi-Ticker Analysis: Generalize pipeline for multiple tickers, output per-ticker and aggregate summaries
-- Testing & Documentation: Add/expand tests for new v2.5 features, update documentation for v2.5 features and usage
+### Development Philosophy
+- Build robust MVPs before adding features
+- Test thoroughly at each step
+- Enable features incrementally with full testing and documentation
+- Prioritize reliability and maintainability
+- Follow conservative change management practices
 
-## Planned/Future Features
-- Forecasting: Add ability to forecast next quarter's Z-Score using consensus estimates and/or time series models
-- Sentiment & News Analysis: Integrate news and sentiment APIs, correlate with Z-Score and price trends
+## Technical Achievements & DRY Compliance
 
-## Implementation Principles
-- Simplicity: Start with a single-stock analysis pipeline, then generalize to portfolios
-- Modularity: Clean separation of data fetching, validation, computation, and reporting
-- Testability: Each module is independently testable with clear interfaces
-- Robustness: Strong error handling, logging, and data validation at every step
-- Extensibility: Easy to add new data sources, models, or output formats
+### Code Quality Improvements
+- **Centralized Constants:** All field mappings, error messages, and configuration values defined in central locations
+- **Unified Error Handling:** Standardized error classes and handling patterns across all modules
+- **DRY-Compliant API Integration:** Consolidated data fetching logic for Yahoo Finance, SEC EDGAR, and Finnhub
+- **Modular Components:** Clean functional separation with well-defined interfaces between modules
+- **Comprehensive Testing:** Both unit tests and integration tests for all core functionality
+- **Documentation Standards:** Consistent documentation style across all modules and APIs
 
-## Architecture Overview
-1. Input Layer: Accepts ticker(s) and analysis date; validates input
-2. Data Fetching Layer: Fetches financials (SEC EDGAR/XBRL) and market data (Yahoo Finance)
-3. Validation Layer: Validates raw data using Pydantic schemas; reports missing/invalid fields
-4. Computation Layer: Computes Altman Z-Score using validated data; returns result object
-5. Reporting Layer: Outputs results to CSV, JSON, or stdout; logs all steps and errors
+### Key Technical Reference Files
+- **Centralized Error Handling:** Standardized in `error_helpers.py`
+- **Field Mapping Constants:** Defined in `computation/constants.py`
+- **LLM Prompt Templates:** Stored in `src/prompts/`
+- **API Endpoint Configuration:** Centralized in client classes (`sec_client.py`, `yahoo_client.py`, etc.)
+- **Test Data & Fixtures:** Available in the `tests/` directory
 
-## Conservative, Incremental Rollout Policy
-- Build a minimal, robust MVP first (single-stock Z-Score trend analysis)
-- Test thoroughly at each step before enabling new features
-- Only enable new features after the MVP is stable and well-tested
-- Light up features one at a time, with tests and documentation, to avoid regressions
-- Avoid over-ambitious changes; prioritize reliability and maintainability
-
-## Roadmap: Prioritized Ideas by Complexity
-
-### High Priority, Low Complexity
-1. **Validation and Error Handling:**
-   - Validate the accuracy and usefulness of SEC EDGAR data.
-   - Improve error handling for both `yfinance` and SEC EDGAR data fetching.
-   - Enhance identity checks to catch inter-quarter restatements and detect stale XBRL contexts.
-
-2. **Pipeline Refinements:**
-   - Finalize and implement the checklist in `DataFetching.mp`.
-   - Refine prompt and output formatting based on user feedback.
-
-3. **Documentation and Testing:**
-   - Expand unit/integration tests for new model selection and reporting logic.
-   - Improve documentation for mapping, prompt usage, and internationalization.
-
----
-
-### High Priority, High Complexity
-1. **Future Features:**
-   - Forecasting next quarter's Z-Score using consensus estimates and/or time series models.
-   - Sentiment and news analysis integration.
-   - Generalization of pipeline for multiple tickers and portfolio analysis.
-
-2. **Advanced Notifications:**
-   - Implement advanced notifications for Z-Score thresholds.
-
----
-
-### Medium Priority, Medium Complexity
-1. **Qualitative Validation Enhancements:**
-   - Caching of LLM responses for auditability and cost control.
-   - "What-if" scenario analysis for CAPEX adjustments.
-
-2. **Data Infrastructure:**
-   - Currency conversion for non-USD firms.
-   - Integration of RACI chart for execution ownership.
-   - Optimization of data caching to reduce API calls.
-
----
-
-### Long-Term Goals
-1. **Web Dashboard and API:**
-   - Prepare for web dashboard, REST API, and Excel Add-In.
-
-2. **AI and Machine Learning:**
-   - Experiment with ML models for future Z-Score predictions.
-   - Add AI-powered anomaly detection for ratio trends.
-
-3. **Industry Benchmarking:**
-   - Integrate additional industry benchmark data (WRDS/Compustat or open data) into constants.py.
-
----
+### API Documentation
+See `APIS.md` for detailed documentation of all external APIs used in this project, including:
+- SEC EDGAR API for financial data
+- Yahoo Finance API for market data
+- Finnhub API for company profiles and logos
+- LLM APIs for qualitative analysis
 
 ## Planning for v2.7
 - Collect and prioritize user feedback from v2.6

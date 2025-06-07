@@ -18,7 +18,7 @@ import requests
 import yfinance as yf
 
 if TYPE_CHECKING:
-    from altman_zscore.company_status import CompanyStatus
+    from altman_zscore.company.company_status import CompanyStatus
 
 logger = logging.getLogger(__name__)
 
@@ -157,12 +157,11 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
         CompanyStatusClass (type, optional): The CompanyStatus class to instantiate (for circular import avoidance).
     Returns:
         CompanyStatus: Object with details about the ticker's status.
-    """
-    # Import here for test monkeypatching
+    """    # Import here for test monkeypatching
     from altman_zscore.utils.paths import get_output_dir
     from altman_zscore.api.yahoo_helpers import fetch_yfinance_data
     if CompanyStatusClass is None:
-        from altman_zscore.company_status import CompanyStatus
+        from altman_zscore.company.company_status import CompanyStatus
         CompanyStatusClass = CompanyStatus
     status = CompanyStatusClass(ticker)
     ticker_obj = None

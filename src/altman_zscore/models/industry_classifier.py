@@ -53,6 +53,6 @@ def classify_company(ticker):
     Returns:
         CompanyProfile: Populated company profile if found, else None.
     """
-    from .company_profile import CompanyProfile
+    from ..company.company_profile import CompanyProfile
 
     return CompanyProfile.from_ticker(ticker)

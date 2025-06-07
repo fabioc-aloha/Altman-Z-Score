@@ -6,7 +6,7 @@ Provides a registry and factory function for instantiating the correct fetcher c
 
 from typing import Dict, Type
 
-from ..company_profile import CompanyProfile, IndustryGroup  # Ensure these symbols exist
+from ..company.company_profile import CompanyProfile, IndustryGroup  # Ensure these symbols exist
 from .base_fetcher import BaseFinancialFetcher
 from .manufacturing_fetcher import ManufacturingFinancialFetcher
 from .service_fetcher import ServiceFinancialFetcher

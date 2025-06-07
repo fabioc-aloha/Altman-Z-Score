@@ -8,69 +8,66 @@ See [vision.md](./vision.md) for the full vision statement.
 
 # Altman Z-Score TODO List (2025)
 
-## Updated TODO List (June 2025)
+## v3.0.0 Release Status ✅ FULLY COMPLETED
 
-### Current & Next Steps (v2.5)
-- [x] Z-Score forecasting, sentiment/news analysis, and multi-ticker/portfolio support (see PLAN.md)
-- [x] Modularize data connectors and enhance CLI for batch/portfolio analysis
-- [x] Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
+**All modularization work is complete and tested.**
 
-### Current & Next Steps (v2.6)
-- [x] Z-Score forecasting, sentiment/news analysis, and multi-ticker/portfolio support (see PLAN.md)
-- [x] Modularize data connectors and enhance CLI for batch/portfolio analysis
-- [x] Prepare for web dashboard, REST API, and Excel Add-In (see competition roadmap.md)
-- [x] Update all documentation and version numbers for v2.6
-- [x] Tag and push v2.6 release to remote repository
-- [x] Review user feedback and bug reports from v2.6
-- [x] Implement improvements to LLM prompts and mapping logic based on feedback
-- [ ] Plan next milestone features in PLAN.md
+- [x] **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- [x] **✅ All imports updated:** Use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
+- [x] **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors
+- [x] **✅ Critical import fixes:** Resolved all ModuleNotFoundError issues in fetcher_factory.py, industry_classifier.py, etc.
+- [x] **✅ Main pipeline verified:** Successfully runs `python main.py msft` without import errors
+- [x] **✅ Improved LLM prompt templates:** Enhanced code injection for reporting with better analysis outputs
+- [x] **✅ Documentation updated:** All documentation reflects new structure and completed modularization
+- [x] **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
+- [x] **✅ Modularization & refactoring complete:** All refactoring work finished and tested
 
-### Planning for v2.7
-- [ ] Collect and prioritize user feedback from v2.6
-- [ ] Draft v2.7 roadmap in PLAN.md
+## Current Phase: v3.0 Production Deployment
 
-### Current & Next Steps (v2.7)
-- [x] Implement robust fallback to SEC EDGAR for financials if yfinance fails
-- [x] Improve error reporting for balance-sheet-only cases (e.g., TUP)
-- [x] Update documentation and release checklist for v2.7
-- [x] Tag and push v2.7 release to remote repository
-- [ ] Collect and prioritize user feedback from v2.7
-- [ ] Draft v2.8 roadmap in PLAN.md
-- [ ] Expand integration and regression tests for new logic
-- [ ] Continue modularization and documentation of new features
+### Immediate Next Steps
+- [ ] **🚀 Deploy v3.0 for practical use:** Begin using the modularized codebase in real-world scenarios
+- [ ] **📊 Collect user feedback:** Gather feedback on the new modular structure, import paths, and overall usability
+- [ ] **📈 Monitor performance:** Track any performance impacts from the modularization
+- [ ] **🔍 Identify pain points:** Document any issues users encounter with the new structure
+- [ ] **📝 Document learnings:** Record insights from practical usage in LEARNINGS.md
 
-### Current & Next Steps (v2.7.1)
-- [x] Update all documentation and version numbers for v2.7.1
-- [x] Tag and push v2.7.1 release to remote repository
-- [x] Review user feedback and bug reports from v2.7.1
-- [ ] Collect and prioritize user feedback from v2.7.1
+### v3.1 Planning
+- [ ] Analyze collected user feedback from v3.0 practical use
+- [ ] Prioritize feedback-driven improvements and bug fixes
+- [ ] Draft v3.1 roadmap in PLAN.md based on user needs
+- [ ] Plan next milestone features for v3.x series
 
-### Current & Next Steps (v2.7.3)
-- [x] Codebase cleanup: removed dead code, verified all modules and prompt files are referenced and in use
-- [x] Updated documentation and version numbers for v2.7.3
-- [x] Modularize and refactor data_fetching/financials.py (see REFACTORING_PLAN.md for details)
-- [ ] Collect and prioritize user feedback from v2.7.3
-- [ ] Draft v2.8 roadmap in PLAN.md
+## Future Development Roadmap (v3.1+)
 
-### Current & Next Steps (v2.7.4)
-- [x] Updated documentation and version numbers for v2.7.4
-- [x] DRY error handling phase complete: error_helpers.py created, all custom exceptions now inherit from AltmanZScoreError, and core modules refactored to use DRY error helpers (2025-06-04)
-- [ ] Collect and prioritize user feedback from v2.7.4
+**Note:** These are potential features to consider based on user feedback and competitive analysis. Prioritization will be based on practical usage insights from v3.0 deployment.
 
-### Current & Next Steps (v2.9)
-- [x] Verify all imports and tests after modular reorganization (core, models, company, validation, market, plotting, computation, misc)
-- [x] Update documentation and README for new structure and import paths
-- [ ] Continue to modularize and document new features as needed
+### Performance & Scalability
+- [ ] Performance optimization based on practical usage patterns
+- [ ] Caching strategies for frequently analyzed tickers
+- [ ] Batch processing optimizations for large portfolios
+- [ ] Memory usage optimization for large datasets
 
-### Current & Next Steps (v3.0)
-- [x] Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- [x] All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
-- [x] Improved LLM prompt templates and code injection for reporting: LLM commentary and report sections are now more complete, context-aware, and robust, leading to higher quality and more actionable analysis outputs
-- [x] Documentation and usage examples updated to reflect new structure
-- [x] All tests passing after reorganization
-- [ ] Plan next milestone features in PLAN.md for v3.x
+### User Experience Enhancements
+- [ ] Enhanced CLI with interactive mode
+- [ ] Real-time analysis dashboard (web interface)
+- [ ] Export formats (Excel, PowerBI, etc.)
+- [ ] Email/notification system for alerts
 
-### Prompt & Mapping Tasks
+### Data & Analysis Enhancements
+- [ ] Additional financial models beyond Altman Z-Score
+- [ ] International company support improvements
+- [ ] Industry-specific model calibrations
+- [ ] Advanced forecasting capabilities
+
+### Integration & API Features
+- [ ] REST API for programmatic access
+- [ ] Database backend for historical data storage
+- [ ] Third-party tool integrations
+- [ ] Excel Add-In development
+
+## Technical Maintenance
+
+### Prompt & LLM Customization
 - [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
 - [x] Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)
 - [x] Expand/normalize FIELD_SYNONYMS for all canonical fields, especially for banks and international companies
@@ -78,23 +75,14 @@ See [vision.md](./vision.md) for the full vision statement.
 - [x] Allow user to provide mapping override file (e.g., mapping_overrides.json)
 - [x] Add granular logging and fallback logic for mapping decisions
 
-### Prompt Ingestion Test Checklist
+#### Prompt Testing Workflow
 1. Edit `prompt_fin_analysis.md` and add a unique phrase
 2. Run the pipeline for any ticker
 3. Check the output report for the phrase
 4. Revert the prompt
 
-### History (Completed/Legacy)
-- v2.5: Z-Score forecasting, sentiment/news analysis, multi-ticker/portfolio support, modularized data connectors, advanced notifications, expanded documentation/testing
-- v2.4: Weekly-only simplification, CLI/pipeline/docs/tests updated, dispatcher/model logic improved
-- v2.3: Weekly price data overlays and pipeline integration
-- v2.2.2: Script version in every report, tested companies doc, improved traceability
-- v2.2: Model selection & calibration overhaul, centralized constants, industry/maturity logic
-- v2.1: MVP and stock price overlay
-
-For full roadmap and competitive tasks, see `PLAN.md` and `competition roadmap.md`.
-
-## URGENT
+### API Integrations
+#### Finnhub Integration ✅ COMPLETED
 - [x] Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
 - [x] https://finnhub.io/docs/api
 - [x] https://github.com/Finnhub-Stock-API/finnhub-python

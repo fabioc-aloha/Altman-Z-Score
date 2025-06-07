@@ -61,9 +61,8 @@ def get_industry_group(industry: str):
         industry (str): Industry string.
     Returns:
         IndustryGroup: Enum value for the industry group.
-    """
-    # Import here to avoid circular import
-    from altman_zscore.company_profile import IndustryGroup
+    """    # Import here to avoid circular import
+    from .company_profile import IndustryGroup
     if not industry:
         return IndustryGroup.OTHER
     ind_lower = str(industry).lower()
@@ -91,9 +90,8 @@ def get_market_category(is_emerging: bool):
         is_emerging (bool): True if emerging market, False if developed.
     Returns:
         MarketCategory: Enum value for the market category.
-    """
-    # Import here to avoid circular import
-    from altman_zscore.company_profile import MarketCategory
+    """    # Import here to avoid circular import
+    from .company_profile import MarketCategory
     return MarketCategory.EMERGING if is_emerging else MarketCategory.DEVELOPED
 
 def classify_maturity(founding_year, ipo_date, current_year=None):
@@ -185,9 +183,8 @@ def classify_company_by_sec(cik: str, ticker: str):
         This function fetches real-time data from SEC EDGAR and attempts to classify the company
         by industry group and maturity using SIC code and country. All steps are logged for traceability.
     """
-    import requests
-    # Import here to avoid circular import
-    from altman_zscore.company_profile import CompanyProfile, IndustryGroup, MarketCategory
+    import requests    # Import here to avoid circular import
+    from .company_profile import CompanyProfile, IndustryGroup, MarketCategory
     headers = get_sec_headers()
     from altman_zscore.api.sec_client import SECClient
     url = f"{SECClient.SUBMISSIONS_BASE_URL}CIK{str(cik).zfill(10)}.json"
