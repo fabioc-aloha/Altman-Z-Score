@@ -6,7 +6,7 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 import numpy as np
 from matplotlib.testing.decorators import image_comparison
-from altman_zscore.plotting_helpers import (
+from altman_zscore.plotting.plotting_helpers import (
     make_zone_bands,
     add_zone_labels,
     make_legend_elements,

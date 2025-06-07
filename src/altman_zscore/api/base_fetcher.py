@@ -1,4 +1,8 @@
-"""Base class for financial data fetchers."""
+"""
+Base class for financial data fetchers in Altman Z-Score analysis.
+
+Defines the abstract base class and shared logic for industry-specific financial data fetchers, including basic metric extraction and validation.
+"""
 
 from abc import ABC
 from decimal import Decimal
@@ -6,16 +10,23 @@ from typing import Dict, Union
 
 from bs4 import BeautifulSoup
 
-from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+from ..validation.data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
 from ..data_fetching.sec_edgar import find_xbrl_tag
-from ..company_profile import CompanyProfile
+from ..company.company_profile import CompanyProfile
 
 # Define a type for financial values that can be float or Decimal
 FinancialValue = Union[float, Decimal]
 
 
 class BaseFinancialFetcher(ABC):
-    """Base class for industry-specific financial data fetchers."""
+    """Base class for industry-specific financial data fetchers.
+
+    Methods:
+        get_industry_metrics(soup):
+            Extract basic financial metrics common across industries.
+        validate_data(data, company_profile):
+            Validate the extracted financial data.
+    """
 
     def __init__(self):
         """Initialize the fetcher with a validator."""
@@ -29,13 +40,13 @@ class BaseFinancialFetcher(ABC):
         overriding the method and adding industry-specific metrics.
 
         Args:
-            soup: BeautifulSoup object of the filing HTML
+            soup (BeautifulSoup): BeautifulSoup object of the filing HTML.
 
         Returns:
-            Dictionary of basic financial metrics including:
-            - revenue_margin: Gross margin ratio
-            - operating_margin: Operating margin ratio
-            - return_on_assets: Return on assets ratio
+            dict: Dictionary of basic financial metrics including:
+                - revenue_margin: Gross margin ratio
+                - operating_margin: Operating margin ratio
+                - return_on_assets: Return on assets ratio
         """
 
         metrics = {}
@@ -88,11 +99,11 @@ class BaseFinancialFetcher(ABC):
         """Validate the financial data.
 
         Args:
-            data: Financial data to validate (can be floats or Decimals)
-            company_profile: Company profile for industry context
+            data (dict): Financial data to validate (can be floats or Decimals).
+            company_profile (CompanyProfile): Company profile for industry context.
 
         Returns:
-            List of validation issues
+            list: List of validation issues.
         """
         issues = []
         # Base validation logic for key metrics

@@ -1,4 +1,8 @@
-# compute.py
+"""
+Computation logic for Altman Z-Score calculation in Altman Z-Score analysis.
+
+Provides the main compute_zscore() function, which dispatches to the correct model formula and returns a ZScoreResult with all relevant metadata.
+"""
 
 from typing import Dict, Optional
 
@@ -18,32 +22,32 @@ def compute_zscore(
     model_key: str = "original",
     override_context: Optional[Dict] = None
 ) -> ZScoreResult:
-    """
-    Compute Z-Score using the selected model. Returns a ZScoreResult with:
-      - z_score: Decimal
-      - model: which model was used
-      - components: X1..X5 or X1..X4 ratios
-      - diagnostic: Safe/Gray/Distress
-      - thresholds: the thresholds dict
-      - override_context: any flags or overrides used
+    """Compute Z-Score using the selected model and return a ZScoreResult.
 
     Args:
-        metrics (Dict[str, float]): must contain keys like:
-          - current_assets
-          - current_liabilities
-          - retained_earnings
-          - ebit
-          - total_assets
-          - (market_value_equity or book_value_equity)
-          - total_liabilities (optional; if missing, uses current_liabilities)
-          - sales (only used by original/private)
-        model_key (str): which Z-Score variant to apply. One of:
-          "original", "private", "service", "service_private", "tech", "em", or "sic_XXXX" override.
-        override_context (Optional[Dict]): if provided, will be populated with:
-          - "model_key"
-          - "coefficients"
-          - "thresholds"
-          - any dynamic overrides (e.g. "sic_override", "dynamic_model_override")    """
+        metrics (dict): Must contain keys like:
+            - current_assets
+            - current_liabilities
+            - retained_earnings
+            - ebit
+            - total_assets
+            - (market_value_equity or book_value_equity)
+            - total_liabilities (optional; if missing, uses current_liabilities)
+            - sales (only used by original/private)
+        model_key (str, optional): Which Z-Score variant to apply. One of:
+            "original", "private", "service", "service_private", "tech", "em", or "sic_XXXX" override.
+        override_context (dict, optional): If provided, will be populated with:
+            - "model_key"
+            - "coefficients"
+            - "thresholds"
+            - any dynamic overrides (e.g. "sic_override", "dynamic_model_override")
+
+    Returns:
+        ZScoreResult: Result object with z_score, model, components, diagnostic, thresholds, and override_context.
+
+    Raises:
+        NotImplementedError: If the requested model is not implemented.
+    """
     if override_context is None:
         override_context = {}
 

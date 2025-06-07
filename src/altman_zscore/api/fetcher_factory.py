@@ -1,4 +1,8 @@
-"""Factory for creating industry-specific financial data fetchers."""
+"""
+Factory for creating industry-specific financial data fetchers in Altman Z-Score analysis.
+
+Provides a registry and factory function for instantiating the correct fetcher class based on company profile.
+"""
 
 from typing import Dict, Type
 
@@ -20,12 +24,12 @@ def create_fetcher(company_profile: CompanyProfile) -> BaseFinancialFetcher:
     """Create appropriate financial data fetcher based on company profile.
 
     Args:
-        company_profile: Profile containing company classification
+        company_profile (CompanyProfile): Profile containing company classification.
 
     Returns:
-        Industry-specific financial data fetcher
+        BaseFinancialFetcher: Industry-specific financial data fetcher.
 
-    Note:
+    Notes:
         If a company doesn't fit into the main industry categories, the base fetcher
         is used which provides common financial metrics applicable to all industries.
     """

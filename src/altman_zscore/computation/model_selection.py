@@ -1,4 +1,8 @@
-# model_selection.py
+"""
+Model selection logic for Altman Z-Score analysis.
+
+Provides functions to select the appropriate Z-Score model key based on SIC code, company profile, or legacy aliases, ensuring correct model dispatch for computation.
+"""
 
 from typing import Optional
 from .constants import MODEL_COEFFICIENTS, MODEL_ALIASES
@@ -9,16 +13,15 @@ def select_zscore_model(
     is_public: bool = True,
     is_emerging: bool = False
 ) -> str:
-    """
-    Select and return one of the canonical Altman Z-Score model keys:
-      - "original"         : Public manufacturing (SIC 2000–3999)
-      - "private"          : Private manufacturing (SIC 2000–3999)
-      - "service"          : Public non-manufacturing/service/transport (SIC 4000–4999,
-                             6000–6999, 7000–8999, tech subranges)
-      - "service_private"  : Private non-manufacturing/service/transport
-      - "tech"             : Alias for public non-manufacturing ("service")
-      - "em"               : Emerging Market (any SIC, if flagged)
-    If a specific SIC override (e.g. "sic_4512") exists in MODEL_COEFFICIENTS, it is returned directly.
+    """Select and return one of the canonical Altman Z-Score model keys.
+
+    Args:
+        sic_code (int, optional): SIC code for the company.
+        is_public (bool, optional): Whether the company is public (default: True).
+        is_emerging (bool, optional): Whether the company is in an emerging market (default: False).
+
+    Returns:
+        str: Canonical model key for use in computation.
     """
     # 1) Emerging market override
     if is_emerging:
@@ -52,17 +55,25 @@ def select_zscore_model(
 
 
 def canonicalize_model_key(key: str) -> str:
-    """
-    Given a potentially legacy or aliased model key (e.g. "public_service", "private_mfg", "emerging"),
-    return the canonical key by checking MODEL_ALIASES. If no alias exists, return the key itself.
+    """Return the canonical model key for a given alias or legacy key.
+
+    Args:
+        key (str): Potentially legacy or aliased model key.
+
+    Returns:
+        str: Canonical model key.
     """
     return MODEL_ALIASES.get(key, key)
 
 
 def determine_zscore_model(profile) -> str:
-    """
-    Legacy compatibility function: Select Z-Score model based on company profile.
-    Maps to select_zscore_model() with profile attributes.
+    """Select Z-Score model based on company profile attributes.
+
+    Args:
+        profile: Company profile object with attributes 'sic_code', 'is_public', and 'is_emerging_market'.
+
+    Returns:
+        str: Canonical model key for use in computation.
     """
     sic_code = getattr(profile, 'sic_code', None)
     is_public = getattr(profile, 'is_public', True)
@@ -78,9 +89,15 @@ def determine_zscore_model(profile) -> str:
 
 
 def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: Optional[str] = None) -> str:
-    """
-    Legacy compatibility function: Select Z-Score model based on SIC code string.
-    Maps to select_zscore_model() with converted SIC code.
+    """Select Z-Score model based on SIC code string and optional maturity.
+
+    Args:
+        sic_code (str): SIC code as a string.
+        is_public (bool, optional): Whether the company is public (default: True).
+        maturity (str, optional): Company maturity (e.g., 'emerging').
+
+    Returns:
+        str: Canonical model key for use in computation.
     """
     # Convert string SIC to int if possible
     if sic_code and sic_code.isdigit():

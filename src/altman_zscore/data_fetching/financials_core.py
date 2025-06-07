@@ -1,5 +1,7 @@
 """
-Core financials logic for modularized financials pipeline.
+Core financials logic for modularized financials pipeline in Altman Z-Score analysis.
+
+Provides helpers for DataFrame-to-dict conversion and robust field name matching using canonical mappings and synonyms.
 """
 from decimal import Decimal
 from typing import Dict, Any, List, Optional
@@ -7,7 +9,14 @@ import pandas as pd
 from altman_zscore.computation.constants import FIELD_MAPPING, FIELD_SYNONYMS
 
 def df_to_dict_str_keys(df: pd.DataFrame) -> Dict[str, Dict[str, Decimal]]:
-    """Convert DataFrame to dictionary with string keys and Decimal values."""
+    """Convert DataFrame to dictionary with string keys and Decimal values.
+
+    Args:
+        df (pd.DataFrame): DataFrame to convert.
+
+    Returns:
+        dict: Dictionary with string row/column keys and Decimal values.
+    """
     if not isinstance(df, pd.DataFrame):
         return {}
     return {
@@ -16,7 +25,15 @@ def df_to_dict_str_keys(df: pd.DataFrame) -> Dict[str, Dict[str, Decimal]]:
     }
 
 def find_matching_field(field_name: str, available_fields: List[str]) -> Optional[str]:
-    """Find a matching field name in available fields using FIELD_SYNONYMS and FIELD_MAPPING."""
+    """Find a matching field name in available fields using FIELD_SYNONYMS and FIELD_MAPPING.
+
+    Args:
+        field_name (str): Canonical or raw field name to match.
+        available_fields (list): List of available field names.
+
+    Returns:
+        str or None: The best-matching field name, or None if not found.
+    """
     # First, resolve to canonical name if possible
     canonical = FIELD_SYNONYMS.get(field_name, field_name)
     # Try direct canonical match

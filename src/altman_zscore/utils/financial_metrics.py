@@ -1,11 +1,7 @@
 """
-Financial metrics and ratio calculations.
+Financial metrics and ratio calculations for Altman Z-Score analysis.
 
-This module provides utilities for calculating financial ratios and metrics
-used in Altman Z-Score analysis. It includes safe division methods and
-functions for handling edge cases in financial data.
-
-Note: This code follows PEP 8 style guidelines.
+Provides utilities for calculating financial ratios and metrics, including safe division and edge case handling for financial data.
 """
 
 import logging
@@ -17,25 +13,35 @@ logger = logging.getLogger(__name__)
 
 # Updated docstring for FinancialMetricsCalculator
 class FinancialMetricsCalculator:
-    """
-    Calculator for financial metrics and ratios.
+    """Calculator for financial metrics and ratios used in Z-Score analysis.
 
     Methods:
         safe_divide(numerator, denominator):
             Safely perform division, handling zero denominator.
+        calculate_working_capital_ratio(current_assets, current_liabilities):
+            Calculate working capital to total assets ratio.
+        calculate_retained_earnings_ratio(retained_earnings, total_assets):
+            Calculate retained earnings to total assets ratio.
+        calculate_ebit_ratio(ebit, total_assets):
+            Calculate EBIT to total assets ratio.
+        calculate_equity_ratio(market_value_equity, total_liabilities):
+            Calculate market value of equity to total liabilities ratio.
+        calculate_sales_ratio(sales, total_assets):
+            Calculate sales to total assets ratio.
+        calculate_all_ratios(financial_data):
+            Calculate all Z-score ratios from a dictionary of financial data.
     """
 
     @staticmethod
     def safe_divide(numerator: Decimal, denominator: Decimal) -> Optional[Decimal]:
-        """
-        Safely perform division handling zero denominator.
+        """Safely perform division handling zero denominator.
 
         Args:
             numerator (Decimal): Division numerator.
             denominator (Decimal): Division denominator.
 
         Returns:
-            Optional[Decimal]: Division result or None if invalid.
+            Optional[Decimal]: Division result or None if denominator is zero or invalid input.
 
         Raises:
             ValueError: If inputs are not valid Decimal objects.
@@ -54,11 +60,11 @@ class FinancialMetricsCalculator:
         """Calculate working capital to total assets ratio.
 
         Args:
-            current_assets: Current assets value
-            current_liabilities: Current liabilities value
+            current_assets (Decimal): Current assets value.
+            current_liabilities (Decimal): Current liabilities value.
 
         Returns:
-            Ratio value or None if invalid
+            Optional[Decimal]: Ratio value or None if invalid.
         """
         working_capital = current_assets - current_liabilities
         total_assets = current_assets  # Assuming total_assets provided
@@ -68,11 +74,11 @@ class FinancialMetricsCalculator:
         """Calculate retained earnings to total assets ratio.
 
         Args:
-            retained_earnings: Retained earnings value
-            total_assets: Total assets value
+            retained_earnings (Decimal): Retained earnings value.
+            total_assets (Decimal): Total assets value.
 
         Returns:
-            Ratio value or None if invalid
+            Optional[Decimal]: Ratio value or None if invalid.
         """
         return self.safe_divide(retained_earnings, total_assets)
 
@@ -80,11 +86,11 @@ class FinancialMetricsCalculator:
         """Calculate EBIT to total assets ratio.
 
         Args:
-            ebit: EBIT (Earnings Before Interest and Taxes) value
-            total_assets: Total assets value
+            ebit (Decimal): EBIT (Earnings Before Interest and Taxes) value.
+            total_assets (Decimal): Total assets value.
 
         Returns:
-            Ratio value or None if invalid
+            Optional[Decimal]: Ratio value or None if invalid.
         """
         return self.safe_divide(ebit, total_assets)
 
@@ -92,11 +98,11 @@ class FinancialMetricsCalculator:
         """Calculate market value of equity to total liabilities ratio.
 
         Args:
-            market_value_equity: Market value of equity
-            total_liabilities: Total liabilities value
+            market_value_equity (Decimal): Market value of equity.
+            total_liabilities (Decimal): Total liabilities value.
 
         Returns:
-            Ratio value or None if invalid
+            Optional[Decimal]: Ratio value or None if invalid.
         """
         return self.safe_divide(market_value_equity, total_liabilities)
 
@@ -104,11 +110,11 @@ class FinancialMetricsCalculator:
         """Calculate sales to total assets ratio.
 
         Args:
-            sales: Sales value
-            total_assets: Total assets value
+            sales (Decimal): Sales value.
+            total_assets (Decimal): Total assets value.
 
         Returns:
-            Ratio value or None if invalid
+            Optional[Decimal]: Ratio value or None if invalid.
         """
         return self.safe_divide(sales, total_assets)
 
@@ -116,10 +122,13 @@ class FinancialMetricsCalculator:
         """Calculate all Z-score ratios from financial data.
 
         Args:
-            financial_data: Dictionary of financial values
+            financial_data (dict): Dictionary of financial values.
 
         Returns:
-            Dictionary of calculated ratios
+            dict: Dictionary of calculated ratios.
+
+        Raises:
+            ValueError: If required fields are missing from financial_data.
         """
         required_fields = {
             "current_assets",

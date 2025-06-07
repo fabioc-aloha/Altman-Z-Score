@@ -1,4 +1,8 @@
-"""Original Altman Z-score model implementation."""
+"""
+Original Altman Z-score model implementation for Altman Z-Score analysis.
+
+Implements the original 1968 Z-score model, including coefficients, input validation, and Z-score calculation logic.
+"""
 
 from datetime import datetime
 from decimal import Decimal
@@ -16,22 +20,21 @@ ORIGINAL_COEFFICIENTS = {
 
 
 class OriginalZScoreModel(ZScoreModel):
-    """
-    Original Altman Z-score model (1968).
+    """Original Altman Z-score model (1968).
 
     Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅
 
     Where:
-    X₁ = Working Capital / Total Assets
-    X₂ = Retained Earnings / Total Assets
-    X₃ = EBIT / Total Assets
-    X₄ = Market Value of Equity / Total Liabilities
-    X₅ = Sales / Total Assets
+        X₁ = Working Capital / Total Assets
+        X₂ = Retained Earnings / Total Assets
+        X₃ = EBIT / Total Assets
+        X₄ = Market Value of Equity / Total Liabilities
+        X₅ = Sales / Total Assets
 
     Interpretation:
-    Z > 2.99 - "Safe" Zone
-    1.81 < Z < 2.99 - "Grey" Zone
-    Z < 1.81 - "Distress" Zone
+        Z > 2.99 - "Safe" Zone
+        1.81 < Z < 2.99 - "Grey" Zone
+        Z < 1.81 - "Distress" Zone
     """
 
     def __init__(self):
@@ -65,10 +68,13 @@ class OriginalZScoreModel(ZScoreModel):
         """Calculate original Z-score.
 
         Args:
-            financial_data: Dictionary containing required financial ratios
+            financial_data (dict): Dictionary containing required financial ratios.
 
         Returns:
-            Z-score value
+            float: Z-score value.
+
+        Raises:
+            ValueError: If input data is invalid or missing required metrics.
         """
         validation_errors = self.validate_input(financial_data)
         if validation_errors:
@@ -84,10 +90,10 @@ class OriginalZScoreModel(ZScoreModel):
         """Validate input data against requirements.
 
         Args:
-            financial_data: Dictionary of financial metrics
+            financial_data (dict): Dictionary of financial metrics.
 
         Returns:
-            List of validation error messages
+            list: List of validation error messages.
         """
         errors = []
         required_metrics = self.get_required_metrics()
@@ -109,6 +115,6 @@ class OriginalZScoreModel(ZScoreModel):
         """Get list of required financial metrics.
 
         Returns:
-            List of required metric names
+            list: List of required metric names.
         """
         return list(ORIGINAL_COEFFICIENTS.keys())

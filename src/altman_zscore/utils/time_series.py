@@ -1,11 +1,7 @@
 """
-Time series analysis utilities for financial data.
+Time series analysis utilities for financial data in Altman Z-Score analysis.
 
-This module provides tools for analyzing financial time series data, including
-trend analysis and Z-Score calculations. It includes utilities for handling
-missing data, calculating statistical metrics, and performing regression analysis.
-
-Note: This code follows PEP 8 style guidelines.
+Provides tools for analyzing financial time series data, including trend analysis, seasonality detection, anomaly detection, and Z-Score calculations. Includes utilities for handling missing data, calculating statistical metrics, and performing regression analysis.
 """
 
 import logging
@@ -23,8 +19,7 @@ logger = logging.getLogger(__name__)
 # Updated docstring for TrendMetrics
 @dataclass
 class TrendMetrics:
-    """
-    Container for trend analysis metrics.
+    """Container for trend analysis metrics.
 
     Attributes:
         slope (float): The slope of the trend line.
@@ -45,7 +40,13 @@ class TrendMetrics:
 
 @dataclass
 class SeasonalityMetrics:
-    """Container for seasonality metrics."""
+    """Container for seasonality metrics.
+
+    Attributes:
+        seasonal_factors (dict): Seasonal adjustment factors by period.
+        strength (float): 0-1 score indicating seasonality strength.
+        period_length (int): Number of periods in a season.
+    """
 
     seasonal_factors: Dict[str, float]
     strength: float  # 0-1 score indicating seasonality strength
@@ -54,7 +55,14 @@ class SeasonalityMetrics:
 
 @dataclass
 class AnomalyScore:
-    """Container for anomaly detection scores."""
+    """Container for anomaly detection scores.
+
+    Attributes:
+        score (float): How anomalous the value is (higher = more anomalous).
+        threshold (float): Current threshold for anomaly detection.
+        is_anomaly (bool): Whether the score exceeds the threshold.
+        contributing_factors (list): Factors contributing to the anomaly.
+    """
 
     score: float  # How anomalous the value is (higher = more anomalous)
     threshold: float  # Current threshold for anomaly detection
@@ -63,7 +71,16 @@ class AnomalyScore:
 
 
 class TimeSeriesAnalyzer:
-    """Analyzer for financial time series data."""
+    """Analyzer for financial time series data.
+
+    Methods:
+        calculate_trend(values, dates):
+            Calculate trend metrics for a time series.
+        detect_seasonality(values, dates):
+            Detect seasonality in time series data.
+        detect_anomalies(values, dates, z_threshold):
+            Detect anomalies in time series data using z-score thresholding.
+    """
 
     def __init__(self, seasonality_periods: int = 4):
         """Initialize time series analyzer.
@@ -77,14 +94,14 @@ class TimeSeriesAnalyzer:
         """Calculate trend metrics for a time series.
 
         Args:
-            values: List of numeric values (float or Decimal)
-            dates: List of corresponding dates
+            values (list): List of numeric values (float or Decimal).
+            dates (list): List of corresponding dates.
 
         Returns:
-            TrendMetrics object containing trend analysis
+            TrendMetrics: Object containing trend analysis results.
 
         Raises:
-            ValueError: If length of values and dates don't match or if fewer than 2 points
+            ValueError: If length of values and dates don't match or if fewer than 2 points.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")
@@ -126,11 +143,11 @@ class TimeSeriesAnalyzer:
         """Detect seasonality in time series data.
 
         Args:
-            values: List of numeric values
-            dates: List of corresponding dates
+            values (list): List of numeric values.
+            dates (list): List of corresponding dates.
 
         Returns:
-            SeasonalityMetrics object containing seasonal analysis
+            SeasonalityMetrics: Object containing seasonal analysis results.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")
@@ -171,15 +188,15 @@ class TimeSeriesAnalyzer:
     def detect_anomalies(
         self, values: List[Union[float, Decimal]], dates: List[datetime], z_threshold: float = 3.0
     ) -> List[AnomalyScore]:
-        """Detect anomalies in time series data.
+        """Detect anomalies in time series data using z-score thresholding.
 
         Args:
-            values: List of numeric values
-            dates: List of corresponding dates
-            z_threshold: Z-score threshold for anomaly detection
+            values (list): List of numeric values.
+            dates (list): List of corresponding dates.
+            z_threshold (float, optional): Z-score threshold for anomaly detection (default: 3.0).
 
         Returns:
-            List of AnomalyScore objects for each point
+            list: List of AnomalyScore objects for each point.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")

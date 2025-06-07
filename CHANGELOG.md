@@ -5,6 +5,15 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2025-06-07
+
+### Added
+- Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- All imports updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
+- Improved LLM prompt templates and code injection for reporting: LLM commentary and report sections are now more complete, context-aware, and robust, leading to higher quality and more actionable analysis outputs
+- Documentation and usage examples updated to reflect new structure
+- All tests passing after reorganization
+
 ## [2.9.0] - 2025-06-05
 
 ### Added/Changed

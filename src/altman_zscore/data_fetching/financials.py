@@ -1,5 +1,7 @@
 """
 Financials data fetching utilities for Altman Z-Score analysis.
+
+Provides functions to fetch quarterly financials for a given ticker using yfinance (primary) and SEC EDGAR (fallback), with robust error handling, field mapping, and data validation.
 """
 
 # All imports should be at the top of the file, per Python best practices.
@@ -28,16 +30,22 @@ from altman_zscore.utils.error_helpers import DataFetchingError, raise_with_cont
 # Next: Update REFACTORING_PLAN.md and TODO.md to check off completed steps for data_fetching/financials.py.
 
 def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetch 12 quarters of real financials for the given ticker using yfinance (primary) and SEC EDGAR (fallback).
+    """Fetch 12 quarters of real financials for the given ticker using yfinance (primary) and SEC EDGAR (fallback).
 
     Args:
-        ticker (str): Stock ticker symbol (e.g., 'AAPL')
-        end_date (str): End date for financials (ignored in MVP, use all available)
-        zscore_model (str): Z-Score model name (determines required fields)
+        ticker (str): Stock ticker symbol (e.g., 'AAPL').
+        end_date (str): End date for financials (ignored in MVP, uses all available).
+        zscore_model (str): Z-Score model name (determines required fields).
 
     Returns:
-        dict or None: {"quarters": [dict, ...]} if data found, else None
+        dict or None: {"quarters": [dict, ...]} if data found, else None.
+
+    Notes:
+        - Fetches company info and officers first.
+        - Uses AI-powered field mapping if enabled and direct mapping fails.
+        - Falls back to SEC EDGAR if yfinance data is unavailable or incomplete.
+        - Saves all raw and processed data to disk for reproducibility.
+        - Logs all errors and warnings for traceability.
     """
     logger = logging.getLogger("altman_zscore.fetch_financials")
 

@@ -6,7 +6,13 @@ All technical learnings and decisions in this document are guided by the project
 
 See [vision.md](./vision.md) for the full vision statement.
 
-# LEARNINGS.md — Altman Z-Score Analysis (v2.8.2)
+# LEARNINGS.md — Altman Z-Score Analysis (v2.9.0)
+
+## Version 2.9.0 (June 7, 2025)
+- Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
+- Documentation and usage examples updated to reflect new structure
+- All tests passing after reorganization
 
 ## Version 2.8.2 (June 4, 2025)
 - Fixed critical issue with Z-Score report generation that caused duplicate content in reports

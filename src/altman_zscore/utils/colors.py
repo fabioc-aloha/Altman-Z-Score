@@ -1,17 +1,12 @@
 """
 Terminal color utilities for Altman Z-Score analysis.
 
-This module provides ANSI color codes for styling terminal output.
-It includes predefined color codes for common use cases like warnings,
-errors, and success messages.
-
-Note: This code follows PEP 8 style guidelines.
+Provides ANSI color codes for styling terminal output, including codes for warnings, errors, and success messages.
 """
 
 
 class Colors:
-    """
-    ANSI color codes for terminal output.
+    """ANSI color codes for terminal output.
 
     Attributes:
         BLUE (str): Blue color code.

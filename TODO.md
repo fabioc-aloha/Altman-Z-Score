@@ -57,6 +57,19 @@ See [vision.md](./vision.md) for the full vision statement.
 - [x] DRY error handling phase complete: error_helpers.py created, all custom exceptions now inherit from AltmanZScoreError, and core modules refactored to use DRY error helpers (2025-06-04)
 - [ ] Collect and prioritize user feedback from v2.7.4
 
+### Current & Next Steps (v2.9)
+- [x] Verify all imports and tests after modular reorganization (core, models, company, validation, market, plotting, computation, misc)
+- [x] Update documentation and README for new structure and import paths
+- [ ] Continue to modularize and document new features as needed
+
+### Current & Next Steps (v3.0)
+- [x] Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- [x] All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
+- [x] Improved LLM prompt templates and code injection for reporting: LLM commentary and report sections are now more complete, context-aware, and robust, leading to higher quality and more actionable analysis outputs
+- [x] Documentation and usage examples updated to reflect new structure
+- [x] All tests passing after reorganization
+- [ ] Plan next milestone features in PLAN.md for v3.x
+
 ### Prompt & Mapping Tasks
 - [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
 - [x] Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)
@@ -82,26 +95,25 @@ See [vision.md](./vision.md) for the full vision statement.
 For full roadmap and competitive tasks, see `PLAN.md` and `competition roadmap.md`.
 
 ## URGENT
-- [ ] Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
-- [ ] https://finnhub.io/docs/api
-- https://github.com/Finnhub-Stock-API/finnhub-python
+- [x] Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
+- [x] https://finnhub.io/docs/api
+- [x] https://github.com/Finnhub-Stock-API/finnhub-python
+- [x] Integrated finnhub for company profile and logo fetching (see src/altman_zscore/api/finnhub_client.py)
+- [x] All code and documentation updated to reflect Finnhub integration and logo fetching
 
-import finnhub
-finnhub_client = finnhub.Client(api_key="d10uiopr01qse6le5hsgd10uiopr01qse6le5ht0")
+# Environment Variables
 
-print(finnhub_client.company_profile2(symbol='AAPL'))
+Set the following environment variables for configuration:
 
-{
-  "country": "US",
-  "currency": "USD",
-  "exchange": "NASDAQ/NMS (GLOBAL MARKET)",
-  "ipo": "1980-12-12",
-  "marketCapitalization": 1415993,
-  "name": "Apple Inc",
-  "phone": "14089961010",
-  "shareOutstanding": 4375.47998046875,
-  "ticker": "AAPL",
-  "weburl": "https://www.apple.com/",
-  "logo": "https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png",
-  "finnhubIndustry":"Technology"
-}
+```bash
+# Required: SEC EDGAR access
+SEC_EDGAR_USER_AGENT="AltmanZScore/1.0 name@domain.com"  # Use your own contact email
+
+# Optional: Yahoo Finance (if using premium API)
+YAHOO_FINANCE_API_KEY="your-api-key"  # Do NOT share real API keys
+
+# Optional: Finnhub (required for company profiles/logos)
+FINNHUB_API_KEY="your-finnhub-api-key"  # Do NOT share real API keys
+```
+
+> **Security Note:** Never commit or share real API keys, secrets, or credentials in documentation, code, or version control. Always use placeholder values (e.g., "your-api-key") and store secrets securely using environment variables or secret managers.

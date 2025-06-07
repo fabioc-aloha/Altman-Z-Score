@@ -1,11 +1,21 @@
 """
-SEC EDGAR/XBRL data fetching and parsing utilities for financials module refactor.
+SEC EDGAR/XBRL data fetching and parsing utilities for Altman Z-Score analysis.
+
+Provides helpers for extracting XBRL tag values and fetching company information from SEC EDGAR.
 """
 import logging
 from typing import Any, Dict, Optional
 
 def find_xbrl_tag(soup, tag_names):
-    """Find XBRL tag value from a list of possible tag names."""
+    """Find XBRL tag value from a list of possible tag names in a BeautifulSoup object.
+
+    Args:
+        soup: BeautifulSoup object containing XBRL data.
+        tag_names (list): List of possible tag names (with or without namespace).
+
+    Returns:
+        float or None: Value of the first matching tag, or None if not found or not convertible.
+    """
     for name in tag_names:
         tag = soup.find(name.replace(":", "_"))
         if tag:
@@ -16,11 +26,10 @@ def find_xbrl_tag(soup, tag_names):
     return None
 
 def fetch_sec_edgar_data(ticker: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetch company information from SEC EDGAR for the given ticker.
+    """Fetch company information from SEC EDGAR for the given ticker.
 
     Args:
-        ticker (str): Stock ticker symbol (e.g., 'AAPL')
+        ticker (str): Stock ticker symbol (e.g., 'AAPL').
 
     Returns:
         dict or None: Company information if available, else None.

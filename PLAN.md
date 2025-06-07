@@ -22,6 +22,13 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 - Documentation and usage examples updated to reflect new structure
 - No breaking changes; all outputs and APIs remain stable
 
+## v2.9.0 Release (2025-06-07)
+- Full modular reorganization: all Python files grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- All imports updated to use new modular paths (e.g., from altman_zscore.plotting.plotting_main import plot_zscore_trend)
+- Documentation and usage examples updated to reflect new structure
+- All tests passing after reorganization
+- No breaking changes to APIs or outputs
+
 ---
 
 ## v2.7.4 Release (2025-06-03)

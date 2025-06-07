@@ -98,7 +98,7 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
     """
     Generate a qualitative commentary for the Altman Z-Score report using Azure OpenAI LLM.
 
-    This function injects the content of company_info.json for the ticker (if available)
+    This function injects the content of all relevant data files for the ticker (if available)
     into the prompt for richer context, saves the prompt for traceability, and returns
     the LLM-generated commentary as plain text.
 
@@ -113,8 +113,23 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
     client = AzureOpenAIClient()
     prompt_path = resolve_prompt_path("prompt_fin_analysis.md")
     system_prompt = load_prompt_file(prompt_path)
-    company_officers_str, company_info_str, sec_info_str = inject_company_context(ticker)
-    full_prompt = f"{company_officers_str}{company_info_str}{sec_info_str}\n{prompt}"
+    (
+        company_officers_str,
+        company_info_str,
+        sec_info_str,
+        analyst_recs_str,
+        holders_str,
+        dividends_str,
+        splits_str,
+        weekly_prices_str,
+        financials_raw_str,
+        yf_info_str,
+    ) = _inject_company_context(ticker)
+    # Compose the full prompt with clear section headers for each data file
+    full_prompt = (
+        f"{company_officers_str}{company_info_str}{sec_info_str}{analyst_recs_str}"
+        f"{holders_str}{dividends_str}{splits_str}{weekly_prices_str}{financials_raw_str}{yf_info_str}\n{prompt}"
+    )
     if ticker:
         try:
             from altman_zscore.utils.paths import get_output_dir
@@ -173,51 +188,133 @@ def _parse_llm_json_response(content):
 
 
 def _inject_company_context(ticker):
-    """Return context strings for company officers, info, and SEC info for a ticker."""
+    """Return context strings for company officers, info, SEC info, analyst recommendations, and all relevant data for a ticker. Trims large keys like 'filings'."""
     company_officers_str = ""
     company_info_str = ""
     sec_info_str = ""
+    analyst_recs_str = ""
+    holders_str = ""
+    dividends_str = ""
+    splits_str = ""
+    weekly_prices_str = ""
+    financials_raw_str = ""
+    yf_info_str = ""
     if not ticker:
-        return company_officers_str, company_info_str, sec_info_str
+        return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)
     from altman_zscore.utils.paths import get_output_dir
-    company_officers_path = get_output_dir("company_officers.json", ticker=ticker)
-    company_info_path = get_output_dir("company_info.json", ticker=ticker)
-    sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
+    base_dir = get_output_dir(ticker=ticker)
+    # Existing context injections
+    company_officers_path = os.path.join(base_dir, "company_officers.json")
+    company_info_path = os.path.join(base_dir, "company_info.json")
+    sec_info_path = os.path.join(base_dir, "sec_edgar_company_info.json")
+    analyst_recs_path = os.path.join(base_dir, "recommendations.json")
+    institutional_holders_path = os.path.join(base_dir, "institutional_holders.json")
+    major_holders_path = os.path.join(base_dir, "major_holders.json")
+    dividends_path = os.path.join(base_dir, "dividends.csv")
+    splits_path = os.path.join(base_dir, "splits.csv")
+    weekly_prices_path = os.path.join(base_dir, "weekly_prices.csv")
+    weekly_prices_json_path = os.path.join(base_dir, "weekly_prices.json")
+    financials_raw_path = os.path.join(base_dir, "financials_raw.json")
+    yf_info_path = os.path.join(base_dir, "yf_info.json")
+    # Officers
     if os.path.exists(company_officers_path):
         try:
             with open(company_officers_path, "r", encoding="utf-8") as officers_file:
                 officers_json = json.load(officers_file)
-            import io, pprint
-            buf = io.StringIO()
-            pprint.pprint(officers_json, stream=buf, compact=True, width=120)
-            company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
+            company_officers_str = f"\n\n# company_officers.json\n{json.dumps(officers_json, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
+    # Company info (trim 'filings')
     if os.path.exists(company_info_path):
         try:
             with open(company_info_path, "r", encoding="utf-8") as info_file:
                 company_info = json.load(info_file)
-            trimmed_company = extract_trimmed_company_info(company_info)
-            import io, pprint
-            buf = io.StringIO()
-            pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
-            company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
+            if isinstance(company_info, dict) and "filings" in company_info:
+                company_info = {k: v for k, v in company_info.items() if k != "filings"}
+            company_info_str = f"\n\n# company_info.json\n{json.dumps(company_info, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             company_info_str = f"\n[Could not load company_info.json: {e}]\n"
+    # SEC info (trim 'filings')
     if os.path.exists(sec_info_path):
         try:
             with open(sec_info_path, "r", encoding="utf-8") as sec_file:
                 sec_info = json.load(sec_file)
-                trimmed = extract_trimmed_sec_info(sec_info)
-                trimmed = {k: v for k, v in trimmed.items() if v is not None}
-                if "business_address" in trimmed:
-                    trimmed["business_address"] = {k: v for k, v in trimmed["business_address"].items() if v is not None}
-                    if not trimmed["business_address"]:
-                        del trimmed["business_address"]
-                import io, pprint
-                buf = io.StringIO()
-                pprint.pprint(trimmed, stream=buf, compact=True, width=120)
-                sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
+            if isinstance(sec_info, dict) and "filings" in sec_info:
+                sec_info = {k: v for k, v in sec_info.items() if k != "filings"}
+            sec_info_str = f"\n\n# sec_edgar_company_info.json\n{json.dumps(sec_info, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
-    return company_officers_str, company_info_str, sec_info_str
+    # Analyst recommendations
+    if os.path.exists(analyst_recs_path):
+        try:
+            with open(analyst_recs_path, "r", encoding="utf-8") as rec_file:
+                rec_data = json.load(rec_file)
+            analyst_recs_str = f"\n\n# recommendations.json\n{json.dumps(rec_data, indent=2, ensure_ascii=False)}\n"
+        except Exception as e:
+            analyst_recs_str = f"\n[Could not load recommendations.json: {e}]\n"
+    # Institutional and major holders
+    holders_sections = []
+    if os.path.exists(institutional_holders_path):
+        try:
+            with open(institutional_holders_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            holders_sections.append(f"\n# institutional_holders.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n")
+        except Exception as e:
+            holders_sections.append(f"\n[Could not load institutional_holders.json: {e}]\n")
+    if os.path.exists(major_holders_path):
+        try:
+            with open(major_holders_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            holders_sections.append(f"\n# major_holders.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n")
+        except Exception as e:
+            holders_sections.append(f"\n[Could not load major_holders.json: {e}]\n")
+    holders_str = "".join(holders_sections)
+    # Dividends
+    if os.path.exists(dividends_path):
+        try:
+            with open(dividends_path, "r", encoding="utf-8") as f:
+                dividends_str = f"\n# dividends.csv\n{f.read()}\n"
+        except Exception as e:
+            dividends_str = f"\n[Could not load dividends.csv: {e}]\n"
+    # Splits
+    if os.path.exists(splits_path):
+        try:
+            with open(splits_path, "r", encoding="utf-8") as f:
+                splits_str = f"\n# splits.csv\n{f.read()}\n"
+        except Exception as e:
+            splits_str = f"\n[Could not load splits.csv: {e}]\n"
+    # Weekly prices (CSV and JSON)
+    if os.path.exists(weekly_prices_path):
+        try:
+            with open(weekly_prices_path, "r", encoding="utf-8") as f:
+                weekly_prices_str = f"\n# weekly_prices.csv\n{f.read()}\n"
+        except Exception as e:
+            weekly_prices_str = f"\n[Could not load weekly_prices.csv: {e}]\n"
+    elif os.path.exists(weekly_prices_json_path):
+        try:
+            with open(weekly_prices_json_path, "r", encoding="utf-8") as f:
+                import io, pprint
+                data = json.load(f)
+                buf = io.StringIO()
+                # pprint.pprint(data, stream=buf, compact=True, width=120)
+                # All pprint output is suppressed to avoid printing input data
+                weekly_prices_str = f"\n# weekly_prices.json\n{buf.getvalue()}\n"
+        except Exception as e:
+            weekly_prices_str = f"\n[Could not load weekly_prices.json: {e}]\n"
+    # Financials raw
+    if os.path.exists(financials_raw_path):
+        try:
+            with open(financials_raw_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            financials_raw_str = f"\n# financials_raw.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
+        except Exception as e:
+            financials_raw_str = f"\n[Could not load financials_raw.json: {e}]\n"
+    # yf_info
+    if os.path.exists(yf_info_path):
+        try:
+            with open(yf_info_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            yf_info_str = f"\n# yf_info.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
+        except Exception as e:
+            yf_info_str = f"\n[Could not load yf_info.json: {e}]\n"
+    return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)

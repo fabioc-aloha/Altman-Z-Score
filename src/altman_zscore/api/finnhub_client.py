@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 import logging
 
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
-from ..data_validation import FinancialDataValidator
+from ..validation.data_validation import FinancialDataValidator
 
 
 class FinnhubClient(BaseFinancialFetcher):
@@ -126,11 +126,11 @@ class FinnhubClient(BaseFinancialFetcher):
             return direct_url, image_bytes
         
         except (requests.RequestException, IOError, ValueError) as e:
-            print(f"Error downloading/processing logo for {symbol}: {str(e)}")
-            return None
+            # Do not print errors or data to stdout/stderr; log to file if needed
+            pass
         except Exception as e:
-            print(f"Unexpected error processing logo for {symbol}: {str(e)}")
-            return None
+            # Do not print errors or data to stdout/stderr; log to file if needed
+            pass
         
     def get_company_profile(self, symbol: str, logo_size: tuple[int, int] = (1000, 1000), logo_path: str = None) -> Dict[str, Any]:
         """

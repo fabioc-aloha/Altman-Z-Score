@@ -49,7 +49,7 @@ def inject_company_context(ticker):
                 officers_json = json.load(officers_file)
             import io, pprint
             buf = io.StringIO()
-            pprint.pprint(officers_json, stream=buf, compact=True, width=120)
+            # pprint.pprint(officers_json, stream=buf, compact=True, width=120)
             company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
         except Exception as e:
             company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
@@ -60,7 +60,7 @@ def inject_company_context(ticker):
             trimmed_company = extract_trimmed_company_info(company_info)
             import io, pprint
             buf = io.StringIO()
-            pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
+            # pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
             company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
         except Exception as e:
             company_info_str = f"\n[Could not load company_info.json: {e}]\n"
@@ -76,7 +76,7 @@ def inject_company_context(ticker):
                         del trimmed["business_address"]
                 import io, pprint
                 buf = io.StringIO()
-                pprint.pprint(trimmed, stream=buf, compact=True, width=120)
+                # pprint.pprint(trimmed, stream=buf, compact=True, width=120)
                 sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
         except Exception as e:
             sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"

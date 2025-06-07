@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 2.9.0 (2025-06-05)
+# Version: 3.0.0 (2025-06-07)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
@@ -53,7 +53,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "2.9.0"
+__version__ = "3.0.0"
 
 
 import argparse
@@ -61,15 +61,14 @@ import os
 import sys
 import time
 import logging
+import threading
 
 import pandas as pd
 
 # Add src directory to path for relative imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-from altman_zscore.one_stock_analysis import (
-    analyze_single_stock_zscore_trend,
-)
-
+from altman_zscore.core.one_stock_analysis import analyze_single_stock_zscore_trend
+from altman_zscore.core.progress_tracking import PIPELINE_STEPS
 
 def parse_args():
     """Parse command line arguments for the Altman Z-Score analysis."""
@@ -113,8 +112,8 @@ def parse_args():
     parser.add_argument(
         "--log-level",
         type=str,
-        default=os.environ.get("LOG_LEVEL", "INFO"),
-        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: INFO or $LOG_LEVEL env var."
+        default=os.environ.get("LOG_LEVEL", "ERROR"),
+        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: ERROR or $LOG_LEVEL env var."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
@@ -140,6 +139,20 @@ def format_zscore_results(df):
                 score_str = f"{z_score:.2f} (Safe)"
         formatted_results.append(f"{quarter}: {score_str}")
     return formatted_results
+
+
+# Import pipeline steps from progress tracking module
+from altman_zscore.core.progress_tracking import PIPELINE_STEPS
+
+def show_progress_bar(ticker, step_idx, total_steps):
+    bar_length = 30
+    progress = (step_idx + 1) / total_steps
+    filled_length = int(bar_length * progress)
+    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+    step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
+    print(f"\r[{ticker}] Pipeline Progress: |{bar}| {step_idx + 1}/{total_steps} {step_name}", end='', flush=True)
+    if step_idx + 1 == total_steps:
+        print()  # Move to new line when complete
 
 
 def main():
@@ -199,18 +212,32 @@ def main():
         logging.info("Running test suite with pytest...")
         result = subprocess.run([sys.executable, "-m", "pytest"], check=False)
         sys.exit(result.returncode)
+    
     ticker_list = [t.upper() for t in args.tickers]
     start_date = args.start
     no_plot = args.no_plot
     any_failed = False
+
     for ticker in ticker_list:
         try:
             start_time = time.time()
+            print(f"\n=== Starting analysis for {ticker} ===")
+
+            def progress_callback(step_name, step_idx, total_steps):
+                show_progress_bar(ticker, step_idx, total_steps)
+                # Add small delay to make progress visible
+                time.sleep(0.1)
+
+            # --- ACTUAL WORKFLOW WITH REAL-TIME PROGRESS ---
             df = analyze_single_stock_zscore_trend(
                 ticker,
-                start_date=start_date
+                start_date=start_date,
+                progress_callback=progress_callback
             )
+
             end_time = time.time()
+            print(f"=== Completed analysis for {ticker} ===\n")
+
             if df is not None and not df.empty and 'zscore' in df.columns:
                 valid_scores = df[df['zscore'].notnull()]
                 if not valid_scores.empty:
@@ -222,7 +249,6 @@ def main():
                     plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
                     if not no_plot:
                         logging.info(f"Z-Score plot saved to {plot_path}")
-                    # Note: Plotting is already handled by analyze_single_stock_zscore_trend
                 else:
                     logging.warning(f"No valid Z-Scores calculated for {ticker}")
                     any_failed = True

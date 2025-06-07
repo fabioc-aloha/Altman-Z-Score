@@ -1,5 +1,7 @@
 """
 Price and market data fetching and saving utilities for Altman Z-Score analysis.
+
+Provides functions to fetch, process, and save market price data for tickers, with robust error handling and fallback logic.
 """
 
 import json
@@ -19,6 +21,14 @@ warnings.filterwarnings("ignore", message=".*auto_adjust.*")
 
 
 def get_last_business_day(date_str: str) -> str:
+    """Return the last business day (weekday) on or before the given date.
+
+    Args:
+        date_str (str): Date string in YYYY-MM-DD format.
+
+    Returns:
+        str: Last business day in YYYY-MM-DD format.
+    """
     date = datetime.strptime(date_str, "%Y-%m-%d")
     while date.weekday() > 4:
         date -= timedelta(days=1)
@@ -26,6 +36,19 @@ def get_last_business_day(date_str: str) -> str:
 
 
 def get_market_data(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFrame:
+    """Fetch market data for a ticker around a target date using yfinance.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        date (str): Target date in YYYY-MM-DD format.
+        days_buffer (int, optional): Number of days before/after to include (default: 5).
+
+    Returns:
+        pd.DataFrame: DataFrame of market data.
+
+    Raises:
+        ValueError: If no data is available or download fails.
+    """
     if not isinstance(date, str):
         raise ValueError("date must be a string in YYYY-MM-DD format")
     date_obj = datetime.strptime(date, "%Y-%m-%d")
@@ -56,9 +79,18 @@ def get_market_data(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFram
 
 
 def get_market_data_with_fallback(ticker: str, date: str, days_buffer: int = 5) -> pd.DataFrame:
-    """
-    Try to fetch market data from yfinance, then fallback to Alpha Vantage or Stooq if needed.
-    Logs and returns the source used.
+    """Try to fetch market data from yfinance, then fallback to other sources if needed.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        date (str): Target date in YYYY-MM-DD format.
+        days_buffer (int, optional): Number of days before/after to include (default: 5).
+
+    Returns:
+        pd.DataFrame: DataFrame of market data.
+
+    Raises:
+        ValueError: If all sources fail.
     """
     try:
         df = get_market_data(ticker, date, days_buffer)
@@ -83,6 +115,18 @@ def get_market_data_with_fallback(ticker: str, date: str, days_buffer: int = 5) 
 
 
 def get_closest_price(df: pd.DataFrame, target_date: str) -> float:
+    """Get the price closest to the target date from a DataFrame.
+
+    Args:
+        df (pd.DataFrame): DataFrame of price data.
+        target_date (str): Target date in YYYY-MM-DD format.
+
+    Returns:
+        float: Closest price value.
+
+    Raises:
+        ValueError: If no price data is available or columns are missing.
+    """
     if df.empty:
         raise ValueError("No price data available")
     try:
@@ -101,6 +145,19 @@ def get_closest_price(df: pd.DataFrame, target_date: str) -> float:
 
 
 def get_quarter_price_change(ticker: str, start: str, end: str) -> float:
+    """Calculate the percentage price change for a ticker between two dates.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        start (str): Start date in YYYY-MM-DD format.
+        end (str): End date in YYYY-MM-DD format.
+
+    Returns:
+        float: Percentage price change.
+
+    Raises:
+        ValueError: If calculation fails.
+    """
     start = get_last_business_day(start)
     end = get_last_business_day(end)
     try:
@@ -113,6 +170,18 @@ def get_quarter_price_change(ticker: str, start: str, end: str) -> float:
 
 
 def get_market_value(ticker: str, date: str) -> float:
+    """Estimate the market value of a ticker on a given date.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        date (str): Target date in YYYY-MM-DD format.
+
+    Returns:
+        float: Estimated market value.
+
+    Raises:
+        ValueError: If calculation or data retrieval fails.
+    """
     try:
         ticker_obj = yf.Ticker(ticker)
         shares = None
@@ -152,6 +221,19 @@ def get_market_value(ticker: str, date: str) -> float:
 
 
 def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[float, float]:
+    """Fetch the start and end prices for a ticker between two dates.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        start_date (str): Start date in YYYY-MM-DD format.
+        end_date (str): End date in YYYY-MM-DD format.
+
+    Returns:
+        tuple[float, float]: Tuple containing start and end prices.
+
+    Raises:
+        ValueError: If no data is available or access to data fails.
+    """
     df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
     if df is None or df.empty:
         raise ValueError(f"No price data available for {ticker}")
@@ -171,8 +253,7 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
 
 
 def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
-    """
-    Get weekly price statistics (average, min, max) for a stock.
+    """Get weekly price statistics (average, min, max) for a stock.
 
     Args:
         ticker (str): Stock ticker symbol
@@ -271,6 +352,20 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
 
 
 def save_price_data_to_disk(df: pd.DataFrame, ticker: str, file_prefix: str) -> tuple[str, str]:
+    """Save price data to disk as CSV and JSON files.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing price data.
+        ticker (str): Stock ticker symbol.
+        file_prefix (str): Prefix for output file names.
+
+    Returns:
+        tuple[str, str]: Tuple containing CSV and JSON file paths.
+
+    Raises:
+        ValueError: If no data is available to save.
+        IOError: If file saving fails.
+    """
     if df is None or df.empty:
         raise ValueError("No price data to save")
     csv_path = get_output_file_path(ticker, file_prefix, ext="csv")

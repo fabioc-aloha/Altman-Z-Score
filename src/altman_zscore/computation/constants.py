@@ -1,10 +1,17 @@
+"""
+Constants and mappings for Altman Z-Score computation in Altman Z-Score analysis.
+
+Defines canonical field mappings, model fields, coefficients, thresholds, aliases, error messages, and other shared constants for all Z-Score model variants.
+"""
+
 # constants.py
 
 from decimal import Decimal
 from typing import Dict, List
 
 # -------------------------------------------------------------------
-# 1) FIELD_MAPPING: Possible XBRL labels for each canonical field name.
+# 1) FIELD_MAPPING: Maps canonical field names to possible XBRL/financial statement labels.
+# Used for extracting and standardizing raw data fields from various sources.
 # -------------------------------------------------------------------
 FIELD_MAPPING: Dict[str, List[str]] = {
     'total_assets': [
@@ -49,7 +56,8 @@ FIELD_MAPPING: Dict[str, List[str]] = {
 }
 
 # -------------------------------------------------------------------
-# 2) MODEL_FIELDS: Required fields (canonical names) for each model key.
+# 2) MODEL_FIELDS: Lists required canonical fields for each Z-Score model variant.
+# Used for validation and computation logic.
 # -------------------------------------------------------------------
 MODEL_FIELDS: Dict[str, List[str]] = {
     # 2.1 Public manufacturing (Original Z-Score, five-ratio)
@@ -122,7 +130,9 @@ MODEL_FIELDS: Dict[str, List[str]] = {
 }
 
 # -------------------------------------------------------------------
-# 3) MODEL_COEFFICIENTS: Weights (and intercept for EM) for each model.
+# 3) MODEL_COEFFICIENTS: Coefficient weights for each Z-Score model variant.
+# Keys A-E correspond to X1-X5 ratios in the Altman Z-Score formula.
+# For EM, 'A' is the intercept.
 # -------------------------------------------------------------------
 MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
     # 3.1 Original Z-Score (1968, Public Manufacturing, 5-ratio)
@@ -178,6 +188,7 @@ MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
 
 # -------------------------------------------------------------------
 # 4) Z_SCORE_THRESHOLDS: Distress, Grey, and Safe cutoffs for each model.
+# Used to interpret the computed Z-Score.
 # -------------------------------------------------------------------
 Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
     # 4.1 Original Z-Score (1968, Public Manufacturing)
@@ -220,7 +231,8 @@ Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
 }
 
 # -------------------------------------------------------------------
-# 5) MODEL_ALIASES: Map legacy or alternative keys to canonical keys.
+# 5) MODEL_ALIASES: Maps legacy or alternative model keys to canonical keys.
+# Ensures backward compatibility and normalization of model selection.
 # -------------------------------------------------------------------
 MODEL_ALIASES: Dict[str, str] = {
     "public_service": "service",      # alias → service
@@ -231,14 +243,16 @@ MODEL_ALIASES: Dict[str, str] = {
 }
 
 # -------------------------------------------------------------------
-# 6) EMERGING_MARKETS: Country codes considered "emerging market".
+# 6) EMERGING_MARKETS: List of country codes considered 'emerging markets'.
+# Used for model selection and reporting.
 # -------------------------------------------------------------------
 EMERGING_MARKETS: List[str] = [
     "ID", "TR", "PL", "TH", "PH", "EG", "NG", "PK", "VN", "AR", "CO", "MY", "CL", "PE"
 ]
 
 # -------------------------------------------------------------------
-# 7) CALIBRATION_UPDATE: Metadata for the latest coefficient update.
+# 7) CALIBRATION_UPDATE: Metadata for the latest model coefficient update.
+# Used for auditability and transparency in model versioning.
 # -------------------------------------------------------------------
 CALIBRATION_UPDATE: Dict[str, str] = {
     "last_update": "2025-05-29",
@@ -248,6 +262,7 @@ CALIBRATION_UPDATE: Dict[str, str] = {
 
 # -------------------------------------------------------------------
 # 8) ERROR MESSAGES: Centralized error message strings for DRY compliance.
+# Used throughout the pipeline for consistent error reporting.
 # -------------------------------------------------------------------
 ERROR_MSG_TICKER_NOT_FOUND = "Ticker not found in Yahoo Finance"
 ERROR_MSG_SYMBOL_NOT_FOUND = "Ticker symbol not found in Yahoo Finance"
@@ -265,6 +280,7 @@ ERROR_MSG_STATUS_CHECK_FAILED = "Company status check failed"
 
 # -------------------------------------------------------------------
 # 9) STATUS MESSAGE TEMPLATES: Centralized user-facing status messages for DRY compliance.
+# Used for reporting company status to users.
 # -------------------------------------------------------------------
 STATUS_MSG_BANKRUPT = "{ticker} has filed for bankruptcy{bankruptcy_info}."
 STATUS_MSG_DELISTED = "{ticker} has been delisted{delisting_info}."
@@ -273,7 +289,8 @@ STATUS_MSG_INACTIVE = "{ticker} exists but is not currently active. {status_reas
 STATUS_MSG_ACTIVE = "{ticker} appears to be an active company."
 
 # -------------------------------------------------------------------
-# 10) FIELD_SYNONYMS: Map alternate field names to canonical field names for DRY compliance.
+# 10) FIELD_SYNONYMS: Maps alternate field names to canonical field names for DRY compliance.
+# Used to standardize field names from various data sources.
 # -------------------------------------------------------------------
 FIELD_SYNONYMS: Dict[str, str] = {
     # Assets

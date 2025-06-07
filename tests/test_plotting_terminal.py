@@ -2,7 +2,7 @@ import io
 import sys
 import pytest
 import logging
-from altman_zscore.plotting_terminal import print_info, print_warning, print_error
+from altman_zscore.plotting.plotting_terminal import print_info, print_warning, print_error
 
 @pytest.mark.parametrize("func,level,msg", [
     (print_info, "INFO", "Test info message"),

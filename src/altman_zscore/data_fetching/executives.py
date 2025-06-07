@@ -1,5 +1,7 @@
 """
-Executive/officer data fetching and parsing utilities for financials module refactor.
+Executive/officer data fetching and parsing utilities for Altman Z-Score analysis.
+
+Provides functions to fetch and merge company officer/executive data from yfinance and SEC EDGAR, saving results to disk and handling errors robustly.
 """
 import os
 import json
@@ -9,19 +11,18 @@ import yfinance as yf
 from altman_zscore.utils.paths import get_output_dir
 
 def fetch_company_officers(ticker: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetch company officers information using yfinance.
+    """Fetch company officers information using yfinance.
 
     Args:
-        ticker (str): Stock ticker symbol (e.g., 'AAPL')
+        ticker (str): Stock ticker symbol (e.g., 'AAPL').
 
     Returns:
-        dict or None: Company officers information if available, else None
+        dict or None: Company officers information if available, else None.
 
     Notes:
-        - Fetches officer information from yfinance info property
-        - Returns None if no officer data is found
-        - Logs any errors during fetch
+        - Fetches officer information from yfinance info property.
+        - Returns None if no officer data is found.
+        - Logs any errors during fetch.
     """
     logger = logging.getLogger("altman_zscore.fetch_company_officers")
 
@@ -65,21 +66,21 @@ def fetch_company_officers(ticker: str) -> Optional[Dict[str, Any]]:
         return None
 
 def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
-    """
-    Fetch executive data from both yfinance (primary) and SEC EDGAR (supplementary).
+    """Fetch executive data from both yfinance (primary) and SEC EDGAR (supplementary).
+
     Merges data from both sources when available.
 
     Args:
-        ticker (str): Stock ticker symbol (e.g., 'AAPL')
+        ticker (str): Stock ticker symbol (e.g., 'AAPL').
 
     Returns:
-        dict or None: Executive data if available, else None
+        dict or None: Executive data if available, else None.
 
     Notes:
-        - Uses yfinance as primary source for current officers
-        - Uses SEC EDGAR DEF 14A filings for additional/historical data
-        - Merges data when available from both sources
-        - Returns None if no data is found from either source
+        - Uses yfinance as primary source for current officers.
+        - Uses SEC EDGAR DEF 14A filings for additional/historical data.
+        - Merges data when available from both sources.
+        - Returns None if no data is found from either source.
     """
     logger = logging.getLogger("altman_zscore.fetch_executive_data")
     output_dir = get_output_dir(ticker)

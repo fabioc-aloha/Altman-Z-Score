@@ -1,6 +1,6 @@
 import pytest
-from altman_zscore.company_status_helpers import check_company_status, handle_special_status, detect_company_region
-from altman_zscore.company_status import CompanyStatus
+from altman_zscore.company.company_status_helpers import check_company_status, handle_special_status, detect_company_region
+from altman_zscore.company.company_status import CompanyStatus
 
 
 def test_check_company_status_known_bankruptcy():

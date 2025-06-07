@@ -137,6 +137,33 @@ curl "https://query2.finance.yahoo.com/v8/finance/chart/AAPL?interval=1d&range=3
 curl "https://query1.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=assetProfile,financialData"
 ```
 
+## Finnhub API
+
+### Overview
+- **Base URL**: `https://finnhub.io/api/v1`
+- **Description**: Provides company profiles, logos, and additional financial/market data. Used for company profile enrichment and logo fetching in this project.
+- **Authentication**: 
+  - Requires API key via `FINNHUB_API_KEY` environment variable
+  - Free and paid tiers available (see [finnhub.io/docs/api](https://finnhub.io/docs/api))
+- **Key Endpoints Used**:
+  - `/stock/profile2?symbol={symbol}`: Company profile and logo URL
+  - `/stock/metric?symbol={symbol}&metric=all`: Company financial metrics
+  - Direct logo URL: `https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/{symbol}.png`
+- **Rate Limits**: 
+  - Free tier: 60 API calls/minute (see [pricing](https://finnhub.io/pricing))
+  - Exceeding limits returns HTTP 429
+- **Example Request**:
+```bash
+curl -H "X-Finnhub-Token: $FINNHUB_API_KEY" \
+     "https://finnhub.io/api/v1/stock/profile2?symbol=AAPL"
+```
+
+- **References**:
+  - [Finnhub API Docs](https://finnhub.io/docs/api)
+  - [finnhub-python SDK](https://github.com/Finnhub-Stock-API/finnhub-python)
+
+---
+
 ## Best Practices
 
 1. **Rate Limiting**
@@ -182,10 +209,13 @@ SEC_EDGAR_USER_AGENT="CompanyName/Version ContactEmail"  # Primary environment v
 SEC_USER_AGENT="CompanyName/Version ContactEmail"        # Alternative name
 
 # Example:
-SEC_EDGAR_USER_AGENT="AltmanZScore/1.0 name@domain.com"
+SEC_EDGAR_USER_AGENT="AltmanZScore/1.0 name@domain.com"  # Use your own contact email
 
 # Optional: Yahoo Finance (if using premium API)
-YAHOO_FINANCE_API_KEY="your-api-key"
+YAHOO_FINANCE_API_KEY="your-api-key"  # Do NOT share real API keys
+
+# Optional: Finnhub (required for company profiles/logos)
+FINNHUB_API_KEY="your-finnhub-api-key"  # Do NOT share real API keys
 
 # Optional: Cache Configuration
 FINANCIAL_CACHE_TTL_DAYS=30        # Default: 30 days
@@ -202,3 +232,7 @@ CACHE_DIR=".cache"                 # Default: .cache in project root
         └── {FILING_TYPE}/   # e.g., 10-Q, 10-K
             └── {DATE}.json  # Cache entry with metadata
 ```
+
+> **Note:** As of v3.0.0, the cache directory structure and TTL-based caching described above are not yet implemented. All data is fetched live from APIs on each run. Planned caching features will be documented in PLAN.md and TODO.md when scheduled for development.
+
+> **Security Note:** Never commit or share real API keys, secrets, or credentials in documentation, code, or version control. Always use placeholder values (e.g., "your-api-key") and store secrets securely using environment variables or secret managers.

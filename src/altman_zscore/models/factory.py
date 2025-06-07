@@ -1,4 +1,8 @@
-"""Factory for creating and managing Z-score models."""
+"""
+Factory for creating and managing Z-score models in Altman Z-Score analysis.
+
+Provides a registry and factory methods for registering, retrieving, and instantiating Z-score model classes.
+"""
 
 from typing import Dict, Type
 
@@ -7,7 +11,16 @@ from .original import OriginalZScoreModel
 
 
 class ModelRegistry:
-    """Registry of available Z-score models."""
+    """Registry of available Z-score models.
+
+    Methods:
+        register(model_type):
+            Decorator to register a model class.
+        get_model_class(model_type):
+            Get model class by type.
+        create_model(model_type):
+            Create and return a new model instance.
+    """
 
     _models: Dict[ModelType, Type[ZScoreModel]] = {}
 

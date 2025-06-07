@@ -1,11 +1,7 @@
 """
 Path utilities for Altman Z-Score analysis.
 
-This module provides functions for managing output paths and directories.
-It ensures that all outputs are organized by ticker and handles the creation
-of necessary directories for storing analysis results.
-
-Note: This code follows PEP 8 style guidelines.
+Provides functions for managing output paths and directories, ensuring outputs are organized by ticker and necessary directories are created for storing analysis results.
 """
 
 import os
@@ -15,8 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_output_dir(relative_path=None, ticker=None):
-    """
-    Return the absolute path to the output directory or file for a given ticker.
+    """Return the absolute path to the output directory or file for a given ticker.
 
     Args:
         relative_path (str, optional): Relative path to append to the base directory.
@@ -60,11 +55,17 @@ def get_output_dir(relative_path=None, ticker=None):
 
 
 def write_ticker_not_available(ticker, reason=None):
-    """
-    Write a marker file named TICKER_NOT_AVAILABLE.txt in the output/<TICKER>/ folder.
+    """Write a marker file named TICKER_NOT_AVAILABLE.txt in the output/<TICKER>/ folder.
+
     The file indicates that the ticker is not available or does not exist, and is used to signal downstream tools or users.
     If a reason is provided, it is included in the file content for additional context.
-    Returns the path to the marker file.
+
+    Args:
+        ticker (str): Stock ticker symbol.
+        reason (str, optional): Reason for unavailability.
+
+    Returns:
+        str: Path to the marker file.
     """
     ticker_dir = get_output_dir(ticker=ticker)
     marker_path = os.path.join(ticker_dir, "TICKER_NOT_AVAILABLE.txt")

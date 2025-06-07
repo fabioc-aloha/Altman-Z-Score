@@ -1,9 +1,8 @@
-
 ![Altman Z-Score Analysis Platform](banner.png)
 
 # Altman Z-Score Analysis Platform
 
-**Version: 2.9.0 (2025-06-05)**
+**Version: 3.0.0 (2025-06-07)**
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
 
@@ -85,6 +84,15 @@ The following table shows available reports for all analyzed tickers:
 
 ---
 
+## Recent Improvements (3.0.0)
+- Full modular reorganization: all code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- All imports updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
+- Improved LLM prompt templates and code injection for reporting: LLM commentary and report sections are now more complete, context-aware, and robust, leading to higher quality and more actionable analysis outputs
+- Documentation and usage examples updated to reflect new structure
+- All tests passing after reorganization
+
+---
+
 ## Documentation & Release Process
 - Version numbers and changelogs are up to date in documentation
 - See `PLAN.md` and `TODO.md` for roadmap and actionable tasks
@@ -132,3 +140,39 @@ This project uses data and APIs from the following sources:
 ---
 
 For more details, see the full documentation in this repository and referenced files.
+
+## Project Structure (as of 3.0.0)
+
+```
+src/altman_zscore/
+    api/                # API clients and integrations (e.g., Finnhub, OpenAI)
+    company/            # Company profile, status, helpers, CIK/SIC lookup
+    computation/        # Z-Score computation, constants, formulas
+    core/               # Main pipeline, orchestration, progress tracking
+    data_fetching/      # Financial and market data fetching (Yahoo, SEC, etc.)
+    market/             # Market data helpers
+    misc/               # Shared utilities
+    models/             # Z-Score models, thresholds, enums, industry classifier
+    plotting/           # Visualization, plotting helpers, terminal output
+    validation/         # Data validation (Pydantic schemas, etc.)
+    utils/              # Paths, IO, logging, etc.
+    ...
+```
+
+- Each folder contains focused, testable modules.
+- All imports use the new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`).
+- See `PLAN.md` for architectural decisions and `TODO.md` for actionable tasks.
+
+---
+
+## Example: Plotting Z-Score Trend
+
+To generate a Z-Score trend plot in your own script or notebook:
+
+```python
+from altman_zscore.plotting.plotting_main import plot_zscore_trend
+
+# df: DataFrame with columns ['quarter_end', 'zscore']
+# ticker: str, model: str, out_base: str
+plot_zscore_trend(df, ticker, model, out_base)
+```

@@ -4,10 +4,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 import pytest
 from decimal import Decimal
-from altman_zscore.enums import CompanyStage, CompanyType
-from altman_zscore.model_thresholds import ModelThresholds, ModelCoefficients, TechCalibration
-from altman_zscore.zscore_model_base import ZScoreModel
-from altman_zscore.zscore_models import OriginalZScore, TechZScore
+from altman_zscore.models.enums import CompanyStage, CompanyType
+from altman_zscore.models.model_thresholds import ModelThresholds, ModelCoefficients, TechCalibration
+from altman_zscore.models.zscore_model_base import ZScoreModel
+from altman_zscore.models.zscore_models import OriginalZScore, TechZScore
 
 def test_model_thresholds_diagnostics():
     thresholds = ModelThresholds.original()
