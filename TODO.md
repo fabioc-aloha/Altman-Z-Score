@@ -1,79 +1,142 @@
-# Vision Alignment
+# Altman Z-Score Unified Project Plan & TODO (2025)
 
-All tasks and phases in this TODO are guided by the project vision:
+## Vision Alignment
 
 > Our goal is to deliver an Altman Z-Score platform that not only matches but surpasses the capabilities of all current and future competitors—open-source or commercial. Every feature, architectural decision, and user experience is designed to set a new industry standard for transparency, extensibility, and actionable financial insight.
 
 See [vision.md](./vision.md) for the full vision statement.
 
-# Altman Z-Score TODO List (2025)
+---
 
-## v3.0.0 Release Status ✅ FULLY COMPLETED
+## Completed Milestones
 
-**All modularization work is complete and tested.**
+### v3.0.0 (2025-06-07) ✅ FULLY COMPLETED
+- Full modular reorganization: All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
+- All imports fixed: Updated to use new modular paths
+- Integration testing: Added `tests/test_integration_main.py` to catch import/runtime errors
+- Critical import fixes: Resolved all ModuleNotFoundError issues
+- Main pipeline verified: Successfully runs `python main.py msft` without import errors
+- Improved LLM prompt templates: Enhanced code injection for reporting
+- Documentation updated: All documentation reflects new structure and completed modularization
+- All tests passing: Both unit tests and integration tests pass after reorganization
+- Cleaned up obsolete files: Removed duplicate files after reorganization
+- Modularization & refactoring complete: All refactoring work finished and fully tested
 
-- [x] **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- [x] **✅ All imports updated:** Use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
-- [x] **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors
-- [x] **✅ Critical import fixes:** Resolved all ModuleNotFoundError issues in fetcher_factory.py, industry_classifier.py, etc.
-- [x] **✅ Main pipeline verified:** Successfully runs `python main.py msft` without import errors
-- [x] **✅ Improved LLM prompt templates:** Enhanced code injection for reporting with better analysis outputs
-- [x] **✅ Documentation updated:** All documentation reflects new structure and completed modularization
-- [x] **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
-- [x] **✅ Modularization & refactoring complete:** All refactoring work finished and tested
+### Major Project Milestones (History)
+- v2.8.x: Modularization of core files, improved error handling, comprehensive tests
+- v2.7.x: Major plotting refactoring, SEC EDGAR fallback, improved error reporting
+- v2.6.x: Z-Score forecasting, sentiment/news analysis, multi-ticker portfolio support
+
+---
 
 ## Current Phase: v3.0 Production Deployment
 
 ### Immediate Next Steps
-- [ ] **🚀 Deploy v3.0 for practical use:** Begin using the modularized codebase in real-world scenarios
-- [ ] **📊 Collect user feedback:** Gather feedback on the new modular structure, import paths, and overall usability
-- [ ] **📈 Monitor performance:** Track any performance impacts from the modularization
-- [ ] **🔍 Identify pain points:** Document any issues users encounter with the new structure
-- [ ] **📝 Document learnings:** Record insights from practical usage in LEARNINGS.md
+- [ ] 🚀 Deploy v3.0 for practical use: Begin using the modularized codebase in real-world scenarios
+- [ ] 📊 Collect user feedback: Gather feedback on the new modular structure, import paths, and overall usability
+- [ ] 📈 Monitor performance: Track any performance impacts from the modularization
+- [ ] 🔍 Identify pain points: Document any issues users encounter with the new structure
+- [ ] 📝 Document learnings: Record insights from practical usage in LEARNINGS.md
 
 ### v3.1 Planning
 - [ ] Analyze collected user feedback from v3.0 practical use
 - [ ] Prioritize feedback-driven improvements and bug fixes
-- [ ] Draft v3.1 roadmap in PLAN.md based on user needs
+- [ ] Draft v3.1 roadmap in this file based on user needs
 - [ ] Plan next milestone features for v3.x series
+
+---
 
 ## Future Development Roadmap (v3.1+)
 
 **Note:** These are potential features to consider based on user feedback and competitive analysis. Prioritization will be based on practical usage insights from v3.0 deployment.
 
-### Performance & Scalability
-- [ ] Performance optimization based on practical usage patterns
-- [ ] Caching strategies for frequently analyzed tickers
-- [ ] Batch processing optimizations for large portfolios
-- [ ] Memory usage optimization for large datasets
+### High Priority Improvements
+- Advanced error handling for edge cases discovered in production
+- Performance optimization based on real-world usage patterns
+- Enhanced caching strategies to reduce API calls and improve response times
 
 ### User Experience Enhancements
-- [ ] Enhanced CLI with interactive mode
-- [ ] Real-time analysis dashboard (web interface)
-- [ ] Export formats (Excel, PowerBI, etc.)
-- [ ] Email/notification system for alerts
+- Interactive dashboard for real-time analysis
+- Enhanced CLI with additional command options and interactive mode
+- Export format extensions (Excel, PowerBI, PDF)
+- Custom notification system for Z-Score threshold alerts
 
-### Data & Analysis Enhancements
-- [ ] Additional financial models beyond Altman Z-Score
-- [ ] International company support improvements
-- [ ] Industry-specific model calibrations
-- [ ] Advanced forecasting capabilities
+### Data & Analysis Extensions
+- Currency conversion for non-USD firms
+- "What-if" scenario analysis for financial planning
+- Advanced forecasting using consensus estimates
+- Industry-specific model calibration refinements
 
 ### Integration & API Features
-- [ ] REST API for programmatic access
-- [ ] Database backend for historical data storage
-- [ ] Third-party tool integrations
-- [ ] Excel Add-In development
+- REST API for programmatic access
+- Database backend for historical data storage
+- Third-party tool integrations
+- Excel Add-In development
 
-## Technical Maintenance
+### Performance & Scalability
+- Caching strategies for frequently analyzed tickers
+- Batch processing optimizations for large portfolios
+- Memory usage optimization for large datasets
 
-### Prompt & LLM Customization
-- [x] All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
-- [x] Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)
-- [x] Expand/normalize FIELD_SYNONYMS for all canonical fields, especially for banks and international companies
-- [x] Implement sector/industry/ticker awareness in mapping logic (e.g., map 'sales' to 'Interest Income' for banks)
-- [x] Allow user to provide mapping override file (e.g., mapping_overrides.json)
-- [x] Add granular logging and fallback logic for mapping decisions
+---
+
+## Project Architecture & Implementation Principles
+
+### Core Architecture
+1. **Input Layer:** Accepts ticker(s) and analysis date; validates input
+2. **Data Fetching Layer:** Fetches financials (SEC EDGAR/XBRL) and market data (Yahoo Finance, Finnhub)
+3. **Validation Layer:** Validates raw data using Pydantic schemas; reports missing/invalid fields
+4. **Computation Layer:** Computes Altman Z-Score using validated data; returns result object
+5. **Reporting Layer:** Outputs results to CSV, JSON, or stdout; logs all steps and errors
+
+### Implementation Principles
+- **Simplicity:** Start with single-stock analysis, then generalize to portfolios
+- **Modularity:** Clean separation of data fetching, validation, computation, and reporting
+- **Testability:** Each module independently testable with clear interfaces
+- **Robustness:** Strong error handling, logging, and data validation
+- **Extensibility:** Easy to add new data sources, models, or output formats
+
+### Development Philosophy
+- Build robust MVPs before adding features
+- Test thoroughly at each step
+- Enable features incrementally with full testing and documentation
+- Prioritize reliability and maintainability
+- Follow conservative change management practices
+
+---
+
+## Technical Maintenance & References
+
+### DRY Compliance & Code Quality
+- Centralized constants, error handling, and configuration
+- DRY-compliant API integration for Yahoo Finance, SEC EDGAR, Finnhub
+- Modular components with well-defined interfaces
+- Comprehensive unit and integration testing
+- Consistent documentation style across all modules and APIs
+
+### Key Technical Reference Files
+- Centralized error handling: `error_helpers.py`
+- Field mapping constants: `computation/constants.py`
+- LLM prompt templates: `src/prompts/`
+- API endpoint configuration: client classes (`sec_client.py`, `yahoo_client.py`, etc.)
+- Test data & fixtures: `tests/` directory
+
+### API Documentation
+See `APIS.md` for detailed documentation of all external APIs used in this project, including:
+- SEC EDGAR API for financial data
+- Yahoo Finance API for market data
+- Finnhub API for company profiles and logos
+- LLM APIs for qualitative analysis
+
+---
+
+## Prompt & LLM Customization
+- All LLM prompt files are in `src/prompts/`—edit to customize LLM behavior, add new features, or update instructions
+- Ensure prompt changes are reflected in all outputs (test with unique phrase as described below)
+- Expand/normalize FIELD_SYNONYMS for all canonical fields, especially for banks and international companies
+- Implement sector/industry/ticker awareness in mapping logic (e.g., map 'sales' to 'Interest Income' for banks)
+- Allow user to provide mapping override file (e.g., mapping_overrides.json)
+- Add granular logging and fallback logic for mapping decisions
 
 #### Prompt Testing Workflow
 1. Edit `prompt_fin_analysis.md` and add a unique phrase
@@ -81,15 +144,19 @@ See [vision.md](./vision.md) for the full vision statement.
 3. Check the output report for the phrase
 4. Revert the prompt
 
-### API Integrations
-#### Finnhub Integration ✅ COMPLETED
-- [x] Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
-- [x] https://finnhub.io/docs/api
-- [x] https://github.com/Finnhub-Stock-API/finnhub-python
-- [x] Integrated finnhub for company profile and logo fetching (see src/altman_zscore/api/finnhub_client.py)
-- [x] All code and documentation updated to reflect Finnhub integration and logo fetching
+---
 
-# Environment Variables
+## API Integrations
+### Finnhub Integration ✅ COMPLETED
+- Research finnhub.io and its API for potential integration (evaluate data coverage, cost, and API limits)
+- https://finnhub.io/docs/api
+- https://github.com/Finnhub-Stock-API/finnhub-python
+- Integrated finnhub for company profile and logo fetching (see src/altman_zscore/api/finnhub_client.py)
+- All code and documentation updated to reflect Finnhub integration and logo fetching
+
+---
+
+## Environment Variables
 
 Set the following environment variables for configuration:
 

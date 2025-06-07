@@ -4,26 +4,11 @@ Our goal is to deliver an Altman Z-Score platform that not only matches but surp
 
 > See [vision.md](./vision.md) for the full vision statement. Do not include the vision in other documentation.
 
-# PLAN.md — Altman Z-Score Analysis Project
+# PLAN.md Deprecated
 
-## Current Version: v3.0.0 (2025-06-07) ✅ FULLY COMPLETED
+All project planning, roadmap, architecture, and milestone tracking is now maintained in [TODO.md](./TODO.md).
 
-### Completed Modularization Milestone
-- **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- **✅ All imports fixed:** Updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
-- **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors in main pipeline
-- **✅ Critical import fixes:** Resolved all ModuleNotFoundError issues across the codebase:
-  - Fixed `fetcher_factory.py`: `..company_profile` → `..company.company_profile`
-  - Fixed `industry_classifier.py`: `.company_profile` → `..company.company_profile`
-  - Fixed import paths in `output_generation.py`, `reporting.py`, `file_operations.py`, etc.
-- **✅ Main pipeline verified:** Successfully runs `python main.py msft` without import errors
-- **✅ Improved LLM prompt templates:** Enhanced code injection for reporting with more complete, context-aware analysis
-- **✅ Documentation updated:** All documentation reflects new structure and completed modularization
-- **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
-- **✅ Cleaned up obsolete files:** Removed duplicate files marked with 'D' in VS Code after reorganization
-- **✅ Modularization & refactoring complete:** All refactoring work finished and fully tested
-
-**🎯 v3.0.0 is now ready for production deployment and user feedback collection.**
+Please refer to TODO.md for the unified project plan, completed milestones, roadmap, and technical references.
 
 ---
 
