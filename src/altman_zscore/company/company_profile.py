@@ -145,7 +145,7 @@ class CompanyProfile:
     @staticmethod
     def from_ticker(ticker):
         """
-        Classify company by ticker using SEC EDGAR first, then Yahoo Finance as fallback. No static mapping.
+        Classify company by ticker using SEC EDGAR first, then Yahoo Finance as fallback.
         Robustly supports delisted/edge-case tickers by extracting company profile from most recent SEC filing if needed.
 
         Args:
@@ -159,8 +159,6 @@ class CompanyProfile:
                 3. Most recent SEC filing (for delisted/edge-case tickers)
             All steps are logged for traceability and debugging.
         """
-        # print(f"[DEBUG] No static profile for: {ticker.upper()} (live classification only)")
-        industry = None  # Always define upfront to avoid unbound errors
         # 1. Try SEC EDGAR for US tickers
         try:
             cik = lookup_cik(ticker)
@@ -170,14 +168,21 @@ class CompanyProfile:
                     return profile
         except Exception as e:
             logger.error(f"[CompanyProfile] SEC EDGAR failed for {ticker}: {e}")
-        # 2. Try yfinance as fallback
+            
+        # 2. Try yfinance as fallback with retry
         try:
             import json
-
             import yfinance as yf
+            from altman_zscore.utils.retry import exponential_retry
 
-            yf_ticker = yf.Ticker(ticker)
-            yf_info = yf_ticker.info  # Save the raw yfinance info payload for traceability
+            # Create retry-wrapped functions for network operations
+            @exponential_retry(max_retries=3, base_delay=1.0, backoff_factor=2.0)
+            def _get_ticker_info():
+                yf_ticker = yf.Ticker(ticker)
+                return yf_ticker.info
+
+            # Fetch info with retry
+            yf_info = _get_ticker_info()
             output_path = get_output_dir("yf_info.json", ticker=ticker)
             with open(output_path, "w") as f:
                 json.dump(yf_info, f, indent=2)
@@ -193,11 +198,10 @@ class CompanyProfile:
             is_em = is_emerging_market_country(country_str)
             maturity = classify_maturity(founding_year, ipo_date)
             market_category = get_market_category(is_em)
-            # print(f"[DEBUG] yfinance info for {ticker}: industry={industry}, country={country}, exchange={exchange}")
+
             if industry:
                 # Map to enums if possible
                 ig = get_industry_group(industry)
-                # print(f"[DEBUG] yfinance classification for {ticker}: ig={ig}, is_em={is_em}")
                 return CompanyProfile(
                     ticker,
                     industry,

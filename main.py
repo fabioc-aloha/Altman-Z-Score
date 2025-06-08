@@ -3,7 +3,12 @@
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
-A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with
+A robust, modular Python tool fdef show_progress_bar(ticker, step_idx, total_steps):
+    bar_length = 30
+    progress = (step_idx + 1) / total_steps
+    filled_length = int(bar_length * progress)
+    bar = '■' * filled_length + '□' * (bar_length - filled_length)
+    step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"prehensive Altman Z-Score trend analysis with
 LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
 
 Architecture Overview:
@@ -148,9 +153,21 @@ def show_progress_bar(ticker, step_idx, total_steps):
     bar_length = 30
     progress = (step_idx + 1) / total_steps
     filled_length = int(bar_length * progress)
-    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+    bar = '■' * filled_length + '□' * (bar_length - filled_length)
     step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
-    print(f"\r[{ticker}] Pipeline Progress: |{bar}| {step_idx + 1}/{total_steps} {step_name}", end='', flush=True)
+    
+    # Calculate the length of current progress message
+    current_msg = f"[{ticker}] Pipeline Progress: |{bar}| {step_idx + 1}/{total_steps} {step_name}"
+    
+    # Calculate max possible length by checking all possible messages    
+    max_length = max(
+        len(f"[{ticker}] Pipeline Progress: |{'■' * bar_length}| {i+1}/{total_steps} {step}")
+        for i, step in enumerate(PIPELINE_STEPS)
+    ) + 1  # Add 1 for safety margin
+    
+    # Clear the entire line with calculated max length
+    print(f"\r{' ' * max_length}\r", end='', flush=True)
+    print(f"{current_msg}", end='', flush=True)
     if step_idx + 1 == total_steps:
         print()  # Move to new line when complete
 
@@ -221,11 +238,10 @@ def main():
     for ticker in ticker_list:
         try:
             start_time = time.time()
-            print(f"\n=== Starting analysis for {ticker} ===")
 
             def progress_callback(step_name, step_idx, total_steps):
                 show_progress_bar(ticker, step_idx, total_steps)
-                # Add small delay to make progress visible
+                # Small delay to make progress visible
                 time.sleep(0.1)
 
             # --- ACTUAL WORKFLOW WITH REAL-TIME PROGRESS ---
@@ -236,7 +252,6 @@ def main():
             )
 
             end_time = time.time()
-            print(f"=== Completed analysis for {ticker} ===\n")
 
             if df is not None and not df.empty and 'zscore' in df.columns:
                 valid_scores = df[df['zscore'].notnull()]

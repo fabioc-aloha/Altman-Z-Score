@@ -1,0 +1,1471 @@
+
+
+# company_info.json
+{
+  "country": "US",
+  "currency": "USD",
+  "estimateCurrency": "USD",
+  "exchange": "NEW YORK STOCK EXCHANGE, INC.",
+  "finnhubIndustry": "Road & Rail",
+  "ipo": "2019-05-10",
+  "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/UBER.png",
+  "marketCapitalization": 179003.9951519263,
+  "name": "Uber Technologies Inc",
+  "phone": "14156128582",
+  "shareOutstanding": 2091.17,
+  "ticker": "UBER",
+  "weburl": "https://www.uber.com/"
+}
+
+# weekly_prices.csv
+week,avg_price,min_price,max_price,days_with_data
+2024-04-01,76.4540008544922,74.91999816894531,77.16000366210938,5
+2024-04-08,75.19599914550781,74.3499984741211,76.18000030517578,5
+2024-04-15,71.99400024414062,69.19999694824219,74.12999725341797,5
+2024-04-22,69.5000015258789,68.9800033569336,70.80000305175781,5
+2024-04-29,67.8520004272461,66.2699966430664,69.2300033569336,5
+2024-05-06,68.6520004272461,66.4000015258789,71.51000213623047,5
+2024-05-13,65.93600006103516,65.31999969482422,66.62000274658203,5
+2024-05-20,64.39200134277344,63.599998474121094,65.4800033569336,5
+2024-05-27,64.28250026702881,63.52000045776367,64.93000030517578,4
+2024-06-03,66.4740005493164,63.790000915527344,69.30999755859375,5
+2024-06-10,70.45199890136719,68.5999984741211,73.1500015258789,5
+2024-06-17,70.33250045776367,70.20999908447266,70.48999786376953,4
+2024-06-24,71.15799865722656,70.33999633789062,72.68000030517578,5
+2024-07-01,71.03249931335449,70.66999816894531,71.30000305175781,4
+2024-07-08,71.55999908447265,69.2699966430664,73.52999877929688,5
+2024-07-15,69.75600128173828,66.26000213623047,74.30000305175781,5
+2024-07-22,66.30599975585938,64.4000015258789,67.7300033569336,5
+2024-07-29,62.26600036621094,58.9900016784668,64.47000122070312,5
+2024-08-05,65.2880012512207,58.47999954223633,69.01000213623047,5
+2024-08-12,71.40400085449218,69.26000213623047,72.7300033569336,5
+2024-08-19,73.71600036621093,73.30999755859375,74.30000305175781,5
+2024-08-26,72.47799835205078,71.8499984741211,73.12999725341797,5
+2024-09-02,71.06999969482422,69.58000183105469,71.88999938964844,4
+2024-09-09,69.89400024414063,68.08999633789062,72.4800033569336,5
+2024-09-16,73.40399932861328,71.5199966430664,75.27999877929688,5
+2024-09-23,76.34600067138672,74.70999908447266,77.44000244140625,5
+2024-09-30,73.89800109863282,72.87000274658203,75.16000366210938,5
+2024-10-07,78.57799835205078,74.58999633789062,86.33999633789062,5
+2024-10-14,81.82000122070312,79.16000366210938,84.94000244140625,5
+2024-10-21,79.34000091552734,77.62000274658203,80.45999908447266,5
+2024-10-28,76.3260009765625,72.05000305175781,79.43000030517578,5
+2024-11-04,73.38600006103516,72.04000091552734,74.36000061035156,5
+2024-11-11,71.77400207519531,71.16000366210938,73.25,5
+2024-11-18,69.84199981689453,69.12999725341797,71.51000213623047,5
+2024-11-25,72.13999938964844,71.55999755859375,73.41999816894531,4
+2024-12-02,69.56399993896484,65.2300033569336,73.06999969482422,5
+2024-12-09,62.64399948120117,59.93000030517578,65.73999786376953,5
+2024-12-16,60.689999389648435,60.209999084472656,61.22999954223633,5
+2024-12-23,61.56750011444092,61.130001068115234,61.869998931884766,4
+2024-12-30,62.21249866485596,60.31999969482422,64.58999633789062,4
+2025-01-06,65.83500099182129,64.91000366210938,66.30999755859375,4
+2025-01-13,66.69599761962891,64.83999633789062,68.58000183105469,5
+2025-01-20,68.10499954223633,67.73999786376953,68.55999755859375,4
+2025-01-27,67.40599822998047,66.58999633789062,68.7699966430664,5
+2025-02-03,69.22200012207031,64.4800033569336,74.5999984741211,5
+2025-02-10,78.92799835205078,76.94999694824219,80.29000091552734,5
+2025-02-17,80.70000076293945,78.88999938964844,81.48999786376953,4
+2025-02-24,75.49199981689453,74.20999908447266,76.41999816894531,5
+2025-03-03,75.48200073242188,74.44000244140625,76.4800033569336,5
+2025-03-10,71.19400024414062,69.51000213623047,73.05999755859375,5
+2025-03-17,73.49799957275391,71.55000305175781,75.83999633789062,5
+2025-03-24,74.78200073242188,72.75,76.51000213623047,5
+2025-03-31,70.96399993896485,64.62000274658203,74.5,5
+2025-04-07,69.3220001220703,65.06999969482422,72.68000030517578,5
+2025-04-14,73.8549976348877,73.05999755859375,75.23999786376953,4
+2025-04-21,75.39599914550782,72.91999816894531,78.0999984741211,5
+2025-04-28,80.78600006103515,78.33000183105469,84.27999877929688,5
+2025-05-05,84.00400085449219,82.30000305175781,85.83000183105469,5
+2025-05-12,90.43600158691406,88.0999984741211,91.79000091552734,5
+2025-05-19,89.75,87.75,92.45999908447266,5
+2025-05-26,87.1866683959961,84.30000305175781,89.0,3
+
+
+# financials_raw.json
+{
+  "balance_sheet": {
+    "2025-03-31 00:00:00": {
+      "Ordinary Shares Number": "2091856000.0",
+      "Share Issued": "2091856000.0",
+      "Net Debt": "4368000000.0",
+      "Total Debt": "11124000000.0",
+      "Tangible Book Value": "12841000000.0",
+      "Invested Capital": "31475000000.0",
+      "Working Capital": "237000000.0",
+      "Net Tangible Assets": "12841000000.0",
+      "Capital Lease Obligations": "1624000000.0",
+      "Common Stock Equity": "21975000000.0",
+      "Total Capitalization": "30325000000.0",
+      "Total Equity Gross Minority Interest": "22905000000.0",
+      "Minority Interest": "930000000.0",
+      "Stockholders Equity": "21975000000.0",
+      "Gains Losses Not Affecting Retained Earnings": "-485000000.0",
+      "Other Equity Adjustments": "-485000000.0",
+      "Retained Earnings": "-18946000000.0",
+      "Additional Paid In Capital": "41406000000.0",
+      "Capital Stock": "0.0",
+      "Common Stock": "0.0",
+      "Total Liabilities Net Minority Interest": "29917000000.0",
+      "Total Non Current Liabilities Net Minority Interest": "17804000000.0",
+      "Other Non Current Liabilities": "395000000.0",
+      "Non Current Deferred Liabilities": "13000000.0",
+      "Non Current Deferred Taxes Liabilities": "13000000.0",
+      "Long Term Debt And Capital Lease Obligation": "9797000000.0",
+      "Long Term Capital Lease Obligation": "1447000000.0",
+      "Long Term Debt": "8350000000.0",
+      "Long Term Provisions": "7599000000.0",
+      "Current Liabilities": "12113000000.0",
+      "Other Current Liabilities": "2320000000.0",
+      "Current Debt And Capital Lease Obligation": "1327000000.0",
+      "Current Capital Lease Obligation": "177000000.0",
+      "Current Debt": "1150000000.0",
+      "Other Current Borrowings": "1150000000.0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "331000000.0",
+      "Current Provisions": "2873000000.0",
+      "Payables And Accrued Expenses": "5262000000.0",
+      "Current Accrued Expenses": "2147000000.0",
+      "Payables": "3115000000.0",
+      "Total Tax Payable": "2242000000.0",
+      "Income Tax Payable": "739000000.0",
+      "Accounts Payable": "873000000.0",
+      "Total Assets": "52822000000.0",
+      "Total Non Current Assets": "40472000000.0",
+      "Other Non Current Assets": "12559000000.0",
+      "Non Current Deferred Assets": "6592000000.0",
+      "Non Current Deferred Taxes Assets": "6592000000.0",
+      "Non Current Note Receivables": "144000000.0",
+      "Investments And Advances": "8940000000.0",
+      "Investmentin Financial Assets": "8602000000.0",
+      "Available For Sale Securities": "8602000000.0",
+      "Long Term Equity Investment": "338000000.0",
+      "Goodwill And Other Intangible Assets": "9134000000.0",
+      "Other Intangible Assets": "1065000000.0",
+      "Goodwill": "8069000000.0",
+      "Net PPE": "3103000000.0",
+      "Accumulated Depreciation": "0",
+      "Gross PPE": "3103000000.0",
+      "Leases": "0",
+      "Construction In Progress": "0",
+      "Other Properties": "3103000000.0",
+      "Machinery Furniture Equipment": "0",
+      "Buildings And Improvements": "0",
+      "Land And Improvements": "0",
+      "Properties": "0",
+      "Current Assets": "12350000000.0",
+      "Other Current Assets": "615000000.0",
+      "Restricted Cash": "1253000000.0",
+      "Prepaid Assets": "455000000.0",
+      "Receivables": "4001000000.0",
+      "Other Receivables": "512000000.0",
+      "Accounts Receivable": "3489000000.0",
+      "Allowance For Doubtful Accounts Receivable": "-87000000.0",
+      "Gross Accounts Receivable": "3576000000.0",
+      "Cash Cash Equivalents And Short Term Investments": "6026000000.0",
+      "Other Short Term Investments": "894000000.0",
+      "Cash And Cash Equivalents": "5132000000.0"
+    },
+    "2024-12-31 00:00:00": {
+      "Ordinary Shares Number": "2107953000.0",
+      "Share Issued": "2107953000.0",
+      "Net Debt": "3604000000.0",
+      "Total Debt": "11126000000.0",
+      "Tangible Book Value": "12367000000.0",
+      "Invested Capital": "31055000000.0",
+      "Working Capital": "769000000.0",
+      "Net Tangible Assets": "12367000000.0",
+      "Capital Lease Obligations": "1629000000.0",
+      "Common Stock Equity": "21558000000.0",
+      "Total Capitalization": "29905000000.0",
+      "Total Equity Gross Minority Interest": "22476000000.0",
+      "Minority Interest": "918000000.0",
+      "Stockholders Equity": "21558000000.0",
+      "Gains Losses Not Affecting Retained Earnings": "-517000000.0",
+      "Other Equity Adjustments": "-517000000.0",
+      "Retained Earnings": "-20726000000.0",
+      "Additional Paid In Capital": "42801000000.0",
+      "Capital Stock": "0.0",
+      "Common Stock": "0.0",
+      "Total Liabilities Net Minority Interest": "28768000000.0",
+      "Total Non Current Liabilities Net Minority Interest": "17292000000.0",
+      "Other Non Current Liabilities": "440000000.0",
+      "Non Current Deferred Liabilities": "9000000.0",
+      "Non Current Deferred Taxes Liabilities": "9000000.0",
+      "Long Term Debt And Capital Lease Obligation": "9801000000.0",
+      "Long Term Capital Lease Obligation": "1454000000.0",
+      "Long Term Debt": "8347000000.0",
+      "Long Term Provisions": "7042000000.0",
+      "Current Liabilities": "11476000000.0",
+      "Other Current Liabilities": "2185000000.0",
+      "Current Debt And Capital Lease Obligation": "1325000000.0",
+      "Current Capital Lease Obligation": "175000000.0",
+      "Current Debt": "1150000000.0",
+      "Other Current Borrowings": "1150000000.0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "649000000.0",
+      "Current Provisions": "2754000000.0",
+      "Payables And Accrued Expenses": "4563000000.0",
+      "Current Accrued Expenses": "1421000000.0",
+      "Payables": "3142000000.0",
+      "Total Tax Payable": "2284000000.0",
+      "Income Tax Payable": "751000000.0",
+      "Accounts Payable": "858000000.0",
+      "Total Assets": "51244000000.0",
+      "Total Non Current Assets": "38999000000.0",
+      "Other Non Current Assets": "11765000000.0",
+      "Non Current Deferred Assets": "6171000000.0",
+      "Non Current Deferred Taxes Assets": "6171000000.0",
+      "Non Current Note Receivables": "144000000.0",
+      "Investments And Advances": "8618000000.0",
+      "Investmentin Financial Assets": "8316000000.0",
+      "Available For Sale Securities": "8316000000.0",
+      "Long Term Equity Investment": "302000000.0",
+      "Goodwill And Other Intangible Assets": "9191000000.0",
+      "Other Intangible Assets": "1125000000.0",
+      "Goodwill": "8066000000.0",
+      "Net PPE": "3110000000.0",
+      "Accumulated Depreciation": "-1598000000.0",
+      "Gross PPE": "4708000000.0",
+      "Leases": "670000000.0",
+      "Construction In Progress": "218000000.0",
+      "Other Properties": "1158000000.0",
+      "Machinery Furniture Equipment": "1858000000.0",
+      "Buildings And Improvements": "739000000.0",
+      "Land And Improvements": "65000000.0",
+      "Properties": "0.0",
+      "Current Assets": "12245000000.0",
+      "Other Current Assets": "493000000.0",
+      "Restricted Cash": "545000000.0",
+      "Prepaid Assets": "415000000.0",
+      "Receivables": "3815000000.0",
+      "Other Receivables": "482000000.0",
+      "Accounts Receivable": "3333000000.0",
+      "Allowance For Doubtful Accounts Receivable": "-95000000.0",
+      "Gross Accounts Receivable": "3428000000.0",
+      "Cash Cash Equivalents And Short Term Investments": "6977000000.0",
+      "Other Short Term Investments": "1084000000.0",
+      "Cash And Cash Equivalents": "5893000000.0"
+    },
+    "2024-09-30 00:00:00": {
+      "Ordinary Shares Number": "2104178000.0",
+      "Share Issued": "2104178000.0",
+      "Net Debt": "4836000000.0",
+      "Total Debt": "12660000000.0",
+      "Tangible Book Value": "5502000000.0",
+      "Invested Capital": "25766000000.0",
+      "Working Capital": "4496000000.0",
+      "Net Tangible Assets": "5502000000.0",
+      "Capital Lease Obligations": "1674000000.0",
+      "Common Stock Equity": "14780000000.0",
+      "Total Capitalization": "25766000000.0",
+      "Total Equity Gross Minority Interest": "16539000000.0",
+      "Minority Interest": "1759000000.0",
+      "Stockholders Equity": "14780000000.0",
+      "Gains Losses Not Affecting Retained Earnings": "-424000000.0",
+      "Other Equity Adjustments": "-424000000.0",
+      "Retained Earnings": "-27621000000.0",
+      "Additional Paid In Capital": "42825000000.0",
+      "Capital Stock": "0.0",
+      "Common Stock": "0.0",
+      "Total Liabilities Net Minority Interest": "30578000000.0",
+      "Total Non Current Liabilities Net Minority Interest": "19743000000.0",
+      "Other Non Current Liabilities": "483000000.0",
+      "Non Current Deferred Liabilities": "155000000.0",
+      "Non Current Deferred Taxes Liabilities": "155000000.0",
+      "Long Term Debt And Capital Lease Obligation": "12482000000.0",
+      "Long Term Capital Lease Obligation": "1496000000.0",
+      "Long Term Debt": "10986000000.0",
+      "Long Term Provisions": "6623000000.0",
+      "Current Liabilities": "10835000000.0",
+      "Other Current Liabilities": "2534000000.0",
+      "Current Debt And Capital Lease Obligation": "178000000.0",
+      "Current Capital Lease Obligation": "178000000.0",
+      "Current Debt": "0",
+      "Other Current Borrowings": "0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "554000000.0",
+      "Current Provisions": "2523000000.0",
+      "Payables And Accrued Expenses": "5046000000.0",
+      "Current Accrued Expenses": "2080000000.0",
+      "Payables": "2966000000.0",
+      "Total Tax Payable": "2164000000.0",
+      "Income Tax Payable": "729000000.0",
+      "Accounts Payable": "802000000.0",
+      "Total Assets": "47117000000.0",
+      "Total Non Current Assets": "31786000000.0",
+      "Other Non Current Assets": "11101000000.0",
+      "Non Current Deferred Assets": "0",
+      "Non Current Deferred Taxes Assets": "0",
+      "Non Current Note Receivables": "131000000.0",
+      "Investments And Advances": "8104000000.0",
+      "Investmentin Financial Assets": "7790000000.0",
+      "Available For Sale Securities": "7790000000.0",
+      "Long Term Equity Investment": "314000000.0",
+      "Goodwill And Other Intangible Assets": "9278000000.0",
+      "Other Intangible Assets": "1192000000.0",
+      "Goodwill": "8086000000.0",
+      "Net PPE": "3172000000.0",
+      "Accumulated Depreciation": "0",
+      "Gross PPE": "3172000000.0",
+      "Leases": "0",
+      "Construction In Progress": "0",
+      "Other Properties": "3172000000.0",
+      "Machinery Furniture Equipment": "0",
+      "Buildings And Improvements": "0",
+      "Land And Improvements": "0",
+      "Properties": "0",
+      "Current Assets": "15331000000.0",
+      "Other Current Assets": "681000000.0",
+      "Restricted Cash": "933000000.0",
+      "Prepaid Assets": "467000000.0",
+      "Receivables": "4187000000.0",
+      "Other Receivables": "468000000.0",
+      "Accounts Receivable": "3719000000.0",
+      "Allowance For Doubtful Accounts Receivable": "-83000000.0",
+      "Gross Accounts Receivable": "3802000000.0",
+      "Cash Cash Equivalents And Short Term Investments": "9063000000.0",
+      "Other Short Term Investments": "2913000000.0",
+      "Cash And Cash Equivalents": "6150000000.0"
+    },
+    "2024-06-30 00:00:00": {
+      "Ordinary Shares Number": "2097951000.0",
+      "Share Issued": "2097951000.0",
+      "Net Debt": "4957000000.0",
+      "Total Debt": "11144000000.0",
+      "Tangible Book Value": "3002000000.0",
+      "Invested Capital": "21804000000.0",
+      "Working Capital": "2165000000.0",
+      "Net Tangible Assets": "3002000000.0",
+      "Capital Lease Obligations": "1690000000.0",
+      "Common Stock Equity": "12350000000.0",
+      "Total Capitalization": "21804000000.0",
+      "Total Equity Gross Minority Interest": "13783000000.0",
+      "Minority Interest": "1433000000.0",
+      "Stockholders Equity": "12350000000.0",
+      "Gains Losses Not Affecting Retained Earnings": "-479000000.0",
+      "Other Equity Adjustments": "-479000000.0",
+      "Retained Earnings": "-30233000000.0",
+      "Additional Paid In Capital": "43062000000.0",
+      "Capital Stock": "0.0",
+      "Common Stock": "0.0",
+      "Total Liabilities Net Minority Interest": "27731000000.0",
+      "Total Non Current Liabilities Net Minority Interest": "17413000000.0",
+      "Other Non Current Liabilities": "699000000.0",
+      "Non Current Deferred Liabilities": "35000000.0",
+      "Non Current Deferred Taxes Liabilities": "35000000.0",
+      "Long Term Debt And Capital Lease Obligation": "10946000000.0",
+      "Long Term Capital Lease Obligation": "1492000000.0",
+      "Long Term Debt": "9454000000.0",
+      "Long Term Provisions": "5733000000.0",
+      "Current Liabilities": "10318000000.0",
+      "Other Current Liabilities": "2131000000.0",
+      "Current Debt And Capital Lease Obligation": "198000000.0",
+      "Current Capital Lease Obligation": "198000000.0",
+      "Current Debt": "0",
+      "Other Current Borrowings": "0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "410000000.0",
+      "Current Provisions": "2387000000.0",
+      "Payables And Accrued Expenses": "5192000000.0",
+      "Current Accrued Expenses": "2377000000.0",
+      "Payables": "2815000000.0",
+      "Total Tax Payable": "2063000000.0",
+      "Income Tax Payable": "652000000.0",
+      "Accounts Payable": "752000000.0",
+      "Total Assets": "41514000000.0",
+      "Total Non Current Assets": "29031000000.0",
+      "Other Non Current Assets": "9923000000.0",
+      "Non Current Deferred Assets": "0",
+      "Non Current Deferred Taxes Assets": "0",
+      "Non Current Note Receivables": "127000000.0",
+      "Investments And Advances": "6418000000.0",
+      "Investmentin Financial Assets": "6076000000.0",
+      "Available For Sale Securities": "6076000000.0",
+      "Long Term Equity Investment": "342000000.0",
+      "Goodwill And Other Intangible Assets": "9348000000.0",
+      "Other Intangible Assets": "1265000000.0",
+      "Goodwill": "8083000000.0",
+      "Net PPE": "3215000000.0",
+      "Accumulated Depreciation": "0",
+      "Gross PPE": "3215000000.0",
+      "Leases": "0",
+      "Construction In Progress": "0",
+      "Other Properties": "3215000000.0",
+      "Machinery Furniture Equipment": "0",
+      "Buildings And Improvements": "0",
+      "Land And Improvements": "0",
+      "Properties": "0",
+      "Current Assets": "12483000000.0",
+      "Other Current Assets": "679000000.0",
+      "Restricted Cash": "776000000.0",
+      "Prepaid Assets": "364000000.0",
+      "Receivables": "4372000000.0",
+      "Other Receivables": "589000000.0",
+      "Accounts Receivable": "3783000000.0",
+      "Allowance For Doubtful Accounts Receivable": "-82000000.0",
+      "Gross Accounts Receivable": "3865000000.0",
+      "Cash Cash Equivalents And Short Term Investments": "6292000000.0",
+      "Other Short Term Investments": "1795000000.0",
+      "Cash And Cash Equivalents": "4497000000.0"
+    },
+    "2024-03-31 00:00:00": {
+      "Ordinary Shares Number": "2086247000.0",
+      "Share Issued": "2086247000.0",
+      "Net Debt": "4438000000.0",
+      "Total Debt": "11161000000.0",
+      "Tangible Book Value": "1634000000.0",
+      "Invested Capital": "20515000000.0",
+      "Working Capital": "2081000000.0",
+      "Net Tangible Assets": "1634000000.0",
+      "Capital Lease Obligations": "1704000000.0",
+      "Common Stock Equity": "11058000000.0",
+      "Total Capitalization": "20515000000.0",
+      "Total Equity Gross Minority Interest": "12499000000.0",
+      "Minority Interest": "1441000000.0",
+      "Stockholders Equity": "11058000000.0",
+      "Gains Losses Not Affecting Retained Earnings": "-437000000.0",
+      "Other Equity Adjustments": "-437000000.0",
+      "Retained Earnings": "-31248000000.0",
+      "Additional Paid In Capital": "42743000000.0",
+      "Capital Stock": "0.0",
+      "Common Stock": "0.0",
+      "Total Liabilities Net Minority Interest": "27100000000.0",
+      "Total Non Current Liabilities Net Minority Interest": "17107000000.0",
+      "Other Non Current Liabilities": "746000000.0",
+      "Non Current Deferred Liabilities": "38000000.0",
+      "Non Current Deferred Taxes Liabilities": "38000000.0",
+      "Long Term Debt And Capital Lease Obligation": "10977000000.0",
+      "Long Term Capital Lease Obligation": "1520000000.0",
+      "Long Term Debt": "9457000000.0",
+      "Long Term Provisions": "5346000000.0",
+      "Current Liabilities": "9993000000.0",
+      "Other Current Liabilities": "2003000000.0",
+      "Current Debt And Capital Lease Obligation": "184000000.0",
+      "Current Capital Lease Obligation": "184000000.0",
+      "Current Debt": "0",
+      "Other Current Borrowings": "0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "326000000.0",
+      "Current Provisions": "2082000000.0",
+      "Payables And Accrued Expenses": "5398000000.0",
+      "Current Accrued Expenses": "2297000000.0",
+      "Payables": "3101000000.0",
+      "Total Tax Payable": "2268000000.0",
+      "Income Tax Payable": "675000000.0",
+      "Accounts Payable": "833000000.0",
+      "Total Assets": "39599000000.0",
+      "Total Non Current Assets": "27525000000.0",
+      "Other Non Current Assets": "8911000000.0",
+      "Non Current Deferred Assets": "0",
+      "Non Current Deferred Taxes Assets": "0",
+      "Non Current Note Receivables": "129000000.0",
+      "Investments And Advances": "5812000000.0",
+      "Investmentin Financial Assets": "5458000000.0",
+      "Available For Sale Securities": "5458000000.0",
+      "Long Term Equity Investment": "354000000.0",
+      "Goodwill And Other Intangible Assets": "9424000000.0",
+      "Other Intangible Assets": "1335000000.0",
+      "Goodwill": "8089000000.0",
+      "Net PPE": "3249000000.0",
+      "Accumulated Depreciation": "0",
+      "Gross PPE": "3249000000.0",
+      "Leases": "0",
+      "Construction In Progress": "0",
+      "Other Properties": "3249000000.0",
+      "Machinery Furniture Equipment": "0",
+      "Buildings And Improvements": "0",
+      "Land And Improvements": "0",
+      "Properties": "0",
+      "Current Assets": "12074000000.0",
+      "Other Current Assets": "675000000.0",
+      "Restricted Cash": "808000000.0",
+      "Prepaid Assets": "366000000.0",
+      "Receivables": "4462000000.0",
+      "Other Receivables": "754000000.0",
+      "Accounts Receivable": "3708000000.0",
+      "Allowance For Doubtful Accounts Receivable": "-89000000.0",
+      "Gross Accounts Receivable": "3797000000.0",
+      "Cash Cash Equivalents And Short Term Investments": "5763000000.0",
+      "Other Short Term Investments": "744000000.0",
+      "Cash And Cash Equivalents": "5019000000.0"
+    },
+    "2023-12-31 00:00:00": {
+      "Ordinary Shares Number": "0",
+      "Share Issued": "0",
+      "Net Debt": "0",
+      "Total Debt": "0",
+      "Tangible Book Value": "0",
+      "Invested Capital": "0",
+      "Working Capital": "0",
+      "Net Tangible Assets": "0",
+      "Capital Lease Obligations": "0",
+      "Common Stock Equity": "0",
+      "Total Capitalization": "0",
+      "Total Equity Gross Minority Interest": "0",
+      "Minority Interest": "0",
+      "Stockholders Equity": "0",
+      "Gains Losses Not Affecting Retained Earnings": "0",
+      "Other Equity Adjustments": "0",
+      "Retained Earnings": "0",
+      "Additional Paid In Capital": "0",
+      "Capital Stock": "0",
+      "Common Stock": "0",
+      "Total Liabilities Net Minority Interest": "0",
+      "Total Non Current Liabilities Net Minority Interest": "0",
+      "Other Non Current Liabilities": "0",
+      "Non Current Deferred Liabilities": "0",
+      "Non Current Deferred Taxes Liabilities": "0",
+      "Long Term Debt And Capital Lease Obligation": "0",
+      "Long Term Capital Lease Obligation": "0",
+      "Long Term Debt": "0",
+      "Long Term Provisions": "0",
+      "Current Liabilities": "0",
+      "Other Current Liabilities": "0",
+      "Current Debt And Capital Lease Obligation": "0",
+      "Current Capital Lease Obligation": "0",
+      "Current Debt": "25000000.0",
+      "Other Current Borrowings": "25000000.0",
+      "Pensionand Other Post Retirement Benefit Plans Current": "0",
+      "Current Provisions": "0",
+      "Payables And Accrued Expenses": "0",
+      "Current Accrued Expenses": "0",
+      "Payables": "0",
+      "Total Tax Payable": "0",
+      "Income Tax Payable": "0",
+      "Accounts Payable": "0",
+      "Total Assets": "0",
+      "Total Non Current Assets": "0",
+      "Other Non Current Assets": "0",
+      "Non Current Deferred Assets": "170000000.0",
+      "Non Current Deferred Taxes Assets": "170000000.0",
+      "Non Current Note Receivables": "0",
+      "Investments And Advances": "0",
+      "Investmentin Financial Assets": "0",
+      "Available For Sale Securities": "0",
+      "Long Term Equity Investment": "0",
+      "Goodwill And Other Intangible Assets": "0",
+      "Other Intangible Assets": "0",
+      "Goodwill": "0",
+      "Net PPE": "0",
+      "Accumulated Depreciation": "-1401000000.0",
+      "Gross PPE": "0",
+      "Leases": "658000000.0",
+      "Construction In Progress": "203000000.0",
+      "Other Properties": "0",
+      "Machinery Furniture Equipment": "1809000000.0",
+      "Buildings And Improvements": "739000000.0",
+      "Land And Improvements": "65000000.0",
+      "Properties": "0.0",
+      "Current Assets": "0",
+      "Other Current Assets": "0",
+      "Restricted Cash": "0",
+      "Prepaid Assets": "0",
+      "Receivables": "0",
+      "Other Receivables": "0",
+      "Accounts Receivable": "0",
+      "Allowance For Doubtful Accounts Receivable": "0",
+      "Gross Accounts Receivable": "0",
+      "Cash Cash Equivalents And Short Term Investments": "0",
+      "Other Short Term Investments": "0",
+      "Cash And Cash Equivalents": "0"
+    }
+  },
+  "income_statement": {
+    "2025-03-31 00:00:00": {
+      "Tax Effect Of Unusual Items": "40400000.0",
+      "Tax Rate For Calcs": "0.4",
+      "Normalized EBITDA": "1567000000.0",
+      "Total Unusual Items": "101000000.0",
+      "Total Unusual Items Excluding Goodwill": "101000000.0",
+      "Net Income From Continuing Operation Net Minority Interest": "1776000000.0",
+      "Reconciled Depreciation": "178000000.0",
+      "Reconciled Cost Of Revenue": "6930000000.0",
+      "EBITDA": "1668000000.0",
+      "EBIT": "1490000000.0",
+      "Net Interest Income": "64000000.0",
+      "Interest Expense": "105000000.0",
+      "Interest Income": "169000000.0",
+      "Normalized Income": "1715400000.0",
+      "Net Income From Continuing And Discontinued Operation": "1776000000.0",
+      "Total Expenses": "10305000000.0",
+      "Total Operating Income As Reported": "1228000000.0",
+      "Diluted Average Shares": "2122618000.0",
+      "Basic Average Shares": "2092464000.0",
+      "Diluted EPS": "0.83",
+      "Basic EPS": "0.85",
+      "Diluted NI Availto Com Stockholders": "1763000000.0",
+      "Average Dilution Earnings": "-13000000.0",
+      "Net Income Common Stockholders": "1776000000.0",
+      "Net Income": "1776000000.0",
+      "Minority Interests": "2000000.0",
+      "Net Income Including Noncontrolling Interests": "1774000000.0",
+      "Net Income Continuous Operations": "1774000000.0",
+      "Earnings From Equity Interest Net Of Tax": "-13000000.0",
+      "Tax Provision": "-402000000.0",
+      "Pretax Income": "1385000000.0",
+      "Other Income Expense": "93000000.0",
+      "Other Non Operating Income Expenses": "-8000000.0",
+      "Special Income Charges": "0",
+      "Gain On Sale Of Business": "0",
+      "Write Off": "0",
+      "Gain On Sale Of Security": "101000000.0",
+      "Net Non Operating Interest Income Expense": "64000000.0",
+      "Interest Expense Non Operating": "105000000.0",
+      "Interest Income Non Operating": "169000000.0",
+      "Operating Income": "1228000000.0",
+      "Operating Expense": "3368000000.0",
+      "Other Operating Expenses": "668000000.0",
+      "Depreciation Amortization Depletion Income Statement": "171000000.0",
+      "Depreciation And Amortization In Income Statement": "171000000.0",
+      "Research And Development": "815000000.0",
+      "Selling General And Administration": "1714000000.0",
+      "Selling And Marketing Expense": "1057000000.0",
+      "General And Administrative Expense": "657000000.0",
+      "Other Gand A": "657000000.0",
+      "Gross Profit": "4596000000.0",
+      "Cost Of Revenue": "6937000000.0",
+      "Total Revenue": "11533000000.0",
+      "Operating Revenue": "11533000000.0"
+    },
+    "2024-12-31 00:00:00": {
+      "Tax Effect Of Unusual Items": "31710000.0",
+      "Tax Rate For Calcs": "0.21",
+      "Normalized EBITDA": "1051000000.0",
+      "Total Unusual Items": "151000000.0",
+      "Total Unusual Items Excluding Goodwill": "151000000.0",
+      "Net Income From Continuing Operation Net Minority Interest": "6883000000.0",
+      "Reconciled Depreciation": "176000000.0",
+      "Reconciled Cost Of Revenue": "7227000000.0",
+      "EBITDA": "1202000000.0",
+      "EBIT": "1026000000.0",
+      "Net Interest Income": "74000000.0",
+      "Interest Expense": "117000000.0",
+      "Interest Income": "191000000.0",
+      "Normalized Income": "6763710000.0",
+      "Net Income From Continuing And Discontinued Operation": "6883000000.0",
+      "Total Expenses": "11189000000.0",
+      "Total Operating Income As Reported": "770000000.0",
+      "Diluted Average Shares": "2141426000.0",
+      "Basic Average Shares": "2105899000.0",
+      "Diluted EPS": "3.21",
+      "Basic EPS": "3.27",
+      "Diluted NI Availto Com Stockholders": "6882000000.0",
+      "Average Dilution Earnings": "-1000000.0",
+      "Net Income Common Stockholders": "6883000000.0",
+      "Net Income": "6883000000.0",
+      "Minority Interests": "-18000000.0",
+      "Net Income Including Noncontrolling Interests": "6901000000.0",
+      "Net Income Continuous Operations": "6901000000.0",
+      "Earnings From Equity Interest Net Of Tax": "-10000000.0",
+      "Tax Provision": "-6002000000.0",
+      "Pretax Income": "909000000.0",
+      "Other Income Expense": "65000000.0",
+      "Other Non Operating Income Expenses": "-86000000.0",
+      "Special Income Charges": "0",
+      "Gain On Sale Of Business": "0",
+      "Write Off": "0",
+      "Gain On Sale Of Security": "387000000.0",
+      "Net Non Operating Interest Income Expense": "74000000.0",
+      "Interest Expense Non Operating": "117000000.0",
+      "Interest Income Non Operating": "191000000.0",
+      "Operating Income": "770000000.0",
+      "Operating Expense": "3955000000.0",
+      "Other Operating Expenses": "678000000.0",
+      "Depreciation Amortization Depletion Income Statement": "169000000.0",
+      "Depreciation And Amortization In Income Statement": "169000000.0",
+      "Research And Development": "785000000.0",
+      "Selling General And Administration": "2323000000.0",
+      "Selling And Marketing Expense": "1209000000.0",
+      "General And Administrative Expense": "1114000000.0",
+      "Other Gand A": "1114000000.0",
+      "Gross Profit": "4725000000.0",
+      "Cost Of Revenue": "7234000000.0",
+      "Total Revenue": "11959000000.0",
+      "Operating Revenue": "11959000000.0"
+    },
+    "2024-09-30 00:00:00": {
+      "Tax Effect Of Unusual Items": "101340000.0",
+      "Tax Rate For Calcs": "0.06",
+      "Normalized EBITDA": "1409000000.0",
+      "Total Unusual Items": "1689000000.0",
+      "Total Unusual Items Excluding Goodwill": "1689000000.0",
+      "Net Income From Continuing Operation Net Minority Interest": "2612000000.0",
+      "Reconciled Depreciation": "186000000.0",
+      "Reconciled Cost Of Revenue": "6754000000.0",
+      "EBITDA": "3098000000.0",
+      "EBIT": "2912000000.0",
+      "Net Interest Income": "52000000.0",
+      "Interest Expense": "143000000.0",
+      "Interest Income": "195000000.0",
+      "Normalized Income": "1024340000.0",
+      "Net Income From Continuing And Discontinued Operation": "2612000000.0",
+      "Total Expenses": "10127000000.0",
+      "Total Operating Income As Reported": "1061000000.0",
+      "Diluted Average Shares": "2154466000.0",
+      "Basic Average Shares": "2101660000.0",
+      "Diluted EPS": "1.2",
+      "Basic EPS": "1.24",
+      "Diluted NI Availto Com Stockholders": "2594000000.0",
+      "Average Dilution Earnings": "-18000000.0",
+      "Net Income Common Stockholders": "2612000000.0",
+      "Net Income": "2612000000.0",
+      "Minority Interests": "13000000.0",
+      "Net Income Including Noncontrolling Interests": "2599000000.0",
+      "Net Income Continuous Operations": "2599000000.0",
+      "Earnings From Equity Interest Net Of Tax": "-12000000.0",
+      "Tax Provision": "158000000.0",
+      "Pretax Income": "2769000000.0",
+      "Other Income Expense": "1656000000.0",
+      "Other Non Operating Income Expenses": "-33000000.0",
+      "Special Income Charges": "0",
+      "Gain On Sale Of Business": "0",
+      "Write Off": "0",
+      "Gain On Sale Of Security": "1689000000.0",
+      "Net Non Operating Interest Income Expense": "52000000.0",
+      "Interest Expense Non Operating": "143000000.0",
+      "Interest Income Non Operating": "195000000.0",
+      "Operating Income": "1061000000.0",
+      "Operating Expense": "3366000000.0",
+      "Other Operating Expenses": "687000000.0",
+      "Depreciation Amortization Depletion Income Statement": "179000000.0",
+      "Depreciation And Amortization In Income Statement": "179000000.0",
+      "Research And Development": "774000000.0",
+      "Selling General And Administration": "1726000000.0",
+      "Selling And Marketing Expense": "1096000000.0",
+      "General And Administrative Expense": "630000000.0",
+      "Other Gand A": "630000000.0",
+      "Gross Profit": "4427000000.0",
+      "Cost Of Revenue": "6761000000.0",
+      "Total Revenue": "11188000000.0",
+      "Operating Revenue": "11188000000.0"
+    },
+    "2024-06-30 00:00:00": {
+      "Tax Effect Of Unusual Items": "12500000.0",
+      "Tax Rate For Calcs": "0.05",
+      "Normalized EBITDA": "1147000000.0",
+      "Total Unusual Items": "250000000.0",
+      "Total Unusual Items Excluding Goodwill": "250000000.0",
+      "Net Income From Continuing Operation Net Minority Interest": "1015000000.0",
+      "Reconciled Depreciation": "181000000.0",
+      "Reconciled Cost Of Revenue": "6480000000.0",
+      "EBITDA": "1397000000.0",
+      "EBIT": "1216000000.0",
+      "Net Interest Income": "37000000.0",
+      "Interest Expense": "139000000.0",
+      "Interest Income": "176000000.0",
+      "Normalized Income": "777500000.0",
+      "Net Income From Continuing And Discontinued Operation": "1015000000.0",
+      "Total Expenses": "9904000000.0",
+      "Total Operating Income As Reported": "796000000.0",
+      "Diluted Average Shares": "2150019000.0",
+      "Basic Average Shares": "2092180000.0",
+      "Diluted EPS": "0.47",
+      "Basic EPS": "0.49",
+      "Diluted NI Availto Com Stockholders": "1001000000.0",
+      "Average Dilution Earnings": "-14000000.0",
+      "Net Income Common Stockholders": "1015000000.0",
+      "Net Income": "1015000000.0",
+      "Minority Interests": "7000000.0",
+      "Net Income Including Noncontrolling Interests": "1008000000.0",
+      "Net Income Continuous Operations": "1008000000.0",
+      "Earnings From Equity Interest Net Of Tax": "-12000000.0",
+      "Tax Provision": "57000000.0",
+      "Pretax Income": "1077000000.0",
+      "Other Income Expense": "244000000.0",
+      "Other Non Operating Income Expenses": "-6000000.0",
+      "Special Income Charges": "0",
+      "Gain On Sale Of Business": "0",
+      "Write Off": "0",
+      "Gain On Sale Of Security": "250000000.0",
+      "Net Non Operating Interest Income Expense": "37000000.0",
+      "Interest Expense Non Operating": "139000000.0",
+      "Interest Income Non Operating": "176000000.0",
+      "Operating Income": "796000000.0",
+      "Operating Expense": "3416000000.0",
+      "Other Operating Expenses": "682000000.0",
+      "Depreciation Amortization Depletion Income Statement": "173000000.0",
+      "Depreciation And Amortization In Income Statement": "173000000.0",
+      "Research And Development": "760000000.0",
+      "Selling General And Administration": "1801000000.0",
+      "Selling And Marketing Expense": "1115000000.0",
+      "General And Administrative Expense": "686000000.0",
+      "Other Gand A": "686000000.0",
+      "Gross Profit": "4212000000.0",
+      "Cost Of Revenue": "6488000000.0",
+      "Total Revenue": "10700000000.0",
+      "Operating Revenue": "10700000000.0"
+    },
+    "2024-03-31 00:00:00": {
+      "Tax Effect Of Unusual Items": "-185850000.0",
+      "Tax Rate For Calcs": "0.21",
+      "Normalized EBITDA": "573000000.0",
+      "Total Unusual Items": "-885000000.0",
+      "Total Unusual Items Excluding Goodwill": "-885000000.0",
+      "Net Income From Continuing Operation Net Minority Interest": "-654000000.0",
+      "Reconciled Depreciation": "194000000.0",
+      "Reconciled Cost Of Revenue": "6164000000.0",
+      "EBITDA": "-312000000.0",
+      "EBIT": "-506000000.0",
+      "Net Interest Income": "35000000.0",
+      "Interest Expense": "124000000.0",
+      "Interest Income": "159000000.0",
+      "Normalized Income": "45150000.0",
+      "Net Income From Continuing And Discontinued Operation": "-654000000.0",
+      "Total Expenses": "9959000000.0",
+      "Total Operating Income As Reported": "172000000.0",
+      "Diluted Average Shares": "2080168000.0",
+      "Basic Average Shares": "2078467000.0",
+      "Diluted EPS": "-0.32",
+      "Basic EPS": "-0.31",
+      "Diluted NI Availto Com Stockholders": "-670000000.0",
+      "Average Dilution Earnings": "-16000000.0",
+      "Net Income Common Stockholders": "-654000000.0",
+      "Net Income": "-654000000.0",
+      "Minority Interests": "9000000.0",
+      "Net Income Including Noncontrolling Interests": "-663000000.0",
+      "Net Income Continuous Operations": "-663000000.0",
+      "Earnings From Equity Interest Net Of Tax": "-4000000.0",
+      "Tax Provision": "29000000.0",
+      "Pretax Income": "-630000000.0",
+      "Other Income Expense": "-837000000.0",
+      "Other Non Operating Income Expenses": "48000000.0",
+      "Special Income Charges": "0",
+      "Gain On Sale Of Business": "0",
+      "Write Off": "0",
+      "Gain On Sale Of Security": "-885000000.0",
+      "Net Non Operating Interest Income Expense": "35000000.0",
+      "Interest Expense Non Operating": "124000000.0",
+      "Interest Income Non Operating": "159000000.0",
+      "Operating Income": "172000000.0",
+      "Operating Expense": "3791000000.0",
+      "Other Operating Expenses": "685000000.0",
+      "Depreciation Amortization Depletion Income Statement": "190000000.0",
+      "Depreciation And Amortization In Income Statement": "190000000.0",
+      "Research And Development": "790000000.0",
+      "Selling General And Administration": "2126000000.0",
+      "Selling And Marketing Expense": "917000000.0",
+      "General And Administrative Expense": "1209000000.0",
+      "Other Gand A": "1209000000.0",
+      "Gross Profit": "3963000000.0",
+      "Cost Of Revenue": "6168000000.0",
+      "Total Revenue": "10131000000.0",
+      "Operating Revenue": "10131000000.0"
+    },
+    "2023-12-31 00:00:00": {
+      "Tax Effect Of Unusual Items": "0",
+      "Tax Rate For Calcs": "0",
+      "Normalized EBITDA": "0",
+      "Total Unusual Items": "0",
+      "Total Unusual Items Excluding Goodwill": "0",
+      "Net Income From Continuing Operation Net Minority Interest": "0",
+      "Reconciled Depreciation": "0",
+      "Reconciled Cost Of Revenue": "0",
+      "EBITDA": "0",
+      "EBIT": "0",
+      "Net Interest Income": "0",
+      "Interest Expense": "0",
+      "Interest Income": "0",
+      "Normalized Income": "0",
+      "Net Income From Continuing And Discontinued Operation": "0",
+      "Total Expenses": "0",
+      "Total Operating Income As Reported": "0",
+      "Diluted Average Shares": "0",
+      "Basic Average Shares": "0",
+      "Diluted EPS": "0",
+      "Basic EPS": "0",
+      "Diluted NI Availto Com Stockholders": "0",
+      "Average Dilution Earnings": "0",
+      "Net Income Common Stockholders": "0",
+      "Net Income": "0",
+      "Minority Interests": "0",
+      "Net Income Including Noncontrolling Interests": "0",
+      "Net Income Continuous Operations": "0",
+      "Earnings From Equity Interest Net Of Tax": "0",
+      "Tax Provision": "0",
+      "Pretax Income": "0",
+      "Other Income Expense": "0",
+      "Other Non Operating Income Expenses": "0",
+      "Special Income Charges": "204000000.0",
+      "Gain On Sale Of Business": "204000000.0",
+      "Write Off": "0.0",
+      "Gain On Sale Of Security": "0",
+      "Net Non Operating Interest Income Expense": "0",
+      "Interest Expense Non Operating": "0",
+      "Interest Income Non Operating": "0",
+      "Operating Income": "0",
+      "Operating Expense": "0",
+      "Other Operating Expenses": "0",
+      "Depreciation Amortization Depletion Income Statement": "0",
+      "Depreciation And Amortization In Income Statement": "0",
+      "Research And Development": "0",
+      "Selling General And Administration": "0",
+      "Selling And Marketing Expense": "0",
+      "General And Administrative Expense": "0",
+      "Other Gand A": "0",
+      "Gross Profit": "0",
+      "Cost Of Revenue": "0",
+      "Total Revenue": "0",
+      "Operating Revenue": "0"
+    },
+    "2023-09-30 00:00:00": {
+      "Tax Effect Of Unusual Items": "0",
+      "Tax Rate For Calcs": "0",
+      "Normalized EBITDA": "0",
+      "Total Unusual Items": "0",
+      "Total Unusual Items Excluding Goodwill": "0",
+      "Net Income From Continuing Operation Net Minority Interest": "0",
+      "Reconciled Depreciation": "0",
+      "Reconciled Cost Of Revenue": "0",
+      "EBITDA": "0",
+      "EBIT": "0",
+      "Net Interest Income": "0",
+      "Interest Expense": "0",
+      "Interest Income": "0",
+      "Normalized Income": "0",
+      "Net Income From Continuing And Discontinued Operation": "0",
+      "Total Expenses": "0",
+      "Total Operating Income As Reported": "0",
+      "Diluted Average Shares": "0",
+      "Basic Average Shares": "0",
+      "Diluted EPS": "0",
+      "Basic EPS": "0",
+      "Diluted NI Availto Com Stockholders": "0",
+      "Average Dilution Earnings": "0",
+      "Net Income Common Stockholders": "0",
+      "Net Income": "0",
+      "Minority Interests": "0",
+      "Net Income Including Noncontrolling Interests": "0",
+      "Net Income Continuous Operations": "0",
+      "Earnings From Equity Interest Net Of Tax": "0",
+      "Tax Provision": "0",
+      "Pretax Income": "0",
+      "Other Income Expense": "0",
+      "Other Non Operating Income Expenses": "0",
+      "Special Income Charges": "0.0",
+      "Gain On Sale Of Business": "0.0",
+      "Write Off": "0.0",
+      "Gain On Sale Of Security": "0",
+      "Net Non Operating Interest Income Expense": "0",
+      "Interest Expense Non Operating": "0",
+      "Interest Income Non Operating": "0",
+      "Operating Income": "0",
+      "Operating Expense": "0",
+      "Other Operating Expenses": "0",
+      "Depreciation Amortization Depletion Income Statement": "0",
+      "Depreciation And Amortization In Income Statement": "0",
+      "Research And Development": "0",
+      "Selling General And Administration": "0",
+      "Selling And Marketing Expense": "0",
+      "General And Administrative Expense": "0",
+      "Other Gand A": "0",
+      "Gross Profit": "0",
+      "Cost Of Revenue": "0",
+      "Total Revenue": "0",
+      "Operating Revenue": "0"
+    }
+  }
+}
+
+# yf_info.json
+{
+  "address1": "1725 3rd Street",
+  "city": "San Francisco",
+  "state": "CA",
+  "zip": "94158",
+  "country": "United States",
+  "phone": "415 612 8582",
+  "website": "https://www.uber.com",
+  "industry": "Software - Application",
+  "industryKey": "software-application",
+  "industryDisp": "Software - Application",
+  "sector": "Technology",
+  "sectorKey": "technology",
+  "sectorDisp": "Technology",
+  "longBusinessSummary": "Uber Technologies, Inc. develops and operates proprietary technology applications in the United States, Canada, Latin America, Europe, the Middle East, Africa, and the Asia Pacific. It operates through three segments: Mobility, Delivery, and Freight. The Mobility segment connects consumers with a range of transportation modalities, such as ridesharing, carsharing, micromobility, rentals, public transit, taxis, and other modalities; and offers riders in a variety of vehicle types, as well as financial partnerships products and advertising services. The Delivery segment allows consumers to search for and discover restaurants to grocery, alcohol, convenience, and other retails, as well as order a meal or other items, and either pick-up at the restaurant or have it delivered; and provides Uber direct, a white-label delivery-as-a-service for retailers and restaurants, as well as advertising services. The Freight segment manages transportation and logistics network, which connects shippers and carriers in digital marketplace, including carriers upfronts, pricing, and shipment booking; and offers on-demand platform to automate logistics end-to-end transactions for small-and medium-sized business to global enterprises. The company was formerly known as Ubercab, Inc. and changed its name to Uber Technologies, Inc. in February 2011. Uber Technologies, Inc. was founded in 2009 and is headquartered in San Francisco, California.",
+  "fullTimeEmployees": 31500,
+  "companyOfficers": [
+    {
+      "maxAge": 1,
+      "name": "Mr. Dara  Khosrowshahi",
+      "age": 54,
+      "title": "CEO & Director",
+      "yearBorn": 1970,
+      "fiscalYear": 2024,
+      "totalPay": 4852160,
+      "exercisedValue": 88184600,
+      "unexercisedValue": 8370523
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Prashanth  Mahendra-Rajah",
+      "age": 54,
+      "title": "Chief Financial Officer",
+      "yearBorn": 1970,
+      "fiscalYear": 2024,
+      "totalPay": 3701576,
+      "exercisedValue": 0,
+      "unexercisedValue": 840462
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Jill  Hazelbaker",
+      "age": 42,
+      "title": "Chief Marketing Officer and Senior Vice President of Communications & Public Policy",
+      "yearBorn": 1982,
+      "fiscalYear": 2024,
+      "totalPay": 1965486,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Nikki  Krishnamurthy",
+      "age": 52,
+      "title": "Senior VP & Chief People Officer",
+      "yearBorn": 1972,
+      "fiscalYear": 2024,
+      "totalPay": 2229914,
+      "exercisedValue": 0,
+      "unexercisedValue": 3900000
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Derek Anthony West J.D.",
+      "age": 58,
+      "title": "Senior VP, Chief Legal Officer & Corporate Secretary (Leave of Absence)",
+      "yearBorn": 1966,
+      "fiscalYear": 2024,
+      "totalPay": 2579673,
+      "exercisedValue": 0,
+      "unexercisedValue": 8001000
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Andrew G. Macdonald",
+      "age": 39,
+      "title": "President & COO",
+      "yearBorn": 1985,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Garrett  Camp",
+      "age": 44,
+      "title": "Co-Founder, Board Observer & Product Advisor",
+      "yearBorn": 1980,
+      "fiscalYear": 2024,
+      "totalPay": 18033,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Glen  Ceremony",
+      "age": 57,
+      "title": "Chief Accounting Officer & Global Corporate Controller",
+      "yearBorn": 1967,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Alaxandar  Wang",
+      "title": "Head of Investor Relations",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Katie  Waitzman",
+      "title": "General Counsel",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    }
+  ],
+  "auditRisk": 4,
+  "boardRisk": 3,
+  "compensationRisk": 9,
+  "shareHolderRightsRisk": 7,
+  "overallRisk": 7,
+  "governanceEpochDate": 1748736000,
+  "compensationAsOfEpochDate": 1735603200,
+  "executiveTeam": [],
+  "maxAge": 86400,
+  "priceHint": 2,
+  "previousClose": 84.64,
+  "open": 85.4,
+  "dayLow": 85.03,
+  "dayHigh": 86.69,
+  "regularMarketPreviousClose": 84.64,
+  "regularMarketOpen": 85.4,
+  "regularMarketDayLow": 85.03,
+  "regularMarketDayHigh": 86.69,
+  "payoutRatio": 0.0,
+  "beta": 1.387,
+  "trailingPE": 14.991243,
+  "forwardPE": 36.271187,
+  "volume": 20762814,
+  "regularMarketVolume": 20762814,
+  "averageVolume": 21622006,
+  "averageVolume10days": 24067110,
+  "averageDailyVolume10Day": 24067110,
+  "bid": 85.5,
+  "ask": 85.7,
+  "bidSize": 14,
+  "askSize": 4,
+  "marketCap": 179004145664,
+  "fiftyTwoWeekLow": 54.84,
+  "fiftyTwoWeekHigh": 93.6,
+  "priceToSalesTrailing12Months": 3.94456,
+  "fiftyDayAverage": 80.2386,
+  "twoHundredDayAverage": 73.9933,
+  "trailingAnnualDividendRate": 0.0,
+  "trailingAnnualDividendYield": 0.0,
+  "currency": "USD",
+  "tradeable": false,
+  "enterpriseValue": 185031983104,
+  "profitMargins": 0.27074,
+  "floatShares": 2079917614,
+  "sharesOutstanding": 2091170048,
+  "sharesShort": 56839873,
+  "sharesShortPriorMonth": 54241763,
+  "sharesShortPreviousMonthDate": 1744675200,
+  "dateShortInterest": 1747267200,
+  "sharesPercentSharesOut": 0.0272,
+  "heldPercentInsiders": 0.00459,
+  "heldPercentInstitutions": 0.83538,
+  "shortRatio": 2.43,
+  "shortPercentOfFloat": 0.028199999,
+  "impliedSharesOutstanding": 2091170048,
+  "bookValue": 10.505,
+  "priceToBook": 8.1485,
+  "lastFiscalYearEnd": 1735603200,
+  "nextFiscalYearEnd": 1767139200,
+  "mostRecentQuarter": 1743379200,
+  "netIncomeToCommon": 12286000128,
+  "trailingEps": 5.71,
+  "forwardEps": 2.36,
+  "enterpriseToRevenue": 4.077,
+  "enterpriseToEbitda": 40.435,
+  "52WeekChange": 0.24781346,
+  "SandP52WeekChange": 0.119305134,
+  "quoteType": "EQUITY",
+  "currentPrice": 85.6,
+  "targetHighPrice": 115.0,
+  "targetLowPrice": 76.0,
+  "targetMeanPrice": 96.36875,
+  "targetMedianPrice": 97.0,
+  "recommendationMean": 1.58491,
+  "recommendationKey": "buy",
+  "numberOfAnalystOpinions": 48,
+  "totalCash": 6025999872,
+  "totalCashPerShare": 2.882,
+  "ebitda": 4576000000,
+  "totalDebt": 11123999744,
+  "quickRatio": 0.828,
+  "currentRatio": 1.02,
+  "totalRevenue": 45380001792,
+  "debtToEquity": 48.566,
+  "revenuePerShare": 21.629,
+  "returnOnAssets": 0.05214,
+  "returnOnEquity": 0.69382006,
+  "grossProfits": 15244999680,
+  "freeCashflow": 5420375040,
+  "operatingCashflow": 8045000192,
+  "revenueGrowth": 0.138,
+  "grossMargins": 0.33594,
+  "ebitdaMargins": 0.100839995,
+  "operatingMargins": 0.106479995,
+  "financialCurrency": "USD",
+  "symbol": "UBER",
+  "language": "en-US",
+  "region": "US",
+  "typeDisp": "Equity",
+  "quoteSourceName": "Nasdaq Real Time Price",
+  "triggerable": true,
+  "customPriceAlertConfidence": "HIGH",
+  "shortName": "Uber Technologies, Inc.",
+  "longName": "Uber Technologies, Inc.",
+  "cryptoTradeable": false,
+  "hasPrePostMarketData": true,
+  "firstTradeDateMilliseconds": 1557495000000,
+  "postMarketChangePercent": 0.0584148,
+  "postMarketPrice": 85.65,
+  "postMarketChange": 0.0500031,
+  "regularMarketChange": 0.93,
+  "regularMarketDayRange": "85.03 - 86.69",
+  "fullExchangeName": "NYSE",
+  "averageDailyVolume3Month": 21622006,
+  "fiftyTwoWeekLowChange": 30.759998,
+  "fiftyTwoWeekLowChangePercent": 0.56090444,
+  "fiftyTwoWeekRange": "54.84 - 93.6",
+  "fiftyTwoWeekHighChange": -8.0,
+  "fiftyTwoWeekHighChangePercent": -0.08547009,
+  "fiftyTwoWeekChangePercent": 24.781345,
+  "earningsTimestamp": 1746615300,
+  "earningsTimestampStart": 1754310600,
+  "earningsTimestampEnd": 1754656200,
+  "earningsCallTimestampStart": 1746619200,
+  "earningsCallTimestampEnd": 1746619200,
+  "isEarningsDateEstimate": true,
+  "epsTrailingTwelveMonths": 5.71,
+  "epsForward": 2.36,
+  "epsCurrentYear": 3.61047,
+  "priceEpsCurrentYear": 23.708824,
+  "fiftyDayAverageChange": 5.361397,
+  "fiftyDayAverageChangePercent": 0.06681817,
+  "twoHundredDayAverageChange": 11.606697,
+  "twoHundredDayAverageChangePercent": 0.15686145,
+  "sourceInterval": 15,
+  "exchangeDataDelayedBy": 0,
+  "averageAnalystRating": "1.6 - Buy",
+  "marketState": "CLOSED",
+  "regularMarketChangePercent": 1.09838,
+  "regularMarketPrice": 85.6,
+  "corporateActions": [],
+  "postMarketTime": 1749254394,
+  "regularMarketTime": 1749240002,
+  "exchange": "NYQ",
+  "messageBoardId": "finmb_144524848",
+  "exchangeTimezoneName": "America/New_York",
+  "exchangeTimezoneShortName": "EDT",
+  "gmtOffSetMilliseconds": -14400000,
+  "market": "us_market",
+  "esgPopulated": false,
+  "displayName": "Uber",
+  "trailingPegRatio": 13.6236
+}
+
+
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+
+---
+## TL;DR / Executive Summary
+
+* At the very top of the report, provide a concise, narrative executive summary of the most important findings and recommendations. This should be written in plain language and highlight:
+  - The company's current Z-Score risk category and what it means
+  - The overall financial health and trend
+  - The most important risks and opportunities
+  - The headline investor recommendation (Buy/Hold/Sell and for whom)
+  - Any major analyst sentiment or market signals
+* This section should be brief (1-2 paragraphs) and actionable, suitable for a busy executive or investor who wants the key takeaways without reading the full report.
+
+---
+## Company Profile
+
+* Begin this section with a concise introduction paragraph summarizing the company's identity and context.
+* Use all provided information to describe:
+  - Company business, competitors, products and services (including sector, industry, and company size from the injected company profile and market/industry metadata if available)
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings or news)
+  - Ownership structure and recent changes, referencing institutional_holders.json and major_holders.json for insider/institutional ownership, float, and any significant shifts
+  - Any recent news or events that may impact the company profile
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Start with an introduction paragraph that frames the purpose and scope of the financial health analysis.
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance, industry benchmarks, and any recent news or events.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+* In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
+* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
+* Where available, reference:
+  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - Dividend history, yield, and stability from dividend history
+  - Stock split history from split history to note any recent splits or capital structure changes
+  - Recent price trends and volatility from weekly price data
+* Reference any material changes in financials, management, or market environment that affect the diagnosis.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Open with a brief introduction paragraph explaining the relevance of turnaround and renewal theory to the company's current situation.
+* Use the Z-Score risk level and all available context (including news, management changes, and peer/industry trends) to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+* Reference any recent events, management changes, or market shifts that may affect the recommended approach.
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+* Begin with an introduction paragraph outlining the importance of internal stakeholder actions and alignment.
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level and any recent developments:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+  - Reference any relevant news, events, or management changes
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Start with a context-setting introduction paragraph describing the role of communication and execution strategy for the company at its current risk level.
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  - Reference any recent news, events, or market changes that affect communication priorities
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  - Reference any relevant news, events, or management changes
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Open with an introduction paragraph that explains the purpose of the investor recommendation section and how it relates to the company's risk profile and investor types.
+* Provide a **thorough, risk-aligned recommendation**: You must explicitly call out one of **Buy / Hold / Sell** based on Z-Score insights and **all available financial, market, peer, management, and qualitative data**. 
+* Organize the recommendation in a table by **investment goals** and **investor profiles**, using technical terms for risk tolerance and objectives. For example:
+
+| Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited) |
+|-----------------------------------|--------------------|----------------|-------------------|
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | ...               |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | ...               |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | SELL           | ...               |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | ...               |
+
+* Use technical terms such as: "income-oriented", "growth-oriented", "speculative/aggressive", "defensive", "risk-averse", "risk-tolerant", etc.
+* Justify each recommendation with:
+  - Z-Score trend and risk zone (Distress, Grey, Safe)
+  - Recent financial performance and outlook
+  - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
+  - Ownership and insider/institutional sentiment (from institutional and major holders data)
+  - Dividend policy and stability (from dividend history)
+  - Recent price/volatility context (from weekly price data)
+  - Any material news, events, or management changes
+  - Scenario analysis: briefly discuss what could change the recommendation (e.g., what would make a Hold become a Buy or Sell)
+  - Reference any relevant qualitative or external data that could affect the recommendation
+* Clearly state the overall recommendation in a bolded sentence, e.g.:
+  > **Recommendation: HOLD.**
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. Market Sentiment Analysis (Analyst Recommendations)
+
+* Begin with an introduction paragraph explaining the purpose of this section: to provide an overview of current market sentiment as reflected in professional analyst recommendations for the company.
+* Present a table summarizing the most recent analyst recommendations using the injected analyst data. The table must show the distribution of recommendations (e.g., Strong Buy, Buy, Hold, Sell, Strong Sell) for the current and previous periods, side by side, to enable clear trend analysis. **If more than two periods of analyst sentiment data are available, present a table covering all available periods to enable multi-period trend analysis.** Do not fabricate or use static examples—only use actual, injected data for the company under analysis.
+* Analyze the analyst recommendations data provided above to summarize the prevailing analyst sentiment. Include:
+  - The distribution of recommendations for all available periods (trend analysis)
+  - Any recent trends or changes in analyst sentiment, explicitly comparing the current period to the previous period(s) and commenting on stability or shifts
+  - Consensus target price if available, and how it compares to the current price (reference the injected weekly price data for current price)
+  - Notable upgrades, downgrades, or shifts in consensus
+* Analyze the following aspects based on the available data:
+  - Stability of sentiment: Note if the distribution of recommendations has changed or remained stable over the reported periods.
+  - Consensus: Identify the majority view (e.g., mostly Buy/Hold/Sell) and whether there are any extreme ratings (Strong Buy/Sell).
+  - Volatility: Comment on the presence or absence of upgrades/downgrades or new recommendation types.
+  - Limitations: If the data lacks target prices, firm names, or granular details, explicitly state this and avoid speculation.
+* Summarize these findings in a short narrative, highlighting whether analyst sentiment is stable, shifting, or mixed, and how this relates to the company's risk profile and Z-Score.
+* If the data is limited, clearly state the constraints and avoid inferring details not present in the data.
+
+* Integrate this sentiment analysis with the Z-Score and risk profile: discuss whether analyst sentiment aligns or diverges from the quantitative risk assessment.
+* Conclude with a brief narrative on how market sentiment may influence investor decision-making for different profiles.
+
+* When the prompt context includes multiple periods of analyst recommendations, you must explicitly compare the current and previous periods, analyze the trend, and comment on the stability or shifts in sentiment. **If more than two periods are available, analyze the full trend across all periods, not just the most recent two.** If the distribution is unchanged, state this clearly. If there are upgrades, downgrades, or new recommendation types, describe the change and its significance for market sentiment and risk assessment.
+
+---
+
+## 7. References and Data Sources
+
+* Start with an introduction paragraph explaining the importance of transparency and source attribution in the analysis.
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. Do not mention the names of any data files in the final report. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. Additional data sources may include:
+- Institutional and major holders data
+- Dividend history
+- Stock split history
+- Weekly price and volatility data
+- Full financial statement data
+- Company metadata
+All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+## 8. Appendices (LLM-Generated)
+
+* At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
+  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of weekly prices used for Z-Score analysis
+  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
+  - Data quality/completeness summary: note any missing or estimated fields
+  - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
+* Use only the injected data for all tables and summaries. If a section is not available, state so clearly.
+* Do not repeat the Z-Score component table (by quarter) in the appendix; reference it in the main report only.
+* Do not mention file names or file paths in the appendix or main report.
+
+---

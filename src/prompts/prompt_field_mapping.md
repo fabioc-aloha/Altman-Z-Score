@@ -26,6 +26,12 @@ You must always attempt to map each of these canonical fields. If a field is not
 - If the company is a bank or financial institution (detected by industry keywords, SIC codes, or field context), apply special logic:
     - For 'sales', if no revenue field is present, map to the best available proxy such as 'Interest Income', 'Receita de Juros', 'Ingresos por Intereses', 'Receitas de Intermediação Financeira', or similar, in any language.
 - For 'retained_earnings', if not present, look for synonyms such as 'Accumulated Profits', 'Lucros Acumulados', 'Reservas', 'Earnings Reserve', 'Reservas de Lucros', or similar international/translated terms.
+- ## Special Handling for Retained Earnings
+    - If the value for "retained_earnings" is present but zero, treat this as missing/unusable and continue searching for synonyms or related fields.
+    - Search for additional synonyms such as "retained profit", "accumulated earnings", or similar equity-related fields.
+    - If no direct or synonym match is found, and both "Stockholders Equity" (or "Common Stock Equity" or "Total Equity Gross Minority Interest") and "Additional Paid In Capital" are available, infer "retained_earnings" as:
+        retained_earnings = Stockholders Equity - Additional Paid In Capital
+    - If you use a fallback or inferred value, clearly document this in the output, including the fields and calculation used.
 - For 'ebit', if not present, use 'Net Income', 'Lucro Líquido', 'Resultado Líquido', 'Operating Income', 'EBITDA', or the closest available operational profit field, prioritizing fields that best represent pre-tax, pre-interest profit.
 - For all fields, consider international, IFRS, and local language synonyms and abbreviations, and document the mapping logic in the output if possible.
 - If a field is missing, return null and include a brief comment in the output (if possible) explaining why mapping was not possible (e.g., 'No revenue field found in raw fields; company may be a financial institution with non-standard reporting').

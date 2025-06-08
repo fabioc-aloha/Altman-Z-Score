@@ -1,15 +1,36 @@
 """
 Centralized yfinance data fetching and validation helpers for DRY compliance.
 """
-import yfinance as yf
 import logging
 import pandas as pd
 from typing import Optional, Dict, Any
+import requests.exceptions
 
+import yfinance as yf
+
+from ..utils.retry import exponential_retry
+
+logger = logging.getLogger(__name__)
+
+NETWORK_EXCEPTIONS = (
+    requests.exceptions.RequestException,  # All requests exceptions
+    requests.exceptions.Timeout,
+    requests.exceptions.ConnectionError,
+    requests.exceptions.HTTPError,
+)
+
+@exponential_retry(
+    max_retries=3, 
+    base_delay=1.0, 
+    backoff_factor=2.0,
+    exceptions=NETWORK_EXCEPTIONS
+)
 def fetch_yfinance_data(ticker: str) -> Optional[Dict[str, Any]]:
     """
     Fetches and validates yfinance info, balance sheet, and income statement for a ticker.
     Returns a dict with keys: 'info', 'balance_sheet', 'income_statement', or None on error.
+    
+    Implements exponential backoff retry for network-related errors.
     """
     logger = logging.getLogger("altman_zscore.fetch_yfinance_data")
     try:
@@ -29,12 +50,19 @@ def fetch_yfinance_data(ticker: str) -> Optional[Dict[str, Any]]:
         logger.error(f"Error fetching yfinance data for {ticker}: {e}")
         return None
 
+@exponential_retry(
+    max_retries=3, 
+    base_delay=1.0, 
+    backoff_factor=2.0,
+    exceptions=NETWORK_EXCEPTIONS
+)
 def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
     """
     Fetches yfinance info, balance sheet, income statement, and all major holders, recommendations, prices, dividends, splits.
     Returns a dict with all objects or None on error.
+    
+    Implements exponential backoff retry for network-related errors.
     """
-    logger = logging.getLogger("altman_zscore.fetch_yfinance_full")
     try:
         yf_ticker = yf.Ticker(ticker)
         info = yf_ticker.info

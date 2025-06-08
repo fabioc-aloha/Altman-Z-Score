@@ -1,0 +1,2 @@
+quarter_end,zscore,valid,error,diagnostic,model,api_payload,status_info
+,,False,C has filed for bankruptcy.,Bankruptcy indicator found in company description: 'restructuring',original,,"{'ticker': 'C', 'exists': True, 'is_active': True, 'is_bankrupt': True, 'is_delisted': False, 'last_trading_date': '2025-06-06', 'error_message': None, 'bankruptcy_date': None, 'status_reason': ""Bankruptcy indicator found in company description: 'restructuring'""}"

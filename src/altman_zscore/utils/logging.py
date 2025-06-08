@@ -10,7 +10,7 @@ from typing import Optional
 
 _LOGGER_INITIALIZED = False
 
-def setup_logging(level: int = logging.INFO, stream = sys.stdout, fmt: Optional[str] = None):
+def setup_logging(level: int = logging.DEBUG, stream = sys.stdout, fmt: Optional[str] = None):
     """Set up root logger with a consistent format and level. Idempotent.
 
     Args:
@@ -29,6 +29,14 @@ def setup_logging(level: int = logging.INFO, stream = sys.stdout, fmt: Optional[
     if not root_logger.handlers:
         root_logger.addHandler(handler)
     _LOGGER_INITIALIZED = True
+
+    # Set specific loggers
+    for logger_name in [
+        "altman_zscore.data_fetching.financials",
+        "altman_zscore.data_fetching.financials_core",
+        "altman_zscore.validation.data_validation"
+    ]:
+        logging.getLogger(logger_name).setLevel(level)
 
 def get_logger(name: Optional[str] = None, level: Optional[int] = None) -> logging.Logger:
     """Get a logger with the given name, ensuring centralized config is applied.

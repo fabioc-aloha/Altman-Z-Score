@@ -16,6 +16,7 @@ from typing import Dict, Optional, TYPE_CHECKING
 
 import requests
 import yfinance as yf
+from altman_zscore.utils.retry import exponential_retry
 
 if TYPE_CHECKING:
     from altman_zscore.company.company_status import CompanyStatus
@@ -147,6 +148,20 @@ def handle_special_status(status) -> bool:
         logger.error(f"Could not save status.json: {e}")
     return True
 
+@exponential_retry(max_retries=3, base_delay=1.0, backoff_factor=2.0)
+def _fetch_ticker_info_with_retry(ticker: str):
+    """
+    Helper function to fetch ticker info with retry functionality.
+
+    Args:
+        ticker (str): Stock ticker symbol
+
+    Returns:
+        yfinance.Ticker: Ticker object with info
+    """
+    from altman_zscore.utils.retry import exponential_retry
+    return yf.Ticker(ticker)
+
 def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus':
     """
     Check if a company exists, is still listed, or has filed for bankruptcy.
@@ -157,7 +172,7 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
         CompanyStatusClass (type, optional): The CompanyStatus class to instantiate (for circular import avoidance).
     Returns:
         CompanyStatus: Object with details about the ticker's status.
-    """    # Import here for test monkeypatching
+    """
     from altman_zscore.utils.paths import get_output_dir
     from altman_zscore.api.yahoo_helpers import fetch_yfinance_data
     if CompanyStatusClass is None:
@@ -174,13 +189,48 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
         logger.info(f"{ticker} identified as a known bankruptcy case")
         return status  # Return immediately for known bankruptcies
     try:
-        yf_data = fetch_yfinance_data(ticker)
+        # Use exponential retry for yfinance data fetching
+        yf_data = fetch_yfinance_data(ticker)  # This already has retry from its own implementation
         if yf_data is None:
+            # Try SEC fallback before marking as unavailable
+            try:
+                from altman_zscore.api.sec_client import SECClient
+                sec_client = SECClient()
+                cik = sec_client.lookup_cik(ticker)
+                if cik:
+                    status.exists = True
+                    status.is_active = False  # Could refine with more SEC info
+                    status.status_reason = "Found in SEC EDGAR, not Yahoo Finance."
+                    # Write a more complete yf_info.json to prevent downstream errors
+                    output_path = get_output_dir("yf_info.json", ticker=ticker)
+                    with open(output_path, "w") as f:
+                        json.dump({
+                            "_note": "SEC fallback: yfinance unavailable, CIK found in SEC EDGAR.",
+                            "_sec_fallback": True,
+                            "cik": cik,
+                            "symbol": ticker.upper(),
+                            "shortName": None,
+                            "longName": None,
+                            "exchange": None,
+                            "sector": None,
+                            "industry": None,
+                            "country": None,
+                            "ipoDate": None,
+                            "quoteType": None,
+                            "source": "SEC EDGAR"
+                        }, f, indent=2)
+                    return status
+            except Exception as sec_e:
+                logger.warning(f"SEC fallback failed for {ticker}: {sec_e}")
             status.exists = False
             status.is_active = False
             status.error_message = ERROR_MSG_TICKER_NOT_FOUND
             return status
-        ticker_obj = yf.Ticker(ticker)  # For legacy compatibility (news, etc.)
+        # Create a retry-wrapped inner function for the Ticker object access
+        @exponential_retry(max_retries=3, base_delay=1.0, backoff_factor=2.0)
+        def _create_yf_ticker():
+            return yf.Ticker(ticker)
+        ticker_obj = _create_yf_ticker()  # With retry
         info = yf_data["info"]
         output_path = get_output_dir("yf_info.json", ticker=ticker)
         with open(output_path, "w") as f:

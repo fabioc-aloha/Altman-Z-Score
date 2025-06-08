@@ -1,0 +1,97 @@
+[
+  {
+    "quarter_end":"2025-03-31",
+    "zscore":14.29724501,
+    "zscore_str":"14.30",
+    "components":{
+      "X1":0.0754287055,
+      "X2":0.3905965618,
+      "X3":0.0568248066,
+      "X4":11.5687859142
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"service",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"market_value_equity\": \"Common Stock Equity\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+  },
+  {
+    "quarter_end":"2024-12-31",
+    "zscore":16.2619684547,
+    "zscore_str":"16.26",
+    "components":{
+      "X1":0.0715455012,
+      "X2":0.3811252337,
+      "X3":0.0561137146,
+      "X4":13.4981690885
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"service",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"market_value_equity\": \"Common Stock Equity\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+  },
+  {
+    "quarter_end":"2024-09-30",
+    "zscore":16.1988190192,
+    "zscore_str":"16.20",
+    "components":{
+      "X1":0.0663960552,
+      "X2":0.3612319388,
+      "X3":0.0589870615,
+      "X4":13.5135730701
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"service",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"market_value_equity\": \"Common Stock Equity\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+  },
+  {
+    "quarter_end":"2024-06-30",
+    "zscore":16.1149458525,
+    "zscore_str":"16.11",
+    "components":{
+      "X1":0.0672598372,
+      "X2":0.3380642491,
+      "X3":0.0545744226,
+      "X4":13.528468332
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"service",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"market_value_equity\": \"Common Stock Equity\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+  },
+  {
+    "quarter_end":"2024-03-31",
+    "zscore":15.9158150332,
+    "zscore_str":"15.92",
+    "components":{
+      "X1":0.0591709256,
+      "X2":0.3291394352,
+      "X3":0.0568416705,
+      "X4":13.402555406
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"service",
+    "api_payload":null,
+    "field_mapping":"{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"market_value_equity\": \"Common Stock Equity\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+  }
+]

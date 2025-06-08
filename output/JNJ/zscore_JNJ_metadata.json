@@ -1,0 +1,150 @@
+{
+  "analysis_date": "2025-06-07",
+  "ticker": "JNJ",
+  "model": "original",
+  "context": {
+    "Ticker": "JNJ",
+    "Industry": "Pharmaceutical Preparations",
+    "Public": true,
+    "Emerging Market": false,
+    "Maturity": "Mature Company",
+    "Model": "original",
+    "SIC Code": "2834",
+    "Analysis Date": "2025-06-07",
+    "raw_quarters": [
+      {
+        "total_assets": "177724000000",
+        "current_assets": "63847000000",
+        "current_liabilities": "44821000000",
+        "total_liabilities": "101367000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2022-07-03"
+      },
+      {
+        "total_assets": "175124000000",
+        "current_assets": "65236000000",
+        "current_liabilities": "45543000000",
+        "total_liabilities": "100525000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2022-10-02"
+      },
+      {
+        "total_assets": "187378000000",
+        "current_assets": "55294000000",
+        "current_liabilities": "55802000000",
+        "total_liabilities": "110574000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2023-01-01"
+      },
+      {
+        "total_assets": "195969000000",
+        "current_assets": "64388000000",
+        "current_liabilities": "60373000000",
+        "total_liabilities": "125100000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2023-04-02"
+      },
+      {
+        "total_assets": "191686000000",
+        "current_assets": "60567000000",
+        "current_liabilities": "54170000000",
+        "total_liabilities": "115277000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2023-07-02"
+      },
+      {
+        "total_assets": "166061000000",
+        "current_assets": "53703000000",
+        "current_liabilities": "44370000000",
+        "total_liabilities": "94833000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2023-10-01"
+      },
+      {
+        "total_assets": "167558000000",
+        "current_assets": "53495000000",
+        "current_liabilities": "46282000000",
+        "total_liabilities": "98784000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2023-12-31"
+      },
+      {
+        "total_assets": "171966000000",
+        "current_assets": "57002000000",
+        "current_liabilities": "48725000000",
+        "total_liabilities": "101946000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2024-03-31"
+      },
+      {
+        "total_assets": "181088000000",
+        "current_assets": "57817000000",
+        "current_liabilities": "53933000000",
+        "total_liabilities": "109550000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2024-06-30"
+      },
+      {
+        "total_assets": "178287000000",
+        "current_assets": "53249000000",
+        "current_liabilities": "51759000000",
+        "total_liabilities": "108129000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2024-09-29"
+      },
+      {
+        "total_assets": "180104000000",
+        "current_assets": "55893000000",
+        "current_liabilities": "50321000000",
+        "total_liabilities": "108614000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2024-12-29"
+      },
+      {
+        "total_assets": "193671000000",
+        "current_assets": "71551000000",
+        "current_liabilities": "56903000000",
+        "total_liabilities": "115562000000",
+        "retained_earnings": "0",
+        "market_value_equity": "0",
+        "ebit": "0",
+        "sales": "0",
+        "period_end": "2025-03-30"
+      }
+    ],
+    "weekly_prices": "          week   avg_price   min_price   max_price  days_with_data\n0   2024-04-01  148.840152  146.398117  151.576157               5\n1   2024-04-08  144.177011  141.719604  146.302048               5\n2   2024-04-15  140.347745  138.770309  142.094269               5\n3   2024-04-22  142.213379  140.393845  143.679367               5\n4   2024-04-29  142.522726  138.904800  145.235672               5\n..         ...         ...         ...         ...             ...\n56  2025-04-28  154.307141  153.147095  154.981354               5\n57  2025-05-05  154.009689  152.909119  155.962952               5\n58  2025-05-12  148.701196  145.115936  152.829803               5\n59  2025-05-19  151.675696  151.193832  152.353882               5\n60  2025-05-26  152.839996  152.429993  153.250000               2\n\n[61 rows x 5 columns]"
+  }
+}

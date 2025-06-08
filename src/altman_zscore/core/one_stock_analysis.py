@@ -468,6 +468,21 @@ def _generate_report_and_plot(df, model, out_base, context_info, ticker, stock_p
         
         # Generate the report with sanitized context
         report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=sanitized_context)
+
+        # Notify user of report location
+        ticker_upper = str(ticker).upper() if ticker else ""
+        if ticker_upper and out_base:
+            from altman_zscore.utils.paths import get_output_dir
+            import os
+            if not out_base.startswith(f"{ticker_upper}/") and not out_base.startswith(f"{ticker_upper}\\"):
+                out_base_path = os.path.join(ticker_upper, out_base)
+            else:
+                out_base_path = out_base
+            report_path = get_output_dir(relative_path=f"{out_base_path}_zscore_full_report.md")
+            if os.path.exists(report_path):
+                print_info(f"Full Z-Score report (with LLM commentary) saved to {report_path}")
+            else:
+                print_warning(f"Expected report file {report_path} not found after generation.")
     except Exception as e:
         print_warning(f"Could not generate full Z-Score report: {e}")
         
@@ -579,13 +594,12 @@ def _generate_llm_report(df, model, out_base, context_info, ticker, stock_prices
             sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].to_dict(orient="records")
         
         # Generate just the report portion
-        report = report_zscore_full_report(
+        report = report_zscore_full_report(            
             df, 
             model, 
             out_base, 
-            print_to_console=True, 
             context_info=sanitized_context,
-            save_to_disk=False  # We'll save in _finalize_outputs
+            print_to_console=True
         )
         return report
     except Exception as e:
@@ -620,7 +634,8 @@ def _finalize_outputs(df, model, out_base, context_info, ticker, stock_prices, l
             report_path = f"{out_base}_zscore_full_report.md"
             with open(report_path, 'w', encoding='utf-8') as f:
                 f.write(llm_report)
-            print_info(f"Full Z-Score report saved to {os.path.basename(report_path)}")
+            abs_report_path = os.path.abspath(report_path)
+            print_info(f"Full Z-Score report (with LLM commentary) saved to {abs_report_path}")
         
         # Verify chart was generated
         if chart_path and os.path.exists(chart_path):

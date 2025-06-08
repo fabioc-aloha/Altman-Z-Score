@@ -3,7 +3,7 @@ import json
 
 def resolve_prompt_path(prompt_filename):
     prompt_path_new = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "..", "prompts", prompt_filename
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "prompts", prompt_filename
     )
     prompt_path_legacy = os.path.join(
         os.path.dirname(os.path.dirname(__file__)), "prompts", prompt_filename
@@ -43,6 +43,7 @@ def inject_company_context(ticker):
     company_officers_path = get_output_dir("company_officers.json", ticker=ticker)
     company_info_path = get_output_dir("company_info.json", ticker=ticker)
     sec_info_path = get_output_dir("sec_edgar_company_info.json", ticker=ticker)
+    yf_info_path = get_output_dir("yf_info.json", ticker=ticker)
     if os.path.exists(company_officers_path):
         try:
             with open(company_officers_path, "r", encoding="utf-8") as officers_file:
@@ -80,6 +81,21 @@ def inject_company_context(ticker):
                 sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
         except Exception as e:
             sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
+    if os.path.exists(yf_info_path):
+        try:
+            with open(yf_info_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            # Detect SEC fallback and inject a clear context section
+            if isinstance(data, dict) and data.get("_sec_fallback"):
+                fallback_note = (
+                    "\n# yf_info.json (SEC fallback)\n"
+                    "{\n  'note': 'Yahoo Finance data unavailable; this file was generated from SEC EDGAR fallback. Only minimal fields are present. Use sec_edgar_company_info.json for company details. Fields like sector, industry, and market cap may be missing.'\n}"
+                )
+                company_info_str += fallback_note
+            else:
+                company_info_str += f"\n# yf_info.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
+        except Exception as e:
+            company_info_str += f"\n[Could not load yf_info.json: {e}]\n"
     return company_officers_str, company_info_str, sec_info_str
 
 def extract_trimmed_sec_info(sec_info: dict) -> dict:

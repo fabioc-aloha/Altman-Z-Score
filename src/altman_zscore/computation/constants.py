@@ -26,10 +26,11 @@ FIELD_MAPPING: Dict[str, List[str]] = {
     'current_liabilities': [
         'Current Liabilities',
         'LiabilitiesCurrent'
-    ],
-    'retained_earnings': [
+    ],    'retained_earnings': [
         'Retained Earnings',
-        'RetainedEarnings'
+        'RetainedEarnings',
+        'INFERRED:Stockholders Equity:Additional Paid In Capital',
+        'INFERRED:Total Equity Gross Minority Interest:Additional Paid In Capital'  # Added for yfinance data format
     ],
     'total_liabilities': [
         'Total Liabilities Net Minority Interest',

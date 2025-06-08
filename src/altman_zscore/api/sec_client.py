@@ -12,8 +12,17 @@ from typing import Any, Dict, Optional
 import requests
 
 from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
-from altman_zscore.utils.paths import get_output_dir
-from altman_zscore.utils.error_helpers import AltmanZScoreError
+from ..utils.paths import get_output_dir
+from ..utils.error_helpers import AltmanZScoreError
+from ..utils.retry import exponential_retry
+
+# Network exceptions to retry on
+NETWORK_EXCEPTIONS = (
+    requests.exceptions.RequestException,  # All requests exceptions
+    requests.exceptions.Timeout,
+    requests.exceptions.ConnectionError,
+    requests.exceptions.HTTPError,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -81,8 +90,12 @@ class SECClient:
         time_since_last = current_time - self._last_request_time
         if time_since_last < self.MIN_REQUEST_INTERVAL:
             time.sleep(self.MIN_REQUEST_INTERVAL - time_since_last)
-        self._last_request_time = time.time()
-
+        self._last_request_time = time.time()    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def _make_request(self, endpoint: str, method: str = "GET", timeout: float = 10.0, **kwargs) -> requests.Response:
         """
         Make request to SEC API with rate limiting and error handling.
@@ -127,6 +140,12 @@ class SECClient:
         except requests.exceptions.RequestException as e:
             raise SECError(f"Request failed: {str(e)}")
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def lookup_cik(self, ticker: str) -> Optional[str]:
         """
         Look up CIK number for a ticker symbol.
@@ -137,7 +156,6 @@ class SECClient:
         Returns:
             10-digit CIK if found, None otherwise
         """
-        self._ensure_rate_limit()
         try:
             search_params = {
                 "CIK": ticker,
@@ -149,12 +167,11 @@ class SECClient:
             response.raise_for_status()
             content = response.text
 
-            # Extract CIK from search results
+            # Try to match CIK from HTML response using different patterns
             cik_patterns = [
-                ("CIK=", ["<", '"', "&"]),
-                ("CIK:", ["<", '"', "&", " "]),
-                ("CIK Number:", ["<", '"', "&", " "]),
-                ('data-cik="', ['"']),
+                ("CIK=", [" ", "/"]),  # Common on browse-edgar pages
+                ("CIK=", ["&"]),  # For URLs
+                (">CIK", [" ", "<"]),  # For HTML content
             ]
 
             for prefix, terminators in cik_patterns:
@@ -179,6 +196,12 @@ class SECClient:
             logger.error(f"Error looking up CIK for {ticker}: {str(e)}")
             return None
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def get_company_info(self, ticker_or_cik: str, save_to_file: bool = False) -> Optional[Dict[str, Any]]:
         """
         Get company info from SEC EDGAR. Optionally save to output/{TICKER}/company_info.json.
@@ -191,19 +214,16 @@ class SECClient:
             Company info including CIK if found, None otherwise
         """
         try:
-            cik = ticker_or_cik
-            ticker = ticker_or_cik.upper() if not ticker_or_cik.isdigit() else None
-            if not ticker_or_cik.isdigit():
-                cik = self.lookup_cik(ticker_or_cik)
-                if not cik:
-                    logger.warning(f"No CIK found for ticker {ticker_or_cik}")
-                    return None
+            # Get/validate CIK
+            cik = ticker_or_cik.zfill(10) if ticker_or_cik.isdigit() else self.lookup_cik(ticker_or_cik)
+            if not cik:
+                logger.error(f"Could not find CIK for {ticker_or_cik}")
+                return None
 
-            # Ensure CIK is properly padded
+            ticker = ticker_or_cik if not ticker_or_cik.isdigit() else None 
             padded_cik = cik.zfill(10)
 
             # Get company details using CIK
-            self._ensure_rate_limit()
             response = self._make_request(self.COMPANY_SEARCH.format(padded_cik))
             if response.status_code != 200:
                 logger.error(f"Failed to get company info for CIK {padded_cik}")
@@ -222,21 +242,38 @@ class SECClient:
             logger.error(f"Error getting company info for {ticker_or_cik}: {str(e)}")
             return None
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     @lru_cache(maxsize=1000)
     def get_company_facts(self, cik: str) -> Dict[str, Any]:
         """
-        Get company facts from SEC XBRL API.
+        Get all company facts (all concepts) for a CIK.
 
         Args:
-            cik: Company CIK number (will be zero-padded)
+            cik: Company CIK number
 
         Returns:
-            Dict containing company facts
+            Dict with all facts and metadata
+        Raises:
+            SECError: If request fails
         """
-        padded_cik = cik.zfill(10)
-        response = self._make_request(self.COMPANY_FACTS.format(padded_cik))
-        return response.json()
+        try:
+            padded_cik = cik.zfill(10)
+            response = self._make_request(self.COMPANY_FACTS.format(padded_cik))
+            return response.json()
+        except Exception as e:
+            raise SECError(f"Failed to get facts for CIK {cik}: {str(e)}")
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def get_company_concept(self, cik: str, concept: str) -> Dict[str, Any]:
         """
         Get specific company concept data.
@@ -252,6 +289,12 @@ class SECClient:
         response = self._make_request(self.COMPANY_CONCEPT.format(padded_cik, concept))
         return response.json()
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def get_sic_data(self, cik: str) -> Optional[Dict[str, Any]]:
         """
         Get company SIC code and industry classification.
@@ -299,6 +342,12 @@ class SECClient:
         else:
             return "OTHER"
 
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=NETWORK_EXCEPTIONS
+    )
     def get_executive_officers(self, ticker: str, cik: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """
         Fetch executive officers information from the latest DEF 14A filing.
@@ -319,7 +368,7 @@ class SECClient:
 
             # Get latest DEF 14A filing
             url = f"{self.SUBMISSIONS_BASE_URL}{cik}/index.json"
-            response = self.session.get(url)  # Use session headers
+            response = self._make_request(url)  # Use _make_request instead of direct session.get
             if not response.ok:
                 logging.warning(f"Failed to get filings index for CIK {cik}: {response.status_code}")
                 return None
@@ -347,7 +396,7 @@ class SECClient:
 
             # Get the filing content
             filing_url = f"{self.ARCHIVES_BASE_URL}{cik}/{accession_number}/{primary_doc}"
-            response = self.session.get(filing_url)  # Use session headers
+            response = self._make_request(filing_url)  # Use _make_request instead of direct session.get
             if not response.ok:
                 logging.warning(f"Failed to get DEF 14A filing content: {response.status_code}")
                 return None

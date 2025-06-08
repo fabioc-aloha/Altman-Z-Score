@@ -107,8 +107,8 @@ function Invoke-ZScoreBatch($tickers, $groupName) {
 }
 
 # Run all groups (no deduplication)
-Invoke-ZScoreBatch $large_caps 'large_caps'
-Invoke-ZScoreBatch $distressed 'distressed'
+# Invoke-ZScoreBatch $large_caps 'large_caps'
+# Invoke-ZScoreBatch $distressed 'distressed'
 Invoke-ZScoreBatch $tech_em 'tech_em'
 Invoke-ZScoreBatch $latam_br 'latam_br'
 Invoke-ZScoreBatch $europe 'europe'

@@ -7,15 +7,26 @@ for fetching company data needed for Altman Z-Score calculations.
 import os
 from pathlib import Path
 import json
+import logging
 import requests
 from decimal import Decimal
 from typing import Dict, Optional, Any, Union
 import finnhub
 from dotenv import load_dotenv
-import logging
 
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
 from ..validation.data_validation import FinancialDataValidator
+from ..utils.retry import exponential_retry
+
+# Network exceptions to retry on
+FINNHUB_EXCEPTIONS = (
+    requests.exceptions.RequestException,  # Base exception
+    requests.exceptions.Timeout,
+    requests.exceptions.ConnectionError,
+    requests.exceptions.HTTPError,
+    finnhub.FinnhubAPIException,  # Finnhub specific exceptions
+    finnhub.FinnhubRequestException,
+)
 
 
 class FinnhubClient(BaseFinancialFetcher):
@@ -31,6 +42,12 @@ class FinnhubClient(BaseFinancialFetcher):
             raise ValueError("FINNHUB_API_KEY not set in environment")
         self.client = finnhub.Client(api_key=api_key)
         
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=FINNHUB_EXCEPTIONS
+    )
     def fetch_financial_data(self, symbol: str) -> Dict[str, FinancialValue]:
         """
         Fetch financial data needed for Altman Z-Score calculation.
@@ -40,9 +57,12 @@ class FinnhubClient(BaseFinancialFetcher):
             
         Returns:
             Dictionary containing financial metrics needed for Z-Score calculation
+        
+        Raises:
+            Exception: If data fetching fails after retries.
         """
         try:
-            # Get basic financials
+            # Get basic financials with retries
             financials = self.client.company_basic_financials(symbol, 'all')
             
             # Extract relevant metrics for Z-Score calculation
@@ -70,9 +90,16 @@ class FinnhubClient(BaseFinancialFetcher):
             
         except Exception as e:
             raise Exception(f"Failed to fetch financial data for {symbol}: {str(e)}")        
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=FINNHUB_EXCEPTIONS
+    )
     def _try_direct_logo_download(self, symbol: str, size: tuple[int, int] = (1000, 1000)) -> Optional[tuple[str, bytes]]:
         """
         Try to download and resize a company logo using Finnhub's direct URL format.
+        Implements exponential backoff retry for network-related errors.
 
         Args:
             symbol: Company stock symbol (e.g., 'AAPL')
@@ -85,17 +112,21 @@ class FinnhubClient(BaseFinancialFetcher):
         from io import BytesIO
         
         direct_url = f"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/{symbol}.png"
+        logger = logging.getLogger(__name__)
+        
+        # Check if URL exists
+        head_response = requests.head(direct_url)
+        if head_response.status_code != 200:
+            logger.debug(f"Logo not available at {direct_url}")
+            return None
+        
+        # Download image
+        response = requests.get(direct_url)
+        if response.status_code != 200:
+            logger.debug(f"Failed to download logo from {direct_url}")
+            return None
+        
         try:
-            # Check if URL exists
-            head_response = requests.head(direct_url)
-            if head_response.status_code != 200:
-                return None
-            
-            # Download image
-            response = requests.get(direct_url)
-            if response.status_code != 200:
-                return None
-            
             # Open the original image
             image = Image.open(BytesIO(response.content))
             
@@ -125,16 +156,20 @@ class FinnhubClient(BaseFinancialFetcher):
             
             return direct_url, image_bytes
         
-        except (requests.RequestException, IOError, ValueError) as e:
-            # Do not print errors or data to stdout/stderr; log to file if needed
-            pass
-        except Exception as e:
-            # Do not print errors or data to stdout/stderr; log to file if needed
-            pass
-        
+        except (IOError, ValueError) as e:
+            logger.warning(f"Error processing logo image: {str(e)}")
+            return None
+
+    @exponential_retry(
+        max_retries=3,
+        base_delay=1.0,
+        backoff_factor=2.0,
+        exceptions=FINNHUB_EXCEPTIONS
+    )
     def get_company_profile(self, symbol: str, logo_size: tuple[int, int] = (1000, 1000), logo_path: str = None) -> Dict[str, Any]:
         """
         Fetch company profile information and download company logo.
+        Implements exponential backoff retry for network-related errors.
         
         Args:
             symbol: Company stock symbol (e.g., 'AAPL')
@@ -144,62 +179,60 @@ class FinnhubClient(BaseFinancialFetcher):
         Returns:
             Dictionary containing company profile information
         """
-        try:
-            profile = self.client.company_profile2(symbol=symbol)
+        logger = logging.getLogger(__name__)
+        
+        profile = self.client.company_profile2(symbol=symbol)
+        
+        # Try to get logo URL from profile or direct URL
+        logo_url = profile.get('logo')
+        logo_data = None
+        
+        if not logo_url:
+            # Try direct download with resizing
+            result = self._try_direct_logo_download(symbol, size=logo_size)
+            if result:
+                logo_url, logo_data = result
+                profile['logo'] = logo_url
+        
+        # Save profile data and logo
+        company_dir = self.get_company_dir(symbol)
+        if company_dir:
+            # Save profile data
+            profile_path = company_dir / 'company_info.json'
+            with open(profile_path, 'w') as f:
+                json.dump(profile, f, indent=2)
             
-            # Try to get logo URL from profile or direct URL
-            logo_url = profile.get('logo')
-            logo_data = None
-            
-            if not logo_url:
-                # Try direct download with resizing
-                result = self._try_direct_logo_download(symbol, size=logo_size)
-                if result:
-                    logo_url, logo_data = result
-                    profile['logo'] = logo_url
-            
-            # Save profile data and logo
-            company_dir = self.get_company_dir(symbol)
-            if company_dir:
-                # Save profile data
-                profile_path = company_dir / 'company_info.json'
-                with open(profile_path, 'w') as f:
-                    json.dump(profile, f, indent=2)
-                
-                # Download and resize logo if available
-                if logo_url:
-                    # Determine logo save path
-                    if logo_path is not None:
-                        logo_path_final = Path(logo_path)
-                    else:
-                        logo_path_final = company_dir / 'company_logo.png'
-                    if logo_data:
-                        # Save pre-resized logo from direct download
-                        with open(logo_path_final, 'wb') as f:
-                            f.write(logo_data)
-                        logging.info(f"Resized logo downloaded successfully from: {logo_url}")
-                    else:
-                        # Download and resize from profile URL
-                        try:
-                            response = requests.get(logo_url)
-                            if response.status_code == 200:
-                                result = self._try_direct_logo_download(symbol, size=logo_size)
-                                if result:
-                                    _, logo_data = result
-                                    with open(logo_path_final, 'wb') as f:
-                                        f.write(logo_data)
-                                    logging.info("Logo downloaded and resized successfully from profile URL")
-                                else:
-                                    logging.warning("Failed to resize logo from profile URL")
+            # Download and resize logo if available
+            if logo_url:
+                # Determine logo save path
+                if logo_path is not None:
+                    logo_path_final = Path(logo_path)
+                else:
+                    logo_path_final = company_dir / 'company_logo.png'
+                if logo_data:
+                    # Save pre-resized logo from direct download
+                    with open(logo_path_final, 'wb') as f:
+                        f.write(logo_data)
+                    logger.info(f"Resized logo downloaded successfully from: {logo_url}")
+                else:
+                    # Download and resize from profile URL
+                    try:
+                        response = requests.get(logo_url)
+                        if response.status_code == 200:
+                            result = self._try_direct_logo_download(symbol, size=logo_size)
+                            if result:
+                                _, logo_data = result
+                                with open(logo_path_final, 'wb') as f:
+                                    f.write(logo_data)
+                                logger.info("Logo downloaded and resized successfully from profile URL")
                             else:
-                                logging.warning(f"Failed to download logo from profile URL. Status code: {response.status_code}")
-                        except Exception as e:
-                            logging.warning(f"Error processing logo from profile URL: {str(e)}")
-        
-            return profile
-        
-        except Exception as e:
-            raise Exception(f"Failed to fetch company profile for {symbol}: {str(e)}")
+                                logger.warning("Failed to resize logo from profile URL")
+                        else:
+                            logger.warning(f"Failed to download logo from profile URL. Status code: {response.status_code}")
+                    except Exception as e:
+                        logger.warning(f"Error processing logo from profile URL: {str(e)}")
+    
+        return profile
             
     def get_company_dir(self, symbol: str) -> Optional[Path]:
         """Get the company directory for saving data."""

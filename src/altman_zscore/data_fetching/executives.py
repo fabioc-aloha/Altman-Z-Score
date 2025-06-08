@@ -9,6 +9,7 @@ import logging
 from typing import Any, Dict, Optional
 import yfinance as yf
 from altman_zscore.utils.paths import get_output_dir
+from altman_zscore.utils.retry import exponential_retry
 
 def fetch_company_officers(ticker: str) -> Optional[Dict[str, Any]]:
     """Fetch company officers information using yfinance.
@@ -27,8 +28,11 @@ def fetch_company_officers(ticker: str) -> Optional[Dict[str, Any]]:
     logger = logging.getLogger("altman_zscore.fetch_company_officers")
 
     try:
-        stock = yf.Ticker(ticker)
-        info = stock.info
+        @exponential_retry(max_retries=3, base_delay=1.0, backoff_factor=2.0)
+        def _get_info():
+            stock = yf.Ticker(ticker)
+            return stock.info
+        info = _get_info()
 
         if not info:
             logger.warning(f"No company info found for {ticker}")
@@ -87,8 +91,11 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
 
     try:
         # 1. First try yfinance
-        stock = yf.Ticker(ticker)
-        info = stock.info
+        @exponential_retry(max_retries=3, base_delay=1.0, backoff_factor=2.0)
+        def _get_info():
+            stock = yf.Ticker(ticker)
+            return stock.info
+        info = _get_info()
         yf_officers = []
 
         if info:

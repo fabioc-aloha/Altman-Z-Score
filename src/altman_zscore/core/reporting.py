@@ -499,7 +499,7 @@ def _get_llm_commentary_section(lines, context_info):
     try:
         from altman_zscore.api.openai_client import get_llm_qualitative_commentary
         prompt_path_new = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..", "prompts", "prompt_fin_analysis.md")
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "prompts", "prompt_fin_analysis.md")
         )
         prompt_path_legacy = os.path.abspath(
             os.path.join(os.path.dirname(__file__), "prompts", "prompt_fin_analysis.md")
@@ -835,35 +835,48 @@ def _get_appendix_section(df, context_info=None, out_base=None):
         meta = {}
         if ticker:
             out_dir = os.path.join("output", ticker)
-            for fname in ["company_info.json", "yf_info.json"]:
-                fpath = os.path.join(out_dir, fname)
-                if os.path.exists(fpath):
-                    with open(fpath, "r", encoding="utf-8") as f:
-                        try:
-                            data = json.load(f)
-                            meta.update(data)
-                        except Exception:
-                            continue
-        # Compose metadata table
-        meta_fields = [
-            ("Name", meta.get("name") or meta.get("shortName") or meta.get("longName")),
-            ("Sector", meta.get("sector") or meta.get("sectorDisp")),
-            ("Industry", meta.get("industry") or meta.get("industryDisp")),
-            ("Country", meta.get("country")),
-            ("Market Cap", f"{meta.get('marketCap'):,}" if meta.get("marketCap") else None),
-            ("Employees", str(meta.get("fullTimeEmployees")) if meta.get("fullTimeEmployees") else None),
-            ("Fiscal Year End", meta.get("fiscalYearEnd")),
-            ("Exchange", meta.get("exchange") or meta.get("exchanges")),
-            ("CIK", meta.get("cik")),
-            ("SIC", meta.get("sic")),
-            ("Website", meta.get("website")),
-        ]
-        appendix_md.append("| Field | Value |\n|---|---|")
-        for k, v in meta_fields:
-            if v:
-                appendix_md.append(f"| {k} | {v} |")
-        if not any(v for _, v in meta_fields):
-            appendix_md.append("No metadata available.")
+            yf_info_path = os.path.join(out_dir, "yf_info.json")
+            sec_info_path = os.path.join(out_dir, "sec_edgar_company_info.json")
+            meta = {}
+            sec_fallback = False
+            if os.path.exists(yf_info_path):
+                with open(yf_info_path, "r", encoding="utf-8") as f:
+                    try:
+                        data = json.load(f)
+                        meta.update(data)
+                        if isinstance(data, dict) and data.get("_sec_fallback"):
+                            sec_fallback = True
+                    except Exception:
+                        pass
+            if sec_fallback and os.path.exists(sec_info_path):
+                with open(sec_info_path, "r", encoding="utf-8") as f:
+                    try:
+                        sec_data = json.load(f)
+                        meta.update(sec_data)
+                    except Exception:
+                        pass
+            # Compose metadata table
+            meta_fields = [
+                ("Name", meta.get("name") or meta.get("shortName") or meta.get("longName")),
+                ("Sector", meta.get("sector") or meta.get("sectorDisp")),
+                ("Industry", meta.get("industry") or meta.get("industryDisp")),
+                ("Country", meta.get("country")),
+                ("Market Cap", f"{meta.get('marketCap'):,}" if meta.get("marketCap") else None),
+                ("Employees", str(meta.get("fullTimeEmployees")) if meta.get("fullTimeEmployees") else None),
+                ("Fiscal Year End", meta.get("fiscalYearEnd")),
+                ("Exchange", meta.get("exchange") or meta.get("exchanges")),
+                ("CIK", meta.get("cik")),
+                ("SIC", meta.get("sic")),
+                ("Website", meta.get("website")),
+            ]
+            appendix_md.append("| Field | Value |\n|---|---|")
+            for k, v in meta_fields:
+                if v:
+                    appendix_md.append(f"| {k} | {v} |")
+            if sec_fallback:
+                appendix_md.append("\n*Note: Yahoo Finance data was unavailable; company metadata is from SEC EDGAR filings. Some fields may be missing or less detailed.*\n")
+            if not any(v for _, v in meta_fields):
+                appendix_md.append("No metadata available.")
     except Exception as e:
         appendix_md.append(f"[Could not get company metadata: {e}]")
 

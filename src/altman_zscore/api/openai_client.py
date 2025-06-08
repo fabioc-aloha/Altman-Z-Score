@@ -1,7 +1,10 @@
 import os
 import json
+import logging
 import requests
 from typing import Optional
+
+from ..utils.retry import exponential_retry
 from .openai_helpers import (
     resolve_prompt_path,
     load_prompt_file,
@@ -10,6 +13,14 @@ from .openai_helpers import (
     inject_company_context,
     extract_trimmed_sec_info,
     extract_trimmed_company_info,
+)
+
+# Network exceptions to retry on
+OPENAI_EXCEPTIONS = (
+    requests.exceptions.RequestException,  # Base exception that all requests exceptions inherit from
+    requests.exceptions.Timeout,  # For timeouts
+    requests.exceptions.ConnectionError,  # For connection errors
+    requests.exceptions.HTTPError,  # For 4xx/5xx status codes
 )
 
 
@@ -32,8 +43,12 @@ class AzureOpenAIClient:
         self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2023-05-15")
         self.model = os.getenv("AZURE_OPENAI_MODEL")
         if not all([self.api_key, self.endpoint, self.deployment]):
-            raise ValueError("Missing Azure OpenAI configuration in environment variables.")
-
+            raise ValueError("Missing Azure OpenAI configuration in environment variables.")    @exponential_retry(
+        max_retries=3,
+        base_delay=2.0,  # Start with a slightly longer delay for OpenAI
+        backoff_factor=2.0,
+        exceptions=OPENAI_EXCEPTIONS
+    )
     def chat_completion(self, messages, temperature=0.0, max_tokens=4096):
         """
         Generate a chat completion using Azure OpenAI.
@@ -45,14 +60,19 @@ class AzureOpenAIClient:
         Returns:
             dict: The full response from the OpenAI API.
         Raises:
-            requests.HTTPError: If the API call fails.
+            requests.HTTPError: If the API call fails after retries.
+            RuntimeError: If JSON parsing fails after retries.
         """
         url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
         headers = {"api-key": self.api_key, "Content-Type": "application/json"}
         payload = {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
-        response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status()
-        return response.json()
+        
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.JSONDecodeError as e:
+            raise RuntimeError(f"Failed to parse OpenAI API response: {str(e)}")
 
     def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None):
         """
@@ -110,6 +130,7 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
     Raises:
         RuntimeError: If the LLM response cannot be parsed as text.
     """
+    import logging
     client = AzureOpenAIClient()
     prompt_path = resolve_prompt_path("prompt_fin_analysis.md")
     system_prompt = load_prompt_file(prompt_path)
@@ -136,18 +157,23 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
             prompt_save_path = get_output_dir("llm_commentary_prompt.txt", ticker=ticker)
             with open(prompt_save_path, "w", encoding="utf-8") as f:
                 f.write(full_prompt)
-        except Exception:
-            pass
+            logging.warning(f"[DEBUG] LLM commentary prompt saved to {prompt_save_path}")
+        except Exception as e:
+            logging.warning(f"[DEBUG] Could not save LLM commentary prompt: {e}")
+    else:
+        logging.warning("[DEBUG] No ticker provided for LLM commentary prompt save.")
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": full_prompt},
     ]
-    response = client.chat_completion(messages, temperature=0.0, max_tokens=4096)
     try:
+        response = client.chat_completion(messages, temperature=0.0, max_tokens=4096)
+        logging.warning(f"[DEBUG] LLM response: {response}")
         content = response["choices"][0]["message"]["content"]
         return content.strip()
     except Exception as e:
-        raise RuntimeError(f"Failed to parse LLM commentary: {e}\nResponse: {response}")
+        logging.error(f"[ERROR] Failed to parse LLM commentary: {e}\nResponse: {locals().get('response', None)}")
+        return f"[ERROR] LLM commentary generation failed: {e}"
 
 
 def _resolve_prompt_path(prompt_filename):
@@ -314,7 +340,15 @@ def _inject_company_context(ticker):
         try:
             with open(yf_info_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            yf_info_str = f"\n# yf_info.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
+            # Detect SEC fallback and inject a clear context section
+            if isinstance(data, dict) and data.get("_sec_fallback"):
+                fallback_note = (
+                    "\n# yf_info.json (SEC fallback)\n"
+                    "{\n  'note': 'Yahoo Finance data unavailable; this file was generated from SEC EDGAR fallback. Only minimal fields are present. Use sec_edgar_company_info.json for company details. Fields like sector, industry, and market cap may be missing.'\n}"
+                )
+                yf_info_str = fallback_note
+            else:
+                yf_info_str = f"\n# yf_info.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             yf_info_str = f"\n[Could not load yf_info.json: {e}]\n"
     return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)
