@@ -1,11 +1,10 @@
 # Batch script to run Altman Z-Score CLI for multiple sets of companies
 # Usage: pwsh.exe -File run_batch_examples.ps1
 
-# Group 1: 10 well-known US large-cap companies (diverse industries)
+# Group 1: 10 Well-Known US Large-Cap Companies (Diverse Industries)
 $large_caps = @(
     'AAPL', # Apple
     'MSFT', # Microsoft
-    'SONO', # Sonos (tech, high R&D)
     'GOOGL', # Alphabet
     'AMZN', # Amazon
     'META', # Meta Platforms
@@ -16,35 +15,36 @@ $large_caps = @(
     'PG'     # Procter & Gamble
 )
 
-# Group 2: 10 companies currently struggling or distressed (as of 2025)
+# Group 2: 11 Notable US Companies With Recent Financial Challenges (But Still Active)
 $distressed = @(
-    'CVNA', # Carvana
-    'RIDEQ', # Lordstown Motors (bankrupt)
-    'BBBYQ', # Bed Bath & Beyond (bankrupt)
-    'NKLA', # Nikola
-    'FRCB', # First Republic Bank (failed)
-    'TUP', # Tupperware
-    'AMC', # AMC Entertainment
-    'CLOV', # Clover Health
-    'GME', # GameStop
-    'AAL'    # American Airlines (high leverage)
+    'T', # AT&T (High debt)
+    'UAL', # United Airlines (High leverage)
+    'AMC', # AMC Entertainment (Volatile, but active)
+    'C', # Citigroup (Historically challenged)
+    'GE', # General Electric (Turnaround)
+    'F', # Ford Motor (Cyclical, high debt)
+    'TUP', # Tupperware (Struggling, but not bankrupt)
+    'CCL', # Carnival Corp (Travel, high leverage)
+    'AAL', # American Airlines (High leverage)
+    'GME', # GameStop (Volatile, meme stock)
+    'SONO'   # Sonos (Tech, recent financial challenges)
 )
 
-# Group 3: 10 tech/AI/EM/early-stage/foreign tickers (to flex mapping and model selection)
+# Group 3: 10 Tech/AI/EM/Early-Stage/Foreign Tickers (To Flex Mapping and Model Selection)
 $tech_em = @(
-    'SNOW', # Snowflake (tech, high R&D)
-    'PLTR', # Palantir (tech, gov contracts)
+    'SNOW', # Snowflake (Tech, high R&D)
+    'PLTR', # Palantir (Tech, gov contracts)
     'BIDU', # Baidu (China, EM)
     'MELI', # MercadoLibre (LatAm, EM)
     'SHOP', # Shopify (Canada, tech)
     'ASML', # ASML (Netherlands, tech)
-    'UBER', # Uber (tech, high growth)
-    'SQ', # Block/Square (fintech)
+    'UBER', # Uber (Tech, high growth)
+    'SQ', # Block/Square (Fintech)
     'NIO', # NIO (China, EV, EM)
     'SE'     # Sea Ltd (Singapore, EM)
 )
 
-# Group 4: 10 Latin American and Brazilian companies (to flex international/EM/IFRS mapping)
+# Group 4: 10 Latin American and Brazilian Companies (To Flex International/EM/IFRS Mapping)
 $latam_br = @(
     'VALE', # Vale S.A. (Brazil)
     'PBR', # Petrobras (Brazil)
@@ -53,26 +53,26 @@ $latam_br = @(
     'GGB', # Gerdau (Brazil)
     'CRESY', # Cresud (Argentina)
     'SBS', # Companhia de Saneamento Basico (Brazil)
-    'TAM', # TAM Linhas Aereas (Brazil, may be delisted)
     'AMX', # América Móvil (Mexico)
-    'EC'      # Ecopetrol (Colombia)
+    'EC', # Ecopetrol (Colombia)
+    'SID'    # Companhia Siderúrgica Nacional (Brazil)
 )
 
-# Group 5: 10 European companies (to flex EU/IFRS/region logic)
+# Group 5: 10 European Companies (To Flex EU/IFRS/Region Logic)
 $europe = @(
     'SAP', # SAP SE (Germany)
     'SIEGY', # Siemens AG (Germany)
     'NESN', # Nestle (Switzerland)
-    'RDS.A', # Shell (UK/Netherlands)
+    'SHEL', # Shell (UK/Netherlands)
     'SAN', # Sanofi (France)
     'OR', # L'Oreal (France)
     'AZN', # AstraZeneca (UK/Sweden)
     'VOD', # Vodafone (UK)
-    'CS', # Credit Suisse (Switzerland)
-    'BASFY'   # BASF (Germany)
+    'BASFY', # BASF (Germany)
+    'UL'      # Unilever (UK/Netherlands)
 )
 
-# Group 6: 10 Asian companies (to flex Asia/region logic)
+# Group 6: 10 Asian Companies (To Flex Asia/Region Logic)
 $asia = @(
     'TM', # Toyota Motor (Japan)
     'SONY', # Sony Group (Japan)
@@ -86,21 +86,7 @@ $asia = @(
     'SAMSUNG' # Samsung Electronics (Korea, GDR/OTC)
 )
 
-# Group 7: 10 edge case companies (dual-listed, ADR, recent IPO, delisted, SPAC, etc.)
-$edge_cases = @(
-    'BRK.A', # Berkshire Hathaway A (expensive ticker, special handling)
-    'GOOG', # Alphabet Class C (dual class)
-    'TCEHY', # Tencent Holdings (ADR, OTC)
-    'ARM', # Arm Holdings (recent IPO)
-    'DWAC', # Digital World Acquisition Corp (SPAC)
-    'LUMN', # Lumen Technologies (recently delisted)
-    'YNDX', # Yandex (Russian, trading halted)
-    'BABA', # Alibaba (dual listed, HK/US)
-    'VIE', # Veolia Environnement (foreign, Euronext)
-    'GME'     # GameStop (meme stock, high volatility)
-)
-
-# Group 8: 10 companies for industry mix (manufacturing, services, finance, utilities, retail, healthcare, energy, telecom, real estate, consumer goods)
+# Group 7: 10 Companies for Industry Mix (Manufacturing, Services, Finance, Utilities, Retail, Healthcare, Energy, Telecom, Real Estate, Consumer Goods)
 $industry_mix = @(
     'CAT', # Caterpillar (Manufacturing)
     'UNH', # UnitedHealth Group (Healthcare)
@@ -111,7 +97,7 @@ $industry_mix = @(
     'O', # Realty Income (Real Estate REIT)
     'KO', # Coca-Cola (Consumer Goods)
     'SLB', # Schlumberger (Energy)
-    'ADP'     # Automatic Data Processing (Services)
+    'ADP'  # Automatic Data Processing (Services)
 )
 
 # Helper to run the CLI for a group
@@ -127,7 +113,6 @@ Invoke-ZScoreBatch $tech_em 'tech_em'
 Invoke-ZScoreBatch $latam_br 'latam_br'
 Invoke-ZScoreBatch $europe 'europe'
 Invoke-ZScoreBatch $asia 'asia'
-Invoke-ZScoreBatch $edge_cases 'edge_cases'
 Invoke-ZScoreBatch $industry_mix 'industry_mix'
 
 Write-Host "Batch processing complete. Check the output directories for reports."

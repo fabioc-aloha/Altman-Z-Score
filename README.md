@@ -84,6 +84,20 @@ The following table shows available reports for all analyzed tickers:
 
 ---
 
+## Updating the Sample Reports Table
+
+To automatically update the sample reports table in this README, use the provided script:
+
+- **`generate_readme_table.py`**: Scans the `output/` directory for tickers with all required report files and prints a Markdown table row for each. Run this script and copy its output into the README to keep the sample reports table up to date.
+
+Usage:
+```sh
+python generate_readme_table.py > table.md
+```
+Then copy the contents of `table.md` into the appropriate section of the README.
+
+---
+
 ## Recent Improvements (3.0.0) ✅ FULLY COMPLETED
 - **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
 - **✅ All imports fixed:** Updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
