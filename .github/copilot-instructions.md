@@ -43,3 +43,38 @@
 # --- Copilot Refactoring Recommendation ---
 - If a Python file (`.py`) grows over 200 lines, recommend refactoring it into smaller functions and, where appropriate, separate files or modules. This improves maintainability, testability, and code clarity. Always suggest this to the user before large-scale refactoring, and follow the project's conservative change policy.
 
+## CLI Usage Reference
+
+### Running Z-Score Analysis
+```bash
+# Basic analysis for a single stock
+python main.py MSFT
+
+# Analysis with specific date
+python main.py MSFT --date 2024-01-01
+
+# Analysis with custom output directory
+python main.py MSFT --output-dir custom_output
+
+# Example commands for testing historical data range
+python main.py MSFT --date 2010-01-01  # Test maximum historical range
+python main.py MSFT --date 2020-01-01  # Test 5-year historical range
+```
+
+### Key Data Constraints (MSFT Example)
+- **Available Historical Data**: SEC EDGAR data spans 2009-2025 (15+ years)
+- **System Limitation**: Code restricts to last 12 quarters (3 years) via `[-12:]` slice in `src/altman_zscore/data_fetching/financials.py` line 175
+- **Current Processing**: Typically processes 5 quarters of recent data
+- **Maximum Theoretical Range**: 12 quarters (3 years) with current implementation
+- **Data Source**: SEC EDGAR provides comprehensive historical data back to 2009 for MSFT
+
+### Output Files Generated
+- `zscore_TICKER.csv` - Z-score calculations by quarter
+- `zscore_TICKER.json` - Structured Z-score data
+- `zscore_TICKER_metadata.json` - Analysis metadata
+- `zscore_TICKER_trend.png` - Z-score trend visualization
+- `reconciliation_result.json` - Data reconciliation results
+- `sec_facts_raw.json` - Raw SEC EDGAR data
+- Various filtered data files and market data
+```
+

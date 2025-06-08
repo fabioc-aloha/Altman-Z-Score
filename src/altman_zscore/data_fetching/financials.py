@@ -66,7 +66,7 @@ def merge_quarters_by_period(existing_quarters, new_quarters):
     backoff_factor=2.0,
     exceptions=NETWORK_EXCEPTIONS
 )
-def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, Any]]:
+def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
     """Fetch 12 quarters of real financials for the given ticker using SEC EDGAR (primary) and yfinance (fallback).
 
     Args:
@@ -171,11 +171,16 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                 if f not in data or data[f] is None:
                     data[f] = Decimal("0")
             data["period_end"] = period_end
-            quarters.append(data)
-            missing_fields_by_quarter.append(missing)
-        quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
+            # Only include quarters after start_date if specified
+            if start_date is None or period_end >= start_date:
+                quarters.append(data)
+                missing_fields_by_quarter.append(missing)
+
+        # Sort quarters by period end date without limiting to last 12
+        quarters = sorted(quarters, key=lambda x: x["period_end"])
+
         if quarters:
-            # After collecting quarters, check if all non-asset/liability fields are zero for every quarter (SEC fallback)
+            # After collecting quarters, check if all non-asset/liability fields are zero
             non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
             all_zero = True
             for q in quarters:
@@ -330,12 +335,14 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[
                             field_mapping[field] = mapped_field
                     if q:
                         q["field_mapping"] = json.dumps(field_mapping, default=str)
-                        quarters.append(q)
-                        missing_fields_by_quarter.append(missing)
+                        if start_date is None or q["period_end"] >= start_date:
+                            quarters.append(q)
+                            missing_fields_by_quarter.append(missing)
                 except Exception as e:
                     logger.warning(f"Failed to process period {period}: {e}")
                     continue
-            quarters = sorted(quarters, key=lambda x: x["period_end"])[-12:]
+            # Sort quarters by period end date without limiting to last 12
+            quarters = sorted(quarters, key=lambda x: x["period_end"])
             if quarters:
                 non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
                 all_zero = True
@@ -403,7 +410,7 @@ def safe_to_decimal(value) -> Optional[Decimal]:
     except (decimal.InvalidOperation, ValueError, TypeError) as e:
         return None
 
-def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, Any]]:
+def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
     """
     Fetch raw financials from both SEC EDGAR and Yahoo Finance, reconcile using LLM, and return a canonical dataset.
     Args:

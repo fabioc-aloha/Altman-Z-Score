@@ -48,63 +48,72 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 ## TL;DR / Executive Summary
 
-Microsoft Corporation currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates robust financial health with strong liquidity, profitability, and moderate leverage, supported by consistent revenue growth and solid cash flows. Key opportunities lie in continued innovation across cloud computing, AI integration, and enterprise software, while risks include competitive pressures in technology and macroeconomic uncertainties.
+Microsoft Corporation currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates strong liquidity, robust profitability, efficient capital management, and moderate leverage, supported by a solid balance sheet and consistent cash flows. Key opportunities lie in continued innovation across cloud computing, productivity software, and gaming, while risks include competitive pressures in technology and macroeconomic uncertainties.
 
-For investors, the recommendation is a **Buy for growth-oriented and moderate risk-tolerant investors**, and a **Hold for conservative income-focused investors** due to stable dividends and strong fundamentals. Analyst sentiment is overwhelmingly positive, with a consensus “Strong Buy” rating and target prices above current levels, reinforcing confidence in Microsoft’s growth trajectory.
+Analyst sentiment is overwhelmingly positive, with a consensus "Strong Buy" rating and a target price above current levels, reflecting confidence in Microsoft’s growth trajectory. For investors, the recommendation is a **Buy for growth-oriented and moderate risk-tolerant profiles**, and a **Hold for conservative income-focused investors** given the stable dividend and strong fundamentals.
 
 ---
 
 ## Company Profile
 
-Microsoft Corporation is a leading global technology company headquartered in Redmond, Washington, operating primarily in the software infrastructure sector. Founded in 1975 and publicly traded on NASDAQ since 1986, Microsoft offers a broad portfolio including productivity software (Office 365, Microsoft Teams), cloud services (Azure), business applications (Dynamics 365), operating systems (Windows), gaming (Xbox), and professional networking (LinkedIn). It competes with major technology firms such as Amazon, Google, and Apple.
+Microsoft Corporation, headquartered in Redmond, Washington, is a global leader in technology, specializing in software infrastructure, cloud services, productivity applications, and personal computing devices. Founded in 1975 and publicly traded on NASDAQ (ticker: MSFT), Microsoft operates through three main segments: Productivity and Business Processes (including Office 365 and LinkedIn), Intelligent Cloud (Azure and server products), and More Personal Computing (Windows OS, Surface devices, Xbox gaming).
 
-The executive leadership is headed by Chairman & CEO Satya Nadella, who has driven the company’s cloud and AI transformation. Other key executives include President & Vice Chairman Bradford L. Smith, CFO Amy Hood, and Chief Commercial Officer Judson Althoff. Compensation levels are competitive, reflecting strong performance incentives. Institutional investors hold approximately 75% of shares, with minimal insider ownership, indicating broad market confidence. No recent major executive changes or disruptive events have been reported.
+The executive leadership is led by Chairman & CEO Satya Nadella, supported by President & Vice Chairman Bradford L. Smith, and CFO Amy Hood, among others. The leadership team is stable with no recent major executive changes reported. Institutional investors hold approximately 75% of shares, indicating strong institutional confidence, while insider ownership remains minimal. The company maintains a strong market capitalization exceeding $3.4 trillion, reflecting its dominant industry position.
 
 ---
 
 ## 1. Diagnostic Evaluation of Financial Health
 
-This section evaluates Microsoft’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score metrics to assess bankruptcy risk and operational strength.
+This section evaluates Microsoft’s financial health through liquidity, profitability, capital efficiency, and leverage metrics, contextualized by Altman Z-Score components and industry benchmarks.
 
-- **Liquidity:** Current Ratio at 1.37 and Quick Ratio at 1.24 indicate solid short-term liquidity, comfortably above 1.0, ensuring the company can meet near-term obligations without stress.
-- **Profitability:** Gross margin is exceptionally high at ~69%, with net profit margins around 36%, reflecting strong pricing power and operational efficiency. Return on Assets (ROA) at 14.6% and Return on Equity (ROE) at 33.6% demonstrate excellent capital utilization and shareholder value creation.
-- **Leverage:** Debt-to-Equity ratio of 32.6% is moderate and manageable, supported by strong cash flows and a large cash reserve (~$79.6B). This balance supports growth investments without excessive financial risk.
-- **Altman Z-Score:** Microsoft’s Z-Score places it well within the Safe Zone, indicating minimal bankruptcy risk. The company’s strong working capital, retained earnings, EBIT, and market capitalization relative to liabilities underpin this status.
-- **Trends & Market Context:** Revenue growth of 13.3% and earnings growth of 17.7% year-over-year highlight robust expansion. The stock price has shown resilience with a 9.9% increase over the past year, trading near its 52-week high (~$470). Dividend yield is stable at 0.71%, with a payout ratio of 24.4%, supporting sustainable shareholder returns.
+- **Liquidity:** Microsoft’s current ratio (1.37) and quick ratio (1.24) indicate solid short-term liquidity, comfortably above 1, ensuring the company can meet near-term obligations. The substantial cash reserves (~$79.6 billion) further bolster liquidity.
 
-No material adverse changes in management or market environment have been noted. Overall, Microsoft’s financial profile is exemplary within the technology sector, with strong fundamentals and low financial risk.
+- **Profitability:** With a gross margin of ~69%, net margin of ~36%, ROA of 14.6%, and ROE of 33.6%, Microsoft exhibits exceptional profitability and efficient asset utilization, outperforming many peers in the technology sector.
+
+- **Capital Efficiency:** Revenue per share stands at $36.33, supported by strong operating cash flow (~$131 billion) and free cash flow (~$54.8 billion), indicating effective capital deployment and cash generation.
+
+- **Leverage:** Debt-to-equity ratio at 32.6% reflects moderate leverage, manageable given the company’s cash flow strength and credit profile.
+
+- **Altman Z-Score:** Microsoft’s Z-Score places it well within the Safe Zone, signaling minimal bankruptcy risk. The company’s financial ratios and cash flow trends have remained stable or improved, reinforcing this assessment.
+
+- **Market and Price Trends:** The stock price has shown steady appreciation with moderate volatility, trading near its 52-week high (~$473), supported by strong analyst target prices (~$509 mean). Dividend yield (~0.7%) and payout ratio (~24%) indicate a sustainable dividend policy.
+
+Overall, Microsoft’s financial health is robust, with strong fundamentals, stable cash flows, and a low-risk profile.
 
 ---
 
 ## 2. Turnaround & Renewal Theory Application
 
-Given Microsoft’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained innovation.
+Given Microsoft’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained growth. The company should focus on innovation and stakeholder alignment to maintain its competitive edge.
 
-- **Strategic Renewal:** Emphasizing innovation aligns with Beard (2024) on tech-sector renewal, focusing on AI integration (e.g., Microsoft 365 Copilot), cloud expansion (Azure), and new business models.
-- **Stakeholder Alignment:** Following Freeman (1984), Microsoft should continue aligning interests of shareholders, customers, employees, and partners to maintain competitive advantage.
-- **Growth & Repositioning:** Hofer’s (1980) sequencing suggests Microsoft is in a growth and renewal phase, investing in emerging technologies and expanding market reach.
-- **Risk Management:** While financial distress is not a concern, Hoskisson et al. (2004) recommend ongoing strategic restructuring to adapt to rapid tech changes and competitive pressures.
+- **Innovation and Repositioning:** Following Beard (2024), Microsoft should continue investing in cloud computing, AI integration (e.g., Microsoft 365 Copilot), and gaming ecosystems to drive future growth.
 
-No recent management upheavals or negative news suggest the company is well-positioned to execute these renewal strategies effectively.
+- **Stakeholder Alignment:** Freeman’s (1984) stakeholder theory suggests maintaining strong relationships with customers, partners, employees, and investors to support long-term value creation.
+
+- **Strategic Restructuring:** Hoskisson et al. (2004) recommend periodic strategic reviews to adapt to technological shifts and competitive dynamics, which Microsoft has demonstrated through acquisitions (e.g., GitHub, LinkedIn) and product diversification.
+
+- **Leadership Stability:** The stable executive team under Satya Nadella provides continuity and vision, critical for executing renewal strategies.
+
+In summary, Microsoft’s focus should be on proactive innovation, strategic investments, and maintaining stakeholder trust to sustain its market leadership.
 
 ---
 
 ## 3. Internal Stakeholder Recommendations
 
-Internal alignment is critical to sustain Microsoft’s growth and innovation momentum. The following table outlines key roles and recommended actions:
+Internal alignment is crucial for executing Microsoft’s growth strategy. The following table outlines key roles and recommended actions:
 
-| Title/Role                      | Responsibilities                          | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
-|--------------------------------|------------------------------------------|-----------------------------------------|-------------------------------------------------------------|
-| CEO & Executive Leadership (Satya Nadella) | Strategic vision, innovation leadership | Revenue growth, market share, innovation pipeline | Drive AI/cloud innovation; maintain stakeholder alignment (Freeman, 1984) |
-| CFO & Finance Team (Amy Hood)  | Financial stewardship, risk management   | Cash flow, debt ratios, profitability   | Optimize capital allocation; monitor leverage and liquidity (Hoskisson et al., 2004) |
-| CTO & Product Teams            | Technology development, R&D              | Product launch success, adoption rates  | Accelerate AI and cloud product development (Beard, 2024)  |
-| CMO & Commercial Officers      | Market positioning, customer acquisition | Customer retention, revenue per segment | Enhance digital marketing and customer engagement            |
-| Board Members                 | Oversight, governance                     | Governance risk scores, compliance      | Ensure robust governance and risk oversight                  |
-| Employees                    | Execution of innovation and operations    | Productivity, engagement scores         | Foster culture of innovation and continuous learning         |
-| Shareholders                 | Investment and voting                      | Share price, dividend stability         | Maintain transparent communication and dividend policy       |
-| Creditors                   | Financial stability monitoring             | Debt service coverage                    | Monitor credit metrics and maintain strong credit profile    |
-| Customers                   | Product/service experience                  | Customer satisfaction, NPS               | Deliver high-quality, innovative solutions                    |
-| Partners                   | Strategic alliances and ecosystem growth    | Partnership growth, joint initiatives    | Strengthen cloud and AI ecosystem partnerships                |
+| Title/Role                          | Responsibilities                          | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
+|-----------------------------------|-----------------------------------------|-----------------------------------------|-------------------------------------------------------------|
+| CEO & Executive Leadership (Satya Nadella) | Strategic vision, innovation leadership | Revenue growth, market share, innovation pipeline | Drive innovation in cloud and AI; maintain culture of agility (Beard, 2024) |
+| CFO & Finance Team (Amy Hood)     | Financial stewardship, risk management  | Cash flow, debt levels, profitability   | Optimize capital allocation; monitor leverage and liquidity (Altman, 1968) |
+| CTO & Product Teams               | Technology development, product delivery | R&D milestones, product adoption rates  | Accelerate AI and cloud product development; ensure quality and scalability |
+| CMO & Commercial Officers         | Market positioning, customer engagement | Customer acquisition, retention rates   | Enhance brand messaging around innovation and sustainability (Freeman, 1984) |
+| Board Members                    | Oversight, governance                    | Governance risk scores, compliance      | Ensure robust oversight; support strategic initiatives       |
+| Employees                       | Execution of operational tasks          | Productivity, engagement scores         | Foster innovation culture; support continuous learning       |
+| Shareholders                    | Investment and voting                    | Share price performance, dividends      | Maintain transparent communication; align on long-term strategy |
+| Creditors                      | Financial stability monitoring           | Debt servicing ratios                    | Monitor credit risk; support sustainable debt management     |
+| Customers                      | Product/service experience                | Customer satisfaction, NPS               | Provide cutting-edge, reliable products and services          |
+| Partners                      | Strategic alliances                       | Partnership growth, joint initiatives    | Strengthen ecosystem partnerships for innovation             |
 
 ---
 
@@ -112,37 +121,40 @@ Internal alignment is critical to sustain Microsoft’s growth and innovation mo
 
 Effective communication is vital to reinforce Microsoft’s growth narrative and maintain stakeholder confidence.
 
-- **Executive Leadership Communications:** Emphasize vision on AI leadership, cloud dominance, and sustainable growth.
-- **Investor Relations:** Highlight strong financial results, dividend stability, and growth prospects in earnings calls and reports.
-- **Internal Communications:** Engage employees with innovation goals and change initiatives to sustain motivation.
-- **External Relations:** Promote product innovations and ecosystem partnerships to customers and partners.
+- **Executive Leadership Communications:** Emphasize vision on AI, cloud leadership, and sustainability in all messaging.
+
+- **Investor Relations:** Highlight strong financial performance, dividend stability, and growth prospects in earnings calls and reports.
+
+- **Internal Communications:** Engage employees with innovation goals and change initiatives to sustain motivation and alignment.
+
+- **External Relations:** Promote product innovations and partnerships to customers and the public, reinforcing Microsoft’s market leadership.
 
 **Phased Execution Plan:**
 
-| Phase          | Actions & Focus                                  | Leaders & Coordination                 | Success Metrics                      | Risk Mitigation                      |
-|----------------|-------------------------------------------------|--------------------------------------|------------------------------------|------------------------------------|
-| Near-term (1-3 months) | Communicate AI/cloud strategy; quick wins in product updates | CEO, CMO, CTO, IR                    | Positive market reaction; employee engagement | Monitor market feedback; adjust messaging |
-| Mid-term (4-6 months) | Launch new AI-enabled products; expand cloud services | Product teams, Sales, Marketing      | Revenue growth; customer adoption  | Manage operational risks; ensure quality |
-| Long-term (7-18 months) | Strategic partnerships; global market expansion | Executive leadership, Board          | Market share gains; sustained profitability | Continuous risk assessment; governance oversight |
+| Phase          | Actions                                         | Leaders & Sponsors           | Metrics & Monitoring                 | Risk Mitigation                      |
+|----------------|------------------------------------------------|-----------------------------|------------------------------------|------------------------------------|
+| Near-term (1-3 months) | Communicate Q2 results; launch AI product updates | CEO, CFO, CMO                | Revenue growth, customer feedback  | Address market concerns promptly   |
+| Mid-term (4-6 months)  | Expand cloud services; enhance partner programs | CTO, Commercial Officers     | Market share, partnership metrics  | Monitor competitive responses      |
+| Long-term (7-18 months) | Invest in R&D; pursue strategic acquisitions | CEO, Board                   | Innovation pipeline, financial returns | Maintain financial discipline      |
 
-Tone remains confident and growth-oriented, reflecting Microsoft’s strong financial and market position.
+Communication tone is confident and growth-oriented, reflecting Microsoft’s Safe Zone status and strong market position.
 
 ---
 
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section provides tailored investment guidance aligned with Microsoft’s low-risk profile and diverse investor goals.
+This section provides tailored investment guidance aligned with Microsoft’s low-risk profile and diverse investor needs.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (~0.7%), low payout ratio, strong cash flow support dividend sustainability. |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong revenue/earnings growth, innovation leadership, positive analyst consensus, Safe Zone Z-Score. |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Solid fundamentals but high valuation (P/E ~36), moderate beta (~1.03) suggest measured risk.     |
-| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low financial distress risk, strong balance sheet, but tech sector cyclicality warrants caution.  |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (~0.7%) with low payout ratio (~24%) supports income stability (Altman, 1968) |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong growth in cloud and AI, robust financials, and positive analyst sentiment support upside   |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | While growth is strong, valuation is premium; speculative investors should monitor market shifts   |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Strong balance sheet and liquidity reduce risk; suitable for preservation with moderate yield      |
 
-**Overall Recommendation: BUY for growth-oriented investors and HOLD for conservative income or defensive investors.**
+**Overall Recommendation: BUY for growth and moderate risk investors; HOLD for conservative income and preservation-focused investors.**
 
-Scenario analysis: A downgrade to Hold or Sell would require significant deterioration in financial health or competitive position, while upgrades to Strong Buy would depend on accelerated innovation breakthroughs or market expansion.
+Scenario analysis: A significant market downturn or loss of cloud market share could warrant a more cautious stance; conversely, breakthrough AI innovations could accelerate growth and justify stronger buy ratings.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -150,24 +162,32 @@ Scenario analysis: A downgrade to Hold or Sell would require significant deterio
 
 ## 6. Market Sentiment Analysis (Analyst Recommendations)
 
-This section reviews current analyst sentiment to complement the quantitative risk assessment.
+Analyst sentiment for Microsoft is strongly positive, with a consensus recommendation of "Strong Buy" (mean rating ~1.43 on a scale where 1=Strong Buy). The target mean price (~$509) exceeds the current price (~$470), indicating expected appreciation.
 
-- Microsoft’s consensus analyst rating is a strong buy (mean recommendation ~1.43 on a scale where 1=Strong Buy).
-- The target mean price is approximately $509, about 8% above the current price (~$470), indicating upside potential.
-- Analyst coverage is broad (50 opinions), with no recent downgrades or negative shifts reported.
-- The stock trades near its 52-week high, reflecting market confidence.
-- No multi-period analyst data was provided to analyze trends over time; however, the current sentiment is stable and positive.
-- Limitations: Lack of detailed historical analyst rating distributions and target price changes restricts deeper trend analysis.
+- **Stability:** The sentiment has remained stable with no significant downgrades or volatility in recommendations.
 
-The strong buy consensus aligns well with the Safe Zone Z-Score and robust financials, reinforcing investor confidence.
+- **Consensus:** Majority of analysts recommend Buy or Strong Buy, reflecting confidence in Microsoft’s fundamentals and growth prospects.
+
+- **Volatility:** No notable recent upgrades or downgrades; sentiment is steady.
+
+- **Limitations:** Detailed granular data on individual analyst ratings or target price ranges is not available, limiting deeper trend analysis.
+
+This positive analyst sentiment aligns well with Microsoft’s Safe Zone Z-Score and strong financial health, reinforcing investor confidence. Market sentiment supports the recommendation for growth and moderate risk investors, while conservative investors may rely on dividend stability.
 
 ---
 
 ## 7. References and Data Sources
 
-Transparency and source attribution are essential for credibility. This analysis draws on comprehensive financial and market data from SEC filings, Yahoo Finance, and company disclosures. Market price data was sourced from weekly price records. Additional inputs include institutional ownership data, dividend history, and executive compensation disclosures.
+Transparency and source attribution are critical for robust financial analysis. This report integrates data from SEC filings, Yahoo Finance, and company disclosures, including:
 
-All Altman Z-Score calculations follow the original 1968 methodology with adaptations for modern financial contexts. Theoretical frameworks applied include Hofer (1980) on turnaround sequencing, Bibeault (1999) on corporate recovery, Hoskisson et al. (2004) on restructuring, Beard (2024) on technology sector renewal, and Freeman (1984) on stakeholder alignment.
+- Institutional and major holders data reflecting ownership structure
+- Dividend history and payout ratios
+- Stock split history confirming capital structure stability
+- Weekly price and volatility data for market trend analysis
+- Comprehensive financial statement data for ratio calculations
+- Company metadata detailing business segments and leadership
+
+All Altman Z-Score computations follow the original 1968 methodology with adjustments for modern financial contexts. Theoretical frameworks applied include seminal works on turnaround and renewal strategies by Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984).
 
 ---
 
@@ -175,23 +195,38 @@ All Altman Z-Score calculations follow the original 1968 methodology with adapta
 
 ### Company Metadata
 
-| Field                 | Value                          |
-|-----------------------|--------------------------------|
-| Name                  | Microsoft Corporation          |
-| Ticker                | MSFT                          |
-| Sector                | Technology                    |
-| Industry              | Software - Infrastructure     |
-| Country               | United States                 |
-| Market Capitalization  | $3.5 Trillion                 |
-| Employees             | 228,000                      |
-| Exchange              | NASDAQ NMS - GLOBAL MARKET    |
-| IPO Date              | 1986-03-13                   |
-| Website               | https://www.microsoft.com     |
-| Phone                 | 425 882 8080                 |
+| Field                  | Value                          |
+|------------------------|--------------------------------|
+| Name                   | Microsoft Corporation          |
+| Ticker                 | MSFT                          |
+| Sector                 | Technology                    |
+| Industry               | Software - Infrastructure     |
+| Country                | United States                 |
+| Market Capitalization  | $3.5 trillion                 |
+| Employees              | 228,000                      |
+| Exchange               | NASDAQ NMS - GLOBAL MARKET    |
+| IPO Date               | 1986-03-13                   |
+| Website                | https://www.microsoft.com     |
+| Address                | One Microsoft Way, Redmond, WA 98052-6399 |
+| Phone                  | 425 882 8080                 |
 
-### Weekly Prices Summary (Recent)
+### Key Financial Ratios (Latest)
 
-| Week       | Avg Price | Min Price | Max Price | Days with Data |
+| Ratio             | Value    |
+|-------------------|----------|
+| Current Ratio     | 1.37     |
+| Quick Ratio       | 1.24     |
+| Debt/Equity       | 32.6%    |
+| Gross Margin      | 69.1%    |
+| Net Margin        | 35.8%    |
+| Return on Assets  | 14.6%    |
+| Return on Equity  | 33.6%    |
+| Dividend Yield    | 0.7%     |
+| Payout Ratio      | 24.4%    |
+
+### Weekly Price Summary (Recent)
+
+| Date       | Avg Price | Min Price | Max Price | Days with Data |
 |------------|-----------|-----------|-----------|----------------|
 | 2024-06-24 | 446.69    | 443.55    | 449.40    | 5              |
 | 2024-07-01 | 457.58    | 453.25    | 464.00    | 4              |
@@ -199,28 +234,14 @@ All Altman Z-Score calculations follow the original 1968 methodology with adapta
 | 2024-07-15 | 441.51    | 433.78    | 450.51    | 5              |
 | 2024-07-22 | 428.78    | 415.22    | 441.47    | 5              |
 
-### Key Financial Ratios
-
-| Ratio           | Value    |
-|-----------------|----------|
-| Current Ratio   | 1.37     |
-| Quick Ratio     | 1.24     |
-| Debt/Equity     | 0.33     |
-| Gross Margin    | 69.1%    |
-| Net Margin      | 35.8%    |
-| ROA             | 14.6%    |
-| ROE             | 33.6%    |
-| Dividend Yield  | 0.71%    |
-| P/E (Trailing)  | 36.35    |
-| P/E (Forward)   | 31.46    |
-
 ### Data Provenance and Quality
 
-- Financial data sourced from latest SEC filings and Yahoo Finance as of mid-2024.
-- Market price data covers weekly intervals from April 2024 through May 2025.
-- Executive compensation and ownership data current as of fiscal year 2024.
-- No significant missing data; all key financial metrics available and consistent.
+- Financial data sourced from SEC filings and company reports, updated to fiscal year 2024.
+- Market data from Yahoo Finance, covering weekly prices from 2010 to 2025.
+- Dividend and split history verified; no recent splits since 2003.
+- Institutional ownership data current as of latest filings.
+- No significant missing or estimated fields detected.
 
 ---
 
-This comprehensive analysis confirms Microsoft’s strong financial position and low bankruptcy risk, supporting a positive outlook for investors and stakeholders alike.
+This comprehensive analysis confirms Microsoft’s strong financial position and growth prospects, supported by stable leadership and positive market sentiment.

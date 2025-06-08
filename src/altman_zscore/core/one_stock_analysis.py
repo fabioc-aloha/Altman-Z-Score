@@ -211,10 +211,9 @@ def _fetch_and_validate_financials(ticker: str, model: str, start_date: str, out
         start_date: Analysis start date.
         out_base: Base output path.
     Returns:
-        Tuple of (fin_info, valid_quarters).
-    """
+        Tuple of (fin_info, valid_quarters).    """
     # Use LLM-based reconciliation instead of legacy fetch
-    fin_info = fetch_and_reconcile_financials(ticker, "", model)
+    fin_info = fetch_and_reconcile_financials(ticker, "", model, start_date)
     if fin_info is None:
         error_result = [{
             "quarter_end": None,
@@ -359,27 +358,39 @@ def _save_results_to_disk(df, out_base, error=False):
         print_error(f"Could not save JSON: {e}")
 
 
-def _fetch_and_save_weekly_prices(ticker, df, out_base):
+def _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=None):
     """
-    Fetch and save weekly price stats for the Z-Score period.
+    Fetch and save weekly price stats for the specified historical range (from start_date onward).
 
     Args:
         ticker: Stock ticker symbol.
         df: DataFrame with Z-Score results.
         out_base: Base output path.
+        start_date: Optional start date (YYYY-MM-DD) to restrict price data.
     Returns:
         DataFrame with weekly price statistics, or None on error.
     """
     stock_prices = None
     weekly_stats = None
     try:
-        quarters = pd.to_datetime(df["quarter_end"])
-        start_date = quarters.min().strftime("%Y-%m-%d")
-        from datetime import timedelta
-        financial_end_date = quarters.max()
-        extended_end_date = financial_end_date + timedelta(days=60)
-        end_date = extended_end_date.strftime("%Y-%m-%d")
-        weekly_stats = get_weekly_price_stats(ticker, start_date, end_date)
+        import yfinance as yf
+        # Get the full available date range for the ticker
+        yf_ticker = yf.Ticker(ticker)
+        hist = yf_ticker.history(period="max")
+        if hist is None or hist.empty:
+            raise ValueError(f"No historical price data found for {ticker}")
+        # Use the provided start_date if given, else use the earliest available
+        if start_date:
+            try:
+                # Ensure start_date is not before the available data
+                min_date = hist.index.min().strftime("%Y-%m-%d")
+                start_date_effective = max(start_date, min_date)
+            except Exception:
+                start_date_effective = start_date
+        else:
+            start_date_effective = hist.index.min().strftime("%Y-%m-%d")
+        end_date = hist.index.max().strftime("%Y-%m-%d")
+        weekly_stats = get_weekly_price_stats(ticker, start_date_effective, end_date)
         stock_prices = weekly_stats
         try:
             from altman_zscore.data_fetching.prices import save_price_data_to_disk
@@ -559,7 +570,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
             print_warning(f"{row['quarter_end']}: {row['error']}")
 
     # Fetch weekly prices (part of Market Data step tracked earlier)
-    stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base)
+    stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=start_date)
 
     # Step 10: LLM Prompt Construction
     update_progress("LLM Prompt Construction")
