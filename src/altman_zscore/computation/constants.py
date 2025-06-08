@@ -10,51 +10,11 @@ from decimal import Decimal
 from typing import Dict, List
 
 # -------------------------------------------------------------------
-# 1) FIELD_MAPPING: Maps canonical field names to possible XBRL/financial statement labels.
-# Used for extracting and standardizing raw data fields from various sources.
+# 1) Field mapping is now handled by Azure OpenAI service
+# The mapping of canonical field names to raw financial statement fields
+# is done using natural language understanding for better accuracy and
+# support for international field names and formats.
 # -------------------------------------------------------------------
-FIELD_MAPPING: Dict[str, List[str]] = {
-    'total_assets': [
-        'Total Assets',
-        'Assets',
-        'AssetsTotal'
-    ],
-    'current_assets': [
-        'Current Assets',
-        'AssetsCurrent'
-    ],
-    'current_liabilities': [
-        'Current Liabilities',
-        'LiabilitiesCurrent'
-    ],    'retained_earnings': [
-        'Retained Earnings',
-        'RetainedEarnings',
-        'INFERRED:Stockholders Equity:Additional Paid In Capital',
-        'INFERRED:Total Equity Gross Minority Interest:Additional Paid In Capital'  # Added for yfinance data format
-    ],
-    'total_liabilities': [
-        'Total Liabilities Net Minority Interest',
-        'Total Liabilities',
-        'Liabilities'
-    ],
-    'book_value_equity': [
-        'Common Stock Equity',
-        'Stockholders Equity',
-        'Total Equity Gross Minority Interest'
-    ],
-    'ebit': [
-        'EBIT',
-        'Operating Income',
-        'OperatingIncome'
-    ],
-    'sales': [
-        'Total Revenue',
-        'Revenues',
-        'Sales',
-        'Revenue',
-        'Operating Revenue'
-    ]
-}
 
 # -------------------------------------------------------------------
 # 2) MODEL_FIELDS: Lists required canonical fields for each Z-Score model variant.

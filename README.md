@@ -2,9 +2,9 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.0.1 (2025-06-07)**
+**Version: 3.1.0 (2025-06-08)**
 
-A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
+A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights.This script orchestrates the analysis pipeline for single or multiple stock tickers.
 
 ---
 

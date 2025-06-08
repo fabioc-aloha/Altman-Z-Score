@@ -172,3 +172,12 @@ FINNHUB_API_KEY="your-finnhub-api-key"  # Do NOT share real API keys
 ```
 
 > **Security Note:** Never commit or share real API keys, secrets, or credentials in documentation, code, or version control. Always use placeholder values (e.g., "your-api-key") and store secrets securely using environment variables or secret managers.
+
+---
+
+# Directive: AI-First Solutions
+- Always prefer AI-powered, LLM-based, or AI-assisted solutions for field mapping, data reconciliation, and similar tasks, unless a simpler, more robust, or more transparent method is clearly superior for the use case.
+- When implementing new features or refactoring, prioritize AI-first approaches in line with KISS (Keep It Simple, Stupid) and DRY (Don't Repeat Yourself) principles.
+- Document any decision to use a non-AI method in TODO.md or LEARNINGS.md, including rationale.
+
+---

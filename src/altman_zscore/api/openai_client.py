@@ -1,7 +1,7 @@
 import os
+from openai import AzureOpenAI
 import json
 import logging
-import requests
 from typing import Optional
 
 from ..utils.retry import exponential_retry
@@ -15,14 +15,6 @@ from .openai_helpers import (
     extract_trimmed_company_info,
 )
 from .rate_limiter import retry_with_backoff
-
-# Network exceptions to retry on
-OPENAI_EXCEPTIONS = (
-    requests.exceptions.RequestException,  # Base exception that all requests exceptions inherit from
-    requests.exceptions.Timeout,  # For timeouts
-    requests.exceptions.ConnectionError,  # For connection errors
-    requests.exceptions.HTTPError,  # For 4xx/5xx status codes
-)
 
 
 class AzureOpenAIClient:
@@ -41,15 +33,22 @@ class AzureOpenAIClient:
         self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
         self.endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
         self.deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
-        self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2023-05-15")
-        self.model = os.getenv("AZURE_OPENAI_MODEL")
+        self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+        
         if not all([self.api_key, self.endpoint, self.deployment]):
             raise ValueError("Missing Azure OpenAI configuration in environment variables.")
+            
+        # Initialize Azure OpenAI client
+        self.client = AzureOpenAI(
+            api_version=self.api_version,
+            azure_endpoint=self.endpoint,
+            api_key=self.api_key,
+        )
 
     @retry_with_backoff(
         max_retries=5,
         backoff_factor=2.0,
-        retry_exceptions=OPENAI_EXCEPTIONS,
+        retry_exceptions=(Exception,),
         retry_status_codes=(429, 500, 502, 503, 504),
         status_code_getter=lambda resp: getattr(resp, 'status_code', None) if resp is not None else None,
     )
@@ -64,25 +63,25 @@ class AzureOpenAIClient:
         Returns:
             dict: The full response from the OpenAI API.
         Raises:
-            requests.HTTPError: If the API call fails after retries.
-            RuntimeError: If JSON parsing fails after retries.
+            Exception: If the API call fails after retries.
         """
-        url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
-        headers = {"api-key": self.api_key, "Content-Type": "application/json"}
-        payload = {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
-        response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status()
         try:
-            return response.json()
+            response = self.client.chat.completions.create(
+                model=self.deployment,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens
+            )
+            return {"choices": [{"message": {"content": response.choices[0].message.content}}]}
         except Exception as e:
-            raise RuntimeError(f"Failed to parse OpenAI API response: {str(e)}")
+            raise RuntimeError(f"OpenAI API call failed: {str(e)}")
 
     def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None):
         """
         Use Azure OpenAI to suggest a mapping from canonical fields to raw fields.
 
         Args:
-            raw_fields (list[str]): List of raw field names (from XBRL/EDGAR)
+            raw_fields (list[str]): List of raw field names from XBRL/EDGAR
             canonical_fields (list[str]): List of canonical fields (e.g., total_assets, retained_earnings)
             sample_values (dict, optional): Optional dict of {raw_field: value} for context
             mapping_overrides (dict, optional): Optional dict of {canonical_field: raw_field} to override mapping
@@ -93,19 +92,101 @@ class AzureOpenAIClient:
         """
         prompt_path = resolve_prompt_path("prompt_field_mapping.md")
         system_prompt = load_prompt_file(prompt_path)
-        user_prompt = f"""
-Raw fields: {raw_fields}\n
-Canonical fields: {canonical_fields}\n
-"""
+
+        # Comprehensive financial keywords for filtering
+        financial_keywords = {
+            # Basic financial terms
+            "total", "net", "gross", "operating", "consolidated",
+            
+            # Asset-related terms
+            "assets", "current_assets", "fixed_assets", "intangible",
+            "goodwill", "inventory", "receivables", "cash",
+            
+            # Liability-related terms
+            "liabilities", "debt", "payables", "obligations",
+            "current_liabilities", "long_term",
+            
+            # Income statement terms
+            "revenue", "income", "earnings", "ebit", "ebitda",
+            "profit", "loss", "margin", "sales", "cost",
+            
+            # Equity-related terms
+            "equity", "capital", "stock", "shares", "retained",
+            
+            # Common abbreviations
+            "rev", "inc", "exp", "amt", "bal", "acct",
+            
+            # Numerical indicators (for fiscal periods)
+            "q1", "q2", "q3", "q4", "fy", "ytd", "ttm"
+        }
+
+        # Function to check if a field contains financial terms
+        def is_financial_field(field):
+            field_lower = field.lower()
+            # Check for individual keywords
+            if any(keyword in field_lower for keyword in financial_keywords):
+                return True
+            # Check for compound terms (e.g., "working_capital", "operating_income")
+            field_parts = set(field_lower.replace("_", " ").replace("-", " ").split())
+            if len(field_parts.intersection(financial_keywords)) >= 1:
+                return True
+            # Check for numeric patterns common in financial fields
+            import re
+            if re.search(r'(q[1-4]|20\d{2}|fy\d{2}|ttm)', field_lower):
+                return True
+            return False
+
+        # Filter raw fields to include only likely financial fields
+        filtered_raw_fields = [
+            field for field in raw_fields 
+            if is_financial_field(field)
+        ]
+
+        # Ensure we have enough fields for mapping
+        if len(filtered_raw_fields) < len(canonical_fields):
+            # If we filtered too aggressively, fall back to the full set
+            filtered_raw_fields = raw_fields
+            logging.warning("Field filtering was too aggressive, falling back to full field set")
+
+        # Create a focused sample values dict with only the filtered fields
+        filtered_sample_values = None
         if sample_values:
-            user_prompt += f"Sample values: {sample_values}\n"
+            filtered_sample_values = {
+                k: v for k, v in sample_values.items() 
+                if k in filtered_raw_fields
+            }
+
+        # Add context about the filtering process to the prompt
+        user_prompt = f"""
+Raw fields ({len(filtered_raw_fields)} most relevant of {len(raw_fields)} total): {filtered_raw_fields}\n
+Canonical fields to map: {canonical_fields}\n
+"""
+        if filtered_sample_values:
+            # Format sample values to be more readable
+            formatted_samples = json.dumps(filtered_sample_values, indent=2)
+            user_prompt += f"Sample values: {formatted_samples}\n"
+
         user_prompt += "Return a JSON object mapping each canonical field to an object with 'FoundField' (the best-matching raw field name or null) and 'Value' (the value for that field, or null)."
+        
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        response = self.chat_completion(messages, temperature=0.0, max_tokens=4096)
+
+        # Save the prompt for troubleshooting
         try:
+            from altman_zscore.utils.paths import get_output_dir
+            prompt_save_path = os.path.join(get_output_dir(), "field_mapping_prompt.txt")
+            full_prompt = f"System prompt:\n{system_prompt}\n\nUser prompt:\n{user_prompt}"
+            os.makedirs(os.path.dirname(prompt_save_path), exist_ok=True)
+            with open(prompt_save_path, "w", encoding="utf-8") as f:
+                f.write(full_prompt)
+            logging.warning(f"[DEBUG] Field mapping prompt saved to {prompt_save_path}")
+        except Exception as e:
+            logging.warning(f"[DEBUG] Could not save field mapping prompt: {e}")
+
+        try:
+            response = self.chat_completion(messages, temperature=0.0, max_tokens=4096)
             content = response["choices"][0]["message"]["content"]
             mapping = parse_llm_json_response(content)
             if mapping_overrides:
@@ -115,7 +196,6 @@ Canonical fields: {canonical_fields}\n
             return mapping
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
-
 
 def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) -> str:
     """

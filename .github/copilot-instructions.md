@@ -15,6 +15,7 @@
 - After each change, allow the user to run scripts and validate before proceeding to implement a different feature or additional changes.
 
 ## Implementation Principles
+- AI-First: Always prefer AI-powered, LLM-based, or AI-assisted solutions for field mapping, data reconciliation, and similar tasks, unless a simpler, more robust, or more transparent method is clearly superior for the use case. When implementing new features or refactoring, prioritize AI-first approaches in line with KISS (Keep It Simple, Stupid) and DRY (Don't Repeat Yourself) principles. Document any decision to use a non-AI method in TODO.md or LEARNINGS.md, including rationale.
 - DRY (Don't Repeat Yourself): Factor out repeated logic into shared helpers, decorators, or modules. Prefer a single, well-tested implementation for retry logic, error handling, or data processing.
 - KISS (Keep It Simple, Stupid): Prefer simple, clear, and direct solutions. Avoid unnecessary abstractions or optimizations unless justified by a real need.
 - Simplicity: Start with a single-stock analysis pipeline, then generalize to portfolios.

@@ -1,0 +1,599 @@
+
+
+# company_info.json
+{
+  "country": "US",
+  "currency": "USD",
+  "estimateCurrency": "USD",
+  "exchange": "NASDAQ NMS - GLOBAL MARKET",
+  "finnhubIndustry": "Technology",
+  "ipo": "1986-03-13",
+  "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MSFT.png",
+  "marketCapitalization": 3496119.9662440643,
+  "name": "Microsoft Corp",
+  "phone": "14258828080",
+  "shareOutstanding": 7432.54,
+  "ticker": "MSFT",
+  "weburl": "https://www.microsoft.com/en-in/"
+}
+
+# weekly_prices.csv
+week,avg_price,min_price,max_price,days_with_data
+2024-04-01,418.0074096679688,413.953857421875,421.5220642089844,5
+2024-04-08,420.80091552734376,417.9360656738281,423.909423828125,5
+2024-04-15,404.85020141601564,395.3701171875,410.68487548828125,5
+2024-04-22,400.788720703125,395.2908935546875,405.2167053222656,5
+2024-04-29,394.46270751953125,385.6720886230469,402.8392333984375,5
+2024-05-06,408.22418823242185,405.49407958984375,410.84332275390625,5
+2024-05-13,415.4279479980469,409.83294677734375,419.8609313964844,5
+2024-05-20,425.1523742675781,422.103759765625,427.2443542480469,5
+2024-05-27,419.10923767089844,411.51495361328125,427.0458984375,4
+2024-06-03,417.1953857421875,410.3736572265625,421.28997802734375,5
+2024-06-10,433.8258850097656,424.6145324707031,439.2026672363281,5
+2024-06-17,444.1422805786133,442.308837890625,446.3577880859375,4
+2024-06-24,446.6912475585938,443.5493469238281,449.4044494628906,5
+2024-07-01,457.5767822265625,453.25494384765625,464.00250244140625,4
+2024-07-08,456.55560913085935,450.0990905761719,462.70245361328125,5
+2024-07-15,441.5109375,433.7841796875,450.5059509277344,5
+2024-07-22,428.78452758789064,415.216552734375,441.4653015136719,5
+2024-07-29,415.53411254882815,405.3819274902344,423.4831848144531,5
+2024-08-05,397.3336608886719,392.1434326171875,402.9307556152344,5
+2024-08-12,412.5754089355469,403.7146911621094,418.5796203613281,5
+2024-08-19,418.11436767578124,413.13153076171875,422.32769775390625,5
+2024-08-26,411.2306396484375,408.2103271484375,414.7122802734375,5
+2024-09-02,404.73816680908203,399.3621520996094,407.05706787109375,4
+2024-09-09,417.6650024414063,403.3587646484375,428.083984375,5
+2024-09-16,431.7246948242188,428.302734375,436.1368713378906,5
+2024-09-23,428.3166442871094,425.5289611816406,430.9870300292969,5
+2024-09-30,417.6988037109375,413.6385498046875,427.7956848144531,5
+2024-10-07,412.3600341796875,407.1565246582031,415.0303955078125,5
+2024-10-14,415.34458618164064,413.6982116699219,416.7006530761719,5
+2024-10-21,422.2819763183594,416.3427429199219,425.658203125,5
+2024-10-28,419.1045715332031,403.985107421875,430.0126953125,5
+2024-11-04,415.1835083007812,406.082763671875,422.9540100097656,5
+2024-11-11,419.17217407226565,412.5847473144531,424.4055480957031,5
+2024-11-18,413.6924682617188,411.2887268066406,415.40289306640625,5
+2024-11-25,421.68626403808594,417.1860656738281,426.350830078125,4
+2024-12-02,435.4837219238281,429.3293762207031,441.87115478515625,5
+2024-12-09,445.32188110351564,441.6320495605469,447.83819580078125,5
+2024-12-16,441.71575927734375,434.9278869628906,452.7194519042969,5
+2024-12-23,434.13590240478516,428.881103515625,437.64739990234375,4
+2024-12-30,420.4485168457031,416.97686767578125,423.2029113769531,4
+2025-01-06,421.81078338623047,417.345458984375,426.21136474609375,4
+2025-01-13,420.93763427734376,414.0780334472656,427.3868408203125,5
+2025-01-20,439.6770935058594,426.85888671875,444.9991149902344,4
+2025-01-27,429.1779541015625,413.4006042480469,445.4872741699219,5
+2025-02-03,410.8504272460938,408.1806945800781,414.2274475097656,5
+2025-02-10,408.76243286132814,406.86572265625,410.6412048339844,5
+2025-02-17,411.0204849243164,407.4619445800781,415.3674621582031,4
+2025-02-24,397.500244140625,391.8106994628906,403.2596740722656,5
+2025-03-03,392.94260864257814,387.778076171875,400.2851257324219,5
+2025-03-10,381.5415466308594,378.0758972167969,387.84796142578125,5
+2025-03-17,386.9176818847656,382.81719970703125,390.54302978515625,5
+2025-03-24,388.80421142578126,378.1058349609375,394.4358825683594,5
+2025-03-31,373.8476806640625,359.18060302734375,381.4896545410156,5
+2025-04-07,373.85565795898435,353.9102783203125,389.7744140625,5
+2025-04-14,377.53939056396484,367.1060485839844,387.0993347167969,4
+2025-04-21,375.2071838378906,358.4619140625,391.1319580078125,5
+2025-04-28,407.479931640625,390.4432067871094,434.48236083984375,5
+2025-05-05,435.1471435546875,432.5159606933594,437.9260559082031,5
+2025-05-12,451.25274047851565,448.3169860839844,454.2699890136719,5
+2025-05-19,454.92999877929685,450.17999267578125,458.8699951171875,5
+2025-05-26,458.9099934895833,457.3599853515625,460.69000244140625,3
+
+
+# yf_info.json
+{
+  "address1": "One Microsoft Way",
+  "city": "Redmond",
+  "state": "WA",
+  "zip": "98052-6399",
+  "country": "United States",
+  "phone": "425 882 8080",
+  "website": "https://www.microsoft.com",
+  "industry": "Software - Infrastructure",
+  "industryKey": "software-infrastructure",
+  "industryDisp": "Software - Infrastructure",
+  "sector": "Technology",
+  "sectorKey": "technology",
+  "sectorDisp": "Technology",
+  "longBusinessSummary": "Microsoft Corporation develops and supports software, services, devices and solutions worldwide. The Productivity and Business Processes segment offers office, exchange, SharePoint, Microsoft Teams, office 365 Security and Compliance, Microsoft viva, and Microsoft 365 copilot; and office consumer services, such as Microsoft 365 consumer subscriptions, Office licensed on-premises, and other office services. This segment also provides LinkedIn; and dynamics business solutions, including Dynamics 365, a set of intelligent, cloud-based applications across ERP, CRM, power apps, and power automate; and on-premises ERP and CRM applications. The Intelligent Cloud segment offers server products and cloud services, such as azure and other cloud services; SQL and windows server, visual studio, system center, and related client access licenses, as well as nuance and GitHub; and enterprise services including enterprise support services, industry solutions, and nuance professional services. The More Personal Computing segment offers Windows, including windows OEM licensing and other non-volume licensing of the Windows operating system; Windows commercial comprising volume licensing of the Windows operating system, windows cloud services, and other Windows commercial offerings; patent licensing; and windows Internet of Things; and devices, such as surface, HoloLens, and PC accessories. Additionally, this segment provides gaming, which includes Xbox hardware and content, and first- and third-party content; Xbox game pass and other subscriptions, cloud gaming, advertising, third-party disc royalties, and other cloud services; and search and news advertising, which includes Bing, Microsoft News and Edge, and third-party affiliates. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online, and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington.",
+  "fullTimeEmployees": 228000,
+  "companyOfficers": [
+    {
+      "maxAge": 1,
+      "name": "Mr. Satya  Nadella",
+      "age": 57,
+      "title": "Chairman & CEO",
+      "yearBorn": 1967,
+      "fiscalYear": 2024,
+      "totalPay": 7869791,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Bradford L. Smith LCA",
+      "age": 65,
+      "title": "President & Vice Chairman",
+      "yearBorn": 1959,
+      "fiscalYear": 2024,
+      "totalPay": 4755618,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Amy E. Hood",
+      "age": 52,
+      "title": "Executive VP & CFO",
+      "yearBorn": 1972,
+      "fiscalYear": 2024,
+      "totalPay": 4704250,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Judson B. Althoff",
+      "age": 50,
+      "title": "Executive VP & Chief Commercial Officer",
+      "yearBorn": 1974,
+      "fiscalYear": 2024,
+      "totalPay": 4534974,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Carolina  Dybeck Happe",
+      "age": 52,
+      "title": "Executive VP & COO",
+      "yearBorn": 1972,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Alice L. Jolla",
+      "age": 58,
+      "title": "Corporate VP & Chief Accounting Officer",
+      "yearBorn": 1966,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Jonathan  Neilson",
+      "title": "Vice President of Investor Relations",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Hossein  Nowbar",
+      "title": "Chief Legal Officer",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Frank X. Shaw",
+      "title": "Chief Communications Officer",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Takeshi  Numoto",
+      "age": 53,
+      "title": "Executive VP & Chief Marketing Officer",
+      "yearBorn": 1971,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    }
+  ],
+  "auditRisk": 9,
+  "boardRisk": 5,
+  "compensationRisk": 4,
+  "shareHolderRightsRisk": 2,
+  "overallRisk": 3,
+  "governanceEpochDate": 1748736000,
+  "compensationAsOfEpochDate": 1735603200,
+  "irWebsite": "http://www.microsoft.com/investor/default.aspx",
+  "executiveTeam": [],
+  "maxAge": 86400,
+  "priceHint": 2,
+  "previousClose": 467.68,
+  "open": 470.31,
+  "dayLow": 468.81,
+  "dayHigh": 473.335,
+  "regularMarketPreviousClose": 467.68,
+  "regularMarketOpen": 470.31,
+  "regularMarketDayLow": 468.81,
+  "regularMarketDayHigh": 473.335,
+  "dividendRate": 3.32,
+  "dividendYield": 0.71,
+  "exDividendDate": 1747267200,
+  "payoutRatio": 0.2442,
+  "fiveYearAvgDividendYield": 0.83,
+  "beta": 1.026,
+  "trailingPE": 36.350853,
+  "forwardPE": 31.463547,
+  "volume": 15049393,
+  "regularMarketVolume": 15049393,
+  "averageVolume": 23690753,
+  "averageVolume10days": 18563270,
+  "averageDailyVolume10Day": 18563270,
+  "bid": 470.01,
+  "ask": 470.4,
+  "bidSize": 1,
+  "askSize": 1,
+  "marketCap": 3496118321152,
+  "fiftyTwoWeekLow": 344.79,
+  "fiftyTwoWeekHigh": 473.34,
+  "priceToSalesTrailing12Months": 12.948107,
+  "fiftyDayAverage": 416.5078,
+  "twoHundredDayAverage": 418.1891,
+  "trailingAnnualDividendRate": 3.24,
+  "trailingAnnualDividendYield": 0.006927814,
+  "currency": "USD",
+  "tradeable": false,
+  "enterpriseValue": 3521520861184,
+  "profitMargins": 0.35789,
+  "floatShares": 7422063978,
+  "sharesOutstanding": 7432540160,
+  "sharesShort": 57074580,
+  "sharesShortPriorMonth": 51249494,
+  "sharesShortPreviousMonthDate": 1744675200,
+  "dateShortInterest": 1747267200,
+  "sharesPercentSharesOut": 0.0077,
+  "heldPercentInsiders": 0.00063,
+  "heldPercentInstitutions": 0.74698997,
+  "shortRatio": 2.48,
+  "shortPercentOfFloat": 0.0077,
+  "impliedSharesOutstanding": 7432540160,
+  "bookValue": 43.3,
+  "priceToBook": 10.863279,
+  "lastFiscalYearEnd": 1719705600,
+  "nextFiscalYearEnd": 1751241600,
+  "mostRecentQuarter": 1743379200,
+  "earningsQuarterlyGrowth": 0.177,
+  "netIncomeToCommon": 96635002880,
+  "trailingEps": 12.94,
+  "forwardEps": 14.95,
+  "lastSplitFactor": "2:1",
+  "lastSplitDate": 1045526400,
+  "enterpriseToRevenue": 13.042,
+  "enterpriseToEbitda": 23.607,
+  "52WeekChange": 0.0993526,
+  "SandP52WeekChange": 0.119305134,
+  "lastDividendValue": 0.83,
+  "lastDividendDate": 1747267200,
+  "quoteType": "EQUITY",
+  "currentPrice": 470.38,
+  "targetHighPrice": 650.0,
+  "targetLowPrice": 429.86,
+  "targetMeanPrice": 509.1136,
+  "targetMedianPrice": 500.0,
+  "recommendationMean": 1.43333,
+  "recommendationKey": "strong_buy",
+  "numberOfAnalystOpinions": 50,
+  "totalCash": 79617998848,
+  "totalCashPerShare": 10.712,
+  "ebitda": 149172994048,
+  "totalDebt": 105018998784,
+  "quickRatio": 1.244,
+  "currentRatio": 1.372,
+  "totalRevenue": 270010007552,
+  "debtToEquity": 32.626,
+  "revenuePerShare": 36.325,
+  "returnOnAssets": 0.14581999,
+  "returnOnEquity": 0.3361,
+  "grossProfits": 186509000704,
+  "freeCashflow": 54817001472,
+  "operatingCashflow": 130710003712,
+  "earningsGrowth": 0.177,
+  "revenueGrowth": 0.133,
+  "grossMargins": 0.69074994,
+  "ebitdaMargins": 0.55247,
+  "operatingMargins": 0.45671,
+  "financialCurrency": "USD",
+  "symbol": "MSFT",
+  "language": "en-US",
+  "region": "US",
+  "typeDisp": "Equity",
+  "quoteSourceName": "Delayed Quote",
+  "triggerable": true,
+  "customPriceAlertConfidence": "HIGH",
+  "marketState": "CLOSED",
+  "fiftyDayAverageChange": 53.872192,
+  "fiftyDayAverageChangePercent": 0.12934257,
+  "twoHundredDayAverageChange": 52.190918,
+  "twoHundredDayAverageChangePercent": 0.1248022,
+  "sourceInterval": 15,
+  "exchangeDataDelayedBy": 0,
+  "averageAnalystRating": "1.4 - Strong Buy",
+  "cryptoTradeable": false,
+  "hasPrePostMarketData": true,
+  "firstTradeDateMilliseconds": 511108200000,
+  "corporateActions": [],
+  "shortName": "Microsoft Corporation",
+  "longName": "Microsoft Corporation",
+  "postMarketChangePercent": 0.08716435,
+  "postMarketPrice": 470.79,
+  "postMarketChange": 0.41000366,
+  "regularMarketChange": 2.70001,
+  "regularMarketDayRange": "468.81 - 473.335",
+  "fullExchangeName": "NasdaqGS",
+  "averageDailyVolume3Month": 23690753,
+  "fiftyTwoWeekLowChange": 125.59,
+  "fiftyTwoWeekLowChangePercent": 0.3642507,
+  "fiftyTwoWeekRange": "344.79 - 473.34",
+  "fiftyTwoWeekHighChange": -2.9599915,
+  "fiftyTwoWeekHighChangePercent": -0.0062534153,
+  "fiftyTwoWeekChangePercent": 9.93526,
+  "dividendDate": 1749686400,
+  "earningsTimestamp": 1746043200,
+  "earningsTimestampStart": 1753732800,
+  "earningsTimestampEnd": 1754078400,
+  "earningsCallTimestampStart": 1746048600,
+  "earningsCallTimestampEnd": 1746048600,
+  "isEarningsDateEstimate": true,
+  "epsTrailingTwelveMonths": 12.94,
+  "epsForward": 14.95,
+  "epsCurrentYear": 13.39189,
+  "priceEpsCurrentYear": 35.124245,
+  "postMarketTime": 1749254398,
+  "regularMarketTime": 1749240001,
+  "exchange": "NMS",
+  "messageBoardId": "finmb_21835",
+  "exchangeTimezoneName": "America/New_York",
+  "exchangeTimezoneShortName": "EDT",
+  "gmtOffSetMilliseconds": -14400000,
+  "market": "us_market",
+  "esgPopulated": false,
+  "regularMarketChangePercent": 0.57732,
+  "regularMarketPrice": 470.38,
+  "displayName": "Microsoft",
+  "trailingPegRatio": 2.2062
+}
+
+
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+
+---
+## TL;DR / Executive Summary
+
+* At the very top of the report, provide a concise, narrative executive summary of the most important findings and recommendations. This should be written in plain language and highlight:
+  - The company's current Z-Score risk category and what it means
+  - The overall financial health and trend
+  - The most important risks and opportunities
+  - The headline investor recommendation (Buy/Hold/Sell and for whom)
+  - Any major analyst sentiment or market signals
+* This section should be brief (1-2 paragraphs) and actionable, suitable for a busy executive or investor who wants the key takeaways without reading the full report.
+
+---
+## Company Profile
+
+* Begin this section with a concise introduction paragraph summarizing the company's identity and context.
+* Use all provided information to describe:
+  - Company business, competitors, products and services (including sector, industry, and company size from the injected company profile and market/industry metadata if available)
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings or news)
+  - Ownership structure and recent changes, referencing institutional_holders.json and major_holders.json for insider/institutional ownership, float, and any significant shifts
+  - Any recent news or events that may impact the company profile
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Start with an introduction paragraph that frames the purpose and scope of the financial health analysis.
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance, industry benchmarks, and any recent news or events.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+* In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
+* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
+* Where available, reference:
+  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - Dividend history, yield, and stability from dividend history
+  - Stock split history from split history to note any recent splits or capital structure changes
+  - Recent price trends and volatility from weekly price data
+* Reference any material changes in financials, management, or market environment that affect the diagnosis.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Open with a brief introduction paragraph explaining the relevance of turnaround and renewal theory to the company's current situation.
+* Use the Z-Score risk level and all available context (including news, management changes, and peer/industry trends) to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+* Reference any recent events, management changes, or market shifts that may affect the recommended approach.
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+* Begin with an introduction paragraph outlining the importance of internal stakeholder actions and alignment.
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level and any recent developments:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+  - Reference any relevant news, events, or management changes
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Start with a context-setting introduction paragraph describing the role of communication and execution strategy for the company at its current risk level.
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  - Reference any recent news, events, or market changes that affect communication priorities
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  - Reference any relevant news, events, or management changes
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Open with an introduction paragraph that explains the purpose of the investor recommendation section and how it relates to the company's risk profile and investor types.
+* Provide a **thorough, risk-aligned recommendation**: You must explicitly call out one of **Buy / Hold / Sell** based on Z-Score insights and **all available financial, market, peer, management, and qualitative data**. 
+* Organize the recommendation in a table by **investment goals** and **investor profiles**, using technical terms for risk tolerance and objectives. For example:
+
+| Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited) |
+|-----------------------------------|--------------------|----------------|-------------------|
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | ...               |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | ...               |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | SELL           | ...               |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | ...               |
+
+* Use technical terms such as: "income-oriented", "growth-oriented", "speculative/aggressive", "defensive", "risk-averse", "risk-tolerant", etc.
+* Justify each recommendation with:
+  - Z-Score trend and risk zone (Distress, Grey, Safe)
+  - Recent financial performance and outlook
+  - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
+  - Ownership and insider/institutional sentiment (from institutional and major holders data)
+  - Dividend policy and stability (from dividend history)
+  - Recent price/volatility context (from weekly price data)
+  - Any material news, events, or management changes
+  - Scenario analysis: briefly discuss what could change the recommendation (e.g., what would make a Hold become a Buy or Sell)
+  - Reference any relevant qualitative or external data that could affect the recommendation
+* Clearly state the overall recommendation in a bolded sentence, e.g.:
+  > **Recommendation: HOLD.**
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. Market Sentiment Analysis (Analyst Recommendations)
+
+* Begin with an introduction paragraph explaining the purpose of this section: to provide an overview of current market sentiment as reflected in professional analyst recommendations for the company.
+* Present a table summarizing the most recent analyst recommendations using the injected analyst data. The table must show the distribution of recommendations (e.g., Strong Buy, Buy, Hold, Sell, Strong Sell) for the current and previous periods, side by side, to enable clear trend analysis. **If more than two periods of analyst sentiment data are available, present a table covering all available periods to enable multi-period trend analysis.** Do not fabricate or use static examples—only use actual, injected data for the company under analysis.
+* Analyze the analyst recommendations data provided above to summarize the prevailing analyst sentiment. Include:
+  - The distribution of recommendations for all available periods (trend analysis)
+  - Any recent trends or changes in analyst sentiment, explicitly comparing the current period to the previous period(s) and commenting on stability or shifts
+  - Consensus target price if available, and how it compares to the current price (reference the injected weekly price data for current price)
+  - Notable upgrades, downgrades, or shifts in consensus
+* Analyze the following aspects based on the available data:
+  - Stability of sentiment: Note if the distribution of recommendations has changed or remained stable over the reported periods.
+  - Consensus: Identify the majority view (e.g., mostly Buy/Hold/Sell) and whether there are any extreme ratings (Strong Buy/Sell).
+  - Volatility: Comment on the presence or absence of upgrades/downgrades or new recommendation types.
+  - Limitations: If the data lacks target prices, firm names, or granular details, explicitly state this and avoid speculation.
+* Summarize these findings in a short narrative, highlighting whether analyst sentiment is stable, shifting, or mixed, and how this relates to the company's risk profile and Z-Score.
+* If the data is limited, clearly state the constraints and avoid inferring details not present in the data.
+
+* Integrate this sentiment analysis with the Z-Score and risk profile: discuss whether analyst sentiment aligns or diverges from the quantitative risk assessment.
+* Conclude with a brief narrative on how market sentiment may influence investor decision-making for different profiles.
+
+* When the prompt context includes multiple periods of analyst recommendations, you must explicitly compare the current and previous periods, analyze the trend, and comment on the stability or shifts in sentiment. **If more than two periods are available, analyze the full trend across all periods, not just the most recent two.** If the distribution is unchanged, state this clearly. If there are upgrades, downgrades, or new recommendation types, describe the change and its significance for market sentiment and risk assessment.
+
+---
+
+## 7. References and Data Sources
+
+* Start with an introduction paragraph explaining the importance of transparency and source attribution in the analysis.
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. Do not mention the names of any data files in the final report. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. Additional data sources may include:
+- Institutional and major holders data
+- Dividend history
+- Stock split history
+- Weekly price and volatility data
+- Full financial statement data
+- Company metadata
+All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+## 8. Appendices (LLM-Generated)
+
+* At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
+  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of weekly prices used for Z-Score analysis
+  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
+  - Data quality/completeness summary: note any missing or estimated fields
+  - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
+* Use only the injected data for all tables and summaries. If a section is not available, state so clearly.
+* Do not repeat the Z-Score component table (by quarter) in the appendix; reference it in the main report only.
+* Do not mention file names or file paths in the appendix or main report.
+
+---

@@ -1,0 +1,99 @@
+# Prompt: Reconcile and Canonicalize Financial Data
+
+You are a financial data expert. You are given two raw datasets for the same company with quarterly data:
+- `sec_data`: Extracted from SEC EDGAR/XBRL filings (may have missing or inconsistent fields)
+- `yahoo_data`: Extracted from Yahoo Finance (may have missing or inconsistent fields)
+
+Your task:
+1. Reconcile both datasets, resolving discrepancies and filling missing values where possible.
+2. For each field in each quarter, prefer SEC data if available and valid; otherwise, use Yahoo Finance data.
+3. Standardize field names and units according to the Altman Z-Score model requirements (see below).
+4. Output a quarterly structure with all available quarters and required fields.
+5. If a field cannot be filled for a quarter, set its value to null.
+
+Required fields for each quarter:
+- total_assets
+- current_assets
+- current_liabilities
+- total_liabilities
+- retained_earnings
+- ebit
+- sales
+
+Output format (return quarters in chronological order, most recent first):
+```json
+{
+  "quarters": [
+    {
+      "period_end": "YYYY-MM-DD",
+      "total_assets": ...,
+      "current_assets": ...,
+      "current_liabilities": ...,
+      "total_liabilities": ...,
+      "retained_earnings": ...,
+      "ebit": ...,
+      "sales": ...,
+      "source_map": {
+        "total_assets": "sec" | "yahoo" | "null",
+        ...
+      }
+    }
+  ]
+}
+```
+
+Be concise, accurate, and transparent. Do not invent values. Only use the data provided.
+
+---
+
+SEC Data:
+null
+
+Yahoo Finance Data:
+{
+  "2025-03-31 00:00:00": {
+    "total_assets": 562624000000.0,
+    "current_assets": 156644000000.0,
+    "current_liabilities": 114206000000.0,
+    "total_liabilities": 240733000000.0,
+    "retained_earnings": 219759000000.0,
+    "ebit": 31971000000.0,
+    "sales": 70066000000.0
+  },
+  "2024-12-31 00:00:00": {
+    "total_assets": 533898000000.0,
+    "current_assets": 147080000000.0,
+    "current_liabilities": 108882000000.0,
+    "total_liabilities": 231203000000.0,
+    "retained_earnings": 203482000000.0,
+    "ebit": 29959000000.0,
+    "sales": 69632000000.0
+  },
+  "2024-09-30 00:00:00": {
+    "total_assets": 523013000000.0,
+    "current_assets": 149926000000.0,
+    "current_liabilities": 115200000000.0,
+    "total_liabilities": 235290000000.0,
+    "retained_earnings": 188929000000.0,
+    "ebit": 30851000000.0,
+    "sales": 65585000000.0
+  },
+  "2024-06-30 00:00:00": {
+    "total_assets": 512163000000.0,
+    "current_assets": 159734000000.0,
+    "current_liabilities": 125286000000.0,
+    "total_liabilities": 243686000000.0,
+    "retained_earnings": 173144000000.0,
+    "ebit": 27951000000.0,
+    "sales": 64727000000.0
+  },
+  "2024-03-31 00:00:00": {
+    "total_assets": 484275000000.0,
+    "current_assets": 147180000000.0,
+    "current_liabilities": 118525000000.0,
+    "total_liabilities": 231123000000.0,
+    "retained_earnings": 159394000000.0,
+    "ebit": 27527000000.0,
+    "sales": 61858000000.0
+  }
+}
