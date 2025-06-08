@@ -16,6 +16,7 @@ from typing import Dict, Any, List, Optional, Union, TypedDict
 import pandas as pd
 import yfinance as yf
 import requests
+import numpy as np
 
 from altman_zscore.api.openai_client import AzureOpenAIClient
 from altman_zscore.utils.paths import get_output_dir
@@ -364,3 +365,81 @@ def safe_to_decimal(value) -> Optional[Decimal]:
             return Decimal(str(value))
     except (decimal.InvalidOperation, ValueError, TypeError) as e:
         return None
+
+def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str) -> Optional[Dict[str, Any]]:
+    """
+    Fetch raw financials from both SEC EDGAR and Yahoo Finance, reconcile using LLM, and return a canonical dataset.
+    Args:
+        ticker (str): Stock ticker symbol (e.g., 'AAPL').
+        end_date (str): End date for financials (ignored in MVP, uses all available).
+        zscore_model (str): Z-Score model name (determines required fields).
+    Returns:
+        dict or None: Canonical dataset as returned by LLM, or None on error.
+    """
+    import pprint
+    import time
+    logger = logging.getLogger("altman_zscore.fetch_and_reconcile_financials")
+    output_dir = get_output_dir(ticker)
+    # Fetch SEC EDGAR data (raw)
+    try:
+        from altman_zscore.api.sec_client import SECClient
+        sec_client = SECClient()
+        cik = sec_client.lookup_cik(ticker)
+        sec_facts = sec_client.get_company_facts(cik) if cik else None
+    except Exception as e:
+        logger.warning(f"[{ticker}] SEC EDGAR fetch failed: {e}")
+        sec_facts = None
+    # Fetch Yahoo Finance data (raw)
+    try:
+        yf_data = fetch_yfinance_full(ticker)
+    except Exception as e:
+        logger.warning(f"[{ticker}] Yahoo Finance fetch failed: {e}")
+        yf_data = None
+    # Prepare prompt for LLM reconciliation
+    prompt_path = os.path.join(os.path.dirname(__file__), "..", "prompts", "prompt_reconcile_financials.md")
+    if not os.path.exists(prompt_path):
+        prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "prompt_reconcile_financials.md")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        prompt_template = f.read()
+    # Pretty-print the data for LLM context
+    sec_json = pprint.pformat(sec_facts, indent=2, width=100, compact=False) if sec_facts else "null"
+    yf_json = pprint.pformat(yf_data, indent=2, width=100, compact=False) if yf_data else "null"
+    prompt = prompt_template.replace("{sec_data}", sec_json).replace("{yahoo_data}", yf_json)
+    # Call LLM for reconciliation with backoff on 429
+    max_attempts = 5
+    delay = 10  # seconds
+    for attempt in range(1, max_attempts + 1):
+        try:
+            client = AzureOpenAIClient()
+            messages = [
+                {"role": "system", "content": "You are a financial data expert."},
+                {"role": "user", "content": prompt},
+            ]
+            response = client.chat_completion(messages, temperature=0.0, max_tokens=2048)
+            content = response["choices"][0]["message"]["content"]
+            from altman_zscore.api.openai_helpers import parse_llm_json_response
+            canonical_data = parse_llm_json_response(content)
+            # Optionally save canonical data
+            try:
+                with open(os.path.join(output_dir, "financials_canonical.json"), "w", encoding="utf-8") as f:
+                    json.dump(canonical_data, f, indent=2, ensure_ascii=False, default=str)
+            except Exception as e:
+                logger.warning(f"[{ticker}] Could not save canonical data: {e}")
+            return canonical_data
+        except Exception as e:
+            # Check for 429 error and backoff
+            if hasattr(e, "response") and getattr(e.response, "status_code", None) == 429:
+                logger.warning(f"[{ticker}] LLM 429 Too Many Requests, attempt {attempt}/{max_attempts}. Retrying in {delay} seconds...")
+                time.sleep(delay)
+                delay *= 2  # Exponential backoff
+                continue
+            elif "429" in str(e):
+                logger.warning(f"[{ticker}] LLM 429 Too Many Requests (string match), attempt {attempt}/{max_attempts}. Retrying in {delay} seconds...")
+                time.sleep(delay)
+                delay *= 2
+                continue
+            else:
+                logger.error(f"[{ticker}] LLM reconciliation failed: {e}")
+                return None
+    logger.error(f"[{ticker}] LLM reconciliation failed after {max_attempts} attempts due to repeated 429 errors.")
+    return None

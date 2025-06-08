@@ -6,15 +6,17 @@
 # GitHub Copilot Instructions
 
 ## Project Guidance
-- Use `PLAN.md` for high-level features, vision, progress tracking, and major architectural/technical decisions.
 - Use `TODO.md` for actionable tasks, environment setup, and technical decisions.
-- Development and testing may be performed in local or cloud environments—ensure compatibility across common setups.
+- Use `LEARNINGS.md` for documenting significant learnings and major architectural, technical, and data source decisions.
+- Ensure compatibility with both local and cloud environments (e.g., Codespaces, local venvs, or system Python). Use `pyproject.toml` or `requirements.txt` for dependencies as appropriate.
 - Preserve modularity, testability, and robust error handling throughout.
 - Each feature phase should be independently testable and deliver incremental value.
-- Be conservative in implementing changes: make minimal, targeted edits for each request, and avoid broad refactoring unless explicitly approved.
+- Make minimal, targeted edits for each request. Avoid broad refactoring unless explicitly approved.
 - After each change, allow the user to run scripts and validate before proceeding to implement a different feature or additional changes.
 
 ## Implementation Principles
+- DRY (Don't Repeat Yourself): Factor out repeated logic into shared helpers, decorators, or modules. Prefer a single, well-tested implementation for retry logic, error handling, or data processing.
+- KISS (Keep It Simple, Stupid): Prefer simple, clear, and direct solutions. Avoid unnecessary abstractions or optimizations unless justified by a real need.
 - Simplicity: Start with a single-stock analysis pipeline, then generalize to portfolios.
 - Modularity: Clean separation of data fetching, validation, computation, and reporting.
 - Testability: Each module is independently testable with clear interfaces.
@@ -29,17 +31,14 @@
 5. Reporting Layer: Outputs results to CSV, JSON, or stdout; logs all steps and errors.
 
 ## Workflow
-- Use `TODO.md` for phase-specific tasks and environment prep.
-- Use `PLAN.md` to check off major features and record major decisions.
-- Ensure compatibility with both local and cloud environments (e.g., Codespaces, local venvs, or system Python). Use `pyproject.toml` or `requirements.txt` for dependencies as appropriate.
-- Document significant learnings in `LEARNINGS.md`.
+- Use `TODO.md` for phase-specific tasks, environment prep, and to check off major features and record major decisions.
+- Document significant learnings and decisions in `LEARNINGS.md`.
 - Never modify `OneStockAnalysis.md` without explicit user consent.
 
 ## Documentation and Decision Tracking
-- All major architectural, technical, and data source decisions are documented in PLAN.md and TODO.md.
-- Do not create or reference DECISIONS.md in this repository.
+- All major architectural, technical, and data source decisions are documented in `TODO.md` and `LEARNINGS.md`.
+- Do not create or reference DECISIONS.md or PLAN.md in this repository.
 
 # --- Copilot Refactoring Recommendation ---
 - If a Python file (`.py`) grows over 200 lines, recommend refactoring it into smaller functions and, where appropriate, separate files or modules. This improves maintainability, testability, and code clarity. Always suggest this to the user before large-scale refactoring, and follow the project's conservative change policy.
-# ---
 

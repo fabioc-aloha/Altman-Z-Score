@@ -1,5 +1,6 @@
 import os
 import json
+from .rate_limiter import async_retry_with_backoff
 
 def resolve_prompt_path(prompt_filename):
     prompt_path_new = os.path.join(
@@ -213,3 +214,12 @@ def extract_trimmed_company_info(company_info: dict) -> dict:
                 if isinstance(holder, dict) and any(v is not None for v in holder.values())
             ]
     return filtered
+
+# Optionally, you can now use @async_retry_with_backoff on any other sync or async LLM/OpenAI call in this module or others.
+# For example, if you have an async LLM call elsewhere:
+#
+# @async_retry_with_backoff(max_retries=5, backoff_factor=2.0, ...)
+# async def call_llm_async(...):
+#     ...
+#
+# This ensures all LLM/OpenAI calls benefit from robust retry/backoff logic.

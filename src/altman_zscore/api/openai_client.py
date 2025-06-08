@@ -14,6 +14,7 @@ from .openai_helpers import (
     extract_trimmed_sec_info,
     extract_trimmed_company_info,
 )
+from .rate_limiter import retry_with_backoff
 
 # Network exceptions to retry on
 OPENAI_EXCEPTIONS = (
@@ -43,11 +44,14 @@ class AzureOpenAIClient:
         self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2023-05-15")
         self.model = os.getenv("AZURE_OPENAI_MODEL")
         if not all([self.api_key, self.endpoint, self.deployment]):
-            raise ValueError("Missing Azure OpenAI configuration in environment variables.")    @exponential_retry(
-        max_retries=3,
-        base_delay=2.0,  # Start with a slightly longer delay for OpenAI
+            raise ValueError("Missing Azure OpenAI configuration in environment variables.")
+
+    @retry_with_backoff(
+        max_retries=5,
         backoff_factor=2.0,
-        exceptions=OPENAI_EXCEPTIONS
+        retry_exceptions=OPENAI_EXCEPTIONS,
+        retry_status_codes=(429, 500, 502, 503, 504),
+        status_code_getter=lambda resp: getattr(resp, 'status_code', None) if resp is not None else None,
     )
     def chat_completion(self, messages, temperature=0.0, max_tokens=4096):
         """
@@ -66,12 +70,11 @@ class AzureOpenAIClient:
         url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
         headers = {"api-key": self.api_key, "Content-Type": "application/json"}
         payload = {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
-        
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
         try:
-            response = requests.post(url, headers=headers, json=payload)
-            response.raise_for_status()
             return response.json()
-        except requests.exceptions.JSONDecodeError as e:
+        except Exception as e:
             raise RuntimeError(f"Failed to parse OpenAI API response: {str(e)}")
 
     def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None):

@@ -8,14 +8,17 @@ for handling rate limit conditions.
 Note: This code follows PEP 8 style guidelines.
 """
 
+import asyncio
+import functools
 import logging
 import threading
 import time
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, Optional
+from typing import Callable, Dict, Optional, TypeVar, Awaitable
 
+T = TypeVar("T")
 logger = logging.getLogger(__name__)
 
 
@@ -174,3 +177,85 @@ class RateLimiterFactory:
     def get_all_metrics(self) -> Dict[str, RateLimitMetrics]:
         """Get metrics for all rate limiters."""
         return {name: limiter.metrics for name, limiter in self._limiters.items()}
+
+
+def async_retry_with_backoff(
+    max_retries: int = 5,
+    backoff_factor: float = 1.5,
+    retry_exceptions: tuple = (Exception,),
+    retry_status_codes: tuple = (429, 500, 502, 503, 504),
+    status_code_getter: Callable = None,
+):
+    """
+    Decorator for retrying async functions with exponential backoff on specified exceptions or status codes.
+    Args:
+        max_retries: Maximum number of retries
+        backoff_factor: Exponential backoff multiplier
+        retry_exceptions: Exception types to retry on
+        retry_status_codes: HTTP status codes to retry on (if applicable)
+        status_code_getter: Function to extract status code from result (if applicable)
+    """
+    def decorator(func: Callable[..., Awaitable[T]]) -> Callable[..., Awaitable[T]]:
+        @functools.wraps(func)
+        async def wrapper(*args, **kwargs) -> T:
+            for attempt in range(max_retries + 1):
+                try:
+                    result = await func(*args, **kwargs)
+                    if status_code_getter:
+                        status = status_code_getter(result)
+                        if status in retry_status_codes and attempt < max_retries:
+                            logger.warning(f"Retryable status code {status} on attempt {attempt+1}/{max_retries}")
+                            await asyncio.sleep(backoff_factor ** attempt)
+                            continue
+                    return result
+                except retry_exceptions as exc:
+                    logger.warning(f"Retryable exception: {exc} on attempt {attempt+1}/{max_retries}")
+                    if attempt < max_retries:
+                        await asyncio.sleep(backoff_factor ** attempt)
+                        continue
+                    raise
+            raise RuntimeError(f"All retries failed for {func.__name__}")
+        return wrapper
+    return decorator
+
+
+def retry_with_backoff(
+    max_retries: int = 5,
+    backoff_factor: float = 1.5,
+    retry_exceptions: tuple = (Exception,),
+    retry_status_codes: tuple = (429, 500, 502, 503, 504),
+    status_code_getter: Callable = None,
+):
+    """
+    Decorator for retrying synchronous functions with exponential backoff on specified exceptions or status codes.
+    Args:
+        max_retries: Maximum number of retries
+        backoff_factor: Exponential backoff multiplier
+        retry_exceptions: Exception types to retry on
+        retry_status_codes: HTTP status codes to retry on (if applicable)
+        status_code_getter: Function to extract status code from result (if applicable)
+    """
+    def decorator(func: Callable[..., T]) -> Callable[..., T]:
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs) -> T:
+            for attempt in range(max_retries + 1):
+                try:
+                    result = func(*args, **kwargs)
+                    if status_code_getter:
+                        status = status_code_getter(result)
+                        if status in retry_status_codes and attempt < max_retries:
+                            logger.warning(f"Retryable status code {status} on attempt {attempt+1}/{max_retries}")
+                            time.sleep(backoff_factor ** attempt)
+                            continue
+                    return result
+                except retry_exceptions as exc:
+                    logger.warning(f"Retryable exception: {exc} on attempt {attempt+1}/{max_retries}")
+                    if attempt < max_retries:
+                        time.sleep(backoff_factor ** attempt)
+                        continue
+                    raise
+            raise RuntimeError(f"All retries failed for {func.__name__}")
+        return wrapper
+    return decorator
+
+# Now both async_retry_with_backoff and retry_with_backoff are available for DRY exponential backoff in all API clients.

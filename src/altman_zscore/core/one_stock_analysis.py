@@ -8,13 +8,14 @@ import json
 import logging
 import os
 from datetime import datetime
+import sys
 
 import pandas as pd
 from dotenv import load_dotenv
 
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.computation.compute_zscore import compute_zscore
-from altman_zscore.data_fetching.financials import fetch_financials
+from altman_zscore.data_fetching.financials import fetch_and_reconcile_financials
 from altman_zscore.data_fetching.prices import get_weekly_price_stats
 from altman_zscore.validation.data_validation import FinancialDataValidator
 from altman_zscore.models.industry_classifier import classify_company
@@ -212,7 +213,8 @@ def _fetch_and_validate_financials(ticker: str, model: str, start_date: str, out
     Returns:
         Tuple of (fin_info, valid_quarters).
     """
-    fin_info = fetch_financials(ticker, "", model)
+    # Use LLM-based reconciliation instead of legacy fetch
+    fin_info = fetch_and_reconcile_financials(ticker, "", model)
     if fin_info is None:
         error_result = [{
             "quarter_end": None,
