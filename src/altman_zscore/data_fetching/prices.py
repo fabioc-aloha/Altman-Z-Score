@@ -253,7 +253,7 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
 
 
 def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
-    """Get weekly price statistics (average, min, max) for a stock.
+    """Get weekly OHLC price statistics for a stock.
 
     Args:
         ticker (str): Stock ticker symbol
@@ -263,9 +263,10 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
     Returns:
         pd.DataFrame: DataFrame with columns:
             - week (datetime): First day of each week (Monday)
-            - avg_price (float): Average closing price for the week
-            - min_price (float): Minimum closing price for the week
-            - max_price (float): Maximum closing price for the week
+            - open_price (float): First close price of the week
+            - high_price (float): Highest price of the week
+            - low_price (float): Lowest price of the week
+            - close_price (float): Last close price of the week
             - days_with_data (int): Number of trading days with data
 
     Raises:
@@ -297,49 +298,56 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
 
         # Handle MultiIndex columns from yfinance
         if isinstance(df.columns, pd.MultiIndex):
-            # Find the Close or Adj Close column
-            close_cols = [c for c in df.columns if c[0] in ("Close", "Adj Close")]
-            if not close_cols:
-                raise ValueError("Neither 'Close' nor 'Adj Close' column found in data")
-            close_col = close_cols[0]  # Use the first one found
-            df = df[close_col]  # Select just the close price series
+            def find_col(name_opts):
+                for opt in name_opts:
+                    cols = [c for c in df.columns if c[0] == opt]
+                    if cols:
+                        return cols[0]
+                return None
+
+            open_col = find_col(["Open"])
+            high_col = find_col(["High"])
+            low_col = find_col(["Low"])
+            close_col = find_col(["Adj Close", "Close"])
+            if not all([open_col, high_col, low_col, close_col]):
+                raise ValueError("Required OHLC columns not found in data")
+            df = df[[open_col, high_col, low_col, close_col]]
+            df.columns = ["Open", "High", "Low", "Close"]
         else:
-            # For single-level columns, keep original logic
+            open_col = "Open"
+            high_col = "High"
+            low_col = "Low"
             close_col = "Adj Close" if "Adj Close" in df.columns else "Close"
-            if close_col not in df.columns:
-                raise ValueError("Neither 'Close' nor 'Adj Close' column found in data")
-            df = df[close_col]
+            for col in [open_col, high_col, low_col, close_col]:
+                if col not in df.columns:
+                    raise ValueError("Required OHLC columns not found in data")
+            df = df[[open_col, high_col, low_col, close_col]]
 
         # Ensure index is datetime
         if not isinstance(df.index, pd.DatetimeIndex):
             df.index = pd.to_datetime(df.index)
-        # Create week column for grouping (Monday start weeks)
+        df.index = pd.to_datetime(df.index)
         week_periods = df.index.to_period("W")
+        df = df.assign(week_period=week_periods)
 
-        # Create temporary dataframe for grouping
-        temp_df = pd.DataFrame({"week_period": week_periods, "price": df.values})
+        weekly_stats = (
+            df.groupby("week_period")
+            .agg(
+                open_price=("Open", "first"),
+                high_price=("High", "max"),
+                low_price=("Low", "min"),
+                close_price=("Close", "last"),
+                days_with_data=("Close", "count"),
+            )
+            .reset_index()
+        )
 
-        # Group by week periods and calculate statistics
-        weekly_stats = temp_df.groupby("week_period").agg({"price": ["mean", "min", "max", "count"]}).reset_index()
-
-        # Flatten multi-level columns
-        weekly_stats.columns = [
-            "week_period",
-            "avg_price",
-            "min_price",
-            "max_price",
-            "days_with_data",
-        ]
-
-        # Convert week periods to actual Monday start dates
         weekly_stats["week"] = weekly_stats["week_period"].apply(lambda x: x.start_time.date())
 
-        # Ensure weekly_stats is a DataFrame before selecting columns
         if not isinstance(weekly_stats, pd.DataFrame):
             raise ValueError("Expected weekly_stats to be a DataFrame")
 
-        # Reorder columns and drop the period column
-        weekly_stats = weekly_stats.loc[:, ["week", "avg_price", "min_price", "max_price", "days_with_data"]]
+        weekly_stats = weekly_stats.loc[:, ["week", "open_price", "high_price", "low_price", "close_price", "days_with_data"]]
 
         # Validate results
         if weekly_stats.empty:

@@ -211,15 +211,22 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     if price_stats is not None and not price_stats.empty:
         ax2 = ax.twinx()
         # Use weekly helpers for data prep
-        period_positions, avg_prices, min_prices, max_prices = prepare_weekly_price_stats_for_plotting(
+        period_positions, open_prices, high_prices, low_prices, close_prices = prepare_weekly_price_stats_for_plotting(
             price_stats, date_to_pos, min_date, max_date
         )
-        if not (period_positions and avg_prices and min_prices and max_prices):
+        if not (period_positions and open_prices and high_prices and low_prices and close_prices):
             # No valid data to plot
             pass
         else:
             price_legend = _plot_price_trend(
-                ax2, period_positions, avg_prices, min_prices, max_prices, price_label, using_weekly
+                ax2,
+                period_positions,
+                open_prices,
+                high_prices,
+                low_prices,
+                close_prices,
+                price_label,
+                using_weekly,
             )
             legend_elements.append(price_legend)
 
