@@ -47,32 +47,31 @@ def plot_zscore(ax, q_pos, q_scores):
         print(f"[WARN] Error plotting Z-Score: {exc}")
 
 
-def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, price_label, using_weekly):
-    """
-    Plot the stock price trend as a line with error bars and annotate key points.
-    Args:
-        ax2: Matplotlib secondary axis object.
-        period_positions: List of x-axis positions for each period.
-        avg_prices: List of average prices per period.
-        min_prices: List of minimum prices per period.
-        max_prices: List of maximum prices per period.
-        price_label: Label for the price trend line.
-        using_weekly: Boolean, True if using weekly data.
-    Returns:
-        Matplotlib Line2D object for legend.
-    """
+def plot_price_trend(
+    ax2,
+    period_positions,
+    open_prices,
+    high_prices,
+    low_prices,
+    close_prices,
+    price_label,
+    using_weekly,
+):
+    """Plot weekly candlestick chart."""
     # Convert inputs to lists if they are pandas Series
     period_positions = list(period_positions) if hasattr(period_positions, "tolist") else period_positions
-    avg_prices = list(avg_prices) if hasattr(avg_prices, "tolist") else avg_prices
-    min_prices = list(min_prices) if hasattr(min_prices, "tolist") else min_prices
-    max_prices = list(max_prices) if hasattr(max_prices, "tolist") else max_prices
+    open_prices = list(open_prices) if hasattr(open_prices, "tolist") else open_prices
+    high_prices = list(high_prices) if hasattr(high_prices, "tolist") else high_prices
+    low_prices = list(low_prices) if hasattr(low_prices, "tolist") else low_prices
+    close_prices = list(close_prices) if hasattr(close_prices, "tolist") else close_prices
 
     # Verify we have valid data to plot
     if (
-        not all([period_positions, avg_prices, min_prices, max_prices])
-        or len(period_positions) != len(avg_prices)
-        or len(period_positions) != len(min_prices)
-        or len(period_positions) != len(max_prices)
+        not all([period_positions, open_prices, high_prices, low_prices, close_prices])
+        or len(period_positions) != len(open_prices)
+        or len(period_positions) != len(high_prices)
+        or len(period_positions) != len(low_prices)
+        or len(period_positions) != len(close_prices)
     ):
         print("[WARN] Insufficient price data for plotting")
         return Line2D(
@@ -87,147 +86,30 @@ def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, 
         )
 
     dark_gray = "#444444"
-    marker_size = 3 if using_weekly else 5
+    candlestick_width = 0.6
+    up_color = "#007a00"
+    down_color = "#a60000"
 
     try:
-        # Handle pandas Series and convert to floats, filtering invalid values
-        valid_data = []
-        for pos, avg, min_p, max_p in zip(period_positions, avg_prices, min_prices, max_prices):
-            try:
-                # Extract values from Series if needed
-                pos_val = float(pos.item() if hasattr(pos, "item") else pos)
-                avg_val = float(avg.item() if hasattr(avg, "item") else avg)
-                min_val = float(min_p.item() if hasattr(min_p, "item") else min_p)
-                max_val = float(max_p.item() if hasattr(max_p, "item") else max_p)
-
-                if not any(np.isnan([pos_val, avg_val, min_val, max_val])):
-                    valid_data.append((pos_val, avg_val, min_val, max_val))
-            except (TypeError, ValueError) as e:
-                print(f"[DEBUG] Skipping invalid data point: {e}")
-
-        if not valid_data:
-            print("[WARN] No valid price data points after filtering")
-            return Line2D(
-                [0],
-                [0],
-                color=dark_gray,
-                marker="o",
-                label=price_label,
-                markersize=4,
-                linestyle="-",
-                linewidth=2,
-            )
-
-        # Unzip the valid data
-        period_positions, avg_prices, min_prices, max_prices = zip(*valid_data)
-
-        try:
-            if len(period_positions) >= 4:  # Only use spline for enough points
-                x_smooth = np.linspace(min(period_positions), max(period_positions), 300)
-                spl = make_interp_spline(period_positions, avg_prices, k=min(3, len(period_positions) - 1))
-                y_smooth = spl(x_smooth)
-                ax2.plot(
-                    x_smooth,
-                    y_smooth,
-                    color=dark_gray,
-                    linestyle="-",
-                    linewidth=1,
-                    label="_nolegend_",
-                    zorder=2,
-                )
-            ax2.scatter(
-                period_positions,
-                avg_prices,
-                marker="o",
-                color=dark_gray,
-                s=marker_size**2,
-                label=price_label,
-                zorder=4,
-            )
-        except Exception as e:
-            print(f"[WARN] Falling back to simple line plot: {e}")
-            ax2.plot(
-                period_positions,
-                avg_prices,
-                marker="o",
-                color=dark_gray,
-                linestyle="-",
+        for x, o, h, l, c in zip(period_positions, open_prices, high_prices, low_prices, close_prices):
+            color = up_color if c >= o else down_color
+            ax2.vlines(x, l, h, color=color, linewidth=1, zorder=1)
+            rect = mpatches.Rectangle(
+                (x - candlestick_width / 2, min(o, c)),
+                candlestick_width,
+                max(abs(c - o), 0.01),
+                facecolor=color,
+                edgecolor=color,
                 linewidth=1,
-                markersize=marker_size,
-                label=price_label,
-                zorder=3,
+                zorder=2,
             )
+            ax2.add_patch(rect)
 
-        # Plot price ranges with I-beam whiskers
-        whisker_width = 0.2
-        for pos, min_p, max_p in zip(period_positions, min_prices, max_prices):
-            ax2.vlines(pos, min_p, max_p, color=dark_gray, alpha=0.6, linewidth=1, zorder=1)
-            ax2.hlines(
-                min_p,
-                pos - whisker_width / 2,
-                pos + whisker_width / 2,
-                color=dark_gray,
-                alpha=0.6,
-                linewidth=1,
-                zorder=1,
-            )
-            ax2.hlines(
-                max_p,
-                pos - whisker_width / 2,
-                pos + whisker_width / 2,
-                color=dark_gray,
-                alpha=0.6,
-                linewidth=1,
-                zorder=1,
-            )
-
-        # Add price labels
-        if using_weekly:
-            # For weekly data, only label key points
-            max(avg_prices)
-            min(avg_prices)
-            key_indices = {
-                0,  # First point
-                len(avg_prices) - 1,  # Last point
-                max(range(len(avg_prices)), key=lambda i: avg_prices[i]),  # Max value
-                min(range(len(avg_prices)), key=lambda i: avg_prices[i]),  # Min value
-            }
-            for idx in key_indices:
-                pos = period_positions[idx]
-                avg = avg_prices[idx]
-                label = f"${avg:.2f}"
-                y_offset = 12 if idx in {0, len(avg_prices) - 1} else -18
-                ax2.annotate(
-                    text=label,
-                    xy=(pos, avg),
-                    textcoords="offset points",
-                    xytext=(0, y_offset),
-                    ha="center",
-                    fontsize=8,
-                    color=dark_gray,
-                    alpha=0.9,
-                )
-        else:
-            # For monthly data, label all points
-            for pos, avg in zip(period_positions, avg_prices):
-                label = f"${avg:.2f}"
-                ax2.annotate(
-                    text=label,
-                    xy=(pos, avg),
-                    textcoords="offset points",
-                    xytext=(0, 12),
-                    ha="center",
-                    fontsize=8,
-                    color=dark_gray,
-                    alpha=0.9,
-                )
-
-        # Configure the y-axis
         ax2.set_ylabel("Stock Price ($)", color=dark_gray, labelpad=15)
         ax2.tick_params(axis="y", labelcolor=dark_gray, pad=8)
 
-        # Set the y-axis limits with margin
-        y_min, y_max = min(min_prices), max(max_prices)
+        y_min = min(low_prices)
+        y_max = max(high_prices)
         price_range = y_max - y_min
         price_margin = price_range * 0.25
         ax2.set_ylim(bottom=max(0, y_min - price_margin * 0.5), top=y_max + price_margin)

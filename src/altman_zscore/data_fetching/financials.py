@@ -479,7 +479,7 @@ def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str
         prompt_path = os.path.join(os.path.dirname(__file__), "..", "..", "prompts", "prompt_reconcile_financials.md")
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_template = f.read()
-    # Only include the last 8 periods and required fields for each source
+    # Include periods based on start_date or fall back to last 8 quarters
     required_fields = [
         "total_assets", "current_assets", "current_liabilities", "total_liabilities",
         "retained_earnings", "ebit", "sales"
@@ -499,12 +499,14 @@ def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str
                     val = entry.get("val")
                     if end and val is not None:
                         field_data.setdefault(field, {})[str(end)] = val
-        all_periods = set()
-        for d in field_data.values():
-            all_periods.update(d.keys())
-        last_periods = sorted(all_periods)[-8:]
+        all_periods = sorted({p for d in field_data.values() for p in d.keys()})
+        if start_date:
+            last_periods = [p for p in all_periods if p >= start_date]
+        else:
+            last_periods = all_periods[-8:]
         compact = {}
-        for period in last_periods:        compact[str(period)] = {field: field_data.get(field, {}).get(period) for field in required_fields}
+        for period in last_periods:
+            compact[str(period)] = {field: field_data.get(field, {}).get(period) for field in required_fields}
         return compact
     
     def filter_yf_data(yf_data):
@@ -516,7 +518,11 @@ def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str
         if not (isinstance(bs, pd.DataFrame) and not bs.empty and isinstance(is_, pd.DataFrame) and not is_.empty):
             return None
         periods = [p for p in bs.columns if p in is_.columns]
-        last_periods = periods[-8:]
+        periods_sorted = sorted(periods)
+        if start_date:
+            last_periods = [p for p in periods_sorted if str(p) >= start_date]
+        else:
+            last_periods = periods_sorted[-8:]
         
         # Field mapping from required fields to actual DataFrame field names
         field_mapping = {

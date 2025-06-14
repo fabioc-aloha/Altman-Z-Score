@@ -48,7 +48,8 @@ def prepare_price_stats_for_plotting(price_stats, using_weekly, date_to_pos, min
         min_date (datetime): Minimum date to include.
         max_date (datetime): Maximum date to include.
     Returns:
-        tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
+        tuple: (period_positions, open_prices, high_prices, low_prices, close_prices)
+        as lists, or (None, None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
         return None, None, None, None
@@ -125,9 +126,10 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
                     row = price_stats[price_stats["period"] == period].iloc[0]
                     valid_values.append(
                         {
-                            "avg": float(row["avg_price"]),
-                            "min": float(row["min_price"]),
-                            "max": float(row["max_price"]),
+                            "open": float(row["open_price"]),
+                            "high": float(row["high_price"]),
+                            "low": float(row["low_price"]),
+                            "close": float(row["close_price"]),
                         }
                     )
                 else:
@@ -141,11 +143,12 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
         # Sort by position
         sorted_data = sorted(zip(period_positions, valid_values), key=lambda x: x[0])
         period_positions = [x[0] for x in sorted_data]
-        avg_prices = [x[1]["avg"] for x in sorted_data]
-        min_prices = [x[1]["min"] for x in sorted_data]
-        max_prices = [x[1]["max"] for x in sorted_data]
+        open_prices = [x[1]["open"] for x in sorted_data]
+        high_prices = [x[1]["high"] for x in sorted_data]
+        low_prices = [x[1]["low"] for x in sorted_data]
+        close_prices = [x[1]["close"] for x in sorted_data]
 
-        return period_positions, avg_prices, min_prices, max_prices
+        return period_positions, open_prices, high_prices, low_prices, close_prices
 
     except (ValueError, TypeError):
         return None, None, None, None
