@@ -107,12 +107,12 @@ function Invoke-ZScoreBatch($tickers, $groupName) {
 }
 
 # Run all groups (no deduplication)
-# Invoke-ZScoreBatch $large_caps 'large_caps'
+Invoke-ZScoreBatch $large_caps 'large_caps'
 # Invoke-ZScoreBatch $distressed 'distressed'
-Invoke-ZScoreBatch $tech_em 'tech_em'
-Invoke-ZScoreBatch $latam_br 'latam_br'
-Invoke-ZScoreBatch $europe 'europe'
-Invoke-ZScoreBatch $asia 'asia'
-Invoke-ZScoreBatch $industry_mix 'industry_mix'
+# Invoke-ZScoreBatch $tech_em 'tech_em'
+# Invoke-ZScoreBatch $latam_br 'latam_br'
+# Invoke-ZScoreBatch $europe 'europe'
+# Invoke-ZScoreBatch $asia 'asia'
+# Invoke-ZScoreBatch $industry_mix 'industry_mix'
 
 Write-Host "Batch processing complete. Check the output directories for reports."

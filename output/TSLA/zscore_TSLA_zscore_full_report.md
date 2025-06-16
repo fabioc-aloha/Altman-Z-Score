@@ -12,7 +12,7 @@ This report provides a comprehensive, theory-informed financial health analysis 
 
 **Disclaimer**: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 
-**Script Version:** v3.0.0
+**Script Version:** v3.1.1
 
 ## Z-Score Formula Used
 
@@ -38,193 +38,231 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   | X1    | X2    | X3    | X4     | X5    |   Z-Score | Diagnostic   |   Consistency Warning |
+| Quarter   |    X1 |    X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
 |-----------|-------|-------|-------|--------|-------|-----------|--------------|-----------------------|
-| 2023 Q3   |       |       |       |        |       |   nan     |              |                   nan |
-| 2023 Q4   |       |       |       |        |       |   nan     |              |                   nan |
-| 2024 Q1   | 0.193 | 0.266 | 0.018 | 12.855 | 0.195 |     8.571 | Safe Zone    |                   nan |
-| 2024 Q2   | 0.224 | 0.270 | 0.017 | 13.987 | 0.226 |     9.323 | Safe Zone    |                   nan |
-| 2024 Q3   | 0.215 | 0.272 | 0.024 | 17.148 | 0.210 |    11.218 | Safe Zone    |                   nan |
-| 2024 Q4   | 0.242 | 0.288 | 0.023 | 26.881 | 0.211 |    17.111 | Safe Zone    |                   nan |
-| 2025 Q1   | 0.237 | 0.285 | 0.005 | 16.798 | 0.155 |    10.934 | Safe Zone    |                   nan |
+| 2024 Q1   | 0.193 | 0.266 | 0.018 | 12.855 | 0.195 |     8.571 | Safe Zone    | No issues             |
+| 2024 Q2   | 0.224 | 0.27  | 0.017 | 13.987 | 0.226 |     9.323 | Safe Zone    | No issues             |
+| 2024 Q3   | 0.215 | 0.272 | 0.024 | 17.148 | 0.21  |    11.218 | Safe Zone    | No issues             |
+| 2024 Q4   | 0.242 | 0.288 | 0.023 | 26.881 | 0.211 |    17.111 | Safe Zone    | No issues             |
+| 2025 Q1   | 0.237 | 0.285 | 0.005 | 16.798 | 0.155 |    10.934 | Safe Zone    | No issues             |
 
 
----
 ## TL;DR / Executive Summary
 
-Tesla Inc currently resides in the **Safe Zone** according to the Altman Z-Score framework, indicating a strong financial position with low bankruptcy risk. The company demonstrates solid liquidity, moderate leverage, and positive profitability trends despite some recent revenue growth deceleration. Tesla’s robust cash reserves and operational cash flow support its ongoing innovation and expansion initiatives. Key risks include high valuation multiples and exposure to cyclical automotive market dynamics, while opportunities lie in continued EV market leadership and energy segment growth.
+Tesla Inc. currently resides in the **Safe Zone** according to the Altman Z-Score framework, indicating a strong financial position with low bankruptcy risk. The company demonstrates solid liquidity, moderate leverage, and positive profitability trends despite some recent revenue growth slowdown and earnings volatility. Tesla’s market capitalization exceeds $1 trillion, supported by robust cash reserves and operational cash flow, though its valuation multiples remain elevated reflecting growth expectations and market volatility.
 
-Analyst sentiment is broadly stable with a consensus “Hold” rating and a target price near current levels, reflecting cautious optimism amid market volatility. For most investors, a **Hold** recommendation is appropriate, with growth-oriented investors potentially considering selective accumulation on dips, while conservative or income-focused investors should remain cautious given Tesla’s lack of dividends and valuation premium.
+Key risks include high beta volatility, earnings growth contraction, and governance/compensation risks flagged in recent data. Opportunities lie in Tesla’s innovation leadership in electric vehicles and energy storage, expanding global footprint, and strong institutional ownership. Analyst sentiment is moderately positive with a consensus “Hold” rating and a target price near current levels, reflecting cautious optimism.
+
+**Investor Recommendation:** A **HOLD** is advised for most investors, particularly income-oriented and defensive profiles, given Tesla’s strong fundamentals but elevated valuation and market volatility. Growth-oriented investors may consider selective accumulation on dips, while speculative investors should be cautious due to valuation and earnings uncertainty.
 
 ---
+
 ## Company Profile
 
-Tesla, Inc. is a leading U.S.-based manufacturer of electric vehicles (EVs) and energy generation/storage systems, operating primarily in the Consumer Cyclical sector under the Auto Manufacturers industry. Founded in 2003 and headquartered in Austin, Texas, Tesla has grown into a global automotive and clean energy powerhouse with over 125,000 employees. Its product portfolio includes electric sedans, SUVs, solar panels, and battery storage solutions, supported by a proprietary Supercharger network and direct sales model.
+Tesla, Inc. is a leading U.S.-based manufacturer of electric vehicles (EVs) and energy generation/storage systems, operating primarily in the Consumer Cyclical sector under the Auto Manufacturers industry. Founded in 2003 and headquartered in Austin, Texas, Tesla has grown into a global powerhouse with a market capitalization exceeding $1 trillion and over 125,000 employees. Its product portfolio includes electric sedans, SUVs, solar energy products, and energy storage solutions, sold through direct channels and supported by a proprietary Supercharger network.
 
-Key executives include Elon Musk, serving as CEO and “Technoking,” who drives Tesla’s strategic vision and innovation. CFO Vaibhav Taneja oversees financial stewardship, while other senior leaders manage regional operations, design, and engineering. Institutional investors hold approximately 50% of shares, with insiders owning about 13%, indicating strong insider alignment. Tesla’s recent market capitalization exceeds $1 trillion, reflecting its dominant market position and investor interest. No major executive changes or compensation controversies have been reported recently.
+The company is helmed by CEO and Co-Founder Elon Musk, who also holds the unique title “Technoking of Tesla.” The CFO, Vaibhav Taneja, oversees financial stewardship, while other key executives manage regional operations, design, and engineering. Tesla’s ownership is split between insiders (approximately 13%) and institutions (about 50%), with a substantial free float. Recent governance assessments highlight elevated risks in compensation and shareholder rights, warranting attention.
+
+Tesla’s competitive landscape includes traditional automakers pivoting to EVs and emerging tech-driven mobility firms. Despite macroeconomic headwinds and sector volatility, Tesla maintains a strong innovation pipeline and brand loyalty, positioning it well for future growth.
 
 ---
+
 ## 1. Diagnostic Evaluation of Financial Health
 
 This section evaluates Tesla’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis to assess bankruptcy risk and operational sustainability.
 
-- **Liquidity:** Tesla’s current ratio stands at 1.996 and quick ratio at 1.376, both above 1.0, indicating comfortable short-term liquidity to cover obligations. Cash reserves exceed $36.9 billion, supporting operational flexibility.
+- **Liquidity:** Tesla’s current ratio stands at 1.996 and quick ratio at 1.376, indicating comfortable short-term liquidity above the 1.5 benchmark typical for manufacturing firms. Cash reserves exceed $36.9 billion, supporting operational flexibility.
 
-- **Profitability:** Gross margin is 17.7%, with net profit margin around 6.4%, reflecting solid profitability in a capital-intensive industry. Return on assets (ROA) is 3.7%, and return on equity (ROE) is 8.8%, showing efficient asset and equity utilization despite recent earnings growth contraction (-70.6%).
+- **Profitability:** Gross margin is 17.7%, with net profit margin at 6.4%, reflecting moderate profitability in a capital-intensive industry. Return on assets (ROA) is 3.7%, and return on equity (ROE) is 8.8%, showing efficient asset and equity utilization but room for improvement. However, earnings growth is negative (-70.7%), signaling recent earnings volatility or one-time impacts.
 
-- **Leverage:** Debt-to-equity ratio is moderate at 17.4%, suggesting manageable leverage levels. Total debt of approximately $13.1 billion is well covered by cash flows and equity.
+- **Capital Efficiency:** Revenue per share is $29.87, with operating cash flow robust at $16.8 billion and free cash flow positive at $3.36 billion, indicating strong cash generation capacity.
 
-- **Altman Z-Score:** Using the latest financial data, Tesla’s Z-Score is well above 3.0, confirming its position in the Safe Zone. This aligns with the company’s strong liquidity, profitability, and moderate leverage. The Z-Score trajectory has remained stable, with no signs of distress.
+- **Leverage:** Debt-to-equity ratio is 17.4%, a moderate level that balances growth financing with risk. Total debt is approximately $13.1 billion, manageable given cash flow and liquidity.
 
-- **Market and Valuation:** Tesla’s trailing P/E ratio is high at 184.8, forward P/E at 100.4, and price-to-book ratio at 14.0, reflecting market expectations for growth but also valuation risk. The stock price has shown volatility but a strong 73.5% gain over the past year, with recent price around $325.
+- **Altman Z-Score:** Using the latest financial data and Altman’s formula for publicly traded manufacturing firms:
 
-- **Recent Trends:** Revenue growth has slowed (-9.2%), and earnings growth is negative, signaling caution. However, operating cash flow remains robust at $16.8 billion, and free cash flow is positive at $3.36 billion, supporting ongoing investments.
+  - X1 (Working Capital / Total Assets) ≈ (Current Assets - Current Liabilities) / Total Assets ≈ (Not directly provided, but current and quick ratios suggest positive working capital)
+  - X2 (Retained Earnings / Total Assets) ≈ (Book Value - Equity injections) / Total Assets (approximate)
+  - X3 (EBIT / Total Assets) ≈ Operating Margins * Revenue / Total Assets
+  - X4 (Market Value of Equity / Total Liabilities) ≈ Market Cap / Total Debt ≈ 1,046 billion / 13.1 billion ≈ 79.8
+  - X5 (Sales / Total Assets) ≈ Revenue / Total Assets (not directly provided)
 
-Overall, Tesla’s financial health is strong with low bankruptcy risk, supported by solid liquidity and cash flow, though valuation and growth deceleration warrant monitoring.
+  Given the very high market capitalization relative to liabilities and positive operating metrics, Tesla’s Z-Score is well above the distress threshold (>3.0), confirming the Safe Zone status.
+
+- **Price and Volatility:** Tesla’s stock price has shown significant volatility with a 52-week range of $177 to $488 and a beta of 2.46, indicating high market sensitivity. Recent price trends show recovery from lows with some pullbacks, consistent with sector cyclicality.
+
+- **Governance and Risks:** Governance risk scores are elevated (overall risk 10/10), particularly in compensation and shareholder rights, which may affect investor confidence.
+
+**Summary:** Tesla’s financial health is strong with solid liquidity, manageable leverage, and positive cash flow, supporting its Safe Zone Z-Score classification. Earnings growth challenges and governance risks warrant monitoring but do not currently threaten solvency.
 
 ---
+
 ## 2. Turnaround & Renewal Theory Application
 
-Given Tesla’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained growth. Tesla should focus on innovation, market repositioning, and stakeholder alignment to maintain its competitive edge.
+Given Tesla’s Safe Zone status, turnaround theory focuses on **strategic renewal and innovation** rather than crisis management.
 
-- **Innovation and Repositioning:** Following Beard (2024), Tesla’s technology-driven renewal in EVs and energy storage is critical. Continued R&D investment and product diversification will sustain growth.
+Tesla should emphasize:
 
-- **Stakeholder Alignment:** Freeman’s (1984) stakeholder theory suggests Tesla must balance interests of investors, customers, employees, and partners to foster long-term value.
+- **Innovation and Repositioning:** Continue investing in R&D to maintain technological leadership in EVs and energy storage, aligning with Beard (2024) on tech-sector renewal emphasizing continuous innovation.
 
-- **Strategic Restructuring:** Hoskisson et al. (2004) recommend periodic strategic reviews to adapt to market shifts, such as increasing competition in EVs and regulatory changes.
+- **Stakeholder Alignment:** Apply Freeman’s (1984) stakeholder theory to ensure alignment among investors, employees, customers, and partners, especially given governance concerns.
 
-- **Leadership Role:** Elon Musk’s visionary leadership is a key asset; maintaining clear communication and governance will support renewal.
+- **Sustained Growth:** Leverage Hofer’s (1980) turnaround sequencing by prioritizing growth initiatives after stabilizing operational efficiency, ensuring resources are allocated to high-impact projects.
 
-No urgent retrenchment is needed, but Tesla should remain vigilant to market and operational risks, leveraging its strong financial base to innovate and expand.
+- **Strategic Restructuring:** Monitor market and competitive dynamics per Hoskisson et al. (2004) to adapt business models, including expanding energy segment and global market penetration.
+
+No urgent retrenchment is needed, but disciplined capital allocation and governance improvements are advisable to sustain momentum.
 
 ---
+
 ## 3. Internal Stakeholder Recommendations
 
-Internal alignment is vital for Tesla’s continued success. The following table outlines key roles, metrics, and recommended actions:
+Internal stakeholder alignment is critical to capitalize on Tesla’s strong position and address governance risks.
 
-| Title/Role               | Responsibilities                          | Key Performance Metrics               | Recommended Actions (Cited)                          |
-|-------------------------|------------------------------------------|-------------------------------------|-----------------------------------------------------|
-| CEO (Elon Musk)          | Strategic vision, innovation leadership  | Market share, innovation pipeline   | Drive innovation, maintain stakeholder alignment (Freeman, 1984) |
-| CFO (Vaibhav Taneja)     | Financial stewardship, risk management   | Liquidity ratios, cash flow metrics | Monitor leverage, optimize capital allocation (Hoskisson et al., 2004) |
-| CTO / Engineering Leads  | Product development, tech advancement    | R&D milestones, product launch success | Accelerate EV and energy tech innovation (Beard, 2024) |
-| Board Members            | Oversight, governance                     | Governance risk scores, compliance  | Ensure strong governance, transparency (Platt, 2004) |
-| Employees                | Execution of operations and innovation   | Productivity, quality, engagement   | Foster culture of innovation and accountability    |
-| Shareholders             | Investment and voting                     | Share price stability, dividends    | Engage via transparent communication                |
-| Creditors                | Financial stability monitoring            | Debt service coverage                | Maintain open dialogue, ensure creditworthiness     |
-| Customers                | Product/service experience                 | Customer satisfaction, retention    | Enhance product quality and service                  |
-| Partners                 | Strategic alliances                        | Partnership outcomes, joint ventures | Strengthen collaborations for market expansion      |
+| Title/Role                  | Responsibilities                          | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
+|-----------------------------|-----------------------------------------|-----------------------------------------|-------------------------------------------------------------|
+| CEO & Executive Leadership  | Strategic vision, innovation leadership | Market share growth, innovation pipeline | Drive innovation culture; enhance governance transparency (Freeman, 1984) |
+| CFO & Finance Team          | Financial stewardship, risk management  | Liquidity ratios, debt management        | Maintain strong liquidity; monitor leverage; improve earnings stability (Hofer, 1980) |
+| CTO / Engineering           | Product development, tech advancement   | R&D milestones, product launch success   | Accelerate EV and energy tech innovation (Beard, 2024)      |
+| Board Members               | Oversight, governance                    | Governance risk scores, shareholder satisfaction | Address compensation and shareholder rights risks (Bibeault, 1999) |
+| Employees                   | Execution of operations and innovation  | Productivity, engagement scores          | Foster engagement and alignment with strategic goals        |
+| Shareholders                | Investment and voting                    | Share price performance, dividend policy | Engage in governance dialogue; support long-term strategy   |
+| Creditors                   | Financial stability monitoring           | Debt covenants compliance                 | Maintain open communication; ensure financial discipline    |
+| Customers                   | Product/service experience               | Customer satisfaction, retention          | Enhance product quality and service support                  |
+| Partners                   | Strategic alliances                      | Partnership outcomes, joint ventures      | Strengthen collaborations for market expansion              |
 
 ---
+
 ## 4. Communication, Marketing & Execution Strategy
 
-Effective communication is essential to support Tesla’s growth narrative and stakeholder confidence.
+Effective communication is vital to reinforce Tesla’s growth narrative and address governance concerns.
 
-- **Executive Leadership Communications:** Elon Musk and senior leaders should articulate a clear vision emphasizing innovation and sustainability.
+- **Executive Leadership Communications:** Emphasize vision for sustainable innovation and governance improvements to build investor confidence.
 
-- **Investor Relations:** Transparent updates on financial performance, growth outlook, and risk management will maintain investor trust.
+- **Investor Relations:** Provide transparent updates on financial performance, risk management, and strategic initiatives.
 
-- **Internal Communications:** Engage employees with change management initiatives to sustain motivation and innovation culture.
+- **Internal Communications:** Engage employees with clear messaging on innovation priorities and governance reforms.
 
-- **External Relations:** Marketing should highlight Tesla’s technological leadership and environmental impact to customers and partners.
+- **External Relations:** Highlight product advancements, sustainability efforts, and customer success stories.
 
 **Phased Execution Plan:**
 
-| Phase          | Actions                                      | Leaders & Coordination           | Success Metrics                  | Risk Mitigation                  |
-|----------------|----------------------------------------------|---------------------------------|---------------------------------|---------------------------------|
-| Near-term (1-3m) | Communicate Q2 results, reinforce innovation focus | CEO, CFO, IR, Marketing          | Investor sentiment, employee engagement | Address market concerns promptly |
-| Mid-term (4-6m) | Launch new product updates, expand partnerships | CTO, Sales, Partners             | Product adoption, partnership growth | Monitor competitive landscape    |
-| Long-term (7-18m) | Strategic expansion, sustainability initiatives | CEO, Board, Operations           | Revenue growth, market share     | Adapt to regulatory changes      |
+| Phase          | Actions                                         | Leaders & Coordination                  | Metrics & Risks                          |
+|----------------|------------------------------------------------|---------------------------------------|----------------------------------------|
+| Near-term (1-3 months) | Communicate governance improvements; quick wins in operational efficiency | CEO, CFO, Board; IR and HR teams      | Governance risk scores; employee feedback; risk of stakeholder skepticism |
+| Mid-term (4-6 months)  | Launch new product updates; investor roadshows; stakeholder engagement | CTO, Marketing, Investor Relations    | Innovation milestones; investor sentiment; risk of market volatility |
+| Long-term (7-18 months) | Expand global markets; deepen energy segment; embed governance best practices | Executive Leadership, Board           | Market share growth; governance ratings; risk of competitive disruption |
 
-Tone remains confident and growth-oriented, reflecting Tesla’s strong financial footing.
+Tone should be confident and forward-looking, balancing transparency with optimism.
 
 ---
+
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section aligns investment recommendations with Tesla’s financial health and investor profiles.
+This section aligns investment advice with Tesla’s financial health and risk profile for different investor types.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Tesla pays no dividends; stable financials but no income yield (Altman Z-Score Safe Zone).         |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong innovation and market position support growth; valuation risk exists but manageable.       |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | High valuation and market volatility warrant caution despite growth potential.                     |
-| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low bankruptcy risk but stock volatility and sector cyclicality suggest holding over buying.      |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Tesla pays no dividends; strong cash flow but reinvests earnings; suitable for cautious hold (Altman, 1968) |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong innovation and market position support growth; valuation elevated but justified by prospects (Beard, 2024) |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | High volatility and earnings uncertainty warrant caution; selective accumulation on dips advised |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Safe Zone status supports preservation; governance risks require monitoring (Freeman, 1984)       |
 
-Tesla’s Safe Zone Z-Score and strong liquidity support a positive outlook, but valuation and earnings growth caution temper enthusiasm. Investors should monitor earnings trends and market conditions for potential re-rating.
+**Recommendation: HOLD.**
 
-> **Recommendation: HOLD.**
+Tesla’s strong financial health and innovation pipeline support a hold stance for most investors, with growth investors selectively buying on weakness. Elevated valuation and governance risks counsel against aggressive speculative buying.
 
 > “This is not financial advice—consult your financial advisor.”
 
 ---
+
 ## 6. Market Sentiment Analysis (Analyst Recommendations)
 
-Analyst sentiment for Tesla is currently stable with a consensus rating of approximately 2.6 (“Hold”) based on 41 analyst opinions. The target mean price is around $301.56, slightly below the current price near $325, indicating moderate upside potential.
+This section reviews current analyst sentiment to contextualize market views.
 
-- **Distribution:** Majority of analysts rate Tesla as Hold, with some Buy recommendations but few extremes (Strong Buy/Sell).
+- Tesla’s consensus analyst rating is approximately 2.6 (“Hold”), based on 41 analyst opinions, indicating moderate confidence but no strong buy consensus.
 
-- **Trend:** No significant shifts in analyst sentiment recently; the consensus remains cautious but optimistic.
+- Target mean price is around $301.56, slightly below the current price (~$325), suggesting limited upside from current levels.
 
-- **Volatility:** The stock’s high beta (2.46) and price volatility contrast with stable analyst views, reflecting market uncertainty.
+- The 52-week price range ($177 - $488) and recent price volatility reflect mixed market sentiment.
 
-- **Limitations:** Detailed breakdown of analyst ratings by category or target price ranges is not available, limiting granular analysis.
+- No detailed multi-period analyst recommendation data is available to assess trend shifts; however, the stable “Hold” consensus aligns with the Safe Zone Z-Score and cautious investor recommendation.
 
-Overall, analyst sentiment aligns with the Altman Z-Score Safe Zone classification, reflecting confidence in Tesla’s financial health but tempered by valuation and growth concerns. This stable sentiment supports the Hold recommendation for most investors.
+- Elevated governance risk and earnings growth concerns may temper analyst enthusiasm despite Tesla’s market leadership.
+
+**Summary:** Analyst sentiment is stable and moderately cautious, consistent with Tesla’s strong but volatile financial profile. This alignment supports a balanced investor approach.
 
 ---
+
 ## 7. References and Data Sources
 
-Transparency and source attribution are critical for robust financial analysis. This report draws on comprehensive financial and market data from SEC filings, Yahoo Finance, and company disclosures. Market price and volume data were sourced from historical weekly prices. Additional inputs include institutional and insider ownership data, dividend and split histories, and detailed company metadata.
+Transparency and source attribution are essential for robust financial analysis.
 
-All Altman Z-Score calculations adhere to the original 1968 methodology with validation against provided data. Theoretical frameworks applied include seminal works on corporate turnaround and renewal by Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984).
+**References and Data Sources:** This analysis draws on financial data from SEC filings, Yahoo Finance, and Tesla’s quarterly and annual reports. Market data was sourced from historical weekly prices. Additional inputs include institutional and insider ownership data, governance risk assessments, and company metadata. Altman Z-Score calculations follow the original 1968 methodology with adaptations for publicly traded manufacturing firms. Theoretical frameworks applied include Hofer (1980) on turnaround sequencing, Bibeault (1999) on corporate recovery, Hoskisson et al. (2004) on restructuring, Beard (2024) on tech-sector renewal, and Freeman (1984) on stakeholder alignment.
 
 ---
+
 ## 8. Appendices (LLM-Generated)
 
-### Company Metadata
+### A. Raw Financial Data (Selected Key Metrics)
 
-| Field                  | Value                          |
-|------------------------|--------------------------------|
-| Name                   | Tesla, Inc.                    |
-| Ticker                 | TSLA                          |
-| Sector                 | Consumer Cyclical             |
-| Industry               | Auto Manufacturers            |
-| Country                | United States                 |
-| Market Capitalization  | $1,046,365 million            |
-| Employees              | 125,665                      |
-| Exchange               | NASDAQ NMS - GLOBAL MARKET    |
-| Website                | https://www.tesla.com         |
-| IPO Date               | 2013-03-06                   |
+| Metric                 | Value (USD)               |
+|------------------------|---------------------------|
+| Market Capitalization   | $1,046,365,126,464        |
+| Total Cash             | $36,996,001,792           |
+| Total Debt             | $13,127,999,488           |
+| Total Revenue          | $95,724,003,328           |
+| EBITDA                 | $12,549,999,616           |
+| Net Income             | $6,106,999,808            |
+| Book Value per Share   | $23.18                    |
+| Shares Outstanding     | 3,220,960,000             |
 
-### Key Financial Ratios (Latest)
+### B. Weekly Prices (Recent Sample)
+
+| Week       | Close Price (USD) |
+|------------|-------------------|
+| 2024-12-09 | 436.23            |
+| 2024-12-16 | 421.06            |
+| 2024-12-23 | 431.66            |
+| 2024-12-30 | 410.44            |
+| 2025-01-06 | 394.74            |
+
+### C. Key Financial Ratios
 
 | Ratio             | Value    |
 |-------------------|----------|
 | Current Ratio     | 1.996    |
 | Quick Ratio       | 1.376    |
-| Debt/Equity       | 17.4%    |
+| Debt to Equity    | 17.4%    |
 | Gross Margin      | 17.7%    |
 | Net Margin        | 6.4%     |
-| ROA               | 3.7%     |
-| ROE               | 8.8%     |
+| Return on Assets  | 3.7%     |
+| Return on Equity  | 8.8%     |
+| Beta              | 2.46     |
 
-### Weekly Prices Sample (Recent)
+### D. Data Provenance and Quality
 
-| Week       | Close Price (USD) |
-|------------|-------------------|
-| 2024-11-04 | 321.22            |
-| 2024-11-11 | 320.72            |
-| 2024-11-18 | 352.56            |
-| 2024-11-25 | 345.16            |
-| 2024-12-02 | 389.22            |
+- Data sourced from SEC filings, Yahoo Finance, and company disclosures.
+- Market data updated through early 2025.
+- Governance risk scores current as of mid-2024.
+- No significant missing data; some estimates used for ratio calculations due to limited raw balance sheet detail.
 
-### Data Provenance and Quality
+### E. Company Metadata
 
-- Financial data from SEC filings and Yahoo Finance.
-- Market prices from Yahoo Finance weekly data.
-- Ownership data from institutional and major holders datasets.
-- No significant missing data; all key financial metrics available.
-- Z-Score calculations verified against provided data.
+| Field               | Value                  |
+|---------------------|------------------------|
+| Name                | Tesla, Inc.            |
+| Ticker              | TSLA                   |
+| Sector              | Consumer Cyclical      |
+| Industry            | Auto Manufacturers     |
+| Country             | United States          |
+| Market Cap          | $1.05 Trillion         |
+| Employees           | 125,665                |
+| Headquarters        | Austin, TX             |
+| Exchange            | NASDAQ NMS             |
+| IPO Date            | 2013-03-06             |
+| Website             | https://www.tesla.com  |
 
 ---
 
-This concludes the comprehensive Altman Z-Score-based diagnostic and strategic recommendations report for Tesla, Inc.
+This comprehensive analysis confirms Tesla’s strong financial footing and growth potential while highlighting areas for governance improvement and cautious valuation monitoring. Investors and management should align strategies accordingly to sustain long-term value creation.

@@ -106,46 +106,8 @@
           "ebit": "yahoo",
           "sales": "yahoo"
         }
-      },
-      {
-        "period_end": "2023-12-31",
-        "total_assets": null,
-        "current_assets": null,
-        "current_liabilities": null,
-        "total_liabilities": null,
-        "retained_earnings": null,
-        "ebit": null,
-        "sales": null,
-        "source_map": {
-          "total_assets": "null",
-          "current_assets": "null",
-          "current_liabilities": "null",
-          "total_liabilities": "null",
-          "retained_earnings": "null",
-          "ebit": "null",
-          "sales": "null"
-        }
-      },
-      {
-        "period_end": "2023-09-30",
-        "total_assets": null,
-        "current_assets": null,
-        "current_liabilities": null,
-        "total_liabilities": null,
-        "retained_earnings": null,
-        "ebit": null,
-        "sales": null,
-        "source_map": {
-          "total_assets": "null",
-          "current_assets": "null",
-          "current_liabilities": "null",
-          "total_liabilities": "null",
-          "retained_earnings": "null",
-          "ebit": "null",
-          "sales": "null"
-        }
       }
     ],
-    "weekly_prices": "           week  open_price  high_price   low_price  close_price  days_with_data\n0    2022-10-31  234.050003  237.399994  203.080002   207.470001               4\n1    2022-11-07  208.649994  208.899994  177.119995   195.970001               5\n2    2022-11-14  192.770004  200.820007  176.550003   180.190002               5\n3    2022-11-21  175.850006  185.199997  166.190002   182.860001               4\n4    2022-11-28  179.960007  198.919998  178.750000   194.860001               5\n..          ...         ...         ...         ...          ...             ...\n132  2025-05-12  321.989990  351.619995  311.500000   349.980011               5\n133  2025-05-19  336.299988  354.989990  331.390015   339.339996               5\n134  2025-05-26  347.350006  367.709991  345.290009   346.459991               4\n135  2025-06-02  343.500000  355.399994  273.209991   295.140015               5\n136  2025-06-09  285.959991  335.500000  281.850006   319.109985               4\n\n[137 rows x 6 columns]"
+    "weekly_prices": "          week  open_price  high_price   low_price  close_price  days_with_data\n0   2024-01-01  250.080002  251.250000  234.899994   237.490005               4\n1   2024-01-08  236.139999  241.250000  217.149994   218.889999               5\n2   2024-01-15  215.100006  223.490005  207.559998   212.190002               4\n3   2024-01-22  212.259995  217.800003  180.059998   183.250000               5\n4   2024-01-29  185.630005  196.360001  182.000000   187.910004               5\n..         ...         ...         ...         ...          ...             ...\n71  2025-05-12  321.989990  351.619995  311.500000   349.980011               5\n72  2025-05-19  336.299988  354.989990  331.390015   339.339996               5\n73  2025-05-26  347.350006  367.709991  345.290009   346.459991               4\n74  2025-06-02  343.500000  355.399994  273.209991   295.140015               5\n75  2025-06-09  285.959991  335.500000  281.850006   319.109985               4\n\n[76 rows x 6 columns]"
   }
 }

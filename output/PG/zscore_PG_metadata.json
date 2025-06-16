@@ -1,0 +1,113 @@
+{
+  "analysis_date": "2025-06-15",
+  "ticker": "PG",
+  "model": "original",
+  "context": {
+    "Ticker": "PG",
+    "Industry": "SIC 2840",
+    "Public": true,
+    "Emerging Market": false,
+    "Maturity": "Mature Company",
+    "Model": "original",
+    "SIC Code": "2840",
+    "Analysis Date": "2025-06-15",
+    "raw_quarters": [
+      {
+        "period_end": "2025-03-31",
+        "total_assets": 122984000000.0,
+        "current_assets": 24435000000.0,
+        "current_liabilities": 34248000000.0,
+        "total_liabilities": 70439000000.0,
+        "retained_earnings": 128919000000.0,
+        "ebit": 4878000000.0,
+        "sales": 19776000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-12-31",
+        "total_assets": 122639000000.0,
+        "current_assets": 25642000000.0,
+        "current_liabilities": 33797000000.0,
+        "total_liabilities": 71196000000.0,
+        "retained_earnings": 127544000000.0,
+        "ebit": 6085000000.0,
+        "sales": 21882000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-09-30",
+        "total_assets": 126482000000.0,
+        "current_assets": 27449000000.0,
+        "current_liabilities": 36420000000.0,
+        "total_liabilities": 74342000000.0,
+        "retained_earnings": 125361000000.0,
+        "ebit": 5378000000.0,
+        "sales": 21737000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-06-30",
+        "total_assets": 122370000000.0,
+        "current_assets": 24709000000.0,
+        "current_liabilities": 33627000000.0,
+        "total_liabilities": 71812000000.0,
+        "retained_earnings": 123811000000.0,
+        "ebit": 4090000000.0,
+        "sales": 20532000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-03-31",
+        "total_assets": 119598000000.0,
+        "current_assets": 22458000000.0,
+        "current_liabilities": 32340000000.0,
+        "total_liabilities": 69265000000.0,
+        "retained_earnings": 123132000000.0,
+        "ebit": 4825000000.0,
+        "sales": 20195000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      }
+    ],
+    "weekly_prices": "          week  open_price  high_price   low_price  close_price  days_with_data\n0   2024-01-01  146.360001  149.410004  146.309998   142.081650               4\n1   2024-01-08  147.910004  151.300003  147.649994   145.146500               5\n2   2024-01-15  150.149994  151.500000  146.919998   143.124451               4\n3   2024-01-22  146.970001  156.399994  146.279999   151.436264               5\n4   2024-01-29  156.679993  159.600006  155.399994   153.327530               5\n..         ...         ...         ...         ...          ...             ...\n71  2025-05-12  157.429993  163.429993  156.690002   163.279999               5\n72  2025-05-19  163.470001  166.369995  163.410004   165.860001               5\n73  2025-05-26  165.270004  170.990005  165.270004   169.889999               4\n74  2025-06-02  169.020004  169.039993  162.509995   164.020004               5\n75  2025-06-09  163.389999  164.020004  161.679993   163.179993               4\n\n[76 rows x 6 columns]"
+  }
+}

@@ -60,9 +60,13 @@ The following table shows available reports for all analyzed tickers:
 <!-- BEGIN_TICKERS_TABLE -->
 | Logo | Company Name | Full Report | Trend Chart |
 |------|-------------|-------------|:-------------:|
-| <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="40" height="40"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | <a href="output/MSFT/zscore_MSFT_trend.png"><img src="output/MSFT/zscore_MSFT_trend.png" alt="MSFT Chart" width="400"/></a> |
-| <img src="output/SONO/SONO_logo.png" alt="SONO" width="40" height="40"/> | Sonos Inc | [Report](output/SONO/zscore_SONO_zscore_full_report.md) | <a href="output/SONO/zscore_SONO_trend.png"><img src="output/SONO/zscore_SONO_trend.png" alt="SONO Chart" width="400"/></a> |
-| <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="40" height="40"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | <a href="output/TSLA/zscore_TSLA_trend.png"><img src="output/TSLA/zscore_TSLA_trend.png" alt="TSLA Chart" width="400"/></a> |
+| <img src="output/AAPL/AAPL_logo.png" alt="AAPL" width="80" height="80"/> | Apple Inc | [Report](output/AAPL/zscore_AAPL_zscore_full_report.md) | <a href="output/AAPL/zscore_AAPL_trend.png"><img src="output/AAPL/zscore_AAPL_trend.png" alt="AAPL Chart" width="400"/></a> |
+| <img src="output/AMZN/AMZN_logo.png" alt="AMZN" width="80" height="80"/> | Amazon.com Inc | [Report](output/AMZN/zscore_AMZN_zscore_full_report.md) | <a href="output/AMZN/zscore_AMZN_trend.png"><img src="output/AMZN/zscore_AMZN_trend.png" alt="AMZN Chart" width="400"/></a> |
+| <img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" width="80" height="80"/> | Alphabet Inc | [Report](output/GOOGL/zscore_GOOGL_zscore_full_report.md) | <a href="output/GOOGL/zscore_GOOGL_trend.png"><img src="output/GOOGL/zscore_GOOGL_trend.png" alt="GOOGL Chart" width="400"/></a> |
+| <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="80" height="80"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | <a href="output/MSFT/zscore_MSFT_trend.png"><img src="output/MSFT/zscore_MSFT_trend.png" alt="MSFT Chart" width="400"/></a> |
+| <img src="output/NVDA/NVDA_logo.png" alt="NVDA" width="80" height="80"/> | NVIDIA Corp | [Report](output/NVDA/zscore_NVDA_zscore_full_report.md) | <a href="output/NVDA/zscore_NVDA_trend.png"><img src="output/NVDA/zscore_NVDA_trend.png" alt="NVDA Chart" width="400"/></a> |
+| <img src="output/PG/PG_logo.png" alt="PG" width="80" height="80"/> | Procter & Gamble Co | [Report](output/PG/zscore_PG_zscore_full_report.md) | <a href="output/PG/zscore_PG_trend.png"><img src="output/PG/zscore_PG_trend.png" alt="PG Chart" width="400"/></a> |
+| <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="80" height="80"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | <a href="output/TSLA/zscore_TSLA_trend.png"><img src="output/TSLA/zscore_TSLA_trend.png" alt="TSLA Chart" width="400"/></a> |
 <!-- END_TICKERS_TABLE -->
 
 ---

@@ -1,39 +1,7 @@
 [
   {
-    "quarter_end":"2023-09-30",
-    "zscore":null,
-    "valid":false,
-    "error":"Missing required field: total_assets; Missing required field: current_assets; Missing required field: current_liabilities; Missing required field: retained_earnings; Missing required field: ebit; Missing required field: sales; All required fields are missing or zero (possible empty or placeholder quarter)",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] total_assets: Missing required field: total_assets | [ERROR] current_assets: Missing required field: current_assets | [ERROR] current_liabilities: Missing required field: current_liabilities | [ERROR] retained_earnings: Missing required field: retained_earnings | [ERROR] ebit: Missing required field: ebit | [ERROR] sales: Missing required field: sales | [ERROR] All required fields are missing or zero (possible empty or placeholder quarter)",
-    "zscore_str":null,
-    "components":null,
-    "consistency_warning":null,
-    "model":null,
-    "api_payload":null,
-    "field_mapping":null
-  },
-  {
-    "quarter_end":"2023-12-31",
-    "zscore":null,
-    "valid":false,
-    "error":"Missing required field: total_assets; Missing required field: current_assets; Missing required field: current_liabilities; Missing required field: retained_earnings; Missing required field: ebit; Missing required field: sales; All required fields are missing or zero (possible empty or placeholder quarter)",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] total_assets: Missing required field: total_assets | [ERROR] current_assets: Missing required field: current_assets | [ERROR] current_liabilities: Missing required field: current_liabilities | [ERROR] retained_earnings: Missing required field: retained_earnings | [ERROR] ebit: Missing required field: ebit | [ERROR] sales: Missing required field: sales | [ERROR] All required fields are missing or zero (possible empty or placeholder quarter)",
-    "zscore_str":null,
-    "components":null,
-    "consistency_warning":null,
-    "model":null,
-    "api_payload":null,
-    "field_mapping":null
-  },
-  {
     "quarter_end":"2024-03-31",
     "zscore":8.5708341745,
-    "valid":true,
-    "error":null,
-    "diagnostic":"Safe Zone",
-    "validation_summary":"No validation issues.",
     "zscore_str":"8.57",
     "components":{
       "X1":0.1930126527,
@@ -42,6 +10,10 @@
       "X4":12.8550273981,
       "X5":0.1950176698
     },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
     "consistency_warning":null,
     "model":"original",
     "api_payload":null,
@@ -50,10 +22,6 @@
   {
     "quarter_end":"2024-06-30",
     "zscore":9.3225939503,
-    "valid":true,
-    "error":null,
-    "diagnostic":"Safe Zone",
-    "validation_summary":"No validation issues.",
     "zscore_str":"9.32",
     "components":{
       "X1":0.2237663074,
@@ -62,6 +30,10 @@
       "X4":13.9867800594,
       "X5":0.2259997164
     },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
     "consistency_warning":null,
     "model":"original",
     "api_payload":null,
@@ -70,10 +42,6 @@
   {
     "quarter_end":"2024-09-30",
     "zscore":11.2180483962,
-    "valid":true,
-    "error":null,
-    "diagnostic":"Safe Zone",
-    "validation_summary":"No validation issues.",
     "zscore_str":"11.22",
     "components":{
       "X1":0.2152821814,
@@ -82,6 +50,10 @@
       "X4":17.1482597478,
       "X5":0.2101091346
     },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
     "consistency_warning":null,
     "model":"original",
     "api_payload":null,
@@ -90,10 +62,6 @@
   {
     "quarter_end":"2024-12-31",
     "zscore":17.1105125696,
-    "valid":true,
-    "error":null,
-    "diagnostic":"Safe Zone",
-    "validation_summary":"No validation issues.",
     "zscore_str":"17.11",
     "components":{
       "X1":0.2419841075,
@@ -102,6 +70,10 @@
       "X4":26.8806049722,
       "X5":0.2105922831
     },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
     "consistency_warning":null,
     "model":"original",
     "api_payload":null,
@@ -110,10 +82,6 @@
   {
     "quarter_end":"2025-03-31",
     "zscore":10.9341116641,
-    "valid":true,
-    "error":null,
-    "diagnostic":"Safe Zone",
-    "validation_summary":"No validation issues.",
     "zscore_str":"10.93",
     "components":{
       "X1":0.2368776526,
@@ -122,6 +90,10 @@
       "X4":16.7980199504,
       "X5":0.154542766
     },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
     "consistency_warning":null,
     "model":"original",
     "api_payload":null,

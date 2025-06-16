@@ -38,7 +38,7 @@ def generate_table():
         chart_rel = f"output/{ticker}/{REPORT_PREFIX}{ticker}{CHART_SUFFIX}"
         info_path = os.path.join(ticker_dir, COMPANY_INFO)
         company_name = get_company_name(info_path)        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="40" height="40"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> |'
+        row = f'| <img src="{logo_rel}" alt="{ticker}" width="80" height="80"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> |'
         rows.append(row)
     return rows
 

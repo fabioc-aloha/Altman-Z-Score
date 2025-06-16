@@ -1,0 +1,619 @@
+
+
+# company_info.json
+{
+  "country": "US",
+  "currency": "USD",
+  "estimateCurrency": "USD",
+  "exchange": "NASDAQ NMS - GLOBAL MARKET",
+  "finnhubIndustry": "Media",
+  "ipo": "2004-08-19",
+  "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GOOG.png",
+  "marketCapitalization": 2126512.723695927,
+  "name": "Alphabet Inc",
+  "phone": "16502530000",
+  "shareOutstanding": 12135,
+  "ticker": "GOOGL",
+  "weburl": "https://abc.xyz/"
+}
+
+# weekly_prices.csv
+week,open_price,high_price,low_price,close_price,days_with_data
+2024-01-01,138.5500030517578,139.6300048828125,135.14999389648438,134.92083740234375,4
+2024-01-08,136.2899932861328,145.22000122070312,136.25999450683594,141.79957580566406,5
+2024-01-15,142.0,146.4499969482422,138.89999389648438,145.50735473632812,4
+2024-01-22,147.10000610351562,153.0500030517578,145.5,151.28269958496094,5
+2024-01-29,152.05999755859375,153.77999877929688,136.5,141.53118896484375,5
+2024-02-05,142.82000732421875,149.44000244140625,142.77999877929688,148.11172485351562,5
+2024-02-12,148.4199981689453,149.33999633789062,140.13999938964844,139.68228149414062,5
+2024-02-19,139.66000366210938,145.0,139.49000549316406,143.10177612304688,4
+2024-02-26,142.13999938964844,142.44000244140625,135.41000366210938,136.3224334716797,5
+2024-03-04,135.66000366210938,138.08999633789062,130.6699981689453,134.6027374267578,5
+2024-03-11,136.1300048828125,143.58999633789062,136.1300048828125,140.33831787109375,5
+2024-03-18,148.61000061035156,152.14999389648438,146.0800018310547,149.8711700439453,5
+2024-03-25,149.94000244140625,152.25999450683594,147.82000732421875,150.03021240234375,4
+2024-04-01,150.69000244140625,155.74000549316406,149.60000610351562,151.59085083007812,5
+2024-04-08,152.77999877929688,160.22000122070312,152.61000061035156,156.7896728515625,5
+2024-04-15,158.86000061035156,159.24000549316406,152.3000030517578,153.17137145996094,5
+2024-04-22,154.30999755859375,174.7100067138672,150.8699951171875,170.92491149902344,5
+2024-04-29,169.05999755859375,169.5500030517578,162.60000610351562,166.24298095703125,5
+2024-05-06,167.4600067138672,171.75999450683594,166.02999877929688,167.6445770263672,5
+2024-05-13,164.25999450683594,176.27000427246094,164.0,175.01040649414062,5
+2024-05-20,176.19000244140625,178.77000427246094,172.9499969482422,173.94679260253906,5
+2024-05-27,174.4499969482422,177.27000427246094,169.44000244140625,171.47161865234375,4
+2024-06-03,172.5399932861328,177.8699951171875,171.16000366210938,173.4199676513672,5
+2024-06-10,174.97000122070312,180.41000366210938,172.75999450683594,175.93771362304688,5
+2024-06-17,175.4600067138672,180.85000610351562,174.10000610351562,178.76406860351562,4
+2024-06-24,180.16000366210938,186.0500030517578,178.6699981689453,181.2718963623047,5
+2024-07-01,183.02999877929688,190.86000061035156,181.3000030517578,189.68116760253906,4
+2024-07-08,189.89999389648438,191.75,184.49000549316406,184.17784118652344,5
+2024-07-15,184.9199981689453,188.67999267578125,176.47000122070312,176.8035430908203,5
+2024-07-22,180.58999633789062,183.61000061035156,164.05999755859375,166.19493103027344,5
+2024-07-29,168.8300018310547,174.25,164.6699981689453,165.85658264160156,5
+2024-08-05,155.5,164.42999267578125,154.92999267578125,162.88099670410156,5
+2024-08-12,164.35000610351562,165.05999755859375,157.7100067138672,162.17440795898438,5
+2024-08-19,165.27999877929688,168.63999938964844,163.30999755859375,164.82156372070312,5
+2024-08-26,166.3800048828125,167.5500030517578,160.25,162.5924072265625,5
+2024-09-02,161.72000122070312,161.85000610351562,150.5500030517578,150.1924591064453,4
+2024-09-09,152.50999450683594,158.3800048828125,147.22000122070312,156.90887451171875,5
+2024-09-16,157.30999755859375,163.7899932861328,156.60000610351562,163.0174102783203,5
+2024-09-23,164.35000610351562,165.6999969482422,160.69000244140625,163.3761444091797,5
+2024-09-30,163.32000732421875,169.16000366210938,163.25999450683594,166.47525024414062,5
+2024-10-07,167.72000122070312,168.47999572753906,159.74000549316406,162.66864013671875,5
+2024-10-14,163.63999938964844,167.67999267578125,162.75999450683594,162.84800720214844,5
+2024-10-21,162.9499969482422,165.82000732421875,161.00999450683594,164.6915283203125,5
+2024-10-28,168.75,182.02000427246094,163.9499969482422,170.69046020507812,5
+2024-11-04,169.92999267578125,181.0800018310547,168.00999450683594,177.72573852539062,5
+2024-11-11,178.5800018310547,182.49000549316406,171.22000122070312,171.8862762451172,5
+2024-11-18,173.4199981689453,178.8699951171875,163.6999969482422,164.1833038330078,5
+2024-11-25,166.08999633789062,169.82000732421875,165.61000061035156,168.358642578125,4
+2024-12-02,168.77000427246094,176.05999755859375,168.57000732421875,174.09849548339844,5
+2024-12-09,173.9600067138672,195.61000061035156,173.64999389648438,189.3723907470703,5
+2024-12-16,192.8699951171875,201.4199981689453,185.22000122070312,190.95863342285156,5
+2024-12-23,192.6199951171875,196.75,190.14999389648438,192.30543518066406,4
+2024-12-30,189.8000030517578,193.2100067138672,187.5,191.3377227783203,4
+2025-01-06,193.97999572753906,201.0,190.30999755859375,191.58712768554688,4
+2025-01-13,190.07000732421875,197.22999572753906,187.36000061035156,195.53781127929688,5
+2025-01-20,199.07000732421875,202.2899932861328,195.1999969482422,199.73788452148438,4
+2025-01-27,192.41000366210938,205.47999572753906,190.67999267578125,203.5388946533203,5
+2025-02-03,200.69000244140625,207.0500030517578,183.24000549316406,184.90293884277344,5
+2025-02-10,187.35000610351562,188.1999969482422,181.8300018310547,184.79319763183594,5
+2025-02-17,185.60000610351562,185.9600067138672,179.0800018310547,179.23634338378906,4
+2025-02-24,181.99000549316406,183.1199951171875,166.77000427246094,169.8784637451172,5
+2025-03-03,171.92999267578125,174.97000122070312,165.8000030517578,173.45001220703125,5
+2025-03-10,168.25999450683594,168.4600067138672,161.3699951171875,165.28990173339844,5
+2025-03-17,165.02999877929688,166.3000030517578,156.72000122070312,163.79171752929688,5
+2025-03-24,167.07000732421875,170.6300048828125,153.6300048828125,154.14340209960938,5
+2025-03-31,153.11000061035156,158.41000366210938,145.3800048828125,145.4239501953125,5
+2025-04-07,141.5500030517578,159.5500030517578,140.52999877929688,156.9499969482422,5
+2025-04-14,160.0,161.72000122070312,148.5,150.97723388671875,4
+2025-04-21,148.8800048828125,166.10000610351562,146.10000610351562,161.76417541503906,5
+2025-04-28,162.42999267578125,164.97000122070312,155.39999389648438,163.8316650390625,5
+2025-05-05,163.0,165.38999938964844,147.83999633789062,152.5653076171875,5
+2025-05-12,157.49000549316406,169.35000610351562,156.16000366210938,165.9890594482422,5
+2025-05-19,164.50999450683594,176.77000427246094,162.89999389648438,168.26629638671875,5
+2025-05-26,170.16000366210938,175.27000427246094,167.44000244140625,171.5323486328125,4
+2025-06-02,167.83999633789062,174.5,165.27999877929688,173.46998596191406,5
+2025-06-09,174.5399932861328,181.11000061035156,174.3699951171875,175.6999969482422,4
+
+
+# yf_info.json
+{
+  "address1": "1600 Amphitheatre Parkway",
+  "city": "Mountain View",
+  "state": "CA",
+  "zip": "94043",
+  "country": "United States",
+  "phone": "650-253-0000",
+  "website": "https://abc.xyz",
+  "industry": "Internet Content & Information",
+  "industryKey": "internet-content-information",
+  "industryDisp": "Internet Content & Information",
+  "sector": "Communication Services",
+  "sectorKey": "communication-services",
+  "sectorDisp": "Communication Services",
+  "longBusinessSummary": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers AI infrastructure, Vertex AI platform, cybersecurity, data and analytics, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California.",
+  "fullTimeEmployees": 185719,
+  "companyOfficers": [
+    {
+      "maxAge": 1,
+      "name": "Mr. Sundar  Pichai",
+      "age": 51,
+      "title": "CEO & Director",
+      "yearBorn": 1973,
+      "fiscalYear": 2024,
+      "totalPay": 10319413,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Ruth M. Porat",
+      "age": 66,
+      "title": "President & Chief Investment Officer",
+      "yearBorn": 1958,
+      "fiscalYear": 2024,
+      "totalPay": 3023363,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Dr. Lawrence Edward Page II",
+      "age": 51,
+      "title": "Co-Founder & Director",
+      "yearBorn": 1973,
+      "fiscalYear": 2024,
+      "totalPay": 1,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Sergey  Brin",
+      "age": 50,
+      "title": "Co-Founder & Director",
+      "yearBorn": 1974,
+      "fiscalYear": 2024,
+      "totalPay": 1,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Anat  Ashkenazi",
+      "age": 51,
+      "title": "Senior VP & CFO",
+      "yearBorn": 1973,
+      "fiscalYear": 2024,
+      "totalPay": 11455556,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. J. Kent Walker",
+      "age": 63,
+      "title": "President of Global Affairs, Chief Legal Officer & Company Secretary",
+      "yearBorn": 1961,
+      "fiscalYear": 2024,
+      "totalPay": 3019696,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Philipp  Schindler",
+      "age": 53,
+      "title": "Senior Vice President & Chief Business Officer of Google",
+      "yearBorn": 1971,
+      "fiscalYear": 2024,
+      "totalPay": 3051699,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Amie Thuener O'Toole",
+      "age": 49,
+      "title": "Corporate Controller, Chief Accounting Officer & VP",
+      "yearBorn": 1975,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Ellen  West",
+      "title": "Vice President of Investor Relations",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Fiona Clare Cicconi",
+      "age": 58,
+      "title": "Chief People Officer",
+      "yearBorn": 1966,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    }
+  ],
+  "auditRisk": 7,
+  "boardRisk": 8,
+  "compensationRisk": 10,
+  "shareHolderRightsRisk": 10,
+  "overallRisk": 10,
+  "governanceEpochDate": 1748736000,
+  "compensationAsOfEpochDate": 1735603200,
+  "executiveTeam": [],
+  "maxAge": 86400,
+  "priceHint": 2,
+  "previousClose": 175.7,
+  "open": 172.44,
+  "dayLow": 172.385,
+  "dayHigh": 177.13,
+  "regularMarketPreviousClose": 175.7,
+  "regularMarketOpen": 172.44,
+  "regularMarketDayLow": 172.385,
+  "regularMarketDayHigh": 177.13,
+  "dividendRate": 0.84,
+  "dividendYield": 0.48,
+  "exDividendDate": 1749427200,
+  "payoutRatio": 0.08930001,
+  "beta": 1.014,
+  "trailingPE": 19.49442,
+  "forwardPE": 19.49442,
+  "volume": 27594804,
+  "regularMarketVolume": 27663107,
+  "averageVolume": 40043917,
+  "averageVolume10days": 35364070,
+  "averageDailyVolume10Day": 35364070,
+  "bid": 174.6,
+  "ask": 175.05,
+  "bidSize": 5,
+  "askSize": 5,
+  "marketCap": 2126188118016,
+  "fiftyTwoWeekLow": 140.53,
+  "fiftyTwoWeekHigh": 207.05,
+  "priceToSalesTrailing12Months": 5.91079,
+  "fiftyDayAverage": 162.2228,
+  "twoHundredDayAverage": 171.6055,
+  "trailingAnnualDividendRate": 1.0,
+  "trailingAnnualDividendYield": 0.00569152,
+  "currency": "USD",
+  "tradeable": false,
+  "enterpriseValue": 2052790419456,
+  "profitMargins": 0.30857,
+  "floatShares": 10875751050,
+  "sharesOutstanding": 5820000256,
+  "sharesShort": 66272281,
+  "sharesShortPriorMonth": 68993462,
+  "sharesShortPreviousMonthDate": 1745971200,
+  "dateShortInterest": 1748563200,
+  "sharesPercentSharesOut": 0.0055,
+  "heldPercentInsiders": 0.00254,
+  "heldPercentInstitutions": 0.8107,
+  "shortRatio": 1.49,
+  "shortPercentOfFloat": 0.0114,
+  "impliedSharesOutstanding": 12172600320,
+  "bookValue": 28.405,
+  "priceToBook": 6.149269,
+  "lastFiscalYearEnd": 1735603200,
+  "nextFiscalYearEnd": 1767139200,
+  "mostRecentQuarter": 1743379200,
+  "earningsQuarterlyGrowth": 0.46,
+  "netIncomeToCommon": 110995996672,
+  "trailingEps": 8.96,
+  "forwardEps": 8.96,
+  "lastSplitFactor": "20:1",
+  "lastSplitDate": 1658102400,
+  "enterpriseToRevenue": 5.707,
+  "enterpriseToEbitda": 15.127,
+  "52WeekChange": -0.014500141,
+  "SandP52WeekChange": 0.09203708,
+  "lastDividendValue": 0.21,
+  "lastDividendDate": 1749427200,
+  "quoteType": "EQUITY",
+  "currentPrice": 174.67,
+  "targetHighPrice": 250.0,
+  "targetLowPrice": 160.0,
+  "targetMeanPrice": 201.4652,
+  "targetMedianPrice": 200.0,
+  "recommendationMean": 1.58824,
+  "recommendationKey": "buy",
+  "numberOfAnalystOpinions": 52,
+  "totalCash": 95328002048,
+  "totalCashPerShare": 7.856,
+  "ebitda": 135705001984,
+  "totalDebt": 28497999872,
+  "quickRatio": 1.597,
+  "currentRatio": 1.768,
+  "totalRevenue": 359713013760,
+  "debtToEquity": 8.254,
+  "revenuePerShare": 29.338,
+  "returnOnAssets": 0.16896999,
+  "returnOnEquity": 0.34789002,
+  "grossProfits": 210757992448,
+  "freeCashflow": 60679000064,
+  "operatingCashflow": 132601004032,
+  "earningsGrowth": 0.488,
+  "revenueGrowth": 0.12,
+  "grossMargins": 0.58591,
+  "ebitdaMargins": 0.37726003,
+  "operatingMargins": 0.33918,
+  "financialCurrency": "USD",
+  "symbol": "GOOGL",
+  "language": "en-US",
+  "region": "US",
+  "typeDisp": "Equity",
+  "quoteSourceName": "Nasdaq Real Time Price",
+  "triggerable": true,
+  "customPriceAlertConfidence": "HIGH",
+  "shortName": "Alphabet Inc.",
+  "longName": "Alphabet Inc.",
+  "fullExchangeName": "NasdaqGS",
+  "averageDailyVolume3Month": 40043917,
+  "fiftyTwoWeekLowChange": 34.14,
+  "fiftyTwoWeekLowChangePercent": 0.24293745,
+  "fiftyTwoWeekRange": "140.53 - 207.05",
+  "fiftyTwoWeekHighChange": -32.380005,
+  "fiftyTwoWeekHighChangePercent": -0.15638737,
+  "fiftyTwoWeekChangePercent": -1.4500141,
+  "dividendDate": 1750032000,
+  "earningsTimestamp": 1745524800,
+  "earningsTimestampStart": 1753128000,
+  "earningsTimestampEnd": 1753473600,
+  "earningsCallTimestampStart": 1745526600,
+  "earningsCallTimestampEnd": 1745526600,
+  "isEarningsDateEstimate": true,
+  "epsTrailingTwelveMonths": 8.96,
+  "epsForward": 8.96,
+  "epsCurrentYear": 9.59659,
+  "priceEpsCurrentYear": 18.201256,
+  "fiftyDayAverageChange": 12.447205,
+  "fiftyDayAverageChangePercent": 0.076729074,
+  "twoHundredDayAverageChange": 3.064499,
+  "twoHundredDayAverageChangePercent": 0.017857812,
+  "sourceInterval": 15,
+  "exchangeDataDelayedBy": 0,
+  "averageAnalystRating": "1.6 - Buy",
+  "cryptoTradeable": false,
+  "hasPrePostMarketData": true,
+  "firstTradeDateMilliseconds": 1092922200000,
+  "postMarketChangePercent": -0.0686982,
+  "postMarketPrice": 174.55,
+  "postMarketChange": -0.119995,
+  "regularMarketChange": -1.0299988,
+  "regularMarketDayRange": "172.385 - 177.13",
+  "corporateActions": [],
+  "postMarketTime": 1749859189,
+  "regularMarketTime": 1749844801,
+  "exchange": "NMS",
+  "messageBoardId": "finmb_29096",
+  "exchangeTimezoneName": "America/New_York",
+  "exchangeTimezoneShortName": "EDT",
+  "gmtOffSetMilliseconds": -14400000,
+  "market": "us_market",
+  "esgPopulated": false,
+  "regularMarketChangePercent": -0.58622587,
+  "regularMarketPrice": 174.67,
+  "marketState": "CLOSED",
+  "trailingPegRatio": 1.3387
+}
+
+
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+
+---
+## TL;DR / Executive Summary
+
+* At the very top of the report, provide a concise, narrative executive summary of the most important findings and recommendations. This should be written in plain language and highlight:
+  - The company's current Z-Score risk category and what it means
+  - The overall financial health and trend
+  - The most important risks and opportunities
+  - The headline investor recommendation (Buy/Hold/Sell and for whom)
+  - Any major analyst sentiment or market signals
+* This section should be brief (1-2 paragraphs) and actionable, suitable for a busy executive or investor who wants the key takeaways without reading the full report.
+
+---
+## Company Profile
+
+* Begin this section with a concise introduction paragraph summarizing the company's identity and context.
+* Use all provided information to describe:
+  - Company business, competitors, products and services (including sector, industry, and company size from the injected company profile and market/industry metadata if available)
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings or news)
+  - Ownership structure and recent changes, referencing institutional_holders.json and major_holders.json for insider/institutional ownership, float, and any significant shifts
+  - Any recent news or events that may impact the company profile
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Start with an introduction paragraph that frames the purpose and scope of the financial health analysis.
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance, industry benchmarks, and any recent news or events.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+* In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
+* Independently calculate the Altman Z-Score for each quarter using the injected financial data. Compare your results with the provided Z-Score values and comment on any discrepancies or confirm their accuracy.
+* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
+* Where available, reference:
+  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - Dividend history, yield, and stability from dividend history
+  - Stock split history from split history to note any recent splits or capital structure changes
+  - Recent price trends and volatility from weekly price data
+* Reference any material changes in financials, management, or market environment that affect the diagnosis.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Open with a brief introduction paragraph explaining the relevance of turnaround and renewal theory to the company's current situation.
+* Use the Z-Score risk level and all available context (including news, management changes, and peer/industry trends) to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+* Reference any recent events, management changes, or market shifts that may affect the recommended approach.
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+* Begin with an introduction paragraph outlining the importance of internal stakeholder actions and alignment.
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level and any recent developments:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+  - Reference any relevant news, events, or management changes
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Start with a context-setting introduction paragraph describing the role of communication and execution strategy for the company at its current risk level.
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  - Reference any recent news, events, or market changes that affect communication priorities
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  - Reference any relevant news, events, or management changes
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Open with an introduction paragraph that explains the purpose of the investor recommendation section and how it relates to the company's risk profile and investor types.
+* Provide a **thorough, risk-aligned recommendation**: You must explicitly call out one of **Buy / Hold / Sell** based on Z-Score insights and **all available financial, market, peer, management, and qualitative data**. 
+* Organize the recommendation in a table by **investment goals** and **investor profiles**, using technical terms for risk tolerance and objectives. For example:
+
+| Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited) |
+|-----------------------------------|--------------------|----------------|-------------------|
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | ...               |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | ...               |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | SELL           | ...               |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | ...               |
+
+* Use technical terms such as: "income-oriented", "growth-oriented", "speculative/aggressive", "defensive", "risk-averse", "risk-tolerant", etc.
+* Justify each recommendation with:
+  - Z-Score trend and risk zone (Distress, Grey, Safe)
+  - Recent financial performance and outlook
+  - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
+  - Ownership and insider/institutional sentiment (from institutional and major holders data)
+  - Dividend policy and stability (from dividend history)
+  - Recent price/volatility context (from weekly price data)
+  - Any material news, events, or management changes
+  - Scenario analysis: briefly discuss what could change the recommendation (e.g., what would make a Hold become a Buy or Sell)
+  - Reference any relevant qualitative or external data that could affect the recommendation
+* Clearly state the overall recommendation in a bolded sentence, e.g.:
+  > **Recommendation: HOLD.**
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. Market Sentiment Analysis (Analyst Recommendations)
+
+* Begin with an introduction paragraph explaining the purpose of this section: to provide an overview of current market sentiment as reflected in professional analyst recommendations for the company.
+* Present a table summarizing the most recent analyst recommendations using the injected analyst data. The table must show the distribution of recommendations (e.g., Strong Buy, Buy, Hold, Sell, Strong Sell) for the current and previous periods, side by side, to enable clear trend analysis. **If more than two periods of analyst sentiment data are available, present a table covering all available periods to enable multi-period trend analysis.** Do not fabricate or use static examples—only use actual, injected data for the company under analysis.
+* Analyze the analyst recommendations data provided above to summarize the prevailing analyst sentiment. Include:
+  - The distribution of recommendations for all available periods (trend analysis)
+  - Any recent trends or changes in analyst sentiment, explicitly comparing the current period to the previous period(s) and commenting on stability or shifts
+  - Consensus target price if available, and how it compares to the current price (reference the injected weekly price data for current price)
+  - Notable upgrades, downgrades, or shifts in consensus
+* Analyze the following aspects based on the available data:
+  - Stability of sentiment: Note if the distribution of recommendations has changed or remained stable over the reported periods.
+  - Consensus: Identify the majority view (e.g., mostly Buy/Hold/Sell) and whether there are any extreme ratings (Strong Buy/Sell).
+  - Volatility: Comment on the presence or absence of upgrades/downgrades or new recommendation types.
+  - Limitations: If the data lacks target prices, firm names, or granular details, explicitly state this and avoid speculation.
+* Summarize these findings in a short narrative, highlighting whether analyst sentiment is stable, shifting, or mixed, and how this relates to the company's risk profile and Z-Score.
+* If the data is limited, clearly state the constraints and avoid inferring details not present in the data.
+
+* Integrate this sentiment analysis with the Z-Score and risk profile: discuss whether analyst sentiment aligns or diverges from the quantitative risk assessment.
+* Conclude with a brief narrative on how market sentiment may influence investor decision-making for different profiles.
+
+* When the prompt context includes multiple periods of analyst recommendations, you must explicitly compare the current and previous periods, analyze the trend, and comment on the stability or shifts in sentiment. **If more than two periods are available, analyze the full trend across all periods, not just the most recent two.** If the distribution is unchanged, state this clearly. If there are upgrades, downgrades, or new recommendation types, describe the change and its significance for market sentiment and risk assessment.
+
+---
+
+## 7. References and Data Sources
+
+* Start with an introduction paragraph explaining the importance of transparency and source attribution in the analysis.
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. Do not mention the names of any data files in the final report. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. Additional data sources may include:
+- Institutional and major holders data
+- Dividend history
+- Stock split history
+- Weekly price and volatility data
+- Full financial statement data
+- Company metadata
+All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+## 8. Appendices (LLM-Generated)
+
+* At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
+  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of weekly prices used for Z-Score analysis
+  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
+  - Data quality/completeness summary: note any missing or estimated fields
+  - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
+* Use only the injected data for all tables and summaries. If a section is not available, state so clearly.
+* Do not repeat the Z-Score component table (by quarter) in the appendix; reference it in the main report only.
+* Do not mention file names or file paths in the appendix or main report.
+
+---

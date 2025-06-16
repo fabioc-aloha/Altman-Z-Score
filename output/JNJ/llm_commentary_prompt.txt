@@ -1,0 +1,614 @@
+
+
+# company_info.json
+{
+  "country": "US",
+  "currency": "USD",
+  "estimateCurrency": "USD",
+  "exchange": "NEW YORK STOCK EXCHANGE, INC.",
+  "finnhubIndustry": "Pharmaceuticals",
+  "ipo": "1944-09-25",
+  "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JNJ.png",
+  "marketCapitalization": 377994.11518330895,
+  "name": "Johnson & Johnson",
+  "phone": "17325242455",
+  "shareOutstanding": 2406.07,
+  "ticker": "JNJ",
+  "weburl": "https://www.jnj.com/"
+}
+
+# weekly_prices.csv
+week,open_price,high_price,low_price,close_price,days_with_data
+2024-01-01,156.92999267578125,161.97999572753906,156.7899932861328,153.62802124023438,4
+2024-01-08,161.10000610351562,163.27999877929688,159.61000061035156,154.829345703125,5
+2024-01-15,161.57000732421875,162.25,159.69000244140625,154.1523895263672,4
+2024-01-22,162.0,163.5800018310547,156.91000366210938,152.0738983154297,5
+2024-01-29,159.00999450683594,160.6199951171875,155.94000244140625,149.31845092773438,5
+2024-02-05,156.61000061035156,159.3699951171875,155.30999755859375,149.4614715576172,5
+2024-02-12,156.5800018310547,158.47999572753906,154.83999633789062,150.39451599121094,5
+2024-02-19,156.55999755859375,162.25,156.44000244140625,155.47654724121094,4
+2024-02-26,161.8000030517578,162.57000732421875,159.63999938964844,155.7455291748047,5
+2024-03-04,161.32000732421875,161.61000061035156,158.24000549316406,153.24777221679688,5
+2024-03-11,159.49000549316406,163.11000061035156,157.10000610351562,151.96044921875,5
+2024-03-18,158.57000732421875,158.69000244140625,155.10000610351562,149.12643432617188,5
+2024-03-25,155.39999389648438,159.13999938964844,154.75999450683594,151.97006225585938,4
+2024-04-01,157.72000122070312,158.14999389648438,151.61000061035156,146.39813232421875,5
+2024-04-08,151.99000549316406,153.0399932861328,147.14999389648438,141.7196044921875,5
+2024-04-15,148.3699951171875,149.49000549316406,143.1300048828125,142.09425354003906,5
+2024-04-22,148.50999450683594,150.49000549316406,145.9499969482422,140.39385986328125,5
+2024-04-29,146.13999938964844,152.3300018310547,144.52999877929688,143.4008026123047,5
+2024-05-06,149.8699951171875,150.10000610351562,147.91000366210938,144.01560974121094,5
+2024-05-13,150.0399932861328,154.86000061035156,149.7100067138672,148.55963134765625,5
+2024-05-20,153.10000610351562,154.0800018310547,146.75999450683594,142.33251953125,5
+2024-05-27,146.7899932861328,147.47999572753906,143.7100067138672,142.04197692871094,4
+2024-06-03,147.25,148.89999389648438,144.66000366210938,142.43905639648438,5
+2024-06-10,146.52999877929688,147.55999755859375,143.8800048828125,140.94766235351562,5
+2024-06-17,145.02000427246094,149.0800018310547,144.74000549316406,144.05636596679688,4
+2024-06-24,149.0,149.72000122070312,144.83999633789062,141.54808044433594,5
+2024-07-01,146.07000732421875,148.6999969482422,144.5,141.85797119140625,4
+2024-07-08,146.39999389648438,150.8800048828125,145.17999267578125,145.1507110595703,5
+2024-07-15,150.0800018310547,157.49000549316406,148.8699951171875,149.80894470214844,5
+2024-07-22,154.77000427246094,161.5800018310547,151.57000732421875,155.57118225097656,5
+2024-07-29,159.97000122070312,164.85000610351562,157.7100067138672,158.9607391357422,5
+2024-08-05,163.7899932861328,165.77999877929688,158.02999877929688,155.5518035888672,5
+2024-08-12,160.97000122070312,161.6999969482422,156.44000244140625,154.36061096191406,5
+2024-08-19,159.4600067138672,164.22000122070312,159.1300048828125,158.95108032226562,5
+2024-08-26,164.1699981689453,165.97999572753906,162.16000366210938,161.84564208984375,5
+2024-09-02,165.24000549316406,168.85000610351562,164.1199951171875,160.4014892578125,4
+2024-09-09,164.83999633789062,168.4600067138672,162.7100067138672,161.51388549804688,5
+2024-09-16,166.36000061035156,168.35000610351562,163.5500030517578,160.18679809570312,5
+2024-09-23,164.39999389648438,164.5,160.02000427246094,157.49359130859375,5
+2024-09-30,161.57000732421875,162.75,158.77999877929688,156.41046142578125,5
+2024-10-07,160.25,162.66000366210938,158.9499969482422,157.55213928222656,5
+2024-10-14,161.39999389648438,166.75,159.0,161.12355041503906,5
+2024-10-21,165.10000610351562,166.0,160.61000061035156,156.98619079589844,5
+2024-10-28,161.1300048828125,162.1699981689453,159.02999877929688,156.2543487548828,5
+2024-11-04,159.6999969482422,160.85000610351562,155.41000366210938,151.70712280273438,5
+2024-11-11,155.6199951171875,157.5800018310547,150.75999450683594,150.272705078125,5
+2024-11-18,152.58999633789062,157.1199951171875,151.80999755859375,151.4143829345703,5
+2024-11-25,155.1699981689453,157.0399932861328,153.16000366210938,152.471923828125,4
+2024-12-02,154.75,155.0,148.3800048828125,146.86526489257812,5
+2024-12-09,149.2899932861328,150.88999938964844,145.0399932861328,144.21929931640625,5
+2024-12-16,146.72999572753906,147.25,142.75,142.10450744628906,5
+2024-12-23,144.6300048828125,146.60000610351562,143.4499969482422,142.67501831054688,4
+2024-12-30,144.83999633789062,145.77000427246094,142.9499969482422,141.8291015625,4
+2025-01-06,143.50999450683594,147.17999267578125,140.67999267578125,139.7339630126953,4
+2025-01-13,142.97999572753906,148.3800048828125,142.30999755859375,144.62258911132812,5
+2025-01-20,147.55999755859375,148.86000061035156,142.11000061035156,144.41604614257812,4
+2025-01-27,148.4499969482422,154.13999938964844,148.0,149.65875244140625,5
+2025-02-03,152.0,154.83999633789062,150.77999877929688,150.6128692626953,5
+2025-02-10,153.61000061035156,158.1300048828125,152.2899932861328,153.59324645996094,5
+2025-02-17,154.13999938964844,163.50999450683594,153.24000549316406,160.92044067382812,4
+2025-02-24,162.67999267578125,166.42999267578125,161.72999572753906,163.61732482910156,5
+2025-03-03,164.9600067138672,169.99000549316406,163.50999450683594,165.27313232421875,5
+2025-03-10,167.47999572753906,169.89999389648438,161.10000610351562,161.4261016845703,5
+2025-03-17,162.41000366210938,164.86000061035156,161.72999572753906,162.2391357421875,5
+2025-03-24,162.83999633789062,164.52000427246094,160.55999755859375,162.31846618652344,5
+2025-03-31,164.3699951171875,166.6300048828125,152.92999267578125,151.9374542236328,5
+2025-04-07,151.27999877929688,153.58999633789062,141.5,150.44029235839844,5
+2025-04-14,151.58999633789062,159.44000244140625,151.1699981689453,156.13150024414062,4
+2025-04-21,157.9600067138672,158.72000122070312,152.4499969482422,153.2660675048828,5
+2025-04-28,155.5,158.1999969482422,153.36000061035156,154.79296875,5
+2025-05-05,156.6699981689453,157.94000244140625,153.69000244140625,152.90911865234375,5
+2025-05-12,152.02000427246094,155.36000061035156,146.1199951171875,150.04368591308594,5
+2025-05-19,151.88999938964844,154.42999267578125,151.0500030517578,151.63999938964844,5
+2025-05-26,152.52000427246094,155.7100067138672,151.55999755859375,155.2100067138672,4
+2025-06-02,154.47999572753906,156.02999877929688,152.3000030517578,155.02999877929688,5
+2025-06-09,154.85000610351562,157.44000244140625,154.4499969482422,156.66000366210938,4
+
+
+# yf_info.json
+{
+  "address1": "One Johnson & Johnson Plaza",
+  "city": "New Brunswick",
+  "state": "NJ",
+  "zip": "08933",
+  "country": "United States",
+  "phone": "732 524 0400",
+  "website": "https://www.jnj.com",
+  "industry": "Drug Manufacturers - General",
+  "industryKey": "drug-manufacturers-general",
+  "industryDisp": "Drug Manufacturers - General",
+  "sector": "Healthcare",
+  "sectorKey": "healthcare",
+  "sectorDisp": "Healthcare",
+  "longBusinessSummary": "Johnson & Johnson, together with its subsidiaries, engages in the research and development, manufacture, and sale of various products in the healthcare field worldwide. It operates in two segments, Innovative Medicine and MedTech. The Innovative Medicine segment offers products for various therapeutic areas, such as immunology, including rheumatoid arthritis, psoriatic arthritis, inflammatory bowel disease, and psoriasis; infectious diseases comprising HIV/AIDS; neuroscience, consisting of mood disorders, neurodegenerative disorders, and schizophrenia; oncology, such as prostate cancer, hematologic malignancies, lung cancer, and bladder cancer; cardiovascular and metabolism, including thrombosis, diabetes, and macular degeneration; and pulmonary hypertension comprising pulmonary arterial hypertension through retailers, wholesalers, distributors, hospitals, and healthcare professionals for prescription use. The MedTech segment provides electrophysiology products to treat heart rhythm disorders; the heart recovery portfolio, which includes technologies to treat severe coronary artery disease requiring high-risk PCI or AMI cardiogenic shock; circulatory restoration products for the treatment of calcified coronary artery and peripheral artery diseases; and neurovascular care that treats hemorrhagic and ischemic stroke. This segment offers an orthopaedics portfolio that includes products and enabling technologies that support hips, knees, trauma, spine, sports, and other; surgery portfolios comprising advanced and general surgery technologies, as well as solutions for breast aesthetics and reconstruction; contact lenses under the ACUVUE brand; and TECNIS intraocular lenses for cataract surgery. It distributes its products to wholesalers, hospitals, and retailers, as well as physicians, nurses, hospitals, eye care professionals, and clinics. The company was founded in 1886 and is based in New Brunswick, New Jersey.",
+  "fullTimeEmployees": 138100,
+  "companyOfficers": [
+    {
+      "maxAge": 1,
+      "name": "Mr. Joaquin  Duato",
+      "age": 61,
+      "title": "CEO & Chairman",
+      "yearBorn": 1963,
+      "fiscalYear": 2024,
+      "totalPay": 5901210,
+      "exercisedValue": 8685864,
+      "unexercisedValue": 17830660
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Jennifer L. Taubert",
+      "age": 60,
+      "title": "Executive VP & Worldwide Chairman of Innovative Medicine",
+      "yearBorn": 1964,
+      "fiscalYear": 2024,
+      "totalPay": 3164001,
+      "exercisedValue": 3908661,
+      "unexercisedValue": 7912642
+    },
+    {
+      "maxAge": 1,
+      "name": "Dr. John C. Reed M.D., Ph.D.",
+      "age": 66,
+      "title": "Executive Vice President of Innovative Medicine, R&D",
+      "yearBorn": 1958,
+      "fiscalYear": 2024,
+      "totalPay": 3107311,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Timothy  Schmid",
+      "age": 54,
+      "title": "Executive VP & Worldwide Chairman of MedTech",
+      "yearBorn": 1970,
+      "fiscalYear": 2024,
+      "totalPay": 6340437,
+      "exercisedValue": 0,
+      "unexercisedValue": 1357615
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Robert J. Decker Jr.",
+      "age": 51,
+      "title": "Controller & Chief Accounting Officer",
+      "yearBorn": 1973,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. James  Swanson",
+      "age": 58,
+      "title": "Executive VP & Chief Information Officer",
+      "yearBorn": 1966,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Mr. Dirk  Brinckman",
+      "title": "Chief Compliance Officer",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Elizabeth  Forminard J.D.",
+      "age": 53,
+      "title": "Executive VP & Chief Legal Officer",
+      "yearBorn": 1971,
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Ms. Kristen Blair Mulholland",
+      "title": "Executive VP & Chief Human Resources Officer",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    },
+    {
+      "maxAge": 1,
+      "name": "Dr. Guy J. Lebeau M.D.",
+      "title": "Group Chairman of MD&D Business - EMEA",
+      "fiscalYear": 2024,
+      "exercisedValue": 0,
+      "unexercisedValue": 0
+    }
+  ],
+  "auditRisk": 6,
+  "boardRisk": 5,
+  "compensationRisk": 3,
+  "shareHolderRightsRisk": 3,
+  "overallRisk": 3,
+  "governanceEpochDate": 1748736000,
+  "compensationAsOfEpochDate": 1735603200,
+  "irWebsite": "http://www.investor.jnj.com/investor-relations.cfm",
+  "executiveTeam": [],
+  "maxAge": 86400,
+  "priceHint": 2,
+  "previousClose": 156.66,
+  "open": 155.97,
+  "dayLow": 156.16,
+  "dayHigh": 157.67,
+  "regularMarketPreviousClose": 156.66,
+  "regularMarketOpen": 155.97,
+  "regularMarketDayLow": 156.16,
+  "regularMarketDayHigh": 157.67,
+  "dividendRate": 5.2,
+  "dividendYield": 3.31,
+  "exDividendDate": 1748304000,
+  "payoutRatio": 0.5517,
+  "fiveYearAvgDividendYield": 2.77,
+  "beta": 0.41,
+  "trailingPE": 17.474974,
+  "forwardPE": 14.820755,
+  "volume": 6586900,
+  "regularMarketVolume": 6586900,
+  "averageVolume": 9009315,
+  "averageVolume10days": 6433950,
+  "averageDailyVolume10Day": 6433950,
+  "bid": 153.0,
+  "ask": 157.5,
+  "bidSize": 4,
+  "askSize": 3,
+  "marketCap": 377993625600,
+  "fiftyTwoWeekLow": 140.68,
+  "fiftyTwoWeekHigh": 169.99,
+  "priceToSalesTrailing12Months": 4.2313824,
+  "fiftyDayAverage": 154.009,
+  "twoHundredDayAverage": 156.3255,
+  "trailingAnnualDividendRate": 4.96,
+  "trailingAnnualDividendYield": 0.031660922,
+  "currency": "USD",
+  "tradeable": false,
+  "enterpriseValue": 391465107456,
+  "profitMargins": 0.24415001,
+  "floatShares": 2402416048,
+  "sharesOutstanding": 2406070016,
+  "sharesShort": 19221151,
+  "sharesShortPriorMonth": 19677594,
+  "sharesShortPreviousMonthDate": 1745971200,
+  "dateShortInterest": 1748563200,
+  "sharesPercentSharesOut": 0.008,
+  "heldPercentInsiders": 0.00058,
+  "heldPercentInstitutions": 0.74017996,
+  "shortRatio": 2.3,
+  "shortPercentOfFloat": 0.008,
+  "impliedSharesOutstanding": 2406070016,
+  "bookValue": 32.469,
+  "priceToBook": 4.8384614,
+  "lastFiscalYearEnd": 1735430400,
+  "nextFiscalYearEnd": 1766966400,
+  "mostRecentQuarter": 1743292800,
+  "earningsQuarterlyGrowth": 2.379,
+  "netIncomeToCommon": 21809999872,
+  "trailingEps": 8.99,
+  "forwardEps": 10.6,
+  "lastSplitFactor": "2:1",
+  "lastSplitDate": 992390400,
+  "enterpriseToRevenue": 4.382,
+  "enterpriseToEbitda": 13.038,
+  "52WeekChange": 0.07639599,
+  "SandP52WeekChange": 0.09203708,
+  "lastDividendValue": 1.3,
+  "lastDividendDate": 1748304000,
+  "quoteType": "EQUITY",
+  "currentPrice": 157.1,
+  "targetHighPrice": 185.0,
+  "targetLowPrice": 150.0,
+  "targetMeanPrice": 169.18262,
+  "targetMedianPrice": 167.2,
+  "recommendationMean": 2.25,
+  "recommendationKey": "buy",
+  "numberOfAnalystOpinions": 23,
+  "totalCash": 38781001728,
+  "totalCashPerShare": 16.118,
+  "ebitda": 30025000960,
+  "totalDebt": 52252000256,
+  "quickRatio": 0.963,
+  "currentRatio": 1.257,
+  "totalRevenue": 89330999296,
+  "debtToEquity": 66.896,
+  "revenuePerShare": 37.112,
+  "returnOnAssets": 0.0777,
+  "returnOnEquity": 0.29447,
+  "grossProfits": 61549998080,
+  "freeCashflow": 16797124608,
+  "operatingCashflow": 24782999552,
+  "earningsGrowth": 2.388,
+  "revenueGrowth": 0.024,
+  "grossMargins": 0.68901,
+  "ebitdaMargins": 0.33611,
+  "operatingMargins": 0.29407,
+  "financialCurrency": "USD",
+  "symbol": "JNJ",
+  "language": "en-US",
+  "region": "US",
+  "typeDisp": "Equity",
+  "quoteSourceName": "Nasdaq Real Time Price",
+  "triggerable": true,
+  "customPriceAlertConfidence": "HIGH",
+  "marketState": "CLOSED",
+  "shortName": "Johnson & Johnson",
+  "longName": "Johnson & Johnson",
+  "cryptoTradeable": false,
+  "postMarketChangePercent": 0.0254572,
+  "postMarketPrice": 157.14,
+  "postMarketChange": 0.0399933,
+  "regularMarketChange": 0.440002,
+  "regularMarketDayRange": "156.16 - 157.67",
+  "fullExchangeName": "NYSE",
+  "averageDailyVolume3Month": 9009315,
+  "fiftyTwoWeekLowChange": 16.420013,
+  "fiftyTwoWeekLowChangePercent": 0.116718896,
+  "fiftyTwoWeekRange": "140.68 - 169.99",
+  "fiftyTwoWeekHighChange": -12.889999,
+  "fiftyTwoWeekHighChangePercent": -0.075827986,
+  "fiftyTwoWeekChangePercent": 7.639599,
+  "dividendDate": 1749513600,
+  "earningsTimestamp": 1752669000,
+  "earningsTimestampStart": 1752669000,
+  "earningsTimestampEnd": 1752669000,
+  "earningsCallTimestampStart": 1752669000,
+  "earningsCallTimestampEnd": 1752669000,
+  "isEarningsDateEstimate": false,
+  "epsTrailingTwelveMonths": 8.99,
+  "epsForward": 10.6,
+  "epsCurrentYear": 10.60643,
+  "priceEpsCurrentYear": 14.81177,
+  "fiftyDayAverageChange": 3.0910034,
+  "fiftyDayAverageChangePercent": 0.020070277,
+  "twoHundredDayAverageChange": 0.7745056,
+  "twoHundredDayAverageChangePercent": 0.004954442,
+  "sourceInterval": 15,
+  "exchangeDataDelayedBy": 0,
+  "averageAnalystRating": "2.3 - Buy",
+  "hasPrePostMarketData": true,
+  "firstTradeDateMilliseconds": -252322200000,
+  "corporateActions": [],
+  "postMarketTime": 1749858953,
+  "regularMarketTime": 1749844802,
+  "exchange": "NYQ",
+  "messageBoardId": "finmb_139677",
+  "exchangeTimezoneName": "America/New_York",
+  "exchangeTimezoneShortName": "EDT",
+  "gmtOffSetMilliseconds": -14400000,
+  "market": "us_market",
+  "esgPopulated": false,
+  "regularMarketChangePercent": 0.280865,
+  "regularMarketPrice": 157.1,
+  "trailingPegRatio": 1.0683
+}
+
+
+
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+
+---
+## TL;DR / Executive Summary
+
+* At the very top of the report, provide a concise, narrative executive summary of the most important findings and recommendations. This should be written in plain language and highlight:
+  - The company's current Z-Score risk category and what it means
+  - The overall financial health and trend
+  - The most important risks and opportunities
+  - The headline investor recommendation (Buy/Hold/Sell and for whom)
+  - Any major analyst sentiment or market signals
+* This section should be brief (1-2 paragraphs) and actionable, suitable for a busy executive or investor who wants the key takeaways without reading the full report.
+
+---
+## Company Profile
+
+* Begin this section with a concise introduction paragraph summarizing the company's identity and context.
+* Use all provided information to describe:
+  - Company business, competitors, products and services (including sector, industry, and company size from the injected company profile and market/industry metadata if available)
+  - Key executives and their roles/responsibilities
+  - Notable executive changes or significant compensation events (from SEC filings or news)
+  - Ownership structure and recent changes, referencing institutional_holders.json and major_holders.json for insider/institutional ownership, float, and any significant shifts
+  - Any recent news or events that may impact the company profile
+* Write a summary that includes both business overview and leadership team structure in a quick and easy to understand couple of paragraphs.
+
+## 1. Diagnostic Evaluation of Financial Health
+
+* Start with an introduction paragraph that frames the purpose and scope of the financial health analysis.
+* Analyze **liquidity**, **profitability**, **capital efficiency**, and **leverage**, considering historical performance, industry benchmarks, and any recent news or events.
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+* In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
+* Independently calculate the Altman Z-Score for each quarter using the injected financial data. Compare your results with the provided Z-Score values and comment on any discrepancies or confirm their accuracy.
+* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
+* Where available, reference:
+  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - Dividend history, yield, and stability from dividend history
+  - Stock split history from split history to note any recent splits or capital structure changes
+  - Recent price trends and volatility from weekly price data
+* Reference any material changes in financials, management, or market environment that affect the diagnosis.
+
+---
+
+## 2. Turnaround & Renewal Theory Application
+
+* Open with a brief introduction paragraph explaining the relevance of turnaround and renewal theory to the company's current situation.
+* Use the Z-Score risk level and all available context (including news, management changes, and peer/industry trends) to guide the **phased response**:
+
+  * If **Distress Zone**: Focus on **urgent retrenchment**, cash preservation, and creditor negotiations.
+  * If **Grey Zone**: Balance **cost containment** with strategic investments in core differentiators.
+  * If **Safe Zone**: Emphasize **innovation, repositioning**, and stakeholder alignment for sustained growth.
+
+* Cite and apply relevant theoretical frameworks such as:
+
+  * Hofer (1980) for turnaround sequencing
+  * Bibeault (1999) on causes of failure and recovery stages
+  * Hoskisson et al. (2004) for strategic restructuring
+  * Beard (2024) on tech-sector renewal
+  * Freeman (1984) on stakeholder alignment
+
+* Reference any recent events, management changes, or market shifts that may affect the recommended approach.
+
+---
+
+## 3. Internal Stakeholder Recommendations
+
+* Begin with an introduction paragraph outlining the importance of internal stakeholder actions and alignment.
+Create a table with the following columns:
+
+| Title/Role | Responsibilities | Key Performance Metrics | Recommended Actions (Cited) |
+| ---------- | ---------------- | ---------------------- | --------------------------- |
+
+* For executives, map specific individuals and their roles:
+  - CEO & Executive Leadership: Strategic vision, operational execution
+  - CFO & Finance Team: Financial stewardship, risk management
+  - Other C-Suite (CTO, CMO, etc.): Domain-specific leadership
+  - Board Members: Oversight and governance
+  
+* For other stakeholders, include:
+  - Employees: Organizational roles and teams
+  - Shareholders: Investment community relations
+  - Creditors: Financial stability monitoring
+  - Customers: Product/service experience
+  - Partners: Strategic alliances
+
+* Tailor actions and tone to company risk level and any recent developments:
+  * **Distress**: Emphasize urgency, transparency, short-term wins
+  * **Grey**: Encourage disciplined change with measured optimism
+  * **Safe**: Focus on strategic enablement, leadership development
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+  - Reference any relevant news, events, or management changes
+
+---
+
+## 4. Communication, Marketing & Execution Strategy
+
+* Start with a context-setting introduction paragraph describing the role of communication and execution strategy for the company at its current risk level.
+* Define multi-level communication strategy:
+  - Executive Leadership Communications: Vision and strategy messaging
+  - Investor Relations: Financial performance and outlook
+  - Internal Communications: Employee engagement and change management
+  - External Relations: Customer, partner, and public messaging
+  - Reference any recent news, events, or market changes that affect communication priorities
+  
+* Detail phased execution plan:
+  - Near-term (1-3 months): Immediate actions and quick wins
+  - Mid-term (4-6 months): Strategic initiatives and metrics
+  - Long-term (7-18 months): Transformational objectives
+  
+* For each phase, specify:
+  - Executive sponsors and accountable leaders
+  - Cross-functional coordination requirements
+  - Success metrics and monitoring approach
+  - Risk mitigation and contingency plans
+  - Reference any relevant news, events, or management changes
+  
+* Tailor communication tone and content to company's risk level:
+  - Distress: Crisis communication and turnaround messaging
+  - Grey Zone: Change management and strategic realignment
+  - Safe Zone: Growth narrative and innovation focus
+
+---
+
+## 5. Investor Recommendation (Risk-Aware)
+
+* Open with an introduction paragraph that explains the purpose of the investor recommendation section and how it relates to the company's risk profile and investor types.
+* Provide a **thorough, risk-aligned recommendation**: You must explicitly call out one of **Buy / Hold / Sell** based on Z-Score insights and **all available financial, market, peer, management, and qualitative data**. 
+* Organize the recommendation in a table by **investment goals** and **investor profiles**, using technical terms for risk tolerance and objectives. For example:
+
+| Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited) |
+|-----------------------------------|--------------------|----------------|-------------------|
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | ...               |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | ...               |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | SELL           | ...               |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | ...               |
+
+* Use technical terms such as: "income-oriented", "growth-oriented", "speculative/aggressive", "defensive", "risk-averse", "risk-tolerant", etc.
+* Justify each recommendation with:
+  - Z-Score trend and risk zone (Distress, Grey, Safe)
+  - Recent financial performance and outlook
+  - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
+  - Ownership and insider/institutional sentiment (from institutional and major holders data)
+  - Dividend policy and stability (from dividend history)
+  - Recent price/volatility context (from weekly price data)
+  - Any material news, events, or management changes
+  - Scenario analysis: briefly discuss what could change the recommendation (e.g., what would make a Hold become a Buy or Sell)
+  - Reference any relevant qualitative or external data that could affect the recommendation
+* Clearly state the overall recommendation in a bolded sentence, e.g.:
+  > **Recommendation: HOLD.**
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+---
+
+## 6. Market Sentiment Analysis (Analyst Recommendations)
+
+* Begin with an introduction paragraph explaining the purpose of this section: to provide an overview of current market sentiment as reflected in professional analyst recommendations for the company.
+* Present a table summarizing the most recent analyst recommendations using the injected analyst data. The table must show the distribution of recommendations (e.g., Strong Buy, Buy, Hold, Sell, Strong Sell) for the current and previous periods, side by side, to enable clear trend analysis. **If more than two periods of analyst sentiment data are available, present a table covering all available periods to enable multi-period trend analysis.** Do not fabricate or use static examples—only use actual, injected data for the company under analysis.
+* Analyze the analyst recommendations data provided above to summarize the prevailing analyst sentiment. Include:
+  - The distribution of recommendations for all available periods (trend analysis)
+  - Any recent trends or changes in analyst sentiment, explicitly comparing the current period to the previous period(s) and commenting on stability or shifts
+  - Consensus target price if available, and how it compares to the current price (reference the injected weekly price data for current price)
+  - Notable upgrades, downgrades, or shifts in consensus
+* Analyze the following aspects based on the available data:
+  - Stability of sentiment: Note if the distribution of recommendations has changed or remained stable over the reported periods.
+  - Consensus: Identify the majority view (e.g., mostly Buy/Hold/Sell) and whether there are any extreme ratings (Strong Buy/Sell).
+  - Volatility: Comment on the presence or absence of upgrades/downgrades or new recommendation types.
+  - Limitations: If the data lacks target prices, firm names, or granular details, explicitly state this and avoid speculation.
+* Summarize these findings in a short narrative, highlighting whether analyst sentiment is stable, shifting, or mixed, and how this relates to the company's risk profile and Z-Score.
+* If the data is limited, clearly state the constraints and avoid inferring details not present in the data.
+
+* Integrate this sentiment analysis with the Z-Score and risk profile: discuss whether analyst sentiment aligns or diverges from the quantitative risk assessment.
+* Conclude with a brief narrative on how market sentiment may influence investor decision-making for different profiles.
+
+* When the prompt context includes multiple periods of analyst recommendations, you must explicitly compare the current and previous periods, analyze the trend, and comment on the stability or shifts in sentiment. **If more than two periods are available, analyze the full trend across all periods, not just the most recent two.** If the distribution is unchanged, state this clearly. If there are upgrades, downgrades, or new recommendation types, describe the change and its significance for market sentiment and risk assessment.
+
+---
+
+## 7. References and Data Sources
+
+* Start with an introduction paragraph explaining the importance of transparency and source attribution in the analysis.
+Conclude your report with a clearly written references and data sources section, integrated as a narrative paragraph or bulleted list, not as a code block or blockquote. Do not mention the names of any data files in the final report. For example:
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. Additional data sources may include:
+- Institutional and major holders data
+- Dividend history
+- Stock split history
+- Weekly price and volatility data
+- Full financial statement data
+- Company metadata
+All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+## 8. Appendices (LLM-Generated)
+
+* At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
+  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of weekly prices used for Z-Score analysis
+  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
+  - Data quality/completeness summary: note any missing or estimated fields
+  - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
+* Use only the injected data for all tables and summaries. If a section is not available, state so clearly.
+* Do not repeat the Z-Score component table (by quarter) in the appendix; reference it in the main report only.
+* Do not mention file names or file paths in the appendix or main report.
+
+---

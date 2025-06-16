@@ -1,0 +1,116 @@
+[
+  {
+    "quarter_end":"2024-01-31",
+    "zscore":null,
+    "valid":false,
+    "error":"Missing required field: total_assets; Missing required field: current_assets; Missing required field: current_liabilities; Missing required field: retained_earnings; Missing required field: ebit; Missing required field: sales; All required fields are missing or zero (possible empty or placeholder quarter)",
+    "diagnostic":null,
+    "validation_summary":"[ERROR] total_assets: Missing required field: total_assets | [ERROR] current_assets: Missing required field: current_assets | [ERROR] current_liabilities: Missing required field: current_liabilities | [ERROR] retained_earnings: Missing required field: retained_earnings | [ERROR] ebit: Missing required field: ebit | [ERROR] sales: Missing required field: sales | [ERROR] All required fields are missing or zero (possible empty or placeholder quarter)",
+    "zscore_str":null,
+    "components":null,
+    "consistency_warning":null,
+    "model":null,
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-04-30",
+    "zscore":47.5929244406,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "zscore_str":"47.59",
+    "components":{
+      "X1":0.4996107536,
+      "X2":0.4748546813,
+      "X3":0.2250233548,
+      "X4":75.4135002008,
+      "X5":0.3379177912
+    },
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-07-31",
+    "zscore":65.7313683465,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "zscore_str":"65.73",
+    "components":{
+      "X1":0.5357926479,
+      "X2":0.539277459,
+      "X3":0.2261607237,
+      "X4":105.3910464615,
+      "X5":0.3524704612
+    },
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-10-31",
+    "zscore":67.0545529016,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "zscore_str":"67.05",
+    "components":{
+      "X1":0.5328549259,
+      "X2":0.5619030756,
+      "X3":0.2330621895,
+      "X4":107.4899490649,
+      "X5":0.3653880204
+    },
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2025-01-31",
+    "zscore":57.0501102068,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "zscore_str":"57.05",
+    "components":{
+      "X1":0.5562584565,
+      "X2":0.6096540354,
+      "X3":0.2265033467,
+      "X4":90.7153303463,
+      "X5":0.3524251575
+    },
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2025-04-30",
+    "zscore":40.82872751,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "zscore_str":"40.83",
+    "components":{
+      "X1":0.5061155732,
+      "X2":0.5760933783,
+      "X3":0.1754275313,
+      "X4":64.1402767648,
+      "X5":0.3517811806
+    },
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  }
+]
