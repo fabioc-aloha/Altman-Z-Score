@@ -1,0 +1,102 @@
+[
+  {
+    "quarter_end":"2024-03-31",
+    "zscore":3.5643167027,
+    "zscore_str":"3.56",
+    "components":{
+      "X1":0.3021666676,
+      "X2":-0.0016745623,
+      "X3":-0.0759819147,
+      "X4":5.3030579755,
+      "X5":0.2729666222
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-06-30",
+    "zscore":2.8978337998,
+    "zscore_str":"2.90",
+    "components":{
+      "X1":0.247189433,
+      "X2":0.0022463727,
+      "X3":0.0132701422,
+      "X4":3.5684199509,
+      "X5":0.4132181187
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Grey Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-09-30",
+    "zscore":2.0348836619,
+    "zscore_str":"2.03",
+    "components":{
+      "X1":0.2018231781,
+      "X2":-0.0555858703,
+      "X3":-0.0678567999,
+      "X4":3.0262321822,
+      "X5":0.2787041968
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Grey Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2024-12-31",
+    "zscore":3.2115033708,
+    "zscore_str":"3.21",
+    "components":{
+      "X1":0.2490771634,
+      "X2":-0.0007233254,
+      "X3":0.0455840308,
+      "X4":3.6525557768,
+      "X5":0.5716626626
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  },
+  {
+    "quarter_end":"2025-03-31",
+    "zscore":2.0824914095,
+    "zscore_str":"2.08",
+    "components":{
+      "X1":0.206309693,
+      "X2":-0.0894256089,
+      "X3":-0.0745514266,
+      "X4":3.1303904758,
+      "X5":0.3279010525
+    },
+    "valid":true,
+    "error":null,
+    "diagnostic":"Grey Zone",
+    "validation_summary":"No validation issues.",
+    "consistency_warning":null,
+    "model":"original",
+    "api_payload":null,
+    "field_mapping":null
+  }
+]
