@@ -57,10 +57,13 @@ Replace `<TICKER1> <TICKER2> ...` with one or more stock ticker symbols (e.g., `
 
 The following table shows available reports for all analyzed tickers:
 
+<!-- BEGIN_TICKERS_TABLE -->
 | Logo | Company Name | Full Report | Trend Chart |
-|------|-------------|-------------|-------------|
-| <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="40" height="40"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | [Chart](output/MSFT/zscore_MSFT_trend.png) |
-| <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="40" height="40"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | [Chart](output/TSLA/zscore_TSLA_trend.png) |
+|------|-------------|-------------|:-------------:|
+| <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="40" height="40"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | <a href="output/MSFT/zscore_MSFT_trend.png"><img src="output/MSFT/zscore_MSFT_trend.png" alt="MSFT Chart" width="400"/></a> |
+| <img src="output/SONO/SONO_logo.png" alt="SONO" width="40" height="40"/> | Sonos Inc | [Report](output/SONO/zscore_SONO_zscore_full_report.md) | <a href="output/SONO/zscore_SONO_trend.png"><img src="output/SONO/zscore_SONO_trend.png" alt="SONO Chart" width="400"/></a> |
+| <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="40" height="40"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | <a href="output/TSLA/zscore_TSLA_trend.png"><img src="output/TSLA/zscore_TSLA_trend.png" alt="TSLA Chart" width="400"/></a> |
+<!-- END_TICKERS_TABLE -->
 
 ---
 
@@ -68,13 +71,17 @@ The following table shows available reports for all analyzed tickers:
 
 To automatically update the sample reports table in this README, use the provided script:
 
-- **`generate_readme_table.py`**: Scans the `output/` directory for tickers with all required report files and prints a Markdown table row for each. Run this script and copy its output into the README to keep the sample reports table up to date.
+- **`generate_readme_table.py`**: Scans the `output/` directory for tickers with all required report files and automatically updates the table section in the README.md file (between the markers).
 
 Usage:
 ```sh
-python generate_readme_table.py > table.md
+python generate_readme_table.py
 ```
-Then copy the contents of `table.md` into the appropriate section of the README.
+
+The script:
+1. Generates the table and saves it to `table.md`
+2. Automatically updates the table in README.md between the `<!-- BEGIN_TICKERS_TABLE -->` and `<!-- END_TICKERS_TABLE -->` markers
+3. Shows a confirmation message when the update is successful
 
 ---
 
