@@ -5,6 +5,21 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - 2025-06-15
+
+### Added
+- **FLOW.md:** New documentation file describing the codebase architecture and flow
+- **Updated output directory structure documentation:** More detailed information about output files and formats
+
+### Changed
+- **Improved documentation:** Better descriptions of file outputs and directory structure
+- **Enhanced plotting:** Fixed minor issues with rendering charts
+- **Data pipeline enhancements:** More robust handling of financial data from multiple sources
+
+### Fixed
+- **SEC EDGAR data processing:** Addressed edge cases in data reconciliation
+- **Visualization alignment:** Fixed alignment issues in Z-Score trend charts
+
 ## [3.0.0] - 2025-06-07 ✅ FULLY COMPLETED
 
 ### Added

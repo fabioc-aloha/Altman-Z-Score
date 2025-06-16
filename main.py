@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 3.0.0 (2025-06-07)
+# Version: 3.1.1 (2025-06-15)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
@@ -58,7 +58,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "3.0.0"
+__version__ = "3.1.1"
 
 
 import argparse
