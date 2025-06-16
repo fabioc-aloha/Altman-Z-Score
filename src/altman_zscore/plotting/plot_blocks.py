@@ -7,6 +7,7 @@ This module provides modular plotting utilities for use by the main plotting orc
 import numpy as np
 from matplotlib.lines import Line2D
 from scipy.interpolate import make_interp_spline
+import matplotlib.patches as mpatches  # Added import for candlestick rectangles
 
 
 def plot_zscore(ax, q_pos, q_scores):

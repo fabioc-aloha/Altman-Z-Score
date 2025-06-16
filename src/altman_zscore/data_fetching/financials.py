@@ -12,6 +12,7 @@ import sys
 import logging
 import json
 from typing import Dict, Any, List, Optional, Union, TypedDict
+import datetime  # Added for JSON key/value sanitization
 
 import pandas as pd
 import yfinance as yf
@@ -446,25 +447,24 @@ def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str
         yf_data = fetch_yfinance_full(ticker)
         # Save raw Yahoo data before any filtering/processing
         def serialize_yf_data(yf_data):
-            if not yf_data:
-                return None
-            result = {}
-            for k, v in yf_data.items():
-                if isinstance(v, pd.DataFrame):
-                    # Use the same serialization method as financials_raw.json for consistency
-                    result[k] = df_to_dict_str_keys(v)
-                elif hasattr(v, 'to_dict'):
-                    try:
-                        result[k] = v.to_dict()
-                    except Exception:
-                        result[k] = str(v)
-                else:
-                    try:
-                        json.dumps(v)  # test if serializable
-                        result[k] = v
-                    except Exception:
-                        result[k] = str(v)
-            return result
+            """Serialize Yahoo data safely for JSON output."""
+            def sanitize(obj):
+                if isinstance(obj, dict):
+                    return {str(k): sanitize(v) for k, v in obj.items()}
+                if isinstance(obj, (list, tuple)):
+                    return [sanitize(v) for v in obj]
+                if isinstance(obj, pd.DataFrame):
+                    return df_to_dict_str_keys(obj)
+                if hasattr(obj, 'to_dict') and not isinstance(obj, (str, bytes)):
+                    return sanitize(obj.to_dict())
+                if isinstance(obj, (pd.Timestamp, datetime.datetime, datetime.date)):
+                    return str(obj)
+                try:
+                    json.dumps(obj)
+                    return obj
+                except Exception:
+                    return str(obj)
+            return sanitize(yf_data)
         try:
             with open(os.path.join(output_dir, "yahoo_raw.json"), "w", encoding="utf-8") as f:
                 json.dump(serialize_yf_data(yf_data), f, indent=2, ensure_ascii=False, default=str)

@@ -1,0 +1,151 @@
+{
+  "analysis_date": "2025-06-15",
+  "ticker": "TSLA",
+  "model": "original",
+  "context": {
+    "Ticker": "TSLA",
+    "Industry": "Motor Vehicles & Passenger Car Bodies",
+    "Public": true,
+    "Emerging Market": false,
+    "Maturity": "Mature Company",
+    "Model": "original",
+    "SIC Code": "3711",
+    "Analysis Date": "2025-06-15",
+    "raw_quarters": [
+      {
+        "period_end": "2025-03-31",
+        "total_assets": 125111000000.0,
+        "current_assets": 59389000000.0,
+        "current_liabilities": 29753000000.0,
+        "total_liabilities": 49693000000.0,
+        "retained_earnings": 35618000000.0,
+        "ebit": 680000000.0,
+        "sales": 19335000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-12-31",
+        "total_assets": 122070000000.0,
+        "current_assets": 58360000000.0,
+        "current_liabilities": 28821000000.0,
+        "total_liabilities": 48390000000.0,
+        "retained_earnings": 35209000000.0,
+        "ebit": 2862000000.0,
+        "sales": 25707000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-09-30",
+        "total_assets": 119852000000.0,
+        "current_assets": 56379000000.0,
+        "current_liabilities": 30577000000.0,
+        "total_liabilities": 49142000000.0,
+        "retained_earnings": 32656000000.0,
+        "ebit": 2876000000.0,
+        "sales": 25182000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-06-30",
+        "total_assets": 112832000000.0,
+        "current_assets": 52977000000.0,
+        "current_liabilities": 27729000000.0,
+        "total_liabilities": 45569000000.0,
+        "retained_earnings": 30489000000.0,
+        "ebit": 1973000000.0,
+        "sales": 25500000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2024-03-31",
+        "total_assets": 109226000000.0,
+        "current_assets": 50535000000.0,
+        "current_liabilities": 29453000000.0,
+        "total_liabilities": 44046000000.0,
+        "retained_earnings": 29011000000.0,
+        "ebit": 1964000000.0,
+        "sales": 21301000000.0,
+        "source_map": {
+          "total_assets": "yahoo",
+          "current_assets": "yahoo",
+          "current_liabilities": "yahoo",
+          "total_liabilities": "yahoo",
+          "retained_earnings": "yahoo",
+          "ebit": "yahoo",
+          "sales": "yahoo"
+        }
+      },
+      {
+        "period_end": "2023-12-31",
+        "total_assets": null,
+        "current_assets": null,
+        "current_liabilities": null,
+        "total_liabilities": null,
+        "retained_earnings": null,
+        "ebit": null,
+        "sales": null,
+        "source_map": {
+          "total_assets": "null",
+          "current_assets": "null",
+          "current_liabilities": "null",
+          "total_liabilities": "null",
+          "retained_earnings": "null",
+          "ebit": "null",
+          "sales": "null"
+        }
+      },
+      {
+        "period_end": "2023-09-30",
+        "total_assets": null,
+        "current_assets": null,
+        "current_liabilities": null,
+        "total_liabilities": null,
+        "retained_earnings": null,
+        "ebit": null,
+        "sales": null,
+        "source_map": {
+          "total_assets": "null",
+          "current_assets": "null",
+          "current_liabilities": "null",
+          "total_liabilities": "null",
+          "retained_earnings": "null",
+          "ebit": "null",
+          "sales": "null"
+        }
+      }
+    ],
+    "weekly_prices": "           week  open_price  high_price   low_price  close_price  days_with_data\n0    2022-10-31  234.050003  237.399994  203.080002   207.470001               4\n1    2022-11-07  208.649994  208.899994  177.119995   195.970001               5\n2    2022-11-14  192.770004  200.820007  176.550003   180.190002               5\n3    2022-11-21  175.850006  185.199997  166.190002   182.860001               4\n4    2022-11-28  179.960007  198.919998  178.750000   194.860001               5\n..          ...         ...         ...         ...          ...             ...\n132  2025-05-12  321.989990  351.619995  311.500000   349.980011               5\n133  2025-05-19  336.299988  354.989990  331.390015   339.339996               5\n134  2025-05-26  347.350006  367.709991  345.290009   346.459991               4\n135  2025-06-02  343.500000  355.399994  273.209991   295.140015               5\n136  2025-06-09  285.959991  335.500000  281.850006   319.109985               4\n\n[137 rows x 6 columns]"
+  }
+}
