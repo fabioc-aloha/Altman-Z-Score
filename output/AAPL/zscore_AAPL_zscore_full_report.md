@@ -12,16 +12,11 @@ This report provides a comprehensive, theory-informed financial health analysis 
 
 **Disclaimer**: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 
-**Script Version:** v3.1.1
+**Script Version:** v3.2.1
 
 ## Z-Score Formula Used
 
-Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
-- X1 = (Current Assets - Current Liabilities) / Total Assets
-- X2 = Retained Earnings / Total Assets
-- X3 = EBIT / Total Assets
-- X4 = Equity / Total Liabilities
-- X5 = Sales / Total Assets
+Z = 
 
 **Thresholds:**
 - Safe Zone: > 2.99
@@ -38,114 +33,139 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |     X2 |    X3 |     X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|--------|--------|-------|--------|-------|-----------|--------------|-----------------------|
-| 2024 Q1   |  0.014 |  0.013 | 0.083 |  9.672 | 0.269 |     6.379 | Safe Zone    | No issues             |
-| 2024 Q2   | -0.019 | -0.014 | 0.076 | 11.82  | 0.259 |     7.561 | Safe Zone    | No issues             |
-| 2024 Q3   | -0.064 | -0.052 | 0.081 | 11.258 | 0.26  |     7.132 | Safe Zone    | No issues             |
-| 2024 Q4   | -0.032 | -0.033 | 0.124 | 13.454 | 0.361 |     8.76  | Safe Zone    | No issues             |
-| 2025 Q1   | -0.078 | -0.047 | 0.089 | 12.53  | 0.288 |     7.941 | Safe Zone    | No issues             |
+| Quarter   |   Z-Score | Diagnostic   |
+|-----------|-----------|--------------|
+| 2024 Q1   |     6.379 | Safe Zone    |
+| 2024 Q2   |     7.561 | Safe Zone    |
+| 2024 Q3   |     7.132 | Safe Zone    |
+| 2024 Q4   |     8.76  | Safe Zone    |
+| 2025 Q1   |     7.941 | Safe Zone    |
 
 
 ---
 ## TL;DR / Executive Summary
 
-Apple Inc. currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates robust liquidity, strong profitability, and efficient capital management, supported by a solid balance sheet and consistent cash flow generation. Key risks include high debt-to-equity leverage relative to peers and macroeconomic headwinds impacting consumer electronics demand, while opportunities lie in continued innovation, expanding services, and strong brand loyalty.
+Apple Inc. currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates strong liquidity, robust profitability, and manageable leverage despite its sizable debt load, supported by substantial cash reserves and consistent operating cash flow. Key opportunities lie in leveraging its innovation pipeline and expanding services revenue, while risks include macroeconomic headwinds and competitive pressures in the technology sector.
 
-For investors, the recommendation is a **Buy for growth-oriented and moderate risk-tolerant investors**, and a **Hold for conservative income-focused investors** given Apple’s stable dividend and strong fundamentals. Analyst sentiment is predominantly positive with a consensus “Buy” rating and a target price above current levels, reinforcing confidence in Apple’s growth trajectory.
+Given Apple’s solid financial health, stable management team, and positive analyst sentiment, the headline investor recommendation is **BUY for growth-oriented and moderate-risk investors**, and **HOLD for conservative income investors**. Market signals, including a stable dividend yield and a target price above current levels, reinforce confidence in sustained value creation.
 
 ---
 ## Company Profile
 
-Apple Inc., headquartered in Cupertino, California, is a global leader in the technology sector specializing in consumer electronics, software, and digital services. Founded in 1976 and publicly traded on NASDAQ (ticker: AAPL), Apple designs and markets flagship products including the iPhone, Mac computers, iPad tablets, wearables (Apple Watch, AirPods), and a suite of subscription services such as Apple Music, Apple TV+, and Apple Arcade. The company operates a vast ecosystem through its App Store and cloud services, serving consumers, businesses, education, and government sectors worldwide.
+Apple Inc., headquartered in Cupertino, California, is a global leader in the technology sector, specializing in consumer electronics, software, and digital services. Its flagship products include the iPhone, Mac computers, iPad tablets, and a broad ecosystem of wearables and accessories such as AirPods and Apple Watch. The company also operates a growing services segment encompassing the App Store, Apple Music, Apple TV+, and financial services like Apple Pay and Apple Card. Apple competes with major technology firms such as Samsung, Microsoft, and Google.
 
-The executive leadership team is led by CEO Timothy D. Cook, supported by key officers including COO Jeffrey E. Williams and CFO Kevan Parekh. Compensation levels are competitive, reflecting strong governance with low overall risk scores. Institutional investors hold approximately 63% of shares, with insiders holding just over 2%, indicating stable ownership. No recent major executive changes or disruptive events have been reported, and Apple continues to benefit from strong brand equity and innovation leadership.
+The executive leadership is stable and experienced, led by CEO Timothy D. Cook, who has been at the helm since 2011. Other key executives include COO Jeffrey E. Williams and CFO Kevan Parekh, all compensated competitively with no recent notable changes reported. Institutional investors hold approximately 63% of shares, with insiders holding about 2%, indicating strong institutional confidence and limited insider selling. No recent disruptive news or executive turnover has been reported, supporting a stable governance environment.
 
 ---
 ## 1. Diagnostic Evaluation of Financial Health
 
 This section evaluates Apple’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis to assess bankruptcy risk and operational strength.
 
-- **Liquidity:** Apple’s current ratio stands at 0.82 and quick ratio at 0.68, below the ideal benchmark of 1.0 but typical for tech firms with strong cash reserves ($48.5B) and high operating cash flow ($110B). The company’s free cash flow ($97B) supports operational flexibility despite modest working capital ratios.
+**Liquidity:**  
+- Current Ratio: 0.82 (below 1, typical for tech firms with efficient working capital management)  
+- Quick Ratio: 0.68 (adequate given large cash and short-term investments of ~$48.5B)  
+- Working Capital is negative but reflects industry norms and strong cash flow generation.
 
-- **Profitability:** Gross margin is robust at 46.6%, net margin at 24.3%, ROA at 23.8%, and ROE exceptionally high at 138%, reflecting efficient asset use and strong shareholder returns. EBITDA margin of 34.7% confirms operational excellence.
+**Profitability:**  
+- Gross Margin: 46.6% (very strong, reflecting premium product pricing and operational efficiency)  
+- Net Margin: ~24.3% (excellent, indicating effective cost control and pricing power)  
+- ROA: 23.8% and ROE: 138% (exceptionally high, driven by strong earnings and leverage)
 
-- **Leverage:** Debt-to-equity ratio is elevated at 147%, indicating significant leverage, but manageable given Apple’s cash flow and credit profile. Total debt is $98B against a market cap of $2.93T, suggesting leverage is strategic rather than distress-driven.
+**Leverage:**  
+- Debt to Equity: 147% (high but manageable given Apple’s cash reserves and cash flow)  
+- Net Debt: ~$70B, offset by cash and short-term investments of ~$48.5B  
+- Total Debt: ~$98B, with a mix of long-term and current maturities well covered by operating cash flow (~$110B annually)
 
-- **Altman Z-Score:** Using the latest financial data and Altman’s formula for publicly traded manufacturing firms:
+**Altman Z-Score Calculation (Latest Quarter 2025 Q1):**  
+Using the formula for publicly traded manufacturing firms:  
+Z = 1.2X1 + 1.4X2 + 3.3X3 + 0.6X4 + 1.0X5  
+Where:  
+- X1 = Working Capital / Total Assets = (-25.9B) / 331.2B = -0.078  
+- X2 = Retained Earnings / Total Assets = (-15.55B) / 331.2B = -0.047  
+- X3 = EBIT / Total Assets = 29.59B / 331.2B = 0.089  
+- X4 = Market Value of Equity / Total Liabilities = (Market Cap $2.96T) / 264.4B = 11.19  
+- X5 = Sales / Total Assets = (Approximate quarterly sales $95.36B) *4 = 381.44B / 331.2B = 1.15  
 
-  - X1 (Working Capital / Total Assets) ≈ (Current Assets - Current Liabilities) / Total Assets ≈ (Not directly provided, but current ratio <1 suggests modest working capital)
-  - X2 (Retained Earnings / Total Assets) - Apple’s strong retained earnings and equity base support a high ratio.
-  - X3 (EBIT / Total Assets) - High operating margins and EBIT imply a strong ratio.
-  - X4 (Market Value of Equity / Total Liabilities) - Market cap far exceeds liabilities, boosting this ratio.
-  - X5 (Sales / Total Assets) - High revenue per asset ratio given $400B revenue.
+Calculating:  
+Z = 1.2*(-0.078) + 1.4*(-0.047) + 3.3*0.089 + 0.6*11.19 + 1.0*1.15  
+Z = -0.094 + -0.066 + 0.294 + 6.714 + 1.15 = 7.998  
 
-  The calculated Z-Score is well above 3.0, confirming the Safe Zone status. This aligns with the company’s stable financials and low bankruptcy risk.
+This Z-Score (~8.0) is well above the Safe Zone threshold (>2.99), confirming very low bankruptcy risk. This aligns with the company’s strong financials and market capitalization.
 
-- **Price and Market Trends:** The stock price has shown volatility but remains near the 50-day average (~$201) and below the 200-day average (~$224), reflecting some market caution amid macroeconomic uncertainties. Dividend yield is modest at 0.53%, with a low payout ratio (~15.6%), indicating room for dividend growth.
+**Trend:**  
+The Z-Score has remained consistently in the Safe Zone over recent quarters, supported by stable or improving profitability and strong market valuation. Liquidity ratios are stable, and leverage is balanced by cash and cash flow strength.
 
-- **Summary:** Apple’s financial health is strong, with excellent profitability and cash flow, manageable leverage, and a very low risk of distress per Altman Z-Score. The company’s scale, innovation, and market position underpin its resilience.
+**Additional Context:**  
+- Dividend yield is modest (~0.52%) but stable with a low payout ratio (~15.6%), supporting sustainability.  
+- Stock price has shown moderate volatility but an overall upward trend with a 52-week range of $169 to $260, currently near $198.  
+- Institutional ownership is high, indicating confidence.  
+- No recent executive turnover or governance issues reported.
 
 ---
 ## 2. Turnaround & Renewal Theory Application
 
-Given Apple’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained growth.
+Given Apple’s placement in the Safe Zone, turnaround theory is less about crisis management and more about strategic renewal and sustained innovation.
 
-- Apple should focus on **innovation and repositioning** to maintain competitive advantage, consistent with Beard (2024) on tech-sector renewal emphasizing continuous product and service innovation.
-- Stakeholder alignment per Freeman (1984) is critical to support long-term growth, especially balancing shareholder expectations with customer experience and employee engagement.
-- Hofer’s (1980) sequencing suggests Apple should prioritize innovation-led growth initiatives while maintaining operational excellence.
-- Hoskisson et al. (2004) recommend strategic restructuring to adapt to evolving market trends, such as expanding services and ecosystem integration.
-- No urgent retrenchment or cost-cutting is necessary; instead, measured investments in R&D, supply chain resilience, and sustainability initiatives are advisable.
+Apple should focus on **innovation and strategic repositioning** to maintain its competitive edge in a rapidly evolving technology landscape. According to Beard (2024), tech-sector renewal requires continuous investment in R&D and ecosystem expansion, both of which Apple excels at with its $8.55B quarterly R&D spend and diversified services portfolio.
+
+Freeman’s (1984) stakeholder alignment theory suggests Apple should continue engaging its broad stakeholder base—customers, employees, investors, and partners—to foster loyalty and innovation adoption. The stable leadership team and strong institutional ownership provide a solid foundation for this.
+
+Hofer’s (1980) sequencing of renewal phases recommends Apple prioritize innovation-led growth while maintaining operational excellence and financial discipline, which aligns with its current strategy.
 
 ---
 ## 3. Internal Stakeholder Recommendations
 
-Internal alignment is key to sustaining Apple’s growth and innovation leadership.
+Internal alignment is critical to sustain Apple’s growth trajectory and financial health.
 
-| Title/Role                     | Responsibilities                          | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
-|-------------------------------|-----------------------------------------|-----------------------------------------|-------------------------------------------------------------|
-| CEO & Executive Leadership     | Strategic vision, operational execution | Revenue growth, innovation pipeline, ROE | Drive innovation culture, oversee strategic investments (Beard, 2024) |
-| CFO & Finance Team             | Financial stewardship, risk management  | Cash flow, debt ratios, cost control    | Monitor leverage, optimize capital structure (Hoskisson et al., 2004) |
-| COO                           | Operations, supply chain efficiency     | Operating margins, delivery times       | Enhance supply chain resilience, cost efficiency            |
-| CTO / R&D Leadership           | Technology innovation                    | R&D output, patent filings, product launches | Prioritize breakthrough innovation, align with market needs (Hofer, 1980) |
-| Board Members                 | Oversight, governance                    | Governance risk scores, compliance      | Ensure strong governance, support strategic renewal (Freeman, 1984) |
-| Employees                     | Execution, customer service              | Employee engagement, productivity       | Foster innovation mindset, continuous learning              |
-| Shareholders                  | Investment returns                       | Dividend yield, share price performance | Maintain transparent communication, align on growth strategy |
-| Creditors                     | Financial stability monitoring           | Debt service coverage                    | Maintain strong credit profile, timely debt servicing       |
-| Customers                     | Product/service experience               | Customer satisfaction, retention        | Enhance product quality and ecosystem integration           |
-| Partners                      | Strategic alliances                      | Partnership outcomes, joint initiatives | Strengthen ecosystem partnerships for innovation            |
+| Title/Role                     | Responsibilities                          | Key Performance Metrics                 | Recommended Actions (Cited)                                  |
+|-------------------------------|------------------------------------------|---------------------------------------|-------------------------------------------------------------|
+| CEO & Executive Leadership (Tim Cook) | Strategic vision, operational execution | Revenue growth, innovation pipeline, market share | Drive innovation, maintain operational efficiency, and stakeholder engagement (Hofer, 1980; Freeman, 1984) |
+| CFO & Finance Team (Kevan Parekh) | Financial stewardship, risk management   | Cash flow, debt management, cost control | Optimize capital structure, monitor liquidity, and support strategic investments (Hoskisson et al., 2004) |
+| CTO & R&D Leadership           | Technology innovation and product development | R&D output, product launch success     | Accelerate innovation cycles, focus on emerging tech (Beard, 2024) |
+| Board Members                 | Oversight and governance                  | Governance risk, executive performance | Ensure strong governance, support strategic renewal (Freeman, 1984) |
+| Employees                    | Execution of product development and customer service | Productivity, engagement, retention   | Foster innovation culture, continuous learning (Bibeault, 1999) |
+| Shareholders                 | Investment and capital provision          | Share price, dividends, earnings growth | Maintain transparent communication, align interests (Freeman, 1984) |
+| Creditors                    | Financial stability monitoring             | Debt service coverage, credit ratings | Monitor financial health, support sustainable leverage (Altman, 1968) |
+| Customers                    | Product/service experience                  | Customer satisfaction, loyalty         | Enhance product quality and ecosystem integration (Beard, 2024) |
+| Partners                    | Strategic alliances and supply chain       | Partnership effectiveness, supply reliability | Strengthen alliances, ensure supply chain resilience (Hoskisson et al., 2004) |
 
 ---
 ## 4. Communication, Marketing & Execution Strategy
 
-Effective communication is essential to reinforce Apple’s growth narrative and stakeholder confidence.
+Effective communication and execution are vital to reinforce Apple’s market leadership and investor confidence.
 
-- **Executive Leadership Communications:** Emphasize innovation roadmap, sustainability, and long-term value creation.
-- **Investor Relations:** Highlight strong financial health, dividend stability, and growth prospects amid market volatility.
-- **Internal Communications:** Engage employees on innovation priorities and operational excellence.
-- **External Relations:** Promote product launches, ecosystem benefits, and customer-centric initiatives.
+**Communication Strategy:**  
+- **Executive Leadership:** Emphasize innovation, sustainability, and long-term growth vision.  
+- **Investor Relations:** Highlight strong financial health, stable dividends, and growth prospects.  
+- **Internal Communications:** Engage employees on innovation goals and operational excellence.  
+- **External Relations:** Promote product ecosystem, customer experience, and brand strength.
 
-**Phased Execution Plan:**
+**Phased Execution Plan:**  
+- **Near-term (1-3 months):** Launch new product announcements, reinforce financial guidance, and communicate innovation milestones.  
+- **Mid-term (4-6 months):** Expand services offerings, deepen ecosystem integration, and enhance supply chain transparency.  
+- **Long-term (7-18 months):** Invest in emerging technologies (AI, AR/VR), sustainability initiatives, and global market expansion.
 
-- **Near-term (1-3 months):** Communicate quarterly results, reinforce innovation pipeline, address supply chain updates. Executive sponsors: CEO, CFO.
-- **Mid-term (4-6 months):** Launch new products/services, expand subscription offerings, enhance sustainability reporting. Cross-functional coordination: Marketing, R&D, Investor Relations.
-- **Long-term (7-18 months):** Drive transformational initiatives in AI, AR/VR, and services ecosystem. Monitor success via revenue growth, market share, and customer engagement metrics.
+**Leadership Accountability:** CEO and CFO to sponsor financial and strategic messaging; CTO and Marketing lead product innovation communication; Investor Relations to manage market expectations.
 
-Tone should be confident and growth-focused, reflecting Apple’s Safe Zone status and market leadership.
+**Risk Mitigation:** Monitor market volatility, competitor moves, and supply chain risks; prepare contingency plans for macroeconomic shifts.
+
+Tone remains confident and growth-oriented, reflecting Apple’s Safe Zone status and strong market position.
 
 ---
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section provides tailored investment guidance aligned with Apple’s financial health and risk profile.
+This section provides tailored investment recommendations aligned with Apple’s strong financial profile and risk status.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend with low payout ratio; strong cash flow supports sustainability (Altman Z-Score Safe Zone) |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong innovation, market position, and analyst consensus target price above current price (Beard, 2024) |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Stock price near 50-day average with some volatility; growth potential balanced with market risks  |
-| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low bankruptcy risk, strong balance sheet; maintain position for capital preservation               |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (~0.52%), low payout ratio (~15.6%), strong cash flow supports sustainability. |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong Z-Score, robust profitability, innovation pipeline, positive analyst consensus (Altman, 1968). |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Large market cap and mature business limit explosive growth; stable but less speculative upside.    |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low bankruptcy risk, strong balance sheet, but moderate leverage requires monitoring.               |
 
-> **Recommendation: BUY for growth-oriented investors; HOLD for income and conservative investors.**
+**Overall Recommendation: BUY for growth and moderate-risk investors; HOLD for conservative income and defensive investors.**
+
+Scenario analysis: A significant deterioration in innovation or market share, or macroeconomic shocks, could warrant a downgrade to HOLD or SELL. Conversely, breakthrough product launches or market expansion could strengthen the BUY case.
 
 > “This is not financial advice—consult your financial advisor.”
 
@@ -154,84 +174,75 @@ This section provides tailored investment guidance aligned with Apple’s financ
 
 This section reviews current analyst sentiment to complement the quantitative risk assessment.
 
-- Apple’s consensus analyst rating is “Buy” with a mean recommendation score of 2.1 (on a scale where 1=Strong Buy, 3=Hold).
-- The target mean price is approximately $229, about 16% above the current price (~$196), indicating upside potential.
-- Analyst coverage is broad (40 opinions), with no significant recent downgrades or upgrades reported.
-- The distribution of recommendations remains stable, with a majority favoring Buy or Hold, and no strong Sell ratings.
-- The stock’s beta of 1.21 suggests moderate volatility relative to the market.
-- The stable and positive analyst sentiment aligns well with the Safe Zone Z-Score, reinforcing confidence in Apple’s financial and strategic position.
+Apple’s analyst consensus is predominantly positive, with a **mean recommendation of 2.1 ("Buy")** based on 40 analyst opinions. The target mean price is approximately $229, about 16% above the current price (~$198), indicating upside potential.
 
-Market sentiment supports the recommendation for growth and moderate risk investors, while conservative investors may prefer to hold given current price levels and dividend stability.
+No detailed multi-period analyst recommendation distribution data is available, limiting trend analysis. However, the stable average rating and target price suggest consistent market confidence.
+
+The analyst sentiment aligns well with the Altman Z-Score Safe Zone classification, reinforcing the view of Apple as a financially healthy, growth-oriented company.
+
+Investors may find analyst sentiment supportive of a Buy or Hold stance depending on risk tolerance, with limited signs of downgrades or volatility in recommendations.
 
 ---
 ## 7. References and Data Sources
 
-Transparency and source attribution are critical for robust financial analysis. This report integrates data from multiple authoritative sources including SEC filings, company annual and quarterly reports, and market data from Yahoo Finance. Institutional and insider ownership data, dividend history, stock split records, and weekly price data were incorporated to enrich the analysis. The Altman Z-Score calculations follow the original 1968 methodology with adaptations for publicly traded firms.
+Transparency and source attribution are essential for robust financial analysis.
 
-Theoretical frameworks applied include seminal works on corporate turnaround and renewal by Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984), ensuring recommendations are grounded in established management science.
+**References and Data Sources:** This analysis draws on financial data from SEC filings, company quarterly reports, and Yahoo Finance market data. Market prices and volatility were sourced from weekly price data. Institutional and insider ownership data, dividend history, and company metadata were integrated to provide comprehensive context. The Altman Z-Score calculations follow the original 1968 methodology with adaptations for publicly traded firms. The analysis is part of an open-source Altman Z-Score project by Fabio Correa. Theoretical frameworks referenced include seminal works by Altman (1968), Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984).
 
 ---
 ## 8. Appendices (LLM-Generated)
 
-### Company Metadata
+### A. Raw Financial Data by Period (Selected Key Items)
 
-| Field                  | Value                          |
-|------------------------|--------------------------------|
-| Name                   | Apple Inc                      |
-| Ticker                 | AAPL                          |
-| Sector                 | Technology                    |
-| Industry               | Consumer Electronics          |
-| Country                | United States                 |
-| Market Capitalization  | $2.93 Trillion                |
-| Employees              | 164,000                      |
-| Exchange               | NASDAQ NMS - GLOBAL MARKET   |
-| IPO Date               | 1980-12-12                   |
-| Website                | https://www.apple.com         |
+| Date       | Current Assets (B) | Current Liabilities (B) | Retained Earnings (B) | EBIT (B) | Total Assets (B) | Total Liabilities (B) | Total Revenue (B) | Net Income (B) |
+|------------|--------------------|-------------------------|-----------------------|----------|------------------|-----------------------|-------------------|----------------|
+| 2025-03-31 | 118.67             | 144.57                  | -15.55                | 29.59    | 331.23           | 264.44                | 95.36 (Qtr est.)  | 24.78          |
+| 2024-12-31 | 133.24             | 144.37                  | -11.22                | 42.83    | 344.09           | 277.33                | 124.3 (Qtr est.)  | 36.33          |
+| 2024-09-30 | 152.99             | 176.39                  | -19.15                | 29.59    | 364.98           | 308.03                | 94.93 (Qtr est.)  | 14.74          |
+| 2024-06-30 | 125.44             | 131.62                  | -4.73                 | 25.35    | 331.61           | 264.90                | 85.78 (Qtr est.)  | 21.45          |
 
-### Key Executives
-
-| Name               | Title                                | Age | Total Pay (2024) |
-|--------------------|------------------------------------|-----|------------------|
-| Timothy D. Cook    | CEO & Director                      | 63  | $16.5M           |
-| Jeffrey E. Williams | Chief Operating Officer             | 60  | $5.0M            |
-| Kevan Parekh       | Senior VP & CFO                    | 52  | $5.0M            |
-| Katherine L. Adams | Senior VP, General Counsel & Secretary | 60  | $5.0M            |
-| Deirdre O'Brien    | Chief People Officer & Senior VP Retail | 57  | $5.0M            |
-
-### Weekly Price Summary (Recent)
+### B. Weekly Prices Sample (Recent)
 
 | Week       | Close Price (USD) |
 |------------|-------------------|
-| 2024-06-10 | 211.50            |
-| 2024-07-01 | 225.29            |
-| 2024-08-12 | 225.26            |
-| 2024-09-30 | 226.01            |
 | 2024-12-09 | 247.53            |
-| 2025-01-27 | 235.43            |
-| 2025-03-31 | 188.13            |
-| 2025-06-09 | 199.20            |
+| 2024-12-16 | 253.88            |
+| 2024-12-23 | 254.97            |
+| 2024-12-30 | 242.77            |
+| 2025-01-06 | 236.28            |
 
-### Key Financial Ratios
+### C. Key Financial Ratios (Latest)
 
-| Metric           | Value    |
-|------------------|----------|
-| Current Ratio    | 0.82     |
-| Quick Ratio      | 0.68     |
-| Debt/Equity      | 147%     |
-| Gross Margin     | 46.6%    |
-| Net Margin       | 24.3%    |
-| ROA              | 23.8%    |
-| ROE              | 138%     |
-| Dividend Yield   | 0.53%    |
-| P/E (Trailing)   | 30.6     |
-| P/E (Forward)    | 23.6     |
+| Ratio           | Value  |
+|-----------------|--------|
+| Current Ratio   | 0.82   |
+| Quick Ratio     | 0.68   |
+| Debt/Equity     | 1.47   |
+| Gross Margin    | 46.6%  |
+| Net Margin      | 24.3%  |
+| ROA             | 23.8%  |
+| ROE             | 138%   |
 
-### Data Provenance and Quality
+### D. Data Provenance and Quality
 
-- Financial and market data sourced from SEC filings, Yahoo Finance, and company disclosures.
-- Weekly price data covers January 2024 through June 2025.
-- Executive compensation and ownership data current as of fiscal year 2024.
-- No significant missing data; all key financial metrics available for analysis.
+- Financials sourced from latest quarterly SEC filings and company reports.  
+- Market data from Yahoo Finance, updated through early 2025.  
+- Institutional ownership and executive compensation from latest filings and disclosures.  
+- Data completeness is high; minor gaps in older historical data noted but not material.
+
+### E. Company Metadata
+
+| Field               | Value                  |
+|---------------------|------------------------|
+| Name                | Apple Inc.             |
+| Sector              | Technology             |
+| Industry            | Consumer Electronics   |
+| Country             | United States          |
+| Market Cap (USD B)  | 2,963                  |
+| Employees           | 164,000                |
+| Exchange            | NASDAQ NMS             |
+| Website             | https://www.apple.com  |
+| CEO                 | Timothy D. Cook        |
 
 ---
 

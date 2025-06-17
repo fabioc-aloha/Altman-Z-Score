@@ -6,6 +6,7 @@ $large_caps = @(
     'AAPL', # Apple
     'MSFT', # Microsoft
     'GOOGL', # Alphabet
+    'GOOG', # Alphabet (Class C)
     'AMZN', # Amazon
     'META', # Meta Platforms
     'JPM', # JPMorgan Chase
@@ -30,63 +31,26 @@ $distressed = @(
     'SONO'   # Sonos (Tech, recent financial challenges)
 )
 
-# Group 3: 10 Tech/AI/EM/Early-Stage/Foreign Tickers (To Flex Mapping and Model Selection)
-$tech_em = @(
-    'SNOW', # Snowflake (Tech, high R&D)
+# Group 3: 4 Notable US Tech/Fintech/Early-Stage Companies (Diverse maturities)
+$tech_us = @(
+    'SNOW', # Snowflake (Tech, growth)
     'PLTR', # Palantir (Tech, gov contracts)
-    'BIDU', # Baidu (China, EM)
-    'MELI', # MercadoLibre (LatAm, EM)
-    'SHOP', # Shopify (Canada, tech)
-    'ASML', # ASML (Netherlands, tech)
     'UBER', # Uber (Tech, high growth)
     'SQ', # Block/Square (Fintech)
-    'NIO', # NIO (China, EV, EM)
-    'SE'     # Sea Ltd (Singapore, EM)
+    'ROKU', # Roku (Tech, consumer streaming)
+    'DOCU', # DocuSign (Tech, SaaS)
+    'ZM', # Zoom Video (Tech, SaaS)
+    'DDOG', # Datadog (Cloud monitoring)
+    'NET', # Cloudflare (Cloud infra)
+    'CRWD', # CrowdStrike (Cybersecurity)
+    'MDB', # MongoDB (Database, SaaS)
+    'SHOP', # Shopify (US-listed, e-commerce)
+    'AFRM', # Affirm (Fintech, lending)
+    'COIN', # Coinbase (Fintech, crypto)
+    'SONO'  # Sonos (Tech, consumer audio)
 )
 
-# Group 4: 10 Latin American and Brazilian Companies (To Flex International/EM/IFRS Mapping)
-$latam_br = @(
-    'VALE', # Vale S.A. (Brazil)
-    'PBR', # Petrobras (Brazil)
-    'ITUB', # Itaú Unibanco (Brazil)
-    'BBD', # Banco Bradesco (Brazil)
-    'GGB', # Gerdau (Brazil)
-    'CRESY', # Cresud (Argentina)
-    'SBS', # Companhia de Saneamento Basico (Brazil)
-    'AMX', # América Móvil (Mexico)
-    'EC', # Ecopetrol (Colombia)
-    'SID'    # Companhia Siderúrgica Nacional (Brazil)
-)
-
-# Group 5: 10 European Companies (To Flex EU/IFRS/Region Logic)
-$europe = @(
-    'SAP', # SAP SE (Germany)
-    'SIEGY', # Siemens AG (Germany)
-    'NESN', # Nestle (Switzerland)
-    'SHEL', # Shell (UK/Netherlands)
-    'SAN', # Sanofi (France)
-    'OR', # L'Oreal (France)
-    'AZN', # AstraZeneca (UK/Sweden)
-    'VOD', # Vodafone (UK)
-    'BASFY', # BASF (Germany)
-    'UL'      # Unilever (UK/Netherlands)
-)
-
-# Group 6: 10 Asian Companies (To Flex Asia/Region Logic)
-$asia = @(
-    'TM', # Toyota Motor (Japan)
-    'SONY', # Sony Group (Japan)
-    'HMC', # Honda Motor (Japan)
-    'BABA', # Alibaba (China)
-    'TSM', # Taiwan Semiconductor (Taiwan)
-    'SFTBY', # SoftBank Group (Japan)
-    'INFY', # Infosys (India)
-    'JD', # JD.com (China)
-    'NTES', # NetEase (China)
-    'SAMSUNG' # Samsung Electronics (Korea, GDR/OTC)
-)
-
-# Group 7: 10 Companies for Industry Mix (Manufacturing, Services, Finance, Utilities, Retail, Healthcare, Energy, Telecom, Real Estate, Consumer Goods)
+# Group 4: 10 Companies for Industry Mix (Manufacturing, Services, Finance, Utilities, Retail, Healthcare, Energy, Telecom, Real Estate, Consumer Goods)
 $industry_mix = @(
     'CAT', # Caterpillar (Manufacturing)
     'UNH', # UnitedHealth Group (Healthcare)
@@ -108,11 +72,8 @@ function Invoke-ZScoreBatch($tickers, $groupName) {
 
 # Run all groups (no deduplication)
 Invoke-ZScoreBatch $large_caps 'large_caps'
-# Invoke-ZScoreBatch $distressed 'distressed'
-# Invoke-ZScoreBatch $tech_em 'tech_em'
-# Invoke-ZScoreBatch $latam_br 'latam_br'
-# Invoke-ZScoreBatch $europe 'europe'
-# Invoke-ZScoreBatch $asia 'asia'
-# Invoke-ZScoreBatch $industry_mix 'industry_mix'
+Invoke-ZScoreBatch $distressed 'distressed'
+Invoke-ZScoreBatch $tech_us 'tech_us'
+Invoke-ZScoreBatch $industry_mix 'industry_mix'
 
 Write-Host "Batch processing complete. Check the output directories for reports."

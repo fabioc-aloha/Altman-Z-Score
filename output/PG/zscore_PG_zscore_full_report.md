@@ -12,16 +12,11 @@ This report provides a comprehensive, theory-informed financial health analysis 
 
 **Disclaimer**: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 
-**Script Version:** v3.1.1
+**Script Version:** v3.2.1
 
 ## Z-Score Formula Used
 
-Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
-- X1 = (Current Assets - Current Liabilities) / Total Assets
-- X2 = Retained Earnings / Total Assets
-- X3 = EBIT / Total Assets
-- X4 = Equity / Total Liabilities
-- X5 = Sales / Total Assets
+Z = 
 
 **Thresholds:**
 - Safe Zone: > 2.99
@@ -38,199 +33,229 @@ Z = 1.20*X1 + 1.40*X2 + 3.30*X3 + 0.60*X4 + 1.00*X5
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |     X1 |    X2 |    X3 |    X4 |    X5 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|--------|-------|-------|-------|-------|-----------|--------------|-----------------------|
-| 2024 Q1   | -0.083 | 1.03  | 0.04  | 5.327 | 0.169 |     4.84  | Safe Zone    | No issues             |
-| 2024 Q2   | -0.073 | 1.012 | 0.033 | 5.256 | 0.168 |     4.761 | Safe Zone    | No issues             |
-| 2024 Q3   | -0.071 | 0.991 | 0.043 | 5.364 | 0.172 |     4.833 | Safe Zone    | No issues             |
-| 2024 Q4   | -0.066 | 1.04  | 0.05  | 5.453 | 0.178 |     4.99  | Safe Zone    | No issues             |
-| 2025 Q1   | -0.08  | 1.048 | 0.04  | 5.637 | 0.161 |     5.046 | Safe Zone    | No issues             |
+| Quarter   |   Z-Score | Diagnostic   |
+|-----------|-----------|--------------|
+| 2024 Q1   |     4.84  | Safe Zone    |
+| 2024 Q2   |     4.761 | Safe Zone    |
+| 2024 Q3   |     4.833 | Safe Zone    |
+| 2024 Q4   |     4.99  | Safe Zone    |
+| 2025 Q1   |     5.046 | Safe Zone    |
 
 
 ---
 ## TL;DR / Executive Summary
 
-Procter & Gamble Co (PG) currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a low risk of financial distress. The company demonstrates strong profitability, solid capital efficiency, and manageable leverage, supported by stable cash flows and a diversified product portfolio in the consumer defensive sector. Key risks include modest revenue growth decline and margin pressures from inflationary cost environments, while opportunities lie in innovation within core segments and sustainability initiatives.
+Procter & Gamble Co (PG) currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a low risk of financial distress. The company demonstrates strong profitability, solid capital structure, and stable liquidity metrics, supported by a consistent dividend yield of approximately 2.6%. Despite a slight recent dip in stock price and modest revenue growth challenges, PG’s financial health remains robust with positive operating cash flows and a strong market position in the consumer defensive sector.
 
-Analyst sentiment is predominantly positive with a consensus "Buy" rating and a target price above current levels, reflecting confidence in PG’s steady cash generation and dividend stability. For income-oriented and moderate growth investors, PG represents a **Buy** opportunity, while very conservative or highly speculative investors may consider **Hold** or cautious exposure. Overall, PG’s financial health and market position support a growth-focused investment stance with moderate risk.
+Key risks include working capital deficits and relatively high debt-to-equity leverage (~65%), but these are well-managed within industry norms. Opportunities lie in leveraging its diversified brand portfolio and innovation in sustainability and digital channels. The headline investor recommendation is **BUY for growth-oriented and moderate risk investors, and HOLD for income-focused and conservative investors**. Analyst sentiment aligns with this view, showing a consensus Buy rating and target prices above current levels.
 
 ---
 ## Company Profile
 
-Procter & Gamble Co is a leading global consumer products company headquartered in Cincinnati, Ohio, with a market capitalization of approximately $375.8 billion. Founded in 1837 and publicly traded since 1950 on the NYSE (ticker: PG), it operates across five main segments: Beauty; Grooming; Health Care; Fabric & Home Care; and Baby, Feminine & Family Care. Its portfolio includes iconic brands such as Gillette, Tide, Pampers, Olay, and Crest, competing in the consumer defensive sector with peers like Unilever and Colgate-Palmolive.
+Procter & Gamble Co is a leading global consumer products company headquartered in Cincinnati, Ohio, operating in the Consumer Defensive sector with a focus on Household & Personal Products. Founded in 1837 and publicly traded on the NYSE since 1950, PG offers a broad portfolio across five segments: Beauty, Grooming, Health Care, Fabric & Home Care, and Baby, Feminine & Family Care. Its brands include household names such as Tide, Pampers, Gillette, Olay, and Crest, competing with other consumer staples giants like Unilever and Colgate-Palmolive.
 
-The executive leadership is headed by Mr. Jon R. Moeller (President, CEO & Chairman), supported by a seasoned team including CFO Mr. Andre Schulten and COO Mr. Shailesh Jejurikar. Compensation levels are aligned with industry standards, and no recent significant executive turnover or compensation controversies have been reported. Institutional investors hold a substantial 70% of shares, indicating strong institutional confidence. The company maintains a stable dividend policy with a 2.64% yield and a payout ratio of 64%, reflecting commitment to shareholder returns.
+The company employs approximately 108,000 people worldwide and is led by Mr. Jon R. Moeller, who serves as President, CEO, and Chairman. The executive team includes CFO Mr. Andre Schulten and COO Mr. Shailesh Jejurikar, among others, with no recent major executive turnover reported. Institutional investors hold about 70% of shares, with insider ownership below 1%, indicating strong institutional confidence. PG maintains a stable dividend policy with a payout ratio near 64%, reflecting commitment to shareholder returns.
 
 ---
 ## 1. Diagnostic Evaluation of Financial Health
 
-This section evaluates Procter & Gamble’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis to assess bankruptcy risk and operational strength.
+This section evaluates PG’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis to assess bankruptcy risk and operational strength.
 
-- **Liquidity:** PG’s current ratio stands at 0.713 and quick ratio at 0.445, below the ideal benchmark of 1.0, reflecting a lean working capital structure typical for large consumer goods firms with efficient inventory management and strong cash flows. The company holds $9.1 billion in cash, supporting liquidity despite lower current ratios.
+**Liquidity:**  
+- Current Ratio: ~0.71 (below 1, indicating working capital deficit)  
+- Quick Ratio: ~0.45 (low, reflecting inventory-heavy current assets)  
+- Working Capital is negative (~ -$9.8B in latest quarter), consistent with industry norms for large consumer goods firms that operate with efficient payables cycles.  
+- Cash and equivalents remain strong (~$9.1B), supporting short-term obligations.
 
-- **Profitability:** Gross margin is robust at 51.7%, with net profit margins near 18.5%, indicating strong pricing power and cost control. Return on assets (ROA) is 11.0%, and return on equity (ROE) is an impressive 30.3%, underscoring efficient asset use and shareholder value creation.
+**Profitability:**  
+- Gross Margin: ~51.7%, healthy for consumer products.  
+- Net Margin: ~18.5%, indicating efficient cost control and pricing power.  
+- ROA: ~11%, ROE: ~30%, both strong and stable, reflecting effective asset and equity utilization.  
+- EBITDA margins near 29%, consistent with a mature, cash-generative business.
 
-- **Capital Efficiency:** Revenue per share is $35.65, with EBITDA margins at 28.8% and operating margins at 23.3%, consistent with industry leaders. Free cash flow of $12.6 billion and operating cash flow of $18.6 billion demonstrate strong cash generation capacity.
+**Capital Efficiency & Leverage:**  
+- Debt/Equity ratio ~65%, moderately leveraged but manageable given stable cash flows.  
+- Invested Capital around $85B, with tangible book value negative due to large intangible assets (goodwill and brand value).  
+- Net Debt ~$25B, with long-term debt around $24B, indicating manageable debt maturity profile.
 
-- **Leverage:** Debt-to-equity ratio is moderate at 65%, reflecting prudent use of debt to finance growth without excessive risk. Total debt is $34.1 billion against a market cap of $375.8 billion, indicating manageable leverage.
+**Altman Z-Score Calculation (Latest Quarter 2025-03-31):**  
+Using the formula for publicly traded manufacturing firms:  
+Z = 1.2X1 + 1.4X2 + 3.3X3 + 0.6X4 + 1.0X5  
+Where:  
+- X1 = Working Capital / Total Assets = -9.813B / 123B ≈ -0.08  
+- X2 = Retained Earnings / Total Assets = 128.9B / 123B ≈ 1.05  
+- X3 = EBIT / Total Assets = 4.878B / 123B ≈ 0.04  
+- X4 = Market Value of Equity / Total Liabilities = (Market Cap ~$377B) / 70.4B ≈ 5.36  
+- X5 = Sales / Total Assets = 19.776B (quarterly) *4 = ~79.1B annualized / 123B ≈ 0.64  
 
-- **Altman Z-Score:** Using the latest financial data, PG’s Z-Score is estimated well above 3.0, confirming its position in the Safe Zone. This aligns with the company’s stable earnings, strong equity base (book value per share $21.96), and low bankruptcy risk.
+Z ≈ 1.2*(-0.08) + 1.4*1.05 + 3.3*0.04 + 0.6*5.36 + 1.0*0.64  
+Z ≈ -0.096 + 1.47 + 0.132 + 3.216 + 0.64 = 5.36 (approximate)  
 
-- **Market and Price Trends:** The stock price has traded between $156.58 and $180.43 over the past year, currently near $160, slightly below the 200-day average, reflecting some market volatility but overall stability. Dividend yield of 2.64% and consistent dividend payments support income investor appeal.
+This score well exceeds the Safe Zone threshold (>2.99), confirming low bankruptcy risk.
 
-- **Risks and Trends:** Revenue growth is slightly negative (-2.1%), signaling some top-line pressure possibly from competitive or macroeconomic factors. Earnings growth is modest at 1.3%. Inflationary cost pressures and supply chain challenges remain risks but are mitigated by brand strength and innovation.
+**Trend:**  
+- Z-Score has been stable and strong over recent quarters.  
+- Liquidity ratios remain below 1 but are typical for the sector.  
+- Profitability and cash flow generation remain robust despite slight revenue growth headwinds (-2.1% YoY).  
+- Dividend yield steady at ~2.6%, payout ratio moderate.
 
-In summary, PG’s financial profile is strong, with excellent profitability and cash flow, moderate leverage, and a very low risk of distress per Altman’s model. The company’s liquidity ratios reflect efficient capital use rather than risk.
+**Market & Price Trends:**  
+- Stock price has declined ~4.5% over 52 weeks but remains near 160 USD, close to 52-week low, with analyst target mean at ~$173, indicating upside potential.  
+- Beta low (~0.43), suggesting defensive stock behavior.
+
+**Summary:**  
+PG is financially healthy with strong profitability, manageable leverage, and a very safe Altman Z-Score. Negative working capital is a structural feature, not a distress signal. The company’s market position and cash flow generation support ongoing dividend payments and strategic investments.
 
 ---
 ## 2. Turnaround & Renewal Theory Application
 
-Given PG’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained growth. The company should focus on innovation, market repositioning, and stakeholder alignment to maintain competitive advantage.
+Given PG’s **Safe Zone** status, turnaround theory is less about crisis management and more about strategic renewal and sustained growth.
 
-- **Innovation & Repositioning:** Emphasizing product innovation in health, beauty, and sustainability aligns with Beard (2024) on tech-sector renewal, adapted here to consumer products. PG’s executive sponsorship of corporate sustainability (Ms. Alexandra Keith) supports this strategic renewal.
+Applying Hofer’s (1980) and Bibeault’s (1999) frameworks, PG is in a phase of **strategic renewal**, focusing on innovation, brand repositioning, and sustainability initiatives to maintain competitive advantage. The company’s diversified portfolio and strong cash flows enable investments in digital transformation and product innovation, aligning with Beard’s (2024) emphasis on tech-sector renewal adapted to consumer goods.
 
-- **Stakeholder Alignment:** Following Freeman (1984), PG’s strong institutional ownership and stable dividend policy facilitate alignment with shareholders and other stakeholders, enabling long-term strategic initiatives.
+Freeman’s (1984) stakeholder alignment theory suggests PG should continue engaging shareholders, employees, and customers to support long-term value creation. The stable executive leadership team and institutional ownership provide governance stability, facilitating strategic initiatives.
 
-- **Strategic Restructuring:** Hoskisson et al. (2004) suggest continuous strategic restructuring even in healthy firms to adapt to market changes. PG’s modest revenue growth decline signals the need for selective investments in digital channels and emerging markets.
-
-- **Leadership Stability:** The experienced leadership team provides a solid foundation for executing renewal strategies without disruption.
-
-Overall, PG should leverage its financial strength to invest in innovation and sustainability, ensuring continued relevance and growth in a competitive consumer defensive sector.
+No urgent retrenchment or cost-cutting is necessary; instead, PG should balance operational efficiency with innovation and sustainability to capture growth opportunities in evolving consumer preferences.
 
 ---
 ## 3. Internal Stakeholder Recommendations
 
-Internal stakeholder alignment is critical to sustain PG’s growth trajectory and financial health. The following table outlines key roles, metrics, and recommended actions:
+Internal alignment is critical to sustain PG’s strong position and execute growth strategies effectively.
 
-| Title/Role                      | Responsibilities                          | Key Performance Metrics                 | Recommended Actions (Cited)                                  |
-|--------------------------------|------------------------------------------|---------------------------------------|-------------------------------------------------------------|
-| CEO & Executive Leadership (Jon R. Moeller) | Strategic vision, operational execution | Revenue growth, ROE, market share     | Drive innovation and sustainability initiatives; monitor market trends (Beard, 2024) |
-| CFO & Finance Team (Andre Schulten) | Financial stewardship, risk management   | Debt/Equity ratio, cash flow, Z-Score | Maintain prudent leverage; optimize capital allocation; ensure liquidity (Altman, 1968) |
-| COO (Shailesh Jejurikar)        | Operational efficiency, supply chain     | Operating margin, cost control        | Enhance supply chain resilience; improve cost efficiency (Hoskisson et al., 2004) |
-| CMO & Brand Leaders             | Brand management, market positioning     | Market share, brand equity            | Invest in digital marketing and consumer engagement          |
-| Board Members                  | Oversight and governance                  | Governance risk scores, compliance    | Ensure strong governance and risk oversight (Freeman, 1984) |
-| Employees                     | Execution of operational and strategic plans | Employee engagement, productivity     | Foster innovation culture and continuous improvement         |
-| Shareholders                  | Investment returns and governance         | Dividend yield, total shareholder return | Communicate strategy and performance transparently           |
-| Creditors                    | Financial stability monitoring             | Debt service coverage, credit ratings | Maintain transparent communication and timely payments       |
-| Customers                    | Product/service experience                  | Customer satisfaction, loyalty        | Enhance product quality and sustainability                    |
-| Partners                    | Strategic alliances and supply chain       | Partnership effectiveness              | Strengthen collaboration and innovation partnerships         |
+| Title/Role                      | Responsibilities                              | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
+|--------------------------------|----------------------------------------------|-----------------------------------------|-------------------------------------------------------------|
+| CEO & Executive Leadership (Jon R. Moeller) | Strategic vision, operational execution      | Revenue growth, ROE, Z-Score, market share | Drive innovation, sustainability, and digital transformation (Hofer, 1980; Freeman, 1984) |
+| CFO & Finance Team (Andre Schulten)          | Financial stewardship, risk management       | Debt/Equity, cash flow, dividend coverage | Maintain strong liquidity, optimize capital structure, monitor leverage (Bibeault, 1999) |
+| COO (Shailesh Jejurikar)                      | Operational efficiency, supply chain         | Operating margins, inventory turnover    | Enhance supply chain resilience, cost control, and product quality (Hoskisson et al., 2004) |
+| Board Members                                | Oversight, governance                         | Governance risk scores, executive compensation | Ensure governance best practices, support strategic initiatives (Freeman, 1984) |
+| Employees                                    | Execution of business functions               | Productivity, engagement scores          | Foster innovation culture, training, and sustainability awareness (Beard, 2024) |
+| Shareholders                                 | Investment returns, dividend stability        | Dividend yield, total shareholder return | Engage via transparent communication, emphasize long-term value (Freeman, 1984) |
+| Creditors                                    | Financial stability monitoring                 | Debt service coverage, credit ratings    | Maintain open dialogue, ensure timely debt servicing (Bibeault, 1999) |
+| Customers                                    | Product/service experience                      | Customer satisfaction, brand loyalty     | Innovate product offerings, enhance sustainability (Beard, 2024) |
+| Partners                                     | Strategic alliances                             | Partnership outcomes, joint initiatives  | Strengthen collaborations in innovation and sustainability (Hoskisson et al., 2004) |
 
 ---
 ## 4. Communication, Marketing & Execution Strategy
 
-Effective communication and execution are vital to reinforce PG’s market position and investor confidence.
+Effective communication and execution are vital to reinforce PG’s market leadership and growth trajectory.
 
-- **Executive Leadership Communications:** Articulate a clear vision emphasizing innovation, sustainability, and steady growth to internal and external stakeholders.
+**Communication Strategy:**  
+- **Executive Leadership:** Articulate clear vision emphasizing innovation, sustainability, and shareholder value.  
+- **Investor Relations:** Highlight strong financial health, stable dividends, and growth initiatives.  
+- **Internal Communications:** Engage employees on innovation goals and sustainability commitments to foster alignment.  
+- **External Relations:** Promote product innovation, sustainability credentials, and brand strength to customers and partners.
 
-- **Investor Relations:** Highlight strong financial health, dividend stability, and strategic initiatives in earnings calls and investor presentations.
+**Phased Execution Plan:**  
+- **Near-term (1-3 months):** Communicate quarterly results emphasizing financial strength and innovation pipeline; quick wins in cost efficiency and sustainability initiatives.  
+- **Mid-term (4-6 months):** Launch new product campaigns, deepen digital transformation, and report progress on ESG goals.  
+- **Long-term (7-18 months):** Transformational growth through new market entries, sustained R&D investment, and stakeholder engagement.
 
-- **Internal Communications:** Engage employees with transparent updates on strategic priorities and encourage innovation culture.
+**Leadership & Coordination:**  
+- CEO and CFO to sponsor financial and strategic messaging.  
+- COO to lead operational improvements and supply chain communications.  
+- Cross-functional teams to coordinate marketing, investor relations, and internal engagement.
 
-- **External Relations:** Promote sustainability efforts and product innovations to customers and partners, enhancing brand loyalty.
+**Risk Mitigation:**  
+- Monitor market reactions and adjust messaging to address any investor concerns.  
+- Prepare contingency plans for supply chain disruptions or competitive pressures.
 
-**Phased Execution Plan:**
-
-| Phase          | Actions & Focus                                  | Leaders & Coordination                 | Success Metrics                      | Risk Mitigation                      |
-|----------------|-------------------------------------------------|--------------------------------------|------------------------------------|------------------------------------|
-| Near-term (1-3 months) | Communicate strategy; quick wins in cost control and marketing | CEO, CFO, CMO; cross-functional teams | Revenue growth stabilization; employee engagement | Monitor market feedback; adjust messaging |
-| Mid-term (4-6 months) | Launch innovation projects; expand digital channels | COO, Brand Leaders, IT                | Market share gains; margin improvement | Manage project risks; maintain liquidity |
-| Long-term (7-18 months) | Embed sustainability; strategic repositioning | Executive Leadership, Board          | ROE improvement; brand equity growth | Continuous governance oversight |
-
-Communication tone is confident and growth-oriented, reflecting PG’s Safe Zone status and strong fundamentals.
+Tone remains confident and growth-oriented, consistent with PG’s Safe Zone status.
 
 ---
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section provides tailored investment recommendations aligned with PG’s financial health and investor profiles.
+This section provides tailored investment recommendations aligned with PG’s strong financial health and risk profile.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | BUY            | Stable dividend yield (2.64%), strong cash flow, and payout ratio support reliable income (Altman, 1968). |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Solid profitability, innovation focus, and positive analyst sentiment support moderate growth potential. |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Limited rapid growth; stable but mature sector; better suited for risk-averse investors.           |
-| Capital Preservation (Defensive)  | Very Low           | BUY            | Low bankruptcy risk, strong balance sheet, and steady cash flows align with preservation goals.   |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (~2.6%), moderate payout ratio, strong cash flow supports income reliability. |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Safe Zone Z-Score, strong brand portfolio, innovation focus, analyst consensus Buy, upside potential. |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Mature sector with limited explosive growth; stable but not high volatility or speculative upside. |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low bankruptcy risk, stable financials, defensive sector exposure suitable for preservation.       |
 
-**Overall Recommendation: BUY.**
+**Overall Recommendation: BUY for growth and moderate risk investors; HOLD for income and defensive investors.**
 
-PG’s strong financial health, low distress risk, and positive market sentiment make it a compelling buy for income and moderate growth investors. Speculative investors should hold due to limited high-growth catalysts.
+Scenario analysis: A deterioration in liquidity or profitability, or significant market disruption, could warrant a downgrade to HOLD or SELL. Conversely, accelerated innovation or market expansion could strengthen the BUY case.
 
 > “This is not financial advice—consult your financial advisor.”
 
 ---
 ## 6. Market Sentiment Analysis (Analyst Recommendations)
 
-Analyst sentiment for PG is predominantly positive, with a consensus recommendation mean of 1.96, corresponding to a "Buy" rating. The company has 23 analyst opinions, reflecting broad coverage.
+This section reviews current analyst sentiment to complement the quantitative risk assessment.
 
-- **Distribution:** The majority of analysts rate PG as Buy, with few Hold or Sell ratings, indicating stable confidence.
+- The consensus analyst recommendation is a **Buy** with an average rating of 1.96 (on a scale where 1=Strong Buy, 5=Strong Sell).  
+- Target mean price is approximately $172.88, about 8% above the current price (~$159.44), indicating upside potential.  
+- No detailed multi-period analyst recommendation distribution data is available, limiting trend analysis.  
+- The analyst sentiment is stable and aligns well with the Safe Zone Z-Score, reflecting confidence in PG’s financial health and growth prospects.  
+- No notable recent downgrades or upgrades reported, suggesting steady market perception.
 
-- **Trend:** No significant shifts or volatility in recommendations have been observed recently, suggesting stable market sentiment.
-
-- **Target Price:** The consensus target mean price is approximately $172.88, about 7.8% above the current price (~$160.28), indicating upside potential.
-
-- **Volatility:** Low beta (0.43) and stable price range support the view of PG as a low-volatility, defensive stock.
-
-- **Limitations:** Detailed breakdown of Strong Buy vs. Buy or Hold ratings is not available, limiting granularity.
-
-Overall, analyst sentiment aligns well with the Altman Z-Score Safe Zone classification, reinforcing confidence in PG’s financial stability and growth prospects. This positive sentiment supports investor confidence, particularly for income and moderate growth profiles.
+This positive and stable analyst sentiment supports the recommendation for moderate risk investors to consider buying, while income-focused investors may hold given dividend stability.
 
 ---
 ## 7. References and Data Sources
 
-Transparency and source attribution are essential for robust financial analysis. This report draws on comprehensive financial and market data from SEC filings, Yahoo Finance, and company disclosures. Market price data was sourced from weekly historical prices. Additional inputs include institutional ownership data, dividend history, and executive compensation disclosures.
+Transparency and source attribution are essential for credibility and reproducibility of this analysis.
 
-All Altman Z-Score calculations follow the original 1968 methodology, cross-validated with company financials. Theoretical frameworks applied include Hofer (1980) on turnaround sequencing, Bibeault (1999) on corporate recovery, Hoskisson et al. (2004) on restructuring, Beard (2024) on strategic renewal, and Freeman (1984) on stakeholder alignment.
+**References and Data Sources:** This analysis draws on financial data from SEC filings and company reports, market data from Yahoo Finance, and detailed financial statements. Additional inputs include institutional ownership data, dividend history, stock price and volatility data, and company metadata. Altman Z-Score calculations follow the original 1968 methodology with adaptations for publicly traded firms. The analysis is part of the open-source Altman Z-Score Analysis project by Fabio Correa. Theoretical frameworks referenced include seminal works by Altman (1968), Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984).
 
 ---
 ## 8. Appendices (LLM-Generated)
 
-### Company Metadata
+### A. Raw Financial Data by Period (Selected Key Items)
 
-| Field                  | Value                          |
-|------------------------|--------------------------------|
-| Name                   | Procter & Gamble Co            |
-| Ticker                 | PG                            |
-| Sector                 | Consumer Defensive            |
-| Industry               | Household & Personal Products |
-| Country                | United States                 |
-| Market Capitalization  | $375.8 billion                |
-| Employees              | 108,000                      |
-| Exchange               | NYSE                         |
-| Currency               | USD                          |
-| Website                | https://us.pg.com/            |
-| IPO Date               | 1950-03-22                   |
+| Date       | Current Assets ($B) | Current Liabilities ($B) | Retained Earnings ($B) | EBIT ($B) | Total Assets ($B) | Total Liabilities ($B) | Sales (Quarterly, $B) |
+|------------|---------------------|--------------------------|------------------------|-----------|-------------------|------------------------|-----------------------|
+| 2025-03-31 | 24.44               | 34.25                    | 128.92                 | 4.88      | 123.0             | 70.44                  | 19.78                 |
+| 2024-12-31 | 25.64               | 33.80                    | 127.54                 | 6.08      | 122.64            | 71.20                  | 21.88                 |
+| 2024-09-30 | 27.45               | 36.42                    | 125.36                 | 5.38      | 126.48            | 74.34                  | 21.74                 |
+| 2024-06-30 | 24.71               | 33.63                    | 123.81                 | 4.09      | 122.37            | 71.81                  | 20.53                 |
+| 2024-03-31 | 22.46               | 32.34                    | 123.13                 | 4.83      | 119.60            | 69.27                  | 20.20                 |
 
-### Key Financial Ratios (Latest)
-
-| Ratio             | Value    |
-|-------------------|----------|
-| Current Ratio     | 0.713    |
-| Quick Ratio       | 0.445    |
-| Debt/Equity       | 64.98    |
-| Gross Margin      | 51.7%    |
-| Net Margin        | 18.5%    |
-| ROA               | 11.0%    |
-| ROE               | 30.3%    |
-| Dividend Yield    | 2.64%    |
-
-### Weekly Prices Snapshot (Recent)
+### B. Weekly Prices Used for Z-Score Analysis (Recent Sample)
 
 | Week       | Close Price (USD) |
 |------------|-------------------|
-| 2024-12-09 | 168.97            |
-| 2024-12-16 | 166.01            |
-| 2024-12-23 | 167.46            |
-| 2024-12-30 | 163.11            |
-| 2025-01-06 | 156.62            |
-| 2025-01-13 | 159.16            |
+| 2025-03-31 | 162.74            |
+| 2025-03-24 | 166.99            |
+| 2025-03-17 | 165.66            |
+| 2025-03-10 | 166.93            |
+| 2025-03-03 | 174.86            |
 
-### Data Provenance and Quality
+### C. Key Financial Ratios (Latest Quarter)
 
-- Financial data sourced from SEC filings and Yahoo Finance.
-- Market data from Yahoo Finance weekly prices.
-- Executive and ownership data from company disclosures.
-- Data completeness is high; no significant missing fields noted.
-- Dividend and split history consistent with company reports.
+| Ratio           | Value  |
+|-----------------|--------|
+| Current Ratio   | 0.71   |
+| Quick Ratio     | 0.45   |
+| Debt/Equity     | 0.65   |
+| Gross Margin    | 51.7%  |
+| Net Margin      | 18.5%  |
+| ROA             | 11.0%  |
+| ROE             | 30.3%  |
+
+### D. Company Metadata
+
+| Field               | Value                          |
+|---------------------|--------------------------------|
+| Name                | Procter & Gamble Co            |
+| Ticker              | PG                            |
+| Sector              | Consumer Defensive            |
+| Industry            | Household & Personal Products |
+| Country             | United States                 |
+| Market Cap (USD B)  | 377.2                         |
+| Employees           | 108,000                      |
+| Exchange            | NYSE                         |
+| Website             | https://us.pg.com/            |
+
+### E. Data Provenance and Quality
+
+- Financials sourced from latest SEC filings and company reports (2024-2025).  
+- Market data from Yahoo Finance, including weekly prices through mid-2025.  
+- Institutional ownership data indicates stable major holders with no recent significant shifts.  
+- Dividend and split history consistent with stable payout and no recent splits.  
+- Data completeness is high; minor gaps in older historical data do not affect current analysis.
 
 ---
 
-This concludes the comprehensive Altman Z-Score-based diagnostic and strategic recommendations report for Procter & Gamble Co.
+# End of Report

@@ -5,6 +5,38 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Changelog
+
+All notable changes to the Altman Z-Score Analysis Platform will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.3.0] - 2025-06-17
+
+### Added
+- **LLM Copilot Analysis Framework:** Complete integration for systematic pipeline output evaluation
+  - Added `copilot.md` with comprehensive step-by-step instructions for LLM-driven troubleshooting
+  - VS Code tool integration using list_dir, read_file, grep_search, run_in_terminal for analysis
+  - Mandatory audit trail creation via `Copilot_Troubleshoot.md` before any code changes
+  - Systematic workflow for ticker inventory, success rate assessment, and issue pattern detection
+- **Deep Report Evaluation Preparation:** Enhanced framework for comprehensive output analysis
+  - Success criteria definition for complete vs. incomplete ticker analysis
+  - File completeness assessment tools and data quality validation workflows
+  - Root cause analysis capabilities for common failure patterns
+- **Model Matching Modernization Preparation:** Documentation and framework setup for model selection enhancement
+  - Current model selection logic documented and analyzed
+  - Framework prepared for intelligent model matching based on company characteristics
+
+### Changed
+- **Documentation Enhancement:** Updated README.md, FLOW.md, and TODO.md to reference new troubleshooting capabilities
+- **Project Structure:** Added comprehensive troubleshooting documentation and analysis tools
+- **Development Workflow:** Established systematic approach for pipeline analysis and debugging
+
+### Fixed
+- **Analysis Consistency:** Standardized troubleshooting approach ensures consistent issue investigation
+- **Tool Integration:** Leveraged VS Code built-in capabilities for efficient debugging workflows
+
 ## [3.2.1] - 2025-06-17
 
 ### Fixed

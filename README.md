@@ -2,7 +2,7 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.2.0 (2025-06-16)**
+**Version: 3.3.0 (2025-06-17)**
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers. See [MODELS.md](MODELS.md) for available Z-Score models and selection guidelines.
 
@@ -115,6 +115,7 @@ The script:
 ## Documentation & Project Roadmap
 - For the unified project plan, roadmap, actionable tasks, and technical references, see [TODO.md](./TODO.md)
 - See `LEARNINGS.md` for technical notes and known issues
+- **For LLM Copilot troubleshooting and analysis:** See [copilot.md](./copilot.md) for step-by-step instructions on analyzing pipeline outputs and debugging issues using VS Code tools
 
 ---
 
@@ -132,6 +133,41 @@ The script:
 - All changes must pass existing and new tests
 - New features require updated tests and documentation
 - Document significant learnings in `LEARNINGS.md`
+
+## Troubleshooting & Analysis Tools
+
+### LLM Copilot Analysis
+The repository includes `copilot.md` - comprehensive instructions for LLM Copilot to systematically analyze pipeline outputs, identify issues, and troubleshoot problems using VS Code tools.
+
+**Key Features:**
+- **Automated Analysis:** Step-by-step instructions using VS Code tools (list_dir, read_file, grep_search, etc.)
+- **Success Rate Assessment:** Comprehensive evaluation of ticker analysis completeness
+- **Issue Pattern Detection:** Systematic identification of common failure modes
+- **Root Cause Analysis:** Detailed investigation workflows for debugging
+- **Solution Documentation:** Required logging of all findings before code changes
+
+**Usage for LLM Copilot:**
+1. Follow the workflow in `copilot.md` to analyze all processed tickers
+2. Create detailed troubleshooting logs in `Copilot_Troubleshoot.md`
+3. Identify and prioritize the most common issues
+4. Develop and test solutions based on documented findings
+
+**Human Usage:**
+The same systematic approach can be followed manually for pipeline analysis and debugging.
+
+### Quick Start for Issue Analysis
+```bash
+# Analyze current pipeline outputs
+python -c "
+import os
+print('Available tickers in output/:')
+for ticker in os.listdir('output'):
+    print(f'  {ticker}')
+"
+
+# Test a specific ticker with debug logging
+python main.py MSFT --start 2024-01-01 --log-level DEBUG
+```
 
 ---
 

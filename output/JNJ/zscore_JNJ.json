@@ -3,40 +3,45 @@
     "quarter_end":"2024-03-31",
     "zscore":null,
     "valid":false,
-    "error":"Missing required field: retained_earnings",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] retained_earnings: Missing required field: retained_earnings"
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
   },
   {
     "quarter_end":"2024-06-30",
     "zscore":null,
     "valid":false,
-    "error":"Missing required field: retained_earnings",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] retained_earnings: Missing required field: retained_earnings"
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
   },
   {
     "quarter_end":"2024-09-30",
     "zscore":null,
     "valid":false,
-    "error":"Missing required field: retained_earnings",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] retained_earnings: Missing required field: retained_earnings"
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
   },
   {
     "quarter_end":"2024-12-31",
     "zscore":null,
     "valid":false,
-    "error":"Missing required field: retained_earnings",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] retained_earnings: Missing required field: retained_earnings"
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
   },
   {
     "quarter_end":"2025-03-31",
     "zscore":null,
     "valid":false,
-    "error":"Missing required field: retained_earnings",
-    "diagnostic":null,
-    "validation_summary":"[ERROR] retained_earnings: Missing required field: retained_earnings"
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
   }
 ]

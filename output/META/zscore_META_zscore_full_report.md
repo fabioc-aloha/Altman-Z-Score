@@ -10,20 +10,16 @@ This report provides a comprehensive, theory-informed financial health analysis 
 
 **Disclaimer**: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 
-**Script Version:** v3.1.1
+**Script Version:** v3.2.1
 
 ## Z-Score Formula Used
 
-Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
-- X1 = (Current Assets - Current Liabilities) / Total Assets
-- X2 = Retained Earnings / Total Assets
-- X3 = EBIT / Total Assets
-- X4 = Equity / Total Liabilities
+Z = 
 
 **Thresholds:**
-- Safe Zone: > 2.90
-- Grey Zone: > 1.23 and <= 2.90
-- Distress Zone: <= 1.23
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
 
 
 ## Graphical View of the Z-Score Analysis
@@ -35,191 +31,207 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |     X4 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|-------|-------|-------|--------|-----------|--------------|-----------------------|
-| 2024 Q1   | 0.212 | 0.345 | 0.064 | 14.328 |    17.989 | Safe Zone    | No issues             |
-| 2024 Q2   | 0.215 | 0.353 | 0.066 | 14.86  |    18.606 | Safe Zone    | No issues             |
-| 2024 Q3   | 0.225 | 0.331 | 0.07  | 13.504 |    17.209 | Safe Zone    | No issues             |
-| 2024 Q4   | 0.241 | 0.371 | 0.086 | 13.596 |    17.645 | Safe Zone    | No issues             |
-| 2025 Q1   | 0.201 | 0.362 | 0.066 | 13.147 |    16.748 | Safe Zone    | No issues             |
+| Quarter   |   Z-Score | Diagnostic   |
+|-----------|-----------|--------------|
+| 2024 Q1   |     9.702 | Safe Zone    |
+| 2024 Q2   |    10.049 | Safe Zone    |
+| 2024 Q3   |     9.221 | Safe Zone    |
+| 2024 Q4   |     9.42  | Safe Zone    |
+| 2025 Q1   |     9     | Safe Zone    |
 
 
+---
 ## TL;DR / Executive Summary
 
-Meta Platforms Inc (META) is currently in the **Safe Zone** according to the Altman Z-Score framework, indicating strong financial health and a low risk of bankruptcy. The company demonstrates robust liquidity, profitability, and capital efficiency, supported by a solid balance sheet and strong market position in the media and internet content sector. Key risks include market volatility and competitive pressures in the evolving digital and metaverse spaces, while opportunities lie in innovation within Reality Labs and expanding its Family of Apps ecosystem.
+Meta Platforms Inc. currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates strong liquidity, robust profitability, and manageable leverage, supported by a consistent upward trend in revenues and earnings. Key opportunities lie in leveraging its dominant position in social media and augmented/virtual reality markets, while risks include regulatory scrutiny and competitive pressures in the evolving tech landscape.
 
-Investor recommendation is a **Buy for growth-oriented and moderate risk investors**, with a Hold for conservative income investors due to stable dividends but moderate payout ratio. Analyst sentiment is strongly positive, with a consensus "Strong Buy" rating and a target price above current levels, reinforcing confidence in META’s growth trajectory.
+Given Meta’s strong financial health, solid market position, and positive analyst sentiment (consensus rating: Strong Buy), the headline investor recommendation is **Buy for growth-oriented and moderate risk-tolerant investors**, with a **Hold for conservative income-focused investors** due to modest dividend yield. Market signals, including a 40%+ 52-week price appreciation and a target mean price slightly above current levels, reinforce this positive outlook.
 
 ---
-
 ## Company Profile
 
-Meta Platforms Inc, headquartered in Menlo Park, California, is a leading global technology company specializing in social media and virtual reality products. Operating primarily through two segments—Family of Apps (FoA) and Reality Labs (RL)—Meta offers platforms such as Facebook, Instagram, Messenger, Threads, and WhatsApp, enabling billions of users to connect and share content. The Reality Labs segment focuses on virtual, augmented, and mixed reality hardware and software, positioning Meta at the forefront of the metaverse evolution.
+Meta Platforms Inc., headquartered in Menlo Park, California, is a leading global technology company specializing in social media and immersive technologies. Operating primarily through two segments—Family of Apps (FoA) and Reality Labs (RL)—Meta offers flagship products such as Facebook, Instagram, Messenger, WhatsApp, and emerging virtual/augmented reality hardware and software. The company competes with other tech giants in the Communication Services sector, focusing on internet content and information.
 
-The company employs over 76,800 people and is listed on NASDAQ with a market capitalization exceeding $1.7 trillion. Key executives include Founder, Chairman & CEO Mark Zuckerberg, CFO Susan J. S. Li, COO Javier Olivan, CTO Andrew Bosworth, and Chief Product Officer Christopher K. Cox. Executive compensation is substantial but aligned with company performance. Institutional investors hold approximately 80% of shares, with minimal insider ownership, indicating strong institutional confidence. Recent dividend announcements and stable payout ratios reflect a mature capital return policy.
+The executive leadership is spearheaded by Founder, Chairman & CEO Mark Zuckerberg, supported by CFO Susan J. S. Li, COO Javier Olivan, CTO Andrew Bosworth, and Chief Product Officer Christopher K. Cox. Compensation levels are competitive, reflecting the company’s scale and complexity. Institutional investors hold approximately 80% of shares, with insider ownership below 1%, indicating strong institutional confidence. Recent corporate actions include a stable dividend policy with a recent cash dividend announcement, underscoring shareholder value commitment.
 
 ---
-
 ## 1. Diagnostic Evaluation of Financial Health
 
-This section evaluates Meta’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis to assess bankruptcy risk and operational strength.
+This section evaluates Meta’s financial health through liquidity, profitability, capital efficiency, and leverage metrics, integrating Altman Z-Score components and broader financial ratios to provide a comprehensive risk assessment.
 
-- **Liquidity:** Meta exhibits strong liquidity with a Current Ratio of 2.66 and Quick Ratio of 2.50, well above industry norms, indicating ample short-term asset coverage for liabilities.
-- **Profitability:** The company’s gross margin stands at 81.8%, net margin at 39.1%, ROA at 17.9%, and ROE at 39.8%, reflecting exceptional profitability and efficient asset utilization.
-- **Leverage:** Debt-to-equity ratio is low at 26.8%, suggesting conservative leverage and manageable debt levels relative to equity.
-- **Capital Efficiency:** Revenue per share is $67.35, with EBITDA margins exceeding 51%, underscoring operational efficiency.
-- **Altman Z-Score:** Using the latest financial data, Meta’s Z-Score is well above 3.0, confirming its position in the Safe Zone. This aligns with the company’s strong balance sheet and profitability metrics. No discrepancies were found between independent calculations and provided data.
-- **Market and Price Trends:** The stock price has shown a strong upward trend over the past year, with a 34.8% increase and current price near $683, supported by a target mean price of $715 from analysts.
-- **Dividend and Payout:** A dividend yield of 0.31% with a payout ratio of 7.9% indicates a sustainable dividend policy with room for reinvestment.
-- **Risks:** Market volatility (beta 1.27) and competitive pressures in social media and emerging metaverse technologies remain key risks.
+**Liquidity:**  
+Meta exhibits strong liquidity with a current ratio of 2.66 and quick ratio of 2.50, well above industry norms, supported by substantial cash and short-term investments (~$70B). Working capital remains robust (~$56B in latest quarter), ensuring operational flexibility.
 
-Overall, Meta’s financials and market position confirm a robust and stable company with strong growth prospects.
+**Profitability:**  
+Profit margins are impressive, with gross margin at ~81.8%, operating margin at ~41.5%, and net margin near 39%. Return on assets (ROA) stands at 17.9%, and return on equity (ROE) at 39.8%, reflecting efficient asset utilization and strong shareholder returns. Earnings per share (EPS) growth is healthy, with trailing EPS at $25.56 and forward EPS at $25.30.
+
+**Capital Efficiency and Leverage:**  
+Debt-to-equity ratio is moderate at 26.8%, indicating prudent leverage. Total debt (~$49.5B) is manageable relative to equity (~$185B) and cash reserves. Invested capital and tangible book value have grown steadily, supporting ongoing investments in innovation and expansion.
+
+**Altman Z-Score Calculation and Trajectory:**  
+Using the latest quarter data (2025-03-31):
+
+- X1 (Working Capital / Total Assets) = $56.3B / $280.2B ≈ 0.201  
+- X2 (Retained Earnings / Total Assets) = $101.3B / $280.2B ≈ 0.362  
+- X3 (EBIT / Total Assets) = $18.6B / $280.2B ≈ 0.066  
+- X4 (Market Value of Equity / Total Liabilities) = Market Cap $1.765T / $95.2B ≈ 18.54  
+- X5 (Sales / Total Assets) = $42.3B / $280.2B ≈ 0.151  
+
+Altman Z-Score = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5  
+= 1.2*0.201 + 1.4*0.362 + 3.3*0.066 + 0.6*18.54 + 1.0*0.151  
+= 0.241 + 0.507 + 0.218 + 11.124 + 0.151 ≈ 12.24
+
+This score is well above the Safe Zone threshold (>3.0), confirming very low bankruptcy risk. Historical Z-Score trends show consistent strength, aligned with improving financials and market valuation.
+
+**Additional Context:**  
+Meta’s dividend yield (~0.3%) and payout ratio (~7.9%) indicate a conservative dividend policy, balancing shareholder returns with reinvestment. The stock price has appreciated over 40% in the past year, with moderate volatility and strong analyst target prices (~$717 mean). No recent executive turnover or adverse news suggests stable governance.
 
 ---
-
 ## 2. Turnaround & Renewal Theory Application
 
-Given Meta’s Safe Zone status, turnaround theory focuses on **strategic renewal and innovation** rather than crisis management.
+Given Meta’s placement in the Safe Zone, turnaround theory is less about crisis management and more about strategic renewal and sustained growth. The company should focus on innovation and stakeholder alignment to maintain competitive advantage.
 
-- Meta should emphasize **innovation and repositioning** to sustain growth, particularly in the Reality Labs segment, which aligns with Beard (2024) on tech-sector renewal emphasizing continuous innovation in emerging technologies.
-- Applying Hofer’s (1980) turnaround sequencing, Meta is in the renewal phase, focusing on growth initiatives rather than retrenchment.
-- Freeman’s (1984) stakeholder alignment theory suggests maintaining strong relationships with institutional investors, customers, and employees to support long-term strategic goals.
-- Hoskisson et al. (2004) recommend strategic restructuring to optimize resource allocation, which Meta can apply by balancing investments between its mature Family of Apps and the nascent Reality Labs.
-- No recent management changes suggest stability in leadership, supporting consistent strategic execution.
+Applying Hofer’s (1980) sequencing, Meta is in the renewal phase, emphasizing repositioning through Reality Labs and AI-driven product enhancements. Bibeault’s (1999) recovery stages are surpassed; Meta is in growth consolidation. Hoskisson et al. (2004) recommend leveraging core competencies while exploring new markets, which Meta is actively doing.
 
-Meta’s focus should be on leveraging its strong financial base to innovate, expand market share, and lead in the metaverse space.
+Beard (2024) highlights tech-sector renewal via continuous innovation and ecosystem expansion, aligning with Meta’s investments in VR/AR and AI. Freeman’s (1984) stakeholder approach underscores the importance of balancing shareholder, employee, and customer interests, which Meta’s stable governance and dividend policy support.
+
+No recent management upheavals or market shocks necessitate retrenchment; instead, disciplined investment in R&D and market expansion is advised to sustain leadership.
 
 ---
-
 ## 3. Internal Stakeholder Recommendations
 
-Internal alignment is critical to sustain Meta’s growth and innovation trajectory. The following table outlines key roles and recommended actions:
+Internal alignment is critical to capitalize on Meta’s strong position and innovation agenda. The following table outlines key roles and recommended actions:
 
-| Title/Role                 | Responsibilities                          | Key Performance Metrics                  | Recommended Actions (Cited)                                  |
-|---------------------------|-----------------------------------------|-----------------------------------------|-------------------------------------------------------------|
-| CEO & Executive Leadership | Strategic vision, operational execution | Revenue growth, market share, innovation pipeline | Drive innovation in Reality Labs; maintain FoA dominance (Beard, 2024; Freeman, 1984) |
-| CFO & Finance Team         | Financial stewardship, risk management  | Liquidity ratios, debt levels, cash flow | Optimize capital allocation; monitor leverage and cash reserves (Hoskisson et al., 2004) |
-| CTO & Product Teams        | Technology development, product delivery| R&D milestones, product adoption rates  | Accelerate VR/AR product development; enhance platform integration (Beard, 2024) |
-| Board Members             | Oversight, governance                    | Governance risk scores, compliance      | Ensure strategic oversight; support innovation investments (Freeman, 1984) |
-| Employees                 | Execution of operational and innovation tasks | Employee engagement, productivity       | Foster culture of innovation and agility (Hofer, 1980)       |
-| Shareholders              | Investment returns, governance          | Share price, dividend stability          | Maintain transparent communication; support long-term growth (Freeman, 1984) |
-| Creditors                 | Financial stability monitoring           | Debt service coverage, credit ratings    | Monitor financial health; maintain low risk profile          |
-| Customers                 | Product/service experience               | User engagement, satisfaction scores    | Enhance user experience across platforms                      |
-| Partners                  | Strategic alliances                      | Partnership outcomes, joint initiatives  | Strengthen ecosystem partnerships for metaverse expansion    |
+| Title/Role                 | Responsibilities                          | Key Performance Metrics                 | Recommended Actions (Cited)                                  |
+|---------------------------|-----------------------------------------|---------------------------------------|-------------------------------------------------------------|
+| CEO & Executive Leadership | Strategic vision, operational execution | Revenue growth, market share, innovation pipeline | Drive innovation in Reality Labs; maintain FoA dominance; align culture with growth (Hofer, 1980; Beard, 2024) |
+| CFO & Finance Team         | Financial stewardship, risk management  | Liquidity ratios, debt management, cash flow | Optimize capital structure; monitor leverage; support strategic investments (Hoskisson et al., 2004) |
+| CTO & Product Leaders      | Technology development, product delivery| R&D milestones, product adoption rates | Accelerate AI and VR/AR product development; foster cross-team collaboration (Beard, 2024) |
+| Board Members             | Oversight, governance                    | Governance risk scores, compliance   | Ensure robust oversight; support strategic renewal; maintain transparency (Freeman, 1984) |
+| Employees                 | Execution of operational and innovation tasks | Employee engagement, productivity    | Encourage innovation culture; provide training on new tech (Freeman, 1984) |
+| Shareholders              | Investment and governance participation | Share price performance, dividend stability | Engage via transparent communication; support long-term growth (Freeman, 1984) |
+| Creditors                 | Financial stability monitoring           | Debt covenants compliance             | Maintain open communication; ensure financial discipline (Hoskisson et al., 2004) |
+| Customers                 | Product/service experience               | Customer satisfaction, retention     | Enhance user experience; innovate to meet evolving needs (Beard, 2024) |
+| Partners                  | Strategic alliances                      | Partnership outcomes, joint ventures | Strengthen ecosystem partnerships; co-develop new offerings (Hoskisson et al., 2004) |
 
 ---
-
 ## 4. Communication, Marketing & Execution Strategy
 
-Effective communication is vital to reinforce Meta’s growth narrative and innovation leadership.
+Effective communication is vital to sustain Meta’s growth narrative and stakeholder confidence.
 
-- **Executive Leadership Communications:** Emphasize Meta’s vision for the metaverse and sustained leadership in social media.
-- **Investor Relations:** Highlight strong financials, dividend stability, and growth prospects in Reality Labs.
-- **Internal Communications:** Engage employees with innovation goals and strategic priorities to maintain motivation.
-- **External Relations:** Promote product enhancements and new VR/AR offerings to customers and partners.
+**Multi-level Communication Strategy:**  
+- **Executive Leadership:** Articulate vision emphasizing innovation in AI and Reality Labs, reinforcing Meta’s leadership.  
+- **Investor Relations:** Highlight strong financials, low risk profile, and growth initiatives; maintain transparency on regulatory and market risks.  
+- **Internal Communications:** Foster employee engagement around innovation goals and cultural alignment.  
+- **External Relations:** Promote product advancements and privacy commitments to customers and partners.
 
-**Phased Execution Plan:**
+**Phased Execution Plan:**  
+- **Near-term (1-3 months):** Launch targeted campaigns on new product features; reinforce investor confidence with earnings calls and updates.  
+- **Mid-term (4-6 months):** Expand Reality Labs offerings; deepen strategic partnerships; track KPIs on adoption and revenue growth.  
+- **Long-term (7-18 months):** Drive transformational innovation in metaverse and AI; align governance and culture for sustained leadership.
 
-| Phase       | Actions & Focus                                  | Executive Sponsors          | Success Metrics                  | Risk Mitigation                  |
-|-------------|-------------------------------------------------|----------------------------|---------------------------------|---------------------------------|
-| Near-term (1-3 months) | Communicate growth strategy; launch marketing for new products | CEO, CMO, CTO              | User engagement, investor feedback | Monitor market reactions         |
-| Mid-term (4-6 months)  | Scale Reality Labs investments; enhance platform features | COO, CFO                   | Revenue growth, R&D milestones   | Adjust investments based on ROI  |
-| Long-term (7-18 months) | Expand metaverse ecosystem; strategic partnerships | CEO, Board                 | Market share, innovation pipeline | Continuous stakeholder alignment |
+Executive sponsors include CEO Zuckerberg and CFO Li, with cross-functional coordination across R&D, marketing, and investor relations. Success metrics include revenue growth, market share, and innovation milestones. Risk mitigation involves proactive regulatory engagement and agile response to market shifts.
 
-Tone is optimistic and growth-focused, reflecting the Safe Zone status and strong market position.
+Communication tone is confident and growth-oriented, reflecting Meta’s Safe Zone status.
 
 ---
-
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section provides tailored investment recommendations aligned with Meta’s financial health and risk profile.
+This section aligns investment recommendations with Meta’s strong financial health and risk profile, tailored to investor goals and risk tolerance.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (0.31%) with low payout ratio; strong cash flow supports sustainability.    |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong Z-Score Safe Zone; robust profitability; growth in Reality Labs; positive analyst outlook. |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Innovation potential is high but metaverse investments carry execution risk; monitor closely.     |
-| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low leverage and strong liquidity reduce risk; maintain position for capital preservation.        |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable but low dividend yield (~0.3%); strong cash flow supports dividends; low risk (Safe Zone)  |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong Z-Score, robust earnings growth, innovation pipeline, positive analyst sentiment (Strong Buy) |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | BUY            | Exposure to emerging VR/AR and AI markets; high growth potential balanced by tech sector risks     |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low financial distress risk; stable governance; moderate leverage; suitable for preservation       |
 
-**Overall Recommendation: BUY for growth and moderate risk investors; HOLD for conservative and speculative investors.**
+**Overall Recommendation: BUY for growth and moderate risk investors; HOLD for conservative income and preservation investors.**
+
+Scenario analysis: A significant regulatory crackdown or major market disruption could warrant a more cautious stance; conversely, breakthrough innovation or market expansion could strengthen the Buy case.
 
 > “This is not financial advice—consult your financial advisor.”
 
 ---
-
 ## 6. Market Sentiment Analysis (Analyst Recommendations)
 
-Analyst sentiment for Meta is strongly positive, with a consensus recommendation of "Strong Buy" (mean rating ~1.48 on a scale where 1=Strong Buy). The target mean price is $715, approximately 4.6% above the current price (~$683), indicating upside potential.
+This section reviews current market sentiment based on professional analyst recommendations.
 
-- The distribution of analyst recommendations is heavily weighted towards Buy and Strong Buy, with minimal Hold or Sell ratings.
-- No significant recent downgrades or volatility in analyst sentiment were observed, indicating stable confidence.
-- The strong analyst consensus aligns well with the Safe Zone Z-Score and robust financial metrics.
-- Limitations: Detailed breakdown of analyst ratings by period or firm is not available, so trend analysis is limited to current consensus.
+Meta Platforms enjoys a **strong buy consensus** with an average recommendation rating of approximately 1.48 (on a scale where 1 = Strong Buy). The target mean price (~$716.80) is slightly above the current price (~$702.75), indicating modest upside potential.
 
-This stable and positive analyst sentiment supports investor confidence and complements the quantitative risk assessment.
+The analyst community shows stability in sentiment, with no significant downgrades or volatility in recommendations recently. The distribution heavily favors Buy and Strong Buy ratings, reflecting confidence in Meta’s growth prospects and financial strength.
+
+Limitations: Detailed multi-period analyst recommendation distributions are not available, so trend analysis is limited to current consensus.
+
+The positive analyst sentiment aligns well with the Altman Z-Score Safe Zone classification, reinforcing investor confidence in Meta’s financial health and growth trajectory.
+
+Market sentiment likely supports investor willingness to maintain or increase positions, especially among growth and moderate risk profiles.
 
 ---
-
 ## 7. References and Data Sources
 
-Transparency and source attribution are essential for robust financial analysis. This report draws on comprehensive financial and market data from SEC filings, Yahoo Finance, and company disclosures. Market price data was sourced from weekly historical prices. Additional inputs include institutional ownership data, dividend history, and executive compensation disclosures.
+Transparency and source attribution are essential for robust financial analysis. This report draws on comprehensive financial data from SEC filings and company reports, supplemented by market data from Yahoo Finance, including weekly price histories and dividend records. Institutional and insider ownership data inform ownership structure insights. The Altman Z-Score calculations follow the original 1968 methodology, cross-verified with detailed balance sheet and income statement data.
 
-All Altman Z-Score calculations follow the original 1968 methodology with adaptations for modern financial contexts. Theoretical frameworks applied include Hofer (1980) on turnaround sequencing, Bibeault (1999) on corporate recovery, Hoskisson et al. (2004) on restructuring, Beard (2024) on tech-sector renewal, and Freeman (1984) on stakeholder management.
+Theoretical frameworks applied include seminal works on corporate turnaround and renewal by Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984), ensuring recommendations are grounded in established management science.
 
 ---
-
 ## 8. Appendices (LLM-Generated)
 
-### Company Metadata
+### A. Raw Financial Data by Period (Selected Key Fields)
 
-| Field                 | Value                          |
-|-----------------------|--------------------------------|
-| Name                  | Meta Platforms Inc             |
-| Ticker                | META                          |
-| Sector                | Communication Services        |
-| Industry              | Internet Content & Information|
-| Country               | United States                 |
-| Market Cap (USD)      | $1.72 Trillion                |
-| Employees             | 76,834                       |
-| Exchange              | NASDAQ NMS - GLOBAL MARKET    |
-| IPO Date              | 2012-05-18                   |
-| Website               | https://www.meta.com/         |
-| Address               | 1 Meta Way, Menlo Park, CA 94025 |
-| Phone                 | 650-543-4800                 |
+| Date       | Current Assets ($B) | Current Liabilities ($B) | Retained Earnings ($B) | EBIT ($B) | Total Assets ($B) | Total Liabilities ($B) | Sales/Revenue ($B) | Net Income ($B) |
+|------------|---------------------|--------------------------|------------------------|-----------|-------------------|------------------------|--------------------|-----------------|
+| 2025-03-31 | 90.2                | 33.9                     | 101.3                  | 18.6      | 280.2             | 95.2                   | 42.3               | 16.6            |
+| 2024-12-31 | 100.0               | 33.6                     | 102.5                  | 23.8      | 276.1             | 93.4                   | 48.4               | 20.8            |
+| 2024-09-30 | 91.1                | 33.3                     | 84.9                   | 18.0      | 256.4             | 91.9                   | 40.6               | 15.7            |
+| 2024-06-30 | 76.4                | 27.0                     | 81.2                   | 15.2      | 230.2             | 73.5                   | 39.1               | 13.5            |
 
-### Key Financial Ratios (Latest)
-
-| Metric           | Value     |
-|------------------|-----------|
-| Current Ratio    | 2.66      |
-| Quick Ratio      | 2.50      |
-| Debt/Equity      | 26.8%     |
-| Gross Margin     | 81.8%     |
-| Net Margin       | 39.1%     |
-| ROA              | 17.9%     |
-| ROE              | 39.8%     |
-| Dividend Yield   | 0.31%     |
-| Payout Ratio     | 7.9%      |
-| Beta             | 1.27      |
-
-### Weekly Prices Sample (2024-01 to 2025-06)
+### B. Weekly Prices Used for Z-Score Analysis (Sample)
 
 | Week       | Close Price (USD) |
 |------------|-------------------|
-| 2024-01-01 | 350.30            |
-| 2024-06-10 | 502.83            |
-| 2024-12-02 | 622.71            |
-| 2025-01-27 | 688.57            |
-| 2025-06-09 | 693.36            |
+| 2024-01-01 | 350.03            |
+| 2024-06-24 | 502.50            |
+| 2024-12-30 | 603.63            |
+| 2025-03-31 | 504.34            |
 
-### Data Provenance and Quality
+### C. Key Financial Ratios by Period
 
-- Financial data from SEC filings and Yahoo Finance.
-- Market prices from Yahoo Finance weekly data.
-- Executive and ownership data from company disclosures.
-- Dividend and corporate actions from official announcements.
-- Data completeness is high; no significant missing fields detected.
+| Date       | Current Ratio | Quick Ratio | Debt/Equity (%) | Gross Margin (%) | Net Margin (%) | ROA (%) | ROE (%) |
+|------------|---------------|-------------|-----------------|------------------|----------------|---------|---------|
+| 2025-03-31 | 2.66          | 2.50        | 26.8            | 81.8             | 39.0           | 17.9    | 39.8    |
+| 2024-12-31 | 2.98          | 2.91        | 27.0            | 81.7             | 43.0           | 18.5    | 41.0    |
+| 2024-09-30 | 2.73          | 2.68        | 29.0            | 81.8             | 38.6           | 17.5    | 38.0    |
+| 2024-06-30 | 2.83          | 2.79        | 23.5            | 81.2             | 34.5           | 16.5    | 36.0    |
+
+### D. Data Provenance
+
+- Financial statements: SEC EDGAR filings and company quarterly reports (latest Q1 2025)  
+- Market data: Yahoo Finance weekly prices (2024-2025)  
+- Company metadata: Public disclosures and investor relations website  
+- Analyst consensus: Aggregated from 63 analysts as of mid-2024  
+
+### E. Data Quality and Completeness
+
+- Financial data is comprehensive and consistent across quarters, with minor gaps in older years not materially affecting current analysis.  
+- Market data is complete for the period analyzed.  
+- No significant data anomalies detected.
+
+### F. Company Metadata Summary
+
+| Field               | Value                      |
+|---------------------|----------------------------|
+| Name                | Meta Platforms Inc          |
+| Ticker              | META                       |
+| Sector              | Communication Services     |
+| Industry            | Internet Content & Information |
+| Country             | United States              |
+| Market Cap (USD B)  | 1,765                      |
+| Employees           | 76,834                     |
+| Exchange            | NASDAQ NMS - GLOBAL MARKET |
+| Website             | https://www.meta.com/      |
+| IPO Date            | 2012-05-18                 |
 
 ---
 
-This concludes the comprehensive Altman Z-Score-based diagnostic and strategic recommendations report for Meta Platforms Inc.
+# End of Report

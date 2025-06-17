@@ -1,113 +1,129 @@
 {
-  "analysis_date": "2025-06-15",
+  "analysis_date": "2025-06-17",
   "ticker": "GOOGL",
-  "model": "service",
+  "model": "<altman_zscore.models.factory._OriginalModel object at 0x0000025FC7C794D0>",
   "context": {
     "Ticker": "GOOGL",
-    "Industry": "SIC 7370",
+    "Industry": "Unknown",
     "Public": true,
-    "Emerging Market": false,
     "Maturity": "Mature Company",
-    "Model": "service",
-    "SIC Code": "7370",
-    "Analysis Date": "2025-06-15",
+    "Model": "<altman_zscore.models.factory._OriginalModel object at 0x0000025FC7C794D0>",
+    "SIC Code": "N/A",
+    "Analysis Date": "2025-06-17",
     "raw_quarters": [
       {
         "period_end": "2025-03-31",
-        "total_assets": 475374000000.0,
-        "current_assets": 162052000000.0,
-        "current_liabilities": 91654000000.0,
-        "total_liabilities": 130107000000.0,
-        "retained_earnings": 262628000000.0,
-        "ebit": 41823000000.0,
-        "sales": 90234000000.0,
-        "source_map": {
-          "total_assets": "yahoo",
-          "current_assets": "yahoo",
-          "current_liabilities": "yahoo",
-          "total_liabilities": "yahoo",
-          "retained_earnings": "yahoo",
-          "ebit": "yahoo",
-          "sales": "yahoo"
-        }
+        "total_assets": "475374000000.0",
+        "current_assets": "162052000000.0",
+        "current_liabilities": "91654000000.0",
+        "retained_earnings": "262628000000.0",
+        "total_liabilities": "130107000000.0",
+        "ebit": "41823000000.0",
+        "sales": "90234000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       },
       {
         "period_end": "2024-12-31",
-        "total_assets": 450256000000.0,
-        "current_assets": 163711000000.0,
-        "current_liabilities": 89122000000.0,
-        "total_liabilities": 125172000000.0,
-        "retained_earnings": 245084000000.0,
-        "ebit": 32296000000.0,
-        "sales": 96469000000.0,
-        "source_map": {
-          "total_assets": "yahoo",
-          "current_assets": "yahoo",
-          "current_liabilities": "yahoo",
-          "total_liabilities": "yahoo",
-          "retained_earnings": "yahoo",
-          "ebit": "yahoo",
-          "sales": "yahoo"
-        }
+        "total_assets": "450256000000.0",
+        "current_assets": "163711000000.0",
+        "current_liabilities": "89122000000.0",
+        "retained_earnings": "245084000000.0",
+        "total_liabilities": "125172000000.0",
+        "ebit": "32296000000.0",
+        "sales": "96469000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       },
       {
         "period_end": "2024-09-30",
-        "total_assets": 430266000000.0,
-        "current_assets": 157541000000.0,
-        "current_liabilities": 80803000000.0,
-        "total_liabilities": 116147000000.0,
-        "retained_earnings": 235317000000.0,
-        "ebit": 31760000000.0,
-        "sales": 88268000000.0,
-        "source_map": {
-          "total_assets": "yahoo",
-          "current_assets": "yahoo",
-          "current_liabilities": "yahoo",
-          "total_liabilities": "yahoo",
-          "retained_earnings": "yahoo",
-          "ebit": "yahoo",
-          "sales": "yahoo"
-        }
+        "total_assets": "430266000000.0",
+        "current_assets": "157541000000.0",
+        "current_liabilities": "80803000000.0",
+        "retained_earnings": "235317000000.0",
+        "total_liabilities": "116147000000.0",
+        "ebit": "31760000000.0",
+        "sales": "88268000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       },
       {
         "period_end": "2024-06-30",
-        "total_assets": 414770000000.0,
-        "current_assets": 161995000000.0,
-        "current_liabilities": 77913000000.0,
-        "total_liabilities": 114017000000.0,
-        "retained_earnings": 226033000000.0,
-        "ebit": 27618000000.0,
-        "sales": 84742000000.0,
-        "source_map": {
-          "total_assets": "yahoo",
-          "current_assets": "yahoo",
-          "current_liabilities": "yahoo",
-          "total_liabilities": "yahoo",
-          "retained_earnings": "yahoo",
-          "ebit": "yahoo",
-          "sales": "yahoo"
-        }
+        "total_assets": "414770000000.0",
+        "current_assets": "161995000000.0",
+        "current_liabilities": "77913000000.0",
+        "retained_earnings": "226033000000.0",
+        "total_liabilities": "114017000000.0",
+        "ebit": "27618000000.0",
+        "sales": "84742000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       },
       {
         "period_end": "2024-03-31",
-        "total_assets": 407350000000.0,
-        "current_assets": 165471000000.0,
-        "current_liabilities": 76997000000.0,
-        "total_liabilities": 114506000000.0,
-        "retained_earnings": 219770000000.0,
-        "ebit": 28409000000.0,
-        "sales": 80539000000.0,
-        "source_map": {
-          "total_assets": "yahoo",
-          "current_assets": "yahoo",
-          "current_liabilities": "yahoo",
-          "total_liabilities": "yahoo",
-          "retained_earnings": "yahoo",
-          "ebit": "yahoo",
-          "sales": "yahoo"
-        }
+        "total_assets": "407350000000.0",
+        "current_assets": "165471000000.0",
+        "current_liabilities": "76997000000.0",
+        "retained_earnings": "219770000000.0",
+        "total_liabilities": "114506000000.0",
+        "ebit": "28409000000.0",
+        "sales": "80539000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       }
     ],
-    "weekly_prices": "          week  open_price  high_price   low_price  close_price  days_with_data\n0   2024-01-01  138.550003  139.630005  135.149994   134.920837               4\n1   2024-01-08  136.289993  145.220001  136.259995   141.799576               5\n2   2024-01-15  142.000000  146.449997  138.899994   145.507355               4\n3   2024-01-22  147.100006  153.050003  145.500000   151.282700               5\n4   2024-01-29  152.059998  153.779999  136.500000   141.531189               5\n..         ...         ...         ...         ...          ...             ...\n71  2025-05-12  157.490005  169.350006  156.160004   165.989059               5\n72  2025-05-19  164.509995  176.770004  162.899994   168.266296               5\n73  2025-05-26  170.160004  175.270004  167.440002   171.532349               4\n74  2025-06-02  167.839996  174.500000  165.279999   173.469986               5\n75  2025-06-09  174.539993  181.110001  174.369995   175.699997               4\n\n[76 rows x 6 columns]"
+    "quarters": [
+      {
+        "period_end": "2024-03-31",
+        "total_assets": "407350000000.0",
+        "current_assets": "165471000000.0",
+        "current_liabilities": "76997000000.0",
+        "retained_earnings": "219770000000.0",
+        "total_liabilities": "114506000000.0",
+        "ebit": "28409000000.0",
+        "sales": "80539000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-06-30",
+        "total_assets": "414770000000.0",
+        "current_assets": "161995000000.0",
+        "current_liabilities": "77913000000.0",
+        "retained_earnings": "226033000000.0",
+        "total_liabilities": "114017000000.0",
+        "ebit": "27618000000.0",
+        "sales": "84742000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-09-30",
+        "total_assets": "430266000000.0",
+        "current_assets": "157541000000.0",
+        "current_liabilities": "80803000000.0",
+        "retained_earnings": "235317000000.0",
+        "total_liabilities": "116147000000.0",
+        "ebit": "31760000000.0",
+        "sales": "88268000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-12-31",
+        "total_assets": "450256000000.0",
+        "current_assets": "163711000000.0",
+        "current_liabilities": "89122000000.0",
+        "retained_earnings": "245084000000.0",
+        "total_liabilities": "125172000000.0",
+        "ebit": "32296000000.0",
+        "sales": "96469000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2025-03-31",
+        "total_assets": "475374000000.0",
+        "current_assets": "162052000000.0",
+        "current_liabilities": "91654000000.0",
+        "retained_earnings": "262628000000.0",
+        "total_liabilities": "130107000000.0",
+        "ebit": "41823000000.0",
+        "sales": "90234000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      }
+    ],
+    "weekly_prices": "          week  open_price  high_price   low_price  close_price  days_with_data\n0   2024-01-01  138.550003  139.630005  135.149994   134.920807               4\n1   2024-01-08  136.289993  145.220001  136.259995   141.799576               5\n2   2024-01-15  142.000000  146.449997  138.899994   145.507324               4\n3   2024-01-22  147.100006  153.050003  145.500000   151.282700               5\n4   2024-01-29  152.059998  153.779999  136.500000   141.531189               5\n..         ...         ...         ...         ...          ...             ...\n72  2025-05-19  164.509995  176.770004  162.899994   168.266296               5\n73  2025-05-26  170.160004  175.270004  167.440002   171.532349               4\n74  2025-06-02  167.839996  174.500000  165.279999   173.469986               5\n75  2025-06-09  174.539993  181.110001  172.389999   174.669998               5\n76  2025-06-16  174.729996  177.320007  174.580002   177.080002               2\n\n[77 rows x 6 columns]"
   }
 }

@@ -12,20 +12,16 @@ This report provides a comprehensive, theory-informed financial health analysis 
 
 **Disclaimer**: The developer disclaims any responsibility for the accuracy, completeness, or consequences of the analysis and information provided by this software. All results are for informational purposes only and should not be relied upon for financial, investment, or legal decisions.
 
-**Script Version:** v3.1.1
+**Script Version:** v3.2.1
 
 ## Z-Score Formula Used
 
-Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
-- X1 = (Current Assets - Current Liabilities) / Total Assets
-- X2 = Retained Earnings / Total Assets
-- X3 = EBIT / Total Assets
-- X4 = Equity / Total Liabilities
+Z = 
 
 **Thresholds:**
-- Safe Zone: > 2.90
-- Grey Zone: > 1.23 and <= 2.90
-- Distress Zone: <= 1.23
+- Safe Zone: > 2.99
+- Grey Zone: > 1.81 and <= 2.99
+- Distress Zone: <= 1.81
 
 
 ## Graphical View of the Z-Score Analysis
@@ -37,196 +33,231 @@ Z = 6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4
 
 
 ## Z-Score Component Table (by Quarter)
-| Quarter   |    X1 |    X2 |    X3 |    X4 |   Z-Score | Diagnostic   | Consistency Warning   |
-|-----------|-------|-------|-------|-------|-----------|--------------|-----------------------|
-| 2024 Q1   | 0.217 | 0.54  | 0.07  | 7.626 |    11.659 | Safe Zone    | No issues             |
-| 2024 Q2   | 0.203 | 0.545 | 0.067 | 9.253 |    13.27  | Safe Zone    | No issues             |
-| 2024 Q3   | 0.178 | 0.547 | 0.074 | 8.281 |    12.144 | Safe Zone    | No issues             |
-| 2024 Q4   | 0.166 | 0.544 | 0.072 | 8.781 |    12.563 | Safe Zone    | No issues             |
-| 2025 Q1   | 0.148 | 0.552 | 0.088 | 6.909 |    10.618 | Safe Zone    | No issues             |
+| Quarter   |   Z-Score | Diagnostic   |
+|-----------|-----------|--------------|
+| 2024 Q1   |     6.019 | Safe Zone    |
+| 2024 Q2   |     6.982 | Safe Zone    |
+| 2024 Q3   |     6.397 | Safe Zone    |
+| 2024 Q4   |     6.68  | Safe Zone    |
+| 2025 Q1   |     5.577 | Safe Zone    |
 
 
 ---
 ## TL;DR / Executive Summary
 
-Alphabet Inc. (GOOGL) currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates strong liquidity, robust profitability, and efficient capital management, supported by a solid balance sheet and consistent cash flow generation. Market trends show a stable to slightly positive price trajectory, and analyst sentiment remains predominantly bullish with a consensus "Buy" rating.
+Alphabet Inc. (GOOGL) currently resides firmly in the **Safe Zone** according to the Altman Z-Score framework, indicating a very low risk of financial distress. The company demonstrates robust liquidity, strong profitability, and conservative leverage, supported by a stable and growing market position in the Communication Services sector. Key strengths include high gross margins (~58.6%), solid return on equity (~34.8%), and a strong cash position exceeding $95 billion, enabling sustained investment in innovation and growth.
 
-Key opportunities include leveraging its dominant position in digital advertising, cloud computing, and AI innovation, while risks are moderate, primarily related to regulatory scrutiny and competitive pressures in the tech sector. For investors, a **Buy recommendation for growth-oriented and moderate risk-tolerant profiles** is appropriate, while income-focused and highly risk-averse investors may consider a Hold given the modest dividend yield and stable fundamentals. Overall, Alphabet’s financial strength and market position support a confident outlook for sustained growth.
+Risks are minimal but include market volatility and competitive pressures in cloud and advertising segments. Opportunities lie in expanding Google Cloud, AI infrastructure, and other bets segments. Analyst sentiment is predominantly positive with a consensus "Buy" rating and a target price (~$201.65) well above the current price (~$177.17). For most investors, especially growth and income-oriented profiles, a **Buy** recommendation is appropriate, while very conservative investors may consider a Hold given market fluctuations.
 
 ---
+
 ## Company Profile
 
-Alphabet Inc., headquartered in Mountain View, California, is a global leader in the media and internet content sector, operating primarily through its Google Services, Google Cloud, and Other Bets segments. Its product portfolio includes widely used platforms such as Google Search, YouTube, Android, Google Maps, and Google Workspace, serving diverse markets across the Americas, Europe, Asia-Pacific, and beyond. With a market capitalization exceeding $2.1 trillion and over 185,000 employees, Alphabet is a dominant player in the Communication Services sector, competing with other tech giants in digital advertising, cloud services, and emerging technologies.
+Alphabet Inc., headquartered in Mountain View, California, is a global leader in the media and internet content industry, operating primarily through its Google Services, Google Cloud, and Other Bets segments. Its product portfolio includes widely used platforms such as Google Search, YouTube, Android, Google Maps, and Google Workspace, serving diverse markets worldwide. Alphabet competes with major technology firms in digital advertising, cloud computing, and emerging tech sectors.
 
-The executive leadership is headed by CEO Sundar Pichai, supported by key figures including CFO Anat Ashkenazi and President & Chief Investment Officer Ruth Porat. The co-founders, Larry Page and Sergey Brin, remain on the board as directors. Executive compensation is substantial but aligned with company performance, reflecting strong governance practices. Institutional investors hold over 81% of shares, indicating high confidence from large shareholders. No recent major executive changes or disruptive events have been reported, supporting stable leadership continuity.
+The company employs approximately 185,719 full-time employees and is listed on the NASDAQ Global Market under the ticker GOOGL. Key executives include CEO Sundar Pichai, CFO Anat Ashkenazi, and President & CIO Ruth Porat, all compensated competitively reflecting their strategic roles. Co-founders Larry Page and Sergey Brin remain on the board as directors. Institutional investors hold over 81% of shares, indicating strong institutional confidence. No recent major executive changes or disruptive events have been reported, supporting stable leadership continuity.
 
 ---
+
 ## 1. Diagnostic Evaluation of Financial Health
 
-This section evaluates Alphabet’s financial health through liquidity, profitability, capital efficiency, and leverage metrics, integrating Altman Z-Score components and broader financial ratios to provide a comprehensive risk assessment.
+This section evaluates Alphabet’s financial health through liquidity, profitability, capital efficiency, leverage, and Altman Z-Score analysis, integrating detailed financials and market data.
 
-- **Liquidity:** Alphabet’s current ratio stands at 1.77 and quick ratio at 1.60, both comfortably above 1, indicating strong short-term liquidity and ability to meet obligations without stress. The company holds over $95 billion in cash, underscoring excellent cash reserves.
+**Liquidity:**  
+- Current Ratio: 1.77 (healthy, above 1.5 benchmark)  
+- Quick Ratio: 1.60 (strong, indicating ample liquid assets)  
+- Cash & Equivalents: $95.3B, providing excellent short-term financial flexibility.
 
-- **Profitability:** With a gross margin of 58.6%, net margin of approximately 30.9%, ROA of 16.9%, and ROE of 34.8%, Alphabet exhibits outstanding profitability and efficient asset utilization. Earnings growth of 48.8% and revenue growth of 12% year-over-year reflect strong operational momentum.
+**Profitability:**  
+- Gross Margin: 58.6%, reflecting strong pricing power and operational efficiency.  
+- Net Margin: ~30.9%, indicating excellent bottom-line profitability.  
+- ROA: 16.9%, ROE: 34.8%, both well above industry averages, showing efficient asset and equity utilization.
 
-- **Capital Efficiency & Leverage:** Debt-to-equity ratio is low at 8.25%, signaling minimal leverage risk. Enterprise value to EBITDA ratio of 15.1 is reasonable for a tech giant, balancing growth expectations and valuation.
+**Leverage:**  
+- Debt to Equity: 8.25%, very low, indicating conservative capital structure and low financial risk.  
+- Total Debt: ~$28.5B, manageable relative to equity of ~$345B.
 
-- **Altman Z-Score:** Using the latest financial data, the Altman Z-Score calculation confirms Alphabet’s placement in the Safe Zone (Z > 3.0), consistent with the company’s robust financial profile. The score reflects strong working capital, retained earnings, EBIT, market capitalization, and sales relative to total assets.
+**Altman Z-Score Calculation (Latest Quarter 2025 Q1):**  
+Using the formula for publicly traded manufacturing firms (adjusted for tech/media sector):  
+Z = 1.2X1 + 1.4X2 + 3.3X3 + 0.6X4 + 1.0X5  
+Where:  
+- X1 = Working Capital / Total Assets = 70.4B / 475.4B ≈ 0.148  
+- X2 = Retained Earnings / Total Assets = 262.6B / 475.4B ≈ 0.552  
+- X3 = EBIT / Total Assets = 41.8B / 475.4B ≈ 0.088  
+- X4 = Market Value of Equity / Total Liabilities = Market Cap $2.15T / 130.1B ≈ 16.52  
+- X5 = Sales / Total Assets = 90.2B (quarterly) * 4 = 360.8B / 475.4B ≈ 0.759  
 
-- **Market & Price Trends:** The stock price has shown resilience with a 52-week range of $140.53 to $207.05, currently trading near $174.67. Recent weekly price data indicate moderate volatility but an overall stable upward trend, supported by strong fundamentals.
+Calculating:  
+Z ≈ 1.2(0.148) + 1.4(0.552) + 3.3(0.088) + 0.6(16.52) + 1.0(0.759)  
+Z ≈ 0.178 + 0.773 + 0.290 + 9.912 + 0.759 = **11.91**
 
-- **Dividend & Capital Structure:** Alphabet pays a modest dividend yield of 0.48% with a low payout ratio (~8.9%), suggesting ample room for dividend growth or reinvestment. The last stock split was a 20:1 in 2022, enhancing liquidity and accessibility.
+This Z-Score is well above the Safe Zone threshold (>2.99), confirming very low bankruptcy risk. The score has been stable or improving over recent quarters, consistent with strong financials.
 
-- **Risks & Events:** No significant adverse news or management upheavals have been reported. Governance and compensation risks are rated high but appear well-managed within the company’s framework.
+**Market and Price Trends:**  
+- Current price: $177.17, near 52-week low but below 52-week high ($207.05).  
+- Price volatility moderate with recent upward momentum.  
+- Dividend yield ~0.48%, payout ratio ~8.9%, indicating sustainable dividends.
 
-In summary, Alphabet’s financial health is excellent, with strong liquidity, profitability, and low leverage, supported by a high Altman Z-Score confirming minimal bankruptcy risk.
+**Summary:**  
+Alphabet’s financial health is excellent, with strong liquidity, profitability, and minimal leverage. The Altman Z-Score confirms a very low risk of distress. The company’s market position and cash flow generation support ongoing growth and shareholder returns.
 
 ---
+
 ## 2. Turnaround & Renewal Theory Application
 
-Given Alphabet’s Safe Zone status, turnaround theory is less about crisis management and more about strategic renewal and sustained innovation. The company should focus on continuous innovation, leveraging its AI and cloud capabilities to maintain competitive advantage and market leadership.
+Given Alphabet’s placement in the Safe Zone, turnaround theory is less about crisis management and more about strategic renewal and innovation to sustain competitive advantage.
 
-Applying Hofer’s (1980) sequencing, Alphabet is in the “renewal” phase, emphasizing growth and repositioning rather than retrenchment. Bibeault’s (1999) framework suggests focusing on proactive strategic restructuring to capitalize on emerging technologies and market shifts. Hoskisson et al. (2004) recommend leveraging core competencies while exploring adjacent markets, which aligns with Alphabet’s expansion into healthcare and AI.
+Applying Beard (2024) on tech-sector renewal and Freeman (1984) on stakeholder alignment, Alphabet should focus on:  
+- **Innovation:** Continue investing in AI, cloud infrastructure, and emerging technologies within Google Cloud and Other Bets.  
+- **Repositioning:** Adapt to evolving digital advertising landscapes and privacy regulations by enhancing user trust and data security.  
+- **Stakeholder Alignment:** Maintain strong communication with investors, employees, and partners to support long-term growth initiatives.
 
-Beard (2024) highlights the importance of tech-sector renewal through agile innovation and stakeholder engagement, which Alphabet can achieve by aligning its diverse business units and fostering collaboration. Freeman’s (1984) stakeholder theory underscores the need for balancing shareholder returns with customer satisfaction, employee engagement, and regulatory compliance.
+Hofer’s (1980) sequencing suggests prioritizing innovation-led growth while maintaining operational excellence. Hoskisson et al. (2004) recommend strategic restructuring only if market conditions shift significantly, which is not currently evident.
 
-No recent disruptive management changes or market shocks necessitate urgent turnaround actions. Instead, Alphabet should prioritize strategic investments in AI, cloud infrastructure, and content monetization to sustain growth and shareholder value.
+No recent management upheavals or adverse market events necessitate retrenchment or cost-cutting beyond normal efficiency improvements.
 
 ---
+
 ## 3. Internal Stakeholder Recommendations
 
-Effective internal alignment is critical to sustaining Alphabet’s growth trajectory. The following table outlines key roles, metrics, and recommended actions tailored to the company’s Safe Zone status:
+Internal alignment is critical to capitalize on Alphabet’s strong position and growth opportunities.
 
 | Title/Role                          | Responsibilities                              | Key Performance Metrics                      | Recommended Actions (Cited)                                  |
 |-----------------------------------|----------------------------------------------|----------------------------------------------|-------------------------------------------------------------|
-| CEO & Executive Leadership (Sundar Pichai) | Strategic vision, innovation leadership       | Revenue growth, market share, innovation ROI | Drive AI/cloud innovation; foster cross-segment synergy (Beard, 2024) |
-| CFO & Finance Team (Anat Ashkenazi) | Financial stewardship, risk management         | Cash flow, debt ratios, cost efficiency       | Maintain strong liquidity; optimize capital allocation (Hoskisson et al., 2004) |
-| President & CIO (Ruth Porat)       | Investment strategy, capital deployment        | ROI on investments, capital efficiency        | Prioritize strategic investments in growth areas (Hofer, 1980) |
-| Board Members                     | Oversight, governance                          | Governance risk scores, compliance            | Ensure robust governance and risk oversight (Freeman, 1984) |
-| Employees                        | Execution of innovation and operations         | Productivity, engagement scores                | Encourage innovation culture and continuous learning (Beard, 2024) |
-| Shareholders                    | Investment returns, voting                      | Share price performance, dividend stability   | Transparent communication; align incentives with performance |
-| Creditors                       | Financial stability monitoring                  | Debt service coverage, credit ratings          | Maintain low leverage and strong credit profile            |
-| Customers                       | Product/service experience                       | Customer satisfaction, retention rates         | Enhance user experience and privacy protections             |
-| Partners                       | Strategic alliances and ecosystem development   | Partnership growth, joint initiatives           | Expand strategic partnerships in cloud and AI sectors       |
+| CEO & Executive Leadership (Sundar Pichai) | Strategic vision, innovation leadership       | Revenue growth, market share, innovation ROI | Drive AI/cloud innovation; maintain culture of agility (Beard, 2024) |
+| CFO & Finance Team (Anat Ashkenazi) | Financial stewardship, risk management         | Cash flow, debt ratios, cost control          | Optimize capital allocation; monitor leverage and liquidity (Hoskisson et al., 2004) |
+| President & CIO (Ruth Porat)       | Investment strategy, capital deployment        | ROI on investments, capital efficiency        | Prioritize high-growth segments; balance cost and growth (Hofer, 1980) |
+| Board Members                     | Oversight, governance                          | Governance risk scores, compliance            | Ensure transparency; support strategic renewal (Freeman, 1984) |
+| Employees                        | Execution of innovation and operations         | Productivity, engagement, retention           | Foster innovation culture; support change management (Beard, 2024) |
+| Shareholders                    | Investment returns, governance engagement       | Share price, dividends, voting participation  | Maintain open communication; align on long-term strategy (Freeman, 1984) |
+| Creditors                       | Financial stability monitoring                   | Debt service coverage, covenant compliance    | Maintain conservative leverage; ensure timely reporting (Hoskisson et al., 2004) |
+| Customers                       | Product/service experience                        | Customer satisfaction, retention               | Enhance product innovation and privacy features (Beard, 2024) |
+| Partners                        | Strategic alliances and ecosystem development   | Partnership growth, joint initiatives          | Expand cloud and AI partnerships; co-innovation (Hofer, 1980) |
 
 ---
+
 ## 4. Communication, Marketing & Execution Strategy
 
-At Alphabet’s current Safe Zone status, communication should emphasize growth, innovation, and stakeholder confidence.
+Effective communication is essential to reinforce Alphabet’s growth narrative and maintain stakeholder confidence.
 
-- **Executive Leadership Communications:** Articulate a clear vision focused on AI leadership, cloud expansion, and sustainable growth. Highlight innovation milestones and strategic priorities.
+**Multi-level Communication Strategy:**  
+- **Executive Leadership:** Articulate vision on AI and cloud leadership; emphasize innovation and sustainability.  
+- **Investor Relations:** Highlight strong financials, low risk profile, and growth opportunities; update on dividend policy.  
+- **Internal Communications:** Engage employees on innovation goals and cultural values; support change management.  
+- **External Relations:** Promote product enhancements, privacy commitments, and partnership successes.
 
-- **Investor Relations:** Provide transparent updates on financial performance, growth drivers, and risk management. Emphasize dividend stability and capital return policies.
+**Phased Execution Plan:**  
+- **Near-term (1-3 months):** Announce new AI/cloud initiatives; reinforce financial strength; quick wins in product updates.  
+- **Mid-term (4-6 months):** Launch strategic marketing campaigns; deepen investor engagement; employee training on new tech.  
+- **Long-term (7-18 months):** Drive transformational projects in AI and cloud; expand global market presence; continuous stakeholder alignment.
 
-- **Internal Communications:** Foster employee engagement through innovation programs, training, and clear messaging on company goals and values.
+**Leadership and Coordination:** CEO and CFO to sponsor communication; cross-functional teams in marketing, IR, HR, and product to coordinate. Success metrics include investor sentiment, employee engagement scores, and customer feedback. Risk mitigation includes proactive crisis communication plans.
 
-- **External Relations:** Strengthen customer trust via privacy commitments and product enhancements. Promote strategic partnerships and ecosystem growth.
-
-**Phased Execution Plan:**
-
-| Phase          | Actions & Focus                                  | Sponsors & Coordination                      | Success Metrics & Risks                          |
-|----------------|-------------------------------------------------|----------------------------------------------|-------------------------------------------------|
-| Near-term (1-3 months) | Communicate Q1 results; launch AI initiatives; reinforce governance messaging | CEO, CFO, IR, Communications teams           | Positive market reaction; employee engagement   |
-| Mid-term (4-6 months)  | Expand cloud offerings; deepen partner ecosystem; enhance customer privacy | Product, Marketing, Legal, Customer Success  | Revenue growth; partnership deals; compliance   |
-| Long-term (7-18 months) | Drive transformational AI projects; explore new markets; sustain innovation culture | Executive Leadership, R&D, HR                 | Market share gains; innovation pipeline; retention|
-
-Communication tone should be confident, forward-looking, and inclusive, reinforcing Alphabet’s leadership and commitment to stakeholders.
+Tone is confident and growth-oriented, reflecting the Safe Zone status.
 
 ---
+
 ## 5. Investor Recommendation (Risk-Aware)
 
-This section provides tailored investment recommendations aligned with Alphabet’s strong financial health and Safe Zone status, considering different investor profiles and goals.
+This section aligns investment recommendations with Alphabet’s strong financial health and risk profile.
 
 | Investment Goal / Profile         | Risk Tolerance      | Recommendation | Rationale (Cited)                                                                                   |
 |----------------------------------|--------------------|----------------|---------------------------------------------------------------------------------------------------|
-| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend with low yield (0.48%) and low payout ratio (~8.9%) supports income but limited growth (Altman Z-Score Safe Zone) |
-| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong profitability, growth in AI/cloud, positive analyst sentiment, and robust financials support capital gains (Beard, 2024) |
-| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | While growth prospects are strong, valuation and market volatility warrant caution for highly speculative investors |
-| Capital Preservation (Defensive)  | Very Low           | HOLD           | Low leverage and strong liquidity reduce risk, but tech sector exposure may limit defensive appeal |
+| Dividend Income (Income-Oriented) | Low (Conservative) | HOLD           | Stable dividend yield (~0.48%) with low payout ratio (~8.9%) supports income but modest yield (Altman Z-Score Safe Zone) |
+| Capital Appreciation (Growth)     | Moderate           | BUY            | Strong financials, innovation pipeline, and analyst consensus target price (~$201.65) above current price (Altman Z-Score Safe Zone) |
+| Aggressive Growth (Speculative)   | High (Aggressive)  | HOLD           | Solid fundamentals but limited speculative upside given large market cap and moderate volatility    |
+| Capital Preservation (Defensive)  | Very Low           | HOLD           | Very low financial distress risk; stable cash flows; suitable for preservation with moderate growth |
 
-**Overall Recommendation: BUY for growth-oriented investors; HOLD for income and defensive profiles.**
+**Overall Recommendation: BUY for growth-oriented investors; HOLD for conservative income and preservation investors.**
 
-Scenario analysis: A material regulatory crackdown or significant market disruption could warrant a downgrade to Hold or Sell. Conversely, breakthrough AI innovations or market expansion could strengthen the Buy case.
+Scenario analysis: A significant deterioration in financials or market disruption could warrant a downgrade to Hold or Sell. Conversely, breakthrough innovation or market expansion could strengthen the Buy case.
 
 > “This is not financial advice—consult your financial advisor.”
 
 ---
+
 ## 6. Market Sentiment Analysis (Analyst Recommendations)
 
 This section reviews current analyst sentiment to complement the quantitative risk assessment.
 
-- Alphabet’s consensus analyst rating is approximately 1.6 ("Buy"), based on 52 analyst opinions, indicating strong market confidence.
-- Target mean price is around $201.47, representing a ~15% upside from the current price near $174.67.
-- The distribution of recommendations is stable with no significant recent downgrades or upgrades reported.
-- No extreme ratings (Strong Sell) are present; the majority lean towards Buy or Hold.
-- Analyst sentiment aligns well with the Safe Zone Z-Score, reinforcing confidence in Alphabet’s financial health and growth prospects.
-- Limitations: Detailed breakdown of recommendation categories or firm-specific ratings is not available, limiting granular trend analysis.
+- Alphabet’s consensus analyst recommendation is a **Buy** with an average rating of 1.6 (on a scale where 1 = Strong Buy).  
+- The target mean price is approximately $201.65, about 14% above the current price of $177.17, indicating upside potential.  
+- The number of analyst opinions is robust at 52, providing a broad consensus base.  
+- No data on previous periods’ recommendations is available for trend analysis, limiting multi-period sentiment insights.  
+- No extreme ratings (Strong Sell) are reported; sentiment appears stable and positive.
 
-In summary, analyst sentiment is stable and positive, supporting the company’s strong financial position and growth outlook. This alignment between quantitative and qualitative assessments should reassure investors across profiles.
+The positive analyst sentiment aligns well with the Safe Zone Altman Z-Score, reinforcing confidence in Alphabet’s financial health and growth prospects. This alignment supports the Buy recommendation for growth investors and Hold for more conservative profiles.
+
+Market sentiment may encourage risk-tolerant investors to increase exposure, while risk-averse investors may maintain positions awaiting further confirmation.
 
 ---
+
 ## 7. References and Data Sources
 
-Transparency and source attribution are critical for robust financial analysis. This report draws on comprehensive data from SEC filings, Yahoo Finance, and company disclosures, including:
-
-- Financial statements and key ratios
-- Market price and volume data from weekly price series
-- Company metadata and executive compensation details
-- Institutional and insider ownership data
-- Dividend and stock split history
-- Analyst consensus ratings and target prices
-
-All Altman Z-Score calculations follow the original 1968 methodology with validation against provided data. Theoretical frameworks applied include seminal works on turnaround and renewal strategies by Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984).
+Transparency and source attribution are critical for robust financial analysis. This report draws on comprehensive financial data from SEC filings and company reports, supplemented by market data from Yahoo Finance, including weekly price histories and analyst consensus data. Institutional ownership and executive compensation details were integrated to provide governance context. The Altman Z-Score calculations follow the original 1968 methodology, adapted for the technology/media sector. Theoretical frameworks from Hofer (1980), Bibeault (1999), Hoskisson et al. (2004), Beard (2024), and Freeman (1984) underpin strategic recommendations.
 
 ---
+
 ## 8. Appendices (LLM-Generated)
 
-### Company Metadata
+### A. Raw Financial Data by Period (Selected Key Metrics)
 
-| Field                  | Value                          |
-|------------------------|--------------------------------|
-| Name                   | Alphabet Inc                   |
-| Ticker                 | GOOGL                         |
-| Sector                 | Communication Services        |
-| Industry               | Internet Content & Information |
-| Country                | United States                 |
-| Market Cap (USD)       | $2.13 Trillion                |
-| Employees              | 185,719                      |
-| Exchange               | NASDAQ NMS - GLOBAL MARKET   |
-| IPO Date               | 2004-08-19                   |
-| Website                | https://abc.xyz              |
-| Phone                  | +1 650-253-0000              |
+| Date       | Current Assets (B) | Current Liabilities (B) | Retained Earnings (B) | EBIT (B) | Total Assets (B) | Total Liabilities (B) | Sales (B, Annualized) | Net Income (B) |
+|------------|--------------------|------------------------|-----------------------|----------|------------------|-----------------------|----------------------|----------------|
+| 2025-03-31 | 162.05             | 91.65                  | 262.63                | 41.82    | 475.37           | 130.11                | 360.94               | 34.54          |
+| 2024-12-31 | 163.71             | 89.12                  | 245.08                | 32.30    | 450.26           | 125.17                | 385.88               | 26.54          |
+| 2024-09-30 | 157.54             | 80.80                  | 235.32                | 31.76    | 430.27           | 116.15                | 353.07               | 26.30          |
+| 2024-06-30 | 161.99             | 77.91                  | 226.03                | 27.62    | 414.77           | 114.02                | 338.97               | 23.62          |
+| 2024-03-31 | 165.47             | 77.00                  | 219.77                | 28.41    | 407.35           | 114.51                | 321.56               | 23.66          |
 
-### Weekly Prices (Sample)
+### B. Weekly Prices Used for Z-Score Analysis (Sample)
 
 | Week       | Close Price (USD) |
 |------------|-------------------|
 | 2024-01-01 | 134.92            |
-| 2024-06-24 | 181.27            |
-| 2024-12-09 | 189.37            |
-| 2025-01-20 | 199.74            |
-| 2025-06-09 | 175.70            |
+| 2024-04-01 | 151.59            |
+| 2024-07-01 | 189.68            |
+| 2024-10-01 | 162.67            |
+| 2025-01-01 | 191.59            |
+| 2025-06-16 | 177.08            |
 
-### Key Financial Ratios (Latest)
+### C. Key Financial Ratios by Period
 
-| Ratio           | Value    |
-|-----------------|----------|
-| Current Ratio   | 1.77     |
-| Quick Ratio     | 1.60     |
-| Debt/Equity     | 0.0825   |
-| Gross Margin    | 58.6%    |
-| Net Margin      | 30.9%    |
-| ROA             | 16.9%    |
-| ROE             | 34.8%    |
-| Dividend Yield  | 0.48%    |
+| Date       | Current Ratio | Quick Ratio | Debt/Equity | Gross Margin | Net Margin | ROA   | ROE   |
+|------------|---------------|-------------|-------------|--------------|------------|-------|-------|
+| 2025-03-31 | 1.77          | 1.60        | 0.08        | 58.6%        | 30.9%      | 16.9% | 34.8% |
+| 2024-12-31 | 1.84          | 1.68        | 0.08        | 57.9%        | 27.5%      | 14.8% | 30.5% |
+| 2024-09-30 | 1.95          | 1.75        | 0.09        | 58.7%        | 29.0%      | 15.3% | 31.2% |
 
-### Data Provenance & Quality
+### D. Data Provenance
 
-- Data sourced from SEC filings, Yahoo Finance, and company disclosures.
-- Weekly price data covers January 2024 through June 2025.
-- Financial ratios and metadata are current as of mid-2024.
-- No significant missing or estimated fields detected.
+- Financial statements: SEC EDGAR filings and company quarterly reports (2024-2025)  
+- Market data: Yahoo Finance weekly prices (2024-2025)  
+- Analyst data: Aggregated from 52 analyst opinions (most recent)  
+- Company metadata: Public disclosures and financial databases
+
+### E. Data Quality and Completeness
+
+- Financial data is comprehensive and consistent for 2024-2025 quarters.  
+- Some older data (pre-2022) is incomplete or unavailable.  
+- Analyst data lacks multi-period granularity, limiting trend analysis.  
+- No significant data gaps detected for current analysis.
+
+### F. Company Metadata Summary
+
+| Field               | Value                          |
+|---------------------|--------------------------------|
+| Name                | Alphabet Inc                   |
+| Ticker              | GOOGL                         |
+| Sector              | Communication Services        |
+| Industry            | Internet Content & Information |
+| Country             | United States                 |
+| Market Cap (USD B)  | 2,151                        |
+| Employees           | 185,719                      |
+| Exchange            | NASDAQ NMS - GLOBAL MARKET   |
+| Website             | https://abc.xyz               |
+| IPO Date            | 2004-08-19                   |
 
 ---
 
-This concludes the comprehensive Altman Z-Score-based diagnostic and strategic recommendations report for Alphabet Inc.
+# End of Report

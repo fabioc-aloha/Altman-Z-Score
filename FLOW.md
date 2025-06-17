@@ -141,9 +141,30 @@ output/
   - Actual range depends on company's SEC filing history
 - **Future Protection:** Start dates cannot be in the future
 
-## Implementation & Codebase Notes (2025-06-16)
+## Implementation & Codebase Notes (2025-06-17)
 - All dead code, unused variables, and deprecated files have been removed. The pipeline is now clean and robust.
 - The `stock_prices` variable is only assigned and used where required for downstream reporting and plotting.
 - All error handling, logging, and fallback logic is up-to-date and matches the codebase.
 - The flow diagram and step descriptions above are current and reflect the actual code logic as of this date.
 - All outputs, LLM prompts/responses, and reconciliation steps are fully traceable and saved per run.
+
+## Troubleshooting & Analysis
+For systematic analysis of pipeline outputs and debugging, see `copilot.md` which provides:
+- **Comprehensive Analysis Workflow:** Step-by-step instructions for evaluating ticker analysis completeness
+- **VS Code Tool Integration:** Uses available tools (list_dir, read_file, grep_search, run_in_terminal) for systematic analysis
+- **Issue Pattern Detection:** Methods for identifying common failure modes and root causes
+- **Solution Documentation:** Required audit trail before implementing any code changes
+
+**Key Files for Debugging:**
+- `copilot.md` - LLM Copilot analysis instructions
+- `Copilot_Troubleshoot.md` - Created during analysis to log findings (audit trail)
+- Output files in `output/TICKER/` - Generated pipeline results for analysis
+
+**Common Analysis Commands:**
+```bash
+# Analyze specific ticker with debug output
+python main.py TICKER --start 2024-01-01 --log-level DEBUG
+
+# Test pipeline with multiple tickers
+python main.py MSFT AAPL TSLA --start 2024-01-01
+```

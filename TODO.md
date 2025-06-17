@@ -5,6 +5,19 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
 
 ## Completed Milestones
 
+### v3.3.0 (2025-06-17) ✅
+- **Deep Report Evaluation Preparation:** Enhanced copilot.md with comprehensive analysis tools for systematic output evaluation
+- **Model Matching Modernization Prep:** Documented current model selection logic and prepared framework for modernization
+- **LLM Troubleshooting Framework:** Complete VS Code tool integration for systematic pipeline analysis
+- **Documentation Enhancement:** Updated all project documentation to reference new troubleshooting capabilities
+
+### v3.2.1 (2025-06-17) ✅
+- **LLM Copilot Integration:** Added comprehensive `copilot.md` with step-by-step instructions for LLM Copilot to analyze pipeline outputs and troubleshoot issues
+- **VS Code Tool Integration:** Instructions use available VS Code tools (list_dir, read_file, grep_search, run_in_terminal) for systematic analysis
+- **Troubleshooting Workflow:** Established audit trail requirements with `Copilot_Troubleshoot.md` logging before code changes
+- **Documentation Updates:** Updated README.md, FLOW.md, and TODO.md to reference copilot.md and troubleshooting workflows
+- **Enhanced Historical Data:** Extended Z-Score analysis from ~2 years to ~5 years by combining quarterly and annual financial data
+
 ### v3.2.0 (2025-06-16) ✅
 - Enhanced visualization: Improved candlestick chart representation
 - Error handling: Better multi-ticker analysis with graceful continuation
@@ -40,6 +53,25 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
   - [ ] Smart retries for API failures
   - [ ] Validation for incomplete financials
   - [ ] Improved cache management
+
+### LLM Copilot Capabilities (v3.2.1) ✅
+The repository now includes comprehensive LLM Copilot integration via `copilot.md`:
+
+**Analysis Capabilities:**
+- Systematic ticker inventory and completeness assessment
+- Success rate calculation and failure pattern detection
+- Root cause analysis using VS Code tools
+- Automated debugging workflows
+
+**Tool Integration:**
+- Uses VS Code built-in tools (list_dir, read_file, grep_search, run_in_terminal)
+- No external dependencies or manual commands required
+- Complete workflow from discovery to solution implementation
+
+**Quality Assurance:**
+- Mandatory troubleshooting log creation (`Copilot_Troubleshoot.md`)
+- Audit trail of all analysis steps and decisions
+- Solution validation and testing requirements
 
 ### Medium Priority
 - [ ] User Experience
