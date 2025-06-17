@@ -12,17 +12,45 @@
 - `replace_string_in_file` - Edit existing files
 - `insert_edit_into_file` - Insert code into files
 
+**Simple Execution Checklist:**
+- [ ] Step 1: `list_dir` to find all tickers in output/
+- [ ] Step 2: `create_file` to start analysis log
+- [ ] Step 3: For each ticker: `list_dir` to check files
+- [ ] Step 4: For each ticker: `read_file` to check Z-Score data
+- [ ] Step 5: For each ticker: `read_file` to validate model selection
+- [ ] Step 6: `grep_search` to find common error patterns
+- [ ] Step 7: `create_file` for detailed troubleshooting log
+- [ ] Step 8: If fixes needed: `run_in_terminal` to test
+
 **Key Workflow:**
 1. Use `list_dir` to identify processed tickers in `output/`
 2. For each ticker, use `list_dir` and `read_file` to analyze completeness
-3. Use `grep_search` to find error patterns in source code
-4. Use `run_in_terminal` to test fixes
-5. Use `create_file` to log all findings before making changes
+3. **NEW:** Use `read_file` to validate model selection for ALL tickers
+4. Use `grep_search` to find error patterns in source code
+5. Use `run_in_terminal` to test fixes
+6. Use `create_file` to log all findings before making changes
 
 ## Task Overview
 Analyze all reports generated using `main.py` with start date 2024-01-01, identify successful vs incomplete runs, and troubleshoot the most common issues.
 
 **IMPORTANT:** Use the available VS Code tools (list_dir, read_file, file_search, run_in_terminal, etc.) rather than manual commands. All analysis should be performed using these tools.
+
+## Quick Reference: Model Selection Decision Tree
+
+**Use this for fast model validation:**
+- **Banks/Insurance** → Financial Industry Model
+- **Retail/Consumer Goods** → Retail Industry Model
+- **Software/Consulting/Tech** → Service Industry Model OR Original Altman Z-Score (both valid for large public tech)
+- **Manufacturing/Industrial** → Original Altman Z-Score
+- **Private Companies** → Z'-Score (Private Company)
+- **Complex/Mixed Business** → ZETA® Credit Risk Model
+
+**Where to find model info:** 
+- Primary: metadata.json → "context" → "Model" field 
+- Fallback: Look for "Model_Type" or extract from "_OriginalModel" → "Original"
+- Pattern: "_OriginalModel" = Original Z-Score, "_ServiceModel" = Service Industry, etc.
+
+**Red Flags:** Financial model for tech companies, Manufacturing model for service companies, Private model for large public companies
 
 ## Step 1: Identify Processed Tickers
 
@@ -191,6 +219,65 @@ Parameters: {
 
 Search for both `"valid=True"` and `"valid=False"` patterns to count successful vs failed quarters.
 
+#### Model Selection Evaluation:
+**CRITICAL:** Even for successful reports, evaluate if the correct Z-Score model was selected.
+
+**Step-by-Step Model Evaluation Process:**
+
+**Step A: Read Company Information**
+```
+Tool: read_file
+Parameters: {
+  "filePath": "c:\\Development\\Altman-Z-Score-1\\output\\{TICKER}\\company_info.json",
+  "startLineNumber": 1,
+  "endLineNumber": 30
+}
+```
+
+**Step B: Read Model Selection Metadata**
+```
+Tool: read_file
+Parameters: {
+  "filePath": "c:\\Development\\Altman-Z-Score-1\\output\\{TICKER}\\zscore_{TICKER}_metadata.json",
+  "startLineNumber": 1,
+  "endLineNumber": 50
+}
+```
+
+**Step C: Validate Model Choice**
+Use this simple decision tree and look for the "Model" field in the "context" section of the metadata:
+
+1. **Is it a BANK/INSURANCE company?** → Should use Financial Industry Model
+2. **Is it a RETAIL/CONSUMER company?** → Should use Retail Industry Model  
+3. **Is it a SOFTWARE/CONSULTING company?** → Should use Service Industry Model
+4. **Is it a MANUFACTURING company?** → Should use Original Altman Z-Score
+5. **Is it a PRIVATE company?** → Should use Z'-Score (Private Company)
+6. **Is it a COMPLEX CASE?** → May use ZETA® Credit Risk Model
+
+**Step D: Record Assessment**
+Document: 
+- Selected Model: [FROM metadata.json - check "context" → "Model" field first, fallback to "Model_Type" or infer from object name]
+- Company Type: [FROM company_info.json] 
+- Assessment: CORRECT / QUESTIONABLE / INCORRECT
+- Reason: [Brief explanation]
+
+**Model Field Notes:**
+- Look for readable model name in metadata "context" → "Model" field
+- If it shows object representation like "<_OriginalModel object>", extract "Original" from the class name
+- Alternative: look for "Model_Type" field (e.g., "original", "service", "financial")
+
+**Quick Example - MSFT Analysis:**
+```
+Expected tool calls:
+1. read_file: output/MSFT/company_info.json (check industry)
+2. read_file: output/MSFT/zscore_MSFT_metadata.json (look for context.Model)
+
+Expected Result:
+- Company: Software/Technology company (Prepackaged Software)
+- Selected Model: "Original Z-Score Model" (from metadata context.Model)
+- Assessment: CORRECT (Original model appropriate for large public tech company)
+```
+
 ### 4.3: Document Results for Each Ticker
 
 For each ticker, create this analysis entry in your troubleshooting log:
@@ -226,6 +313,13 @@ For each ticker, create this analysis entry in your troubleshooting log:
 - Invalid/missing calculations: [NUMBER]
 - Completion rate: [PERCENTAGE]%
 
+**Model Selection Analysis:**
+- Model Used: [MODEL_NAME from metadata]
+- Company Type: [Public/Private, Industry from company_info]
+- SIC Code: [CODE from company data]
+- Model Appropriateness: [CORRECT/QUESTIONABLE/INCORRECT]
+- Rationale: [Why model selection is appropriate or concerning]
+
 **Missing Files:** [List any missing files]
 
 **Issues Noted:** [Any problems observed]
@@ -254,6 +348,23 @@ Based on typical pipeline failures, categorize issues into:
 - **Symptoms:** Missing or incomplete markdown reports
 - **Likely Causes:** API issues, prompt formatting problems
 - **Investigation:** Check prompt files, verify OpenAI integration
+
+### Category E: Model Selection Issues
+- **Symptoms:** Successful calculations but inappropriate model used for company type
+- **Likely Causes:** Incorrect industry classification, SIC code mapping errors, company type misidentification
+- **Investigation:** Review company_info.json, metadata.json, and model selection logic in source code
+
+**Common Model Selection Problems:**
+- Manufacturing model used for service companies (leads to inaccurate risk assessment)
+- Financial model used for non-financial companies (incorrect risk thresholds)
+- Private company model used for large public companies (understated risk)
+- Generic model when industry-specific model available (missed optimization)
+
+**Model Selection Validation Process:**
+1. Check company's primary SIC code and business description
+2. Verify selected model matches industry best practices
+3. Review model selection rationale in metadata
+4. Cross-reference with similar companies' model usage
 
 ## Step 6: Troubleshooting Analysis
 
@@ -323,6 +434,11 @@ For Z-Score computation issues:
 
 For chart generation issues:
 - `c:\Development\Altman-Z-Score-1\src\altman_zscore\plotting\plotting_main.py`
+
+For model selection issues:
+- `c:\Development\Altman-Z-Score-1\src\altman_zscore\computation\model_selection.py`
+- `c:\Development\Altman-Z-Score-1\src\altman_zscore\company\sic_lookup.py`
+- `c:\Development\Altman-Z-Score-1\src\altman_zscore\models\industry_classifier.py`
 
 For LLM report issues:
 - Use `file_search` to find OpenAI-related files:
@@ -450,6 +566,43 @@ Parameters: {
 ### Issue #3: [Third Most Common Issue]
 [Repeat the same analysis structure]
 
+### Model Selection Analysis (For All Tickers - Success & Failure)
+**Purpose:** Evaluate model appropriateness even for successful calculations
+
+**Model Validation Summary:**
+- **Correctly Matched:** [NUMBER] tickers ([PERCENTAGE]%)
+- **Questionable Matches:** [NUMBER] tickers ([PERCENTAGE]%)
+- **Incorrect Matches:** [NUMBER] tickers ([PERCENTAGE]%)
+
+**Detailed Model Review:**
+
+#### Ticker: [TICKER_NAME]
+**Selected Model:** [MODEL_NAME from metadata.json]
+**Company Profile:**
+- Industry: [INDUSTRY from company_info.json]
+- SIC Code: [SIC_CODE]
+- Company Type: [Public/Private]
+- Primary Business: [BUSINESS_DESCRIPTION]
+
+**Model Appropriateness Assessment:** [CORRECT/QUESTIONABLE/INCORRECT]
+**Reasoning:**
+[Detailed explanation of why the model selection is appropriate or problematic]
+
+**Recommended Action:** [NONE/REVIEW/CHANGE_MODEL]
+
+[Repeat for each ticker with model concerns]
+
+**Common Model Selection Patterns Found:**
+1. **[Pattern 1]:** [Description and frequency]
+2. **[Pattern 2]:** [Description and frequency]
+3. **[Pattern 3]:** [Description and frequency]
+
+**Model Selection Logic Review:**
+- **Source Code Examined:** [List files reviewed]
+- **Selection Criteria Found:** [Document current logic]
+- **Gaps Identified:** [Areas where logic may be insufficient]
+- **Improvement Opportunities:** [Specific recommendations]
+
 ## Deep Dive Investigation
 
 ### Code Analysis Performed
@@ -569,11 +722,15 @@ Conclude with this structured report:
 ## Implementation Workflow
 
 1. **Analysis Phase:** Complete Steps 1-8 to identify issues
-2. **Documentation Phase:** Create detailed `Copilot_Troubleshoot.md` log  
-3. **Review Phase:** Review the troubleshooting log for completeness
-4. **Implementation Phase:** Apply code changes based on documented solutions
-5. **Testing Phase:** Verify fixes work with previously failing tickers
-6. **Documentation Phase:** Update pipeline docs with lessons learned
+2. **Model Selection Review Phase:** Evaluate model appropriateness for ALL tickers (successful and failed)
+3. **Documentation Phase:** Create detailed `Copilot_Troubleshoot.md` log including model validation findings
+4. **Review Phase:** Review the troubleshooting log for completeness
+5. **Implementation Phase:** Apply code changes based on documented solutions
+6. **Testing Phase:** Verify fixes work with previously failing tickers
+7. **Model Validation Phase:** Re-test model selection logic with improvements
+8. **Documentation Phase:** Update pipeline docs with lessons learned
+
+**Critical Note:** Model selection evaluation should be performed for ALL processed tickers, not just failed ones. Successful Z-Score calculations with incorrect models can lead to misleading financial risk assessments.
 
 This systematic approach ensures all troubleshooting decisions are documented, reviewable, and traceable before any code modifications are made.
 
@@ -597,6 +754,16 @@ Here's a complete example of how to execute this analysis using the available to
 4. Update analysis log with findings
 ```
 
+### Phase 2.5: Model Selection Evaluation (CRITICAL)
+```
+For each ticker (e.g., MSFT):
+1. Call read_file: output/MSFT/company_info.json (lines 1-30)
+2. Call read_file: output/MSFT/zscore_MSFT_metadata.json (lines 1-50)
+3. Compare: Does selected model match company type? (Use Quick Reference above)
+4. Record: CORRECT / QUESTIONABLE / INCORRECT in analysis log
+5. Note any patterns across multiple tickers
+```
+
 ### Phase 3: Issue Investigation
 ```
 1. Call grep_search to find error patterns in source code
@@ -614,3 +781,36 @@ Here's a complete example of how to execute this analysis using the available to
 ```
 
 **Remember:** Always use create_file to log your analysis before making any code changes. This ensures a complete audit trail of your troubleshooting process.
+
+**CRITICAL REQUIREMENT:** Model selection evaluation must be performed for ALL tickers, including those with successful Z-Score calculations. Incorrect model selection can lead to misleading financial risk assessments even when calculations complete successfully. Document all model appropriateness findings in your troubleshooting log.
+
+## Simple Analysis Template (Copy and Use)
+
+```markdown
+# Quick Analysis Summary
+
+## Tickers Found: [NUMBER]
+[List: TICKER1, TICKER2, TICKER3...]
+
+## File Completeness Check:
+- TICKER1: [X/14 files] - Status: COMPLETE/INCOMPLETE
+- TICKER2: [X/14 files] - Status: COMPLETE/INCOMPLETE
+- TICKER3: [X/14 files] - Status: COMPLETE/INCOMPLETE
+
+## Model Selection Validation:
+- TICKER1: [context.Model from metadata] for [Company Type] - Assessment: CORRECT/INCORRECT
+- TICKER2: [context.Model from metadata] for [Company Type] - Assessment: CORRECT/INCORRECT
+- TICKER3: [context.Model from metadata] for [Company Type] - Assessment: CORRECT/INCORRECT
+
+## Most Common Issues:
+1. [Issue Type]: affects [X] tickers
+2. [Issue Type]: affects [X] tickers
+3. [Issue Type]: affects [X] tickers
+
+## Recommended Actions:
+1. [Specific action for most common issue]
+2. [Model selection improvements needed]
+3. [Other priority fixes]
+```
+
+**Use this template in your analysis log for consistent, easy-to-follow reporting.**

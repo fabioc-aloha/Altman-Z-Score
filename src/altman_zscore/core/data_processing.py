@@ -38,11 +38,28 @@ def prepare_context_info(ticker: str, profile, model) -> dict:
     elif sic_code:
         industry_for_context = f"SIC {sic_code}"
     else:
-        industry_for_context = industry
-
-    # Explicit type handling for is_public and maturity
+        industry_for_context = industry    # Explicit type handling for is_public and maturity
     maturity_str = maturity.lower() if isinstance(maturity, str) else str(maturity).lower() if maturity is not None else None
     is_public_str = is_public.lower() if isinstance(is_public, str) else str(is_public).lower() if is_public is not None else "unknown"
+
+    # Extract readable model name from model object
+    model_name = "Unknown"
+    if hasattr(model, 'model_type'):
+        model_name = model.model_type.value.title() + " Z-Score Model"
+    elif hasattr(model, '__class__'):
+        class_name = model.__class__.__name__
+        if "Original" in class_name:
+            model_name = "Original Altman Z-Score Model"
+        elif "Private" in class_name:
+            model_name = "Z'-Score (Private Company) Model"
+        elif "Financial" in class_name:
+            model_name = "Financial Institution Z-Score Model"
+        elif "Zeta" in class_name:
+            model_name = "ZETA® Credit Risk Model"
+        elif "Retail" in class_name:
+            model_name = "Retail Industry Z-Score Model"
+        else:
+            model_name = class_name.replace("ZScoreModel", "").replace("Model", "") + " Model"
 
     return {
         "Ticker": ticker,
@@ -53,7 +70,8 @@ def prepare_context_info(ticker: str, profile, model) -> dict:
             if maturity_str
             else ("Mature Company" if is_public_str == "true" else "Unknown")
         ),
-        "Model": model,
+        "Model": model_name,
+        "Model_Type": model.model_type.value if hasattr(model, 'model_type') else "unknown",
         "SIC Code": sic_code or "N/A",
         "Analysis Date": datetime.now().strftime("%Y-%m-%d"),
     }

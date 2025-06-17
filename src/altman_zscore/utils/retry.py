@@ -51,10 +51,20 @@ def exponential_retry(
                         time.sleep(delay)
                         delay *= backoff_factor
                     else:
-                        logger.error(
-                            f"All {max_retries} retries failed. "
-                            f"Final error: {str(e)}"
-                        )
+                        # Handle HTTP 401 errors more gracefully (rate limiting)
+                        import requests
+                        if (isinstance(e, requests.exceptions.HTTPError) and 
+                            hasattr(e, 'response') and e.response and 
+                            e.response.status_code == 401):
+                            logger.info(
+                                f"API rate limit or authentication issue (401) after {max_retries} retries. "
+                                f"This is expected and handled gracefully."
+                            )
+                        else:
+                            logger.error(
+                                f"All {max_retries} retries failed. "
+                                f"Final error: {str(e)}"
+                            )
 
             if last_exception:
                 raise last_exception

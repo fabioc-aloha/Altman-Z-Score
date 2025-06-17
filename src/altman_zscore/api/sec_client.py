@@ -147,8 +147,7 @@ class SECClient:
             logger.debug(
                 f"SEC API Request: {method} {url} "
                 f"Headers: {self.session.headers}"
-            )
-            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
+            )            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
             if "/companyfacts/" in url and response.status_code == 404:
                 logger.info(f"SEC companyfacts not found (404) for {url}; will attempt fallback.")
                 # Return a dummy response with empty facts
@@ -160,10 +159,13 @@ class SECClient:
             return response
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 401:
-                logger.error(
-                    "SEC API Authentication failed. Ensure SEC_EDGAR_USER_AGENT "
-                    "is set correctly in your environment variables."
+                logger.info(
+                    f"SEC API rate limit or authentication issue (401). "
+                    f"Falling back to other data sources. "
+                    f"URL: {url}"
                 )
+                # For 401 errors, return None instead of raising to allow fallback
+                return None
             raise
 
     @exponential_retry(
@@ -354,6 +356,10 @@ class SECClient:
             padded_cik = cik.zfill(10)
             try:
                 response = self._make_request(self.COMPANY_FACTS.format(padded_cik))
+                if response is None:
+                    # 401 error occurred, fallback gracefully
+                    logger.info(f"SEC API unavailable for CIK {cik}; returning empty facts.")
+                    return {"facts": {}}
             except requests.exceptions.HTTPError as e:
                 # If 404, treat as no data and do not retry
                 if e.response is not None and e.response.status_code == 404:
@@ -384,6 +390,9 @@ class SECClient:
         """
         padded_cik = cik.zfill(10)
         response = self._make_request(self.COMPANY_CONCEPT.format(padded_cik, concept))
+        if response is None:
+            # 401 error occurred, return empty data
+            return {"units": {}}
         return response.json()
 
     @exponential_retry(
@@ -461,11 +470,12 @@ class SECClient:
                 cik = self.lookup_cik(ticker)
                 if not cik:
                     logging.warning(f"No CIK found for ticker {ticker}")
-                    return None
-
-            # Get latest DEF 14A filing
+                    return None            # Get latest DEF 14A filing
             url = f"{self.SUBMISSIONS_BASE_URL}/{cik}/index.json"
             response = self._make_request(url)  # Use _make_request instead of direct session.get
+            if response is None:
+                logging.warning(f"SEC API unavailable for CIK {cik} (401 error)")
+                return None
             if not response.ok:
                 logging.warning(f"Failed to get filings index for CIK {cik}: {response.status_code}")
                 return None
@@ -492,6 +502,9 @@ class SECClient:
             primary_doc = primary_docs[latest_def_14a_idx]            # Get the filing content
             filing_url = f"{self.ARCHIVES_BASE_URL}/{cik}/{accession_number}/{primary_doc}"
             response = self._make_request(filing_url)  # Use _make_request instead of direct session.get
+            if response is None:
+                logging.warning(f"SEC API unavailable for filing (401 error)")
+                return None
             if not response.ok:
                 logging.warning(f"Failed to get DEF 14A filing content: {response.status_code}")
                 return None

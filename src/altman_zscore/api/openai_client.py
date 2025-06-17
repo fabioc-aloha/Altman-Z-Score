@@ -275,13 +275,13 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         ticker (str, optional): Stock ticker symbol to load company_info.json for context.
     Returns:
         str: The LLM-generated commentary as plain text.
-    Raises:
-        RuntimeError: If the LLM response cannot be parsed as text.
+    Raises:        RuntimeError: If the LLM response cannot be parsed as text.
     """
     import logging
     client = AzureOpenAIClient()
     prompt_path = resolve_prompt_path("prompt_fin_analysis.md")
     system_prompt = load_prompt_file(prompt_path)
+    
     (
         company_officers_str,
         company_info_str,
@@ -291,13 +291,16 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         dividends_str,
         splits_str,
         weekly_prices_str,
-        financials_raw_str,
-        yf_info_str,
+        zscore_data_str,
+        metadata_str,
     ) = _inject_company_context(ticker)
+    
     # Compose the full prompt with clear section headers for each data file
+    # OPTIMIZED: Eliminates large redundant files (sec_facts_raw, financials_raw, weekly_prices.json, yf_info)
     full_prompt = (
-        f"{company_officers_str}{company_info_str}{sec_info_str}{analyst_recs_str}"
-        f"{holders_str}{dividends_str}{splits_str}{weekly_prices_str}{financials_raw_str}{yf_info_str}\n{prompt}"
+        f"{zscore_data_str}{metadata_str}{analyst_recs_str}{weekly_prices_str}"
+        f"{company_officers_str}{company_info_str}{sec_info_str}"
+        f"{holders_str}{dividends_str}{splits_str}\n{prompt}"
     )
     if ticker:
         try:
@@ -362,7 +365,8 @@ def _parse_llm_json_response(content):
 
 
 def _inject_company_context(ticker):
-    """Return context strings for company officers, info, SEC info, analyst recommendations, and all relevant data for a ticker. Trims large keys like 'filings'."""
+    """Return context strings for company officers, info, SEC info, analyst recommendations, and all relevant data for a ticker. 
+    Optimized to reduce redundancy and prompt size - eliminates large redundant files."""
     company_officers_str = ""
     company_info_str = ""
     sec_info_str = ""
@@ -371,13 +375,51 @@ def _inject_company_context(ticker):
     dividends_str = ""
     splits_str = ""
     weekly_prices_str = ""
-    financials_raw_str = ""
-    yf_info_str = ""
+    zscore_data_str = ""
+    metadata_str = ""
+    
     if not ticker:
-        return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)
+        return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, zscore_data_str, metadata_str)
+    
     from altman_zscore.utils.paths import get_output_dir
     base_dir = get_output_dir(ticker=ticker)
-    # Officers
+    
+    # **OPTIMIZATION: Priority order - most important data first, eliminate redundancies**
+    
+    # 1. Z-Score calculations (CSV format for tabular data) - CRITICAL
+    zscore_csv_path = os.path.join(base_dir, f"zscore_{ticker}.csv")
+    if os.path.exists(zscore_csv_path):
+        try:
+            with open(zscore_csv_path, "r", encoding="utf-8") as f:
+                zscore_data_str = f"\n\n# zscore_{ticker}.csv - Z-Score Calculations by Quarter\n{f.read()}\n"
+        except Exception as e:
+            zscore_data_str = f"\n[Could not load zscore_{ticker}.csv: {e}]\n"
+    
+    # 2. Model selection metadata (contains company profile + financial data) - CRITICAL
+    metadata_path = os.path.join(base_dir, f"zscore_{ticker}_metadata.json")
+    if os.path.exists(metadata_path):
+        try:
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                metadata_json = json.load(f)
+            
+            # OPTIMIZATION: Remove redundant raw_quarters to save space (already in zscore calculations)
+            if isinstance(metadata_json, dict) and "context" in metadata_json:
+                context = metadata_json["context"].copy()
+                if "raw_quarters" in context:
+                    # Keep only summary info, remove detailed financial data to reduce redundancy
+                    raw_quarters = context["raw_quarters"]
+                    context["raw_quarters_summary"] = {
+                        "quarters_count": len(raw_quarters),
+                        "date_range": f"{raw_quarters[-1]['period_end']} to {raw_quarters[0]['period_end']}" if raw_quarters else "No data",
+                        "note": "Detailed financial data available in Z-Score calculations above"
+                    }
+                    del context["raw_quarters"]
+                metadata_json["context"] = context
+                    
+            metadata_str = f"\n\n# zscore_{ticker}_metadata.json - Model Selection and Analysis Context\n{json.dumps(metadata_json, indent=2, ensure_ascii=False)}\n"
+        except Exception as e:
+            metadata_str = f"\n[Could not load zscore_{ticker}_metadata.json: {e}]\n"    
+    # 3. Company officers - MODERATE PRIORITY
     company_officers_path = os.path.join(base_dir, "company_officers.json")
     if os.path.exists(company_officers_path):
         try:
@@ -386,7 +428,8 @@ def _inject_company_context(ticker):
             company_officers_str = f"\n\n# company_officers.json\n{json.dumps(officers_json, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
-    # Company info (trim 'filings')
+    
+    # 4. Company info (trim 'filings') - MODERATE PRIORITY
     company_info_path = os.path.join(base_dir, "company_info.json")
     if os.path.exists(company_info_path):
         try:
@@ -397,7 +440,8 @@ def _inject_company_context(ticker):
             company_info_str = f"\n\n# company_info.json\n{json.dumps(company_info, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             company_info_str = f"\n[Could not load company_info.json: {e}]\n"
-    # SEC info (trim 'filings')
+    
+    # 5. SEC info (trim 'filings') - MODERATE PRIORITY
     sec_info_path = os.path.join(base_dir, "sec_edgar_company_info.json")
     if os.path.exists(sec_info_path):
         try:
@@ -408,7 +452,8 @@ def _inject_company_context(ticker):
             sec_info_str = f"\n\n# sec_edgar_company_info.json\n{json.dumps(sec_info, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
-    # Analyst recommendations
+    
+    # 6. Analyst recommendations - HIGH PRIORITY for investment analysis
     analyst_recs_path = os.path.join(base_dir, "recommendations.json")
     if os.path.exists(analyst_recs_path):
         try:
@@ -417,7 +462,8 @@ def _inject_company_context(ticker):
             analyst_recs_str = f"\n\n# recommendations.json\n{json.dumps(rec_data, indent=2, ensure_ascii=False)}\n"
         except Exception as e:
             analyst_recs_str = f"\n[Could not load recommendations.json: {e}]\n"
-    # Institutional and major holders
+    
+    # 7. Institutional and major holders - MODERATE PRIORITY
     institutional_holders_path = os.path.join(base_dir, "institutional_holders.json")
     major_holders_path = os.path.join(base_dir, "major_holders.json")
     holders_sections = []
@@ -436,66 +482,38 @@ def _inject_company_context(ticker):
         except Exception as e:
             holders_sections.append(f"\n[Could not load major_holders.json: {e}]\n")
     holders_str = "".join(holders_sections)
-    # Dividends
+    
+    # 8. Dividends - MODERATE PRIORITY for income analysis
     dividends_path = os.path.join(base_dir, "dividends.csv")
     if os.path.exists(dividends_path):
         try:
             with open(dividends_path, "r", encoding="utf-8") as f:
-                dividends_str = f"\n# dividends.csv\n{f.read()}\n"
+                dividends_str = f"\n\n# dividends.csv\n{f.read()}\n"
         except Exception as e:
             dividends_str = f"\n[Could not load dividends.csv: {e}]\n"
-    # Splits
+    
+    # 9. Splits - LOW PRIORITY
     splits_path = os.path.join(base_dir, "splits.csv")
     if os.path.exists(splits_path):
         try:
             with open(splits_path, "r", encoding="utf-8") as f:
-                splits_str = f"\n# splits.csv\n{f.read()}\n"
+                splits_str = f"\n\n# splits.csv\n{f.read()}\n"
         except Exception as e:
             splits_str = f"\n[Could not load splits.csv: {e}]\n"
-    # Weekly prices (CSV and JSON)
+    
+    # 10. Weekly prices (CSV only, skip JSON to save space) - HIGH PRIORITY for price trend analysis
     weekly_prices_path = os.path.join(base_dir, "weekly_prices.csv")
-    weekly_prices_json_path = os.path.join(base_dir, "weekly_prices.json")
     if os.path.exists(weekly_prices_path):
         try:
             with open(weekly_prices_path, "r", encoding="utf-8") as f:
-                weekly_prices_str = f"\n# weekly_prices.csv\n{f.read()}\n"
+                weekly_prices_str = f"\n\n# weekly_prices.csv - Price Data for Trend Analysis\n{f.read()}\n"
         except Exception as e:
             weekly_prices_str = f"\n[Could not load weekly_prices.csv: {e}]\n"
-    elif os.path.exists(weekly_prices_json_path):
-        try:
-            with open(weekly_prices_json_path, "r", encoding="utf-8") as f:
-                import io
-                data = json.load(f)
-                buf = io.StringIO()
-                # pprint.pprint(data, stream=buf, compact=True, width=120)
-                # All pprint output is suppressed to avoid printing input data
-                weekly_prices_str = f"\n# weekly_prices.json\n{buf.getvalue()}\n"
-        except Exception as e:
-            weekly_prices_str = f"\n[Could not load weekly_prices.json: {e}]\n"
-    # Financials raw
-    financials_raw_path = os.path.join(base_dir, "financials_raw.json")
-    if os.path.exists(financials_raw_path):
-        try:
-            with open(financials_raw_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            financials_raw_str = f"\n# financials_raw.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
-        except Exception as e:
-            financials_raw_str = f"\n[Could not load financials_raw.json: {e}]\n"
-    # yf_info
-    yf_info_path = os.path.join(base_dir, "yf_info.json")
-    if os.path.exists(yf_info_path):
-        try:
-            with open(yf_info_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            # Detect SEC fallback and inject a clear context section
-            if isinstance(data, dict) and data.get("_sec_fallback"):
-                fallback_note = (
-                    "\n# yf_info.json (SEC fallback)\n"
-                    "{\n  'note': 'Yahoo Finance data unavailable; this file was generated from SEC EDGAR fallback. Only minimal fields are present. Use sec_edgar_company_info.json for company details. Fields like sector, industry, and market cap may be missing.'\n}"
-                )
-                yf_info_str = fallback_note
-            else:
-                yf_info_str = f"\n# yf_info.json\n{json.dumps(data, indent=2, ensure_ascii=False)}\n"
-        except Exception as e:
-            yf_info_str = f"\n[Could not load yf_info.json: {e}]\n"
-    return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)
+    
+    # ELIMINATED REDUNDANT FILES TO OPTIMIZE PROMPT SIZE:
+    # - sec_facts_raw.json (9.3 MB) - redundant with metadata
+    # - financials_raw.json (55 KB) - redundant with Z-Score calculations
+    # - weekly_prices.json (14 KB) - redundant with CSV
+    # - yf_info.json (10 KB) - minimal added value, info available in company_info
+    
+    return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, zscore_data_str, metadata_str)

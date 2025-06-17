@@ -40,7 +40,8 @@ COMMON_CIK_MAPPINGS = {
     "ABT": "0000001800",   # Abbott Laboratories
     "TMO": "0000097745",   # Thermo Fisher Scientific
     "AVGO": "0001730168",  # Broadcom
-    "MRK": "0000310158",   # Merck
+    "MRK": "0000310158",   # Merck    
     "DIS": "0001001039",   # Walt Disney
     "SONO": "0001537073",  # Sonos Inc
+    "UAL": "0000100517",   # United Airlines Holdings Inc
 }

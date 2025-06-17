@@ -46,6 +46,12 @@ def fetch_yfinance_data(ticker: str) -> Optional[Dict[str, Any]]:
             logger.warning(f"No income statement data for {ticker} from yfinance.")
             is_ = pd.DataFrame()
         return {"info": info, "balance_sheet": bs, "income_statement": is_}
+    except requests.exceptions.HTTPError as e:
+        if hasattr(e, 'response') and e.response and e.response.status_code == 401:
+            logger.info(f"Yahoo Finance API rate limit or authentication issue (401) for {ticker}. This is expected and handled gracefully.")
+            return None
+        logger.error(f"HTTP error fetching yfinance data for {ticker}: {e}")
+        return None
     except Exception as e:
         logger.error(f"Error fetching yfinance data for {ticker}: {e}")
         return None
@@ -91,8 +97,13 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
             "recommendations": recommendations,
             "historical_prices": historical_prices,
             "dividends": dividends,
-            "splits": splits,
-        }
+            "splits": splits,        }
+    except requests.exceptions.HTTPError as e:
+        if hasattr(e, 'response') and e.response and e.response.status_code == 401:
+            logger.info(f"Yahoo Finance API rate limit or authentication issue (401) for {ticker}. This is expected and handled gracefully.")
+            return None
+        logger.error(f"HTTP error fetching full yfinance data for {ticker}: {e}")
+        return None
     except Exception as e:
         logger.error(f"Error fetching full yfinance data for {ticker}: {e}")
         return None

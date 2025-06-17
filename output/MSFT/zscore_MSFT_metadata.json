@@ -1,13 +1,14 @@
 {
   "analysis_date": "2025-06-17",
   "ticker": "MSFT",
-  "model": "<altman_zscore.models.factory._OriginalModel object at 0x0000025FC656BB50>",
+  "model": "<altman_zscore.models.factory._OriginalModel object at 0x00000224FABF5650>",
   "context": {
     "Ticker": "MSFT",
     "Industry": "Prepackaged Software",
     "Public": true,
     "Maturity": "Mature Company",
-    "Model": "<altman_zscore.models.factory._OriginalModel object at 0x0000025FC656BB50>",
+    "Model": "Original Z-Score Model",
+    "Model_Type": "original",
     "SIC Code": "N/A",
     "Analysis Date": "2025-06-17",
     "raw_quarters": [
@@ -65,9 +66,31 @@
         "ebit": "27527000000.0",
         "sales": "61858000000.0",
         "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2023-06-30",
+        "total_assets": "411976000000.0",
+        "current_assets": "184257000000.0",
+        "current_liabilities": "104149000000.0",
+        "retained_earnings": "118848000000.0",
+        "total_liabilities": "205753000000.0",
+        "ebit": "91279000000.0",
+        "sales": "211915000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       }
     ],
     "quarters": [
+      {
+        "period_end": "2023-06-30",
+        "total_assets": "411976000000.0",
+        "current_assets": "184257000000.0",
+        "current_liabilities": "104149000000.0",
+        "retained_earnings": "118848000000.0",
+        "total_liabilities": "205753000000.0",
+        "ebit": "91279000000.0",
+        "sales": "211915000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
       {
         "period_end": "2024-03-31",
         "total_assets": "484275000000.0",
@@ -124,6 +147,6 @@
         "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       }
     ],
-    "weekly_prices": "          week  open_price  high_price   low_price  close_price  days_with_data\n0   2024-01-01  373.859985  375.899994  366.500000   363.622406               4\n1   2024-01-08  369.299988  390.679993  369.010010   384.109863               5\n2   2024-01-15  393.660004  398.670013  384.809998   394.195404               4\n3   2024-01-22  400.019989  407.010010  393.589996   399.396332               5\n4   2024-01-29  406.059998  415.320007  397.209991   406.604553               5\n..         ...         ...         ...         ...          ...             ...\n72  2025-05-19  450.880005  460.250000  448.910004   450.179993               5\n73  2025-05-26  456.480011  462.519989  455.309998   460.359985               4\n74  2025-06-02  457.140015  473.339996  456.890015   470.380005               5\n75  2025-06-09  469.700012  480.420013  466.959991   474.959991               5\n76  2025-06-16  475.209991  480.690002  474.100006   476.760010               2\n\n[77 rows x 6 columns]"
+    "weekly_prices": "           week  open_price  high_price   low_price  close_price  days_with_data\n0    2023-01-02  243.080002  245.750000  219.350006   220.450684               4\n1    2023-01-09  226.449997  239.899994  226.410004   234.465897               5\n2    2023-01-16  237.970001  242.380005  230.679993   235.436203               4\n3    2023-01-23  241.100006  249.830002  230.899994   243.218094               5\n4    2023-01-30  244.509995  264.690002  242.199997   253.205170               5\n..          ...         ...         ...         ...          ...             ...\n124  2025-05-19  450.880005  460.250000  448.910004   450.179993               5\n125  2025-05-26  456.480011  462.519989  455.309998   460.359985               4\n126  2025-06-02  457.140015  473.339996  456.890015   470.380005               5\n127  2025-06-09  469.700012  480.420013  466.959991   474.959991               5\n128  2025-06-16  475.209991  480.690002  474.100006   478.040009               2\n\n[129 rows x 6 columns]"
   }
 }
