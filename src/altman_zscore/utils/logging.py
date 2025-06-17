@@ -11,12 +11,16 @@ from typing import Optional
 _LOGGER_INITIALIZED = False
 
 def setup_logging(level: int = logging.DEBUG, stream = sys.stdout, fmt: Optional[str] = None):
-    """Set up root logger with a consistent format and level. Idempotent.
+    """
+    Set up the root logger with a consistent format and level. Idempotent.
+
+    This function ensures that logging is configured only once per process. It sets the log level, output stream,
+    and format for all loggers in the application. If already initialized, calling this function has no effect.
 
     Args:
-        level (int, optional): Logging level (default: logging.INFO).
+        level (int, optional): Logging level (default: logging.DEBUG).
         stream (file-like, optional): Output stream for logs (default: sys.stdout).
-        fmt (str, optional): Log message format string.
+        fmt (str, optional): Log message format string. If None, a default format is used.
     """
     global _LOGGER_INITIALIZED
     if _LOGGER_INITIALIZED:
@@ -39,11 +43,12 @@ def setup_logging(level: int = logging.DEBUG, stream = sys.stdout, fmt: Optional
         logging.getLogger(logger_name).setLevel(level)
 
 def get_logger(name: Optional[str] = None, level: Optional[int] = None) -> logging.Logger:
-    """Get a logger with the given name, ensuring centralized config is applied.
+    """
+    Get a logger with the given name, ensuring centralized config is applied.
 
     Args:
-        name (str, optional): Logger name.
-        level (int, optional): Logging level to set for this logger.
+        name (str, optional): Logger name. If None, returns the root logger.
+        level (int, optional): Logging level to set for this logger (overrides global level if provided).
 
     Returns:
         logging.Logger: Configured logger instance.

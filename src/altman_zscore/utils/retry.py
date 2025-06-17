@@ -5,7 +5,7 @@ Retry utilities for network requests.
 import logging
 import time
 from functools import wraps
-from typing import TypeVar, Callable, Any
+from typing import TypeVar, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -18,16 +18,19 @@ def exponential_retry(
     exceptions: tuple = (Exception,)
 ) -> Callable[[Callable[..., T]], Callable[..., T]]:
     """
-    Decorator that implements exponential backoff retry logic.
+    Decorator that implements exponential backoff retry logic for a function.
+
+    Retries the decorated function up to max_retries times if it raises one of the specified exceptions,
+    waiting an exponentially increasing delay between attempts.
 
     Args:
-        max_retries (int): Maximum number of retry attempts
-        base_delay (float): Initial delay between retries in seconds
-        backoff_factor (float): Factor to multiply delay by after each retry
-        exceptions (tuple): Tuple of exceptions to catch and retry on
+        max_retries (int): Maximum number of retry attempts (default: 3).
+        base_delay (float): Initial delay between retries in seconds (default: 1.0).
+        backoff_factor (float): Factor to multiply delay by after each retry (default: 2.0).
+        exceptions (tuple): Tuple of exception types to catch and retry on (default: Exception).
 
     Returns:
-        Callable: Decorated function
+        Callable: Decorated function with retry logic applied.
     """
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         @wraps(func)

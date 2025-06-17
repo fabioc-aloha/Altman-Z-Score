@@ -23,6 +23,23 @@ class ZScoreModel(ABC):
         interpret_score(score): Interpret the calculated Z-Score.
     """
 
+    @classmethod
+    def validate_data(cls, financial_data: Dict) -> Dict:
+        """
+        Validate financial data for this model type.
+        
+        Args:
+            financial_data: Dictionary containing financial metrics
+            
+        Returns:
+            Dict: Validated financial data
+            
+        Raises:
+            ValueError: If validation fails
+        """
+        from .model_validators import validate_financial_data
+        return validate_financial_data(cls.__name__.lower(), financial_data)
+
     @abstractmethod
     def calculate_zscore(self, financial_data: Dict) -> Decimal:
         """Calculate the Z-Score for given financial data"""
@@ -30,3 +47,8 @@ class ZScoreModel(ABC):
     @abstractmethod
     def interpret_score(self, score: Decimal) -> str:
         """Interpret the calculated Z-Score"""
+
+    def _calculate_zscore_impl(self, financial_data: Dict) -> Decimal:
+        """
+        Implementation of Z-Score calculation with validated data.
+        """

@@ -8,6 +8,7 @@ import numpy as np
 from matplotlib.lines import Line2D
 from scipy.interpolate import make_interp_spline
 from .colors import ColorScheme
+import logging
 
 def plot_zscore(ax, q_pos, q_scores):
     """
@@ -42,7 +43,7 @@ def plot_zscore(ax, q_pos, q_scores):
                 color=ColorScheme.ZSCORE_LINE,
             )
     except ValueError as exc:
-        print(f"[WARN] Error plotting Z-Score: {exc}")
+        logging.warning(f"Error plotting Z-Score: {exc}")
 
 def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, price_label, using_weekly):
     """
@@ -66,7 +67,7 @@ def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, 
     if not all([period_positions, avg_prices, min_prices, max_prices]) or not all(
         len(period_positions) == len(x) for x in [avg_prices, min_prices, max_prices]
     ):
-        print("[WARN] Insufficient price data for plotting")
+        logging.warning("Insufficient price data for plotting")
         return Line2D(
             [0],
             [0],
@@ -90,10 +91,10 @@ def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, 
                 if not any(np.isnan([pos_val, avg_val, min_val, max_val])):
                     valid_data.append((pos_val, avg_val, min_val, max_val))
             except (TypeError, ValueError) as e:
-                print(f"[DEBUG] Skipping invalid data point: {e}")
+                logging.debug(f"Skipping invalid data point: {e}")
 
         if not valid_data:
-            print("[WARN] No valid price data points after filtering")
+            logging.warning("No valid price data points after filtering")
             return Line2D(
                 [0],
                 [0],
@@ -131,7 +132,7 @@ def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, 
                 zorder=4,
             )
         except Exception as e:
-            print(f"[WARN] Falling back to simple line plot: {e}")
+            logging.warning(f"Falling back to simple line plot: {e}")
             ax2.plot(
                 period_positions,
                 avg_prices,
@@ -216,7 +217,7 @@ def plot_price_trend(ax2, period_positions, avg_prices, min_prices, max_prices, 
         ax2.set_ylim(bottom=max(0, y_min - price_margin * 0.5), top=y_max + price_margin)
 
     except ValueError as e:
-        print(f"[WARN] Error plotting price trend: {e}")
+        logging.warning(f"Error plotting price trend: {e}")
         return Line2D(
             [0],
             [0],

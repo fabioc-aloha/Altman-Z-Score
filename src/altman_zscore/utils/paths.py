@@ -11,17 +11,21 @@ logger = logging.getLogger(__name__)
 
 
 def get_output_dir(relative_path=None, ticker=None):
-    """Return the absolute path to the output directory or file for a given ticker.
+    """
+    Get the absolute path to the output directory or file for a given ticker.
+
+    Ensures the output directory (and ticker subdirectory, if specified) exists. If a relative_path is provided,
+    returns the full path to that file or directory, creating any necessary parent directories.
 
     Args:
-        relative_path (str, optional): Relative path to append to the base directory.
-        ticker (str, optional): Stock ticker symbol to create a subdirectory for.
+        relative_path (str, optional): Relative path to append to the base or ticker directory. If this is a filename, the parent directory is created.
+        ticker (str, optional): Stock ticker symbol. If provided, creates/uses a subdirectory for the ticker (uppercased).
 
     Returns:
-        str: Absolute path to the output directory or file.
+        str: Absolute path to the output directory, ticker directory, or file as requested.
 
     Raises:
-        OSError: If the directory cannot be created.
+        OSError: If any required directory cannot be created.
     """
     output_dir = os.path.abspath("./output")
     try:
@@ -55,17 +59,18 @@ def get_output_dir(relative_path=None, ticker=None):
 
 
 def write_ticker_not_available(ticker, reason=None):
-    """Write a marker file named TICKER_NOT_AVAILABLE.txt in the output/<TICKER>/ folder.
+    """
+    Write a marker file named TICKER_NOT_AVAILABLE.txt in the output/<TICKER>/ folder.
 
     The file indicates that the ticker is not available or does not exist, and is used to signal downstream tools or users.
     If a reason is provided, it is included in the file content for additional context.
 
     Args:
-        ticker (str): Stock ticker symbol.
-        reason (str, optional): Reason for unavailability.
+        ticker (str): Stock ticker symbol (case-insensitive).
+        reason (str, optional): Reason for unavailability (included in file content).
 
     Returns:
-        str: Path to the marker file.
+        str: Path to the marker file created.
     """
     ticker_dir = get_output_dir(ticker=ticker)
     marker_path = os.path.join(ticker_dir, "TICKER_NOT_AVAILABLE.txt")

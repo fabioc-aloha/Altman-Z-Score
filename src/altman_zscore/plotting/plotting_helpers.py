@@ -6,7 +6,6 @@ This module provides utility functions for drawing risk zone bands, adding zone 
 
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
-import matplotlib.pyplot as plt
 
 def make_zone_bands(ax, ymin, ymax, thresholds):
     """
@@ -117,13 +116,57 @@ def make_legend_elements(safe, distress):
         ),
     ]
 
-def save_plot_with_legend(fig, legend_elements, out_path):
+def add_company_logo(fig, logo_path, position=(0.02, 0.02), zoom=0.15):
+    """
+    Add a company logo to the figure at the specified position.
+    Args:
+        fig: Matplotlib figure object
+        logo_path: Path to the logo image file
+        position: (x, y) tuple for logo position in figure coordinates (default: bottom-left)
+        zoom: Scale factor for the logo (default: 0.15)
+    """
+    try:
+        import matplotlib.image as mpimg
+        from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+        import os
+
+        if not os.path.exists(logo_path):
+            return
+
+        # Read and create the logo image
+        logo = mpimg.imread(logo_path)
+        imagebox = OffsetImage(logo, zoom=zoom)
+        imagebox.image.axes = fig.axes[0]
+
+        # Create annotation box
+        ab = AnnotationBbox(imagebox, position,
+                          xycoords='figure fraction',
+                          box_alignment=(0, 0),
+                          bboxprops=dict(edgecolor='none', alpha=0.8))
+
+        # Add the logo to the figure
+        fig.add_artist(ab)
+    except Exception as e:
+        print(f"[WARN] Could not add company logo: {e}")
+
+def save_plot_with_legend(fig, legend_elements, out_path, handler_map=None):
     """
     Save the plot to disk with the legend positioned below the plot area.
     Args:
         fig: Matplotlib figure object.
-        legend_elements: List of legend handles.
+        legend_elements: List of legend handles or (handle, label) tuples.
         out_path: Output file path.
+        handler_map: Optional dict for custom legend handlers (e.g., HandlerTuple for candlestick legend).
     """
-    fig.legend(handles=legend_elements, loc="upper center", bbox_to_anchor=(0.5, -0.05), ncol=len(legend_elements))
+    # Unpack (handle, label) tuples if present
+    handles = []
+    labels = []
+    for elem in legend_elements:
+        if isinstance(elem, tuple) and len(elem) == 2 and not hasattr(elem[0], "get_facecolor"):
+            handles.append(elem[0])
+            labels.append(elem[1])
+        else:
+            handles.append(elem)
+            labels.append(getattr(elem, "get_label", lambda: "")( ))
+    fig.legend(handles=handles, labels=labels, loc="upper center", bbox_to_anchor=(0.5, -0.05), ncol=len(handles), handler_map=handler_map)
     fig.savefig(out_path, bbox_inches="tight")

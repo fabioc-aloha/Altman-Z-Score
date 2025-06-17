@@ -4,155 +4,104 @@ Computation logic for Altman Z-Score calculation in Altman Z-Score analysis.
 Provides the main compute_zscore() function, which dispatches to the correct model formula and returns a ZScoreResult with all relevant metadata.
 """
 
+import logging
 from typing import Dict, Optional
 
 from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
 from altman_zscore.computation.formulas import (
-    altman_zscore_em,
     altman_zscore_original,
     altman_zscore_private,
     altman_zscore_service,
 )
-from altman_zscore.computation.model_selection import canonicalize_model_key
+from altman_zscore.computation.model_selection import (
+    canonicalize_model_key,
+    select_zscore_model,
+    get_model_selection_context
+)
 from altman_zscore.models.financial_metrics import ZScoreResult
+
+logger = logging.getLogger(__name__)
 
 
 def compute_zscore(
     metrics: Dict[str, float],
     model_key: str = "original",
-    override_context: Optional[Dict] = None
+    override_context: Optional[Dict] = None,
+    sic_code: Optional[int] = None,
+    is_public: bool = True
 ) -> ZScoreResult:
     """Compute Z-Score using the selected model and return a ZScoreResult.
 
     Args:
-        metrics (dict): Must contain keys like:
-            - current_assets
-            - current_liabilities
-            - retained_earnings
-            - ebit
-            - total_assets
-            - (market_value_equity or book_value_equity)
-            - total_liabilities (optional; if missing, uses current_liabilities)
-            - sales (only used by original/private)
-        model_key (str, optional): Which Z-Score variant to apply. One of:
-            "original", "private", "service", "service_private", "tech", "em", or "sic_XXXX" override.
-        override_context (dict, optional): If provided, will be populated with:
-            - "model_key"
-            - "coefficients"
-            - "thresholds"
-            - any dynamic overrides (e.g. "sic_override", "dynamic_model_override")
+        metrics (dict): Financial metrics dictionary
+        model_key (str, optional): Initial model suggestion (can be overridden by SIC/profile)
+        override_context (dict, optional): Context for model selection overrides
+        sic_code (int, optional): Company SIC code for model selection
+        is_public (bool): Whether the company is public
 
     Returns:
-        ZScoreResult: Result object with z_score, model, components, diagnostic, thresholds, and override_context.
+        ZScoreResult: Result object with z_score, model, components, diagnostic, and context
 
     Raises:
-        NotImplementedError: If the requested model is not implemented.
+        NotImplementedError: If the requested model is not implemented
     """
-    if override_context is None:
-        override_context = {}
-
-    # 0) Canonicalize model_key to ensure legacy aliases are converted
+    # Initialize context
+    context = override_context or {}
+    
+    # Perform model selection if SIC code is provided
+    if sic_code is not None:
+        model_key = select_zscore_model(
+            sic_code=sic_code,
+            is_public=is_public
+        )
+        selection_context = get_model_selection_context(
+            sic_code=sic_code,
+            is_public=is_public,
+            selected_model=model_key
+        )
+        context.update(selection_context)
+        logger.info(f"Model selected: {model_key} ({', '.join(selection_context['selection_reason'])})")
+    
+    # Canonicalize the model key
     model_key = canonicalize_model_key(model_key)
+    
+    # Get model coefficients and thresholds
+    coefficients = MODEL_COEFFICIENTS.get(model_key)
+    thresholds = Z_SCORE_THRESHOLDS.get(model_key)
+    
+    if coefficients is None:
+        raise NotImplementedError(f"Model '{model_key}' not implemented")
 
-    # 1) Record metadata for whichever model_key was passed
-    coefficients = MODEL_COEFFICIENTS.get(model_key, MODEL_COEFFICIENTS["original"])
-    thresholds = Z_SCORE_THRESHOLDS.get(model_key, Z_SCORE_THRESHOLDS["original"])
-
-    override_context["model_key"] = model_key
-    override_context["coefficients"] = coefficients
-    override_context["thresholds"] = thresholds
-
-    # 2) Build working_capital and total_liabilities
-    working_capital = metrics["current_assets"] - metrics["current_liabilities"]
-    total_liabilities = metrics.get("total_liabilities", metrics["current_liabilities"])
-
-    # 3) Dispatch to the correct formula
-    if model_key == "original":
-        result = altman_zscore_original(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            market_value_equity=metrics["market_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            sales=metrics["sales"],
-        )
-
+    # Compute Z-Score using the appropriate model
+    if model_key in ["service", "tech"]:
+        z_score = altman_zscore_service(metrics)
+    elif model_key == "service_private":
+        z_score = altman_zscore_service(metrics, use_book_value=True)
     elif model_key == "private":
-        result = altman_zscore_private(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            book_value_equity=metrics["book_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            sales=metrics["sales"],
-        )
+        z_score = altman_zscore_private(metrics)
+    else:  # "original" and any SIC-specific models
+        z_score = altman_zscore_original(metrics)
 
-    elif model_key in ("service", "tech"):
-        # Public non-manufacturing (use market value of equity)
-        result = altman_zscore_service(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            equity=metrics["market_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            model_key="service",
-        )
+    # Update context with model details
+    context.update({
+        "model_key": model_key,
+        "coefficients": coefficients,
+        "thresholds": thresholds
+    })
 
-    elif model_key in ("service_private", "private_service"):
-        # Private non-manufacturing (use book value of equity)
-        result = altman_zscore_service(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            equity=metrics["book_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            model_key="service_private",
-        )
-
-    elif model_key == "em":
-        # Emerging-market adjusted (four-ratio + intercept, uses book-value equity)
-        result = altman_zscore_em(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            book_value_equity=metrics["book_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-        )
-
-    elif model_key.startswith("sic_"):
-        # SIC-specific override: call original formula but flag it
-        result = altman_zscore_original(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            market_value_equity=metrics["market_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            sales=metrics["sales"],
-        )
-        override_context["sic_override"] = True
-
-    elif model_key in MODEL_COEFFICIENTS:
-        # Present in MODEL_COEFFICIENTS but not explicitly handled: fallback to original
-        result = altman_zscore_original(
-            working_capital=working_capital,
-            retained_earnings=metrics["retained_earnings"],
-            ebit=metrics["ebit"],
-            market_value_equity=metrics["market_value_equity"],
-            total_assets=metrics["total_assets"],
-            total_liabilities=total_liabilities,
-            sales=metrics["sales"],
-        )
-        override_context["dynamic_model_override"] = True
-
+    # Determine diagnostic based on thresholds
+    if z_score > thresholds["safe"]:
+        diagnostic = "Safe Zone"
+    elif z_score < thresholds["distress"]:
+        diagnostic = "Distress Zone"
     else:
-        raise NotImplementedError(f"Model '{model_key}' not implemented.")
+        diagnostic = "Grey Zone"
 
-    # 4) Attach the override_context for reporting/tracing
-    result.override_context = override_context
-    return result
+    return ZScoreResult(
+        z_score=z_score,
+        model=model_key,
+        components=metrics,
+        diagnostic=diagnostic,
+        thresholds=thresholds,
+        override_context=context
+    )

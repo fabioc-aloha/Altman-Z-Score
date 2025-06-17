@@ -4,7 +4,6 @@ Price and market data fetching and saving utilities for Altman Z-Score analysis.
 Provides functions to fetch, process, and save market price data for tickers, with robust error handling and fallback logic.
 """
 
-import json
 import warnings
 from datetime import datetime, timedelta
 from time import sleep
@@ -12,7 +11,6 @@ from time import sleep
 import pandas as pd
 import yfinance as yf
 
-from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.io import save_dataframe, get_output_file_path
 
 # Filter out yfinance warnings related to auto_adjust changes
@@ -253,7 +251,8 @@ def get_start_end_prices(ticker: str, start_date: str, end_date: str) -> tuple[f
 
 
 def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
-    """Get weekly OHLC price statistics for a stock.
+    """
+    Get weekly OHLC price statistics for a stock.
 
     Args:
         ticker (str): Stock ticker symbol
@@ -278,14 +277,24 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
     if end < start:
         raise ValueError(f"End date {end_date} is before start date {start_date}")
 
+    # Add early return if dates are invalid
+    today = pd.Timestamp.now()
+    if start > today or end > today:
+        future_date = start if start > today else end
+        raise ValueError(f"Date {future_date.strftime('%Y-%m-%d')} is in the future")
+
     df = None
     try:
         # Fetch daily data with retries
         for attempt in range(3):
             try:
-                df = yf.download(ticker, start=start_date, end=end_date, progress=False, auto_adjust=False)
+                # Use yahoo's max history first to respect the actual start date
+                df = yf.download(ticker, period="max", progress=False, auto_adjust=False)
                 if isinstance(df, pd.DataFrame) and not df.empty:
-                    break
+                    # Filter to the requested date range
+                    df = df[(df.index >= start) & (df.index <= end)]
+                    if not df.empty:
+                        break
                 if attempt < 2:
                     sleep(2**attempt)
             except Exception:
@@ -327,6 +336,8 @@ def get_weekly_price_stats(ticker: str, start_date: str, end_date: str) -> pd.Da
         if not isinstance(df.index, pd.DatetimeIndex):
             df.index = pd.to_datetime(df.index)
         df.index = pd.to_datetime(df.index)
+        
+        # Apply weekly resampling
         week_periods = df.index.to_period("W")
         df = df.assign(week_period=week_periods)
 

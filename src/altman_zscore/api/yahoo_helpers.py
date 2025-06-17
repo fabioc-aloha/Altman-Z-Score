@@ -59,6 +59,7 @@ def fetch_yfinance_data(ticker: str) -> Optional[Dict[str, Any]]:
 def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
     """
     Fetches yfinance info, balance sheet, income statement, and all major holders, recommendations, prices, dividends, splits.
+    Fetches both quarterly and annual data for comprehensive historical coverage.
     Returns a dict with all objects or None on error.
     
     Implements exponential backoff retry for network-related errors.
@@ -66,8 +67,13 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
     try:
         yf_ticker = yf.Ticker(ticker)
         info = yf_ticker.info
-        bs = yf_ticker.quarterly_balance_sheet
-        is_ = yf_ticker.quarterly_financials
+        
+        # Fetch both quarterly and annual financial data
+        bs_quarterly = yf_ticker.quarterly_balance_sheet
+        is_quarterly = yf_ticker.quarterly_financials  
+        bs_annual = yf_ticker.balance_sheet
+        is_annual = yf_ticker.financials
+        
         major_holders = getattr(yf_ticker, "major_holders", None)
         institutional_holders = getattr(yf_ticker, "institutional_holders", None)
         recommendations = getattr(yf_ticker, "recommendations", None)
@@ -76,8 +82,10 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
         splits = getattr(yf_ticker, "splits", None)
         return {
             "info": info,
-            "balance_sheet": bs,
-            "income_statement": is_,
+            "balance_sheet": bs_quarterly,  # Primary choice for recent data
+            "income_statement": is_quarterly,  # Primary choice for recent data
+            "balance_sheet_annual": bs_annual,  # For historical coverage
+            "income_statement_annual": is_annual,  # For historical coverage
             "major_holders": major_holders,
             "institutional_holders": institutional_holders,
             "recommendations": recommendations,

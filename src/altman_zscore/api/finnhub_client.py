@@ -10,12 +10,10 @@ import json
 import logging
 import requests
 from decimal import Decimal
-from typing import Dict, Optional, Any, Union
+from typing import Dict, Optional, Any
 import finnhub
-from dotenv import load_dotenv
 
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
-from ..validation.data_validation import FinancialDataValidator
 from ..utils.retry import exponential_retry
 
 # Network exceptions to retry on

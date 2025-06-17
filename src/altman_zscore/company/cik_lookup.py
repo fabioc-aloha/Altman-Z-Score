@@ -1,86 +1,46 @@
 """
 cik_lookup.py
 -------------
-Module for looking up CIK numbers from SEC EDGAR.
+Module for common CIK mappings to avoid SEC EDGAR API rate limiting.
 
-This module provides functionality to look up Central Index Key (CIK) numbers for companies
-using their stock ticker symbols. It includes both synchronous and asynchronous lookup
-capabilities, caching mechanism with TTL, and batch processing support.
-
-Features:
-    - Single and batch CIK lookups
-    - Async support for improved performance
-    - Local caching with TTL
-    - Fallback mechanisms and retry logic
-    - Rate limiting for SEC EDGAR compliance
-    - Portfolio validation utilities
-
-Functions:
-    lookup_cik(ticker): Look up CIK number for a ticker symbol.
-    validate_cik(ticker, expected_cik): Validate a CIK number matches what we expect from SEC.
-    validate_portfolio_ciks(portfolio): Validate CIKs for all tickers in a portfolio.
+This module provides a dictionary of common ticker symbols mapped to their
+SEC CIK (Central Index Key) numbers. This helps avoid unnecessary API calls
+to the SEC EDGAR service, which has strict rate limits.
 """
 
-import logging
-from typing import Dict, Optional
-
-from .api.sec_client import SECClient
-
-logger = logging.getLogger(__name__)
-
-
-def lookup_cik(ticker: str) -> Optional[str]:
-    """
-    Look up CIK number for a ticker symbol using the SECClient.
-
-    Args:
-        ticker (str): Stock ticker symbol.
-    Returns:
-        str or None: 10-digit CIK if found, else None.
-    """
-    try:
-        client = SECClient()
-        return client.lookup_cik(ticker)
-    except Exception as e:
-        logger.error(f"Failed to look up CIK for {ticker}: {str(e)}")
-        return None
-
-
-def validate_cik(ticker: str, expected_cik: str) -> bool:
-    """
-    Validate a CIK number matches what we expect from SEC.
-
-    Args:
-        ticker (str): Stock ticker symbol.
-        expected_cik (str): Expected 10-digit CIK string.
-    Returns:
-        bool: True if the found CIK matches the expected CIK, False otherwise.
-    """
-    try:
-        client = SECClient()
-        found_cik = client.lookup_cik(ticker)
-        return found_cik == expected_cik
-    except Exception as e:
-        logger.error(f"Failed to validate CIK for {ticker}: {str(e)}")
-        return False
-
-
-def validate_portfolio_ciks(portfolio: Dict[str, str]) -> Dict[str, bool]:
-    """
-    Validate CIKs for all tickers in a portfolio.
-
-    Args:
-        portfolio (dict): Mapping of ticker symbols to expected CIKs.
-    Returns:
-        dict: Mapping of ticker symbols to validation results (True/False).
-    """
-    results = {}
-    client = SECClient()
-    for ticker, expected_cik in portfolio.items():
-        try:
-            found_cik = client.lookup_cik(ticker)
-            results[ticker] = found_cik == expected_cik
-        except Exception as e:
-            logger.error(f"Failed to validate CIK for {ticker}: {str(e)}")
-            results[ticker] = False
-    return results
+# Common CIK mappings for frequently used tickers
+# This helps avoid unnecessary SEC API calls
+COMMON_CIK_MAPPINGS = {
+    "MSFT": "0000789019",  # Microsoft
+    "AAPL": "0000320193",  # Apple
+    "GOOGL": "0001652044", # Alphabet (Google)
+    "AMZN": "0001018724",  # Amazon
+    "META": "0001326801",  # Meta (Facebook)
+    "TSLA": "0001318605",  # Tesla
+    "NVDA": "0001045810",  # NVIDIA
+    "JPM": "0000019617",   # JPMorgan Chase
+    "V": "0001403161",     # Visa
+    "WMT": "0000104169",   # Walmart
+    "JNJ": "0000200406",   # Johnson & Johnson
+    "PG": "0000080424",    # Procter & Gamble
+    "MA": "0001141391",    # Mastercard
+    "UNH": "0000731766",   # UnitedHealth Group
+    "HD": "0000354950",    # Home Depot
+    "BAC": "0000070858",   # Bank of America
+    "XOM": "0000034088",   # Exxon Mobil
+    "INTC": "0000050863",  # Intel
+    "VZ": "0000732712",    # Verizon
+    "CSCO": "0000858877",  # Cisco
+    "NFLX": "0001065280",  # Netflix
+    "ADBE": "0000796343",  # Adobe
+    "CRM": "0001108524",   # Salesforce
+    "PEP": "0000077476",   # PepsiCo
+    "CMCSA": "0001166691", # Comcast
+    "COST": "0000909832",  # Costco
+    "ABT": "0000001800",   # Abbott Laboratories
+    "TMO": "0000097745",   # Thermo Fisher Scientific
+    "AVGO": "0001730168",  # Broadcom
+    "MRK": "0000310158",   # Merck
+    "DIS": "0001001039",   # Walt Disney
+    "SONO": "0001537073",  # Sonos Inc
+}

@@ -5,13 +5,12 @@ SEC EDGAR API client module for handling all SEC data fetching operations.
 import logging
 import os
 import time
-import urllib.parse
-from functools import lru_cache
 from typing import Any, Dict, Optional
 
 import requests
 
 from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
+from ..company.cik_lookup import COMMON_CIK_MAPPINGS
 from ..utils.paths import get_output_dir
 from ..utils.error_helpers import AltmanZScoreError
 from ..utils.retry import exponential_retry
@@ -42,103 +41,130 @@ class SECResponseError(SECError):
 class SECClient:
     """
     Client for interacting with SEC EDGAR API.
-    """    
-    BASE_URL = "https://data.sec.gov"
-    BROWSE_EDGAR_URL = "https://www.sec.gov/cgi-bin/browse-edgar"
-    SUBMISSIONS_BASE_URL = "https://data.sec.gov/submissions/"
-    ARCHIVES_BASE_URL = "https://www.sec.gov/Archives/"
-    COMPANY_SEARCH = "/submissions/CIK{}.json"
-    COMPANY_FACTS = "/api/xbrl/companyfacts/CIK{}.json"
-    COMPANY_CONCEPT = "/api/xbrl/companyconcept/CIK{}/us-gaap/{}.json"
-    COMPANY_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
+    """
+    # Base URLs (will be used as prefixes)
+    BASE_URL = "https://data.sec.gov"  # No trailing slash needed 
+    BROWSE_EDGAR_URL = "https://www.sec.gov/cgi-bin/browse-edgar"  # Complete URL
+    SUBMISSIONS_BASE_URL = "https://data.sec.gov/submissions"  # No trailing slash - add / when using!
+    ARCHIVES_BASE_URL = "https://www.sec.gov/Archives"  # No trailing slash - add / when using!
+    
+    # Endpoint paths (to be appended to BASE_URL)
+    COMPANY_SEARCH = "/submissions/CIK{}.json"  # With leading slash for proper URL construction
+    COMPANY_FACTS = "/api/xbrl/companyfacts/CIK{}.json"  # With leading slash
+    COMPANY_CONCEPT = "/api/xbrl/companyconcept/CIK{}/us-gaap/{}.json"  # With leading slash
+    
+    # Complete URLs
+    COMPANY_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"  # Complete URL
 
     # SEC EDGAR requires 100ms between requests (10 requests per second)
     REQUEST_RATE = 10  # requests per second
     MIN_REQUEST_INTERVAL = 0.1  # seconds
 
     def __init__(self, email: Optional[str] = None):
-        """Initialize client."""
+        """Initialize client with proper authentication headers."""
         # Prefer SEC_EDGAR_USER_AGENT for User-Agent header, fallback to SEC_API_EMAIL for legacy support
         self.user_agent = os.getenv("SEC_EDGAR_USER_AGENT")
         self.email = email or os.getenv("SEC_API_EMAIL")
+        
         if not self.user_agent and not self.email:
             raise ValueError(
                 "SEC EDGAR User-Agent is required. Set SEC_EDGAR_USER_AGENT or SEC_API_EMAIL in your environment."
             )
+            
+        # Initialize rate limiter and session
         self.rate_limiter = TokenBucket(
-            rate=self.REQUEST_RATE, capacity=self.REQUEST_RATE * 2, strategy=RateLimitStrategy.WAIT
+            rate=self.REQUEST_RATE,
+            capacity=self.REQUEST_RATE * 2,
+            strategy=RateLimitStrategy.WAIT
         )
         self.session = self._create_session()
         self._last_request_time = 0
 
     def _create_session(self) -> requests.Session:
-        """Create and configure requests session."""
+        """Create and configure requests session with proper headers."""
         session = requests.Session()
+        
+        # Set required headers for SEC EDGAR
+        headers = {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip, deflate",
+            "Host": "data.sec.gov"        }
+        
         if self.user_agent:
-            # Only add headers with non-None values
-            session.headers["User-Agent"] = self.user_agent
-            session.headers["Accept"] = "application/json"
+            # Use the full User-Agent string from environment
+            headers["User-Agent"] = self.user_agent
         else:
-            # Fallback for legacy support
-            session.headers["User-Agent"] = f"altman-zscore-analyzer {self.email}"
-            session.headers["Accept"] = "application/json"
+            # Fallback to legacy format with email
+            headers["User-Agent"] = f"AltmanZScore/3.2.0 {self.email}"
+        
+        session.headers.update(headers)
         return session
-
+        
     def _ensure_rate_limit(self):
         """Ensure we respect SEC EDGAR rate limits."""
-        current_time = time.time()
-        time_since_last = current_time - self._last_request_time
-        if time_since_last < self.MIN_REQUEST_INTERVAL:
-            time.sleep(self.MIN_REQUEST_INTERVAL - time_since_last)
-        self._last_request_time = time.time()    @exponential_retry(
+        try:
+            self.rate_limiter.acquire(tokens=1.0)
+        except RateLimitExceeded:
+            current_time = time.time()
+            time_since_last = current_time - self._last_request_time
+            if time_since_last < self.MIN_REQUEST_INTERVAL:
+                sleep_time = self.MIN_REQUEST_INTERVAL - time_since_last
+                logger.debug(f"Rate limit hit, sleeping for {sleep_time:.2f}s")
+                time.sleep(sleep_time)
+        self._last_request_time = time.time()
+
+    @exponential_retry(
         max_retries=3,
         base_delay=1.0,
         backoff_factor=2.0,
         exceptions=NETWORK_EXCEPTIONS
     )
-    def _make_request(self, endpoint: str, method: str = "GET", timeout: float = 10.0, **kwargs) -> requests.Response:
-        """
-        Make request to SEC API with rate limiting and error handling.
-
-        Args:
-            endpoint: API endpoint
-            method: HTTP method
-            timeout: Request timeout in seconds
-            **kwargs: Additional request parameters
-
-        Returns:
-            Response from SEC API
-
-        Raises:
-            SECRateError: If rate limit is exceeded
-            SECResponseError: If response validation fails
-            SECError: For other SEC API errors
-        """
-        url = urllib.parse.urljoin(self.BASE_URL, endpoint)
-
+    def _make_request(
+        self,
+        endpoint: str,
+        method: str = "GET",
+        timeout: float = 10.0,
+        **kwargs
+    ) -> requests.Response:
+        """Make an authenticated request to SEC EDGAR API."""
+        # Ensure we're respecting rate limits
+        self._ensure_rate_limit()
+        # Build the full URL - ensure we have proper URL structure
+        if endpoint.startswith("http"):
+            url = endpoint
+        else:
+            # Properly join URL parts to avoid issues with slashes
+            endpoint = endpoint.lstrip('/')  # Remove leading slash if present
+            url = f"{self.BASE_URL}/{endpoint}"
+        logger.debug(f"Making SEC API request to URL: {url}")
         try:
-            # Wait for rate limit
-            self.rate_limiter.acquire(timeout=timeout)
-
-            response = self.session.request(method, url, timeout=timeout, **kwargs)
-
-            # Handle rate limiting responses
-            if response.status_code == 429:
-                retry_after = int(response.headers.get("Retry-After", 10))
-                raise SECRateError(f"Rate limit exceeded. Retry after {retry_after} seconds.")
-
+            response = self.session.request(
+                method=method,
+                url=url,
+                timeout=timeout,
+                **kwargs
+            )
+            logger.debug(
+                f"SEC API Request: {method} {url} "
+                f"Headers: {self.session.headers}"
+            )
+            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
+            if "/companyfacts/" in url and response.status_code == 404:
+                logger.info(f"SEC companyfacts not found (404) for {url}; will attempt fallback.")
+                # Return a dummy response with empty facts
+                class DummyResponse:
+                    def json(self_inner):
+                        return {"facts": {}}
+                return DummyResponse()
             response.raise_for_status()
-
             return response
-
-        except RateLimitExceeded as e:
-            raise SECRateError(f"Rate limit exceeded: {str(e)}")
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                raise SECError(f"Resource not found: {url}")
-            raise SECError(f"HTTP error occurred: {str(e)}")
-        except requests.exceptions.RequestException as e:
-            raise SECError(f"Request failed: {str(e)}")
+            if e.response.status_code == 401:
+                logger.error(
+                    "SEC API Authentication failed. Ensure SEC_EDGAR_USER_AGENT "
+                    "is set correctly in your environment variables."
+                )
+            raise
 
     @exponential_retry(
         max_retries=3,
@@ -157,6 +183,28 @@ class SECClient:
             10-digit CIK if found, None otherwise
         """
         try:
+            # First check if it's in the common mappings (imported from company_profile)
+            upper_ticker = ticker.upper()
+            if upper_ticker in COMMON_CIK_MAPPINGS:
+                cik = COMMON_CIK_MAPPINGS[upper_ticker]
+                logger.debug(f"Found CIK {cik} for ticker {ticker} in common mappings")
+                return cik
+
+            # Try the company_tickers.json file endpoint (most reliable)
+            logger.debug(f"Looking up CIK for {ticker} via company_tickers.json...")
+            resp = self.session.get(self.COMPANY_TICKERS_URL)
+            resp.raise_for_status()
+            tickers_data = resp.json()
+            
+            # The company_tickers.json file has numeric indices as keys
+            for _, entry in tickers_data.items():
+                if entry.get('ticker').upper() == ticker.upper():
+                    cik = str(entry.get('cik_str'))
+                    logger.debug(f"Found CIK {cik} for ticker {ticker} via company_tickers.json")
+                    return cik.zfill(10)
+                    
+            # Fallback to the browse-edgar endpoint if needed
+            logger.debug(f"No match found in company_tickers.json for {ticker}, trying browse-edgar...")
             search_params = {
                 "CIK": ticker,
                 "Find": "Search",
@@ -215,40 +263,81 @@ class SECClient:
         """
         try:
             # Get/validate CIK
-            cik = ticker_or_cik.zfill(10) if ticker_or_cik.isdigit() else self.lookup_cik(ticker_or_cik)
+            if ticker_or_cik.isdigit():
+                cik = ticker_or_cik.zfill(10) 
+            else:
+                # Lookup from common mappings first
+                from altman_zscore.company.cik_lookup import COMMON_CIK_MAPPINGS
+                upper_ticker = ticker_or_cik.upper()
+                if upper_ticker in COMMON_CIK_MAPPINGS:
+                    cik = COMMON_CIK_MAPPINGS[upper_ticker]
+                    logger.debug(f"Found CIK {cik} for ticker {ticker_or_cik} in common mappings")
+                else:
+                    cik = self.lookup_cik(ticker_or_cik)
+            
             if not cik:
                 logger.error(f"Could not find CIK for {ticker_or_cik}")
                 return None
 
-            ticker = ticker_or_cik if not ticker_or_cik.isdigit() else None 
+            ticker = ticker_or_cik if not ticker_or_cik.isdigit() else None
             padded_cik = cik.zfill(10)
-
-            # Get company details using CIK
-            response = self._make_request(self.COMPANY_SEARCH.format(padded_cik))
+            
+            # Get company details using CIK - ensure properly joined URL
+            url = f"{self.BASE_URL}{self.COMPANY_SEARCH.format(padded_cik)}"
+            logger.debug(f"Requesting company info from: {url}")
+            
+            response = self.session.get(url)
+            logger.debug(f"Response status: {response.status_code}")
+            
             if response.status_code != 200:
-                logger.error(f"Failed to get company info for CIK {padded_cik}")
+                logger.error(f"Failed to get company info for {ticker_or_cik} (CIK: {padded_cik})")
+                logger.error(f"Response status code: {response.status_code}")
+                logger.error(f"Response text: {response.text[:1000]}")
                 return None
 
-            company_info = response.json()
-            company_info["cik"] = padded_cik
+            try:
+                company_info = response.json()
+                logger.debug(f"SEC API Response structure: {list(company_info.keys())}")
+            except ValueError as e:
+                logger.error(f"Failed to parse JSON response for {ticker_or_cik}: {str(e)}")
+                logger.error(f"Raw response content: {response.text[:1000]}")
+                return None
+
+            # Enhanced validation of response structure
+            expected_keys = ["cik", "entityType", "sic", "sicDescription", "name", "tickers", "exchanges"]
+            found_keys = list(company_info.keys())
+            missing_keys = [k for k in expected_keys if k not in found_keys]
+            
+            if missing_keys:
+                logger.warning(f"Missing expected keys in SEC API response: {missing_keys}")
+                logger.debug(f"Available keys: {found_keys}")
+                
+                # Try to find alternative fields
+                if "cik" not in company_info:
+                    company_info["cik"] = padded_cik
+                    
+                # Extract from nested structures if needed
+                if "name" not in company_info and "company" in company_info:
+                    company_info["name"] = company_info["company"].get("name", ticker)
+
+            company_info["cik"] = padded_cik  # Ensure CIK is included
+            
+            # Save to file if requested
             if save_to_file and ticker:
                 import json
                 out_path = get_output_dir("company_info.json", ticker=ticker)
                 with open(out_path, "w", encoding="utf-8") as f:
                     json.dump(company_info, f, indent=2, ensure_ascii=False)
+                logger.debug(f"Saved company info to {out_path}")
+                
             return company_info
 
         except Exception as e:
             logger.error(f"Error getting company info for {ticker_or_cik}: {str(e)}")
+            import traceback
+            logger.debug(f"Exception traceback: {traceback.format_exc()}")
             return None
 
-    @exponential_retry(
-        max_retries=3,
-        base_delay=1.0,
-        backoff_factor=2.0,
-        exceptions=NETWORK_EXCEPTIONS
-    )
-    @lru_cache(maxsize=1000)
     def get_company_facts(self, cik: str) -> Dict[str, Any]:
         """
         Get all company facts (all concepts) for a CIK.
@@ -263,7 +352,15 @@ class SECClient:
         """
         try:
             padded_cik = cik.zfill(10)
-            response = self._make_request(self.COMPANY_FACTS.format(padded_cik))
+            try:
+                response = self._make_request(self.COMPANY_FACTS.format(padded_cik))
+            except requests.exceptions.HTTPError as e:
+                # If 404, treat as no data and do not retry
+                if e.response is not None and e.response.status_code == 404:
+                    logger.info(f"SEC companyfacts not found (404) for CIK {cik}; will attempt fallback.")
+                    return {"facts": {}}
+                # For other errors, retry
+                raise
             return response.json()
         except Exception as e:
             raise SECError(f"Failed to get facts for CIK {cik}: {str(e)}")
@@ -367,7 +464,7 @@ class SECClient:
                     return None
 
             # Get latest DEF 14A filing
-            url = f"{self.SUBMISSIONS_BASE_URL}{cik}/index.json"
+            url = f"{self.SUBMISSIONS_BASE_URL}/{cik}/index.json"
             response = self._make_request(url)  # Use _make_request instead of direct session.get
             if not response.ok:
                 logging.warning(f"Failed to get filings index for CIK {cik}: {response.status_code}")
@@ -386,16 +483,14 @@ class SECClient:
 
             def_14a_indices = [i for i, form in enumerate(form_types) if form == 'DEF 14A']
             if not def_14a_indices:
-                logging.warning(f"No DEF 14A filings found for CIK {cik}")
+                logging.warning(f"No DEF 14 A filings found for CIK {cik}")
                 return None
 
             # Get latest DEF 14A
             latest_def_14a_idx = def_14a_indices[0]
             accession_number = accession_numbers[latest_def_14a_idx].replace('-', '')
-            primary_doc = primary_docs[latest_def_14a_idx]
-
-            # Get the filing content
-            filing_url = f"{self.ARCHIVES_BASE_URL}{cik}/{accession_number}/{primary_doc}"
+            primary_doc = primary_docs[latest_def_14a_idx]            # Get the filing content
+            filing_url = f"{self.ARCHIVES_BASE_URL}/{cik}/{accession_number}/{primary_doc}"
             response = self._make_request(filing_url)  # Use _make_request instead of direct session.get
             if not response.ok:
                 logging.warning(f"Failed to get DEF 14A filing content: {response.status_code}")

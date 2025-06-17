@@ -5,6 +5,45 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.1] - 2025-06-17
+
+### Fixed
+- **Historical Data Coverage:** Fixed Z-Score calculation to include historical data back to user-specified start date
+  - Modified `yahoo_helpers.py` to fetch both quarterly and annual financial data from yfinance
+  - Updated `financials.py` to combine quarterly and annual data for comprehensive historical coverage
+  - Extended Z-Score trend analysis from ~2 years to ~5 years of historical data
+- **Import Errors:** Resolved undefined variable and import issues in core pipeline modules
+  - Fixed `stock_prices` undefined variable in `plotting_main.py`
+  - Corrected import paths for `check_company_status`, `sic_map`, and `FinancialMetrics`
+  - Fixed function name mismatch (`calculate_zscore` vs `compute_zscore`)
+- **Date Range Alignment:** Both price data and Z-Score data now properly honor user-specified start dates
+- **Pipeline Robustness:** Enhanced error handling and data validation throughout the analysis pipeline
+
+### Changed
+- **Data Fetching Strategy:** Enhanced yfinance integration to use both quarterly (recent detail) and annual (historical coverage) financial statements
+- **Chart Generation:** Z-Score trend charts now display comprehensive historical data aligned with stock price trends
+
+## [3.2.0] - 2025-06-16
+
+### Added
+- **Enhanced Visualization:** 
+  - Added improved candlestick representation in chart legends
+  - Added company logo display in bottom-left corner of charts
+- **Error Handling:** Added graceful continuation for multi-ticker analysis when one ticker fails
+
+### Changed
+- **Chart Improvements:** 
+  - Better visual representation of weekly price range in legends
+  - Clearer distinction between up/down candlesticks
+  - Added company branding with logo integration
+- **Error Handling:** More informative messages for missing financial data
+- **Yahoo Finance Client:** Improved retry logic and error handling for API requests
+
+### Fixed
+- **Pipeline Robustness:** Improved handling of missing SEC data and failed ticker analysis
+- **Legend Display:** Fixed candlestick legend representation to match chart style
+- **API Authentication:** Enhanced Yahoo Finance client to handle authentication issues
+
 ## [3.1.1] - 2025-06-15
 
 ### Added

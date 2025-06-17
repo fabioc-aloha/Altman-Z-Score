@@ -4,7 +4,7 @@ from typing import Dict, List
 
 from bs4 import BeautifulSoup
 
-from ..data_validation import FinancialDataValidator, ValidationIssue, ValidationLevel
+from ..data_validation import ValidationIssue, ValidationLevel
 from ..data_fetching.sec_edgar import find_xbrl_tag
 from .base_fetcher import BaseFinancialFetcher, FinancialValue
 

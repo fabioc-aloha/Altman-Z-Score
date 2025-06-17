@@ -1,57 +1,101 @@
 """
 Model selection logic for Altman Z-Score analysis.
+Currently limited to U.S.-based companies only.
 
-Provides functions to select the appropriate Z-Score model key based on SIC code, company profile, or legacy aliases, ensuring correct model dispatch for computation.
+Provides functions to select the appropriate Z-Score model key based on SIC code and company type.
 """
 
-from typing import Optional
+from typing import Optional, Dict
 from .constants import MODEL_COEFFICIENTS, MODEL_ALIASES
+
+
+def is_tech_company(sic_code: Optional[int]) -> bool:
+    """Determine if a company is in the technology sector based on SIC code."""
+    if not isinstance(sic_code, int):
+        return False
+        
+    return (
+        (3570 <= sic_code <= 3579)  # Computer Equipment
+        or (3670 <= sic_code <= 3679)  # Electronics
+        or (7370 <= sic_code <= 7379)  # Computer Services/Software
+    )
+
+
+def get_model_selection_context(
+    sic_code: Optional[int],
+    is_public: bool,
+    selected_model: str
+) -> Dict:
+    """Get the context for model selection."""
+    context = {
+        "original_sic": sic_code,
+        "is_public": is_public,
+        "selection_reason": [],
+        "selected_model": selected_model
+    }
+
+    if isinstance(sic_code, int):
+        sic_key = f"sic_{sic_code}"
+        if sic_key in MODEL_COEFFICIENTS:
+            context["selection_reason"].append(f"Found specific model for SIC {sic_code}")
+        elif is_tech_company(sic_code):
+            context["selection_reason"].append(
+                f"Technology company (SIC {sic_code}) using {'public' if is_public else 'private'} service model"
+            )
+        elif 2000 <= sic_code <= 3999:
+            context["selection_reason"].append(
+                f"Manufacturing company (SIC {sic_code}) using {'public' if is_public else 'private'} model"
+            )
+        elif (4000 <= sic_code <= 4999 or 6000 <= sic_code <= 6999 or 7000 <= sic_code <= 8999):
+            context["selection_reason"].append(
+                f"Service/non-manufacturing company (SIC {sic_code}) using {'public' if is_public else 'private'} service model"
+            )
+    else:
+        context["selection_reason"].append(
+            f"Using default {'public' if is_public else 'private'} model (no specific industry match)"
+        )
+    
+    return context
 
 
 def select_zscore_model(
     sic_code: Optional[int],
-    is_public: bool = True,
-    is_emerging: bool = False
+    is_public: bool = True
 ) -> str:
     """Select and return one of the canonical Altman Z-Score model keys.
+    Currently limited to U.S.-based companies only.
 
     Args:
         sic_code (int, optional): SIC code for the company.
         is_public (bool, optional): Whether the company is public (default: True).
-        is_emerging (bool, optional): Whether the company is in an emerging market (default: False).
 
     Returns:
-        str: Canonical model key for use in computation.
+        str: Canonical model key for use in computation
     """
-    # 1) Emerging market override
-    if is_emerging:
-        return "em"
-
-    # 2) Check for explicit SIC override entry (e.g. MODEL_COEFFICIENTS["sic_4512"])
+    # 1) Check for explicit SIC override entry
     if isinstance(sic_code, int):
         sic_key = f"sic_{sic_code}"
         if sic_key in MODEL_COEFFICIENTS:
             return sic_key
 
+    # 2) Tech company check
+    if is_tech_company(sic_code):
+        return "service" if is_public else "service_private"
+
     # 3) Manufacturing (SIC 2000–3999)
     if isinstance(sic_code, int) and 2000 <= sic_code <= 3999:
         return "original" if is_public else "private"
 
-    # 4) Non-manufacturing / Service / Transport / Utilities / Tech
+    # 4) Non-manufacturing / Service / Transport / Utilities
     if isinstance(sic_code, int) and (
         4000 <= sic_code <= 4999   # Transport / Service / Utilities
         or 6000 <= sic_code <= 6999  # Finance / Insurance
-        or 7000 <= sic_code <= 8999  # Services / Retail / Tech
-        or 3570 <= sic_code <= 3579  # Tech subrange 1
-        or 3670 <= sic_code <= 3679  # Tech subrange 2
-        or 7370 <= sic_code <= 7379  # Tech subrange 3
+        or 7000 <= sic_code <= 8999  # Services / Retail
     ):
         return "service" if is_public else "service_private"
 
-    # 5) Tech fallback: treat "tech" as alias to "service"
-    #    (If industry metadata is available, you could detect "tech" here and return "tech".)
-    #    Otherwise, default to "original" if nothing else matches.
-    return "original"
+    # 5) Default fallback
+    return "original" if is_public else "private"
 
 
 def canonicalize_model_key(key: str) -> str:
@@ -70,14 +114,13 @@ def determine_zscore_model(profile) -> str:
     """Select Z-Score model based on company profile attributes.
 
     Args:
-        profile: Company profile object with attributes 'sic_code', 'is_public', and 'is_emerging_market'.
+        profile: Company profile object with attributes 'sic_code' and 'is_public'.
 
     Returns:
         str: Canonical model key for use in computation.
     """
     sic_code = getattr(profile, 'sic_code', None)
     is_public = getattr(profile, 'is_public', True)
-    is_emerging = getattr(profile, 'is_emerging_market', False)
     
     # Convert string SIC to int if needed
     if isinstance(sic_code, str) and sic_code.isdigit():
@@ -85,16 +128,15 @@ def determine_zscore_model(profile) -> str:
     elif not isinstance(sic_code, int):
         sic_code = None
         
-    return select_zscore_model(sic_code, is_public, is_emerging)
+    return select_zscore_model(sic_code, is_public)
 
 
-def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: Optional[str] = None) -> str:
-    """Select Z-Score model based on SIC code string and optional maturity.
+def select_zscore_model_by_sic(sic_code: str, is_public: bool = True) -> str:
+    """Select Z-Score model based on SIC code string.
 
     Args:
         sic_code (str): SIC code as a string.
         is_public (bool, optional): Whether the company is public (default: True).
-        maturity (str, optional): Company maturity (e.g., 'emerging').
 
     Returns:
         str: Canonical model key for use in computation.
@@ -105,7 +147,4 @@ def select_zscore_model_by_sic(sic_code: str, is_public: bool = True, maturity: 
     else:
         sic_int = None
     
-    # Map maturity to is_emerging flag
-    is_emerging = (maturity == "emerging") if maturity else False
-    
-    return select_zscore_model(sic_int, is_public, is_emerging)
+    return select_zscore_model(sic_int, is_public)

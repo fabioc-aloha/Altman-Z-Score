@@ -8,23 +8,10 @@ special situations more gracefully before attempting full financial analysis. It
 the CompanyStatus class and related helpers for robust status reporting and user feedback.
 """
 
-import json
 import logging
-import os
-from datetime import date
 from typing import Dict, Optional
 
-import requests
-import yfinance as yf
 
-from altman_zscore.utils.paths import get_output_dir, write_ticker_not_available
-from altman_zscore.company.company_status_helpers import (
-    detect_company_region,
-    handle_special_status,
-    check_company_status,
-    KNOWN_BANKRUPTCIES,
-    BANKRUPTCY_INDICATORS,
-)
 from altman_zscore.computation.constants import (
     STATUS_MSG_BANKRUPT,
     STATUS_MSG_DELISTED,

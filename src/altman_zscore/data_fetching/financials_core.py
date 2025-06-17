@@ -4,7 +4,7 @@ Core financials logic for modularized financials pipeline in Altman Z-Score anal
 Provides helpers for DataFrame-to-dict conversion. Field mapping is now handled by Azure OpenAI.
 """
 from decimal import Decimal
-from typing import Dict, Any, List
+from typing import Dict
 import pandas as pd
 import decimal  # Added to reference decimal.InvalidOperation
 

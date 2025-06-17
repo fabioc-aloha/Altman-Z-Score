@@ -4,10 +4,14 @@ Factory for creating and managing Z-score models in Altman Z-Score analysis.
 Provides a registry and factory methods for registering, retrieving, and instantiating Z-score model classes.
 """
 
-from typing import Dict, Type
+from typing import Dict, Type, Tuple
 
 from .base import ModelType, ZScoreModel
 from .original import OriginalZScoreModel
+from .zscore_model_private import PrivateManufacturingZScoreModel
+from .zscore_model_financial import FinancialInstitutionZScoreModel
+from .zscore_model_zeta import ZetaZScoreModel
+from .zscore_model_retail import RetailZScoreModel
 
 
 class ModelRegistry:
@@ -22,7 +26,13 @@ class ModelRegistry:
             Create and return a new model instance.
     """
 
-    _models: Dict[ModelType, Type[ZScoreModel]] = {}
+    _models: Dict[ModelType, Type[ZScoreModel]] = {
+        ModelType.ORIGINAL: OriginalZScoreModel,
+        ModelType.PRIVATE: PrivateManufacturingZScoreModel,
+        ModelType.FINANCIAL: FinancialInstitutionZScoreModel,
+        ModelType.ZETA: ZetaZScoreModel,
+        ModelType.RETAIL: RetailZScoreModel,
+    }
 
     @classmethod
     def register(cls, model_type: ModelType):
@@ -72,10 +82,63 @@ class ModelRegistry:
             KeyError: If model type not found in registry
         """
         model_class = cls.get_model_class(model_type)
-        return model_class(model_type)  # Pass model_type to constructor
+        try:
+            return model_class(model_type)
+        except TypeError:
+            return model_class()
+
+    @classmethod
+    def select_model_type(cls, company_data: Dict) -> Tuple[ModelType, str]:
+        """
+        Select the appropriate model type based on company characteristics.
+
+        Args:
+            company_data: Dictionary containing company information
+
+        Returns:
+            Tuple[ModelType, str]: Selected model type and reason for selection
+        """
+        from .industry_classifier import determine_model_type
+
+        return determine_model_type(company_data)
+
+    @classmethod
+    def create_model_for_company(cls, company_data: Dict) -> Tuple[ZScoreModel, str]:
+        """
+        Create appropriate Z-Score model instance based on company characteristics.
+
+        Args:
+            company_data: Dictionary containing company information
+
+        Returns:
+            Tuple[ZScoreModel, str]: Model instance and reason for selection
+        """
+        model_type, reason = cls.select_model_type(company_data)
+        model = cls.create_model(model_type)
+        return model, reason
 
 
 # Register available models
 @ModelRegistry.register(ModelType.ORIGINAL)
 class _OriginalModel(OriginalZScoreModel):
+    pass
+
+
+@ModelRegistry.register(ModelType.PRIVATE)
+class _PrivateModel(PrivateManufacturingZScoreModel):
+    pass
+
+
+@ModelRegistry.register(ModelType.FINANCIAL)
+class _FinancialModel(FinancialInstitutionZScoreModel):
+    pass
+
+
+@ModelRegistry.register(ModelType.ZETA)
+class _ZetaModel(ZetaZScoreModel):
+    pass
+
+
+@ModelRegistry.register(ModelType.RETAIL)
+class _RetailModel(RetailZScoreModel):
     pass

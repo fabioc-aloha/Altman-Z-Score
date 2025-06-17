@@ -83,25 +83,27 @@ class TimeSeriesAnalyzer:
     """
 
     def __init__(self, seasonality_periods: int = 4):
-        """Initialize time series analyzer.
+        """
+        Initialize a TimeSeriesAnalyzer for financial time series analysis.
 
         Args:
-            seasonality_periods: Number of periods for seasonality analysis (default=4 for quarterly)
+            seasonality_periods (int, optional): Number of periods for seasonality analysis (default: 4 for quarterly data).
         """
         self.seasonality_periods = seasonality_periods
 
     def calculate_trend(self, values: List[Union[float, Decimal]], dates: List[datetime]) -> TrendMetrics:
-        """Calculate trend metrics for a time series.
+        """
+        Calculate trend metrics (slope, intercept, R^2, etc.) for a time series.
 
         Args:
-            values (list): List of numeric values (float or Decimal).
-            dates (list): List of corresponding dates.
+            values (list of float or Decimal): Numeric values for the time series.
+            dates (list of datetime): Corresponding dates for each value.
 
         Returns:
-            TrendMetrics: Object containing trend analysis results.
+            TrendMetrics: Object containing trend analysis results (slope, intercept, R^2, etc.).
 
         Raises:
-            ValueError: If length of values and dates don't match or if fewer than 2 points.
+            ValueError: If the length of values and dates do not match, or if fewer than 2 points are provided.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")
@@ -140,14 +142,18 @@ class TimeSeriesAnalyzer:
         )
 
     def detect_seasonality(self, values: List[Union[float, Decimal]], dates: List[datetime]) -> SeasonalityMetrics:
-        """Detect seasonality in time series data.
+        """
+        Detect seasonality in time series data by analyzing periodic patterns (e.g., quarterly effects).
 
         Args:
-            values (list): List of numeric values.
-            dates (list): List of corresponding dates.
+            values (list of float or Decimal): Numeric values for the time series.
+            dates (list of datetime): Corresponding dates for each value.
 
         Returns:
-            SeasonalityMetrics: Object containing seasonal analysis results.
+            SeasonalityMetrics: Object containing seasonal analysis results (seasonal factors, etc.).
+
+        Raises:
+            ValueError: If the length of values and dates do not match.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")
@@ -188,15 +194,19 @@ class TimeSeriesAnalyzer:
     def detect_anomalies(
         self, values: List[Union[float, Decimal]], dates: List[datetime], z_threshold: float = 3.0
     ) -> List[AnomalyScore]:
-        """Detect anomalies in time series data using z-score thresholding.
+        """
+        Detect anomalies in time series data using z-score thresholding.
 
         Args:
-            values (list): List of numeric values.
-            dates (list): List of corresponding dates.
+            values (list of float or Decimal): Numeric values for the time series.
+            dates (list of datetime): Corresponding dates for each value.
             z_threshold (float, optional): Z-score threshold for anomaly detection (default: 3.0).
 
         Returns:
-            list: List of AnomalyScore objects for each point.
+            list of AnomalyScore: List of anomaly scores for each point in the series.
+
+        Raises:
+            ValueError: If the length of values and dates do not match.
         """
         if len(values) != len(dates):
             raise ValueError("Length of values and dates must match")

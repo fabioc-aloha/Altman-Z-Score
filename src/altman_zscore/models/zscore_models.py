@@ -12,9 +12,8 @@ Classes:
     TechZScore: Specialized Z-Score model for technology companies.
 """
 
-from typing import Any, Dict, Optional
+from typing import Dict
 from decimal import Decimal
-from .enums import CompanyStage, CompanyType
 from .model_thresholds import ModelThresholds, ModelCoefficients, TechCalibration
 from .zscore_model_base import ZScoreModel
 

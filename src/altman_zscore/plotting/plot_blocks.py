@@ -4,10 +4,9 @@ Plotting block functions for Altman Z-Score and price trend visualizations.
 This module provides modular plotting utilities for use by the main plotting orchestration functions. Functions here are called by plotting_main.py and are designed for composability and testability.
 """
 
-import numpy as np
 from matplotlib.lines import Line2D
-from scipy.interpolate import make_interp_spline
 import matplotlib.patches as mpatches  # Added import for candlestick rectangles
+import logging
 
 
 def plot_zscore(ax, q_pos, q_scores):
@@ -25,7 +24,7 @@ def plot_zscore(ax, q_pos, q_scores):
 
         # Validate data
         if not positions or not scores or len(positions) != len(scores):
-            print("[WARN] Invalid Z-Score data for plotting")
+            logging.warning("Invalid Z-Score data for plotting")
             return
 
         # Plot Z-Score points
@@ -45,7 +44,7 @@ def plot_zscore(ax, q_pos, q_scores):
             )
 
     except ValueError as exc:
-        print(f"[WARN] Error plotting Z-Score: {exc}")
+        logging.warning(f"Error plotting Z-Score: {exc}")
 
 
 def plot_price_trend(
@@ -74,7 +73,7 @@ def plot_price_trend(
         or len(period_positions) != len(low_prices)
         or len(period_positions) != len(close_prices)
     ):
-        print("[WARN] Insufficient price data for plotting")
+        logging.warning("Insufficient price data for plotting")
         return Line2D(
             [0],
             [0],
@@ -116,7 +115,7 @@ def plot_price_trend(
         ax2.set_ylim(bottom=max(0, y_min - price_margin * 0.5), top=y_max + price_margin)
 
     except ValueError as e:
-        print(f"[WARN] Error plotting price trend: {e}")
+        logging.warning(f"Error plotting price trend: {e}")
         return Line2D(
             [0],
             [0],
@@ -128,16 +127,15 @@ def plot_price_trend(
             linewidth=2,
         )
 
-    return Line2D(
-        [0],
-        [0],
-        color=dark_gray,
-        marker="o",
-        label=price_label,
-        markersize=4,
-        linestyle="-",
-        linewidth=2,
-    )
+    # Create a custom legend handle for candlestick: rectangle (body) + vertical line (wick)
+    # Create a custom compound legend handle that shows both up and down candlesticks
+    up_body = mpatches.Rectangle((0, 0.3), 0.4, 0.4, facecolor=up_color, edgecolor=up_color)
+    down_body = mpatches.Rectangle((0.6, 0.3), 0.4, 0.4, facecolor=down_color, edgecolor=down_color)
+    up_wick = Line2D([0.2, 0.2], [0.1, 0.9], color=up_color, linewidth=1)
+    down_wick = Line2D([0.8, 0.8], [0.1, 0.9], color=down_color, linewidth=1)
+    # Return as a tuple for legend (combines green/up and red/down examples)
+    candle_legend = (up_body, up_wick, down_body, down_wick)
+    return candle_legend
 
 
 def format_axes(ax, date_labels, using_weekly, date_range):

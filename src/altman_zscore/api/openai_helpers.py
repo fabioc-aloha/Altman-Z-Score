@@ -1,6 +1,5 @@
 import os
 import json
-from .rate_limiter import async_retry_with_backoff
 
 def resolve_prompt_path(prompt_filename):
     prompt_path_new = os.path.join(
@@ -48,8 +47,8 @@ def inject_company_context(ticker):
     if os.path.exists(company_officers_path):
         try:
             with open(company_officers_path, "r", encoding="utf-8") as officers_file:
-                officers_json = json.load(officers_file)
-            import io, pprint
+                json.load(officers_file)
+            import io
             buf = io.StringIO()
             # pprint.pprint(officers_json, stream=buf, compact=True, width=120)
             company_officers_str = f"\n\n# Key Executives and Officers (from Yahoo Finance)\n{buf.getvalue()}\n"
@@ -59,8 +58,8 @@ def inject_company_context(ticker):
         try:
             with open(company_info_path, "r", encoding="utf-8") as info_file:
                 company_info = json.load(info_file)
-            trimmed_company = extract_trimmed_company_info(company_info)
-            import io, pprint
+            extract_trimmed_company_info(company_info)
+            import io
             buf = io.StringIO()
             # pprint.pprint(trimmed_company, stream=buf, compact=True, width=120)
             company_info_str = f"\n\n# Company Profile (from Yahoo Finance)\n{buf.getvalue()}\n"
@@ -76,7 +75,7 @@ def inject_company_context(ticker):
                     trimmed["business_address"] = {k: v for k, v in trimmed["business_address"].items() if v is not None}
                     if not trimmed["business_address"]:
                         del trimmed["business_address"]
-                import io, pprint
+                import io
                 buf = io.StringIO()
                 # pprint.pprint(trimmed, stream=buf, compact=True, width=120)
                 sec_info_str = f"\n\n# Key SEC EDGAR Company Info (trimmed)\n{buf.getvalue()}\n"
@@ -123,7 +122,7 @@ def extract_trimmed_sec_info(sec_info: dict) -> dict:
         descriptions = filings.get("description", [])
         forms = filings.get("form", [])
         filing_dates = filings.get("filingDate", [])
-        file_numbers = filings.get("fileNumber", [])
+        filings.get("fileNumber", [])
         num_filings = min(100, len(accession_numbers))
         exec_filings = []
         for i in range(num_filings):
@@ -150,8 +149,8 @@ def extract_trimmed_sec_info(sec_info: dict) -> dict:
                 exec_filings.append(exec_filing)
         if exec_filings:
             base_info["recent_executive_filings"] = exec_filings[:20]
-    except Exception as e:
-        print(f"Error processing SEC filings: {str(e)}")
+    except Exception:
+        pass
     return base_info
 
 def extract_trimmed_company_info(company_info: dict) -> dict:

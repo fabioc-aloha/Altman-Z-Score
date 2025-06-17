@@ -5,31 +5,29 @@ This module provides helpers for preparing context information, extracting SIC c
 """
 
 from datetime import datetime
-import pandas as pd
 from altman_zscore.company.sic_lookup import sic_map
 from altman_zscore.plotting.terminal import print_warning
 
-def prepare_context_info(ticker: str, profile, model: str, sic_code: str) -> dict:
+def prepare_context_info(ticker: str, profile, model) -> dict:
     """
     Prepare a context info dictionary for reporting and LLM analysis.
     Args:
         ticker: Stock ticker symbol.
-        profile: Company profile object (should have industry, is_public, is_emerging_market, maturity attributes).
-        model: Z-Score model name.
-        sic_code: SIC code string.
+        profile: Company profile object or dictionary from Yahoo Finance.
+        model: Z-Score model instance.
     Returns:
         Dictionary with context fields for reporting.
     """
-    industry = getattr(profile, "industry", "Unknown")
-    is_public = getattr(profile, "is_public", "Unknown")
-    is_em = getattr(profile, "is_emerging_market", "Unknown")
-    maturity = getattr(profile, "maturity", None)
+    # Extract SIC code from profile if available
+    industry = getattr(profile, "industry", "Unknown") if not isinstance(profile, dict) else profile.get("industry", "Unknown")
+    sic_code = extract_sic_code_from_industry(industry)
+    is_public = getattr(profile, "is_public", "Unknown") if not isinstance(profile, dict) else profile.get("is_public", "Unknown")
+    maturity = getattr(profile, "maturity", None) if not isinstance(profile, dict) else profile.get("maturity", None)
     
     maturity_map = {
         "early": "Early Stage",
         "growth": "Growth Stage",
         "mature": "Mature Company",
-        "emerging": "Emerging Market",
         "private": "Private Company",
         "public": "Public Company",
     }
@@ -50,7 +48,6 @@ def prepare_context_info(ticker: str, profile, model: str, sic_code: str) -> dic
         "Ticker": ticker,
         "Industry": industry_for_context,
         "Public": is_public,
-        "Emerging Market": is_em,
         "Maturity": (
             maturity_map.get(maturity_str, "Mature Company")
             if maturity_str
@@ -121,3 +118,34 @@ def filter_valid_quarters(fin_info: dict, start_date: str) -> list:
                 continue
         valid_quarters = filtered
     return valid_quarters
+
+def filter_quarters_by_start_date_and_fields(quarters_dict, start_date=None, required_fields=None):
+    """
+    Filter a dict of quarterly data to only include quarters on or after start_date 
+    and only the required fields.
+
+    Args:
+        quarters_dict: Dict mapping period_end to dict of fields (e.g., {"2024-03-31": {...}})
+        start_date: Optional, only include quarters on or after this date (YYYY-MM-DD)
+        required_fields: Optional, list of fields to keep in each quarter (if None, keep all)
+    Returns:
+        Filtered dict of quarters, sorted by period_end ascending.
+    """
+    if not isinstance(quarters_dict, dict):
+        return {}
+    filtered = {}
+    for period, data in quarters_dict.items():
+        try:
+            period_dt = datetime.strptime(str(period)[:10], "%Y-%m-%d").date()
+            if start_date:
+                start_dt = datetime.strptime(start_date, "%Y-%m-%d").date()
+                if period_dt < start_dt:
+                    continue
+            if required_fields:
+                filtered[period] = {k: v for k, v in data.items() if k in required_fields}
+            else:
+                filtered[period] = dict(data)
+        except Exception:
+            continue
+    # Sort by period_end ascending
+    return dict(sorted(filtered.items(), key=lambda x: x[0]))

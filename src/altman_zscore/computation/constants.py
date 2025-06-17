@@ -1,7 +1,9 @@
 """
 Constants and mappings for Altman Z-Score computation in Altman Z-Score analysis.
+Currently limited to U.S.-based companies only.
 
-Defines canonical field mappings, model fields, coefficients, thresholds, aliases, error messages, and other shared constants for all Z-Score model variants.
+Defines canonical field mappings, model fields, coefficients, thresholds, aliases, error messages, 
+and other shared constants for all Z-Score model variants.
 """
 
 # constants.py
@@ -10,18 +12,10 @@ from decimal import Decimal
 from typing import Dict, List
 
 # -------------------------------------------------------------------
-# 1) Field mapping is now handled by Azure OpenAI service
-# The mapping of canonical field names to raw financial statement fields
-# is done using natural language understanding for better accuracy and
-# support for international field names and formats.
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# 2) MODEL_FIELDS: Lists required canonical fields for each Z-Score model variant.
-# Used for validation and computation logic.
+# 1) MODEL_FIELDS: Lists required canonical fields for each Z-Score model variant.
 # -------------------------------------------------------------------
 MODEL_FIELDS: Dict[str, List[str]] = {
-    # 2.1 Public manufacturing (Original Z-Score, five-ratio)
+    # 1.1 Public manufacturing (Original Z-Score, five-ratio)
     "original": [
         "total_assets",
         "current_assets",
@@ -32,7 +26,7 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 2.2 Private manufacturing (Z′-Score, five-ratio)
+    # 1.2 Private manufacturing (Z′-Score, five-ratio)
     "private": [
         "total_assets",
         "current_assets",
@@ -43,7 +37,7 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 2.3 Public non-manufacturing (Zʺ-Public, four-ratio)
+    # 1.3 Public non-manufacturing (Zʺ-Public, four-ratio)
     "service": [
         "total_assets",
         "current_assets",
@@ -54,7 +48,7 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 2.4 Private non-manufacturing (Zʺ-Private, four-ratio)
+    # 1.4 Private non-manufacturing (Zʺ-Private, four-ratio)
     "service_private": [
         "total_assets",
         "current_assets",
@@ -65,7 +59,7 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 2.5 Tech (alias for public non-manufacturing; Zʺ-Public weights)
+    # 1.5 Tech (alias for public non-manufacturing; Zʺ-Public weights)
     "tech": [
         "total_assets",
         "current_assets",
@@ -76,217 +70,143 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 2.6 Emerging Markets (Z_EM, four-ratio + intercept, uses book equity)
-    "em": [
-        "total_assets",
-        "current_assets",
-        "current_liabilities",
-        "retained_earnings",
-        "total_liabilities",
-        "book_value_equity",
-        "ebit",
-        "sales",
-    ],
     # (Optional: Any `sic_<code>` overrides can be added here if required)
 }
 
 # -------------------------------------------------------------------
-# 3) MODEL_COEFFICIENTS: Coefficient weights for each Z-Score model variant.
-# Keys A-E correspond to X1-X5 ratios in the Altman Z-Score formula.
-# For EM, 'A' is the intercept.
+# 2) MODEL_COEFFICIENTS: Coefficient weights for each Z-Score model variant.
 # -------------------------------------------------------------------
 MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
-    # 3.1 Original Z-Score (1968, Public Manufacturing, 5-ratio)
+    # 2.1 Original Z-Score (1968, Public Manufacturing, 5-ratio)
     "original": {
-        "A": Decimal("1.20"),   # X1 = (Current Assets - Current Liabilities) / Total Assets
-        "B": Decimal("1.40"),   # X2 = Retained Earnings / Total Assets
-        "C": Decimal("3.30"),   # X3 = EBIT / Total Assets
-        "D": Decimal("0.60"),   # X4 = Market Value of Equity / Total Liabilities
-        "E": Decimal("1.00"),   # X5 = Sales / Total Assets
+        "X1": Decimal("1.2"),  # Working Capital/Total Assets
+        "X2": Decimal("1.4"),  # Retained Earnings/Total Assets
+        "X3": Decimal("3.3"),  # EBIT/Total Assets
+        "X4": Decimal("0.6"),  # Market Value of Equity/Total Liabilities
+        "X5": Decimal("1.0"),  # Sales/Total Assets
     },
-    # 3.2 Z′-Score (1983, Private Manufacturing, 5-ratio)
+    # 2.2 Z′-Score (Private Manufacturing)
     "private": {
-        "A": Decimal("0.717"),  # X1 = (Current Assets - Current Liabilities) / Total Assets
-        "B": Decimal("0.847"),  # X2 = Retained Earnings / Total Assets
-        "C": Decimal("3.107"),  # X3 = EBIT / Total Assets
-        "D": Decimal("0.420"),  # X4 = Book Value of Equity / Total Liabilities
-        "E": Decimal("0.998"),  # X5 = Sales / Total Assets
+        "X1": Decimal("0.717"),  # Working Capital/Total Assets
+        "X2": Decimal("0.847"),  # Retained Earnings/Total Assets
+        "X3": Decimal("3.107"),  # EBIT/Total Assets
+        "X4": Decimal("0.420"),  # Book Value of Equity/Total Liabilities
+        "X5": Decimal("0.998"),  # Sales/Total Assets
     },
-    # 3.3 Zʺ-Public (1995, Public Non-Manufacturing, 4-ratio)
+    # 2.3 Zʺ-Score (Non-Manufacturing)
     "service": {
-        "A": Decimal("6.56"),   # X1 = (Current Assets - Current Liabilities) / Total Assets
-        "B": Decimal("3.26"),   # X2 = Retained Earnings / Total Assets
-        "C": Decimal("6.72"),   # X3 = EBIT / Total Assets
-        "D": Decimal("1.05"),   # X4 = Market Value of Equity / Total Liabilities
-        "E": Decimal("0.00"),   # (unused in 4-ratio)
+        "X1": Decimal("6.56"),   # Working Capital/Total Assets
+        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),   # EBIT/Total Assets
+        "X4": Decimal("1.05"),   # Market Value of Equity/Total Liabilities
     },
-    # 3.4 Zʺ-Private (1995, Private Non-Manufacturing, 4-ratio)
+    # 2.4 Zʺ-Private (Private Non-Manufacturing)
     "service_private": {
-        "A": Decimal("6.56"),   # X1 = (Current Assets - Current Liabilities) / Total Assets
-        "B": Decimal("3.26"),   # X2 = Retained Earnings / Total Assets
-        "C": Decimal("6.72"),   # X3 = EBIT / Total Assets
-        "D": Decimal("1.05"),   # X4 = Book Value of Equity / Total Liabilities
-        "E": Decimal("0.00"),   # (unused in 4-ratio)
+        "X1": Decimal("6.56"),   # Working Capital/Total Assets
+        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),   # EBIT/Total Assets
+        "X4": Decimal("1.05"),   # Book Value of Equity/Total Liabilities
     },
-    # 3.5 Tech (alias for Zʺ-Public; identical coefficients)
+    # Tech is an alias for service (uses same coefficients)
     "tech": {
-        "A": Decimal("6.56"),
-        "B": Decimal("3.26"),
-        "C": Decimal("6.72"),
-        "D": Decimal("1.05"),
-        "E": Decimal("0.00"),
+        "X1": Decimal("6.56"),   # Working Capital/Total Assets
+        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),   # EBIT/Total Assets
+        "X4": Decimal("1.05"),   # Market Value of Equity/Total Liabilities
     },
-    # 3.6 Z_EM-Score (1995 EM-Adjusted, four-ratio + 3.25 intercept, book equity)
-    "em": {
-        "A": Decimal("3.25"),   # intercept
-        "B": Decimal("6.56"),   # X1 weight
-        "C": Decimal("3.26"),   # X2 weight
-        "D": Decimal("6.72"),   # X3 weight
-        "E": Decimal("1.05"),   # X4 weight (BVE/TL)
-    },
-    # (Optional: Add any `sic_<code>` overrides below)
 }
 
 # -------------------------------------------------------------------
-# 4) Z_SCORE_THRESHOLDS: Distress, Grey, and Safe cutoffs for each model.
-# Used to interpret the computed Z-Score.
+# 3) Z_SCORE_THRESHOLDS: Distress, Grey, and Safe cutoffs for each model.
 # -------------------------------------------------------------------
 Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
-    # 4.1 Original Z-Score (1968, Public Manufacturing)
+    # 3.1 Original Z-Score (1968, Public Manufacturing)
     "original": {
         "safe": Decimal("2.99"),
         "grey": Decimal("1.81"),
         "distress": Decimal("1.81"),
     },
-    # 4.2 Z′-Score (1983, Private Manufacturing)
+    # 3.2 Z′-Score (Private Manufacturing)
     "private": {
-        "safe": Decimal("2.60"),
-        "grey": Decimal("1.10"),
-        "distress": Decimal("1.10"),
-    },
-    # 4.3 Zʺ-Public (1995, Public Non-Manufacturing)
-    "service": {
         "safe": Decimal("2.90"),
         "grey": Decimal("1.23"),
         "distress": Decimal("1.23"),
     },
-    # 4.4 Zʺ-Private (1995, Private Non-Manufacturing)
+    # 3.3 Zʺ-Score (Non-Manufacturing)
+    "service": {
+        "safe": Decimal("2.60"),
+        "grey": Decimal("1.10"),
+        "distress": Decimal("1.10"),
+    },
+    # 3.4 Zʺ-Private (Private Non-Manufacturing)
     "service_private": {
         "safe": Decimal("2.60"),
         "grey": Decimal("1.10"),
         "distress": Decimal("1.10"),
     },
-    # 4.5 Tech (alias for Zʺ-Public)
+    # Tech uses same thresholds as service
     "tech": {
-        "safe": Decimal("2.90"),
-        "grey": Decimal("1.23"),
-        "distress": Decimal("1.23"),
-    },
-    # 4.6 Z_EM-Score (1995 EM-Adjusted)
-    "em": {
         "safe": Decimal("2.60"),
         "grey": Decimal("1.10"),
         "distress": Decimal("1.10"),
     },
-    # (Optional: Add any `sic_<code>` overrides below)
 }
 
 # -------------------------------------------------------------------
-# 5) MODEL_ALIASES: Maps legacy or alternative model keys to canonical keys.
-# Ensures backward compatibility and normalization of model selection.
+# 4) MODEL_ALIASES: Maps legacy or alternative model keys to canonical keys.
 # -------------------------------------------------------------------
 MODEL_ALIASES: Dict[str, str] = {
     "public_service": "service",      # alias → service
     "private_mfg": "private",         # alias → private
-    "emerging": "em",                 # alias → em
-    "public": "service",              # alias → service
-    # (If needed, you can add more aliases here)
+    "public_mfg": "original",         # alias → original
+    "manufacturing": "original",      # alias → original
+    "non_manufacturing": "service",   # alias → service
 }
 
 # -------------------------------------------------------------------
-# 6) EMERGING_MARKETS: List of country codes considered 'emerging markets'.
-# Used for model selection and reporting.
+# 5) STATUS MESSAGES: Standardized status messages for company status checks
 # -------------------------------------------------------------------
-EMERGING_MARKETS: List[str] = [
-    "ID", "TR", "PL", "TH", "PH", "EG", "NG", "PK", "VN", "AR", "CO", "MY", "CL", "PE"
-]
+STATUS_MSG_BANKRUPT = "{ticker} is bankrupt{bankruptcy_info}"
+STATUS_MSG_DELISTED = "{ticker} has been delisted{delisting_info}"
+STATUS_MSG_NOT_FOUND = "{ticker} not found"
+STATUS_MSG_INACTIVE = "{ticker} is not active (reason: {status_reason})"
+STATUS_MSG_ACTIVE = "{ticker} is active and trading"
 
 # -------------------------------------------------------------------
-# 7) CALIBRATION_UPDATE: Metadata for the latest model coefficient update.
-# Used for auditability and transparency in model versioning.
+# 3) ERROR MESSAGES: Standardized error messages for various conditions
 # -------------------------------------------------------------------
-CALIBRATION_UPDATE: Dict[str, str] = {
-    "last_update": "2025-05-29",
-    "update_notes": "Initial v2.4 canonical key structure. All weights validated against Altman literature.",
-    "update_source": "SEC EDGAR / Compustat / Salomon Smith Barney (1995 EM publication).",
-}
+ERROR_MSG_TICKER_NOT_FOUND = "Ticker symbol not found"
+ERROR_MSG_SYMBOL_NOT_FOUND = "Symbol not found in Yahoo Finance database"
+ERROR_MSG_DELISTED = "Company has been delisted"
+ERROR_MSG_NO_TRADING = "No recent trading activity found"
+ERROR_MSG_KNOWN_BANKRUPTCY = "Company is known to be bankrupt"
+ERROR_MSG_COMPANY_NOT_FOUND_SEC = "Company not found in SEC database"
+ERROR_MSG_ERROR_RETRIEVING = "Error retrieving company data"
+ERROR_MSG_STATUS_CHECK_FAILED = "Failed to check company status"
 
-# -------------------------------------------------------------------
-# 8) ERROR MESSAGES: Centralized error message strings for DRY compliance.
-# Used throughout the pipeline for consistent error reporting.
-# -------------------------------------------------------------------
-ERROR_MSG_TICKER_NOT_FOUND = "Ticker not found in Yahoo Finance"
-ERROR_MSG_SYMBOL_NOT_FOUND = "Ticker symbol not found in Yahoo Finance"
-ERROR_MSG_DELISTED = "Delisted according to Yahoo Finance"
-ERROR_MSG_NO_TRADING = "No recent trading data available"
-ERROR_MSG_KNOWN_BANKRUPTCY = "Known bankruptcy case (filed on {date})"
-ERROR_MSG_COMPANY_NOT_FOUND_SEC = "Company not found in SEC EDGAR database"
-ERROR_MSG_ERROR_RETRIEVING = "Error retrieving data: {error}"
-ERROR_MSG_ALL_FIELDS_MISSING = "All required fields are missing or zero (possible empty or placeholder quarter)"
-ERROR_MSG_MISSING_FIELD = "Missing required field: {field}"
-ERROR_MSG_NEGATIVE_ASSETS = "Total assets is negative (suspicious)"
-ERROR_MSG_NEGATIVE_SALES = "Sales is negative (suspicious)"
-ERROR_MSG_LIABILITIES_RATIO = "Total liabilities > 10x total assets (possible data error)"
-ERROR_MSG_STATUS_CHECK_FAILED = "Company status check failed"
-
-# -------------------------------------------------------------------
-# 9) STATUS MESSAGE TEMPLATES: Centralized user-facing status messages for DRY compliance.
-# Used for reporting company status to users.
-# -------------------------------------------------------------------
-STATUS_MSG_BANKRUPT = "{ticker} has filed for bankruptcy{bankruptcy_info}."
-STATUS_MSG_DELISTED = "{ticker} has been delisted{delisting_info}."
-STATUS_MSG_NOT_FOUND = "The ticker '{ticker}' does not appear to exist."
-STATUS_MSG_INACTIVE = "{ticker} exists but is not currently active. {status_reason}"
-STATUS_MSG_ACTIVE = "{ticker} appears to be an active company."
-
-# -------------------------------------------------------------------
-# 10) FIELD_SYNONYMS: Maps alternate field names to canonical field names for DRY compliance.
-# Used to standardize field names from various data sources.
-# -------------------------------------------------------------------
-FIELD_SYNONYMS: Dict[str, str] = {
-    # Assets
-    "Assets": "total_assets",
-    "Total Assets": "total_assets",
-    "AssetsTotal": "total_assets",
-    # Current Assets
-    "Current Assets": "current_assets",
-    "AssetsCurrent": "current_assets",
-    # Current Liabilities
-    "Current Liabilities": "current_liabilities",
-    "LiabilitiesCurrent": "current_liabilities",
-    # Retained Earnings
-    "Retained Earnings": "retained_earnings",
-    "RetainedEarnings": "retained_earnings",
-    # Total Liabilities
-    "Total Liabilities Net Minority Interest": "total_liabilities",
-    "Total Liabilities": "total_liabilities",
-    "Liabilities": "total_liabilities",
-    # Book Value Equity
-    "Common Stock Equity": "book_value_equity",
-    "Stockholders Equity": "book_value_equity",
-    "Total Equity Gross Minority Interest": "book_value_equity",
-    # EBIT
-    "EBIT": "ebit",
-    "Operating Income": "ebit",
-    "OperatingIncome": "ebit",
-    # Sales/Revenue
-    "Total Revenue": "sales",
-    "Revenues": "sales",
-    "Sales": "sales",
-    "Revenue": "sales",
-    "Operating Revenue": "sales",
-    # Market Value Equity (if used)
-    "Market Value of Equity": "market_value_equity",
-    # Add more synonyms as needed for new data sources or edge cases
-}
+# Error messages for data validation
+ERROR_MSG_ALL_FIELDS_MISSING = "All required fields are missing"
+ERROR_MSG_SOME_FIELDS_MISSING = "Some required fields are missing"
+ERROR_MSG_MISSING_FIELD = "Required field {} is missing"
+ERROR_MSG_INVALID_VALUE = "Invalid value for field {}"
+ERROR_MSG_NEGATIVE_ASSETS = "Total assets cannot be negative"
+ERROR_MSG_ZERO_ASSETS = "Total assets cannot be zero"
+ERROR_MSG_NEGATIVE_LIABILITIES = "Total liabilities cannot be negative"
+ERROR_MSG_NEGATIVE_EQUITY = "Equity cannot be negative"
+ERROR_MSG_NEGATIVE_SALES = "Sales cannot be negative"
+ERROR_MSG_NEGATIVE_EBIT = "EBIT cannot be negative"
+ERROR_MSG_NEGATIVE_WORKING_CAPITAL = "Working capital cannot be negative"
+ERROR_MSG_DATA_CONSISTENCY = "Data consistency check failed"
+ERROR_MSG_VALIDATION_FAILED = "Validation failed: {}"
+ERROR_MSG_COMPUTATION_FAILED = "Z-Score computation failed: {}"
+ERROR_MSG_QUARTERLY_DATA_MISSING = "No quarterly data available"
+ERROR_MSG_FIELD_TYPE_MISMATCH = "Field type mismatch for {}"
+ERROR_MSG_FIELD_RANGE_ERROR = "Value out of valid range for {}"
+ERROR_MSG_LIABILITIES_RATIO = "Total liabilities cannot exceed total assets"
+ERROR_MSG_EQUITY_CALCULATION = "Equity calculation failed: assets - liabilities mismatch"
+ERROR_MSG_WORKING_CAPITAL_RATIO = "Working capital ratio outside valid range"
+ERROR_MSG_RETAINED_EARNINGS_RATIO = "Retained earnings ratio outside valid range"
+ERROR_MSG_EBIT_MARGIN = "EBIT margin outside valid range"
+ERROR_MSG_MARKET_CAP_RATIO = "Market cap to liabilities ratio outside valid range"
+ERROR_MSG_ASSET_TURNOVER = "Asset turnover ratio outside valid range"
 

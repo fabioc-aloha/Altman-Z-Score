@@ -17,11 +17,11 @@ logger = logging.getLogger(__name__)
 
 class ModelType(Enum):
     """Enumeration of Z-score model types available."""
-
-    ORIGINAL = "original"
-    PRIVATE = "private"
-    SERVICE = "service"
-    EMERGING = "emerging"
+    ORIGINAL = "original"               # Original Z-Score for public manufacturing companies
+    PRIVATE = "private"                 # Z'-Score for private manufacturing companies
+    FINANCIAL = "financial"             # Modified Z-Score for financial institutions
+    ZETA = "zeta"                       # Zeta® Model (1977 public domain version)
+    RETAIL = "retail"                   # Retail industry specific model
 
 
 @dataclass
@@ -124,6 +124,10 @@ class ZScoreModel(ABC):
         Returns:
             List of required metric names
         """
+
+    def get_model_type(self) -> ModelType:
+        """Return the model type for this model instance."""
+        return self.model_type
 
     def _validate_model_configuration(self) -> None:
         """Validate model configuration and coefficients.

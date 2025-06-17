@@ -4,15 +4,10 @@ import json
 import logging
 from typing import Optional
 
-from ..utils.retry import exponential_retry
 from .openai_helpers import (
     resolve_prompt_path,
     load_prompt_file,
-    strip_code_block_markers,
     parse_llm_json_response,
-    inject_company_context,
-    extract_trimmed_sec_info,
-    extract_trimmed_company_info,
 )
 from .rate_limiter import retry_with_backoff
 
@@ -52,7 +47,7 @@ class AzureOpenAIClient:
         retry_status_codes=(429, 500, 502, 503, 504),
         status_code_getter=lambda resp: getattr(resp, 'status_code', None) if resp is not None else None,
     )
-    def chat_completion(self, messages, temperature=0.0, max_tokens=4096):
+    def chat_completion(self, messages, temperature=0.0, max_tokens=8192, response_format: str = "text"):
         """
         Generate a chat completion using Azure OpenAI.
 
@@ -60,18 +55,22 @@ class AzureOpenAIClient:
             messages (list): List of message dicts for the chat (system/user roles).
             temperature (float): Sampling temperature for response randomness.
             max_tokens (int): Maximum number of tokens in the response.
+            response_format (str): "text" (default) or "json_object" to force JSON output.
         Returns:
             dict: The full response from the OpenAI API.
         Raises:
             Exception: If the API call fails after retries.
         """
         try:
-            response = self.client.chat.completions.create(
+            api_args = dict(
                 model=self.deployment,
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens
             )
+            if response_format == "json_object":
+                api_args["response_format"] = {"type": "json_object"}
+            response = self.client.chat.completions.create(**api_args)
             return {"choices": [{"message": {"content": response.choices[0].message.content}}]}
         except Exception as e:
             raise RuntimeError(f"OpenAI API call failed: {str(e)}")
@@ -176,7 +175,7 @@ Canonical fields to map: {canonical_fields}\n
         # Save the prompt for troubleshooting
         try:
             from altman_zscore.utils.paths import get_output_dir
-            prompt_save_path = os.path.join(get_output_dir(), "field_mapping_prompt.txt")
+            prompt_save_path = os.path.join(get_output_dir(ticker=mapping_overrides.get('ticker') if mapping_overrides and 'ticker' in mapping_overrides else None), "field_mapping_prompt.txt")
             full_prompt = f"System prompt:\n{system_prompt}\n\nUser prompt:\n{user_prompt}"
             os.makedirs(os.path.dirname(prompt_save_path), exist_ok=True)
             with open(prompt_save_path, "w", encoding="utf-8") as f:
@@ -186,7 +185,7 @@ Canonical fields to map: {canonical_fields}\n
             logging.warning(f"[DEBUG] Could not save field mapping prompt: {e}")
 
         try:
-            response = self.chat_completion(messages, temperature=0.0, max_tokens=4096)
+            response = self.chat_completion(messages, temperature=0.0, max_tokens=8192)
             content = response["choices"][0]["message"]["content"]
             mapping = parse_llm_json_response(content)
             if mapping_overrides:
@@ -196,6 +195,72 @@ Canonical fields to map: {canonical_fields}\n
             return mapping
         except Exception as e:
             raise RuntimeError(f"Failed to parse AI field mapping: {e}\nResponse: {response}")
+
+    def suggest_canonical_field_mapping(self, sec_fields, canonical_fields=None, ticker=None):
+        """
+        Use Azure OpenAI to map canonical Altman Z-Score fields to the best-matching SEC field names.
+
+        Args:
+            sec_fields (list[str]): Unique field names from SEC data
+            canonical_fields (list[str], optional): List of canonical fields. Defaults to standard Altman Z-Score fields.
+            ticker (str, optional): Ticker symbol to save prompt in ticker-specific output folder.
+        Returns:
+            dict: {canonical_field: [ordered list of plausible SEC field names]}
+        Raises:
+            RuntimeError: If the LLM response cannot be parsed as JSON.
+        """
+        if canonical_fields is None:
+            canonical_fields = [
+                "total_assets",
+                "current_assets",
+                "current_liabilities",
+                "total_liabilities",
+                "retained_earnings",
+                "ebit",
+                "sales",
+            ]
+        prompt_path = resolve_prompt_path("prompt_field_mapping_simple.md")
+        system_prompt = load_prompt_file(prompt_path)
+        # Compose the user prompt with only SEC field names
+        user_prompt = (
+            f"Available field names:\n"
+            f"- SEC: {sec_fields}\n"
+            f"\nCanonical fields: {canonical_fields}\n"
+            f"\nPlease return the mapping as instructed."
+        )
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+        # Save the prompt for troubleshooting in the ticker folder if provided
+        try:
+            from altman_zscore.utils.paths import get_output_dir
+            prompt_save_path = os.path.join(get_output_dir(ticker=ticker), "field_mapping_prompt_simple.txt")
+            full_prompt = f"System prompt:\n{system_prompt}\n\nUser prompt:\n{user_prompt}"
+            os.makedirs(os.path.dirname(prompt_save_path), exist_ok=True)
+            with open(prompt_save_path, "w", encoding="utf-8") as f:
+                f.write(full_prompt)
+            logging.info(f"[DEBUG] Simple field mapping prompt saved to {prompt_save_path}")
+        except Exception as e:
+            logging.warning(f"[DEBUG] Could not save simple field mapping prompt: {e}")
+        try:
+            response = self.chat_completion(messages, temperature=0.0, max_tokens=1024, response_format="json_object")
+            content = response["choices"][0]["message"]["content"]
+            # Save the LLM response to a file in the ticker output directory
+            if ticker:
+                try:
+                    from altman_zscore.utils.paths import get_output_dir
+                    response_save_path = os.path.join(get_output_dir(ticker=ticker), "field_mapping_response_simple.json")
+                    os.makedirs(os.path.dirname(response_save_path), exist_ok=True)
+                    with open(response_save_path, "w", encoding="utf-8") as f:
+                        f.write(content)
+                    logging.info(f"[DEBUG] Simple field mapping response saved to {response_save_path}")
+                except Exception as e:
+                    logging.warning(f"[DEBUG] Could not save simple field mapping response: {e}")
+            mapping = parse_llm_json_response(content)
+            return mapping
+        except Exception as e:
+            raise RuntimeError(f"Failed to parse AI canonical field mapping: {e}\nResponse: {locals().get('response', None)}")
 
 def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) -> str:
     """
@@ -250,7 +315,7 @@ def get_llm_qualitative_commentary(prompt: str, ticker: Optional[str] = None) ->
         {"role": "user", "content": full_prompt},
     ]
     try:
-        response = client.chat_completion(messages, temperature=0.0, max_tokens=4096)
+        response = client.chat_completion(messages, temperature=0.0, max_tokens=8192)
         logging.warning(f"[DEBUG] LLM response: {response}")
         content = response["choices"][0]["message"]["content"]
         return content.strip()
@@ -312,20 +377,8 @@ def _inject_company_context(ticker):
         return (company_officers_str, company_info_str, sec_info_str, analyst_recs_str, holders_str, dividends_str, splits_str, weekly_prices_str, financials_raw_str, yf_info_str)
     from altman_zscore.utils.paths import get_output_dir
     base_dir = get_output_dir(ticker=ticker)
-    # Existing context injections
-    company_officers_path = os.path.join(base_dir, "company_officers.json")
-    company_info_path = os.path.join(base_dir, "company_info.json")
-    sec_info_path = os.path.join(base_dir, "sec_edgar_company_info.json")
-    analyst_recs_path = os.path.join(base_dir, "recommendations.json")
-    institutional_holders_path = os.path.join(base_dir, "institutional_holders.json")
-    major_holders_path = os.path.join(base_dir, "major_holders.json")
-    dividends_path = os.path.join(base_dir, "dividends.csv")
-    splits_path = os.path.join(base_dir, "splits.csv")
-    weekly_prices_path = os.path.join(base_dir, "weekly_prices.csv")
-    weekly_prices_json_path = os.path.join(base_dir, "weekly_prices.json")
-    financials_raw_path = os.path.join(base_dir, "financials_raw.json")
-    yf_info_path = os.path.join(base_dir, "yf_info.json")
     # Officers
+    company_officers_path = os.path.join(base_dir, "company_officers.json")
     if os.path.exists(company_officers_path):
         try:
             with open(company_officers_path, "r", encoding="utf-8") as officers_file:
@@ -334,6 +387,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             company_officers_str = f"\n[Could not load company_officers.json: {e}]\n"
     # Company info (trim 'filings')
+    company_info_path = os.path.join(base_dir, "company_info.json")
     if os.path.exists(company_info_path):
         try:
             with open(company_info_path, "r", encoding="utf-8") as info_file:
@@ -344,6 +398,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             company_info_str = f"\n[Could not load company_info.json: {e}]\n"
     # SEC info (trim 'filings')
+    sec_info_path = os.path.join(base_dir, "sec_edgar_company_info.json")
     if os.path.exists(sec_info_path):
         try:
             with open(sec_info_path, "r", encoding="utf-8") as sec_file:
@@ -354,6 +409,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             sec_info_str = f"\n[Could not load sec_edgar_company_info.json: {e}]\n"
     # Analyst recommendations
+    analyst_recs_path = os.path.join(base_dir, "recommendations.json")
     if os.path.exists(analyst_recs_path):
         try:
             with open(analyst_recs_path, "r", encoding="utf-8") as rec_file:
@@ -362,6 +418,8 @@ def _inject_company_context(ticker):
         except Exception as e:
             analyst_recs_str = f"\n[Could not load recommendations.json: {e}]\n"
     # Institutional and major holders
+    institutional_holders_path = os.path.join(base_dir, "institutional_holders.json")
+    major_holders_path = os.path.join(base_dir, "major_holders.json")
     holders_sections = []
     if os.path.exists(institutional_holders_path):
         try:
@@ -379,6 +437,7 @@ def _inject_company_context(ticker):
             holders_sections.append(f"\n[Could not load major_holders.json: {e}]\n")
     holders_str = "".join(holders_sections)
     # Dividends
+    dividends_path = os.path.join(base_dir, "dividends.csv")
     if os.path.exists(dividends_path):
         try:
             with open(dividends_path, "r", encoding="utf-8") as f:
@@ -386,6 +445,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             dividends_str = f"\n[Could not load dividends.csv: {e}]\n"
     # Splits
+    splits_path = os.path.join(base_dir, "splits.csv")
     if os.path.exists(splits_path):
         try:
             with open(splits_path, "r", encoding="utf-8") as f:
@@ -393,6 +453,8 @@ def _inject_company_context(ticker):
         except Exception as e:
             splits_str = f"\n[Could not load splits.csv: {e}]\n"
     # Weekly prices (CSV and JSON)
+    weekly_prices_path = os.path.join(base_dir, "weekly_prices.csv")
+    weekly_prices_json_path = os.path.join(base_dir, "weekly_prices.json")
     if os.path.exists(weekly_prices_path):
         try:
             with open(weekly_prices_path, "r", encoding="utf-8") as f:
@@ -402,7 +464,7 @@ def _inject_company_context(ticker):
     elif os.path.exists(weekly_prices_json_path):
         try:
             with open(weekly_prices_json_path, "r", encoding="utf-8") as f:
-                import io, pprint
+                import io
                 data = json.load(f)
                 buf = io.StringIO()
                 # pprint.pprint(data, stream=buf, compact=True, width=120)
@@ -411,6 +473,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             weekly_prices_str = f"\n[Could not load weekly_prices.json: {e}]\n"
     # Financials raw
+    financials_raw_path = os.path.join(base_dir, "financials_raw.json")
     if os.path.exists(financials_raw_path):
         try:
             with open(financials_raw_path, "r", encoding="utf-8") as f:
@@ -419,6 +482,7 @@ def _inject_company_context(ticker):
         except Exception as e:
             financials_raw_str = f"\n[Could not load financials_raw.json: {e}]\n"
     # yf_info
+    yf_info_path = os.path.join(base_dir, "yf_info.json")
     if os.path.exists(yf_info_path):
         try:
             with open(yf_info_path, "r", encoding="utf-8") as f:

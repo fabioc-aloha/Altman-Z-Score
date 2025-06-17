@@ -12,7 +12,7 @@ import os
 import json
 import logging
 from datetime import date
-from typing import Dict, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import requests
 import yfinance as yf
@@ -159,7 +159,6 @@ def _fetch_ticker_info_with_retry(ticker: str):
     Returns:
         yfinance.Ticker: Ticker object with info
     """
-    from altman_zscore.utils.retry import exponential_retry
     return yf.Ticker(ticker)
 
 def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus':

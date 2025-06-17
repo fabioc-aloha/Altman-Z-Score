@@ -75,10 +75,11 @@ class FinancialDataValidator:
         Validate a single quarter's financial data for required fields, missing values, and suspicious values.
 
         Args:
-            q (dict): Financial data for a quarter.
-            industry (str, optional): Industry string for context.
+            q (dict): Financial data for a quarter (field-value mapping).
+            industry (str, optional): Industry string for context (may affect validation rules).
+
         Returns:
-            list: List of ValidationIssue (warnings/errors).
+            list of ValidationIssue: List of validation issues (warnings/errors) found in the data.
         """
         issues = []
         # 1. Required field check
@@ -141,19 +142,21 @@ class FinancialDataValidator:
         Args:
             q (dict): Financial data for a quarter.
             industry (str, optional): Industry string for context.
+
         Returns:
-            list: List of ValidationIssue (warnings/errors).
+            list of ValidationIssue: List of validation issues (warnings/errors).
         """
         return self.validate(q, industry)
 
     def summarize_issues(self, issues):
         """
-        Return a summary string for edge-case diagnostics.
+        Return a summary string for edge-case diagnostics and reporting.
 
         Args:
-            issues (list): List of ValidationIssue.
+            issues (list of ValidationIssue): List of validation issues to summarize.
+
         Returns:
-            str: Summary string for reporting.
+            str: Summary string for reporting (empty if no issues).
         """
         if not issues:
             return "No validation issues."
@@ -167,16 +170,13 @@ class FinancialDataValidator:
 
     def check_consistency(self, q):
         """
-        Run consistency checks for financial data as described in ModelSelection.md pseudocode:
-            - TA >= CA (Total Assets >= Current Assets)
-            - TL >= CL (Total Liabilities >= Current Liabilities)
-            - BVE ≈ TA - TL (Shareholders’ Equity ≈ Total Assets - Total Liabilities)
-            - Rounding discrepancies (not implemented; raw values not always available)
+        Run consistency checks for financial data (e.g., TA >= CA, TL >= CL, BVE ≈ TA - TL).
 
         Args:
             q (dict): Financial data for a quarter.
+
         Returns:
-            list: List of ValidationIssue (level=WARNING) for any detected inconsistencies.
+            list of ValidationIssue: List of warnings for any detected inconsistencies.
         """
         issues = []
         # TA >= CA

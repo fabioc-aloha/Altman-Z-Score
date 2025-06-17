@@ -121,9 +121,8 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
             
             # First get CIK
             cik = client.lookup_cik(ticker)
-            if cik:
-                # Get company submissions
-                url = f"{SECClient.SUBMISSIONS_BASE_URL}CIK{cik.zfill(10)}.json"
+            if cik:                # Get company submissions
+                url = f"{SECClient.SUBMISSIONS_BASE_URL}/CIK{cik.zfill(10)}.json"
                 import requests
                 response = requests.get(url, 
                     headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
@@ -144,10 +143,8 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
                             latest_def_14a_idx = def_14a_indices[0]
                             accession_number = accession_numbers[latest_def_14a_idx].replace('-', '')
                             primary_doc = primary_docs[latest_def_14a_idx]
-                            filing_date = filing_dates[latest_def_14a_idx]
-
-                            # Get the filing content
-                            filing_url = f"{SECClient.ARCHIVES_BASE_URL}{cik}/{accession_number}/{primary_doc}"
+                            filing_date = filing_dates[latest_def_14a_idx]                            # Get the filing content
+                            filing_url = f"{SECClient.ARCHIVES_BASE_URL}/{cik}/{accession_number}/{primary_doc}"
                             response = requests.get(filing_url, 
                                 headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
                             

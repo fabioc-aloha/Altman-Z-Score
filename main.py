@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
-# Version: 3.1.1 (2025-06-15)
+# Version: 3.2.1 (2025-06-17)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
-A robust, modular Python tool fdef show_progress_bar(ticker, step_idx, total_steps):
-    bar_length = 30
-    progress = (step_idx + 1) / total_steps
-    filled_length = int(bar_length * progress)
-    bar = '■' * filled_length + '□' * (bar_length - filled_length)
-    step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"prehensive Altman Z-Score trend analysis with
-LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers.
+A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with
+LLM-powered qualitative insights. This script orchestrates the analysis pipeline for
+single or multiple stock tickers.
 
 Architecture Overview:
     1. Input Layer: Accepts ticker(s) and analysis date; validates input.
@@ -58,32 +54,57 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "3.1.1"
+__version__ = "3.2.1"
 
+
+import os
+# Load .env variables before any other imports that may use them
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 import argparse
-import os
 import sys
 import time
 import logging
 import threading
+import datetime
+from dateutil.relativedelta import relativedelta
 
 import pandas as pd
 
 # Add src directory to path for relative imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+
+# Set up logging with more verbosity
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger(__name__)
+
 from altman_zscore.core.one_stock_analysis import analyze_single_stock_zscore_trend
 from altman_zscore.core.progress_tracking import PIPELINE_STEPS
 
 def parse_args():
-    """Parse command line arguments for the Altman Z-Score analysis."""
+    """
+    Parse command line arguments for the Altman Z-Score analysis CLI.
+
+    Returns:
+        argparse.Namespace: Parsed command-line arguments including tickers, model, date range, and options.
+    """
     parser = argparse.ArgumentParser(
         description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
         epilog="Examples:\n"
                "  python main.py AAPL                    # Single stock analysis\n"
                "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
                "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
-               "  python main.py AAPL --no-plot          # Skip chart generation\n"
+               "  python main.py AAPL --model financial  # Force financial institution model\n"
                "  python main.py --test                  # Run all tests\n"
                "  python main.py --log-level DEBUG       # Set log level",
         formatter_class=argparse.RawDescriptionHelpFormatter
@@ -97,11 +118,26 @@ def parse_args():
              "LLM qualitative analysis, and executive/officer profiles."
     )
     parser.add_argument(
+        "--model",
+        type=str,
+        choices=['original', 'private', 'financial', 'zeta', 'retail'],
+        help="Force a specific Z-Score model instead of using automatic selection. "
+             "Options: original (manufacturing), private (private companies), "
+             "financial (banks), zeta (mature), retail (retail sector)"
+    )
+    def default_start_date():
+        """Calculate default start date.
+        Default to 3 years of data, but users can request more historical data if available.
+        """
+        today = datetime.date.today()
+        dt = today.replace(day=1) - relativedelta(months=36)  # Default to 3 years
+        return dt.strftime("%Y-%m-%d")
+    parser.add_argument(
         "--start",
         type=str,
-        default="2024-01-01",
-        help="Start date for analysis in YYYY-MM-DD format (default: 2024-01-01). "
-             "Analysis will include all available quarterly data from this date forward."
+        default=default_start_date(),
+        help="Start date for analysis in YYYY-MM-DD format (default: 1st of the month 36 months before today). "
+             "Historical data availability varies by company, with many U.S. companies having 15+ years of data available."
     )
     parser.add_argument(
         "--no-plot",
@@ -125,7 +161,15 @@ def parse_args():
 
 
 def format_zscore_results(df):
-    """Format Z-Score results for reporting."""
+    """
+    Format Z-Score results DataFrame for human-readable reporting.
+
+    Args:
+        df (pandas.DataFrame): DataFrame with 'quarter_end' and 'zscore' columns.
+
+    Returns:
+        list[str]: List of formatted strings summarizing Z-Score and risk zone by quarter.
+    """
     result_df = df[['quarter_end', 'zscore']].copy()
     result_df.columns = ['Quarter', 'Z-Score']
     result_df = result_df.sort_values('Quarter', ascending=False)
@@ -149,136 +193,204 @@ def format_zscore_results(df):
 # Import pipeline steps from progress tracking module
 from altman_zscore.core.progress_tracking import PIPELINE_STEPS
 
-def show_progress_bar(ticker, step_idx, total_steps):
-    bar_length = 30
-    progress = (step_idx + 1) / total_steps
-    filled_length = int(bar_length * progress)
-    bar = '■' * filled_length + '□' * (bar_length - filled_length)
-    step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
-    
-    # Calculate the length of current progress message
-    current_msg = f"[{ticker}] Pipeline Progress: |{bar}| {step_idx + 1}/{total_steps} {step_name}"
-    
-    # Calculate max possible length by checking all possible messages    
-    max_length = max(
-        len(f"[{ticker}] Pipeline Progress: |{'■' * bar_length}| {i+1}/{total_steps} {step}")
-        for i, step in enumerate(PIPELINE_STEPS)
-    ) + 1  # Add 1 for safety margin
-    
-    # Clear the entire line with calculated max length
-    print(f"\r{' ' * max_length}\r", end='', flush=True)
-    print(f"{current_msg}", end='', flush=True)
-    if step_idx + 1 == total_steps:
-        print()  # Move to new line when complete
+def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
+    """
+    Display a progress bar for the analysis pipeline in the terminal.
+
+    Args:
+        ticker (str): Stock ticker symbol being analyzed.
+        step_idx (int): Current pipeline step index (1-based).
+        total_steps (int): Total number of steps in the pipeline.
+        model_name (str, optional): Name of the Z-Score model in use.
+    """
+    try:
+        # Validate total_steps
+        if not isinstance(total_steps, int) or total_steps <= 0:
+            total_steps = len(PIPELINE_STEPS)
+        bar_length = 30
+        # Safely compute filled length
+        progress = (step_idx + 1) / total_steps if total_steps > 0 else 0
+        filled_length = int(bar_length * progress)
+        bar = '■' * filled_length + '□' * (bar_length - filled_length)
+        step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
+        # Header message
+        if step_name == "Z-Score Computation" and model_name:
+            header = f"[{ticker}] Applying {model_name} Model"
+        else:
+            header = f"[{ticker}] Analysis Pipeline"
+        # Compose and print
+        current_msg = f"{header}: |{bar}| {step_idx + 1}/{total_steps} {step_name}"
+        max_length = max(
+            len(f"[{ticker}] Analysis Pipeline: |{'■' * bar_length}| {i+1}/{total_steps} {step}")
+            for i, step in enumerate(PIPELINE_STEPS)
+        ) + 1
+        print(f"\r{' ' * max_length}\r", end='', flush=True)
+        print(f"{current_msg}", end='', flush=True)
+        if step_idx + 1 == total_steps:
+            print()  # New line at completion
+    except Exception:
+        # Safely ignore any progress display errors
+        pass
+
+def analyze_tickers(tickers: list, model: str = None, **kwargs) -> dict:
+    """
+    Analyze multiple stock tickers in sequence, with progress tracking and error handling.
+
+    Args:
+        tickers (list[str]): List of stock ticker symbols to analyze.
+        model (str, optional): Model type to force for all analyses (overrides auto-selection).
+        **kwargs: Additional keyword arguments passed to analyze_ticker.
+
+    Returns:
+        dict: Dictionary mapping each ticker to its analysis results or error info.
+    """
+    results = {}
+    for ticker in tickers:
+        try:
+            # Create progress callback for this ticker
+            def progress_callback(step_idx, total_steps, model_name):
+                show_progress_bar(ticker, step_idx, total_steps, model_name)
+            # Initialize analysis with progress tracking
+            from altman_zscore.core.progress_tracking import create_progress_tracker
+            progress_tracker = create_progress_tracker(progress_callback)
+            # Run analysis with correct parameter names
+            from altman_zscore.core.one_stock_analysis import analyze_ticker
+            results[ticker] = analyze_ticker(
+                ticker=ticker,
+                force_model=model,
+                progress_tracker=progress_tracker,
+                **kwargs
+            )
+        except Exception as e:
+            logger.error(f"Error analyzing {ticker}: {str(e)}")
+            if logger.level <= logging.DEBUG:
+                logger.exception(e)
+            results[ticker] = {"error": str(e)}
+            continue
+    return results
 
 
 def main():
     """
-    Main entry point for the Altman Z-Score Analysis Platform.
+    Main entry point for the Altman Z-Score Analysis Platform CLI.
 
-    Orchestrates a modular, robust pipeline for:
-        - Input validation (tickers, dates, CLI args)
-        - Data fetching (Yahoo Finance, SEC EDGAR)
-        - Data validation (schema checks, missing/invalid field reporting)
-        - Computation (Altman Z-Score calculation, model selection)
-        - Reporting (CSV, JSON, Markdown, logging)
-
-    Key Features:
-        - Strong error handling and logging at every step
-        - Extensible: easy to add new models, data sources, or output formats
-        - Testable: each module is independently testable
-        - CI/CD friendly: returns non-zero exit code on failure, supports --test flag
-
-    Returns:
-        None. Exits with code 0 on success, 1 on any ticker failure, 2 on CLI/input error.
+    Handles argument parsing, logging setup, input validation, and orchestrates the
+    analysis pipeline for one or more tickers. Outputs results to disk and/or stdout.
     """
-    args = parse_args()
-    # If no arguments (other than script name), show help and exit
-    if len(sys.argv) == 1:
-        parser = argparse.ArgumentParser(
-            description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
-            epilog="Examples:\n"
-                   "  python main.py AAPL                    # Single stock analysis\n"
-                   "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
-                   "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
-                   "  python main.py AAPL --no-plot          # Skip chart generation\n"
-                   "  python main.py --test                  # Run all tests\n"
-                   "  python main.py --log-level DEBUG       # Set log level",
-            formatter_class=argparse.RawDescriptionHelpFormatter
-        )
-        parser.print_help()
-        sys.exit(0)
-    # Validate log level
-    valid_log_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
-    log_level = args.log_level.upper()
-    if log_level not in valid_log_levels:
-        print(f"[ERROR] Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.", file=sys.stderr)
-        sys.exit(2)
-    logging.basicConfig(
-        level=getattr(logging, log_level, logging.WARNING),  # Default to WARNING if not specified
-        format='[%(levelname)s] %(message)s'
-    )
-    # Validate start date format
-    import re
-    date_pattern = r"^\d{4}-\d{2}-\d{2}$"
-    if not re.match(date_pattern, args.start):
-        logging.error(f"Invalid --start date: {args.start}. Must be in YYYY-MM-DD format.")
-        sys.exit(2)
-    if getattr(args, "test", False):
-        import subprocess
-        logging.info("Running test suite with pytest...")
-        result = subprocess.run([sys.executable, "-m", "pytest"], check=False)
-        sys.exit(result.returncode)
-    
-    ticker_list = [t.upper() for t in args.tickers]
-    start_date = args.start
-    no_plot = args.no_plot
-    any_failed = False
+    try:
+        args = parse_args()
+        logger.info("Starting Altman Z-Score Analysis")
 
-    for ticker in ticker_list:
-        try:
-            start_time = time.time()
-
-            def progress_callback(step_name, step_idx, total_steps):
-                show_progress_bar(ticker, step_idx, total_steps)
-                # Small delay to make progress visible
-                time.sleep(0.1)
-
-            # --- ACTUAL WORKFLOW WITH REAL-TIME PROGRESS ---
-            df = analyze_single_stock_zscore_trend(
-                ticker,
-                start_date=start_date,
-                progress_callback=progress_callback
+        # If no arguments, show help and exit
+        if len(sys.argv) == 1:
+            parser = argparse.ArgumentParser(
+                description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
+                epilog="Examples:\n"
+                       "  python main.py AAPL                    # Single stock analysis\n"
+                       "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
+                       "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
+                       "  python main.py AAPL --no-plot          # Skip chart generation\n"
+                       "  python main.py --test                  # Run all tests\n"
+                       "  python main.py --log-level DEBUG       # Set log level",
+                formatter_class=argparse.RawDescriptionHelpFormatter
             )
+            parser.print_help()
+            sys.exit(0)
 
-            end_time = time.time()
+        logger.info(f"Processing tickers: {', '.join(args.tickers)}")
+    
+        # Validate log level
+        valid_log_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
+        log_level = args.log_level.upper()
+        if log_level not in valid_log_levels:
+            logger.error(f"Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            sys.exit(2)
 
-            if df is not None and not df.empty and 'zscore' in df.columns:
-                valid_scores = df[df['zscore'].notnull()]
-                if not valid_scores.empty:
-                    formatted_results = format_zscore_results(df)
-                    for result in formatted_results:
-                        logging.info(result)
-                    elapsed = end_time - start_time
-                    logging.info(f"Analysis completed in {elapsed:.2f} seconds")
-                    plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
-                    if not no_plot:
-                        logging.info(f"Z-Score plot saved to {plot_path}")
+        # Set logging level
+        logging.getLogger().setLevel(getattr(logging, log_level, logging.WARNING))
+        logger.info(f"Log level set to {log_level}")
+        
+        # Validate start date format
+        import re
+        from datetime import datetime
+        date_pattern = r"^\d{4}-\d{2}-\d{2}$"
+        if not re.match(date_pattern, args.start):
+            logger.error(f"Invalid --start date: {args.start}. Must be in YYYY-MM-DD format.")
+            sys.exit(2)
+
+        # Validate start date is not in the future
+        start_date = datetime.strptime(args.start, "%Y-%m-%d").date()
+        if start_date > datetime.now().date():
+            logger.error(f"Start date ({args.start}) cannot be in the future.")
+            sys.exit(2)
+
+        logger.info(f"Analysis start date: {args.start}")
+
+        if getattr(args, "test", False):
+            import subprocess
+            logger.info("Running test suite with pytest...")
+            result = subprocess.run([sys.executable, "-m", "pytest"], check=False)
+            sys.exit(result.returncode)
+        
+        ticker_list = [t.upper() for t in args.tickers]
+        start_date = args.start
+        no_plot = args.no_plot
+        any_failed = False
+
+        for ticker in ticker_list:
+            try:
+                logger.info(f"\nProcessing {ticker}...")
+                start_time = time.time()
+
+                def progress_callback(step_idx, total_steps, model_name=None):
+                    show_progress_bar(ticker, step_idx, total_steps, model_name)
+                    time.sleep(0.1)
+
+                # Run analysis
+                df = analyze_single_stock_zscore_trend(
+                    ticker,
+                    start_date=start_date,
+                    progress_callback=progress_callback,
+                    force_model=args.model
+                )
+
+                end_time = time.time()
+                elapsed = end_time - start_time
+
+                if df is not None and not df.empty and 'zscore' in df.columns:
+                    valid_scores = df[df['zscore'].notnull()]
+                    if not valid_scores.empty:
+                        formatted_results = format_zscore_results(df)
+                        for result in formatted_results:
+                            logger.info(result)
+                        logger.info(f"Analysis completed in {elapsed:.2f} seconds")
+                        plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
+                        if not no_plot:
+                            logger.info(f"Z-Score plot saved to {plot_path}")
+                    else:
+                        logger.warning(f"No valid Z-Scores calculated for {ticker}")
+                        any_failed = True
                 else:
-                    logging.warning(f"No valid Z-Scores calculated for {ticker}")
+                    logger.warning(f"No analysis results available for {ticker}")
                     any_failed = True
-            else:
-                logging.warning(f"No analysis results available for {ticker}")
+
+            except ValueError as ve:
+                logger.error(f"Error processing {ticker}: {str(ve)}")
                 any_failed = True
-        except Exception as e:
-            logging.error(f"Analysis failed for {ticker}: {e}")
-            any_failed = True
-            continue
-    if any_failed:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+            except Exception as e:
+                logger.exception(f"Unexpected error processing {ticker}: {str(e)}")
+                any_failed = True
 
+        if any_failed:
+            logger.warning("Some tickers failed analysis")
+            sys.exit(1)
+        else:
+            logger.info("All analyses completed successfully")
+            sys.exit(0)
 
-if __name__ == "__main__":
+    except Exception as e:
+        logger.exception(f"Critical error in main: {str(e)}")
+        sys.exit(2)
+
+if __name__ == '__main__':
     main()

@@ -21,13 +21,9 @@ from datetime import datetime
 from altman_zscore.computation.constants import MODEL_COEFFICIENTS, Z_SCORE_THRESHOLDS
 from altman_zscore.utils.paths import get_output_dir
 import logging
-import shutil
 from PIL import Image
 from src.altman_zscore.api import FinnhubClient
 
-from altman_zscore.utils.colors import Colors
-from altman_zscore.models.enums import CompanyStage
-from altman_zscore.models.model_thresholds import ModelCoefficients, ModelThresholds, TechCalibration
 
 
 def _get_report_intro_and_title(context_info):
@@ -347,7 +343,14 @@ def _get_zscore_component_table(df, x_cols):
         header.append("Consistency Warning")
         for i, (_, row) in enumerate(df.iterrows()):
             warning = row.get("consistency_warning")
-            rows[i].append(warning if warning else "No issues")
+            zscore_val = row.get("zscore")
+            # If z-score is None, show a message indicating calculation was not possible
+            if zscore_val is None:
+                rows[i].append("Z-Score calculation not possible for this quarter")
+            elif warning is None or (isinstance(warning, float) and pd.isna(warning)) or (isinstance(warning, str) and warning.strip().lower() in ("", "nan")):
+                rows[i].append("No issues")
+            else:
+                rows[i].append(warning)
     return tabulate.tabulate(rows, headers=header, tablefmt="github")
 
 
@@ -831,7 +834,6 @@ def _get_appendix_section(df, context_info=None, out_base=None):
         ticker = None
         if context_info and "Ticker" in context_info:
             ticker = context_info["Ticker"].upper()
-        meta_lines = []
         meta = {}
         if ticker:
             out_dir = os.path.join("output", ticker)
@@ -938,7 +940,7 @@ def _standardize_report_data(df, context_info=None):
     return processed_quarters, raw_quarters, sorted(missing_fields)
 
 
-def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None, model_obj=None, calibration=None):
+def report_zscore_full_report(df, model, out_base=None, print_to_console=True, context_info=None):
     """Generate a full Altman Z-Score analysis report in Markdown format.
 
     Args:
@@ -947,8 +949,6 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         out_base (str, optional): Output base name for report files.
         print_to_console (bool, optional): If True, do not print or log the full report to console/logs.
         context_info (dict, optional): Contextual information for the analysis.
-        model_obj (object, optional): Model object (unused).
-        calibration (object, optional): Calibration object (unused).
 
     Returns:
         str or None: Markdown-formatted report string, or None if report is empty.

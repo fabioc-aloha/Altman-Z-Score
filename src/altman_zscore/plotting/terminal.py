@@ -4,7 +4,6 @@ Terminal output utilities for plotting modules in Altman Z-Score analysis.
 Provides print_info, print_warning, and print_error functions that wrap Python logging for consistent terminal output.
 """
 import logging
-from .colors import ColorScheme
 
 def print_info(msg):
     """

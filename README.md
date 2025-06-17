@@ -2,9 +2,9 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.1.1 (2025-06-15)**
+**Version: 3.2.0 (2025-06-16)**
 
-A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights.This script orchestrates the analysis pipeline for single or multiple stock tickers.
+A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers. See [MODELS.md](MODELS.md) for available Z-Score models and selection guidelines.
 
 ---
 
@@ -18,8 +18,16 @@ A robust, modular Python tool for comprehensive Altman Z-Score trend analysis wi
 ### Key Principles
 - **Modularity:** Each phase is implemented as a separate, testable module.
 - **Robustness:** Strong error handling, logging, and data validation at every step.
-- **Extensibility:** Easy to add new data sources, models, or output formats.
-- **Testability:** Each module is independently testable with clear interfaces.
+- **Visualization:** Rich visual analytics with candlestick charts, company branding, and clear data representation.
+- **Error Handling:** Graceful continuation for multi-ticker analysis and informative error messages.
+- **Model Selection:** Intelligent model selection based on company characteristics (see [MODELS.md](MODELS.md))
+
+### Features
+- Multiple Z-Score models for different company types and industries
+- Company-branded visualization with logos and professional charts
+- Candlestick representation for weekly price trends
+- Multi-ticker analysis with graceful error handling
+- Comprehensive Z-Score analysis with LLM insights
 
 ### Data Sources
 - **Primary:** Yahoo Finance (real-time financials and market data)

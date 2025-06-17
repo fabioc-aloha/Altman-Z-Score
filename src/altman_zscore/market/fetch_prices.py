@@ -16,17 +16,13 @@ Functions:
     save_price_data_to_disk(df, ticker, file_prefix): Save price data DataFrame to disk in CSV and JSON formats.
 """
 
-import json
-import os
 import warnings
 from datetime import datetime, timedelta
-from time import sleep
 import time
 
 import pandas as pd
 import yfinance as yf
 
-from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.logging import get_logger
 from altman_zscore.utils.terminal import print_info, print_warning, print_error, print_success, print_header
 

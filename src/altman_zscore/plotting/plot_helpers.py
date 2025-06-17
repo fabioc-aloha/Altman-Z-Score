@@ -15,6 +15,7 @@ Functions:
 """
 
 import pandas as pd
+import logging
 
 def align_dates_to_grid(date_series, freq="W"):
     """
@@ -49,7 +50,7 @@ def prepare_price_stats_for_plotting(price_stats, using_weekly, date_to_pos, min
         max_date (datetime): Maximum date to include.
     Returns:
         tuple: (period_positions, open_prices, high_prices, low_prices, close_prices)
-        as lists, or (None, None, None, None, None) if no valid data.
+        as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
         return None, None, None, None
@@ -92,7 +93,7 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
         tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
-        print("[DEBUG] Empty price stats")
+        logging.debug("Empty price stats")
         return None, None, None, None
 
     try:
@@ -111,7 +112,7 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
         price_stats = price_stats[mask].copy()
 
         if price_stats.empty:
-            print("[DEBUG] No data after date filtering")
+            logging.debug("No data after date filtering")
             return None, None, None, None
 
         # Get positions while handling missing values
@@ -133,9 +134,9 @@ def prepare_weekly_price_stats_for_plotting(price_stats, date_to_pos, min_date, 
                         }
                     )
                 else:
-                    print(f"[DEBUG] No position found for date {period}")
+                    logging.debug(f"No position found for date {period}")
             except (ValueError, TypeError, KeyError) as e:
-                print(f"[DEBUG] Error processing row: {e}")
+                logging.debug(f"Error processing row: {e}")
 
         if not valid_values:
             return None, None, None, None
@@ -169,7 +170,7 @@ def prepare_monthly_price_stats_for_plotting(price_stats, date_to_pos, min_date,
         tuple: (period_positions, avg_prices, min_prices, max_prices) as lists, or (None, None, None, None) if no valid data.
     """
     if price_stats is None or price_stats.empty:
-        print("[DEBUG] Empty price stats")
+        logging.debug("Empty price stats")
         return None, None, None, None
 
     try:
@@ -185,15 +186,15 @@ def prepare_monthly_price_stats_for_plotting(price_stats, date_to_pos, min_date,
         price_stats["period"] = price_stats["month"].dt.to_period("M").dt.to_timestamp()
 
         # Debug output
-        print(f"[DEBUG] Date range: {min_date} to {max_date}")
-        print(f"[DEBUG] Price stats periods: {price_stats['period'].min()} to {price_stats['period'].max()}")
+        logging.debug(f"Date range: {min_date} to {max_date}")
+        logging.debug(f"Price stats periods: {price_stats['period'].min()} to {price_stats['period'].max()}")
 
         # Filter to date range
         mask = (price_stats["period"] >= min_date) & (price_stats["period"] <= max_date)
         price_stats = price_stats[mask].copy()
 
         if price_stats.empty:
-            print("[DEBUG] No data after date filtering")
+            logging.debug("No data after date filtering")
             return None, None, None, None
 
         # Get positions while handling missing values
@@ -214,9 +215,9 @@ def prepare_monthly_price_stats_for_plotting(price_stats, date_to_pos, min_date,
                         }
                     )
                 else:
-                    print(f"[DEBUG] No position found for date {period}")
+                    logging.debug(f"No position found for date {period}")
             except (ValueError, TypeError, KeyError) as e:
-                print(f"[DEBUG] Error processing row: {e}")
+                logging.debug(f"Error processing row: {e}")
 
         if not valid_values:
             return None, None, None, None

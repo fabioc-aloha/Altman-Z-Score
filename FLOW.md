@@ -1,159 +1,149 @@
-# Codebase Flow: Altman Z-Score Analysis Tool
+# Altman Z-Score Analysis Pipeline: Codebase Flow (2025)
 
-## High-Level Flow Diagram
+## Overview
+**IMPORTANT**: This tool is strictly limited to U.S.-based companies only. Non-U.S. companies, including ADRs and companies filing Form 20-F, are detected and rejected early in the pipeline.
+
+## High-Level Flow Diagram (with Inputs & Outputs in Boxes)
 ```
-┌──────────────┐
-│   main.py    │
-└──────┬───────┘
-       ↓
-┌──────┴──────────────┐     ┌─────────────────┐
-│ CLI & Orchestration │ ←── │ .env & settings │
-│ (click, logging,    │     └─────────────────┘
-│  one_stock_analysis)│
-└──────┬──────────────┘
-       ↓
-┌──────┴──────────────┐     ┌──────────────────────┐
-│ Data Fetching       │ ←── │ src/altman_zscore    │
-│ (financials,        │     │ /api + data_fetching │
-│  prices, executives)│     └──────────────────────┘
-└──────┬──────────────┘
-       ↓
-┌──────┴────────────┐     ┌───────────────────┐
-│ Validation        │ ←── │ src/altman_zscore │
-│ (Pydantic schemas)│     │ /validation       │
-└──────┬────────────┘     └───────────────────┘
-       ↓
-┌──────┴────────────┐
-│ Computation       │
-│ (compute_zscore)  │
-└──────┬────────────┘
-       ↓
-┌──────┴────────────┐     ┌───────────────────┐
-│ Reporting         │ ─── │ CSV, JSON, PNG,   │
-│ (output_generation│     │ terminal display  │
-│  + plotting)      │     └───────────────────┘
-└───────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│ Input Validation & U.S. Company Check                        │
+│ Inputs: ticker, start_date                                   │
+│ Process: Validate ticker, check U.S. status via Yahoo/SEC    │
+│ Outputs: company_status.json, NOT_AVAILABLE marker if needed │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Company Classification & Model Selection                     │
+│ Inputs: ticker, company_info.json (optional)                 │
+│ Process: Classify industry, SIC, select U.S.-specific model  │
+│ Outputs: Model selection, company_info.json                  │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Data Fetching Layer                                          │
+│ Inputs: SEC EDGAR API (financials),                          │
+│         Yahoo Finance API (prices/info)                      │
+│ Process: Fetch SEC financials, Yahoo prices, company info    │
+│ Outputs: sec_facts_raw.json, weekly_prices.csv,              │
+│          weekly_prices.json, yf_info.json,                   │
+│          yahoo_raw.json, TICKER_logo.png, company_info.json  │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ LLM Field Mapping (SEC)                                      │
+│ Inputs: sec_facts_raw.json, canonical field list             │
+│ Process: Prompt LLM to map canonical fields to plausible SEC │
+│          field names (all plausible candidates, fallback)    │
+│ Outputs: field_mapping_prompt_simple.txt,                    │
+│          field_mapping_response_simple.json                  │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Data Reconciliation & Fallback Logic                         │
+│ Inputs: sec_facts_raw.json,                                  │
+│         field_mapping_response_simple.json                   │
+│ Process: For each period and canonical field, try all        │
+│          mapped SEC fields in order (robust fallback)        │
+│ Outputs: reconciliation_result.json                          │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Validation (Pydantic schemas)                                │
+│ Inputs: reconciliation_result.json                           │
+│ Process: Check for missing/invalid fields, log issues        │
+│ Outputs: Validated canonical data                            │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Computation (compute_zscore)                                 │
+│ Inputs: validated canonical data                             │
+│ Process: Compute Altman Z-Score, model selection logic       │
+│ Outputs: zscore_TICKER.csv, zscore_TICKER.json,              │
+│          zscore_TICKER_metadata.json                         │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Reporting & Output Layer                                     │
+│ Inputs: zscore_TICKER.json, zscore_TICKER_metadata.json,     │
+│         reconciliation_result.json                           │
+│ Process: Output generation (CSV/JSON/PNG/Markdown),          │
+│          plotting (trend visualization), save all outputs    │
+│ Outputs: zscore_TICKER_trend.png,                            │
+│          zscore_TICKER_zscore_full_report.md,                │
+│          llm_commentary_prompt.txt,                          │
+│          all files in output/TICKER/                         │
+└──────────────────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ Terminal Display & Logging                                   │
+│ Inputs: All outputs above                                    │
+│ Process: Display results, log errors and progress            │
+│ Outputs: Terminal output, logs                               │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-## Detailed Processing Flow
-```
-main.py
-  ↓
-Parse CLI args & logging setup (main.py)
-  ↓
-Invoke analyze_one_stock() in src/altman_zscore/core/one_stock_analysis.py
-  ↓
-Data Fetching Layer (src/altman_zscore/data_fetching + src/altman_zscore/api):
-  ├── fetch_financials (SEC EDGAR primary; yfinance fallback)
-  ├── fetch_prices (Yahoo Finance market data)
-  └── fetch_executive_data (company officers)
-  ↓
-Validation Layer (src/altman_zscore/validation/data_validation.py + schemas):
-  ├── Pydantic schema checks (src/altman_zscore/schemas)
-  └── Report missing/invalid fields
-  ↓
-Computation Layer (src/altman_zscore/computation):
-  ├── compute_zscore.compute_zscore (component calculations)
-  └── model_selection logic
-  ↓
-Reporting & Output Layer:
-  ├── output_generation (CSV/JSON metadata)
-  ├── plotting_main (trend visualization)
-  └── file_operations (write outputs)
-  ↓
-Terminal Display (src/altman_zscore/core/reporting.py)
-```
-
-## Key Supporting Modules
-
-### Core Components
-- `main.py`: Entry point, CLI interface and orchestrates analysis.
-- `src/altman_zscore/core/one_stock_analysis.py`: Orchestrates the end-to-end stock analysis pipeline.
-- `src/altman_zscore/core/data_processing.py`: Data cleaning and transformation utilities.
-- `src/altman_zscore/core/file_operations.py`: File I/O helpers for reading/writing JSON, CSV, and metadata.
-- `src/altman_zscore/core/output_generation.py`: Generates structured CSV/JSON output.
-- `src/altman_zscore/core/reporting.py`: Formats and displays terminal reports.
-- `src/altman_zscore/company_profile.py`: Fetches and manages company profile data.
-
-### Data Fetching Layer
-- `src/altman_zscore/data_fetching/financials.py`: Fetches and processes financial statements (SEC EDGAR, yfinance fallback).
-- `src/altman_zscore/data_fetching/prices.py`: Fetches market price data (Yahoo Finance).
-- `src/altman_zscore/data_fetching/executives.py`: Retrieves company executive information.
-
-### API Clients
-- `src/altman_zscore/api/sec_client.py`: SEC EDGAR XBRL client.
-- `src/altman_zscore/api/yahoo_helpers.py`: Helper functions for Yahoo Finance API.
-- `src/altman_zscore/api/openai_client.py`: Azure OpenAI field-mapping and reconciliation.
-- `src/altman_zscore/api/finnhub_client.py`: Finnhub market metrics client.
-
-### Computation & Modeling
-- `src/altman_zscore/computation/compute_zscore.py`: Implements component-level Z-Score calculations.
-- `src/altman_zscore/computation/compute.py`: High-level Z-Score computation orchestration.
-- `src/altman_zscore/computation/model_selection.py`: Model selection logic for different Z-Score variants.
-- `src/altman_zscore/models`: Data models and enumerations for financial metrics and Z-Score models.
-
-### Validation Layer
-- `src/altman_zscore/validation/data_validation.py`: Pydantic schemas and validation logic.
-- `src/altman_zscore/schemas`: JSON schema definitions for input/output data.
-
-### Output & Visualization
-- `src/altman_zscore/plotting/plot_blocks.py`: Modular plotting utilities for Z-Score and price trend.
-- `src/altman_zscore/plotting/plotting_main.py`: Orchestrates figure creation and saving.
-- `src/altman_zscore/utils`: Utility helpers (paths, retry, etc.)
+## Key Pipeline Details
+- **U.S. Company Focus:** Only U.S.-based companies filing standard SEC forms (10-K, 10-Q) are supported. International companies, ADRs, and Form 20-F filers are rejected early.
+- **Early Detection:** Non-U.S. companies are detected at pipeline entry using Yahoo Finance metadata (country, exchange, ADR status) and SEC lookup.
+- **Historical Data Support:**
+  - Default analysis starts from 3 years ago (36 months)
+  - Full historical data (often 15+ years) available for most U.S. companies via SEC EDGAR
+  - No artificial limits on historical data range
+- **Model Types:**
+  - Original Z-Score (public manufacturing)
+  - Private Company Z'-Score
+  - Service Industry Model
+  - Financial Industry Model
+  - Retail Industry Model
+  - ZETA® Credit Risk Model
+- **SEC-Only Financials:** All financial data for Z-Score is sourced exclusively from SEC EDGAR. Yahoo is only used for market prices and company info, not for financials or reconciliation.
+- **LLM-First Field Mapping:** Canonical fields are mapped to SEC field names using an LLM prompt. The LLM returns all plausible candidates for each canonical field, enabling a robust fallback strategy.
+- **Python Fallback Strategy:** For each period and canonical field, the code tries each mapped SEC field in order, using the first available value.
+- **Full Traceability:** Both the LLM prompt and response are saved for each run, supporting transparency and debugging.
+- **Robust Error Handling:** All steps include error handling and logging. If LLM output is malformed, the error is reported and the pipeline halts for that ticker.
+- **Graceful Handling of Missing Data:** If a quarter has no usable financial data, the pipeline skips/report it with a user-friendly message in the output.
 
 ## Output Directory Structure
 ```
 output/
   └── TICKER/
-      ├── zscore_TICKER.csv               # Z-Score calculations by quarter
-      ├── zscore_TICKER.json              # Structured Z-Score data
-      ├── zscore_TICKER_metadata.json     # Analysis metadata
-      ├── zscore_TICKER_trend.png         # Z-Score trend visualization
-      ├── zscore_TICKER_zscore_full_report.md # Full markdown report (trend, commentary)
-      ├── reconciliation_result.json      # Data reconciliation results
-      ├── company_info.json               # Company profile and metadata
-      ├── sec_facts_raw.json              # Raw SEC EDGAR data
-      ├── sec_filtered.json               # Filtered/processed SEC data
-      ├── yahoo_raw.json                  # Raw Yahoo Finance data
-      ├── yahoo_filtered.json             # Filtered/processed Yahoo data
-      ├── weekly_prices.csv               # Market price data (CSV)
-      ├── weekly_prices.json              # Market price data (JSON)
-      ├── yf_info.json                    # Yahoo Finance company info
-      ├── TICKER_logo.png                 # Company logo (if available)
-      ├── llm_commentary_prompt.txt       # LLM prompt for commentary
-      └── reconcile_prompt.txt            # LLM prompt for reconciliation
+      ├── company_status.json                 # Company status and validation results
+      ├── NOT_AVAILABLE.txt                   # Present if company is non-U.S. or data unavailable
+      ├── zscore_TICKER.csv                   # Z-Score calculations by quarter
+      ├── zscore_TICKER.json                  # Structured Z-Score data
+      ├── zscore_TICKER_metadata.json         # Analysis metadata & U.S. status
+      ├── zscore_TICKER_trend.png             # Z-Score trend visualization
+      ├── reconciliation_result.json          # Data reconciliation results
+      ├── sec_facts_raw.json                  # Raw SEC EDGAR data
+      ├── field_mapping_prompt_simple.txt     # LLM field mapping prompt
+      ├── field_mapping_response_simple.json  # LLM field mapping response
+      ├── weekly_prices.csv                   # Market price data
+      ├── weekly_prices.json                  # Structured price data
+      ├── yahoo_raw.json                      # Company metadata
+      ├── yf_info.json                        # Additional Yahoo data
+      └── TICKER_logo.png                     # Company logo
 ```
 
-- All files are generated per ticker in a dedicated subfolder (e.g., `output/MSFT/`).
-- Some files (e.g., logo, prompts) are optional and may not appear for all tickers.
-- File naming is consistent: `zscore_TICKER.*` for Z-Score outputs, `*_raw.json` for raw data, `*_filtered.json` for processed data.
-- Both CSV and JSON formats are provided for key outputs where applicable.
-- Markdown report and LLM prompt files support explainability and AI-first workflows.
+## Date Range Handling
+- **Default Range:** Analysis starts from 36 months (3 years) ago by default
+- **Historical Data:** Users can request any historical range via --start parameter
+- **Data Availability:**
+  - SEC EDGAR data typically available from 2009 onwards
+  - No artificial limits on historical data
+  - Actual range depends on company's SEC filing history
+- **Future Protection:** Start dates cannot be in the future
 
-## Recent Features
-
-### Data Integration
-- **Multi-source data fetching**: SEC EDGAR, Yahoo Finance, Finnhub
-- **Enhanced data validation** with Pydantic schemas
-- **Robust error handling** for API failures and data gaps
-
-### Analysis Capabilities
-- **Historical trend analysis** with visualization
-- **Quarterly Z-Score calculations**
-- **Market value integration** for accurate scoring
-
-### Output & Reporting
-- **Multiple output formats**: JSON, CSV, PNG
-- **Detailed metadata capture**
-- **Terminal-friendly display**
-
-### Code Quality
-- **Comprehensive test suite** in `/tests`
-- **Type hints** throughout codebase
-- **Modular architecture** for easy extension
-
-## Testing
-- **Unit Tests**: Individual component testing
-- **Integration Tests**: End-to-end workflow testing
-- **Data Processing Tests**: Validation of calculations
-- **API Mock Tests**: External service interaction testing
+## Implementation & Codebase Notes (2025-06-16)
+- All dead code, unused variables, and deprecated files have been removed. The pipeline is now clean and robust.
+- The `stock_prices` variable is only assigned and used where required for downstream reporting and plotting.
+- All error handling, logging, and fallback logic is up-to-date and matches the codebase.
+- The flow diagram and step descriptions above are current and reflect the actual code logic as of this date.
+- All outputs, LLM prompts/responses, and reconciliation steps are fully traceable and saved per run.

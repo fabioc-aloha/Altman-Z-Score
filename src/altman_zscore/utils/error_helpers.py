@@ -10,19 +10,15 @@ logger = logging.getLogger(__name__)
 
 class AltmanZScoreError(Exception):
     """Base exception for Altman Z-Score pipeline errors."""
-    pass
 
 class DataValidationError(AltmanZScoreError):
     """Exception for data validation errors."""
-    pass
 
 class DataFetchingError(AltmanZScoreError):
     """Exception for data fetching errors (e.g., API failures)."""
-    pass
 
 class OutputWriteError(AltmanZScoreError):
     """Exception for output writing errors (e.g., file I/O)."""
-    pass
 
 def raise_with_context(exc_class, message, context=None):
     """Raise an exception with additional context and log the error.
