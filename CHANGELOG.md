@@ -5,12 +5,16 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# Changelog
+## [3.3.3] - 2025-06-17
 
-All notable changes to the Altman Z-Score Analysis Platform will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Fixed
+- **Major UX Improvement:** Eliminated confusing HTTP 401 error messages that appeared during normal API rate limiting
+  - SEC API: 401 errors now handled gracefully with INFO-level logging instead of ERROR-level
+  - Yahoo Finance API: Added specific 401 error detection and appropriate logging
+  - Retry Decorator: Enhanced to detect and handle 401 errors with appropriate log levels
+  - Pipeline now runs completely clean without alarming error messages for expected API rate limiting
+  - All fallback mechanisms continue to work seamlessly
+  - Improved user experience with professional, non-confusing output
 
 ## [3.3.2] - 2025-06-17
 
