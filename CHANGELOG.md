@@ -12,6 +12,23 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.2] - 2025-06-17
+
+### Fixed
+- **Major UX Improvement:** Eliminated confusing HTTP 401 error messages that appeared during normal API rate limiting
+  - SEC API: 401 errors now handled gracefully with INFO-level logging instead of ERROR-level
+  - Yahoo Finance API: Added specific 401 error detection and appropriate logging
+  - Retry Decorator: Enhanced to detect 401 errors and log them as informational rather than errors
+  - Pipeline continues seamlessly with fallback mechanisms while providing clean, professional output
+- **User Experience:** Analysis now runs completely clean without alarming error messages for expected API limitations
+- **Logging:** More informative and user-friendly messages that don't suggest system failures
+
+### Technical Details
+- Modified `src/altman_zscore/api/sec_client.py` to return None instead of raising exceptions for 401 errors
+- Enhanced `src/altman_zscore/api/yahoo_helpers.py` with specific HTTP 401 error handling
+- Updated `src/altman_zscore/utils/retry.py` to detect and appropriately log 401 errors
+- All functionality preserved - only logging behavior improved for better user experience
+
 ## [3.3.0] - 2025-06-17
 
 ### Added
