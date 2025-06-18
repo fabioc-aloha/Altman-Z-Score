@@ -18,6 +18,201 @@ def get_company_name(info_path):
             return data.get("name") or os.path.basename(os.path.dirname(info_path))
     except Exception:
         return os.path.basename(os.path.dirname(info_path))
+        return os.path.basename(os.path.dirname(info_path))
+
+
+def extract_investor_advice_detailed(report_path):
+    """Extract detailed investor recommendations by profile from the report, including CEO and CFO recommendations."""
+    try:
+        with open(report_path, "r", encoding="utf-8") as f:
+            content = f.read()
+          # First, extract CEO and CFO recommendations from Internal Stakeholder Recommendations table
+        ceo_recommendation = extract_ceo_recommendation(content)
+        cfo_recommendation = extract_cfo_recommendation(content)
+        
+        # Look for the investor recommendation table
+        table_pattern = r'\|\s*Investment Profile\s*\|\s*Risk Tolerance\s*\|\s*Recommendation\s*\|.*?\n(.*?)(?=\n\s*>|\n\s*###|\n\s*---|\Z)'
+        table_match = re.search(table_pattern, content, re.IGNORECASE | re.DOTALL)
+        
+        if table_match:
+            table_content = table_match.group(1)
+            recommendations = {}
+            
+            # Parse each table row
+            lines = table_content.strip().split('\n')
+            for line in lines:
+                if '|' in line and 'Investment Profile' not in line and '---' not in line:
+                    parts = [part.strip() for part in line.split('|') if part.strip()]
+                    if len(parts) >= 3:
+                        profile = parts[0]
+                        recommendation = parts[2]
+                        
+                        # Map profile names to cleaner versions
+                        profile_map = {
+                            'Short-Seller (Bearish)': 'Short-Seller',
+                            'Dividend Income': 'Dividend',
+                            'Capital Appreciation': 'Growth',
+                            'Aggressive Growth': 'Aggressive',
+                            'Capital Preservation': 'Conservative',
+                            'Value Investor': 'Value'
+                        }
+                        
+                        # Find matching profile
+                        clean_profile = None
+                        for full_name, clean_name in profile_map.items():
+                            if full_name.lower() in profile.lower():
+                                clean_profile = clean_name
+                                break
+                        
+                        if clean_profile and recommendation:
+                            # Extract just the recommendation (BUY, SELL, HOLD)
+                            rec_clean = recommendation.upper()
+                            if 'BUY' in rec_clean:
+                                icon = '📈'
+                                action = 'BUY'
+                            elif 'SELL' in rec_clean:
+                                icon = '📉'
+                                action = 'SELL'
+                            elif 'HOLD' in rec_clean:
+                                icon = '⚖️'
+                                action = 'HOLD'
+                            else:
+                                icon = '❓'
+                                action = '?'
+                            
+                            recommendations[clean_profile] = f"{icon} {action}"
+            
+            if recommendations:                # Create multi-line representation starting with CEO and CFO recommendations
+                result_parts = []
+                
+                # Add CEO recommendation first if available
+                if ceo_recommendation:
+                    result_parts.append(f"**CEO**: {ceo_recommendation}")
+                
+                # Add CFO recommendation second if available
+                if cfo_recommendation:
+                    result_parts.append(f"**CFO**: {cfo_recommendation}")
+                
+                # Add investor profiles
+                profile_order = ['Conservative', 'Dividend', 'Value', 'Growth', 'Aggressive', 'Short-Seller']
+                for profile in profile_order:
+                    if profile in recommendations:
+                        result_parts.append(f"**{profile}**: {recommendations[profile]}")
+                
+                if result_parts:
+                    return "<br>".join(result_parts)
+        
+        # Fallback to the original simple extraction
+        return extract_investor_advice(report_path)
+        
+    except Exception as e:
+        return "❌ Error"
+
+
+def extract_cfo_recommendation(content):
+    """Extract CFO recommendation from the Internal Stakeholder Recommendations table."""
+    try:
+        # Look for the CFO row in the stakeholder table - get the "Recommended Actions" column
+        cfo_pattern = r'\|\s*CFO & Finance Team\s*\|[^|]*\|[^|]*\|\s*([^|]+)\s*\|'
+        cfo_match = re.search(cfo_pattern, content, re.IGNORECASE | re.DOTALL)
+        
+        if cfo_match:
+            cfo_text = cfo_match.group(1).strip()
+            # Extract key recommendation points and create a concise summary
+            cfo_lower = cfo_text.lower()
+            
+            # Priority order for different types of recommendations
+            if 'optimize capital structure' in cfo_lower and 'strategic invest' in cfo_lower:
+                return '💰 OPTIMIZE & INVEST'
+            elif 'optimize capital structure' in cfo_lower:
+                return '💰 OPTIMIZE CAPITAL'
+            elif 'strategic invest' in cfo_lower:
+                return '📊 STRATEGIC INVEST'
+            elif 'enhance investor relations' in cfo_lower:
+                return '📈 ENHANCE IR'
+            elif 'leverage' in cfo_lower and ('strength' in cfo_lower or 'position' in cfo_lower):
+                return '💪 LEVERAGE STRENGTH'
+            elif 'maintain' in cfo_lower and ('stability' in cfo_lower or 'liquidity' in cfo_lower):
+                return '⚖️ MAINTAIN STABILITY'
+            elif 'monitor' in cfo_lower or 'review' in cfo_lower:
+                return '📊 MONITOR METRICS'
+            elif 'cash management' in cfo_lower or 'cash flow' in cfo_lower:
+                return '💵 MANAGE CASH'
+            elif 'debt' in cfo_lower and ('reduce' in cfo_lower or 'manage' in cfo_lower):
+                return '� MANAGE DEBT'
+            elif 'dividend' in cfo_lower:
+                return '💎 DIVIDEND FOCUS'
+            elif 'growth' in cfo_lower or 'expansion' in cfo_lower:
+                return '📈 SUPPORT GROWTH'
+            else:
+                # Extract first key action verb
+                if 'plan' in cfo_lower:
+                    return '� PLAN STRATEGY'
+                elif 'prepare' in cfo_lower:
+                    return '🛠️ PREPARE ACTION'
+                else:
+                    return '📊 MONITOR CAPITAL'
+        
+        return None
+        
+    except Exception:
+        return None
+
+
+def extract_ceo_recommendation(content):
+    """Extract CEO recommendation from the Internal Stakeholder Recommendations table."""
+    try:
+        # Look for the CEO row in the stakeholder table - get the "Recommended Actions" column
+        ceo_pattern = r'\|\s*CEO & Executive Leadership\s*\|[^|]*\|[^|]*\|\s*([^|]+)\s*\|'
+        ceo_match = re.search(ceo_pattern, content, re.IGNORECASE | re.DOTALL)
+        
+        if ceo_match:
+            ceo_text = ceo_match.group(1).strip()
+            # Extract key recommendation points and create a concise summary
+            ceo_lower = ceo_text.lower()
+            
+            # Priority order for different types of recommendations
+            if 'maintain innovation' in ceo_lower and 'monitor z-score' in ceo_lower:
+                return '🚀 INNOVATE & MONITOR'
+            elif 'maintain innovation' in ceo_lower or 'innovation focus' in ceo_lower:
+                return '🚀 FOCUS INNOVATION'
+            elif 'leverage' in ceo_lower and ('fundamentals' in ceo_lower or 'strength' in ceo_lower):
+                return '💪 LEVERAGE STRENGTH'
+            elif 'execution focus' in ceo_lower or 'operational execution' in ceo_lower:
+                return '⚡ EXECUTION FOCUS'
+            elif 'communicate' in ceo_lower and ('growth' in ceo_lower or 'strategy' in ceo_lower):
+                return '📢 COMMUNICATE GROWTH'
+            elif 'sustain' in ceo_lower and ('confidence' in ceo_lower or 'market' in ceo_lower):
+                return '🎯 SUSTAIN CONFIDENCE'
+            elif 'strategic vision' in ceo_lower:
+                return '🔮 STRATEGIC VISION'
+            elif 'monitor' in ceo_lower and 'indicator' in ceo_lower:
+                return '📊 MONITOR INDICATORS'
+            elif 'growth' in ceo_lower and 'strategy' in ceo_lower:
+                return '📈 GROWTH STRATEGY'
+            elif 'diversif' in ceo_lower:
+                return '🌐 DIVERSIFY'
+            elif 'expand' in ceo_lower or 'expansion' in ceo_lower:
+                return '🔄 EXPAND OPERATIONS'
+            elif 'turnaround' in ceo_lower or 'restructur' in ceo_lower:
+                return '🔧 RESTRUCTURE'
+            elif 'cost' in ceo_lower and ('reduction' in ceo_lower or 'control' in ceo_lower):
+                return '✂️ COST CONTROL'
+            else:
+                # Extract first key action verb
+                if 'focus' in ceo_lower:
+                    return '🎯 STRATEGIC FOCUS'
+                elif 'develop' in ceo_lower:
+                    return '🛠️ DEVELOP STRATEGY'
+                elif 'implement' in ceo_lower:
+                    return '⚡ IMPLEMENT PLAN'
+                else:
+                    return '📊 STRATEGIC OVERSIGHT'
+        
+        return None
+        
+    except Exception:
+        return None
 
 
 def extract_investor_advice(report_path):
@@ -99,8 +294,9 @@ def generate_table():
         report_path = os.path.join(ticker_dir, f"{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}")
         
         company_name = get_company_name(info_path)
-        investor_advice = extract_investor_advice(report_path)
-          # Display actual chart image instead of just a link, maintaining original proportions by setting only width
+        investor_advice = extract_investor_advice_detailed(report_path)
+        
+        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
         row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
@@ -108,8 +304,8 @@ def generate_table():
 def save_table_to_file(filename):
     """Save the generated table to a file."""
     with open(filename, "w", encoding="utf-8") as f:
-        f.write("| Logo | Company Name | Full Report | Trend Chart | Investor Advice |\n")
-        f.write("|------|-------------|-------------|:-------------:|:---------------:|\n")
+        f.write("| Logo | Company Name | Full Report | Trend Chart | CEO/CFO & Investor Advice |\n")
+        f.write("|------|-------------|-------------|:-------------:|:---------------------------:|\n")
         for row in generate_table():
             f.write(f"{row}\n")
     print(f"Table saved to {filename}")

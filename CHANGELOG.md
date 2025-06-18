@@ -5,6 +5,47 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2025-06-17 🥇 GOLDEN RELEASE
+
+### 🌟 Golden Release Highlights
+- **Comprehensive Stakeholder Guidance:** Complete CEO/CFO/Investor recommendation matrix
+- **Executive Decision Support:** Strategic and financial leadership guidance extraction
+- **Multi-Role Analysis:** Unified table serving investors, executives, and stakeholders
+- **Enhanced Actionability:** Full spectrum of recommendations from strategic to tactical
+
+### Added
+- **CEO Recommendations:** Strategic leadership guidance extracted from Internal Stakeholder tables
+  - 🚀 FOCUS INNOVATION - For tech leaders and strong performers
+  - 📢 COMMUNICATE GROWTH - For stable companies with good fundamentals  
+  - 🔧 RESTRUCTURE - For distressed companies needing operational changes
+  - ⚡ EXECUTION FOCUS - For companies with strong fundamentals
+  - 🎯 STRATEGIC FOCUS - For companies needing strategic direction
+- **Enhanced Table Structure:** CEO/CFO recommendations now appear first in recommendation cells
+- **Comprehensive Documentation:** Updated README legend explaining all recommendation types
+
+### Enhanced
+- **generate_readme_table.py:** Complete stakeholder recommendation extraction
+  - `extract_ceo_recommendation()` function with intelligent pattern matching
+  - Enhanced `extract_investor_advice_detailed()` to include CEO guidance
+  - Improved table header: "CEO/CFO & Investor Advice"
+  - Priority-based recommendation categorization for consistent outputs
+- **README.md:** Professional stakeholder guidance documentation
+  - Clear explanation of CEO vs CFO vs Investor recommendations
+  - Visual legend with emoji indicators for quick decision-making
+  - Structured format showing strategic, financial, and investment perspectives
+
+### Technical Excellence
+- **Smart Extraction Logic:** Advanced regex patterns for CEO/CFO recommendation parsing
+- **Robust Error Handling:** Graceful fallbacks when stakeholder data unavailable
+- **Consistent Categorization:** Priority-based mapping for reliable recommendation types
+- **Multi-Role Architecture:** Clean separation of strategic, financial, and investment guidance
+
+### Business Impact
+- **Executive Value:** Strategic guidance for CEOs and financial strategy for CFOs
+- **Investor Value:** Complete risk-profile-based investment recommendations
+- **Decision Support:** Single table serves multiple stakeholder types effectively
+- **Professional Grade:** Enterprise-ready analysis with comprehensive stakeholder perspectives
+
 ## [3.4.2] - 2025-06-17 🥇 GOLDEN RELEASE
 
 ### 🌟 Golden Release Highlights
