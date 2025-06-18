@@ -5,6 +5,26 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.1] - 2025-06-17 🏆 GOLDEN RELEASE
+
+### 🎯 Executive Dashboard Polish
+- **Optimized Table Formatting**: Perfect balance of readability and compactness
+- **Superscript Font**: Smaller, more elegant text in CEO/CFO & Investor Advice column
+- **Vertical Layout**: Easy-to-scan individual recommendations with line breaks
+- **Enhanced UX**: Improved visual hierarchy and space efficiency
+- **Production Ready**: Polished executive dashboard for multi-stakeholder decision support
+
+### ✨ Key Improvements
+- Table text rendered in superscript for compact display
+- Maintained vertical line breaks for optimal readability
+- Balanced visual weight without overwhelming bold formatting
+- Streamlined user experience for quick decision scanning
+
+### 🎖️ Golden Release Status
+- **Status**: Production-ready executive dashboard
+- **Quality**: Optimized for professional use
+- **Usability**: Perfect balance of information density and readability
+
 ## [3.5.0] - 2025-06-17 🥇 GOLDEN RELEASE
 
 ### 🌟 Golden Release Highlights

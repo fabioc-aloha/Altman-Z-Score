@@ -2,7 +2,7 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.5.0 (2025-06-17) 🥇 Golden Release**
+**Version: 3.5.1 (2025-06-17) 🏆 Golden Release**
 
 A robust Python tool for comprehensive Altman Z-Score financial analysis with AI-powered insights. Features **47 pre-analyzed companies** with complete **CEO/CFO/Investor guidance matrix** - the industry's most comprehensive stakeholder decision support table.
 

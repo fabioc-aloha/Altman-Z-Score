@@ -54,7 +54,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "3.4.2"
+__version__ = "3.5.1"
 
 
 import os
