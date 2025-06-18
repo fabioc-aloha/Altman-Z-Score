@@ -22,12 +22,12 @@
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ 3. Fetch Financials (SEC)                                    │
-│ Inputs: CIK, date range, selected model                      │
-│ Process: Download SEC XBRL, LLM field mapping, reconciliation│
-│ Outputs: sec_facts_raw.json, field_mapping_prompt.txt,       │
-│          field_mapping_response_simple.json,                 │
-│          reconciliation_result.json                          │
+│ 3. Fetch Financials (SEC EDGAR) & Market Data (Yahoo)        │
+│ Inputs: CIK, ticker, date range, selected model              │
+│ Process: SEC EDGAR → financial facts, Yahoo → market data    │
+│ Outputs: sec_facts_raw.json, financials_quarterly.json,      │
+│          field_mapping_prompt.txt, recommendations.json,     │
+│          major_holders.json, historical_prices.csv           │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
@@ -105,7 +105,11 @@
   - ZETA® Credit Risk Model
 - **Model Selection:** Automatic model selection based on company profile (industry, sector, SIC code), with optional force override via `--model` parameter
 - **Force Model Override:** Users can force a specific model using `--model` parameter (values: original, private, financial, zeta, retail, emerging)
-- **SEC-Primary Financials:** All financial data for Z-Score is sourced primarily from SEC EDGAR, with Yahoo Finance as fallback when SEC data is unavailable. Yahoo is only used for market prices and company info when SEC data is insufficient.
+- **Clean Data Architecture:** 
+  - **SEC EDGAR:** Sole source for financial facts (balance sheet, income statement, cash flow)
+  - **Yahoo Finance:** Sole source for market data (stock prices, shares outstanding, market cap, analyst recommendations, institutional holdings)
+  - **AI Field Mapping:** LLM-powered mapping from SEC GAAP concepts to Z-Score canonical fields
+  - **No Data Mixing:** Clean separation eliminates conflicts and ensures data consistency
 - **LLM-First Field Mapping:** Canonical fields are mapped to SEC field names using an LLM prompt. The LLM returns all plausible candidates for each canonical field, enabling a robust fallback strategy.
 - **Python Fallback Strategy:** For each period and canonical field, the code tries each mapped SEC field in order, using the first available value.
 - **Full Traceability:** Both the LLM prompt and response are saved for each run, supporting transparency and debugging.

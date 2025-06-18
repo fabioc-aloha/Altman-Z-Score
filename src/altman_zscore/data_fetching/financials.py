@@ -1,7 +1,7 @@
 """
 Financials data fetching utilities for Altman Z-Score analysis.
 
-Provides functions to fetch quarterly financials for a given ticker using SEC EDGAR (primary) and yfinance (fallback), with robust error handling, AI-powered field mapping, and data validation.
+Clean architecture: SEC EDGAR for financial facts, Yahoo Finance for market data only.
 """
 
 # All imports should be at the top of the file, per Python best practices.
@@ -68,6 +68,297 @@ def merge_quarters_by_period(existing_quarters, new_quarters):
     merged = list(period_map.values())
     return sorted(merged, key=lambda x: x["period_end"])
 
+
+def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: list, 
+                                    start_date: str = None, end_date: str = None) -> list:
+    """
+    Extract quarterly financial data from SEC facts.
+    
+    Args:
+        sec_facts: SEC facts dictionary from get_company_facts
+        fields_to_fetch: List of field names needed for Z-Score calculation
+        start_date: Optional start date filter (YYYY-MM-DD)
+        end_date: Optional end date filter (YYYY-MM-DD)
+        
+    Returns:
+        List of quarterly data dictionaries with period_end and financial fields
+    """
+    logger = logging.getLogger("altman_zscore.extract_quarters_from_sec_facts")
+    
+    if not sec_facts or "facts" not in sec_facts:
+        return []
+        
+    facts = sec_facts["facts"]
+    us_gaap = facts.get("us-gaap", {})
+    
+    # Build a mapping of quarters using common period endings
+    quarter_data = {}
+    
+    # Iterate through all US GAAP concepts
+    for concept_name, concept_data in us_gaap.items():
+        units = concept_data.get("units", {})
+        
+        # Look for USD values (most financial data is in USD)
+        usd_values = units.get("USD", [])
+        
+        for entry in usd_values:
+            # Only process quarterly data (has start and end dates, and frame info)
+            if not entry.get("end") or not entry.get("start") or not entry.get("frame"):
+                continue
+                
+            # Filter quarterly frames (Q1, Q2, Q3, Q4)
+            frame = entry.get("frame", "")
+            if not any(q in frame for q in ["Q1", "Q2", "Q3", "Q4"]):
+                continue
+                
+            period_end = entry["end"]
+            
+            # Apply date filters if provided
+            if start_date and period_end < start_date:
+                continue
+            if end_date and period_end > end_date:
+                continue
+                
+            # Initialize quarter if not exists
+            if period_end not in quarter_data:
+                quarter_data[period_end] = {"period_end": period_end}
+                
+            # Store the value (use the most recent filing for each concept)
+            value = entry.get("val")
+            if value is not None:
+                quarter_data[period_end][concept_name] = value
+    
+    # Convert to list and sort by period_end
+    quarters = list(quarter_data.values())
+    quarters.sort(key=lambda x: x["period_end"], reverse=True)
+    
+    logger.info(f"Extracted {len(quarters)} quarters from SEC facts")
+    return quarters
+
+
+def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:
+    """
+    Apply AI-powered field mapping to map SEC GAAP concepts to Z-Score fields.
+    
+    Args:
+        sec_quarters: List of quarterly data from SEC facts
+        fields_to_fetch: Required Z-Score field names
+        ticker: Stock ticker for context
+        
+    Returns:
+        List of quarters with mapped fields
+    """
+    logger = logging.getLogger("altman_zscore.apply_ai_field_mapping")
+    
+    if not sec_quarters:
+        return []
+    
+    # Collect all available SEC concepts for mapping
+    all_sec_fields = set()
+    sample_values = {}
+    
+    for quarter in sec_quarters:
+        for field, value in quarter.items():
+            if field != "period_end" and value is not None:
+                all_sec_fields.add(field)
+                if field not in sample_values:
+                    sample_values[field] = value
+    
+    raw_fields = list(all_sec_fields)
+    
+    # Use AI to map SEC concepts to Z-Score fields
+    direct_mapping = {}
+    try:
+        client = AzureOpenAIClient()
+        ai_mapping = client.suggest_field_mapping(raw_fields, fields_to_fetch, sample_values, ticker=ticker)
+        if ai_mapping:
+            for field, mapped in ai_mapping.items():
+                if isinstance(mapped, dict):
+                    direct_mapping[field] = mapped.get("FoundField")
+                else:
+                    direct_mapping[field] = mapped
+        logger.info(f"AI mapping successful for {ticker}: {len(direct_mapping)} fields mapped")
+    except Exception as e:
+        logger.warning(f"AI field mapping failed for {ticker}: {e}. Using empty mapping.")
+    
+    # Apply mapping to each quarter
+    mapped_quarters = []
+    for quarter in sec_quarters:
+        mapped_quarter = {"period_end": quarter["period_end"]}
+        field_mapping = {}
+        missing = []
+        
+        for field in fields_to_fetch:
+            val = None
+            mapped_field = None
+            raw_field = direct_mapping.get(field)
+            
+            if raw_field and isinstance(raw_field, str):
+                if raw_field.startswith("INFERRED:"):
+                    # Handle inferred calculations (e.g., retained earnings)
+                    _, equity_field, paid_in_field = raw_field.split(":")
+                    try:
+                        equity_val = quarter.get(equity_field)
+                        paid_in_val = quarter.get(paid_in_field)
+                        if equity_val is not None and paid_in_val is not None:
+                            equity_dec = safe_to_decimal(str(equity_val))
+                            paid_in_dec = safe_to_decimal(str(paid_in_val))
+                            if equity_dec is not None and paid_in_dec is not None:
+                                val = equity_dec - paid_in_dec
+                                mapped_field = f"Inferred from {equity_field} minus {paid_in_field}"
+                    except Exception as e:
+                        logger.warning(f"Failed to calculate inferred value for {field}: {e}")
+                        missing.append(field)
+                        continue
+                else:
+                    # Direct field mapping
+                    mapped_field = raw_field
+                    val = quarter.get(raw_field)
+                    if val is not None:
+                        val = safe_to_decimal(str(val))
+            
+            if val is None or val in [0, Decimal("0")]:
+                missing.append(field)
+            else:
+                mapped_quarter[field] = val
+                field_mapping[field] = mapped_field
+        
+        if mapped_quarter.keys() != {"period_end"}:  # Has some data
+            mapped_quarter["field_mapping"] = json.dumps(field_mapping, default=str)
+            mapped_quarters.append(mapped_quarter)
+    
+    logger.info(f"Applied field mapping to {len(mapped_quarters)} quarters for {ticker}")
+    return mapped_quarters
+
+
+def fetch_market_data_from_yahoo(ticker: str, output_dir: str) -> Dict[str, Any]:
+    """
+    Fetch market data from Yahoo Finance: prices, shares outstanding, market cap, etc.
+    
+    Args:
+        ticker: Stock ticker symbol
+        output_dir: Directory to save market data files
+        
+    Returns:
+        Dictionary containing market data
+    """
+    logger = logging.getLogger("altman_zscore.fetch_market_data_from_yahoo")
+    
+    try:
+        yf_data = fetch_yfinance_full(ticker)
+        
+        if not yf_data:
+            logger.warning(f"[{ticker}] No Yahoo Finance data available")
+            return {}
+        
+        # Save market data files
+        market_data = {}
+        
+        # Save analyst recommendations
+        recommendations = yf_data.get("recommendations")
+        if recommendations is not None and not (isinstance(recommendations, pd.DataFrame) and recommendations.empty):
+            try:
+                if isinstance(recommendations, pd.DataFrame):
+                    rec_data = recommendations.to_dict('records')
+                else:
+                    rec_data = recommendations
+                
+                rec_path = os.path.join(output_dir, "recommendations.json")
+                with open(rec_path, "w", encoding="utf-8") as f:
+                    json.dump(rec_data, f, indent=2, ensure_ascii=False, default=str)
+                market_data["recommendations"] = rec_data
+                logger.debug(f"Saved analyst recommendations to {rec_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save recommendations for {ticker}: {e}")
+        
+        # Save major holders
+        major_holders = yf_data.get("major_holders")
+        if major_holders is not None and not (isinstance(major_holders, pd.DataFrame) and major_holders.empty):
+            try:
+                if isinstance(major_holders, pd.DataFrame):
+                    holders_data = major_holders.to_dict('records')
+                else:
+                    holders_data = major_holders
+                
+                holders_path = os.path.join(output_dir, "major_holders.json")
+                with open(holders_path, "w", encoding="utf-8") as f:
+                    json.dump(holders_data, f, indent=2, ensure_ascii=False, default=str)
+                market_data["major_holders"] = holders_data
+                logger.debug(f"Saved major holders to {holders_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save major holders for {ticker}: {e}")
+        
+        # Save institutional holders
+        institutional_holders = yf_data.get("institutional_holders")
+        if institutional_holders is not None and not (isinstance(institutional_holders, pd.DataFrame) and institutional_holders.empty):
+            try:
+                if isinstance(institutional_holders, pd.DataFrame):
+                    inst_data = institutional_holders.to_dict('records')
+                else:
+                    inst_data = institutional_holders
+                
+                inst_path = os.path.join(output_dir, "institutional_holders.json")
+                with open(inst_path, "w", encoding="utf-8") as f:
+                    json.dump(inst_data, f, indent=2, ensure_ascii=False, default=str)
+                market_data["institutional_holders"] = inst_data
+                logger.debug(f"Saved institutional holders to {inst_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save institutional holders for {ticker}: {e}")
+                
+        # Save historical prices
+        historical_prices = yf_data.get("historical_prices")
+        if historical_prices is not None and not (isinstance(historical_prices, pd.DataFrame) and historical_prices.empty):
+            try:
+                prices_path = os.path.join(output_dir, "historical_prices.csv")
+                if isinstance(historical_prices, pd.DataFrame):
+                    historical_prices.to_csv(prices_path)
+                market_data["historical_prices"] = "saved_to_csv"
+                logger.debug(f"Saved historical prices to {prices_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save historical prices for {ticker}: {e}")
+        
+        # Save dividends and splits
+        dividends = yf_data.get("dividends")
+        if dividends is not None and not (isinstance(dividends, pd.Series) and dividends.empty):
+            try:
+                div_path = os.path.join(output_dir, "dividends.csv")
+                if isinstance(dividends, pd.Series):
+                    dividends.to_csv(div_path)
+                market_data["dividends"] = "saved_to_csv"
+                logger.debug(f"Saved dividends to {div_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save dividends for {ticker}: {e}")
+        
+        splits = yf_data.get("splits")
+        if splits is not None and not (isinstance(splits, pd.Series) and splits.empty):
+            try:
+                splits_path = os.path.join(output_dir, "splits.csv")
+                if isinstance(splits, pd.Series):
+                    splits.to_csv(splits_path)
+                market_data["splits"] = "saved_to_csv"
+                logger.debug(f"Saved splits to {splits_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save splits for {ticker}: {e}")
+        
+        # Extract key market info for Z-Score calculation
+        info = yf_data.get("info", {})
+        market_data.update({
+            "market_cap": info.get("marketCap"),
+            "shares_outstanding": info.get("sharesOutstanding"),
+            "current_price": info.get("regularMarketPrice") or info.get("currentPrice"),
+            "enterprise_value": info.get("enterpriseValue"),
+            "total_debt": info.get("totalDebt"),
+            "total_cash": info.get("totalCash")
+        })
+        
+        logger.info(f"[{ticker}] Successfully fetched market data from Yahoo Finance")
+        return market_data
+        
+    except Exception as e:
+        logger.error(f"[{ticker}] Failed to fetch market data from Yahoo: {e}")
+        return {}
+
+
 @exponential_retry(
     max_retries=3,
     base_delay=1.0,
@@ -76,7 +367,7 @@ def merge_quarters_by_period(existing_quarters, new_quarters):
 )
 def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
     """
-    Fetch up to 12 quarters of financials for the given ticker using SEC EDGAR (primary) and yfinance (fallback).
+    Fetch quarterly financials using SEC EDGAR for financial facts and Yahoo Finance for market data.
 
     Args:
         ticker (str): Stock ticker symbol (e.g., 'AAPL').
@@ -88,13 +379,11 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
         dict or None: {"quarters": [dict, ...]} if data found, else None.
 
     Notes:
-        - Tries SEC EDGAR first for financials. If unavailable or incomplete, falls back to yfinance.
-        - Implements exponential backoff retry for network-related errors.
-        - Retries up to 3 times with exponential delay between attempts.
-        - Fetches company info and officers first.
-        - Uses AI-powered field mapping if enabled and direct mapping fails.
-        - Saves all raw and processed data to disk for reproducibility.
-        - Logs all errors and warnings for traceability.
+        - Uses SEC EDGAR for financial facts (balance sheet, income statement)
+        - Uses Yahoo Finance for market data (prices, shares outstanding, market cap)
+        - Implements AI-powered field mapping to bridge SEC concepts to Z-Score fields
+        - Saves all raw and processed data to disk for reproducibility
+        - Logs all errors and warnings for traceability
     """
     logger = logging.getLogger("altman_zscore.fetch_financials")
 
@@ -107,317 +396,80 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
     if "sales" not in fields_to_fetch:
         fields_to_fetch.append("sales")
 
-    # --- SEC EDGAR primary ---
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    # --- 1. SEC EDGAR for Financial Facts ---
+    sec_quarters = []
     try:
         from altman_zscore.api.sec_client import SECClient
         sec_client = SECClient()
         cik = sec_client.lookup_cik(ticker)
         sec_facts = sec_client.get_company_facts(cik) if cik else None
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+        
+        # Save raw SEC facts
         try:
             with open(os.path.join(output_dir, "sec_facts_raw.json"), "w", encoding="utf-8") as f:
                 json.dump(sec_facts, f, indent=2, ensure_ascii=False, default=str)
         except Exception as e:
-            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")        # If no SEC facts, continue to yfinance fallback
-        if not sec_facts or not sec_facts.get('facts'):
-            logger.warning(f"[{ticker}] No SEC company facts; continuing to yfinance fallback.")
+            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")
+        
+        # Extract quarters from SEC facts
+        if sec_facts and sec_facts.get('facts'):
+            sec_quarters = extract_quarters_from_sec_facts(sec_facts, fields_to_fetch, start_date, end_date)
+            logger.info(f"[{ticker}] Extracted {len(sec_quarters)} quarters from SEC facts")
+            
+            # Apply AI field mapping to SEC data
+            sec_quarters = apply_ai_field_mapping(sec_quarters, fields_to_fetch, ticker)
+        else:
+            logger.warning(f"[{ticker}] No SEC company facts available")
+            
     except Exception as sec_e:
-        logger.info(f"[{ticker}] SEC EDGAR failed: {sec_e}. Falling back to yfinance.")
-        
-    # --- yfinance fallback ---
-    try:
-        yf_data = fetch_yfinance_full(ticker)
-        
-        # Save additional data fetched from yfinance for LLM context injection
-        if yf_data:
-            # Save analyst recommendations
-            recommendations = yf_data.get("recommendations")
-            if recommendations is not None and not (isinstance(recommendations, pd.DataFrame) and recommendations.empty):
-                try:
-                    # Convert DataFrame to JSON-serializable format if needed
-                    if isinstance(recommendations, pd.DataFrame):
-                        rec_data = recommendations.to_dict('records')
-                    else:
-                        rec_data = recommendations
-                    
-                    rec_path = os.path.join(output_dir, "recommendations.json")
-                    with open(rec_path, "w", encoding="utf-8") as f:
-                        json.dump(rec_data, f, indent=2, ensure_ascii=False, default=str)
-                    logger.debug(f"Saved analyst recommendations to {rec_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to save recommendations for {ticker}: {e}")
-            
-            # Save major holders
-            major_holders = yf_data.get("major_holders")
-            if major_holders is not None and not (isinstance(major_holders, pd.DataFrame) and major_holders.empty):
-                try:
-                    if isinstance(major_holders, pd.DataFrame):
-                        holders_data = major_holders.to_dict('records')
-                    else:
-                        holders_data = major_holders
-                    
-                    holders_path = os.path.join(output_dir, "major_holders.json")
-                    with open(holders_path, "w", encoding="utf-8") as f:
-                        json.dump(holders_data, f, indent=2, ensure_ascii=False, default=str)
-                    logger.debug(f"Saved major holders to {holders_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to save major holders for {ticker}: {e}")
-            
-            # Save institutional holders
-            institutional_holders = yf_data.get("institutional_holders")
-            if institutional_holders is not None and not (isinstance(institutional_holders, pd.DataFrame) and institutional_holders.empty):
-                try:
-                    if isinstance(institutional_holders, pd.DataFrame):
-                        inst_data = institutional_holders.to_dict('records')
-                    else:
-                        inst_data = institutional_holders
-                    
-                    inst_path = os.path.join(output_dir, "institutional_holders.json")
-                    with open(inst_path, "w", encoding="utf-8") as f:
-                        json.dump(inst_data, f, indent=2, ensure_ascii=False, default=str)
-                    logger.debug(f"Saved institutional holders to {inst_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to save institutional holders for {ticker}: {e}")
-                    
-            # Save dividends and splits for completeness
-            dividends = yf_data.get("dividends")
-            if dividends is not None and not (isinstance(dividends, pd.Series) and dividends.empty):
-                try:
-                    div_path = os.path.join(output_dir, "dividends.csv")
-                    if isinstance(dividends, pd.Series):
-                        dividends.to_csv(div_path)
-                    logger.debug(f"Saved dividends to {div_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to save dividends for {ticker}: {e}")
-            
-            splits = yf_data.get("splits")
-            if splits is not None and not (isinstance(splits, pd.Series) and splits.empty):
-                try:
-                    splits_path = os.path.join(output_dir, "splits.csv")
-                    if isinstance(splits, pd.Series):
-                        splits.to_csv(splits_path)
-                    logger.debug(f"Saved splits to {splits_path}")
-                except Exception as e:
-                    logger.warning(f"Failed to save splits for {ticker}: {e}")
-        
-        # Get both quarterly and annual data for comprehensive coverage
-        bs_quarterly = yf_data["balance_sheet"] if yf_data else None
-        is_quarterly = yf_data["income_statement"] if yf_data else None
-        bs_annual = yf_data.get("balance_sheet_annual") if yf_data else None
-        is_annual = yf_data.get("income_statement_annual") if yf_data else None
-        
-        # Combine quarterly and annual data, prioritizing quarterly for recent periods
-        bs_combined = None
-        is_combined = None
-        
-        if isinstance(bs_quarterly, pd.DataFrame) and not bs_quarterly.empty:
-            bs_combined = bs_quarterly.copy()
-        if isinstance(is_quarterly, pd.DataFrame) and not is_quarterly.empty:
-            is_combined = is_quarterly.copy()
-            
-        # Add annual data for historical periods not covered by quarterly data
-        if isinstance(bs_annual, pd.DataFrame) and not bs_annual.empty:
-            if bs_combined is None:
-                bs_combined = bs_annual.copy()
-            else:
-                # Add annual periods that don't conflict with quarterly data
-                for col in bs_annual.columns:
-                    if col not in bs_combined.columns:
-                        bs_combined[col] = bs_annual[col]
-                        
-        if isinstance(is_annual, pd.DataFrame) and not is_annual.empty:
-            if is_combined is None:
-                is_combined = is_annual.copy()
-            else:
-                # Add annual periods that don't conflict with quarterly data
-                for col in is_annual.columns:
-                    if col not in is_combined.columns:
-                        is_combined[col] = is_annual[col]
-        
-        # Use combined data as primary datasets
-        bs = bs_combined
-        is_ = is_combined
-        
-        # Always save raw DataFrames for debugging, even if empty
-        raw_data = {
-            "balance_sheet": df_to_dict_str_keys(bs) if isinstance(bs, pd.DataFrame) else {},
-            "income_statement": df_to_dict_str_keys(is_) if isinstance(is_, pd.DataFrame) else {},
+        logger.warning(f"[{ticker}] SEC EDGAR extraction failed: {sec_e}")
+
+    # --- 2. Yahoo Finance for Market Data ---
+    market_data = fetch_market_data_from_yahoo(ticker, output_dir)
+
+    # --- 3. Combine and Validate ---
+    if not sec_quarters:
+        logger.error(f"[{ticker}] No financial data available from SEC EDGAR")
+        return {
+            "error": "No financial data available from SEC EDGAR. SEC data is required for financial analysis.",
+            "quarters": [],
+            "missing_fields_by_quarter": []
         }
-        with open(os.path.join(output_dir, "financials_raw.json"), "w", encoding="utf-8") as f:
-            json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)
-        if not (isinstance(bs, pd.DataFrame) and not bs.empty and isinstance(is_, pd.DataFrame) and not is_.empty):
-            logger.warning(f"[{ticker}] yfinance: One or both DataFrames are empty. balance_sheet empty: {bs is not None and bs.empty}, income_statement empty: {is_ is not None and is_.empty}")
-        if isinstance(bs, pd.DataFrame) and not bs.empty and isinstance(is_, pd.DataFrame) and not is_.empty:
-            raw_data = {
-                "balance_sheet": df_to_dict_str_keys(bs),
-                "income_statement": df_to_dict_str_keys(is_),
-            }
-            with open(os.path.join(output_dir, "financials_raw.json"), "w", encoding="utf-8") as f:
-                json.dump(raw_data, f, indent=4, ensure_ascii=False, default=str)
-            quarters = []
-            common_periods = [p for p in bs.columns if p in is_.columns]
-            
-            # Filter periods by date range if start_date/end_date provided
-            if start_date or end_date:
-                try:
-                    if start_date:
-                        start_dt = pd.to_datetime(start_date)
-                    else:
-                        start_dt = pd.Timestamp.min
-                    if end_date:
-                        end_dt = pd.to_datetime(end_date)
-                    else:
-                        end_dt = pd.Timestamp.now()
-                        
-                    common_periods = [p for p in common_periods if start_dt <= pd.to_datetime(p) <= end_dt]
-                except Exception as e:
-                    logger.warning(f"Failed to filter periods by date: {e}")
-            
-            missing_fields_by_quarter = []
-            direct_mapping = {}
-            available_bs_keys = set(str(idx) for idx in bs.index)
-            available_is_keys = set(str(idx) for idx in is_.index)
-            all_available_keys = available_bs_keys.union(available_is_keys)
-            raw_fields = list(all_available_keys)
-            sample_values = {}
-            for f in raw_fields:
-                v = None
-                if f in bs.index and bs.shape[1] > 0:
-                    v = bs.iloc[bs.index.get_loc(f), 0]
-                elif f in is_.index and is_.shape[1] > 0:
-                    v = is_.iloc[is_.index.get_loc(f), 0]
-                if v is not None:
-                    sample_values[f] = v            # Always use AI mapping for all fields
-            missing_fields = [f for f in fields_to_fetch]
-            try:
-                client = AzureOpenAIClient()
-                ai_mapping = client.suggest_field_mapping(raw_fields, missing_fields, sample_values, ticker=ticker)
-                if ai_mapping:
-                    for field, mapped in ai_mapping.items():
-                        if field not in direct_mapping:
-                            if isinstance(mapped, dict):
-                                direct_mapping[field] = mapped.get("FoundField")
-                            else:
-                                direct_mapping[field] = mapped
-            except Exception as e:
-                logger.warning(f"AI field mapping failed: {e}. Will use only direct mapping.")
-            for period in common_periods:
-                try:
-                    logger.debug(f"Processing period {period}")
-                    q = {}
-                    field_mapping = {}
-                    missing = []
-                    if isinstance(period, str):
-                        q["period_end"] = period.split()[0]
-                    else:
-                        q["period_end"] = period.strftime("%Y-%m-%d")
-                    for field in fields_to_fetch:
-                        logger.debug(f"Processing field {field}")
-                        val = None
-                        mapped_field = None
-                        raw_field = direct_mapping.get(field)
-                        logger.debug(f"Direct mapping for {field}: {raw_field}")
-                        if raw_field and isinstance(raw_field, str) and raw_field.startswith("INFERRED:"):
-                            logger.debug(f"Processing inferred field {raw_field}")
-                            _, equity_field, paid_in_field = raw_field.split(":")
-                            try:
-                                logger.debug(f"Checking BS index for fields - equity: {equity_field}, paid_in: {paid_in_field}")
-                                logger.debug(f"Available BS fields: {list(bs.index)}")
-                                equity_val = bs.loc[equity_field, period] if equity_field in bs.index else None
-                                paid_in_val = bs.loc[paid_in_field, period] if paid_in_field in bs.index else None
-                                logger.debug(f"Got raw values - Equity: {equity_val} ({type(equity_val)}), Paid in: {paid_in_val} ({type(paid_in_val)})")
-                                if equity_val is not None and paid_in_val is not None:
-                                    equity_dec = safe_to_decimal(str(equity_val))
-                                    paid_in_dec = safe_to_decimal(str(paid_in_val))
-                                    logger.debug(f"Converted to Decimal - Equity: {equity_dec}, Paid in: {paid_in_dec}")
-                                    if equity_dec is not None and paid_in_dec is not None:
-                                        val = equity_dec - paid_in_dec
-                                        logger.debug(f"Calculated inferred value: {val}")
-                                        mapped_field = f"Inferred from {equity_field} minus {paid_in_field}"
-                                        logger.debug(f"Using inferred retained earnings value: {val}")
-                                        q[field] = val
-                                        field_mapping[field] = mapped_field
-                                        continue
-                                    else:
-                                        logger.warning("Failed to convert equity or paid-in capital to Decimal")
-                                        missing.append(field)
-                                else:
-                                    logger.debug("Missing required values for inference")
-                                    logger.debug(f"Available fields in BS for period {period}: {list(bs.index)}")
-                                    missing.append(field)
-                            except Exception as e:
-                                logger.warning(f"Failed to calculate inferred value for {field}: {e}")
-                                missing.append(field)
-                        else:
-                            logger.debug(f"Normal field processing for {field}")
-                            if raw_field:
-                                mapped_field = raw_field
-                                try:
-                                    if raw_field in bs.index:
-                                        val = safe_to_decimal(bs.loc[raw_field, period])
-                                        logger.debug(f"Got value from balance sheet: {val}")
-                                    elif raw_field in is_.index:
-                                        val = safe_to_decimal(is_.loc[raw_field, period])
-                                        logger.debug(f"Got value from income statement: {val}")
-                                    else:
-                                        val = None
-                                except Exception as e:
-                                    logger.warning(f"Failed to get value for {raw_field}: {e}")
-                                    val = None
-                                    missing.append(field)
-                            else:
-                                logger.debug(f"No mapping found for {field}")
-                                missing.append(field)
-                        if val in [None, 0, Decimal("0")]:
-                            logger.debug(f"Skipping {field} because value is None or 0")
-                            missing.append(field)
-                        else:
-                            logger.debug(f"Adding {field} with value {val}")
-                            q[field] = val
-                            field_mapping[field] = mapped_field
-                    if q:
-                        q["field_mapping"] = json.dumps(field_mapping, default=str)
-                        # Filter by start_date after data is fetched
-                        if start_date is None or q["period_end"] >= start_date:
-                            quarters.append(q)
-                            missing_fields_by_quarter.append(missing)
-                except Exception as e:
-                    logger.warning(f"Failed to process period {period}: {e}")
-                    continue
-            
-            # Sort quarters by period end date and respect the date range
-            quarters = sorted(quarters, key=lambda x: x["period_end"])
-            
-            if quarters:
-                non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
-                all_zero = True
-                for q in quarters:
-                    if any(Decimal(str(q.get(f, 0))) != 0 for f in non_asset_fields):
-                        all_zero = False
-                        break
-                if all_zero:
-                    logger.error(f"[{ticker}] yfinance fallback: Only balance sheet data available; all income statement fields are zero. No Z-Score can be computed.")
-                    return {
-                        "error": "yfinance data for this ticker does not contain the required income statement fields (e.g., sales, EBIT, retained earnings). Only balance sheet data is available. No Z-Score can be computed.",
-                        "quarters": quarters,
-                        "missing_fields_by_quarter": missing_fields_by_quarter
-                    }
-                output_dir = get_output_dir(None, ticker=ticker)
-                if not os.path.exists(output_dir):
-                    os.makedirs(output_dir)
-                with open(os.path.join(output_dir, "financials_quarterly.json"), "w", encoding="utf-8") as f:
-                    json.dump(quarters, f, indent=2, ensure_ascii=False, default=str)
-                return {"quarters": quarters, "missing_fields_by_quarter": missing_fields_by_quarter}
-            else:
-                logger.error(f"[{ticker}] No usable financial data found after processing. Data may be present but missing required fields.")
-                raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
+
+    # Save processed SEC quarters
+    try:
+        with open(os.path.join(output_dir, "financials_quarterly.json"), "w", encoding="utf-8") as f:
+            json.dump(sec_quarters, f, indent=2, ensure_ascii=False, default=str)
     except Exception as e:
-        logger.error(f"[{ticker}] Could not fetch financials from SEC or Yahoo: {e}")
-        raise_with_context(DataFetchingError, f"Could not fetch financials for {ticker}", str(e))
-    # Always return a dict with 'quarters' and 'error' if no data found
-    logger.error(f"[{ticker}] No usable financial data found from SEC or Yahoo. Returning empty result.")
-    return {"quarters": [], "error": "No usable financial data found from SEC or Yahoo."}
+        logger.warning(f"[{ticker}] Could not save processed quarters: {e}")
+
+    # Validate that we have meaningful financial data
+    if sec_quarters:
+        non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
+        all_zero = True
+        for q in sec_quarters:
+            if any(q.get(f, 0) not in (0, None, Decimal("0")) for f in non_asset_fields):
+                all_zero = False
+                break
+        
+        if all_zero:
+            logger.error(f"[{ticker}] SEC data contains only balance sheet items; no income statement data found")
+            return {
+                "error": "SEC data for this ticker does not contain the required income statement fields (e.g., sales, EBIT, retained earnings). Only balance sheet data is available. No Z-Score can be computed.",
+                "quarters": sec_quarters,
+                "missing_fields_by_quarter": []
+            }
+
+    logger.info(f"[{ticker}] Successfully fetched financials: {len(sec_quarters)} quarters from SEC, market data from Yahoo")
+    return {
+        "quarters": sec_quarters,
+        "market_data": market_data,
+        "missing_fields_by_quarter": []  # Could be enhanced to track missing fields per quarter
+    }
+
 
 def safe_to_decimal(value) -> Optional[Decimal]:
     """
@@ -456,6 +508,7 @@ def safe_to_decimal(value) -> Optional[Decimal]:
     except (decimal.InvalidOperation, ValueError, TypeError):
         return None
 
+
 def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
     """
     Fetch and reconcile financials for a ticker using the primary fetch_financials logic.
@@ -469,24 +522,4 @@ def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str
     Returns:
         dict or None: {"quarters": [dict, ...]} if data found, else None.
     """
-    raw_results = fetch_financials(ticker, end_date, zscore_model, start_date)
-    if raw_results and raw_results.get("quarters"):
-        # Sort quarters by date and apply date filtering but do not limit to 12 quarters
-        quarters = raw_results["quarters"]
-        if start_date:
-            quarters = [
-                q for q in quarters
-                if q.get("period_end") and q["period_end"] >= start_date
-            ]
-        if end_date:
-            quarters = [
-                q for q in quarters
-                if q.get("period_end") and q["period_end"] <= end_date
-            ]
-        # Sort quarters in reverse chronological order
-        quarters.sort(key=lambda x: x["period_end"], reverse=True)
-        
-        raw_results["quarters"] = quarters
-        raw_results["missing_fields_by_quarter"] = raw_results.get("missing_fields_by_quarter", [[]])
-        return raw_results
-    return None
+    return fetch_financials(ticker, end_date, zscore_model, start_date)
