@@ -4,101 +4,53 @@
 
 **Version: 3.4.2 (2025-06-17) 🥇 Golden Release**
 
-A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This platform orchestrates complete financial analysis pipelines for single or multiple stock tickers, featuring **39 pre-analyzed companies** that showcase real-world capabilities across diverse market segments and financial profiles.
+A robust Python tool for comprehensive Altman Z-Score financial analysis with AI-powered insights. Features **47 pre-analyzed companies** across diverse market segments with actionable investment recommendations.
 
 ---
 
-## System Architecture
+## Quick Start
 
-**5-Layer Pipeline Design:**
-1. **Input Validation** → Ticker verification and date parameter validation
-2. **Data Acquisition** → SEC EDGAR (primary) + Yahoo Finance (market data) 
-3. **Data Validation** → Pydantic schemas with missing field reporting
-4. **Z-Score Computation** → Model selection and calculation with error handling
-5. **Report Generation** → LLM analysis + visualization + structured outputs
-
-**Core Principles:** Modularity, robustness, comprehensive error handling, and rich visualization with company branding.
-
-### Key Features
-- **📊 Comprehensive Test Portfolio:** 39 pre-analyzed companies spanning tech giants, growth stocks, financial services, distressed companies, and established industrials
-- **🔬 Multiple Z-Score Models:** Intelligent model selection based on company characteristics (see [MODELS.md](MODELS.md))
-- **🎨 Company-Branded Visualization:** Professional charts with company logos and candlestick price representations
-- **🤖 LLM-Powered Insights:** Comprehensive qualitative analysis with AI-generated commentary and risk assessment
-- **🔄 Multi-Ticker Analysis:** Batch processing with graceful error handling and continuation on failures
-- **� Rich Analytics:** Weekly price trends, financial ratios, and comprehensive Z-Score trend analysis
-
-### Data Sources
-- **Primary:** Yahoo Finance (real-time financials and market data)
-- **Fallback:** SEC EDGAR/XBRL (official regulatory filings)
-- **Executive Data:** Multi-source aggregation for comprehensive profiles
-
-### Output Structure
-All outputs are saved to `output/<TICKER>/`:
-- `zscore_<TICKER>_zscore_full_report.md` (comprehensive analysis with LLM insights)
-- `zscore_<TICKER>_trend.png` (trend visualization chart)
-- `zscore_<TICKER>.csv` and `.json` (raw analytical data)
-- `<TICKER>_NOT_AVAILABLE.txt` (marker for unavailable tickers)
-
----
-
-## Usage
-To analyze one or more stocks, run:
 ```sh
-python main.py <TICKER1> <TICKER2> ... [--date YYYY-MM-DD] [--no-plot] [--test] [--log-level DEBUG]
-```
+# Analyze a single company
+python main.py MSFT
 
-Examples:
-```sh
+# Analyze with specific date
+python main.py AAPL --date 2024-01-01
+
+# Multiple companies
 python main.py AAPL MSFT TSLA
-python main.py TSLA --date 2023-01-01
-python main.py AAPL MSFT --no-plot
-python main.py --test
-python main.py --log-level DEBUG
+
+# Generate portfolio table
+python generate_readme_table.py
 ```
-Replace `<TICKER1> <TICKER2> ...` with one or more stock ticker symbols (e.g., `AAPL`, `MSFT`).
+
+## Key Features
+
+- **� Actionable Portfolio Table:** Immediate investment recommendations with visual indicators
+- **🤖 AI-Powered Analysis:** LLM-generated comprehensive financial health reports  
+- **� Professional Visualization:** Company-branded charts with trend analysis
+- **🔄 Robust Data Pipeline:** SEC EDGAR + Yahoo Finance integration with error handling
+- **🏢 47-Company Portfolio:** Real-world examples across 5 market segments
+
+## Output Structure
+All analysis saved to `output/<TICKER>/`:
+- **Full Report:** `zscore_<TICKER>_zscore_full_report.md` (AI analysis + recommendations)
+- **Trend Chart:** `zscore_<TICKER>_trend.png` (visual Z-Score analysis)
+- **Data Files:** CSV/JSON with quarterly calculations and metadata
 
 ---
 
-## 📊 Comprehensive Test Portfolio - 39 Companies Analyzed
+## 📊 Portfolio Analysis - 47 Companies
 
-This repository demonstrates the platform's capabilities through **39 pre-analyzed companies** representing a strategically diverse cross-section of the U.S. market. The portfolio was designed to showcase the tool's ability to handle various financial profiles, industry patterns, and market conditions.
+Strategic test portfolio demonstrating platform capabilities across market segments:
 
-### Portfolio Composition by Category:
+**🚀 Tech Giants (7):** AAPL, MSFT, NVDA, GOOGL, GOOG, AMZN, META  
+**📈 High-Growth SaaS (12):** SNOW, PLTR, UBER, DDOG, DOCU, CRWD, NET, MDB, SHOP, ROKU, RBLX, ZM  
+**🏦 Financial Services (3):** JPM, COIN, AFRM  
+**⚠️ Distressed/Cyclical (8):** AAL, UAL, AMC, CCL, F, GE, GME, T  
+**🏭 Established Industrials (17):** JNJ, PG, KO, UNH, VZ, WMT, CAT, DUK, ADP, SLB, and others
 
-#### 🚀 **Technology Giants (6 companies)**
-- **AAPL, MSFT, NVDA, GOOGL, GOOG, AMZN** - Demonstrates analysis of the world's largest tech companies with strong balance sheets and consistent profitability
-
-#### 📈 **High-Growth SaaS & Tech (12 companies)**  
-- **SNOW, PLTR, UBER, DDOG, DOCU, CRWD, NET, MDB, SHOP, ROKU, RBLX, ZM** - Tests the platform's ability to analyze fast-growing companies with varying profitability patterns and capital structures
-
-#### 🏦 **Financial Services (3 companies)**
-- **JPM, COIN, AFRM** - Covers traditional banking (JPM) and emerging fintech (COIN, AFRM) to test financial sector-specific models
-
-#### ⚠️ **Distressed/Cyclical Companies (8 companies)**
-- **AAL, UAL, AMC, CCL, F, GE, GME, T** - Intentionally includes companies with financial challenges to demonstrate error handling and distress analysis capabilities
-
-#### 🏭 **Established Industrials & Consumer Staples (10 companies)**
-- **JNJ, PG, KO, UNH, VZ, WMT, CAT, DUK, ADP, SLB** - Represents mature, dividend-paying companies across utilities, healthcare, consumer goods, and industrial sectors
-
-### Analysis Insights from the Portfolio:
-
-- **Model Selection Testing:** Companies span all available Z-Score models (Original, Private, Financial, Zeta, Retail)
-- **Risk Spectrum Coverage:** From safe zone (MSFT, AAPL) to distress zone (AMC, AAL) companies
-- **Industry Diversification:** Technology, healthcare, finance, utilities, retail, aerospace, energy, telecommunications
-- **Market Cap Range:** From mega-cap ($3T+) to mid-cap companies
-- **Financial Profile Diversity:** High-growth/low-profit to mature/dividend-paying companies
-
-Each analysis includes **complete LLM-generated reports**, **trend visualizations**, and **company branding** to demonstrate the full analytical and reporting capabilities of the platform.
-
-### Why This Portfolio Matters:
-
-1. **🧪 Real-World Testing:** Every company represents actual market conditions and demonstrates how the platform handles different financial scenarios
-2. **📚 Educational Value:** Compare analyses across industries to understand how Z-Score models adapt to different business models
-3. **🔍 Edge Case Coverage:** Includes distressed companies to showcase robust error handling and edge case analysis
-4. **⚖️ Risk Spectrum:** From ultra-safe (MSFT, JNJ) to high-risk (AMC, GME) companies, demonstrating the full range of Z-Score interpretations
-5. **🏭 Industry Expertise:** Each sector represented shows how industry-specific factors influence financial health assessment
-
-The following table shows available reports for all analyzed tickers:
+### Portfolio Table
 
 <!-- BEGIN_TICKERS_TABLE -->
 | Logo | Company Name | Full Report | Trend Chart | Investor Advice |
@@ -147,164 +99,55 @@ The following table shows available reports for all analyzed tickers:
 
 ---
 
-## Updating the Sample Reports Table
+## Table Generation
 
-To automatically update the sample reports table in this README, use the provided script:
+Update the portfolio table automatically:
 
-- **`generate_readme_table.py`**: Scans the `output/` directory for tickers with all required report files and automatically updates the table section in the README.md file (between the markers). Now includes **investor advice extraction** for actionable insights.
-
-Usage:
 ```sh
 python generate_readme_table.py
 ```
 
-The script:
-1. Generates the table and saves it to `table.md`
-2. **NEW:** Extracts investor recommendations from each report and adds them as an "Investor Advice" column
-3. Automatically updates the table in README.md between the `<!-- BEGIN_TICKERS_TABLE -->` and `<!-- END_TICKERS_TABLE -->` markers
-4. Shows a confirmation message when the update is successful
-
-**Investor Advice Column Features:**
-- 📈 **BUY** recommendations with ratios (e.g., "BUY (4/6)")
-- ⚖️ **HOLD** recommendations for neutral positions
-- 📉 **SELL** recommendations for high-risk companies
-- 📊 **MIXED** recommendations showing breakdown
-- Clear visual indicators for quick decision-making
+**Features:**
+- 📈 **BUY/HOLD/SELL** recommendations with ratios
+- 📊 **MIXED** recommendations with breakdowns  
+- ❓ **No Data** for parsing issues
+- Auto-updates README between table markers
 
 ---
 
-## Recent Improvements (3.0.0) ✅ FULLY COMPLETED
-- **✅ Full modular reorganization:** All code grouped by functionality (core, models, company, validation, market, plotting, computation, misc)
-- **✅ All imports fixed:** Updated to use new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`)
-- **✅ Integration testing:** Added `tests/test_integration_main.py` to catch import/runtime errors in main pipeline
-- **✅ Critical import fixes:** Resolved all ModuleNotFoundError issues across the codebase (fetcher_factory.py, industry_classifier.py, etc.)
-- **✅ Main pipeline verified:** Successfully runs `python main.py msft` without import errors
-- **✅ Improved LLM prompt templates:** Enhanced code injection for reporting with more complete, context-aware, and robust analysis outputs
-- **✅ Documentation updated:** All documentation reflects new structure and completed modularization
-- **✅ All tests passing:** Both unit tests and integration tests pass after reorganization
-- **✅ Modularization & refactoring complete:** All refactoring work finished and fully tested
+## Setup & Installation
 
-**🎯 v3.0.0 is now ready for production deployment and user feedback collection.**
+```sh
+# Install dependencies
+pip install -r requirements.txt
 
----
+# Copy environment template (add your API keys)
+cp .env.example .env
 
-## Documentation & Project Roadmap
-- For the unified project plan, roadmap, actionable tasks, and technical references, see [TODO.md](./TODO.md)
-- See `LEARNINGS.md` for technical notes and known issues
-- **For LLM Copilot troubleshooting and analysis:** See [copilot.md](./copilot.md) for step-by-step instructions on analyzing pipeline outputs and debugging issues using VS Code tools
-
----
-
-## Environment Setup
-- Copy `.env.example` to `.env` and fill in your API keys and configuration
-- Install dependencies:
-  ```sh
-  pip install -r requirements.txt
-  ```
-- Use Python 3.11+ (see virtual environment setup instructions below)
-
----
-
-## Development & Contribution
-- All changes must pass existing and new tests
-- New features require updated tests and documentation
-- Document significant learnings in `LEARNINGS.md`
-
-## Troubleshooting & Analysis Tools
-
-### LLM Copilot Analysis
-The repository includes `copilot.md` - comprehensive instructions for LLM Copilot to systematically analyze pipeline outputs, identify issues, and troubleshoot problems using VS Code tools.
-
-**Key Features:**
-- **Automated Analysis:** Step-by-step instructions using VS Code tools (list_dir, read_file, grep_search, etc.)
-- **Success Rate Assessment:** Comprehensive evaluation of ticker analysis completeness
-- **Issue Pattern Detection:** Systematic identification of common failure modes
-- **Root Cause Analysis:** Detailed investigation workflows for debugging
-- **Solution Documentation:** Required logging of all findings before code changes
-
-**Usage for LLM Copilot:**
-1. Follow the workflow in `copilot.md` to analyze all processed tickers
-2. Create detailed troubleshooting logs in `Copilot_Troubleshoot.md`
-3. Identify and prioritize the most common issues
-4. Develop and test solutions based on documented findings
-
-**Human Usage:**
-The same systematic approach can be followed manually for pipeline analysis and debugging.
-
-### Quick Start for Issue Analysis
-```bash
-# Analyze current pipeline outputs
-python -c "
-import os
-print('Available tickers in output/:')
-for ticker in os.listdir('output'):
-    print(f'  {ticker}')
-"
-
-# Test a specific ticker with debug logging
-python main.py MSFT --date 2024-01-01 --log-level DEBUG
+# Test installation
+python main.py --test
 ```
 
----
-
-## License
-MIT (see LICENSE file)
+**Requirements:** Python 3.11+
 
 ---
 
-## Data/API Credits & Disclaimers
+## Documentation
 
-This project uses data and APIs from the following sources:
-- **Yahoo Finance** (yfinance): Market data and financials. Not affiliated with or endorsed by Yahoo. Data may be delayed or incomplete. See Yahoo's terms of use.
-- **Finnhub.io**: Company profiles, logos, and additional financial data. Not affiliated with or endorsed by Finnhub. Data provided under Finnhub's free and paid API terms.
-- **SEC EDGAR/XBRL**: Official regulatory filings. Data is public domain but may be subject to update delays or errors.
-
-**Disclaimers:**
-- All trademarks, service marks, and company names are the property of their respective owners.
-- This project is not affiliated with, endorsed by, or sponsored by Yahoo, Finnhub, the SEC, or any other data provider.
-- Data is provided "as is" for informational and educational purposes only. No warranty is made as to accuracy, completeness, or timeliness. Use at your own risk.
-- Always consult the official data provider's terms of service and licensing before commercial use.
+- **[TODO.md](./TODO.md)** - Project roadmap and completed milestones
+- **[MODELS.md](MODELS.md)** - Z-Score model details and selection logic
+- **[LEARNINGS.md](./LEARNINGS.md)** - Technical notes and known issues
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and improvements
 
 ---
 
-For more details, see the full documentation in this repository and referenced files.
+## License & Data Sources
 
-## Project Structure (as of 3.0.0)
+**License:** MIT (see LICENSE file)
 
-```
-src/altman_zscore/
-    api/                # API clients and integrations (Finnhub, OpenAI, SEC, Yahoo, etc.)
-    company/            # Company profile, status, helpers, CIK/SIC lookup
-    computation/        # Z-Score computation, constants, formulas, DRY helpers
-    core/               # Main pipeline, orchestration, progress tracking, reporting
-    data_fetching/      # Financial and market data fetching (Yahoo, SEC, etc.)
-    market/             # Market data helpers and utilities
-    misc/               # Shared utilities and miscellaneous helpers
-    models/             # Z-Score models, thresholds, enums, industry classifier
-    plotting/           # Visualization, plotting helpers, terminal output
-    schemas/            # Pydantic schemas and data validation models
-    utils/              # Paths, IO, logging, error handling, etc.
-    validation/         # Data validation logic
-    prompts/            # LLM prompt templates
-    ...
-output/                 # Analysis results, reports, and plots (per ticker)
-tests/                  # Unit and integration tests
-```
+**Data Sources:**
+- Yahoo Finance (market data)
+- SEC EDGAR (regulatory filings)  
+- Finnhub.io (company profiles/logos)
 
-- Each folder contains focused, testable modules.
-- All imports use the new modular paths (e.g., `from altman_zscore.plotting.plotting_main import plot_zscore_trend`).
-- For the project plan, roadmap, and actionable tasks, see [TODO.md](./TODO.md)
-
----
-
-## Example: Plotting Z-Score Trend
-
-To generate a Z-Score trend plot in your own script or notebook:
-
-```python
-from altman_zscore.plotting.plotting_main import plot_zscore_trend
-
-# df: DataFrame with columns ['quarter_end', 'zscore']
-# ticker: str, model: str, out_base: str
-plot_zscore_trend(df, ticker, model, out_base)
-```
+*All trademarks are property of their respective owners. This project is not affiliated with any data provider. Use for educational/informational purposes only.*
