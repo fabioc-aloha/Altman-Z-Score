@@ -68,9 +68,19 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "total_liabilities",
         "market_value_equity",
         "ebit",
+        "sales",    ],
+    # 1.6 Emerging Markets Model (alias for service model)
+    "em": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "market_value_equity",
+        "ebit",
         "sales",
     ],
-    # 1.6 Zeta Model (1977 public domain version, 7-factor)
+    # 1.7 Zeta Model (1977 public domain version, 7-factor)
     "zeta": [
         "total_assets",
         "current_assets",
@@ -206,11 +216,13 @@ Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
 # 4) MODEL_ALIASES: Maps legacy or alternative model keys to canonical keys.
 # -------------------------------------------------------------------
 MODEL_ALIASES: Dict[str, str] = {
-    "public_service": "service",      # alias → service
+    "public_service": "service",      # alias → service (keep service for legacy compatibility)
     "private_mfg": "private",         # alias → private
     "public_mfg": "original",         # alias → original
     "manufacturing": "original",      # alias → original
     "non_manufacturing": "service",   # alias → service
+    "service": "em",                  # service → emerging markets (new mapping)
+    "emerging": "em",                 # emerging → em
 }
 
 # -------------------------------------------------------------------

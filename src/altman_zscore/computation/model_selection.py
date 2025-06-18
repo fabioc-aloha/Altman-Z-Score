@@ -89,11 +89,9 @@ def select_zscore_model(
     if isinstance(sic_code, int):
         sic_key = f"sic_{sic_code}"
         if sic_key in MODEL_COEFFICIENTS:
-            return sic_key
-
-    # 2) Tech company check
+            return sic_key    # 2) Tech company check
     if is_tech_company(sic_code):
-        return "service" if is_public else "service_private"
+        return "em" if is_public else "private"
 
     # 3) Manufacturing (SIC 2000–3999)
     if isinstance(sic_code, int) and 2000 <= sic_code <= 3999:
@@ -104,7 +102,7 @@ def select_zscore_model(
         4000 <= sic_code <= 4999   # Transport / Service / Utilities
         or 7000 <= sic_code <= 8999  # Services / Retail
     ):
-        return "service" if is_public else "service_private"
+        return "em" if is_public else "private"
 
     # 5) Default fallback
     return "original" if is_public else "private"
