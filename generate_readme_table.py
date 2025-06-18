@@ -83,20 +83,19 @@ def extract_investor_advice_detailed(report_path):
                             recommendations[clean_profile] = f"{icon} {action}"
             
             if recommendations:                # Create multi-line representation starting with CEO and CFO recommendations
-                result_parts = []
-                  # Add CEO recommendation first if available
+                result_parts = []                # Add CEO recommendation first if available
                 if ceo_recommendation:
-                    result_parts.append(f"<small>**CEO**: {ceo_recommendation}</small>")
+                    result_parts.append(f"CEO: {ceo_recommendation}")
                 
                 # Add CFO recommendation second if available
                 if cfo_recommendation:
-                    result_parts.append(f"<small>**CFO**: {cfo_recommendation}</small>")
+                    result_parts.append(f"CFO: {cfo_recommendation}")
                 
                 # Add investor profiles
                 profile_order = ['Conservative', 'Dividend', 'Value', 'Growth', 'Aggressive', 'Short-Seller']
                 for profile in profile_order:
                     if profile in recommendations:
-                        result_parts.append(f"<small>**{profile}**: {recommendations[profile]}</small>")
+                        result_parts.append(f"{profile}: {recommendations[profile]}")
                 
                 if result_parts:
                     return "<br>".join(result_parts)
