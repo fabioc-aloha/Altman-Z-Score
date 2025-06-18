@@ -7,7 +7,7 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 
 ## System Overview
 
-**Current Version**: 3.5.4 (2025-06-18)  
+**Current Version**: 3.5.5 (2025-06-18)  
 **Architecture**: Clean separation between SEC EDGAR (financials) and Yahoo Finance (market data)  
 **Scope**: U.S. public companies only (10,000+ supported via SEC cache)  
 **Key Innovation**: Multi-tier field mapping with per-quarter fallback logic
@@ -359,7 +359,7 @@ python main.py TICKER --save-prompts                       # Save all LLM prompt
 - **API Rate Limiting**: Intelligent throttling and caching to prevent API blocks
 - **Success Rates**: Field mapping success statistics per company type
 
-## Current System Status & Capabilities (v3.5.4 - 2025-06-18)
+## Current System Status & Capabilities (v3.5.5 - 2025-06-18)
 
 ### ✅ Recently Completed Major Enhancements
 - **Ford Sales Field Resolution**: Eliminated "Required field sales is missing" errors for companies with mixed reporting patterns
