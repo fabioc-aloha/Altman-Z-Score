@@ -19,6 +19,7 @@ def get_company_name(info_path):
     except Exception:
         return os.path.basename(os.path.dirname(info_path))
         return os.path.basename(os.path.dirname(info_path))
+        return os.path.basename(os.path.dirname(info_path))
 
 
 def extract_investor_advice_detailed(report_path):
@@ -292,9 +293,9 @@ def generate_table():
         
         company_name = get_company_name(info_path)
         investor_advice = extract_investor_advice_detailed(report_path)
-        
-        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> | {investor_advice} |'
+          # Display actual chart image instead of just a link, with larger charts and constrained company name width
+        company_name_constrained = f'<div style="width: 120px; word-wrap: break-word;">{company_name}</div>'
+        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name_constrained} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="500"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
 
