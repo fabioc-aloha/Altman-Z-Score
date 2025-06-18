@@ -5,6 +5,29 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.3] - 2025-06-18 🚀 MAJOR REFACTORING RELEASE
+
+### 🏗️ Clean Architecture Implementation
+- **Data Source Separation**: SEC EDGAR as sole source for financials, Yahoo Finance solely for market data
+- **Documentation Alignment**: Updated FLOW.md to accurately reflect new SEC/Yahoo separation architecture
+- **Code Quality**: Maintained modular design with proper error handling and logging throughout refactoring
+
+### 🐛 Critical Bug Fixes
+- **Model Selection**: Resolved "EMERGING" model selection error by mapping service/tech companies to "em" (Emerging Markets) model
+- **SEC Data Extraction**: Fixed quarterly data filtering to include balance sheet items (assets, liabilities, retained earnings)
+- **AI Field Mapping**: Enhanced field mapping to successfully extract all required financial metrics
+- **Abstract Methods**: Fixed EmergingMarketsZScoreModel to implement all required abstract methods
+
+### 📊 Data Extraction Enhancements
+- **Increased Coverage**: Improved SEC extraction from 6 to 8 quarters for most companies
+- **Balance Sheet Support**: Updated filtering logic to include point-in-time balance sheet data
+- **Field Completeness**: All required Z-Score fields now properly extracted and mapped
+
+### ✅ End-to-End Validation
+- **Multi-Ticker Testing**: Confirmed successful completion for AAPL, MSFT with full report generation
+- **Pipeline Integrity**: Validated entire analysis workflow from data fetching to report generation
+- **Quality Assurance**: Zero critical errors in production testing
+
 ## [3.5.2] - 2025-06-18 🚀 ENHANCEMENT RELEASE
 
 ### 🎯 LLM Analysis Enhancements

@@ -1,203 +1,64 @@
-# Altman Z-Score Project Plan & TODO (2025)
+# Altman Z-Score Platform - TODO
 
 ## Vision
-Our goal is to deliver an Altman Z-Score platform that sets new industry standards for transparency, extensibility, and actionable financial insight. See [vision.md](./vision.md) for details.
+Deliver an industry-leading Altman Z-Score platform with transparency, extensibility, and actionable financial insights. See [vision.md](./vision.md) for details.
 
-## Completed Milestones
+## 🎯 Current Status
+**Version:** 3.5.3 ✅ **COMPLETED** - Major refactoring with clean SEC/Yahoo data architecture
 
-### v3.5.2 (2025-06-18) 🚀 ENHANCEMENT RELEASE ✅ COMPLETED
-- **New Section Added:** "Other Relevant Insights" (Section 9) in all financial analysis reports
-- **Enhanced Report Structure:** Expanded from 10 to 11 sections for comprehensive analysis coverage
-- **Cross-Pattern Recognition:** LLM identifies relationships across disparate data points (stock splits, institutional changes, dividend policy)
-- **Strategic Insights:** Forward-looking analysis with early warning indicators and trend monitoring
-- **Data Injection Fixes:** Resolved missing analyst recommendations, major holders, and institutional holders data
-- **Prompt Optimization:** Removed references to unavailable raw financial data for cleaner LLM analysis
-- **Real Data Integration:** Market Sentiment Analysis now uses actual analyst recommendations instead of placeholders
-- **Pattern Discovery:** LLM surfaces insights like institutional position changes, dividend policy shifts, strategic reinvestment patterns
+## 🚀 Next Release: v3.6.0
 
-### v3.5.1 (2025-06-17) 🏆 GOLDEN RELEASE ✅ COMPLETED
-- **Optimized Executive Dashboard:** Perfect balance of information density and readability achieved
-- **Superscript Typography:** Elegant smaller font rendering for compact, professional display
-- **Enhanced Visual Hierarchy:** Improved scanning experience with optimal text sizing
-- **Production Polish:** Final refinements to table formatting for enterprise-grade presentation
-- **User Experience Excellence:** Streamlined recommendation viewing without visual overwhelm
-- **Golden Standard:** Definitive executive dashboard formatting for multi-stakeholder guidance
-
-### v3.5.0 (2025-06-17) 🥇 GOLDEN RELEASE ✅ COMPLETED
-- **Comprehensive Stakeholder Guidance:** Added CEO recommendations alongside CFO and investor advice
-- **Executive Decision Support:** Strategic leadership guidance extraction from Internal Stakeholder tables
-- **Enhanced Table Value:** Complete CEO/CFO/Investor recommendation matrix in single actionable view
-- **Strategic Categories:** 🚀 FOCUS INNOVATION, 📢 COMMUNICATE GROWTH, 🔧 RESTRUCTURE, ⚡ EXECUTION FOCUS, 🎯 STRATEGIC FOCUS
-- **Multi-Role Architecture:** Clean separation of strategic (CEO), financial (CFO), and investment guidance
-- **Professional Documentation:** Updated README legend with comprehensive stakeholder explanation
-- **Enterprise Ready:** Production-grade analysis serving executives, CFOs, and investors simultaneously
-- **Golden Release Status:** Maximum stakeholder value with comprehensive decision support matrix
-
-### v3.4.2 (2025-06-17) 🥇 GOLDEN RELEASE ✅ COMPLETED
-- **Actionable README Enhancement:** Updated `generate_readme_table.py` to extract investor advice from reports
-- **New Table Column:** Added "Investor Advice" column to README portfolio table with clear, emoji-coded recommendations
-- **Smart Extraction Logic:** Implemented intelligent parsing to extract recommendation summaries and fallback to counting individual recommendations
-- **Improved User Experience:** README table now provides immediate investment guidance alongside company logos, reports, and charts
-- **Production Quality:** Zero critical bugs, comprehensive testing, optimized performance
-- **Version Increment:** Bumped version to 3.4.2 across all project files
-- **Golden Release Status:** Mature, production-ready platform with maximum user value
-
-### v3.4.1 (2025-06-17) ✅ COMPLETED
-- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability and clarity
-- **Error Handling Enhancement:** Improved CIK lookup and cache management with better fallback strategies
-- **Documentation Overhaul:** Updated all documentation files to reflect new CLI argument and improved workflows
-- **Code Quality:** Fixed formatting issues and improved code maintainability
-- **User Experience:** Clearer, more intuitive command-line interface
-
-### v3.3.4 (2025-06-17) ✅
-- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability
-- **Code Formatting:** Fixed multiple formatting issues in main.py argument parser
-- **Documentation:** Updated README.md, FLOW.md, and all documentation files with new argument name
-
-### v3.3.0 (2025-06-17) ✅
-- **Deep Report Evaluation Preparation:** Enhanced copilot.md with comprehensive analysis tools for systematic output evaluation
-- **Model Matching Modernization Prep:** Documented current model selection logic and prepared framework for modernization
-- **LLM Troubleshooting Framework:** Complete VS Code tool integration for systematic pipeline analysis
-- **Documentation Enhancement:** Updated all project documentation to reference new troubleshooting capabilities
-- **LLM Prompt Optimization:** Optimized data injection to reduce prompt size from >10MB to 41.6KB (99.6% reduction) while preserving all essential analysis data
-- **Enhanced Financial Analysis:** Added short-seller profile and required Z-Score vs price trend analysis for all investor recommendations
-- **Data Integration Enhancement:** Metadata and Z-Score calculations now supersede redundant files in LLM prompts
-
-### v3.2.1 (2025-06-17) ✅
-- **LLM Copilot Integration:** Added comprehensive `copilot.md` with step-by-step instructions for LLM Copilot to analyze pipeline outputs and troubleshoot issues
-- **VS Code Tool Integration:** Instructions use available VS Code tools (list_dir, read_file, grep_search, run_in_terminal) for systematic analysis
-- **Troubleshooting Workflow:** Established audit trail requirements with `Copilot_Troubleshoot.md` logging before code changes
-- **Documentation Updates:** Updated README.md, FLOW.md, and TODO.md to reference copilot.md and troubleshooting workflows
-- **Enhanced Historical Data:** Extended Z-Score analysis from ~2 years to ~5 years by combining quarterly and annual financial data
-
-### v3.2.0 (2025-06-16) ✅
-- Enhanced visualization: Improved candlestick chart representation
-- Error handling: Better multi-ticker analysis with graceful continuation
-- User experience: More informative error messages for missing data
-- Documentation: Updated for new features and improvements
-
-### v3.1.1 (2025-06-15) ✅
-- Added FLOW.md describing codebase architecture
-- Updated output directory structure documentation
-- Enhanced plotting and data pipeline robustness
-- Fixed SEC EDGAR data processing edge cases
-
-### v3.0.1 (2025-06-07) ✅
-- Completed full modular reorganization
-- Added integration testing
-- Improved LLM prompt templates
-- All tests passing after reorganization
-
-## Current Phase: v3.4.2 Development 🚧 IN PROGRESS
-
-### v3.4.2 (2025-06-17) 🚧 IN PROGRESS  
-**Focus: Code Quality, Performance & User Experience**
-
-#### Planned for v3.4.2
-- [x] **Code Cleanup & Optimization:**
-  - [x] Remove deprecated `utils/terminal.py` (all functions NotImplementedError, replaced by logging)
-  - [x] Replace remaining `print()` statements in plotting modules with proper `logging` calls
-  - [x] Clean up commented-out debug code and obsolete comments
-  - [x] Remove unused functions/variables and dead code
-  - [x] Run linter/formatter validation
-
-- [ ] **User Experience Enhancements:**
-  - [ ] Add progress indicators for long operations (SEC data fetching, LLM processing)
-  - [ ] Improve batch mode output formatting and status reporting
-  - [ ] Enhanced error messages with actionable suggestions
-
-- [ ] **Performance Improvements:**
-  - [ ] Optimize API calls with better caching strategies
-  - [ ] Reduce memory usage for large datasets
+### High Priority
+- [ ] **Performance Optimization**
   - [ ] Implement parallel processing for batch analysis
+  - [ ] Optimize API calls with intelligent caching strategies
+  - [ ] Reduce memory usage for large datasets
 
-- [ ] **Documentation & Quality:**
-  - [ ] Update documentation with new features
-  - [ ] Validate all tests pass after cleanup
-  - [ ] Update CHANGELOG with improvements
-
-## Previous Releases
-
-### v3.4.1 (2025-06-17) ✅ COMPLETED
-- [x] CLI Interface: Changed `--start` to `--date` argument
-- [x] Documentation: Updated all files to reflect CLI changes
-- [x] Version Management: Bumped to 3.4.0 across all files
-- [x] Code Quality: Fixed formatting issues in argument parser
-
-### In Progress for v3.4.0
-- [ ] Testing: Validate all CLI changes work correctly
-- [ ] Error Handling: Complete CIK cache improvements
-- [ ] Documentation: Finalize changelog and release notes
-- [ ] Quality Assurance: Run full test suite and validation
-
-### Future Planning (v3.5.0+)
-- [ ] Data Analysis
-  - [ ] Trend analysis for Z-Score components
-  - [ ] Detailed breakdowns of financial metrics
-  - [ ] Component contribution analysis
-
-- [ ] Visualization
-  - [ ] Configurable chart styles and themes
-  - [ ] Interactive features (tooltips, zoom/pan)
-  - [ ] Volume indicators for price charts
-
-- [ ] Advanced Error Handling
-  - [ ] Smart retries for API failures
-  - [ ] Validation for incomplete financials
-  - [ ] Enhanced cache management strategies
-
-### LLM Copilot Capabilities (v3.2.1) ✅
-The repository now includes comprehensive LLM Copilot integration via `copilot.md`:
-
-**Analysis Capabilities:**
-- Systematic ticker inventory and completeness assessment
-- Success rate calculation and failure pattern detection
-- Root cause analysis using VS Code tools
-- Automated debugging workflows
-
-**Tool Integration:**
-- Uses VS Code built-in tools (list_dir, read_file, grep_search, run_in_terminal)
-- No external dependencies or manual commands required
-- Complete workflow from discovery to solution implementation
-
-**Quality Assurance:**
-- Mandatory troubleshooting log creation (`Copilot_Troubleshoot.md`)
-- Audit trail of all analysis steps and decisions
-- Solution validation and testing requirements
+- [ ] **Enhanced Analytics**
+  - [ ] Trend analysis for individual Z-Score components (X1-X5)
+  - [ ] Component contribution analysis and sensitivity testing
+  - [ ] Industry benchmarking and peer comparison
 
 ### Medium Priority
-- [ ] User Experience
-  - [ ] Progress indicators for long operations
-  - [ ] Batch mode enhancements
-  - [ ] Configuration profiles
+- [ ] **User Experience**
+  - [ ] Progress indicators for long-running operations
+  - [ ] Configuration profiles for different analysis types
+  - [ ] Batch mode enhancements with better error reporting
 
-- [ ] Performance
-  - [ ] Optimize API calls with better caching
-  - [ ] Reduce memory usage for large datasets
-  - [ ] Parallel processing for batch analysis
+- [ ] **Visualization Improvements**
+  - [ ] Configurable chart themes and styles
+  - [ ] Interactive features (tooltips, zoom/pan, component breakdown)
+  - [ ] Volume indicators and price action overlays
+
+- [ ] **Code Quality**
+  - [ ] Complete code cleanup checklist (remove deprecated functions)
+  - [ ] Enhanced error handling with smart retry logic
+  - [ ] Validation improvements for incomplete financial data
 
 ### Future Considerations
-- Data & Analysis
-  - Currency conversion for non-USD firms
-  - "What-if" scenario analysis
-  - Industry-specific model calibration
+- [ ] **Advanced Features**
+  - [ ] Currency conversion for international firms
+  - [ ] "What-if" scenario analysis capabilities
+  - [ ] Industry-specific model calibration
 
-- Integration
-  - REST API development
-  - Database backend
-  - Excel Add-In
+- [ ] **Integration & APIs**
+  - [ ] REST API development for external access
+  - [ ] Database backend for historical data
+  - [ ] Excel Add-In for direct spreadsheet integration
 
-## Project Guidelines
-- Keep code modular and testable
-- Document all major decisions
-- Maintain backward compatibility
-- Focus on user experience
-- Regular performance monitoring
+## 📋 Code Cleanup Checklist
+- [ ] Remove deprecated `utils/terminal.py` (replaced by logging)
+- [ ] Replace remaining `print()` statements with proper logging
+- [ ] Remove commented-out debug code and obsolete comments
+- [ ] Clean up unused functions/variables
+- [ ] Run linter/formatter and validate all tests
 
-## Code Cleanup Checklist (2025-06-16)
-- [ ] Deleted deprecated `utils/terminal.py` (all functions NotImplementedError, replaced by logging)
-- [ ] Replaced all `print()` statements in plotting modules with `logging` calls
-- [ ] Removed commented-out debug code and obsolete comments in plotting and API helpers
-- [ ] Removed functions/variables marked as unused or dead code
-- [ ] Run linter/formatter and validate tests after cleanup
-- [ ] Documented this cleanup in TODO.md (2025-06-16)
+## 🎯 Development Guidelines
+- Maintain modular, testable code architecture
+- Document all major design decisions
+- Preserve backward compatibility
+- Prioritize user experience
+- Regular performance monitoring and optimization
+
+---
+*For completed features and historical changes, see [CHANGELOG.md](CHANGELOG.md)*
