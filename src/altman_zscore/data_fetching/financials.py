@@ -94,6 +94,9 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     # Build a mapping of quarters using common period endings
     quarter_data = {}
     
+    # Track annual data separately for backfilling revenue/sales
+    annual_data = {}
+    
     # Iterate through all US GAAP concepts
     for concept_name, concept_data in us_gaap.items():
         units = concept_data.get("units", {})
@@ -106,19 +109,30 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
             if not entry.get("end"):
                 continue
                 
-            # For quarterly data, we prefer entries with quarterly frame info or fiscal period
+            period_end = entry["end"]
+            
+            # Apply date filters if provided (but be more generous for quarterly data)
+            if start_date and period_end < start_date:
+                continue
+            if end_date and period_end > end_date:
+                continue
+                
+            # For quarterly data, accept multiple types of periods
             frame = entry.get("frame", "")
             fp = entry.get("fp", "")
             
-            # Accept if it has quarterly frame (Q1, Q2, Q3, Q4) or quarterly fiscal period
+            # Accept quarterly data: Q1, Q2, Q3, Q4 in frame OR fp
             has_quarterly_frame = any(q in frame for q in ["Q1", "Q2", "Q3", "Q4"])
-            has_quarterly_fp = fp in ["Q1", "Q2", "Q3"]  # Q4 is often reported as FY
+            has_quarterly_fp = fp in ["Q1", "Q2", "Q3", "Q4"]  # Include Q4
             
-            # Also accept if it's recent data without frame (for newer balance sheet items)
-            period_end = entry["end"]
-            is_recent = period_end >= "2020-01-01"  # Adjust as needed
+            # Track annual data (FY) separately for backfilling
+            is_annual = fp == "FY" or "FY" in frame
             
-            if not (has_quarterly_frame or has_quarterly_fp or is_recent):
+            # Also accept recent data (last 3 years) to capture any reporting format
+            is_recent = period_end >= "2021-01-01"
+            
+            # Accept if it's quarterly, annual, or recent
+            if not (has_quarterly_frame or has_quarterly_fp or is_annual or is_recent):
                 continue
                 
             period_end = entry["end"]
@@ -129,14 +143,35 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
             if end_date and period_end > end_date:
                 continue
                 
-            # Initialize quarter if not exists
-            if period_end not in quarter_data:
-                quarter_data[period_end] = {"period_end": period_end}
-                
-            # Store the value (use the most recent filing for each concept)
             value = entry.get("val")
             if value is not None:
+                # Store annual data separately for revenue backfilling
+                if is_annual and concept_name in ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"]:
+                    year = period_end[:4]  # Extract year from YYYY-MM-DD
+                    if year not in annual_data:
+                        annual_data[year] = {}
+                    annual_data[year][concept_name] = value
+                
+                # Initialize quarter if not exists
+                if period_end not in quarter_data:
+                    quarter_data[period_end] = {"period_end": period_end}
+                    
+                # Store the value (use the most recent filing for each concept)
                 quarter_data[period_end][concept_name] = value
+    
+    # Backfill revenue data for quarters that are missing it
+    for period_end, quarter in quarter_data.items():
+        year = period_end[:4]
+        
+        # If this quarter is missing revenue data, try to use annual data
+        has_revenue = any(concept in quarter for concept in ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"])
+        
+        if not has_revenue and year in annual_data:
+            # Use annual revenue data for this quarter
+            for concept_name, value in annual_data[year].items():
+                if concept_name not in quarter:
+                    quarter[concept_name] = value
+                    logger.debug(f"Backfilled {concept_name} for {period_end} with annual value: {value}")
     
     # Convert to list and sort by period_end
     quarters = list(quarter_data.values())
@@ -174,13 +209,12 @@ def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: st
                 if field not in sample_values:
                     sample_values[field] = value
     
-    raw_fields = list(all_sec_fields)
-    
-    # Use AI to map SEC concepts to Z-Score fields
+    raw_fields = list(all_sec_fields)      # Use AI to map SEC concepts to Z-Score fields
     direct_mapping = {}
     try:
         client = AzureOpenAIClient()
         ai_mapping = client.suggest_field_mapping(raw_fields, fields_to_fetch, sample_values, ticker=ticker)
+        logger.debug(f"Raw AI mapping response for {ticker}: {ai_mapping}")
         if ai_mapping:
             for field, mapped in ai_mapping.items():
                 if isinstance(mapped, dict):
@@ -188,10 +222,30 @@ def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: st
                 else:
                     direct_mapping[field] = mapped
         logger.info(f"AI mapping successful for {ticker}: {len(direct_mapping)} fields mapped")
+        logger.debug(f"Direct mapping result for {ticker}: {direct_mapping}")
     except Exception as e:
         logger.warning(f"AI field mapping failed for {ticker}: {e}. Using empty mapping.")
+        logger.debug(f"AI mapping exception details:", exc_info=True)
+      # Add fallback mappings for common fields that AI might miss
+    fallback_mappings = {
+        "sales": ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "Revenue", "TotalRevenue", "OperatingRevenue"],
+        "total_assets": ["Assets"],
+        "current_assets": ["AssetsCurrent"],
+        "current_liabilities": ["LiabilitiesCurrent"],
+        "total_liabilities": ["Liabilities"],
+        "retained_earnings": ["RetainedEarningsAccumulatedDeficit"],
+        "ebit": ["OperatingIncomeLoss", "EBIT"],
+    }
     
-    # Apply mapping to each quarter
+    # Apply fallbacks for missing mappings
+    for canonical_field, candidates in fallback_mappings.items():
+        if not direct_mapping.get(canonical_field):  # No mapping found by AI
+            for candidate in candidates:
+                if candidate in raw_fields:
+                    direct_mapping[canonical_field] = candidate
+                    logger.info(f"Fallback mapping applied for {ticker}: {canonical_field} -> {candidate}")
+                    break
+      # Apply mapping to each quarter
     mapped_quarters = []
     for quarter in sec_quarters:
         mapped_quarter = {"period_end": quarter["period_end"]}
@@ -226,6 +280,18 @@ def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: st
                     val = quarter.get(raw_field)
                     if val is not None:
                         val = safe_to_decimal(str(val))
+            
+            # If no value found, try fallback mappings for this specific quarter
+            if val is None and field in fallback_mappings:
+                for candidate in fallback_mappings[field]:
+                    if candidate in quarter:
+                        candidate_val = quarter.get(candidate)
+                        if candidate_val is not None:
+                            val = safe_to_decimal(str(candidate_val))
+                            if val is not None:
+                                mapped_field = candidate
+                                logger.debug(f"Per-quarter fallback mapping for {quarter['period_end']}: {field} -> {candidate}")
+                                break
             
             if val is None or val in [0, Decimal("0")]:
                 missing.append(field)

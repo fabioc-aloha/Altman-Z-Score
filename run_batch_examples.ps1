@@ -5,11 +5,10 @@
 # Group 1: 11 Notable US Companies With Recent Financial Challenges (But Still Active)
 # Test extreme cases first - these should show distress or grey zone Z-Scores
 $distressed = @(
-    'T', # AT&T (High debt)
-    'UAL', # United Airlines (High leverage)
-    'AMC', # AMC Entertainment (Volatile, but active)
-    'C', # Citigroup (Historically challenged)
-    'GE', # General Electric (Turnaround)
+    # 'T', # AT&T (High debt)
+    # 'UAL', # United Airlines (High leverage)
+    # 'AMC', # AMC Entertainment (Volatile, but active)
+    # 'GE', # General Electric (Turnaround)
     'F', # Ford Motor (Cyclical, high debt)
     'TUP', # Tupperware (Struggling, but not bankrupt)
     'CCL', # Carnival Corp (Travel, high leverage)
@@ -77,8 +76,8 @@ function Invoke-ZScoreBatch($tickers, $groupName) {
 
 # Run all groups (no deduplication) - ordered to test extremes first
 Invoke-ZScoreBatch $distressed 'distressed'
-Invoke-ZScoreBatch $tech_us 'tech_us'
+# Invoke-ZScoreBatch $tech_us 'tech_us'
 Invoke-ZScoreBatch $industry_mix 'industry_mix'
-Invoke-ZScoreBatch $large_caps 'large_caps'
+# Invoke-ZScoreBatch $large_caps 'large_caps'
 
 Write-Host "Batch processing complete. Check the output directories for reports."
