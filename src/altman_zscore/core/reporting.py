@@ -320,13 +320,17 @@ def _get_zscore_component_table(df, x_cols):
 
     Args:
         df (pd.DataFrame): DataFrame with Z-Score results.
-        x_cols (list): List of X variable names to include as columns.
-
-    Returns:
-        str: Markdown-formatted table as a string.
+        x_cols (list): List of X variable names to include as columns.    
+        Returns: str: Markdown-formatted table as a string.
     """
     rows = []
     for _, row in df.iterrows():
+        # Skip quarters where Z-Score calculation failed
+        valid = row.get("valid", False)
+        z = row.get("zscore")
+        if not valid or z is None or (isinstance(z, float) and pd.isna(z)):
+            continue
+            
         q = row.get("quarter_end")
         q_str = str(q)
         try:
@@ -334,19 +338,11 @@ def _get_zscore_component_table(df, x_cols):
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
             pass
-        z = row.get("zscore")
-        comps = row.get("components")
         diag = row.get("diagnostic")
-        if isinstance(comps, str):
-            try:
-                comps = json.loads(comps)
-            except Exception:
-                comps = {}
-        if not isinstance(comps, dict):
-            comps = {}
         row_vals = [q_str]
         for x in x_cols:
-            val = comps.get(x)
+            # Get X1..X5 values directly from DataFrame columns
+            val = row.get(x)
             row_vals.append(f"{val:.3f}" if val is not None else "")
         row_vals.append(f"{z:.3f}" if z is not None else "")
         row_vals.append(diag or "")

@@ -12,6 +12,7 @@ from .zscore_model_private import PrivateManufacturingZScoreModel
 from .zscore_model_financial import FinancialInstitutionZScoreModel
 from .zscore_model_zeta import ZetaZScoreModel
 from .zscore_model_retail import RetailZScoreModel
+from .zscore_model_em import EmergingMarketsZScoreModel
 
 
 class ModelRegistry:
@@ -32,6 +33,7 @@ class ModelRegistry:
         ModelType.FINANCIAL: FinancialInstitutionZScoreModel,
         ModelType.ZETA: ZetaZScoreModel,
         ModelType.RETAIL: RetailZScoreModel,
+        ModelType.EM: EmergingMarketsZScoreModel,  # Register EM model
     }
 
     @classmethod
@@ -141,4 +143,9 @@ class _ZetaModel(ZetaZScoreModel):
 
 @ModelRegistry.register(ModelType.RETAIL)
 class _RetailModel(RetailZScoreModel):
+    pass
+
+
+@ModelRegistry.register(ModelType.EM)
+class _EmergingMarketsModel(EmergingMarketsZScoreModel):
     pass

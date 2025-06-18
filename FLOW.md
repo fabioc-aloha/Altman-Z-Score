@@ -103,7 +103,9 @@
   - Financial Industry Model
   - Retail Industry Model
   - ZETA® Credit Risk Model
-- **SEC-Only Financials:** All financial data for Z-Score is sourced exclusively from SEC EDGAR. Yahoo is only used for market prices and company info, not for financials or reconciliation.
+- **Model Selection:** Automatic model selection based on company profile (industry, sector, SIC code), with optional force override via `--model` parameter
+- **Force Model Override:** Users can force a specific model using `--model` parameter (values: original, private, financial, zeta, retail, emerging)
+- **SEC-Primary Financials:** All financial data for Z-Score is sourced primarily from SEC EDGAR, with Yahoo Finance as fallback when SEC data is unavailable. Yahoo is only used for market prices and company info when SEC data is insufficient.
 - **LLM-First Field Mapping:** Canonical fields are mapped to SEC field names using an LLM prompt. The LLM returns all plausible candidates for each canonical field, enabling a robust fallback strategy.
 - **Python Fallback Strategy:** For each period and canonical field, the code tries each mapped SEC field in order, using the first available value.
 - **Full Traceability:** Both the LLM prompt and response are saved for each run, supporting transparency and debugging.
@@ -132,7 +134,7 @@ python main.py TICKER --date 2024-01-01
 output/
   └── TICKER/
       ├── company_status.json                 # Company status and validation results
-      ├── NOT_AVAILABLE.txt                   # Present if company is non-U.S. or data unavailable
+      ├── TICKER_NOT_AVAILABLE.txt            # Present if company is non-U.S. or data unavailable
       ├── zscore_TICKER.csv                   # Z-Score calculations by quarter
       ├── zscore_TICKER.json                  # Structured Z-Score data
       ├── zscore_TICKER_metadata.json         # Analysis metadata & U.S. status
@@ -182,6 +184,9 @@ For systematic analysis of pipeline outputs and debugging, see `copilot.md` whic
 ```bash
 # Analyze specific ticker with debug output
 python main.py TICKER --date 2024-01-01 --log-level DEBUG
+
+# Force specific model for analysis
+python main.py TICKER --model financial --date 2024-01-01
 
 # Test pipeline with multiple tickers
 python main.py MSFT AAPL TSLA --date 2024-01-01

@@ -12,6 +12,7 @@ from altman_zscore.computation.formulas import (
     altman_zscore_original,
     altman_zscore_private,
     altman_zscore_service,
+    altman_zscore_zeta,  # Add Zeta model import
 )
 from altman_zscore.computation.model_selection import (
     canonicalize_model_key,
@@ -70,17 +71,21 @@ def compute_zscore(
     thresholds = Z_SCORE_THRESHOLDS.get(model_key)
     
     if coefficients is None:
-        raise NotImplementedError(f"Model '{model_key}' not implemented")
-
-    # Compute Z-Score using the appropriate model
+        raise NotImplementedError(f"Model '{model_key}' not implemented")    # Compute Z-Score using the appropriate model
     if model_key in ["service", "tech"]:
-        z_score = altman_zscore_service(metrics)
+        result = altman_zscore_service(metrics)
     elif model_key == "service_private":
-        z_score = altman_zscore_service(metrics, use_book_value=True)
+        result = altman_zscore_service(metrics, use_book_value=True)
     elif model_key == "private":
-        z_score = altman_zscore_private(metrics)
+        result = altman_zscore_private(metrics)
+    elif model_key == "zeta":
+        result = altman_zscore_zeta(metrics)
     else:  # "original" and any SIC-specific models
-        z_score = altman_zscore_original(metrics)
+        result = altman_zscore_original(metrics)
+
+    # Extract z_score and components from the result
+    z_score = result.z_score
+    components = result.components
 
     # Update context with model details
     context.update({
@@ -100,7 +105,7 @@ def compute_zscore(
     return ZScoreResult(
         z_score=z_score,
         model=model_key,
-        components=metrics,
+        components=components,
         diagnostic=diagnostic,
         thresholds=thresholds,
         override_context=context

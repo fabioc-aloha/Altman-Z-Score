@@ -119,11 +119,9 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
             with open(os.path.join(output_dir, "sec_facts_raw.json"), "w", encoding="utf-8") as f:
                 json.dump(sec_facts, f, indent=2, ensure_ascii=False, default=str)
         except Exception as e:
-            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")        # If no SEC facts, fallback to financials fetch via SEC and yfinance
+            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")        # If no SEC facts, continue to yfinance fallback
         if not sec_facts or not sec_facts.get('facts'):
-            logger.warning(f"[{ticker}] No SEC company facts; falling back to standard financials fetch.")
-            from altman_zscore.data_fetching.financials import fetch_financials as _fetch_fin
-            return _fetch_fin(ticker, end_date, zscore_model, start_date)
+            logger.warning(f"[{ticker}] No SEC company facts; continuing to yfinance fallback.")
     except Exception as sec_e:
         logger.info(f"[{ticker}] SEC EDGAR failed: {sec_e}. Falling back to yfinance.")
         

@@ -152,8 +152,9 @@ python main.py --test
 
 - **[TODO.md](./TODO.md)** - Project roadmap and completed milestones
 - **[MODELS.md](MODELS.md)** - Z-Score model details and selection logic
-- **[LEARNINGS.md](./LEARNINGS.md)** - Technical notes and known issues
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and improvements
+
+> **Known Limitation:** The Zeta model implementation currently uses a single-period approach. X₂ (Stability of Earnings) is set to 0 due to lack of multi-year net income history. This limitation is documented in MODELS.md, and will be revisited in future releases.
 
 ---
 

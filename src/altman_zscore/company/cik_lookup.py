@@ -1,7 +1,9 @@
 """
 cik_lookup.py
 -------------
-Module for common CIK mappings to avoid SEC EDGAR API rate limiting.
+Module fo    "DIS": "0000001039",   # Walt Disney
+    "SONO": "0001314727",  # Sonos Inc
+    "UAL": "0000100517",   # United Airlines Holdings Incommon CIK mappings to avoid SEC EDGAR API rate limiting.
 
 This module provides a dictionary of common ticker symbols mapped to their
 SEC CIK (Central Index Key) numbers. This helps avoid unnecessary API calls

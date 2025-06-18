@@ -95,6 +95,8 @@ Where:
 - X₆ = Capitalization
 - X₇ = Size
 
+> **Limitation:** The current Zeta model implementation uses a single-period approach for all factors. X₂ (Stability of Earnings) is set to 0 because multi-year net income history is not yet supported. This may impact the accuracy of Zeta scores. Future versions will add multi-period X₂ support when historical data is available.
+
 **Best For:**
 - Mature public companies
 - Companies with 5+ years of history

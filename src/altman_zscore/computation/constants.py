@@ -70,6 +70,20 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
+    # 1.6 Zeta Model (1977 public domain version, 7-factor)
+    "zeta": [
+        "total_assets",
+        "current_assets",
+        "current_liabilities",
+        "retained_earnings",
+        "total_liabilities",
+        "market_value_equity",
+        "ebit",
+        "sales",
+        "net_income",
+        "debt",
+        "cash_flow",
+    ],
     # (Optional: Any `sic_<code>` overrides can be added here if required)
 }
 
@@ -114,6 +128,24 @@ MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
         "X3": Decimal("6.72"),   # EBIT/Total Assets
         "X4": Decimal("1.05"),   # Market Value of Equity/Total Liabilities
     },
+    # 2.5 Zeta Model (1977 public domain version, 7-factor)
+    "zeta": {
+        "X1": Decimal("3.3"),   # Net Income / Total Assets
+        "X2": Decimal("0.6"),   # Stability of Earnings (set to 0 if unavailable)
+        "X3": Decimal("1.0"),   # EBIT / Interest Expense
+        "X4": Decimal("1.4"),   # Retained Earnings / Total Assets
+        "X5": Decimal("0.8"),   # Current Assets / Current Liabilities
+        "X6": Decimal("0.7"),   # Equity / Total Liabilities
+        "X7": Decimal("0.6"),   # log(Total Assets)
+    },
+    # 2.6 Emerging Markets Model (Altman EM-Score, 4-factor + intercept)
+    "em": {
+        "X0": Decimal("3.25"),   # Intercept
+        "X1": Decimal("6.56"),   # Working Capital/Total Assets
+        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),   # EBIT/Total Assets
+        "X4": Decimal("1.05"),   # Book Value of Equity/Total Liabilities
+    },
 }
 
 # -------------------------------------------------------------------
@@ -146,6 +178,24 @@ Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
     },
     # Tech uses same thresholds as service
     "tech": {
+        "safe": Decimal("2.60"),
+        "grey": Decimal("1.10"),
+        "distress": Decimal("1.10"),
+    },
+    # 3.5 Zeta Model (1977 public domain version, 7-factor)
+    "zeta": {
+        "safe": Decimal("2.90"),
+        "grey": Decimal("1.23"),
+        "distress": Decimal("1.23"),
+    },
+    # 3.6 Zeta Model (example thresholds, adjust as needed)
+    "zeta": {
+        "safe": Decimal("2.0"),
+        "grey": Decimal("1.0"),
+        "distress": Decimal("1.0"),
+    },
+    # 3.7 Emerging Markets Model (Altman EM-Score)
+    "em": {
         "safe": Decimal("2.60"),
         "grey": Decimal("1.10"),
         "distress": Decimal("1.10"),

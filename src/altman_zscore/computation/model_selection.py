@@ -21,6 +21,11 @@ def is_tech_company(sic_code: Optional[int]) -> bool:
     )
 
 
+def is_finance_or_insurance_company(sic_code: Optional[int]) -> bool:
+    """Return True if SIC code is in the finance/insurance range (6000–6999)."""
+    return isinstance(sic_code, int) and 6000 <= sic_code <= 6999
+
+
 def get_model_selection_context(
     sic_code: Optional[int],
     is_public: bool,
@@ -46,7 +51,7 @@ def get_model_selection_context(
             context["selection_reason"].append(
                 f"Manufacturing company (SIC {sic_code}) using {'public' if is_public else 'private'} model"
             )
-        elif (4000 <= sic_code <= 4999 or 6000 <= sic_code <= 6999 or 7000 <= sic_code <= 8999):
+        elif (4000 <= sic_code <= 4999 or 7000 <= sic_code <= 8999):
             context["selection_reason"].append(
                 f"Service/non-manufacturing company (SIC {sic_code}) using {'public' if is_public else 'private'} service model"
             )
@@ -61,8 +66,8 @@ def get_model_selection_context(
 def select_zscore_model(
     sic_code: Optional[int],
     is_public: bool = True
-) -> str:
-    """Select and return one of the canonical Altman Z-Score model keys.
+) -> Optional[str]:
+    """Select and return one of the canonical Altman Z-Score model keys, or None for unsupported sectors.
     Currently limited to U.S.-based companies only.
 
     Args:
@@ -72,6 +77,14 @@ def select_zscore_model(
     Returns:
         str: Canonical model key for use in computation
     """
+    # 0) Finance/Insurance: not supported
+    if is_finance_or_insurance_company(sic_code):
+        import logging
+        logging.getLogger(__name__).warning(
+            f"SIC {sic_code} is finance/insurance. Altman Z-Score is not valid for this sector. Skipping analysis."
+        )
+        return None
+
     # 1) Check for explicit SIC override entry
     if isinstance(sic_code, int):
         sic_key = f"sic_{sic_code}"
@@ -89,7 +102,6 @@ def select_zscore_model(
     # 4) Non-manufacturing / Service / Transport / Utilities
     if isinstance(sic_code, int) and (
         4000 <= sic_code <= 4999   # Transport / Service / Utilities
-        or 6000 <= sic_code <= 6999  # Finance / Insurance
         or 7000 <= sic_code <= 8999  # Services / Retail
     ):
         return "service" if is_public else "service_private"
@@ -110,16 +122,17 @@ def canonicalize_model_key(key: str) -> str:
     return MODEL_ALIASES.get(key, key)
 
 
-def determine_zscore_model(profile) -> str:
-    """Select Z-Score model based on company profile attributes.
+def determine_zscore_model(profile) -> Optional[str]:
+    """Select Z-Score model based on company profile attributes. Returns None for unsupported sectors.
 
     Args:
-        profile: Company profile object with attributes 'sic_code' and 'is_public'.
+        profile: Company profile object with attributes 'sic_code' or 'sic' and 'is_public'.
 
     Returns:
         str: Canonical model key for use in computation.
     """
-    sic_code = getattr(profile, 'sic_code', None)
+    # Check for both 'sic_code' and 'sic' attributes
+    sic_code = getattr(profile, 'sic_code', None) or getattr(profile, 'sic', None)
     is_public = getattr(profile, 'is_public', True)
     
     # Convert string SIC to int if needed

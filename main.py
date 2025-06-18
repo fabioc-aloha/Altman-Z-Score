@@ -21,8 +21,8 @@ Key Principles:
     - Testability: Each module is independently testable with clear interfaces.
 
 Data Sources:
-    - Primary: Yahoo Finance (real-time financials and market data)
-    - Fallback: SEC EDGAR/XBRL (official regulatory filings)
+    - Primary: SEC EDGAR/XBRL (official regulatory filings for financial data)
+    - Fallback: Yahoo Finance (when SEC data unavailable, plus market data)
     - Executive Data: Multi-source aggregation for comprehensive profiles
 
 Output Structure:

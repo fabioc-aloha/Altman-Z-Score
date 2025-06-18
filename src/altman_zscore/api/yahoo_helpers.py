@@ -66,9 +66,7 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
     """
     Fetches yfinance info, balance sheet, income statement, and all major holders, recommendations, prices, dividends, splits.
     Fetches both quarterly and annual data for comprehensive historical coverage.
-    Returns a dict with all objects or None on error.
-    
-    Implements exponential backoff retry for network-related errors.
+    Returns a dict with all objects or None on error.    Implements exponential backoff retry for network-related errors.
     """
     try:
         yf_ticker = yf.Ticker(ticker)
@@ -86,6 +84,7 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
         historical_prices = yf_ticker.history(period="max")
         dividends = getattr(yf_ticker, "dividends", None)
         splits = getattr(yf_ticker, "splits", None)
+        
         return {
             "info": info,
             "balance_sheet": bs_quarterly,  # Primary choice for recent data
@@ -97,7 +96,8 @@ def fetch_yfinance_full(ticker: str) -> Optional[Dict[str, Any]]:
             "recommendations": recommendations,
             "historical_prices": historical_prices,
             "dividends": dividends,
-            "splits": splits,        }
+            "splits": splits,
+        }
     except requests.exceptions.HTTPError as e:
         if hasattr(e, 'response') and e.response and e.response.status_code == 401:
             logger.info(f"Yahoo Finance API rate limit or authentication issue (401) for {ticker}. This is expected and handled gracefully.")

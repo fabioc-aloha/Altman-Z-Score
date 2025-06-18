@@ -81,14 +81,13 @@ class FinancialDataValidator:
         Returns:
             list of ValidationIssue: List of validation issues (warnings/errors) found in the data.
         """
-        issues = []
-        # 1. Required field check
+        issues = []        # 1. Required field check
         for field in self.REQUIRED_FIELDS:
             if field not in q or q[field] is None:
                 issues.append(
                     ValidationIssue(
                         field=field,
-                        issue=ERROR_MSG_MISSING_FIELD.format(field=field),
+                        issue=ERROR_MSG_MISSING_FIELD.format(field),
                         level=ValidationLevel.ERROR,
                     )
                 )
