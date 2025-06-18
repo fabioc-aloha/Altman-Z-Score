@@ -5,6 +5,22 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.2] - 2025-06-17
+
+### Added
+- **Actionable README Table:** New "Investor Advice" column in portfolio table
+  - Automatically extracts investment recommendations from each company's Z-Score report
+  - Displays clear, emoji-coded advice: 📈 BUY, ⚖️ HOLD, 📉 SELL, 📊 MIXED
+  - Shows recommendation ratios (e.g., "BUY (4/6)") for transparency
+  - Makes the README portfolio table immediately actionable for investors
+
+### Enhanced
+- **generate_readme_table.py:** Intelligent parsing of investor recommendation tables
+  - Advanced regex patterns to extract recommendation summaries
+  - Fallback logic to count individual recommendations when summary unavailable
+  - Robust error handling for missing or malformed recommendation data
+  - Support for various recommendation formats across different report styles
+
 ## [3.4.1] - 2025-06-17
 
 ### Changed

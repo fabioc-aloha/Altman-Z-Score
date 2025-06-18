@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 OUTPUT_DIR = "output"
 LOGO_SUFFIX = "_logo.png"
@@ -18,6 +19,63 @@ def get_company_name(info_path):
     except Exception:
         return os.path.basename(os.path.dirname(info_path))
 
+
+def extract_investor_advice(report_path):
+    """Extract the investor recommendation summary from the report."""
+    try:
+        with open(report_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Look for the recommendation summary pattern
+        # Pattern 1: > **Recommendation: BUY across all investor profiles...
+        pattern1 = r'> \*\*Recommendation(?:\s+Summary)?:\s*([^*]+?)\*\*'
+        match1 = re.search(pattern1, content, re.IGNORECASE | re.DOTALL)
+        
+        if match1:
+            advice = match1.group(1).strip()
+            # Clean up the text and limit length
+            advice = re.sub(r'\s+', ' ', advice)  # Replace multiple whitespace with single space
+            # Extract the key recommendation (BUY, SELL, HOLD)
+            if 'BUY' in advice.upper():
+                if 'SELL' in advice.upper() and 'avoid' in advice.lower():
+                    return "📈 BUY (Most Profiles)"
+                else:
+                    return "📈 BUY"
+            elif 'SELL' in advice.upper():
+                return "📉 SELL/HOLD"
+            elif 'HOLD' in advice.upper():
+                return "⚖️ HOLD"
+            else:
+                # Fallback: return first 50 characters
+                return advice[:50] + "..." if len(advice) > 50 else advice
+        
+        # Pattern 2: Look for the table and extract the most common recommendation
+        table_pattern = r'\|\s*Investment Profile\s*\|\s*Risk Tolerance\s*\|\s*Recommendation\s*\|.*?\n(.*?)(?=\n\s*>|\n\s*###|\n\s*---|\Z)'
+        table_match = re.search(table_pattern, content, re.IGNORECASE | re.DOTALL)
+        
+        if table_match:
+            table_content = table_match.group(1)
+            # Count recommendations
+            buy_count = len(re.findall(r'\|\s*Buy\s*\|', table_content, re.IGNORECASE))
+            sell_count = len(re.findall(r'\|\s*Sell\s*\|', table_content, re.IGNORECASE))
+            hold_count = len(re.findall(r'\|\s*Hold\s*\|', table_content, re.IGNORECASE))
+            
+            total_recommendations = buy_count + sell_count + hold_count
+            if total_recommendations > 0:
+                if buy_count > sell_count and buy_count > hold_count:
+                    return f"📈 BUY ({buy_count}/{total_recommendations})"
+                elif sell_count > buy_count and sell_count > hold_count:
+                    return f"📉 SELL ({sell_count}/{total_recommendations})"
+                elif hold_count > buy_count and hold_count > sell_count:
+                    return f"⚖️ HOLD ({hold_count}/{total_recommendations})"
+                else:
+                    return f"📊 MIXED ({buy_count}B/{hold_count}H/{sell_count}S)"
+        
+        return "❓ No Data"
+        
+    except Exception as e:
+        return f"❌ Error"
+
 def has_all_files(ticker_dir, ticker):
     logo = os.path.join(ticker_dir, f"{ticker}{LOGO_SUFFIX}")
     report = os.path.join(ticker_dir, f"{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}")
@@ -33,20 +91,26 @@ def generate_table():
             continue
         if not has_all_files(ticker_dir, ticker):
             continue
+        
         logo_rel = f"output/{ticker}/{ticker}{LOGO_SUFFIX}"
         report_rel = f"output/{ticker}/{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}"
         chart_rel = f"output/{ticker}/{REPORT_PREFIX}{ticker}{CHART_SUFFIX}"
         info_path = os.path.join(ticker_dir, COMPANY_INFO)
-        company_name = get_company_name(info_path)        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="80" height="80"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> |'
+        report_path = os.path.join(ticker_dir, f"{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}")
+        
+        company_name = get_company_name(info_path)
+        investor_advice = extract_investor_advice(report_path)
+        
+        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
+        row = f'| <img src="{logo_rel}" alt="{ticker}" width="80" height="80"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
 
 def save_table_to_file(filename):
     """Save the generated table to a file."""
     with open(filename, "w", encoding="utf-8") as f:
-        f.write("| Logo | Company Name | Full Report | Trend Chart |\n")
-        f.write("|------|-------------|-------------|:-------------:|\n")
+        f.write("| Logo | Company Name | Full Report | Trend Chart | Investor Advice |\n")
+        f.write("|------|-------------|-------------|:-------------:|:---------------:|\n")
         for row in generate_table():
             f.write(f"{row}\n")
     print(f"Table saved to {filename}")
