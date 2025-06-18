@@ -5,6 +5,14 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.1] - 2025-06-17
+
+### Changed
+- **Documentation Enhancement:** Streamlined README with comprehensive portfolio explanation
+- **Portfolio Organization:** Detailed breakdown of 39 companies across 5 strategic market segments
+- **User Experience:** Improved documentation readability and portfolio value proposition
+- **Educational Value:** Added clear explanations of why each company category was selected for testing
+
 ## [3.4.0] - 2025-06-17
 
 ### Added

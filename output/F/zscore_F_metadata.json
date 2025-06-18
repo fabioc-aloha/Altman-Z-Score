@@ -1,7 +1,7 @@
 {
   "analysis_date": "2025-06-17",
   "ticker": "F",
-  "model": "<altman_zscore.models.factory._OriginalModel object at 0x00000273AC1E02D0>",
+  "model": "<altman_zscore.models.factory._OriginalModel object at 0x000001EA2A1D89D0>",
   "context": {
     "Ticker": "F",
     "Industry": "Motor Vehicles & Passenger Car Bodies",
@@ -66,9 +66,39 @@
         "ebit": "1904000000.0",
         "sales": "42777000000.0",
         "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2023-12-31",
+        "field_mapping": "{}"
+      },
+      {
+        "period_end": "2022-12-31",
+        "total_assets": "255884000000.0",
+        "current_assets": "116476000000.0",
+        "current_liabilities": "96866000000.0",
+        "retained_earnings": "31754000000.0",
+        "total_liabilities": "212717000000.0",
+        "ebit": "-1734000000.0",
+        "sales": "158057000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       }
     ],
     "quarters": [
+      {
+        "period_end": "2022-12-31",
+        "total_assets": "255884000000.0",
+        "current_assets": "116476000000.0",
+        "current_liabilities": "96866000000.0",
+        "retained_earnings": "31754000000.0",
+        "total_liabilities": "212717000000.0",
+        "ebit": "-1734000000.0",
+        "sales": "158057000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2023-12-31",
+        "field_mapping": "{}"
+      },
       {
         "period_end": "2024-03-31",
         "total_assets": "274341000000.0",
@@ -125,6 +155,6 @@
         "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
       }
     ],
-    "weekly_prices": "          week  open_price  high_price  low_price  close_price  days_with_data\n0   2024-01-01       12.04       12.38      11.63    10.570163               4\n1   2024-01-08       11.85       12.05      11.41    10.222284               5\n2   2024-01-15       11.30       11.50      10.83     9.990363               4\n3   2024-01-22       11.23       11.50      11.00    10.159844               5\n4   2024-01-29       11.38       12.19      11.30    10.828841               5\n..         ...         ...         ...        ...          ...             ...\n72  2025-05-19       10.69       10.84      10.29    10.360000               5\n73  2025-05-26       10.45       10.49      10.11    10.380000               4\n74  2025-06-02       10.27       10.37       9.88    10.260000               5\n75  2025-06-09       10.29       10.77      10.29    10.430000               5\n76  2025-06-16       10.50       10.67      10.38    10.420000               2\n\n[77 rows x 6 columns]"
+    "weekly_prices": "           week  open_price  high_price  low_price  close_price  days_with_data\n0    2022-05-30       13.88       13.97      13.36    10.678465               3\n1    2022-06-06       13.74       13.85      12.63    10.085217               5\n2    2022-06-13       12.30       12.42      10.90     8.882899               5\n3    2022-06-20       11.55       12.12      11.21     9.499877               4\n4    2022-06-27       12.12       12.44      10.93     8.954089               5\n..          ...         ...         ...        ...          ...             ...\n155  2025-05-19       10.69       10.84      10.29    10.360000               5\n156  2025-05-26       10.45       10.49      10.11    10.380000               4\n157  2025-06-02       10.27       10.37       9.88    10.260000               5\n158  2025-06-09       10.29       10.77      10.29    10.430000               5\n159  2025-06-16       10.50       10.67      10.38    10.420000               2\n\n[160 rows x 6 columns]"
   }
 }

@@ -1,0 +1,65 @@
+[
+  {
+    "quarter_end":"2022-12-31",
+    "zscore":0.4230576458,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2023-12-31",
+    "zscore":null,
+    "valid":false,
+    "error":"No usable financial data for this quarter. All required fields are missing or zero.",
+    "diagnostic":"[ERROR] All required fields missing or zero.",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-03-31",
+    "zscore":0.379150413,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-06-30",
+    "zscore":0.3761633345,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-09-30",
+    "zscore":0.3439011776,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-12-31",
+    "zscore":0.3859875493,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2025-03-31",
+    "zscore":0.3493973961,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  }
+]

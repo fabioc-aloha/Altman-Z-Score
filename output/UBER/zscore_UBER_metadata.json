@@ -1,0 +1,160 @@
+{
+  "analysis_date": "2025-06-17",
+  "ticker": "UBER",
+  "model": "<altman_zscore.models.factory._OriginalModel object at 0x00000184E17663D0>",
+  "context": {
+    "Ticker": "UBER",
+    "Industry": "Business Services, NEC",
+    "Public": true,
+    "Maturity": "Mature Company",
+    "Model": "Original Z-Score Model",
+    "Model_Type": "original",
+    "SIC Code": "N/A",
+    "Analysis Date": "2025-06-17",
+    "raw_quarters": [
+      {
+        "period_end": "2025-03-31",
+        "total_assets": "52822000000.0",
+        "current_assets": "12350000000.0",
+        "current_liabilities": "12113000000.0",
+        "retained_earnings": "-18946000000.0",
+        "total_liabilities": "29917000000.0",
+        "ebit": "1490000000.0",
+        "sales": "11533000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-12-31",
+        "total_assets": "51244000000.0",
+        "current_assets": "12245000000.0",
+        "current_liabilities": "11476000000.0",
+        "retained_earnings": "-20726000000.0",
+        "total_liabilities": "28768000000.0",
+        "ebit": "1026000000.0",
+        "sales": "11959000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-09-30",
+        "total_assets": "47117000000.0",
+        "current_assets": "15331000000.0",
+        "current_liabilities": "10835000000.0",
+        "retained_earnings": "-27621000000.0",
+        "total_liabilities": "30578000000.0",
+        "ebit": "2912000000.0",
+        "sales": "11188000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-06-30",
+        "total_assets": "41514000000.0",
+        "current_assets": "12483000000.0",
+        "current_liabilities": "10318000000.0",
+        "retained_earnings": "-30233000000.0",
+        "total_liabilities": "27731000000.0",
+        "ebit": "1216000000.0",
+        "sales": "10700000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-03-31",
+        "total_assets": "39599000000.0",
+        "current_assets": "12074000000.0",
+        "current_liabilities": "9993000000.0",
+        "retained_earnings": "-31248000000.0",
+        "total_liabilities": "27100000000.0",
+        "ebit": "-506000000.0",
+        "sales": "10131000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2023-12-31",
+        "field_mapping": "{}"
+      },
+      {
+        "period_end": "2022-12-31",
+        "total_assets": "32109000000.0",
+        "current_assets": "9249000000.0",
+        "current_liabilities": "8853000000.0",
+        "retained_earnings": "-32767000000.0",
+        "total_liabilities": "23605000000.0",
+        "ebit": "-8861000000.0",
+        "sales": "31877000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      }
+    ],
+    "quarters": [
+      {
+        "period_end": "2022-12-31",
+        "total_assets": "32109000000.0",
+        "current_assets": "9249000000.0",
+        "current_liabilities": "8853000000.0",
+        "retained_earnings": "-32767000000.0",
+        "total_liabilities": "23605000000.0",
+        "ebit": "-8861000000.0",
+        "sales": "31877000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2023-12-31",
+        "field_mapping": "{}"
+      },
+      {
+        "period_end": "2024-03-31",
+        "total_assets": "39599000000.0",
+        "current_assets": "12074000000.0",
+        "current_liabilities": "9993000000.0",
+        "retained_earnings": "-31248000000.0",
+        "total_liabilities": "27100000000.0",
+        "ebit": "-506000000.0",
+        "sales": "10131000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-06-30",
+        "total_assets": "41514000000.0",
+        "current_assets": "12483000000.0",
+        "current_liabilities": "10318000000.0",
+        "retained_earnings": "-30233000000.0",
+        "total_liabilities": "27731000000.0",
+        "ebit": "1216000000.0",
+        "sales": "10700000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-09-30",
+        "total_assets": "47117000000.0",
+        "current_assets": "15331000000.0",
+        "current_liabilities": "10835000000.0",
+        "retained_earnings": "-27621000000.0",
+        "total_liabilities": "30578000000.0",
+        "ebit": "2912000000.0",
+        "sales": "11188000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2024-12-31",
+        "total_assets": "51244000000.0",
+        "current_assets": "12245000000.0",
+        "current_liabilities": "11476000000.0",
+        "retained_earnings": "-20726000000.0",
+        "total_liabilities": "28768000000.0",
+        "ebit": "1026000000.0",
+        "sales": "11959000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      },
+      {
+        "period_end": "2025-03-31",
+        "total_assets": "52822000000.0",
+        "current_assets": "12350000000.0",
+        "current_liabilities": "12113000000.0",
+        "retained_earnings": "-18946000000.0",
+        "total_liabilities": "29917000000.0",
+        "ebit": "1490000000.0",
+        "sales": "11533000000.0",
+        "field_mapping": "{\"total_assets\": \"Total Assets\", \"current_assets\": \"Current Assets\", \"current_liabilities\": \"Current Liabilities\", \"retained_earnings\": \"Retained Earnings\", \"total_liabilities\": \"Total Liabilities Net Minority Interest\", \"ebit\": \"EBIT\", \"sales\": \"Total Revenue\"}"
+      }
+    ],
+    "weekly_prices": "           week  open_price  high_price  low_price  close_price  days_with_data\n0    2022-05-30   23.530001   24.830000  22.565001    24.150000               3\n1    2022-06-06   24.860001   26.690001  23.650000    23.719999               5\n2    2022-06-13   22.219999   22.584999  20.155001    21.809999               5\n3    2022-06-20   22.000000   23.190001  21.299999    23.030001               4\n4    2022-06-27   23.450001   23.639999  19.895000    21.340000               5\n..          ...         ...         ...        ...          ...             ...\n155  2025-05-19   90.879997   93.599998  86.699997    87.750000               5\n156  2025-05-26   89.169998   89.879997  82.540001    84.160004               4\n157  2025-06-02   84.480003   86.690002  81.860001    85.599998               5\n158  2025-06-09   86.320000   88.379997  83.375000    83.930000               5\n159  2025-06-16   84.849998   86.019997  84.239998    84.760002               2\n\n[160 rows x 6 columns]"
+  }
+}

@@ -55,7 +55,7 @@ def test_cli_version_import():
     cmd = [sys.executable, "-c", "import sys; sys.path.insert(0, '.'); import main; print(main.__version__)"]
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=base_dir)
     assert result.returncode == 0, f"Failed to import main.py: {result.stderr}"
-    assert "3.4.0" in result.stdout, f"Version should be 3.4.0, got: {result.stdout.strip()}"
+    assert "3.4.1" in result.stdout, f"Version should be 3.4.1, got: {result.stdout.strip()}"
 
 
 def test_cache_update_command():

@@ -1,0 +1,65 @@
+[
+  {
+    "quarter_end":"2023-01-31",
+    "zscore":4.8782159723,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-01-31",
+    "zscore":null,
+    "valid":false,
+    "error":"No usable financial data for this quarter. All required fields are missing or zero.",
+    "diagnostic":"[ERROR] All required fields missing or zero.",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-04-30",
+    "zscore":10.5723361925,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-07-31",
+    "zscore":8.4286679111,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-10-31",
+    "zscore":9.818911996,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2025-01-31",
+    "zscore":11.3586172493,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2025-04-30",
+    "zscore":12.5527910992,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Safe Zone",
+    "model":"original",
+    "api_payload":null
+  }
+]

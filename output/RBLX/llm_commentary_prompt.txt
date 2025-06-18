@@ -1,0 +1,596 @@
+
+
+# zscore_RBLX.csv - Z-Score Calculations by Quarter
+quarter_end,zscore,valid,error,diagnostic,model,api_payload
+2022-12-31,1.794111497710158980039371905,True,,Distress Zone,original,
+2023-12-31,,False,No usable financial data for this quarter. All required fields are missing or zero.,[ERROR] All required fields missing or zero.,original,
+2024-03-31,1.603660617164769365755248344,True,,Distress Zone,original,
+2024-06-30,1.503369916468263913521860040,True,,Distress Zone,original,
+2024-09-30,1.790716099940099103763299874,True,,Distress Zone,original,
+2024-12-31,2.412559537425580546240841954,True,,Grey Zone,original,
+2025-03-31,2.347628092470019100476841092,True,,Grey Zone,original,
+
+
+
+# weekly_prices.csv - Price Data for Trend Analysis
+week,open_price,high_price,low_price,close_price,days_with_data
+2022-05-30,29.84000015258789,33.89899826049805,28.190000534057617,30.0,3
+2022-06-06,30.950000762939453,34.25,27.670000076293945,27.760000228881836,5
+2022-06-13,26.110000610351562,29.290000915527344,23.8799991607666,26.8700008392334,5
+2022-06-20,27.56999969482422,36.88999938964844,27.399999618530273,36.41999816894531,4
+2022-06-27,36.0,37.47999954223633,31.829999923706055,35.06999969482422,5
+2022-07-04,34.54999923706055,44.5,33.900001525878906,41.25,4
+2022-07-11,39.95000076293945,40.459999084472656,35.779998779296875,39.77000045776367,5
+2022-07-18,40.42499923706055,42.7400016784668,38.15999984741211,39.400001525878906,5
+2022-07-25,38.849998474121094,43.79999923706055,37.7400016784668,42.93000030517578,5
+2022-08-01,42.369998931884766,49.90999984741211,41.68000030517578,49.2400016784668,5
+2022-08-08,48.130001068115234,53.880001068115234,42.709999084472656,51.150001525878906,5
+2022-08-15,50.470001220703125,52.150001525878906,41.939998626708984,42.68000030517578,5
+2022-08-22,41.84000015258789,43.5,39.435001373291016,39.560001373291016,5
+2022-08-29,38.63999938964844,40.790000915527344,36.560001373291016,37.939998626708984,5
+2022-09-05,37.56999969482422,45.77000045776367,35.650001525878906,45.529998779296875,4
+2022-09-12,44.33000183105469,47.04999923706055,38.810001373291016,39.5,5
+2022-09-19,38.959999084472656,39.040000915527344,33.564998626708984,35.540000915527344,5
+2022-09-26,36.279998779296875,38.59000015258789,34.8120002746582,35.84000015258789,5
+2022-10-03,34.88999938964844,39.810001373291016,33.60499954223633,34.81999969482422,5
+2022-10-10,34.70500183105469,39.189998626708984,33.20000076293945,35.560001373291016,5
+2022-10-17,41.20000076293945,44.29999923706055,40.5099983215332,42.810001373291016,5
+2022-10-24,41.79999923706055,47.66999816894531,40.40999984741211,45.779998779296875,5
+2022-10-31,45.47999954223633,46.939998626708984,39.54499816894531,40.58000183105469,5
+2022-11-07,39.959999084472656,40.95000076293945,30.68199920654297,36.7400016784668,5
+2022-11-14,36.150001525878906,38.68000030517578,31.079999923706055,31.719999313354492,5
+2022-11-21,31.3700008392334,32.189998626708984,29.459999084472656,31.760000228881836,4
+2022-11-28,31.309999465942383,34.01499938964844,29.670000076293945,33.9900016784668,5
+2022-12-05,33.689998626708984,34.69499969482422,30.049999237060547,31.649999618530273,5
+2022-12-12,31.84000015258789,35.369998931884766,26.600000381469727,27.6200008392334,5
+2022-12-19,27.59000015258789,28.389999389648438,25.31999969482422,26.75,5
+2022-12-26,26.219999313354492,28.540000915527344,25.459999084472656,28.459999084472656,4
+2023-01-02,28.90999984741211,30.676000595092773,27.239999771118164,28.8799991607666,4
+2023-01-09,29.40999984741211,33.5,29.40999984741211,33.209999084472656,5
+2023-01-16,38.06999969482422,38.29999923706055,32.7400016784668,35.380001068115234,4
+2023-01-23,35.5,38.1349983215332,33.88399887084961,37.75,5
+2023-01-30,36.744998931884766,41.57500076293945,35.349998474121094,38.540000915527344,5
+2023-02-06,37.70000076293945,39.630001068115234,34.56999969482422,34.81999969482422,5
+2023-02-13,34.61000061035156,46.04999923706055,33.68000030517578,40.880001068115234,5
+2023-02-20,39.310001373291016,40.029998779296875,35.814998626708984,36.959999084472656,4
+2023-02-27,37.189998626708984,41.939998626708984,36.34000015258789,41.369998931884766,5
+2023-03-06,41.619998931884766,42.650001525878906,39.150001525878906,40.04999923706055,5
+2023-03-13,38.939998626708984,45.470001220703125,38.810001373291016,43.689998626708984,5
+2023-03-20,43.369998931884766,45.4900016784668,41.10499954223633,43.43000030517578,5
+2023-03-27,43.70000076293945,45.10499954223633,41.459999084472656,44.97999954223633,5
+2023-04-03,44.45000076293945,47.650001525878906,44.27399826049805,46.20000076293945,4
+2023-04-10,45.33000183105469,47.650001525878906,44.439998626708984,45.70000076293945,5
+2023-04-17,40.040000915527344,41.9900016784668,39.099998474121094,40.70000076293945,5
+2023-04-24,40.38999938964844,40.790000915527344,34.52000045776367,35.599998474121094,5
+2023-05-01,35.5099983215332,36.5099983215332,33.702999114990234,35.04999923706055,5
+2023-05-08,36.13999938964844,41.619998931884766,35.70000076293945,39.36000061035156,5
+2023-05-15,39.16999816894531,42.68000030517578,37.95000076293945,40.0099983215332,5
+2023-05-22,40.380001068115234,40.91999816894531,38.65999984741211,40.119998931884766,5
+2023-05-29,40.380001068115234,42.9900016784668,39.25,40.34000015258789,4
+2023-06-05,40.27000045776367,41.630001068115234,37.619998931884766,38.689998626708984,5
+2023-06-12,38.81999969482422,42.86000061035156,38.220001220703125,41.79999923706055,5
+2023-06-19,41.0,42.34000015258789,37.189998626708984,37.849998474121094,4
+2023-06-26,37.630001068115234,42.9900016784668,37.59000015258789,40.29999923706055,5
+2023-07-03,40.31999969482422,42.290000915527344,39.65999984741211,41.150001525878906,4
+2023-07-10,41.0,45.150001525878906,40.130001068115234,43.0,5
+2023-07-17,43.0,46.25,40.45000076293945,40.56999969482422,5
+2023-07-24,40.56999969482422,40.930999755859375,37.61000061035156,38.93000030517578,5
+2023-07-31,39.119998931884766,39.5,36.599998474121094,37.47999954223633,5
+2023-08-07,37.56999969482422,38.07500076293945,29.06999969482422,29.829999923706055,5
+2023-08-14,29.520000457763672,30.604999542236328,27.405000686645508,27.510000228881836,5
+2023-08-21,27.540000915527344,27.780000686645508,26.240999221801758,26.809999465942383,5
+2023-08-28,27.1299991607666,29.320999145507812,26.84000015258789,28.440000534057617,5
+2023-09-04,28.2450008392334,29.350000381469727,28.110000610351562,29.010000228881836,4
+2023-09-11,29.204999923706055,29.575000762939453,26.639999389648438,27.90999984741211,5
+2023-09-18,27.725000381469727,27.950000762939453,25.149999618530273,25.389999389648438,5
+2023-09-25,25.239999771118164,29.09000015258789,24.8799991607666,28.959999084472656,5
+2023-10-02,28.969999313354492,30.610000610351562,27.899999618530273,30.459999084472656,5
+2023-10-09,29.6299991607666,31.959999084472656,29.6299991607666,30.510000228881836,5
+2023-10-16,30.549999237060547,32.06999969482422,29.850000381469727,31.75,5
+2023-10-23,31.25,33.189998626708984,30.170000076293945,30.989999771118164,5
+2023-10-30,31.139999389648438,35.130001068115234,30.969999313354492,34.900001525878906,5
+2023-11-06,35.61000061035156,42.20000076293945,33.369998931884766,38.41999816894531,5
+2023-11-13,38.04999923706055,41.88999938964844,37.1150016784668,37.90999984741211,5
+2023-11-20,37.849998474121094,38.31999969482422,36.334999084472656,38.13999938964844,4
+2023-11-27,37.84000015258789,40.47999954223633,37.84000015258789,40.45000076293945,5
+2023-12-04,40.09000015258789,42.279998779296875,39.31999969482422,40.83000183105469,5
+2023-12-11,40.779998779296875,45.04999923706055,40.125,43.91999816894531,5
+2023-12-18,43.84000015258789,46.119998931884766,43.2599983215332,45.970001220703125,5
+2023-12-25,46.02000045776367,47.20000076293945,45.689998626708984,45.720001220703125,4
+2024-01-01,44.650001525878906,44.959999084472656,41.20000076293945,41.7400016784668,4
+2024-01-08,42.0,42.80500030517578,40.83000183105469,40.91999816894531,5
+2024-01-15,40.40999984741211,40.7599983215332,37.755001068115234,38.689998626708984,4
+2024-01-22,39.150001525878906,42.349998474121094,39.150001525878906,40.40999984741211,5
+2024-01-29,40.48500061035156,41.189998626708984,38.5099983215332,40.66999816894531,5
+2024-02-05,40.529998779296875,47.11000061035156,38.56999969482422,44.400001525878906,5
+2024-02-12,44.5099983215332,45.0880012512207,41.529998779296875,42.90999984741211,5
+2024-02-19,42.41999816894531,43.060001373291016,40.39500045776367,41.459999084472656,4
+2024-02-26,41.470001220703125,41.939998626708984,39.525001525878906,41.31999969482422,5
+2024-03-04,41.31999969482422,41.630001068115234,38.369998931884766,39.939998626708984,5
+2024-03-11,39.63999938964844,42.654998779296875,39.10499954223633,39.2400016784668,5
+2024-03-18,37.91600036621094,38.375,35.849998474121094,37.2599983215332,5
+2024-03-25,37.119998931884766,39.0099983215332,35.970001220703125,38.18000030517578,4
+2024-04-01,37.9900016784668,38.25,35.790000915527344,37.81999969482422,5
+2024-04-08,38.099998474121094,40.79999923706055,37.81999969482422,38.369998931884766,5
+2024-04-15,38.279998779296875,38.81999969482422,34.81999969482422,35.34000015258789,5
+2024-04-22,35.599998474121094,37.52000045776367,33.709999084472656,36.0099983215332,5
+2024-04-29,36.27000045776367,39.470001220703125,35.459999084472656,39.2400016784668,5
+2024-05-06,39.58000183105469,41.040000915527344,29.549999237060547,31.450000762939453,5
+2024-05-13,31.40999984741211,33.775001525878906,30.829999923706055,32.900001525878906,5
+2024-05-20,32.880001068115234,33.599998474121094,31.59000015258789,32.66999816894531,5
+2024-05-27,32.689998626708984,34.099998474121094,32.29999923706055,33.619998931884766,4
+2024-06-03,34.0,36.119998931884766,33.880001068115234,35.630001068115234,5
+2024-06-10,35.29999923706055,37.29999923706055,34.7599983215332,35.099998474121094,5
+2024-06-17,34.86000061035156,36.27000045776367,34.40999984741211,36.15999984741211,4
+2024-06-24,35.9900016784668,37.790000915527344,34.619998931884766,37.209999084472656,5
+2024-07-01,37.11000061035156,38.70000076293945,36.369998931884766,38.68000030517578,4
+2024-07-08,39.0,40.68000030517578,38.369998931884766,40.529998779296875,5
+2024-07-15,40.70000076293945,41.619998931884766,39.52000045776367,40.52000045776367,5
+2024-07-22,40.9900016784668,41.28499984741211,39.54999923706055,40.5099983215332,5
+2024-07-29,40.95000076293945,42.040000915527344,37.30500030517578,39.040000915527344,5
+2024-08-05,36.599998474121094,38.70000076293945,35.29999923706055,37.02000045776367,5
+2024-08-12,37.13999938964844,41.16999816894531,36.90999984741211,40.59000015258789,5
+2024-08-19,40.540000915527344,44.42499923706055,39.720001220703125,44.15999984741211,5
+2024-08-26,44.04999923706055,44.849998474121094,43.09000015258789,43.9900016784668,5
+2024-09-02,43.880001068115234,44.959999084472656,42.32500076293945,43.63999938964844,4
+2024-09-09,44.119998931884766,46.119998931884766,43.19499969482422,45.869998931884766,5
+2024-09-16,45.81999969482422,47.494998931884766,45.11000061035156,46.029998779296875,5
+2024-09-23,46.2599983215332,48.43000030517578,43.7599983215332,44.18000030517578,5
+2024-09-30,44.08000183105469,44.63999938964844,40.880001068115234,41.9900016784668,5
+2024-10-07,41.810001373291016,42.3650016784668,37.5,41.599998474121094,5
+2024-10-14,41.65999984741211,41.75,39.29999923706055,39.93000030517578,5
+2024-10-21,39.5,43.0,39.459999084472656,42.13999938964844,5
+2024-10-28,42.59000015258789,52.650001525878906,41.5,51.439998626708984,5
+2024-11-04,52.7400016784668,54.06999969482422,49.61000061035156,52.400001525878906,5
+2024-11-11,52.45000076293945,55.099998474121094,50.68000030517578,50.72999954223633,5
+2024-11-18,51.0,53.15999984741211,48.099998474121094,49.380001068115234,5
+2024-11-25,49.130001068115234,50.72999954223633,47.95000076293945,50.130001068115234,4
+2024-12-02,50.9900016784668,59.79999923706055,50.939998626708984,59.310001373291016,5
+2024-12-09,59.220001220703125,61.04999923706055,55.61000061035156,59.599998474121094,5
+2024-12-16,58.869998931884766,61.77000045776367,57.4900016784668,60.11000061035156,5
+2024-12-23,60.439998626708984,60.630001068115234,57.89099884033203,59.45000076293945,4
+2024-12-30,58.130001068115234,61.0,57.02000045776367,60.470001220703125,4
+2025-01-06,60.709999084472656,63.58000183105469,59.959999084472656,61.81999969482422,4
+2025-01-13,60.56999969482422,66.51000213623047,59.38999938964844,65.52999877929688,5
+2025-01-20,66.37000274658203,67.43000030517578,64.0999984741211,67.06999969482422,4
+2025-01-27,64.31999969482422,71.88999938964844,63.880001068115234,71.06999969482422,5
+2025-02-03,69.62999725341797,75.73999786376953,60.0099983215332,66.27999877929688,5
+2025-02-10,64.77999877929688,67.18000030517578,63.220001220703125,66.75,5
+2025-02-17,66.83000183105469,67.16999816894531,60.7599983215332,62.5099983215332,4
+2025-02-24,61.29999923706055,64.44000244140625,58.5099983215332,63.63999938964844,5
+2025-03-03,64.4000015258789,65.16999816894531,53.58000183105469,57.16999816894531,5
+2025-03-10,55.939998626708984,58.439998626708984,52.29999923706055,56.5099983215332,5
+2025-03-17,56.45000076293945,61.439998626708984,54.970001220703125,61.15999984741211,5
+2025-03-24,61.92499923706055,62.659000396728516,58.4370002746582,59.06999969482422,5
+2025-03-31,57.650001525878906,63.779998779296875,51.27000045776367,52.959999084472656,5
+2025-04-07,50.5099983215332,57.72999954223633,50.099998474121094,57.2599983215332,5
+2025-04-14,58.47999954223633,60.630001068115234,56.03099822998047,59.709999084472656,4
+2025-04-21,59.599998474121094,66.9000015258789,58.72999954223633,66.58000183105469,5
+2025-04-28,66.37999725341797,74.23999786376953,63.5,74.08999633789062,5
+2025-05-05,71.9800033569336,72.94999694824219,68.55000305175781,71.87999725341797,5
+2025-05-12,73.01000213623047,82.0199966430664,70.95999908447266,81.2699966430664,5
+2025-05-19,79.12999725341797,83.04000091552734,78.66000366210938,82.26000213623047,5
+2025-05-26,83.19999694824219,87.16000366210938,83.0,86.9800033569336,4
+2025-06-02,87.19999694824219,96.27999877929688,87.18000030517578,95.80000305175781,5
+2025-06-09,94.23999786376953,98.1500015258789,91.6500015258789,97.16999816894531,5
+2025-06-16,98.33999633789062,101.44999694824219,98.0199966430664,101.12000274658203,2
+
+
+
+# company_info.json
+{
+  "country": "US",
+  "currency": "USD",
+  "estimateCurrency": "USD",
+  "exchange": "NEW YORK STOCK EXCHANGE, INC.",
+  "finnhubIndustry": "Media",
+  "ipo": "2021-03-10",
+  "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/RBLX.png",
+  "marketCapitalization": 68588.1466501123,
+  "name": "Roblox Corp",
+  "phone": "18888582569",
+  "shareOutstanding": 678.28,
+  "ticker": "RBLX",
+  "weburl": "https://corp.roblox.com/"
+}
+
+
+
+
+# Financial Analysis Report Instructions
+
+## ROLE AND CONTEXT
+You are an expert financial analyst generating a comprehensive report using the Altman Z-Score framework. You will receive company financial data, Z-Score calculations, and supporting market information.
+
+## DATA INJECTION CONTEXT
+The following data will be automatically injected into your prompt:
+- **Z-Score Calculations**: `zscore_{TICKER}.csv` and `zscore_{TICKER}.json` - Complete Z-Score calculations by quarter
+- **Model Selection Metadata**: `zscore_{TICKER}_metadata.json` - Model selection reasoning and analysis context
+- **Financial Data**: Company financials, market data, analyst recommendations
+- **Company Profile**: Business overview, executives, ownership structure
+- **Market Data**: Weekly prices, dividends, splits, institutional holdings
+
+## REQUIRED OUTPUT FORMAT
+Generate a structured diagnostic and strategic recommendations report with **exactly 10 sections** in this order:
+
+1. **TL;DR / Executive Summary**
+2. **Company Profile**  
+3. **Diagnostic Evaluation of Financial Health**
+4. **Turnaround & Renewal Theory Application**
+5. **Internal Stakeholder Recommendations**
+6. **Communication, Marketing & Execution Strategy**
+7. **Investor Recommendation (Risk-Aware)**
+8. **Market Sentiment Analysis (Analyst Recommendations)**
+9. **References and Data Sources**
+10. **Appendices (LLM-Generated)**
+
+## CRITICAL REQUIREMENTS
+- **Adapt tone to Z-Score risk level**: Distress Zone (urgent/cautionary), Grey Zone (balanced), Safe Zone (growth-focused)
+- **Use ALL available data**: Z-Score, financials, market trends, peer context, management changes, news
+- **Include Z-Score vs Price Trend Analysis** for ALL recommendations
+- **Justify every recommendation** with specific data points and citations
+- **Write in plain language** suitable for executives and investors
+
+## Z-SCORE RISK CATEGORIES
+* **Distress Zone** (Z < 1.8): Use urgent, cautionary language
+* **Grey Zone** (1.8 ≤ Z ≤ 3.0): Use balanced, measured outlook  
+* **Safe Zone** (Z > 3.0): Use growth-focused, optimistic messaging
+
+---
+
+## DETAILED SECTION INSTRUCTIONS
+
+You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
+
+* *Distress Zone*
+* *Grey Zone*
+* *Safe Zone*
+
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+
+---
+### 1. TL;DR / Executive Summary
+
+**INSTRUCTIONS**: Write 1-2 paragraphs in plain language highlighting:
+- Company's current Z-Score risk category and meaning
+- Overall financial health trend (improving/stable/declining)
+- Most important risks and opportunities
+- Headline investor recommendation (Buy/Hold/Sell and target investor type)
+- Key analyst sentiment or market signals
+
+**FORMAT**: Brief, actionable summary suitable for busy executives.
+
+---
+### 2. Company Profile
+
+**INSTRUCTIONS**: Write 2-3 paragraphs covering:
+- Business overview (products, services, competitors, market position)
+- Leadership team and recent executive changes
+- Ownership structure and recent changes
+- Relevant recent news or events
+
+**DATA SOURCES**: Use company profile, institutional_holders.json, major_holders.json, and any news data provided.
+
+### 3. Diagnostic Evaluation of Financial Health
+
+**INSTRUCTIONS**: Analyze the company's financial health using the pre-calculated Z-Score data and supporting financial information.
+
+**REQUIRED ANALYSIS**:
+1. **Z-Score Analysis**: Use the provided `zscore_{TICKER}.csv` and `zscore_{TICKER}.json` data (DO NOT recalculate)
+2. **Model Validation**: Reference the `zscore_{TICKER}_metadata.json` for model selection reasoning and appropriateness
+3. **Trend Assessment**: Evaluate Z-Score trajectory and risk status changes over time using the provided calculations
+4. **Four Key Areas**: Liquidity, Profitability, Capital Efficiency, Leverage using supporting financial data
+
+**CRITICAL**: The Z-Score calculations are already completed and provided in the injected data. Your role is to interpret and analyze these pre-calculated values, not to recalculate them.
+
+**DATA SOURCES**: Pre-calculated Z-Score files, financial statement data, dividend history, stock splits, weekly price data
+
+**TONE**: Adapt language to risk level (urgent for Distress, balanced for Grey, growth-focused for Safe)
+* Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
+* In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
+* Independently calculate the Altman Z-Score for each quarter using the injected financial data. Compare your results with the provided Z-Score values and comment on any discrepancies or confirm their accuracy.
+* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
+* Where available, reference:
+  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - Dividend history, yield, and stability from dividend history
+  - Stock split history from split history to note any recent splits or capital structure changes
+  - Recent price trends and volatility from weekly price data
+* Reference any material changes in financials, management, or market environment that affect the diagnosis.
+
+---
+
+### 4. Turnaround & Renewal Theory Application
+
+**INSTRUCTIONS**: Apply turnaround theory based on Z-Score risk level.
+
+**RISK-BASED APPROACH**:
+- **Distress Zone (Z < 1.8)**: Focus on urgent retrenchment, cash preservation, creditor negotiations
+- **Grey Zone (1.8 ≤ Z ≤ 3.0)**: Balance cost containment with strategic investments in core differentiators  
+- **Safe Zone (Z > 3.0)**: Emphasize innovation, repositioning, stakeholder alignment for growth
+
+**THEORETICAL FRAMEWORKS TO CITE**:
+- Hofer (1980): Turnaround sequencing
+- Bibeault (1999): Causes of failure and recovery stages
+- Hoskisson et al. (2004): Strategic restructuring
+- Beard (2024): Tech-sector renewal
+
+**DELIVERABLE**: Risk-appropriate strategic recommendations with theoretical grounding
+  * Freeman (1984) on stakeholder alignment
+
+* Reference any recent events, management changes, or market shifts that may affect the recommended approach.
+
+---
+
+### 5. Internal Stakeholder Recommendations
+
+**INSTRUCTIONS**: Create actionable recommendations for internal stakeholders with Z-Score/price trend analysis.
+
+**CRITICAL REQUIREMENT**: Include Z-Score vs Stock Price Trend Analysis for all executive recommendations:
+- **Risk Assessment**: Identify hidden risks when Z-Score deteriorates while price stays stable
+- **Market Timing**: Evaluate if Z-Score improvement leads/lags price recovery  
+- **Strategic Planning**: Use trend divergence for capital allocation decisions
+- **Communication**: Address gaps between fundamental health and market perception
+
+**REQUIRED TABLE FORMAT**:
+| Title/Role | Responsibilities | Key Metrics | Recommended Actions | Z-Score/Price Trend Considerations |
+
+**EXECUTIVE ROLES TO COVER**:
+1. **CEO & Executive Leadership**: Strategic vision, Z-Score trend leadership, market perception management
+2. **CFO & Finance Team**: Z-Score forecasting, capital structure optimization, investor relations
+3. **Other C-Suite**: Operational impact assessment, resource allocation
+4. **Board Members**: Strategic oversight, risk governance
+5. **Other Stakeholders**: Employees, shareholders, creditors, customers, partners
+
+**EXECUTIVE DECISION FRAMEWORK**:
+- Z-Score declining, Price stable/rising → URGENT action required
+- Z-Score improving, Price lagging → OPPORTUNITY for communication  
+- Both declining → CRISIS management mode
+- Both rising → EXECUTION focus
+
+**TONE**: Adapt to risk level (urgent for Distress, balanced for Grey, growth-focused for Safe)
+
+* For executives, map specific individuals and their roles with **enhanced Z-Score/price trend analysis**:
+  - **CEO & Executive Leadership**: Strategic vision, operational execution
+    - **Z-Score Trend Leadership**: Monitor Z-Score trajectory as leading indicator for strategic pivots
+    - **Market Perception Management**: Address disconnects between fundamental health and stock performance
+    - **Board Communication**: Explain Z-Score trends and their implications for long-term value creation
+  - **CFO & Finance Team**: Financial stewardship, risk management
+    - **Z-Score Forecasting**: Project Z-Score trends based on planned initiatives and market conditions
+    - **Capital Structure Optimization**: Use Z-Score trajectory to time debt refinancing, equity raises, or buybacks
+    - **Financial Risk Management**: Implement early warning systems when Z-Score trends diverge from price trends
+    - **Investor Relations**: Prepare data-driven explanations for Z-Score/price disconnects
+  - **Other C-Suite (CTO, CMO, etc.)**: Domain-specific leadership
+    - **Operational Impact Assessment**: Evaluate how functional strategies affect Z-Score components
+    - **Resource Allocation**: Prioritize initiatives that improve Z-Score trajectory and support stock price
+  - **Board Members**: Oversight and governance
+    - **Strategic Oversight**: Monitor CEO/CFO response to Z-Score vs price trend signals
+    - **Risk Governance**: Ensure appropriate action when trends indicate increasing fundamental risk
+  
+* For other stakeholders, include:
+  - **Employees**: Organizational roles and teams
+    - **Performance Alignment**: Connect individual/team KPIs to Z-Score improvement objectives
+  - **Shareholders**: Investment community relations
+    - **Expectation Management**: Communicate Z-Score trends as fundamental value indicators
+  - **Creditors**: Financial stability monitoring
+    - **Covenant Management**: Proactively address Z-Score deterioration before covenant violations
+  - **Customers**: Product/service experience
+    - **Stability Assurance**: Use improving Z-Score trends to reinforce customer confidence
+  - **Partners**: Strategic alliances
+    - **Partnership Strength**: Leverage Z-Score improvements in partnership negotiations
+
+* **Executive Decision Framework Based on Z-Score/Price Trends**:
+  - **Z-Score Declining, Price Stable/Rising**: URGENT - Investigate hidden risks, prepare crisis management
+  - **Z-Score Improving, Price Lagging**: OPPORTUNITY - Enhance investor communication, consider strategic initiatives
+  - **Z-Score and Price Both Declining**: CRISIS - Implement turnaround strategies, stakeholder preservation
+  - **Z-Score and Price Both Rising**: EXECUTION - Maintain momentum, optimize growth strategies
+
+* Tailor actions and tone to company risk level and any recent developments:
+  * **Distress**: Emphasize urgency, transparency, short-term wins, focus on Z-Score stabilization
+  * **Grey**: Encourage disciplined change with measured optimism, target Z-Score improvement
+  * **Safe**: Focus on strategic enablement, leadership development, maintain Z-Score strength
+  
+* For each role, provide:
+  - Specific metrics to track progress
+  - Timeline for key deliverables
+  - Cross-functional dependencies
+  - Risk mitigation strategies
+  - Reference any relevant news, events, or management changes
+
+---
+
+### 6. Communication, Marketing & Execution Strategy
+
+**INSTRUCTIONS**: Develop communication and execution strategy based on Z-Score risk level.
+
+**COMMUNICATION LEVELS**:
+1. **Executive Leadership**: Vision and strategy messaging
+2. **Investor Relations**: Financial performance and outlook  
+3. **Internal Communications**: Employee engagement and change management
+4. **External Relations**: Customer, partner, and public messaging
+
+**PHASED EXECUTION PLAN**:
+- **Near-term (1-3 months)**: Immediate actions and quick wins
+- **Mid-term (4-6 months)**: Strategic initiatives and metrics
+- **Long-term (7-18 months)**: Transformational objectives
+
+**FOR EACH PHASE SPECIFY**:
+- Executive sponsors and accountable leaders
+- Cross-functional coordination requirements  
+- Success metrics and monitoring approach
+- Risk mitigation and contingency plans
+
+**RISK-ADAPTED TONE**:
+- **Distress**: Crisis communication and turnaround messaging
+- **Grey Zone**: Change management and strategic realignment  
+- **Safe Zone**: Growth narrative and innovation focus
+
+**DELIVERABLE**: Multi-level communication strategy with phased execution timeline
+
+---
+
+### 7. Investor Recommendation (Risk-Aware)
+
+**INSTRUCTIONS**: Provide risk-aligned investment recommendations for different investor profiles.
+
+**CRITICAL REQUIREMENT**: Must explicitly state **Buy/Hold/Sell** for each profile based on Z-Score insights and ALL available data.
+
+**Z-SCORE vs PRICE TREND ANALYSIS** (Required for ALL profiles):
+- **Divergence signals**: Z-Score declining while price rising (short opportunity)
+- **Convergence signals**: Z-Score improving while price rising (fundamental support)  
+- **Lagging indicators**: Z-Score changes predicting future price movements
+
+**REQUIRED TABLE FORMAT**:
+| Investment Profile | Risk Tolerance | Recommendation | Z-Score/Price Trend Rationale |
+
+**INVESTOR PROFILES TO COVER**:
+1. **Short-Seller (Bearish)**: Very High risk, focus on Z-Score deterioration vs price strength
+2. **Dividend Income**: Low risk, Z-Score trend impact on dividend sustainability
+3. **Capital Appreciation**: Moderate risk, price-Z-Score convergence analysis
+4. **Aggressive Growth**: High risk, momentum vs fundamentals assessment
+5. **Capital Preservation**: Very Low risk, Z-Score as primary safety indicator
+6. **Value Investor**: Moderate risk, Z-Score recovery potential analysis
+
+**JUSTIFICATION REQUIREMENTS** (for each recommendation):
+- Z-Score vs Price Trend Correlation analysis
+- Z-Score trend and risk zone trajectory
+- Financial performance and outlook
+- Industry/peer context and macroeconomic factors
+- Ownership and institutional sentiment
+- Dividend policy and stability
+- Recent price/volatility context
+- Market timing considerations
+- Scenario analysis (what could change the recommendation)
+
+**DELIVERABLE**: Comprehensive investment recommendations table with detailed trend analysis
+  - Z-Score trend and risk zone (Distress, Grey, Safe) trajectory
+  - Recent financial performance and outlook
+  - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
+  - Ownership and insider/institutional sentiment (from institutional and major holders data)
+  - Dividend policy and stability (from dividend history)
+  - Recent price/volatility context (from weekly price data)
+  - Any material news, events, or management changes
+  - **Market Timing Considerations**: Based on Z-Score momentum and price momentum alignment or divergence
+  - Scenario analysis: briefly discuss what could change the recommendation (e.g., what would make a Hold become a Buy or Sell)
+  - Reference any relevant qualitative or external data that could affect the recommendation
+  
+* **Specific Trend Analysis Instructions:**
+  - For **Short-Seller Profile**: Focus on scenarios where Z-Score is declining (indicating worsening financial health) while stock price remains elevated or continues rising, suggesting potential overvaluation and short opportunity.
+  - For **Bullish Profiles** (Growth, Appreciation): Emphasize scenarios where Z-Score improvement trend supports price appreciation, indicating that the price rise has fundamental backing and may continue.
+  - For **Risk-Averse Profiles**: Prioritize Z-Score trend as the primary indicator, with declining scores warranting caution regardless of price performance.
+* Clearly state the overall recommendation in a bolded sentence, e.g.:
+  > **Recommendation: HOLD.**
+* Include the required disclaimer:
+
+> “This is not financial advice—consult your financial advisor.”
+
+### 8. Market Sentiment Analysis (Analyst Recommendations)
+
+**INSTRUCTIONS**: Analyze professional analyst sentiment and its alignment with Z-Score assessment.
+
+**REQUIRED ANALYSIS**:
+1. **Analyst Recommendations Table**: Show distribution (Strong Buy/Buy/Hold/Sell/Strong Sell) for all available periods
+2. **Trend Analysis**: Compare current vs previous periods, identify changes and stability
+3. **Consensus Analysis**: Target prices, upgrades/downgrades, majority view
+4. **Z-Score Alignment**: Discuss whether analyst sentiment aligns with quantitative risk assessment
+
+**CRITICAL REQUIREMENTS**:
+- Use ONLY actual injected analyst data (no fabrication)
+- If multiple periods available, analyze full trend (not just recent two)
+- Explicitly state data limitations if present
+- Compare sentiment stability vs shifts over time
+
+**DELIVERABLE**: Analyst sentiment summary with Z-Score alignment assessment
+
+---
+
+### 9. References and Data Sources
+
+**INSTRUCTIONS**: Provide transparent source attribution without mentioning specific file names.
+
+**REQUIRED CONTENT**: 
+- Data sources overview (SEC EDGAR/XBRL, Yahoo Finance, company reports)
+- Theoretical frameworks cited (Altman 1968, Hofer 1980, etc.)
+- Methodology explanation (Z-Score calculations, error handling)
+- Project attribution (open-source Altman Z-Score Analysis project)
+
+**FORMAT**: Narrative paragraph or bulleted list (not code block or blockquote)
+
+---
+
+**References and Data Sources:** This analysis draws on financial data from sources such as SEC EDGAR/XBRL filings, Yahoo Finance, and company quarterly or annual reports. Market data was obtained from Yahoo Finance historical prices. Additional data sources may include:
+- Institutional and major holders data
+- Dividend history
+- Stock split history
+- Weekly price and volatility data
+- Full financial statement data
+- Company metadata
+All computations, including the Altman Z-Score, follow the methodology described by Altman (1968) with robust error handling. The analysis is part of the open-source Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score), authored by Fabio Correa. Theoretical frameworks referenced (as applicable) include:
+- Altman, E. I. (1968). “Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.” *Journal of Finance*, 23(4), 589–609.
+- Hofer, C. W. (1980). *Turnaround Strategies.*
+- Bibeault, D. B. (1999). *Corporate Turnaround.*
+- Hoskisson, R. E., White, R. E., & Johnson, R. A. (2004). *Corporate Restructuring.*
+- Beard, D. (2024). “Strategic Renewal in Technology Firms.”
+- Freeman, R. E. (1984). *Strategic Management: A Stakeholder Approach.*
+- Platt, H. D. (2004). *Principles of Corporate Renewal.*
+- [Include additional used sources here]
+
+---
+
+## 8. Appendices (LLM-Generated)
+
+* At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
+  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of weekly prices used for Z-Score analysis
+  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
+  - Data quality/completeness summary: note any missing or estimated fields
+  - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
+  - **LLM Reasoning Documentation**: Detailed analytical reasoning behind recommendations
+* Use only the injected data for all tables and summaries. If a section is not available, state so clearly.
+* Do not repeat the Z-Score component table (by quarter) in the appendix; reference it in the main report only.
+* Do not mention file names or file paths in the appendix or main report.
+
+### **A. LLM Reasoning Documentation**
+
+* **Internal Stakeholder Recommendations Reasoning**: Provide detailed analytical reasoning for executive recommendations, including:
+  - **CEO/CFO Z-Score vs Price Trend Analysis Logic**: Document the specific data points, trend patterns, and financial metrics that led to risk assessment conclusions
+  - **Strategic Decision Framework Application**: Explain how the four-scenario framework (Z-Score declining/improving vs Price stable/rising/declining) was applied to this specific company
+  - **Risk Level Assessment Rationale**: Detail the quantitative and qualitative factors that determined the company's risk classification (Distress/Grey/Safe Zone)
+  - **Stakeholder Action Prioritization Logic**: Explain how urgency levels and resource allocation recommendations were determined based on Z-Score trends and financial health indicators
+  - **Cross-functional Impact Assessment**: Document how different business functions (finance, operations, marketing) were evaluated for their potential impact on Z-Score components
+
+* **Investor Recommendations Reasoning**: Provide detailed analytical reasoning for investment recommendations, including:
+  - **Z-Score vs Price Correlation Analysis**: Document the mathematical and statistical reasoning behind trend divergence/convergence conclusions
+  - **Risk-Return Profile Matching**: Explain how each investor profile's risk tolerance was matched to the company's risk trajectory and Z-Score trends
+  - **Short-Seller Opportunity Assessment**: Detail the specific financial deterioration signals and market inefficiency indicators that support or contradict short-selling opportunities
+  - **Buy/Hold/Sell Decision Tree**: Document the decision logic flow that led to each recommendation, including threshold values and trigger conditions
+  - **Scenario Analysis Reasoning**: Explain the probability assessments and sensitivity analysis behind "what could change the recommendation" scenarios
+  - **Market Timing Considerations**: Detail how Z-Score momentum, price momentum, and their alignment influenced timing recommendations
+  - **Peer Comparison Impact**: Document how industry context and peer performance influenced the investment thesis and recommendation strength
+
+* **Model Selection and Confidence Assessment**: Document the reasoning behind:
+  - **Altman Z-Score Model Applicability**: Reference the `zscore_{TICKER}_metadata.json` for model selection reasoning and appropriateness assessment
+  - **Data Quality Impact on Conclusions**: Detail how missing data, estimated values, or data limitations affected the confidence level of recommendations
+  - **Assumption Documentation**: List and justify key assumptions made in the analysis, especially regarding trend extrapolation and future performance projections
+  - **Sensitivity Analysis**: Document how changes in key financial metrics would affect Z-Score calculations and subsequent recommendations
+  - **Confidence Intervals**: Where applicable, provide reasoning for the confidence level in predictions and recommendations based on data quality and historical patterns
+
+---
+
+## PROMPT COMPLETION CHECKLIST
+
+Before submitting your analysis, ensure you have:
+
+✅ **Used appropriate tone for Z-Score risk level** (Distress/Grey/Safe)
+✅ **Included Z-Score vs Price trend analysis** in ALL recommendations  
+✅ **Provided explicit Buy/Hold/Sell** for each investor profile
+✅ **Used ONLY actual injected data** (no fabrication)
+✅ **Followed the exact 10-section structure** 
+✅ **Justified all recommendations** with specific data citations
+✅ **Included required disclaimer**: "This is not financial advice—consult your financial advisor."
+✅ **Generated comprehensive appendix** with LLM reasoning documentation
+
+**OUTPUT QUALITY**: Write in plain language suitable for executives and investors. Be specific, actionable, and data-driven in all recommendations.
+
+---

@@ -1,0 +1,2 @@
+quarter_end,zscore,valid,error,diagnostic,model,api_payload,status_info
+,,False,TUP is bankrupt (filed on 2023-07-20),Company is known to be bankrupt,original,,"{'ticker': 'TUP', 'exists': True, 'is_active': False, 'is_bankrupt': True, 'is_delisted': False, 'last_trading_date': None, 'error_message': None, 'bankruptcy_date': '2023-07-20', 'status_reason': 'Company is known to be bankrupt'}"

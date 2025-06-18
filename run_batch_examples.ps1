@@ -72,7 +72,7 @@ $large_caps = @(
 # Helper to run the CLI for a group
 function Invoke-ZScoreBatch($tickers, $groupName) {
     Write-Host "Running Z-Score batch for ${groupName}: $($tickers -join ' ')"
-    python main.py --date 2024-01-01 @tickers
+    python main.py @tickers
 }
 
 # Run all groups (no deduplication) - ordered to test extremes first

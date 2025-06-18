@@ -1,0 +1,65 @@
+[
+  {
+    "quarter_end":"2022-11-30",
+    "zscore":0.0407381839,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2023-11-30",
+    "zscore":null,
+    "valid":false,
+    "error":"Failed to process quarter: IndexError",
+    "diagnostic":"[ERROR] Replacement index 0 out of range for positional args tuple",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-02-29",
+    "zscore":0.1917869977,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-05-31",
+    "zscore":0.1686513416,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-08-31",
+    "zscore":0.4252491911,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2024-11-30",
+    "zscore":0.4731980634,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  },
+  {
+    "quarter_end":"2025-02-28",
+    "zscore":0.4109391823,
+    "valid":true,
+    "error":null,
+    "diagnostic":"Distress Zone",
+    "model":"original",
+    "api_payload":null
+  }
+]
