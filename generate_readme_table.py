@@ -137,7 +137,7 @@ def extract_cfo_recommendation(content):
             elif 'cash management' in cfo_lower or 'cash flow' in cfo_lower:
                 return '💵 MANAGE CASH'
             elif 'debt' in cfo_lower and ('reduce' in cfo_lower or 'manage' in cfo_lower):
-                return '� MANAGE DEBT'
+                return '📊 MANAGE DEBT'
             elif 'dividend' in cfo_lower:
                 return '💎 DIVIDEND FOCUS'
             elif 'growth' in cfo_lower or 'expansion' in cfo_lower:
@@ -145,7 +145,7 @@ def extract_cfo_recommendation(content):
             else:
                 # Extract first key action verb
                 if 'plan' in cfo_lower:
-                    return '� PLAN STRATEGY'
+                    return '📋 PLAN STRATEGY'
                 elif 'prepare' in cfo_lower:
                     return '🛠️ PREPARE ACTION'
                 else:
@@ -292,10 +292,8 @@ def generate_table():
         report_path = os.path.join(ticker_dir, f"{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}")
         
         company_name = get_company_name(info_path)
-        investor_advice = extract_investor_advice_detailed(report_path)
-          # Display actual chart image instead of just a link, with larger charts and constrained company name width
-        company_name_constrained = f'<div style="width: 120px; word-wrap: break-word;">{company_name}</div>'
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name_constrained} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="500"/></a> | {investor_advice} |'
+        investor_advice = extract_investor_advice_detailed(report_path)        # Dynamic table layout: let columns adjust to content size automatically
+        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="500"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
 
