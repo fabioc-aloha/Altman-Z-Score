@@ -100,9 +100,8 @@ def generate_table():
         
         company_name = get_company_name(info_path)
         investor_advice = extract_investor_advice(report_path)
-        
-        # Display actual chart image instead of just a link, maintaining original proportions by setting only width
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="80" height="80"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> | {investor_advice} |'
+          # Display actual chart image instead of just a link, maintaining original proportions by setting only width
+        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="400"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
 
