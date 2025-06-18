@@ -102,13 +102,23 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
         usd_values = units.get("USD", [])
         
         for entry in usd_values:
-            # Only process quarterly data (has start and end dates, and frame info)
-            if not entry.get("end") or not entry.get("start") or not entry.get("frame"):
+            # Must have an end date (point in time for balance sheet, period end for income statement)
+            if not entry.get("end"):
                 continue
                 
-            # Filter quarterly frames (Q1, Q2, Q3, Q4)
+            # For quarterly data, we prefer entries with quarterly frame info or fiscal period
             frame = entry.get("frame", "")
-            if not any(q in frame for q in ["Q1", "Q2", "Q3", "Q4"]):
+            fp = entry.get("fp", "")
+            
+            # Accept if it has quarterly frame (Q1, Q2, Q3, Q4) or quarterly fiscal period
+            has_quarterly_frame = any(q in frame for q in ["Q1", "Q2", "Q3", "Q4"])
+            has_quarterly_fp = fp in ["Q1", "Q2", "Q3"]  # Q4 is often reported as FY
+            
+            # Also accept if it's recent data without frame (for newer balance sheet items)
+            period_end = entry["end"]
+            is_recent = period_end >= "2020-01-01"  # Adjust as needed
+            
+            if not (has_quarterly_frame or has_quarterly_fp or is_recent):
                 continue
                 
             period_end = entry["end"]
