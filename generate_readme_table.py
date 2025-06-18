@@ -97,7 +97,7 @@ def extract_investor_advice_detailed(report_path):
                     if profile in recommendations:
                         result_parts.append(f"<sup>{profile}: {recommendations[profile]}</sup>")                
                 if result_parts:
-                    return " • ".join(result_parts)
+                    return "<br>".join(result_parts)
         
         # Fallback to the original simple extraction
         return extract_investor_advice(report_path)
