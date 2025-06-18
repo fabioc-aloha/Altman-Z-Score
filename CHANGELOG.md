@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.4.0] - 2025-06-17
 
+### Added
+- **Comprehensive Test Portfolio:** Added full analysis results for 39 diverse companies
+  - **Large Cap Tech:** AAPL, MSFT, NVDA, GOOGL, GOOG, AMZN, META
+  - **Growth/SaaS:** SNOW, PLTR, UBER, DDOG, DOCU, CRWD, NET, MDB, SHOP, ROKU, RBLX, ZM
+  - **Financial Services:** JPM, COIN, AFRM
+  - **Distressed/Cyclical:** AAL, UAL, AMC, CCL, F, GE, GME, T
+  - **Established Companies:** JNJ, PG, KO, UNH, VZ, WMT, CAT, DUK, ADP, SLB
+  - Updated README.md with comprehensive table showing all 39 analyzed companies  - All companies include full LLM reports, trend charts, and company logos
+
 ### Changed
+- **README Enhancement:** Streamlined documentation with detailed portfolio composition breakdown
+- **Portfolio Organization:** Companies categorized by market segment and financial profile  
+- **Documentation Structure:** Improved readability with clear sections explaining portfolio value and testing coverage
 - **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability
   - Changed CLI argument from `--start` to `--date` to make the purpose more intuitive
   - Updated help text: "Analysis date for historical data" instead of "Start date for analysis"
@@ -15,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Breaking Change**: Users must now use `--date` instead of `--start`
 
 ### Fixed
+- **Critical Report Generation Bug:** Fixed LLM report generation regression
+  - Resolved typo in `src/altman_zscore/core/output_generation.py` (line 35: `toDict` → `to_dict`)
+  - Fixed indentation errors in report generation pipeline
+  - All tickers now generate complete `zscore_TICKER_zscore_full_report.md` files
 - **Code Formatting:** Fixed multiple formatting issues in main.py argument parser
   - Corrected missing newlines between argument definitions
   - Fixed indentation issues in function definitions
