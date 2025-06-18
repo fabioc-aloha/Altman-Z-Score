@@ -517,7 +517,7 @@ def _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=None):
         except (ImportError, AttributeError):
             print_warning("Price data saving to disk is not available or failed")
     except Exception as e:
-        print(f"[WARN] Could not fetch stock prices for overlay: {e}")
+        logger.warning(f"Could not fetch stock prices for overlay: {e}")
     return stock_prices
 
 

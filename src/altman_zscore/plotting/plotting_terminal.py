@@ -23,3 +23,9 @@ def print_warning(msg):
 
 def print_error(msg):
     logging.error(msg)
+
+def print_success(msg):
+    logging.info(f"✅ {msg}")
+
+def print_header(msg):
+    logging.info(f"=== {msg} ===")

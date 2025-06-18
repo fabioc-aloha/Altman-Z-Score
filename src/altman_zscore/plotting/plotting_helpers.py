@@ -4,8 +4,11 @@ Plotting and matplotlib axis/legend helpers for Z-Score trend plots.
 This module provides utility functions for drawing risk zone bands, adding zone labels, creating legend elements, and saving figures with legends. These helpers are used by the main plotting pipeline and are designed for modularity and clarity.
 """
 
+import logging
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
+
+logger = logging.getLogger(__name__)
 
 def make_zone_bands(ax, ymin, ymax, thresholds):
     """
@@ -147,7 +150,7 @@ def add_company_logo(fig, logo_path, position=(0.02, 0.02), zoom=0.15):
         # Add the logo to the figure
         fig.add_artist(ab)
     except Exception as e:
-        print(f"[WARN] Could not add company logo: {e}")
+        logger.warning(f"Could not add company logo: {e}")
 
 def save_plot_with_legend(fig, legend_elements, out_path, handler_map=None):
     """

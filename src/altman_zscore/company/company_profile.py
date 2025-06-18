@@ -273,12 +273,12 @@ class CompanyProfile:
                 # Use extract_cik_from_sec_html for CIK extraction from SEC HTML
                 cik = extract_cik_from_sec_html(resp.text)
                 if cik:
-                    # print(f"[DEBUG] Fallback SEC HTML CIK for {ticker}: {cik}")
+                    pass
                     profile = classify_company_by_sec(cik, ticker)
                     if profile and (profile.industry or profile.industry_group):
                         return profile
                 else:
-                    # print(f"[DEBUG] SEC HTML for {ticker} did not yield CIK. First 500 chars:\n{resp.text[:500]}")
+                    pass
                     pass
             # FINAL fallback: search SEC's company_tickers.json for a historical match
             if not cik:
@@ -294,7 +294,7 @@ class CompanyProfile:
                     for entry in data.values():
                         if entry["ticker"].upper() == ticker.upper():
                             cik = str(entry["cik_str"]).zfill(10)
-                            # print(f"[DEBUG] Fallback company_tickers.json CIK for {ticker}: {cik}")
+                            pass
                             profile = classify_company_by_sec(cik, ticker)
                             if profile and (profile.industry or profile.industry_group):
                                 return profile

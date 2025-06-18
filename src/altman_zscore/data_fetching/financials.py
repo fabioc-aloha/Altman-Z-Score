@@ -342,7 +342,6 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
                 raise ValueError(f"No usable financial data found for ticker '{ticker}'. The company may not exist or was not listed in the requested period.")
     except Exception as e:
         logger.error(f"[{ticker}] Could not fetch financials from SEC or Yahoo: {e}")
-        print(f"[ERROR] Could not fetch financials for {ticker}: {e}")
         raise_with_context(DataFetchingError, f"Could not fetch financials for {ticker}", str(e))
     # Always return a dict with 'quarters' and 'error' if no data found
     logger.error(f"[{ticker}] No usable financial data found from SEC or Yahoo. Returning empty result.")

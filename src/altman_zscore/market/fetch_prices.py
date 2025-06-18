@@ -24,7 +24,7 @@ import pandas as pd
 import yfinance as yf
 
 from altman_zscore.utils.logging import get_logger
-from altman_zscore.utils.terminal import print_info, print_warning, print_error, print_success, print_header
+from altman_zscore.plotting.plotting_terminal import print_info, print_warning, print_error, print_success, print_header
 
 logger = get_logger(__name__)
 
