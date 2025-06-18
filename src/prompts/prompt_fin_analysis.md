@@ -12,7 +12,7 @@ The following data will be automatically injected into your prompt:
 - **Market Data**: Weekly prices, dividends, splits, institutional holdings
 
 ## REQUIRED OUTPUT FORMAT
-Generate a structured diagnostic and strategic recommendations report with **exactly 10 sections** in this order:
+Generate a structured diagnostic and strategic recommendations report with **exactly 11 sections** in this order:
 
 1. **TL;DR / Executive Summary**
 2. **Company Profile**  
@@ -22,8 +22,9 @@ Generate a structured diagnostic and strategic recommendations report with **exa
 6. **Communication, Marketing & Execution Strategy**
 7. **Investor Recommendation (Risk-Aware)**
 8. **Market Sentiment Analysis (Analyst Recommendations)**
-9. **References and Data Sources**
-10. **Appendices (LLM-Generated)**
+9. **Other Relevant Insights**
+10. **References and Data Sources**
+11. **Appendices (LLM-Generated)**
 
 ## CRITICAL REQUIREMENTS
 - **Adapt tone to Z-Score risk level**: Distress Zone (urgent/cautionary), Grey Zone (balanced), Safe Zone (growth-focused)
@@ -90,10 +91,10 @@ Your recommendations and tone should reflect the Z-Score status, using cautionar
 * Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
 * In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
 * Independently calculate the Altman Z-Score for each quarter using the injected financial data. Compare your results with the provided Z-Score values and comment on any discrepancies or confirm their accuracy.
-* Where available, use the detailed financial statement data provided (from the injected raw financials) to improve the depth and accuracy of your ratio and trend analysis.
+* Use the Z-Score calculations and metadata provided to conduct your ratio and trend analysis.
 * Reference company profile and business context using all available metadata and descriptive information (including the injected company profile and market/industry metadata).
 * Where available, reference:
-  - Additional financial fields from the injected raw financials for deeper ratio or trend analysis
+  - The Z-Score components and their trends over time for deeper ratio analysis
   - Dividend history, yield, and stability from dividend history
   - Stock split history from split history to note any recent splits or capital structure changes
   - Recent price trends and volatility from weekly price data
@@ -305,7 +306,29 @@ Your recommendations and tone should reflect the Z-Score status, using cautionar
 
 ---
 
-### 9. References and Data Sources
+### 9. Other Relevant Insights
+
+**INSTRUCTIONS**: Analyze the injected data to surface interesting patterns, anomalies, or insights that don't fit neatly into the previous sections but could be valuable for stakeholders.
+
+**REQUIRED CONTENT**: 
+- **Financial Pattern Analysis**: Unusual trends in financial ratios, seasonal patterns, or cyclical behaviors identified in the Z-Score components over time
+- **Market Dynamics**: Interesting relationships between stock price movements, institutional holdings changes, dividend policy shifts, or split history
+- **Industry Context**: How the company's financial health trajectory compares to typical industry patterns or benchmarks (where observable from the data)
+- **Data Quality Insights**: Notable data quality observations, completeness issues, or interesting reconciliation findings
+- **Forward-Looking Indicators**: Emerging patterns that might indicate future opportunities or risks not captured in the main analysis
+
+**FORMATTING REQUIREMENTS**:
+- Use bullet points or short subsections for clarity
+- Limit to 3-5 key insights to maintain focus
+- Support each insight with specific data references
+- Avoid repeating content from previous sections
+- Focus on actionable or strategically relevant observations
+
+**DELIVERABLE**: Concise list of additional insights that enhance understanding of the company's situation
+
+---
+
+### 10. References and Data Sources
 
 **INSTRUCTIONS**: Provide transparent source attribution without mentioning specific file names.
 
@@ -338,12 +361,12 @@ All computations, including the Altman Z-Score, follow the methodology described
 
 ---
 
-## 8. Appendices (LLM-Generated)
+## 11. Appendices (LLM-Generated)
 
 * At the end of the report, generate a comprehensive **Appendix** section using all injected data. The appendix must include, where available:
-  - A table of raw financial data by period (e.g., Current Assets, Current Liabilities, Retained Earnings, EBIT, Total Assets, Total Liabilities, Sales, etc.)
+  - A table of Z-Score calculations by period (already provided in the main analysis)
   - A table of weekly prices used for Z-Score analysis
-  - A table of key financial ratios by period (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE)
+  - A table of key financial ratios derived from Z-Score components (Current Ratio, Quick Ratio, Debt/Equity, etc.)
   - Data provenance: a bulleted list of data sources and last-modified timestamps (if available)
   - Data quality/completeness summary: note any missing or estimated fields
   - Company metadata: a table of company profile fields (name, sector, industry, country, market cap, employees, fiscal year end, exchange, CIK, SIC, website, etc.)
@@ -387,7 +410,7 @@ Before submitting your analysis, ensure you have:
 ✅ **Included Z-Score vs Price trend analysis** in ALL recommendations  
 ✅ **Provided explicit Buy/Hold/Sell** for each investor profile
 ✅ **Used ONLY actual injected data** (no fabrication)
-✅ **Followed the exact 10-section structure** 
+✅ **Followed the exact 11-section structure** 
 ✅ **Justified all recommendations** with specific data citations
 ✅ **Included required disclaimer**: "This is not financial advice—consult your financial advisor."
 ✅ **Generated comprehensive appendix** with LLM reasoning documentation

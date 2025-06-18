@@ -119,16 +119,90 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
             with open(os.path.join(output_dir, "sec_facts_raw.json"), "w", encoding="utf-8") as f:
                 json.dump(sec_facts, f, indent=2, ensure_ascii=False, default=str)
         except Exception as e:
-            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")
-        # If no SEC facts, fallback to financials fetch via SEC and yfinance
+            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")        # If no SEC facts, fallback to financials fetch via SEC and yfinance
         if not sec_facts or not sec_facts.get('facts'):
             logger.warning(f"[{ticker}] No SEC company facts; falling back to standard financials fetch.")
             from altman_zscore.data_fetching.financials import fetch_financials as _fetch_fin
             return _fetch_fin(ticker, end_date, zscore_model, start_date)
     except Exception as sec_e:
-        logger.info(f"[{ticker}] SEC EDGAR failed: {sec_e}. Falling back to yfinance.")    # --- yfinance fallback ---
+        logger.info(f"[{ticker}] SEC EDGAR failed: {sec_e}. Falling back to yfinance.")
+        
+    # --- yfinance fallback ---
     try:
         yf_data = fetch_yfinance_full(ticker)
+        
+        # Save additional data fetched from yfinance for LLM context injection
+        if yf_data:
+            # Save analyst recommendations
+            recommendations = yf_data.get("recommendations")
+            if recommendations is not None and not (isinstance(recommendations, pd.DataFrame) and recommendations.empty):
+                try:
+                    # Convert DataFrame to JSON-serializable format if needed
+                    if isinstance(recommendations, pd.DataFrame):
+                        rec_data = recommendations.to_dict('records')
+                    else:
+                        rec_data = recommendations
+                    
+                    rec_path = os.path.join(output_dir, "recommendations.json")
+                    with open(rec_path, "w", encoding="utf-8") as f:
+                        json.dump(rec_data, f, indent=2, ensure_ascii=False, default=str)
+                    logger.debug(f"Saved analyst recommendations to {rec_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to save recommendations for {ticker}: {e}")
+            
+            # Save major holders
+            major_holders = yf_data.get("major_holders")
+            if major_holders is not None and not (isinstance(major_holders, pd.DataFrame) and major_holders.empty):
+                try:
+                    if isinstance(major_holders, pd.DataFrame):
+                        holders_data = major_holders.to_dict('records')
+                    else:
+                        holders_data = major_holders
+                    
+                    holders_path = os.path.join(output_dir, "major_holders.json")
+                    with open(holders_path, "w", encoding="utf-8") as f:
+                        json.dump(holders_data, f, indent=2, ensure_ascii=False, default=str)
+                    logger.debug(f"Saved major holders to {holders_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to save major holders for {ticker}: {e}")
+            
+            # Save institutional holders
+            institutional_holders = yf_data.get("institutional_holders")
+            if institutional_holders is not None and not (isinstance(institutional_holders, pd.DataFrame) and institutional_holders.empty):
+                try:
+                    if isinstance(institutional_holders, pd.DataFrame):
+                        inst_data = institutional_holders.to_dict('records')
+                    else:
+                        inst_data = institutional_holders
+                    
+                    inst_path = os.path.join(output_dir, "institutional_holders.json")
+                    with open(inst_path, "w", encoding="utf-8") as f:
+                        json.dump(inst_data, f, indent=2, ensure_ascii=False, default=str)
+                    logger.debug(f"Saved institutional holders to {inst_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to save institutional holders for {ticker}: {e}")
+                    
+            # Save dividends and splits for completeness
+            dividends = yf_data.get("dividends")
+            if dividends is not None and not (isinstance(dividends, pd.Series) and dividends.empty):
+                try:
+                    div_path = os.path.join(output_dir, "dividends.csv")
+                    if isinstance(dividends, pd.Series):
+                        dividends.to_csv(div_path)
+                    logger.debug(f"Saved dividends to {div_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to save dividends for {ticker}: {e}")
+            
+            splits = yf_data.get("splits")
+            if splits is not None and not (isinstance(splits, pd.Series) and splits.empty):
+                try:
+                    splits_path = os.path.join(output_dir, "splits.csv")
+                    if isinstance(splits, pd.Series):
+                        splits.to_csv(splits_path)
+                    logger.debug(f"Saved splits to {splits_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to save splits for {ticker}: {e}")
+        
         # Get both quarterly and annual data for comprehensive coverage
         bs_quarterly = yf_data["balance_sheet"] if yf_data else None
         is_quarterly = yf_data["income_statement"] if yf_data else None

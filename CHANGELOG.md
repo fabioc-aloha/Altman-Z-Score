@@ -5,6 +5,39 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.2] - 2025-06-18 🚀 ENHANCEMENT RELEASE
+
+### 🎯 LLM Analysis Enhancements
+- **New Section Added**: "Other Relevant Insights" (Section 9) in all financial reports
+- **Comprehensive Analysis**: 11-section structure provides complete coverage of financial insights
+- **Cross-Pattern Recognition**: LLM identifies patterns across disparate data points not covered in other sections
+- **Enhanced Value**: Additional analytical depth for strategic decision-making
+
+### 🔧 Data Injection Improvements  
+- **Analyst Recommendations Fixed**: Market Sentiment Analysis now uses real analyst data
+- **Missing Data Resolved**: recommendations.json, major_holders.json, institutional_holders.json now properly saved
+- **Prompt Optimization**: Removed references to unavailable raw financial data for cleaner analysis
+- **Performance**: Maintained 42KB prompt size while improving data completeness
+
+### ✨ Report Structure Updates
+1. TL;DR / Executive Summary
+2. Company Profile  
+3. Diagnostic Evaluation of Financial Health
+4. Turnaround & Renewal Theory Application
+5. Internal Stakeholder Recommendations
+6. Communication, Marketing & Execution Strategy
+7. Investor Recommendation (Risk-Aware)
+8. Market Sentiment Analysis (Analyst Recommendations)
+9. **Other Relevant Insights** 🆕
+10. References and Data Sources
+11. Appendices (LLM-Generated)
+
+### 🎖️ Quality Improvements
+- **Real Data**: Market sentiment analysis uses actual analyst recommendations
+- **Pattern Discovery**: LLM surfaces insights like stock split impacts, institutional position changes
+- **Forward-Looking**: Early warning indicators and trend monitoring recommendations
+- **Strategic Context**: Cross-functional insights connecting financial data to business strategy
+
 ## [3.5.1] - 2025-06-17 🏆 GOLDEN RELEASE
 
 ### 🎯 Executive Dashboard Polish

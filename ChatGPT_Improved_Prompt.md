@@ -19,7 +19,7 @@ You are an expert financial analyst tasked with producing a structured, executiv
 ## PEER GROUP  
 **[PEER_TICKERS]**
 
-## REPORT STRUCTURE (10 SECTIONS)  
+## REPORT STRUCTURE (11 SECTIONS)  
 1  TL;DR / Executive Summary  
 2  Company Profile  
 3  Diagnostic Evaluation of Financial Health  
@@ -28,8 +28,9 @@ You are an expert financial analyst tasked with producing a structured, executiv
 6  Communication, Marketing & Execution Strategy  
 7  Investor Recommendation (Risk-Aware)  
 8  Market Sentiment Analysis (Analyst Recommendations)  
-9  References and Data Sources  
-10 Appendices (LLM-Generated)
+9  Other Relevant Insights  
+10 References and Data Sources  
+11 Appendices (LLM-Generated)
 
 ## CRITICAL REQUIREMENTS  
 - Adapt tone to Z-Score risk level (Distress <1.8, Grey 1.8–3.0, Safe >3.0)  
@@ -40,4 +41,4 @@ You are an expert financial analyst tasked with producing a structured, executiv
 
 ---
 
-**Next Step:** Replace `[ENTER_TICKER]`, `[YYYY-MM-DD]`, and `[ENTER_PEER_TICKERS_COMMA_SEPARATED]` with your desired values, then use this template to generate the full 10-section report. ```
+**Next Step:** Replace `[ENTER_TICKER]`, `[YYYY-MM-DD]`, and `[ENTER_PEER_TICKERS_COMMA_SEPARATED]` with your desired values, then use this template to generate the full 11-section report. ```

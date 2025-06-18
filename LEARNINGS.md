@@ -11,6 +11,44 @@ See [vision.md](./vision.md) for details.
 
 ## Version History & Key Learnings
 
+### v3.5.1+ (June 18, 2025) - LLM Prompt Optimization & Data Injection Fixes
+#### Technical Decisions
+1. **Analyst Recommendations Data Injection**
+   - **Issue**: Market Sentiment Analysis sections showed "No analyst recommendation data was provided"
+   - **Root Cause**: `recommendations.json`, `major_holders.json`, `institutional_holders.json` files were fetched but never saved
+   - **Solution**: Added saving logic in `src/altman_zscore/data_fetching/financials.py` after `fetch_yfinance_full()` call
+   - **Result**: Market Sentiment Analysis now uses real analyst data with trend analysis and consensus assessment
+
+2. **LLM Prompt Template Optimization**
+   - **Issue**: Prompt referenced "raw financial data" files that were intentionally excluded for performance (prompt size reduced from >10MB to 42KB)
+   - **Root Cause**: Template asked for raw financial data tables that weren't being injected
+   - **Solution**: Updated `src/prompts/prompt_fin_analysis.md` to remove references to:
+     - "detailed financial statement data provided (from the injected raw financials)"
+     - "table of raw financial data by period" in appendix section
+   - **Result**: Eliminated "Not provided in injected data" messages; LLM focuses on available Z-Score and metadata
+
+3. **LLM Report Structure Enhancement**
+   - **Issue**: Reports had 10 sections but lacked space for cross-data pattern insights
+   - **Root Cause**: Structured sections didn't capture interesting relationships between disparate data points
+   - **Solution**: Added "Other Relevant Insights" (Section 9), expanding from 10 to 11 sections
+   - **Implementation**: Updated `src/prompts/prompt_fin_analysis.md` with detailed instructions for pattern recognition
+   - **Result**: LLM now identifies:
+     - Stock split impact on liquidity and retail access
+     - Institutional position changes signaling confidence
+     - Dividend policy shifts affecting investor interest
+     - Forward-looking early warning indicators
+     - Strategic patterns in financial reinvestment
+
+#### Performance Impact
+- **Data Injection**: Analyst recommendations now properly included in LLM context
+- **Prompt Clarity**: Removed confusion about unavailable data sources
+- **Report Quality**: Market Sentiment Analysis sections now contain real data and actionable insights
+- **Analysis Quality**:
+  - **Cross-Pattern Recognition**: LLM connects data points across different financial domains
+  - **Strategic Context**: Financial metrics linked to business strategy implications
+  - **Forward-Looking**: Early detection of trend changes for proactive decision-making
+  - **Institutional Perspective**: Major holder position changes provide market sentiment context
+
 ### v3.2.0 (June 16, 2025) - Visualization & Error Handling
 #### Technical Decisions
 1. **Chart Visualization**

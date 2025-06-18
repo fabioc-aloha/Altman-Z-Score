@@ -5,6 +5,16 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
 
 ## Completed Milestones
 
+### v3.5.2 (2025-06-18) 🚀 ENHANCEMENT RELEASE ✅ COMPLETED
+- **New Section Added:** "Other Relevant Insights" (Section 9) in all financial analysis reports
+- **Enhanced Report Structure:** Expanded from 10 to 11 sections for comprehensive analysis coverage
+- **Cross-Pattern Recognition:** LLM identifies relationships across disparate data points (stock splits, institutional changes, dividend policy)
+- **Strategic Insights:** Forward-looking analysis with early warning indicators and trend monitoring
+- **Data Injection Fixes:** Resolved missing analyst recommendations, major holders, and institutional holders data
+- **Prompt Optimization:** Removed references to unavailable raw financial data for cleaner LLM analysis
+- **Real Data Integration:** Market Sentiment Analysis now uses actual analyst recommendations instead of placeholders
+- **Pattern Discovery:** LLM surfaces insights like institutional position changes, dividend policy shifts, strategic reinvestment patterns
+
 ### v3.5.1 (2025-06-17) 🏆 GOLDEN RELEASE ✅ COMPLETED
 - **Optimized Executive Dashboard:** Perfect balance of information density and readability achieved
 - **Superscript Typography:** Elegant smaller font rendering for compact, professional display

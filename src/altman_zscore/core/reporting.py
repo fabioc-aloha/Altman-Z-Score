@@ -145,13 +145,26 @@ def _get_model_label_and_overrides(df, model, context_info):
             for k, v in oc.items():
                 override_lines.append(f"- **{k}: {v}")
             override_lines.append("")
+    
     model_name = None
     if hasattr(df, 'zscore_results') and df.zscore_results and hasattr(df.zscore_results[0], 'model'):
         model_name = df.zscore_results[0].model
     elif 'model' in df.columns:
         model_name = df['model'].iloc[0]
     else:
-        model_name = str(model).lower()
+        # Handle model objects by getting their name attribute or class name
+        if hasattr(model, 'name'):
+            model_name = model.name
+        elif hasattr(model, '__class__'):
+            # Extract model name from class name like "_OriginalModel" -> "original"
+            class_name = model.__class__.__name__
+            if class_name.startswith('_') and class_name.endswith('Model'):
+                model_name = class_name[1:-5].lower()  # Remove _ prefix and Model suffix
+            else:
+                model_name = str(model).lower()
+        else:
+            model_name = str(model).lower()
+    
     if not model_name:
         model_name = 'original'
     model_label = MODEL_LABELS.get(str(model_name).lower(), str(model_name))
@@ -183,11 +196,11 @@ def _get_formula_and_threshold_section(model_name):
     coeffs = MODEL_COEFFICIENTS.get(model_name, MODEL_COEFFICIENTS['original'])
     thresholds = Z_SCORE_THRESHOLDS.get(model_name, Z_SCORE_THRESHOLDS['original'])
     coeff_map = [
-        ("X1", coeffs.get("A", 0), "(Current Assets - Current Liabilities) / Total Assets"),
-        ("X2", coeffs.get("B", 0), "Retained Earnings / Total Assets"),
-        ("X3", coeffs.get("C", 0), "EBIT / Total Assets"),
-        ("X4", coeffs.get("D", 0), "Equity / Total Liabilities"),
-        ("X5", coeffs.get("E", 0), "Sales / Total Assets"),
+        ("X1", coeffs.get("X1", 0), "(Current Assets - Current Liabilities) / Total Assets"),
+        ("X2", coeffs.get("X2", 0), "Retained Earnings / Total Assets"),
+        ("X3", coeffs.get("X3", 0), "EBIT / Total Assets"),
+        ("X4", coeffs.get("X4", 0), "Equity / Total Liabilities"),
+        ("X5", coeffs.get("X5", 0), "Sales / Total Assets"),
     ]
     terms = []
     for x, coeff, desc in coeff_map:

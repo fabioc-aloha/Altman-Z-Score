@@ -2,7 +2,7 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.5.1 (2025-06-17) 🏆 Golden Release**
+**Version: 3.5.2 (2025-06-18) 🚀 Enhancement Release**
 
 A robust Python tool for comprehensive Altman Z-Score financial analysis with AI-powered insights. Features **47 pre-analyzed companies** with complete **CEO/CFO/Investor guidance matrix** - the industry's most comprehensive stakeholder decision support table.
 
@@ -27,16 +27,17 @@ python generate_readme_table.py
 ## Key Features
 
 - **� Actionable Portfolio Table:** Immediate investment recommendations with visual indicators
-- **🤖 AI-Powered Analysis:** LLM-generated comprehensive financial health reports  
-- **� Professional Visualization:** Company-branded charts with trend analysis
+- **🤖 AI-Powered Analysis:** 11-section comprehensive financial health reports with pattern recognition
+- **📈 Enhanced Insights:** New "Other Relevant Insights" section identifies cross-data patterns  
+- **📊 Real Data Integration:** Market sentiment analysis using actual analyst recommendations
 - **🔄 Robust Data Pipeline:** SEC EDGAR + Yahoo Finance integration with error handling
 - **🏢 47-Company Portfolio:** Real-world examples across 5 market segments
 
 ## Output Structure
 All analysis saved to `output/<TICKER>/`:
-- **Full Report:** `zscore_<TICKER>_zscore_full_report.md` (AI analysis + recommendations)
+- **Full Report:** `zscore_<TICKER>_zscore_full_report.md` (11-section AI analysis + strategic recommendations)
 - **Trend Chart:** `zscore_<TICKER>_trend.png` (visual Z-Score analysis)
-- **Data Files:** CSV/JSON with quarterly calculations and metadata
+- **Data Files:** CSV/JSON with quarterly calculations and real analyst recommendations
 
 ---
 

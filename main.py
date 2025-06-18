@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 3.5.0 (2025-06-17)
+# Version: 3.5.2 (2025-06-18)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
