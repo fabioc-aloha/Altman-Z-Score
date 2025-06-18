@@ -5,6 +5,49 @@ All notable changes to the Altman Z-Score Analysis Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2025-06-17
+
+### Changed
+- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability
+  - Changed CLI argument from `--start` to `--date` to make the purpose more intuitive
+  - Updated help text: "Analysis date for historical data" instead of "Start date for analysis"
+  - All validation and functionality remains identical - only the argument name changed
+  - **Breaking Change**: Users must now use `--date` instead of `--start`
+
+### Fixed
+- **Code Formatting:** Fixed multiple formatting issues in main.py argument parser
+  - Corrected missing newlines between argument definitions
+  - Fixed indentation issues in function definitions
+  - Improved code readability and maintainability
+
+### Documentation
+- Updated README.md with new `--date` argument examples
+- Updated FLOW.md with correct CLI usage patterns
+- Updated PowerShell scripts and copilot documentation files
+- Updated all documentation files to reflect the new argument name
+- Comprehensive version bump to 3.4.0 across all files
+
+## [3.3.4] - 2025-06-17
+
+### Changed
+- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability
+  - Changed CLI argument from `--start` to `--date` to make the purpose more intuitive
+  - Updated help text: "Analysis date for historical data" instead of "Start date for analysis"
+  - Updated all usage examples in documentation and code comments
+  - Backward compatibility note: Users must now use `--date` instead of `--start`
+  - All validation and functionality remains identical - only the argument name changed
+
+### Fixed
+- **Code Formatting:** Fixed multiple formatting issues in main.py argument parser
+  - Corrected missing newlines between argument definitions
+  - Fixed indentation issues in function definitions
+  - Improved code readability and maintainability
+
+### Documentation
+- Updated README.md with new `--date` argument examples
+- Updated FLOW.md with correct CLI usage patterns
+- Updated all documentation files to reflect the new argument name
+
 ## [3.3.3] - 2025-06-17
 
 ### Fixed

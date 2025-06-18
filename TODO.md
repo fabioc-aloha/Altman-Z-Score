@@ -5,6 +5,18 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
 
 ## Completed Milestones
 
+### v3.4.0 (2025-06-17) 🚧 IN PROGRESS
+- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability and clarity
+- **Error Handling Enhancement:** Improved CIK lookup and cache management with better fallback strategies
+- **Documentation Overhaul:** Updated all documentation files to reflect new CLI argument and improved workflows
+- **Code Quality:** Fixed formatting issues and improved code maintainability
+- **User Experience:** Clearer, more intuitive command-line interface
+
+### v3.3.4 (2025-06-17) ✅
+- **CLI Interface Improvement:** Renamed `--start` argument to `--date` for better usability
+- **Code Formatting:** Fixed multiple formatting issues in main.py argument parser
+- **Documentation:** Updated README.md, FLOW.md, and all documentation files with new argument name
+
 ### v3.3.0 (2025-06-17) ✅
 - **Deep Report Evaluation Preparation:** Enhanced copilot.md with comprehensive analysis tools for systematic output evaluation
 - **Model Matching Modernization Prep:** Documented current model selection logic and prepared framework for modernization
@@ -39,9 +51,21 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
 - Improved LLM prompt templates
 - All tests passing after reorganization
 
-## Current Phase: v3.3 Planning
+## Current Phase: v3.4.0 Release 🚧
 
-### High Priority
+### Completed for v3.4.0
+- [x] CLI Interface: Changed `--start` to `--date` argument
+- [x] Documentation: Updated all files to reflect CLI changes
+- [x] Version Management: Bumped to 3.4.0 across all files
+- [x] Code Quality: Fixed formatting issues in argument parser
+
+### In Progress for v3.4.0
+- [ ] Testing: Validate all CLI changes work correctly
+- [ ] Error Handling: Complete CIK cache improvements
+- [ ] Documentation: Finalize changelog and release notes
+- [ ] Quality Assurance: Run full test suite and validation
+
+### Future Planning (v3.5.0+)
 - [ ] Data Analysis
   - [ ] Trend analysis for Z-Score components
   - [ ] Detailed breakdowns of financial metrics
@@ -52,10 +76,10 @@ Our goal is to deliver an Altman Z-Score platform that sets new industry standar
   - [ ] Interactive features (tooltips, zoom/pan)
   - [ ] Volume indicators for price charts
 
-- [ ] Error Handling
+- [ ] Advanced Error Handling
   - [ ] Smart retries for API failures
   - [ ] Validation for incomplete financials
-  - [ ] Improved cache management
+  - [ ] Enhanced cache management strategies
 
 ### LLM Copilot Capabilities (v3.2.1) ✅
 The repository now includes comprehensive LLM Copilot integration via `copilot.md`:

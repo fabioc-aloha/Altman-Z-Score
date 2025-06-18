@@ -216,12 +216,11 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
                 elif f in is_.index and is_.shape[1] > 0:
                     v = is_.iloc[is_.index.get_loc(f), 0]
                 if v is not None:
-                    sample_values[f] = v
-            # Always use AI mapping for all fields
+                    sample_values[f] = v            # Always use AI mapping for all fields
             missing_fields = [f for f in fields_to_fetch]
             try:
                 client = AzureOpenAIClient()
-                ai_mapping = client.suggest_field_mapping(raw_fields, missing_fields, sample_values)
+                ai_mapping = client.suggest_field_mapping(raw_fields, missing_fields, sample_values, ticker=ticker)
                 if ai_mapping:
                     for field, mapped in ai_mapping.items():
                         if field not in direct_mapping:

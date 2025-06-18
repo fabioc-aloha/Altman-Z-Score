@@ -985,7 +985,14 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
                 # Ensure FinnhubClient saves the logo as {TICKER}_logo.png at 200x200
                 client.get_company_profile(ticker, logo_size=(200, 200), logo_path=logo_path)
             except Exception as e:
-                logging.warning(f"Could not fetch company logo for {ticker}: {e}")
+                # Handle specific HTTP errors more gracefully
+                error_msg = str(e)
+                if "401" in error_msg or "FINNHUB_API_KEY not set" in error_msg:
+                    logging.info(f"Logo download requires valid Finnhub API key for {ticker}. Set FINNHUB_API_KEY environment variable to enable company logo downloads.")
+                elif "404" in error_msg:
+                    logging.info(f"No logo available for {ticker}")
+                else:
+                    logging.warning(f"Could not fetch company logo for {ticker}: {e}")
         # Now ensure the logo is 200x200
         if os.path.exists(logo_path):
             try:

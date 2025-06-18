@@ -28,24 +28,21 @@ def generate_llm_report(df, model, out_base, context_info, ticker, stock_prices)
     Returns:
         Markdown string with the full report, or None on error.
     """
-    try:
-        # Explicitly sanitize the context_info before passing to report generator
+    try:        # Explicitly sanitize the context_info before passing to report generator
         sanitized_context = {k: v for k, v in context_info.items()}
         
         if "weekly_prices" in sanitized_context and isinstance(sanitized_context["weekly_prices"], pd.DataFrame):
             sanitized_context["weekly_prices"] = sanitized_context["weekly_prices"].to_dict(orient="records")
             
         if "raw_quarters" in sanitized_context and isinstance(sanitized_context["raw_quarters"], pd.DataFrame):
-            sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].toDict(orient="records")
-        
-        # Generate just the report portion
+            sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].to_dict(orient="records")
+          # Generate just the report portion
         report = report_zscore_full_report(
             df, 
             model, 
             out_base, 
             print_to_console=True, 
-            context_info=sanitized_context,
-            save_to_disk=False  # Will save in finalize_outputs
+            context_info=sanitized_context
         )
         return report
     except Exception as e:

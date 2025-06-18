@@ -458,7 +458,7 @@ Once the most common issue is identified:
    ```
    Tool: run_in_terminal
    Parameters: {
-     "command": "python main.py FAILING_TICKER --start 2024-01-01 --log-level DEBUG",
+     "command": "python main.py FAILING_TICKER --date 2024-01-01 --log-level DEBUG",
      "explanation": "Running debug analysis on failing ticker",
      "isBackground": false
    }
@@ -475,7 +475,7 @@ Once the most common issue is identified:
    ```
    Tool: run_in_terminal
    Parameters: {
-     "command": "python main.py FAILING_TICKER --start 2024-01-01",
+     "command": "python main.py FAILING_TICKER --date 2024-01-01",
      "explanation": "Testing fix with previously failing ticker",
      "isBackground": false
    }
@@ -620,7 +620,7 @@ Parameters: {
 [If you ran debug tests on failing tickers using run_in_terminal]
 
 **Tool used:** `run_in_terminal`
-- Command: `python main.py [TICKER] --start 2024-01-01 --log-level DEBUG`
+- Command: `python main.py [TICKER] --date 2024-01-01 --log-level DEBUG`
 - Results: [summarize debug output from terminal]
 
 ## Solution Development

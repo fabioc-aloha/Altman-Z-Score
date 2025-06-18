@@ -3,90 +3,89 @@
 ## Overview
 **IMPORTANT**: This tool is strictly limited to U.S.-based companies only. Non-U.S. companies, including ADRs and companies filing Form 20-F, are detected and rejected early in the pipeline.
 
-## High-Level Flow Diagram (with Inputs & Outputs in Boxes)
+## High-Level Flow Diagram (10 Steps - Matches Actual Execution)
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ Input Validation & U.S. Company Check                        │
+│ 1. Input Validation                                          │
 │ Inputs: ticker, start_date                                   │
-│ Process: Validate ticker, check U.S. status via Yahoo/SEC    │
-│ Outputs: company_status.json, NOT_AVAILABLE marker if needed │
+│ Process: Validate ticker format, check U.S. company status   │
+│ Outputs: Validated inputs, early rejection if non-U.S.       │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ Company Classification & Model Selection                     │
-│ Inputs: ticker, company_info.json (optional)                 │
-│ Process: Classify industry, SIC, select U.S.-specific model  │
-│ Outputs: Model selection, company_info.json                  │
+│ 2. Fetch Company Profile                                     │
+│ Inputs: ticker, comprehensive SEC cache (10,033+ companies)  │
+│ Process: CIK lookup, company classification, model selection │
+│ Outputs: company_info.json, selected model, profile data     │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ Data Fetching Layer                                          │
-│ Inputs: SEC EDGAR API (financials),                          │
-│         Yahoo Finance API (prices/info)                      │
-│ Process: Fetch SEC financials, Yahoo prices, company info    │
-│ Outputs: sec_facts_raw.json, weekly_prices.csv,              │
-│          weekly_prices.json, yf_info.json,                   │
-│          yahoo_raw.json, TICKER_logo.png, company_info.json  │
+│ 3. Fetch Financials (SEC)                                    │
+│ Inputs: CIK, date range, selected model                      │
+│ Process: Download SEC XBRL, LLM field mapping, reconciliation│
+│ Outputs: sec_facts_raw.json, field_mapping_prompt.txt,       │
+│          field_mapping_response_simple.json,                 │
+│          reconciliation_result.json                          │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ LLM Field Mapping (SEC)                                      │
-│ Inputs: sec_facts_raw.json, canonical field list             │
-│ Process: Prompt LLM to map canonical fields to plausible SEC │
-│          field names (all plausible candidates, fallback)    │
-│ Outputs: field_mapping_prompt_simple.txt,                    │
-│          field_mapping_response_simple.json                  │
+│ 4. Z-Score Computation                                       │
+│ Inputs: reconciled financial data, selected model            │
+│ Process: Calculate Altman Z-Score for each valid quarter     │
+│ Outputs: Z-Score calculations, risk zones, metadata          │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ Data Reconciliation & Fallback Logic                         │
-│ Inputs: sec_facts_raw.json,                                  │
-│         field_mapping_response_simple.json                   │
-│ Process: For each period and canonical field, try all        │
-│          mapped SEC fields in order (robust fallback)        │
-│ Outputs: reconciliation_result.json                          │
-└────────────┬─────────────────────────────────────────────────┘
-             │
-             ▼
-┌──────────────────────────────────────────────────────────────┐
-│ Validation (Pydantic schemas)                                │
-│ Inputs: reconciliation_result.json                           │
-│ Process: Check for missing/invalid fields, log issues        │
-│ Outputs: Validated canonical data                            │
-└────────────┬─────────────────────────────────────────────────┘
-             │
-             ▼
-┌──────────────────────────────────────────────────────────────┐
-│ Computation (compute_zscore)                                 │
-│ Inputs: validated canonical data                             │
-│ Process: Compute Altman Z-Score, model selection logic       │
+│ 5. Raw Data Output (CSV/JSON)                                │
+│ Inputs: Z-Score results, financial data                      │
+│ Process: Format and save structured analysis results         │
 │ Outputs: zscore_TICKER.csv, zscore_TICKER.json,              │
 │          zscore_TICKER_metadata.json                         │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ Reporting & Output Layer                                     │
-│ Inputs: zscore_TICKER.json, zscore_TICKER_metadata.json,     │
-│         reconciliation_result.json                           │
-│ Process: Output generation (CSV/JSON/PNG/Markdown),          │
-│          plotting (trend visualization), save all outputs    │
-│ Outputs: zscore_TICKER_trend.png,                            │
-│          zscore_TICKER_zscore_full_report.md,                │
-│          llm_commentary_prompt.txt,                          │
-│          all files in output/TICKER/                         │
-└──────────────────────────────────────────────────────────────┘
+│ 6. Fetch Market Data (Prices, Splits, Dividends)             │
+│ Inputs: ticker, date range                                   │
+│ Process: Download Yahoo Finance data, company info, logo     │
+│ Outputs: weekly_prices.csv, weekly_prices.json,              │
+│          yahoo_raw.json, yf_info.json, TICKER_logo.png       │
+└────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ Terminal Display & Logging                                   │
-│ Inputs: All outputs above                                    │
-│ Process: Display results, log errors and progress            │
-│ Outputs: Terminal output, logs                               │
+│ 7. LLM Prompt Construction                                   │
+│ Inputs: Z-Score data, company info, market data              │
+│ Process: Build comprehensive analysis prompt with all data   │
+│ Outputs: llm_commentary_prompt.txt                           │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ 8. LLM Report Generation                                     │
+│ Inputs: constructed LLM prompt                               │
+│ Process: Generate comprehensive financial analysis report    │
+│ Outputs: zscore_TICKER_zscore_full_report.md                 │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ 9. Chart Generation                                          │
+│ Inputs: Z-Score data, market prices, date range              │
+│ Process: Create Z-Score and price trend visualization        │
+│ Outputs: zscore_TICKER_trend.png                             │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ 10. Final File Output                                        │
+│ Inputs: All generated files and analysis results             │
+│ Process: Organize output directory, display summary          │
+│ Outputs: Complete organized output/TICKER/ directory         │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -111,6 +110,23 @@
 - **Robust Error Handling:** All steps include error handling and logging. If LLM output is malformed, the error is reported and the pipeline halts for that ticker.
 - **Graceful Handling of Missing Data:** If a quarter has no usable financial data, the pipeline skips/report it with a user-friendly message in the output.
 
+## CIK Cache System (New as of 2025-06-17)
+The system now includes a **CIK cache** that dramatically improves reliability and performance:
+
+- **User Cache:** Downloadable/updatable cache at `src/altman_zscore/api/cache/sec_company_tickers_cache.json` containing 10,000+ U.S. companies
+- **Automatic Updates:** System tries to refresh cache weekly; downloads fresh data from SEC API if cache is missing or expired
+- **No More Rate Limits:** Eliminates SEC API 403/429 errors for virtually all U.S. public companies
+- **Instant Lookups:** CIK resolution for AAPL, MSFT, TSLA, etc. happens immediately without API calls
+
+**Cache Commands:**
+```bash
+# Update cache manually (downloads latest SEC database)
+python main.py --update-cache
+
+# Regular analysis uses cached data automatically  
+python main.py TICKER --date 2024-01-01
+```
+
 ## Output Directory Structure
 ```
 output/
@@ -121,10 +137,12 @@ output/
       ├── zscore_TICKER.json                  # Structured Z-Score data
       ├── zscore_TICKER_metadata.json         # Analysis metadata & U.S. status
       ├── zscore_TICKER_trend.png             # Z-Score trend visualization
+      ├── zscore_TICKER_zscore_full_report.md # Comprehensive LLM analysis report
       ├── reconciliation_result.json          # Data reconciliation results
       ├── sec_facts_raw.json                  # Raw SEC EDGAR data
-      ├── field_mapping_prompt_simple.txt     # LLM field mapping prompt
+      ├── field_mapping_prompt.txt            # LLM field mapping prompt (ticker-specific)
       ├── field_mapping_response_simple.json  # LLM field mapping response
+      ├── llm_commentary_prompt.txt           # LLM report generation prompt
       ├── weekly_prices.csv                   # Market price data
       ├── weekly_prices.json                  # Structured price data
       ├── yahoo_raw.json                      # Company metadata
@@ -134,7 +152,7 @@ output/
 
 ## Date Range Handling
 - **Default Range:** Analysis starts from 36 months (3 years) ago by default
-- **Historical Data:** Users can request any historical range via --start parameter
+- **Historical Data:** Users can request any historical range via --date parameter
 - **Data Availability:**
   - SEC EDGAR data typically available from 2009 onwards
   - No artificial limits on historical data
@@ -163,8 +181,19 @@ For systematic analysis of pipeline outputs and debugging, see `copilot.md` whic
 **Common Analysis Commands:**
 ```bash
 # Analyze specific ticker with debug output
-python main.py TICKER --start 2024-01-01 --log-level DEBUG
+python main.py TICKER --date 2024-01-01 --log-level DEBUG
 
 # Test pipeline with multiple tickers
-python main.py MSFT AAPL TSLA --start 2024-01-01
+python main.py MSFT AAPL TSLA --date 2024-01-01
+
+# Update SEC cache and analyze
+python main.py --update-cache
+python main.py TICKER --date 2024-01-01
 ```
+
+## Recent Improvements (2025-06-17)
+- **✅ Comprehensive SEC Cache:** Pre-shipped database with 10,033+ companies eliminates API rate limiting
+- **✅ Improved File Organization:** Field mapping prompts now saved to ticker-specific folders
+- **✅ Enhanced Model Selection:** Robust validation and fallback mechanisms
+- **✅ Cache Auto-Management:** Weekly auto-refresh with graceful fallbacks to shipped cache
+- **✅ Progress Tracking:** Accurate 10-step progress bar matching actual pipeline execution

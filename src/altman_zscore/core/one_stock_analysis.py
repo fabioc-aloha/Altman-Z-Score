@@ -143,11 +143,13 @@ def check_company_status_and_handle(ticker: str):
         ticker: Stock ticker symbol.
     Returns:
         Status object or value from check_company_status.
+    Raises:
+        ValueError: If the company has an invalid status that prevents analysis.
     """
     status = check_company_status(ticker)
     if handle_special_status(status):
-        import sys
-        sys.exit(1)
+        # Instead of sys.exit(), raise an exception to allow graceful handling
+        raise ValueError(f"Cannot analyze {ticker}: Company status prevents analysis (invalid ticker, delisted, or non-U.S. company)")
     return status
 
 
@@ -564,61 +566,6 @@ def _prepare_context_info(ticker, profile, model, sic_code):
     }
 
 
-def _generate_report_and_plot(df, model, out_base, context_info, ticker, stock_prices):
-    """
-    Generate the full Z-Score report and plot for a given analysis run.
-
-    Args:
-        df: DataFrame with Z-Score results.
-        model: Z-Score model name.
-        out_base: Base output path.
-        context_info: Dictionary with context fields for reporting.
-        ticker: Stock ticker symbol.
-        stock_prices: DataFrame with weekly price statistics.
-    Returns:
-        None. Outputs are saved to disk.
-    """
-    try:
-        # Explicitly sanitize the context_info before passing it to the report generator
-        # This prevents DataFrame truthiness errors
-        sanitized_context = {k: v for k, v in context_info.items()}
-        
-        if "weekly_prices" in sanitized_context and isinstance(sanitized_context["weekly_prices"], pd.DataFrame):
-            sanitized_context["weekly_prices"] = sanitized_context["weekly_prices"].to_dict(orient="records")
-            
-        if "raw_quarters" in sanitized_context and isinstance(sanitized_context["raw_quarters"], pd.DataFrame):
-            sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].to_dict(orient="records")
-        
-        # Generate the report with sanitized context
-        report_zscore_full_report(df, model, out_base, print_to_console=True, context_info=sanitized_context)
-
-        # Notify user of report location
-        ticker_upper = str(ticker).upper() if ticker else ""
-        if ticker_upper and out_base:
-            from altman_zscore.utils.paths import get_output_dir
-            import os
-            if not out_base.startswith(f"{ticker_upper}/") and not out_base.startswith(f"{ticker_upper}\\"):
-                out_base_path = os.path.join(ticker_upper, out_base)
-            else:
-                out_base_path = out_base
-            report_path = get_output_dir(relative_path=f"{out_base_path}_zscore_full_report.md")
-            if os.path.exists(report_path):
-                print_info(f"Full Z-Score report (with LLM commentary) saved to {report_path}")
-            else:
-                print_warning(f"Expected report file {report_path} not found after generation.")
-    except Exception as e:
-        print_warning(f"Could not generate full Z-Score report: {e}")
-        
-    # Plot the Z-Score trend
-    try:
-        print_info("Generating Z-Score trend plot...")
-        plot_zscore_trend(df, ticker, model, out_base, stock_prices=stock_prices)
-    except ImportError:
-        print_warning("matplotlib not installed, skipping plot.")
-    except Exception as e:
-        print_warning(f"Could not plot Z-Score trend: {e}")
-
-
 def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01", 
                             progress_callback=None, force_model: str = None) -> pd.DataFrame:
     """
@@ -637,6 +584,9 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
                     Values: 'original', 'private', 'emerging', 'financial', 'zeta', 'retail'
     Returns:
         DataFrame with Z-Score analysis results.
+    
+    Raises:
+        ValueError: If the ticker cannot be analyzed due to invalid status, missing data, or other issues.
     """
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
@@ -649,218 +599,17 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str = "2024-01-01
         update_progress = tracker.update
         total_steps = tracker.total_steps
     
-    # Step 1: Input Validation
-    update_progress("Input Validation")
-    check_company_status_and_handle(ticker)
-    
-    # Step 2: Fetch Company Profile
-    update_progress("Fetch Company Profile")
-    profile, out_base = classify_and_prepare_output(ticker)
-    
-     
-    # Handle model selection - either forced or automatic
-    current_model = None  # Will store the model name
-    if force_model:
-        from ..models.base import ModelType
-        from ..models.model_validation import validate_model_appropriateness
-        
-        try:
-            model_type = ModelType(force_model)
-            
-            # Validate model appropriateness
-            is_appropriate, warning_level, message = validate_model_appropriateness(profile, model_type)
-            
-            if warning_level == 'warning':
-                logger.warning(f"WARNING: {message}")
-            elif warning_level == 'caution':
-                logger.info(f"CAUTION: {message}")
-                
-            if not is_appropriate:
-                logger.warning("Consider using automatic model selection instead: python main.py %s", ticker)
-            
-            logger.info(f"Proceeding with forced model type: {force_model}")
-            model = ModelRegistry.create_model(model_type)
-            current_model = force_model  # Store model name
-            
-        except ValueError:
-            logger.warning(f"Invalid model type '{force_model}', falling back to automatic selection")
-            model = _select_zscore_model_from_profile(profile)  # Don't unpack tuple
-            current_model = model.get_model_type().value if hasattr(model, 'get_model_type') else 'original'
-    else:
-        model = _select_zscore_model_from_profile(profile)  # Don't unpack tuple
-        current_model = model.get_model_type().value if hasattr(model, 'get_model_type') else 'original'
-    
-    # Update progress tracker with model information
-    update_progress(f"Model Selection: {current_model}")
-    
-    # Step 3: Fetch Financials (SEC)
-    update_progress("Fetch Financials (SEC)")
-    fin_info, quarters = _fetch_and_validate_financials(ticker, current_model, start_date, out_base)
-    raw_quarters = fin_info["quarters"] if fin_info and "quarters" in fin_info else None
-
-    if not fin_info or not quarters:
-        logger.error(f"No financial data available for {ticker}. Skipping analysis.")
-        return None
-
-    # Step 8: Z-Score Computation
-    update_progress("Z-Score Computation")
-    df = _process_quarters_and_compute_zscores(quarters, ticker, current_model, raw_quarters=raw_quarters)
-
-    # Step 9: Raw Data Output (CSV/JSON)
-    update_progress("Raw Data Output (CSV/JSON)")
-    _save_results_to_disk(df, out_base)
-    for _, row in df.iterrows():
-        if isinstance(row, dict):
-            has_error = row.get("error")
-        else:
-            has_error = getattr(row, "error", None)
-        if has_error:
-            print_warning(f"{row['quarter_end']}: {row['error']}")
-
-    # Step 10: Fetch Market Data (Prices, Splits, Dividends)
-    update_progress("Fetch Market Data (Prices, Splits, Dividends)")
-    stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=start_date)
-
-    # Step 11: LLM Prompt Construction
-    update_progress("LLM Prompt Construction")
-    context_info = prepare_context_info(ticker, profile, model)
-    # Add additional context information if available
-    if "raw_quarters" in locals():
-        context_info["raw_quarters"] = raw_quarters
-    if "quarters" in locals():
-        context_info["quarters"] = quarters
-    context_info["weekly_prices"] = stock_prices
-
-    # Step 12: LLM Report Generation
-    update_progress("LLM Report Generation")
-    # Split _generate_report_and_plot for granularity
-    llm_report = _generate_llm_report(df, model, out_base, context_info, ticker, stock_prices)
-
-    # Step 13: Chart Generation
-    update_progress("Chart Generation")
-    chart_path = _generate_chart(df, model, out_base, context_info, ticker, stock_prices)
-
-    # Step 14: Final File Output
-    update_progress("Final File Output")
-    _finalize_outputs(df, model, out_base, context_info, ticker, stock_prices, llm_report, chart_path)
-
-    return df
-
-# Helper functions for split steps (implementations wrap the original logic)
-def _generate_llm_report(df, model, out_base, context_info, ticker, stock_prices):
-    """Generate the LLM-based analysis report."""
     try:
-        # Explicitly sanitize the context_info before passing it to the report generator
-        sanitized_context = {k: v for k, v in context_info.items()}
+        # Step 1: Input Validation
+        update_progress("Input Validation")
+        check_company_status_and_handle(ticker)
         
-        if "weekly_prices" in sanitized_context and isinstance(sanitized_context["weekly_prices"], pd.DataFrame):
-            sanitized_context["weekly_prices"] = sanitized_context["weekly_prices"].to_dict(orient="records")
-            
-        if "raw_quarters" in sanitized_context and isinstance(sanitized_context["raw_quarters"], pd.DataFrame):
-            sanitized_context["raw_quarters"] = sanitized_context["raw_quarters"].to_dict(orient="records")
+        # Step 2: Fetch Company Profile
+        update_progress("Fetch Company Profile")
+        profile, out_base = classify_and_prepare_output(ticker)
         
-        # Generate just the report portion
-        report = report_zscore_full_report(            
-            df, 
-            model, 
-            out_base, 
-            context_info=sanitized_context,
-            print_to_console=True
-        )
-        return report
-    except Exception as e:
-        print_warning(f"Could not generate full Z-Score report: {e}")
-        return None
-
-def _generate_chart(df, model, out_base, context_info, ticker, stock_prices):
-    """Generate the Z-Score trend plot chart."""
-    try:
-        print_info("Generating Z-Score trend plot...")
-        chart_path = os.path.join(os.path.dirname(out_base), f"zscore_{ticker}_trend.png")
-        plot_zscore_trend(
-            df, 
-            ticker, 
-            model, 
-            chart_path, 
-            stock_prices=stock_prices
-        )
-        return chart_path
-    except ImportError:
-        print_warning("matplotlib not installed, skipping plot.")
-        return None
-    except Exception as e:
-        print_warning(f"Could not plot Z-Score trend: {e}")
-        return None
-
-def _finalize_outputs(df, model, out_base, context_info, ticker, stock_prices, llm_report, chart_path):
-    """Save all final outputs to disk."""
-    try:
-        # Save the LLM report if we have one
-        if llm_report:
-            report_path = f"{out_base}_zscore_full_report.md"
-            with open(report_path, 'w', encoding='utf-8') as f:
-                f.write(llm_report)
-            abs_report_path = os.path.abspath(report_path)
-            print_info(f"Full Z-Score report (with LLM commentary) saved to {abs_report_path}")
-        
-        # Verify chart was generated
-        if chart_path and os.path.exists(chart_path):
-            print_info(f"Z-Score trend plot saved to {os.path.basename(chart_path)}")
-        
-        # Save any additional metadata or context info
-        metadata = {
-            "analysis_date": datetime.now().strftime("%Y-%m-%d"),
-            "ticker": ticker,
-            "model": str(model),
-            "context": context_info
-        }
-        metadata_path = f"{out_base}_metadata.json"
-        try:
-            with open(metadata_path, 'w') as f:
-                json.dump(metadata, f, indent=2, default=str)
-        except Exception as e:
-            print_warning(f"Could not save analysis metadata: {e}")
-            
-    except Exception as e:
-        print_warning(f"Error in finalizing outputs: {e}")
-        
-def analyze_ticker(ticker: str, force_model: Optional[str] = None, progress_tracker=None, start_date=None, **kwargs) -> Dict:
-    """Analyze a single stock ticker.
-    
-    Args:
-        ticker: Stock ticker symbol
-        force_model: Optional model type to force use of specific Z-Score variant
-        progress_tracker: Optional progress tracker instance
-        start_date: Optional start date for analysis
-        **kwargs: Additional keyword arguments
-        
-    Returns:
-        Dict containing analysis results
-    """
-    # Create a progress tracker if not provided
-    if progress_tracker is None:
-        progress_tracker = create_progress_tracker()
-    
-    def update_progress(step_name: str):
-        """Update progress for the current analysis step."""
-        progress_tracker.update(step_name)
-    
-    # Step 1: Input Validation
-    update_progress("Input Validation")
-    logger.info(f"Starting analysis for {ticker}")
-    
-    # Set up output directory
-    out_base = get_output_dir(ticker)
-    os.makedirs(out_base, exist_ok=True)
-    
-    # Step 2: Fetch Profile
-    update_progress("Fetch Company Profile")
-    client = YahooFinanceClient()
-    profile = client.get_company_info(ticker)
-    extract_sic_code_from_industry(getattr(profile, 'industry', ''))
-      # Handle model selection - either forced or automatic
-    current_model = None  # Will store the model name
-    try:
+        # Handle model selection - either forced or automatic
+        current_model = None  # Will store the model name
         if force_model:
             from ..models.base import ModelType
             from ..models.model_validation import validate_model_appropriateness
@@ -875,7 +624,6 @@ def analyze_ticker(ticker: str, force_model: Optional[str] = None, progress_trac
                     logger.warning(f"WARNING: {message}")
                 elif warning_level == 'caution':
                     logger.info(f"CAUTION: {message}")
-                    
                 if not is_appropriate:
                     logger.warning("Consider using automatic model selection instead: python main.py %s", ticker)
                 
@@ -886,167 +634,97 @@ def analyze_ticker(ticker: str, force_model: Optional[str] = None, progress_trac
             except ValueError:
                 logger.warning(f"Invalid model type '{force_model}', falling back to automatic selection")
                 model = _select_zscore_model_from_profile(profile)
-                current_model = model.get_model_type().value
+                current_model = model.get_model_type().value if hasattr(model, 'get_model_type') else 'original'
         else:
             model = _select_zscore_model_from_profile(profile)
-            current_model = model.get_model_type().value
-            
-        # Update progress tracker with model information
-        if progress_tracker:
-            progress_tracker.model_name = current_model
-            
-    except Exception as e:
-        logger.error(f"Error in model selection: {str(e)}")
-        raise
-    
-    # Update progress tracker with model information
-    progress_tracker.model_name = current_model
-      # Step 3: Fetch and validate financials
-    update_progress("Fetch Financials (SEC)")
-    fin_info = fetch_and_reconcile_financials(ticker, datetime.now().strftime("%Y-%m-%d"), model, start_date)
-    
-    # Step 4: Process financial data
-    update_progress("Data Processing")
-    df = pd.DataFrame(fin_info)
-    
-    # Step 5: Fetch market data
-    update_progress("Fetch Market Data (Prices)")
-    get_weekly_price_stats(ticker, df, out_base, start_date=start_date)
-    
-    # Step 6: Prepare context info
-    context_info = prepare_context_info(ticker, profile, model)
-    
-    # Step 7: Compute Z-Score
-    update_progress("Z-Score Computation")
-    zscore_results = compute_zscore(df, model)
-    
-    # Step 8: Generate reports
-    update_progress("Report Generation")
-    llm_report = generate_llm_report(zscore_results, context_info)
-    chart = generate_chart(zscore_results, profile)
-    
-    # Step 9: Save outputs
-    update_progress("Output Saving")
-    outputs = finalize_outputs(zscore_results, llm_report, chart)
-    
-    save_results_to_disk(outputs, out_base)
-    save_metadata_to_disk(context_info, out_base)
-    
-    return outputs
-
-def analyze_one_stock(
-    ticker: str,
-    start_date: Optional[str] = None,
-    plot: bool = True,
-    test_mode: bool = False,
-    **kwargs: Any
-) -> bool:
-    """
-    Analyze one stock's Altman Z-Score with progress tracking.
-    Currently limited to U.S.-based companies only.
-
-    Args:
-        ticker (str): Stock ticker symbol
-        start_date (str, optional): Start date for analysis (YYYY-MM-DD)
-        plot (bool): Whether to generate plots
-        test_mode (bool): Whether running in test mode
-        **kwargs: Additional keyword arguments including force_model
-
-    Returns:
-        bool: True if analysis completed successfully, False otherwise
-    """
-    try:
-        # Create output directory for this ticker
-        output_dir = os.path.join(get_output_dir(), ticker)
-        os.makedirs(output_dir, exist_ok=True)
+            current_model = model.get_model_type().value if hasattr(model, 'get_model_type') else 'original'
         
-        # Initialize progress tracking
-        progress = create_progress_tracker(ticker)
-        progress.update(1, "Input Validation")
-        
-        # Check if company is U.S.-based (new)
-        is_us, reason = is_us_company(ticker)
-        if not is_us:
-            error_message = f"Analysis skipped: {reason}"
-            print_error(error_message)
-            logger.error(error_message)
-            
-            # Create NOT_AVAILABLE marker with reason
-            with open(os.path.join(output_dir, f"{ticker}_NOT_AVAILABLE.txt"), "w") as f:
-                f.write(f"Company {ticker} is not supported.\n\n")
-                f.write(f"Reason: {reason}\n")
-            return False
-            
-        # Create output directory for this ticker
-        out_base = os.path.join(output_dir, f"zscore_{ticker}")
-        
-        # Fetch company profile and determine model
-        profile = classify_company(ticker)
-        model = _select_zscore_model_from_profile(profile)
-        current_model = model.get_model_type().value
-        
-        # Fetch and validate financials
+        # Step 3: Fetch Financials (SEC)
+        update_progress("Fetch Financials (SEC)")
         fin_info, quarters = _fetch_and_validate_financials(ticker, current_model, start_date, out_base)
         raw_quarters = fin_info["quarters"] if fin_info and "quarters" in fin_info else None
-        
+
         if not fin_info or not quarters:
-            logger.error(f"No financial data available for {ticker}. Skipping analysis.")
-            return False
-        
-        # Compute Z-Scores
+            error_msg = f"No financial data available for {ticker}. This may indicate the company is delisted, not publicly traded, or has insufficient SEC filings."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
+        # Step 4: Z-Score Computation
+        update_progress("Z-Score Computation")
         df = _process_quarters_and_compute_zscores(quarters, ticker, current_model, raw_quarters=raw_quarters)
         
-        # Save results
+        # Check if Z-Score computation was successful
+        if df is None or df.empty:
+            error_msg = f"Z-Score calculation failed for {ticker}. Insufficient or invalid financial data."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Check if any valid Z-Scores were calculated
+        valid_scores = df[df['zscore'].notnull()] if 'zscore' in df.columns else pd.DataFrame()
+        if valid_scores.empty:
+            error_msg = f"No valid Z-Scores could be calculated for {ticker}. Financial data may be incomplete or corrupted."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
+        # Step 5: Raw Data Output (CSV/JSON)
+        update_progress("Raw Data Output (CSV/JSON)")
         _save_results_to_disk(df, out_base)
-        
-        # Fetch stock prices
-        stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=start_date)
-        
-        # Generate reports and visualizations
-        context_info = prepare_context_info(ticker, profile, current_model)
-        if raw_quarters:
+        for _, row in df.iterrows():
+            if isinstance(row, dict):
+                has_error = row.get("error")
+            else:
+                has_error = getattr(row, "error", None)
+            if has_error:
+                print_warning(f"{row['quarter_end']}: {row['error']}")
+
+        # Step 6: Fetch Market Data (Prices, Splits, Dividends)
+        update_progress("Fetch Market Data (Prices, Splits, Dividends)")
+        try:
+            stock_prices = _fetch_and_save_weekly_prices(ticker, df, out_base, start_date=start_date)
+        except Exception as e:
+            logger.warning(f"Failed to fetch market data for {ticker}: {e}")
+            stock_prices = pd.DataFrame()  # Continue with empty DataFrame
+
+        # Step 7: LLM Prompt Construction
+        update_progress("LLM Prompt Construction")
+        context_info = prepare_context_info(ticker, profile, model)
+        # Add additional context information if available
+        if "raw_quarters" in locals():
             context_info["raw_quarters"] = raw_quarters
-        if quarters:
+        if "quarters" in locals():
             context_info["quarters"] = quarters
-        context_info["weekly_prices"] = stock_prices
+        context_info["weekly_prices"] = stock_prices        
         
-        # Generate report and plot
-        llm_report = _generate_llm_report(df, current_model, out_base, context_info, ticker, stock_prices)
-        if plot:
-            chart_path = _generate_chart(df, current_model, out_base, context_info, ticker, stock_prices)
-            
-        # Return success
-        return True
+        # Step 8: LLM Report Generation
+        update_progress("LLM Report Generation")
+        try:
+            llm_report = generate_llm_report(df, model, out_base, context_info, ticker, stock_prices)
+        except Exception as e:
+            logger.warning(f"LLM report generation failed for {ticker}: {e}")
+            llm_report = None
+
+        # Step 9: Chart Generation
+        update_progress("Chart Generation")
+        try:
+            chart_path = generate_chart(df, model, out_base, ticker, stock_prices)
+        except Exception as e:
+            logger.warning(f"Chart generation failed for {ticker}: {e}")
+            chart_path = None
+
+        # Step 10: Final File Output
+        update_progress("Final File Output")
+        try:
+            finalize_outputs(df, model, out_base, context_info, ticker, stock_prices, llm_report, chart_path)
+        except Exception as e:
+            logger.warning(f"Final output generation failed for {ticker}: {e}")
+
+        return df
         
+    except ValueError as ve:
+        # Re-raise ValueError with original message for graceful handling by main()
+        raise ve
     except Exception as e:
-        logger.error(f"Error analyzing {ticker}: {str(e)}")
-        return False
-
-
-def prepare_financial_metrics(quarter_data: Dict) -> Dict[str, float]:
-    """Prepare financial metrics from quarter data for Z-Score computation."""
-    return {
-        "total_assets": float(quarter_data.get("total_assets", 0)),
-        "current_assets": float(quarter_data.get("current_assets", 0)),
-        "current_liabilities": float(quarter_data.get("current_liabilities", 0)),
-        "retained_earnings": float(quarter_data.get("retained_earnings", 0)),
-        "ebit": float(quarter_data.get("ebit", 0)),
-        "market_value_equity": float(quarter_data.get("market_value_equity", 0)),
-        "book_value_equity": float(quarter_data.get("total_equity", 0)),
-        "sales": float(quarter_data.get("sales", 0)),
-        "total_liabilities": float(quarter_data.get("total_liabilities", 0))
-    }
-
-
-def get_zscore_diagnostic(result) -> str:
-    """Get diagnostic message based on Z-Score value and thresholds."""
-    if not result.thresholds:
-        return "Unable to determine zone (no thresholds)"
-        
-    score = float(result.z_score)
-    if score > result.thresholds["safe"]:
-        return "Safe Zone"
-    elif score > result.thresholds["grey"]:
-        return "Grey Zone"
-    else:
-        return "Distress Zone"
+        # Convert other exceptions to ValueError for consistent error handling
+        error_msg = f"Unexpected error analyzing {ticker}: {str(e)}"
+        logger.error(error_msg)
+        raise ValueError(error_msg)

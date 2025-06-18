@@ -14,6 +14,7 @@ COMMON_CIK_MAPPINGS = {
     "MSFT": "0000789019",  # Microsoft
     "AAPL": "0000320193",  # Apple
     "GOOGL": "0001652044", # Alphabet (Google)
+    "GOOG": "0001652044",  # Alphabet (Google) - Class C shares
     "AMZN": "0001018724",  # Amazon
     "META": "0001326801",  # Meta (Facebook)
     "TSLA": "0001318605",  # Tesla

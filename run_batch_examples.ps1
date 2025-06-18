@@ -1,22 +1,9 @@
 # Batch script to run Altman Z-Score CLI for multiple sets of companies
 # Usage: pwsh.exe -File run_batch_examples.ps1
+# Groups are ordered to test extremes first (distressed -> tech -> mixed -> healthy)
 
-# Group 1: 10 Well-Known US Large-Cap Companies (Diverse Industries)
-$large_caps = @(
-    'AAPL', # Apple
-    'MSFT', # Microsoft
-    'GOOGL', # Alphabet
-    'GOOG', # Alphabet (Class C)
-    'AMZN', # Amazon
-    'META', # Meta Platforms
-    'JPM', # JPMorgan Chase
-    'JNJ', # Johnson & Johnson
-    'TSLA', # Tesla
-    'NVDA', # Nvidia
-    'PG'     # Procter & Gamble
-)
-
-# Group 2: 11 Notable US Companies With Recent Financial Challenges (But Still Active)
+# Group 1: 11 Notable US Companies With Recent Financial Challenges (But Still Active)
+# Test extreme cases first - these should show distress or grey zone Z-Scores
 $distressed = @(
     'T', # AT&T (High debt)
     'UAL', # United Airlines (High leverage)
@@ -31,7 +18,8 @@ $distressed = @(
     'SONO'   # Sonos (Tech, recent financial challenges)
 )
 
-# Group 3: 4 Notable US Tech/Fintech/Early-Stage Companies (Diverse maturities)
+# Group 2: 15 Notable US Tech/Fintech/Early-Stage Companies (Diverse maturities)
+# Test growth companies with varied profitability patterns
 $tech_us = @(
     'SNOW', # Snowflake (Tech, growth)
     'PLTR', # Palantir (Tech, gov contracts)
@@ -47,10 +35,11 @@ $tech_us = @(
     'SHOP', # Shopify (US-listed, e-commerce)
     'AFRM', # Affirm (Fintech, lending)
     'COIN', # Coinbase (Fintech, crypto)
-    'SONO'  # Sonos (Tech, consumer audio)
+    'RBLX'  # Roblox (Gaming platform)
 )
 
-# Group 4: 10 Companies for Industry Mix (Manufacturing, Services, Finance, Utilities, Retail, Healthcare, Energy, Telecom, Real Estate, Consumer Goods)
+# Group 3: 10 Companies for Industry Mix (Manufacturing, Services, Finance, Utilities, Retail, Healthcare, Energy, Telecom, Real Estate, Consumer Goods)
+# Test diverse industry patterns and model selection
 $industry_mix = @(
     'CAT', # Caterpillar (Manufacturing)
     'UNH', # UnitedHealth Group (Healthcare)
@@ -64,16 +53,32 @@ $industry_mix = @(
     'ADP'  # Automatic Data Processing (Services)
 )
 
+# Group 4: 11 Well-Known US Large-Cap Companies (Diverse Industries)
+# Test healthy, established companies last - these should show safe zone Z-Scores
+$large_caps = @(
+    'AAPL', # Apple
+    'MSFT', # Microsoft
+    'GOOGL', # Alphabet
+    'GOOG', # Alphabet (Class C)
+    'AMZN', # Amazon
+    'META', # Meta Platforms
+    'JPM', # JPMorgan Chase
+    'JNJ', # Johnson & Johnson
+    'TSLA', # Tesla
+    'NVDA', # Nvidia
+    'PG'     # Procter & Gamble
+)
+
 # Helper to run the CLI for a group
 function Invoke-ZScoreBatch($tickers, $groupName) {
     Write-Host "Running Z-Score batch for ${groupName}: $($tickers -join ' ')"
-    python main.py --start 2024-01-01 @tickers
+    python main.py --date 2024-01-01 @tickers
 }
 
-# Run all groups (no deduplication)
-Invoke-ZScoreBatch $large_caps 'large_caps'
+# Run all groups (no deduplication) - ordered to test extremes first
 Invoke-ZScoreBatch $distressed 'distressed'
 Invoke-ZScoreBatch $tech_us 'tech_us'
 Invoke-ZScoreBatch $industry_mix 'industry_mix'
+Invoke-ZScoreBatch $large_caps 'large_caps'
 
 Write-Host "Batch processing complete. Check the output directories for reports."

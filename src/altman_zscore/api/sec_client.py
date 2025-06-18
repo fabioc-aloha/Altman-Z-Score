@@ -10,7 +10,6 @@ from typing import Any, Dict, Optional
 import requests
 
 from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
-from ..company.cik_lookup import COMMON_CIK_MAPPINGS
 from ..utils.paths import get_output_dir
 from ..utils.error_helpers import AltmanZScoreError
 from ..utils.retry import exponential_retry
@@ -162,88 +161,47 @@ class SECClient:
                 logger.info(
                     f"SEC API rate limit or authentication issue (401). "
                     f"Falling back to other data sources. "
-                    f"URL: {url}"
-                )
+                    f"URL: {url}"                )
                 # For 401 errors, return None instead of raising to allow fallback
                 return None
             raise
 
-    @exponential_retry(
-        max_retries=3,
-        base_delay=1.0,
-        backoff_factor=2.0,
-        exceptions=NETWORK_EXCEPTIONS
-    )
     def lookup_cik(self, ticker: str) -> Optional[str]:
         """
-        Look up CIK number for a ticker symbol.
-
+        Look up CIK number for a ticker symbol using the robust cache system.
+        
+        This method uses the new CIK cache which implements a fallback strategy:
+        - Uses cached data if available and fresh
+        - If cache is stale, tries to update; if update fails, uses stale cache with warning
+        - If no cache exists, downloads it initially
+        
         Args:
             ticker: Stock ticker symbol
 
         Returns:
             10-digit CIK if found, None otherwise
         """
-        try:
-            # First check if it's in the common mappings (imported from company_profile)
-            upper_ticker = ticker.upper()
-            if upper_ticker in COMMON_CIK_MAPPINGS:
-                cik = COMMON_CIK_MAPPINGS[upper_ticker]
-                logger.debug(f"Found CIK {cik} for ticker {ticker} in common mappings")
-                return cik
-
-            # Try the company_tickers.json file endpoint (most reliable)
-            logger.debug(f"Looking up CIK for {ticker} via company_tickers.json...")
-            resp = self.session.get(self.COMPANY_TICKERS_URL)
-            resp.raise_for_status()
-            tickers_data = resp.json()
-            
-            # The company_tickers.json file has numeric indices as keys
-            for _, entry in tickers_data.items():
-                if entry.get('ticker').upper() == ticker.upper():
-                    cik = str(entry.get('cik_str'))
-                    logger.debug(f"Found CIK {cik} for ticker {ticker} via company_tickers.json")
-                    return cik.zfill(10)
-                    
-            # Fallback to the browse-edgar endpoint if needed
-            logger.debug(f"No match found in company_tickers.json for {ticker}, trying browse-edgar...")
-            search_params = {
-                "CIK": ticker,
-                "Find": "Search",
-                "owner": "exclude",
-                "action": "getcompany",
-            }
-            response = self.session.get(self.BROWSE_EDGAR_URL, params=search_params)
-            response.raise_for_status()
-            content = response.text
-
-            # Try to match CIK from HTML response using different patterns
-            cik_patterns = [
-                ("CIK=", [" ", "/"]),  # Common on browse-edgar pages
-                ("CIK=", ["&"]),  # For URLs
-                (">CIK", [" ", "<"]),  # For HTML content
-            ]
-
-            for prefix, terminators in cik_patterns:
-                cik_start = content.find(prefix)
-                if cik_start != -1:
-                    cik_start += len(prefix)
-                    cik_end = -1
-                    for term in terminators:
-                        pos = content.find(term, cik_start)
-                        if pos != -1 and (cik_end == -1 or pos < cik_end):
-                            cik_end = pos
-
-                    if cik_end > cik_start:
-                        found_cik = content[cik_start:cik_end].strip()
-                        if found_cik.isdigit():
-                            return found_cik.zfill(10)
-
-            logger.warning(f"No CIK found for ticker {ticker}")
+        # Import here to avoid circular imports
+        from ..company.cik_cache import lookup_cik_cached
+        from ..company.cik_lookup import COMMON_CIK_MAPPINGS
+        
+        if not ticker:
             return None
-
-        except Exception as e:
-            logger.error(f"Error looking up CIK for {ticker}: {str(e)}")
+        
+        ticker = ticker.upper().strip()
+        
+        # First check common mappings for immediate response
+        if ticker in COMMON_CIK_MAPPINGS:
+            cik = COMMON_CIK_MAPPINGS[ticker]
+            logger.debug(f"Found CIK {cik} for ticker {ticker} in common mappings")
+            return cik
+          # Use the robust cache system
+        cik = lookup_cik_cached(ticker)
+        if cik:
+            logger.debug(f"Found CIK {cik} for ticker {ticker} via cache")
+            return cik
+        else:
+            logger.debug(f"No CIK found for ticker {ticker}")
             return None
 
     @exponential_retry(
@@ -258,9 +216,7 @@ class SECClient:
 
         Args:
             ticker_or_cik: Stock ticker symbol or CIK number
-            save_to_file: If True, save the result to output/{TICKER}/company_info.json
-
-        Returns:
+            save_to_file: If True, save the result to output/{TICKER}/company_info.json        Returns:
             Company info including CIK if found, None otherwise
         """
         try:
@@ -268,14 +224,8 @@ class SECClient:
             if ticker_or_cik.isdigit():
                 cik = ticker_or_cik.zfill(10) 
             else:
-                # Lookup from common mappings first
-                from altman_zscore.company.cik_lookup import COMMON_CIK_MAPPINGS
-                upper_ticker = ticker_or_cik.upper()
-                if upper_ticker in COMMON_CIK_MAPPINGS:
-                    cik = COMMON_CIK_MAPPINGS[upper_ticker]
-                    logger.debug(f"Found CIK {cik} for ticker {ticker_or_cik} in common mappings")
-                else:
-                    cik = self.lookup_cik(ticker_or_cik)
+                # Use comprehensive SEC cache for CIK lookup
+                cik = self.lookup_cik(ticker_or_cik)
             
             if not cik:
                 logger.error(f"Could not find CIK for {ticker_or_cik}")

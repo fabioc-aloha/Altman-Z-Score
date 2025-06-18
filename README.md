@@ -2,7 +2,7 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.3.0 (2025-06-17)**
+**Version: 3.4.0 (2025-06-17)**
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with LLM-powered qualitative insights. This script orchestrates the analysis pipeline for single or multiple stock tickers. See [MODELS.md](MODELS.md) for available Z-Score models and selection guidelines.
 
@@ -46,13 +46,13 @@ All outputs are saved to `output/<TICKER>/`:
 ## Usage
 To analyze one or more stocks, run:
 ```sh
-python main.py <TICKER1> <TICKER2> ... [--start YYYY-MM-DD] [--no-plot] [--test] [--log-level DEBUG]
+python main.py <TICKER1> <TICKER2> ... [--date YYYY-MM-DD] [--no-plot] [--test] [--log-level DEBUG]
 ```
 
 Examples:
 ```sh
 python main.py AAPL MSFT TSLA
-python main.py TSLA --start 2023-01-01
+python main.py TSLA --date 2023-01-01
 python main.py AAPL MSFT --no-plot
 python main.py --test
 python main.py --log-level DEBUG
@@ -69,14 +69,10 @@ The following table shows available reports for all analyzed tickers:
 | Logo | Company Name | Full Report | Trend Chart |
 |------|-------------|-------------|:-------------:|
 | <img src="output/AAPL/AAPL_logo.png" alt="AAPL" width="80" height="80"/> | Apple Inc | [Report](output/AAPL/zscore_AAPL_zscore_full_report.md) | <a href="output/AAPL/zscore_AAPL_trend.png"><img src="output/AAPL/zscore_AAPL_trend.png" alt="AAPL Chart" width="400"/></a> |
-| <img src="output/AMZN/AMZN_logo.png" alt="AMZN" width="80" height="80"/> | Amazon.com Inc | [Report](output/AMZN/zscore_AMZN_zscore_full_report.md) | <a href="output/AMZN/zscore_AMZN_trend.png"><img src="output/AMZN/zscore_AMZN_trend.png" alt="AMZN Chart" width="400"/></a> |
-| <img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" width="80" height="80"/> | Alphabet Inc | [Report](output/GOOGL/zscore_GOOGL_zscore_full_report.md) | <a href="output/GOOGL/zscore_GOOGL_trend.png"><img src="output/GOOGL/zscore_GOOGL_trend.png" alt="GOOGL Chart" width="400"/></a> |
+| <img src="output/F/F_logo.png" alt="F" width="80" height="80"/> | Ford Motor Co | [Report](output/F/zscore_F_zscore_full_report.md) | <a href="output/F/zscore_F_trend.png"><img src="output/F/zscore_F_trend.png" alt="F Chart" width="400"/></a> |
 | <img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="80" height="80"/> | Microsoft Corp | [Report](output/MSFT/zscore_MSFT_zscore_full_report.md) | <a href="output/MSFT/zscore_MSFT_trend.png"><img src="output/MSFT/zscore_MSFT_trend.png" alt="MSFT Chart" width="400"/></a> |
 | <img src="output/NVDA/NVDA_logo.png" alt="NVDA" width="80" height="80"/> | NVIDIA Corp | [Report](output/NVDA/zscore_NVDA_zscore_full_report.md) | <a href="output/NVDA/zscore_NVDA_trend.png"><img src="output/NVDA/zscore_NVDA_trend.png" alt="NVDA Chart" width="400"/></a> |
-| <img src="output/PG/PG_logo.png" alt="PG" width="80" height="80"/> | Procter & Gamble Co | [Report](output/PG/zscore_PG_zscore_full_report.md) | <a href="output/PG/zscore_PG_trend.png"><img src="output/PG/zscore_PG_trend.png" alt="PG Chart" width="400"/></a> |
 | <img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="80" height="80"/> | Tesla Inc | [Report](output/TSLA/zscore_TSLA_zscore_full_report.md) | <a href="output/TSLA/zscore_TSLA_trend.png"><img src="output/TSLA/zscore_TSLA_trend.png" alt="TSLA Chart" width="400"/></a> |
-| <img src="output/UNH/UNH_logo.png" alt="UNH" width="80" height="80"/> | UnitedHealth Group Inc | [Report](output/UNH/zscore_UNH_zscore_full_report.md) | <a href="output/UNH/zscore_UNH_trend.png"><img src="output/UNH/zscore_UNH_trend.png" alt="UNH Chart" width="400"/></a> |
-| <img src="output/WMT/WMT_logo.png" alt="WMT" width="80" height="80"/> | Walmart Inc | [Report](output/WMT/zscore_WMT_zscore_full_report.md) | <a href="output/WMT/zscore_WMT_trend.png"><img src="output/WMT/zscore_WMT_trend.png" alt="WMT Chart" width="400"/></a> |
 <!-- END_TICKERS_TABLE -->
 
 ---
@@ -168,7 +164,7 @@ for ticker in os.listdir('output'):
 "
 
 # Test a specific ticker with debug logging
-python main.py MSFT --start 2024-01-01 --log-level DEBUG
+python main.py MSFT --date 2024-01-01 --log-level DEBUG
 ```
 
 ---

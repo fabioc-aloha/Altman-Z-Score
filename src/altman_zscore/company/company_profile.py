@@ -332,7 +332,7 @@ class CompanyProfile:
         return f"CompanyProfile(ticker={self.ticker}, industry={self.industry}, is_public={self.is_public})"
 
 
-# Common CIK mappings are imported from cik_lookup.py
+# CIK mappings are now handled by the comprehensive SEC cache system
 
 def lookup_cik(ticker: str) -> Optional[str]:
     """

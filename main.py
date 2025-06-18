@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 3.3.0 (2025-06-17)
+# Version: 3.4.0 (2025-06-17)
 """
 Altman Z-Score Analysis Platform - Main Entry Point
 
@@ -34,7 +34,7 @@ Output Structure:
 
 USAGE:
     python main.py AAPL MSFT TSLA
-    python main.py TSLA --start 2023-01-01
+    python main.py TSLA --date 2023-01-01
     python main.py AAPL MSFT --no-plot
     python main.py --test
 
@@ -44,7 +44,7 @@ Examples:
     # Multi-stock portfolio analysis
     python main.py AAPL MSFT GOOGL TSLA
     # Custom date range analysis
-    python main.py AAPL --start 2022-01-01
+    python main.py AAPL --date 2022-01-01
     # Analysis without chart generation
     python main.py AAPL MSFT --no-plot
     # Run tests
@@ -54,7 +54,7 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "3.3.3"
+__version__ = "3.4.0"
 
 
 import os
@@ -103,15 +103,16 @@ def parse_args():
         epilog="Examples:\n"
                "  python main.py AAPL                    # Single stock analysis\n"
                "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
-               "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
+               "  python main.py TSLA --date 2023-01-01  # Custom date range\n"
                "  python main.py AAPL --model financial  # Force financial institution model\n"
                "  python main.py --test                  # Run all tests\n"
+               "  python main.py --update-cache          # Update SEC company database\n"
                "  python main.py --log-level DEBUG       # Set log level",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
         "tickers",
-        type=str,
+        type=str,        
         nargs='*',
         help="Stock ticker symbol(s) for analysis (e.g., AAPL MSFT TSLA). "
              "Each ticker generates comprehensive reports with Z-Score trends, "
@@ -120,27 +121,29 @@ def parse_args():
     parser.add_argument(
         "--model",
         type=str,
-        choices=['original', 'private', 'financial', 'zeta', 'retail'],
+        choices=['original', 'private', 'financial', 'zeta', 'retail'],        
         help="Force a specific Z-Score model instead of using automatic selection. "
              "Options: original (manufacturing), private (private companies), "
              "financial (banks), zeta (mature), retail (retail sector)"
     )
+    
     def default_start_date():
-        """Calculate default start date.
+        """Calculate default analysis date.
         Default to 3 years of data, but users can request more historical data if available.
         """
         today = datetime.date.today()
         dt = today.replace(day=1) - relativedelta(months=36)  # Default to 3 years
         return dt.strftime("%Y-%m-%d")
+    
     parser.add_argument(
-        "--start",
+        "--date",
         type=str,
         default=default_start_date(),
-        help="Start date for analysis in YYYY-MM-DD format (default: 1st of the month 36 months before today). "
+        help="Analysis date for historical data in YYYY-MM-DD format (default: 1st of the month 36 months before today). "
              "Historical data availability varies by company, with many U.S. companies having 15+ years of data available."
     )
     parser.add_argument(
-        "--no-plot",
+        "--no-plot",        
         action="store_true",
         help="Disable trend chart generation (default: False). "
              "When enabled, saves processing time but skips visual trend analysis."
@@ -155,6 +158,12 @@ def parse_args():
         type=str,
         default=os.environ.get("LOG_LEVEL", "ERROR"),
         help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: ERROR or $LOG_LEVEL env var."
+    )
+    parser.add_argument(
+        "--update-cache",
+        action="store_true",
+        help="Download and update the SEC company tickers cache, then exit. "
+             "This improves CIK lookup performance and reliability."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
@@ -279,18 +288,17 @@ def main():
     """
     try:
         args = parse_args()
-        logger.info("Starting Altman Z-Score Analysis")
-
-        # If no arguments, show help and exit
-        if len(sys.argv) == 1:
+        logger.info("Starting Altman Z-Score Analysis")        # If no arguments except possibly --update-cache, show help and exit
+        if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "update_cache", False) and not getattr(args, "test", False)):
             parser = argparse.ArgumentParser(
-                description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
+                description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",                
                 epilog="Examples:\n"
-                       "  python main.py AAPL                    # Single stock analysis\n"
+                       "  python main.py AAPL                    # Single stock analysis\n"                       
                        "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
-                       "  python main.py TSLA --start 2023-01-01 # Custom date range\n"
+                       "  python main.py TSLA --date 2023-01-01  # Custom date range\n"
                        "  python main.py AAPL --no-plot          # Skip chart generation\n"
                        "  python main.py --test                  # Run all tests\n"
+                       "  python main.py --update-cache          # Update SEC company database\n"
                        "  python main.py --log-level DEBUG       # Set log level",
                 formatter_class=argparse.RawDescriptionHelpFormatter
             )
@@ -304,27 +312,48 @@ def main():
         log_level = args.log_level.upper()
         if log_level not in valid_log_levels:
             logger.error(f"Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
-            sys.exit(2)
-
-        # Set logging level
+            sys.exit(2)        # Set logging level
         logging.getLogger().setLevel(getattr(logging, log_level, logging.WARNING))
-        logger.info(f"Log level set to {log_level}")
-        
-        # Validate start date format
+        logger.info(f"Log level set to {log_level}")        # Handle cache update command
+        if getattr(args, "update_cache", False):
+            logger.info("Updating SEC company tickers cache...")
+            from altman_zscore.company.cik_cache import get_cache, refresh_cache, get_cache_stats
+            
+            # Check existing cache first
+            cache_info = get_cache_stats()
+            if cache_info.get('cache_exists', False):
+                logger.info(f"Existing cache found with {cache_info.get('entry_count', 'unknown')} entries")
+            
+            success = refresh_cache()
+            if success:
+                updated_info = get_cache_stats()
+                logger.info(f"✅ Cache updated successfully! Downloaded {updated_info.get('entry_count', 'unknown')} company entries.")
+                logger.info(f"Cache location: {updated_info.get('cache_path', 'unknown')}")
+                logger.info(f"Cache last updated: {updated_info.get('last_updated', 'unknown')}")
+            else:
+                if cache_info.get('cache_exists', False):
+                    logger.warning("⚠️  Failed to download fresh data due to SEC API rate limiting, but existing cache is available.")
+                    logger.info(f"Existing cache has {cache_info.get('entry_count', 'unknown')} entries from {cache_info.get('last_updated', 'unknown')}")
+                    logger.info("The system will use the existing cache for CIK lookups.")
+                else:
+                    logger.error("❌ Failed to update cache and no existing cache found. Check network connection and try again later.")
+                    sys.exit(1)
+            sys.exit(0)
+          # Validate date format
         import re
         from datetime import datetime
         date_pattern = r"^\d{4}-\d{2}-\d{2}$"
-        if not re.match(date_pattern, args.start):
-            logger.error(f"Invalid --start date: {args.start}. Must be in YYYY-MM-DD format.")
+        if not re.match(date_pattern, args.date):
+            logger.error(f"Invalid --date: {args.date}. Must be in YYYY-MM-DD format.")
             sys.exit(2)
 
-        # Validate start date is not in the future
-        start_date = datetime.strptime(args.start, "%Y-%m-%d").date()
+        # Validate date is not in the future
+        start_date = datetime.strptime(args.date, "%Y-%m-%d").date()
         if start_date > datetime.now().date():
-            logger.error(f"Start date ({args.start}) cannot be in the future.")
+            logger.error(f"Analysis date ({args.date}) cannot be in the future.")
             sys.exit(2)
 
-        logger.info(f"Analysis start date: {args.start}")
+        logger.info(f"Analysis date: {args.date}")
 
         if getattr(args, "test", False):
             import subprocess
@@ -333,9 +362,10 @@ def main():
             sys.exit(result.returncode)
         
         ticker_list = [t.upper() for t in args.tickers]
-        start_date = args.start
+        start_date = args.date
         no_plot = args.no_plot
-        any_failed = False
+        failed_tickers = []
+        successful_tickers = []
 
         for ticker in ticker_list:
             try:
@@ -367,21 +397,37 @@ def main():
                         plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
                         if not no_plot:
                             logger.info(f"Z-Score plot saved to {plot_path}")
+                        successful_tickers.append(ticker)
                     else:
                         logger.warning(f"No valid Z-Scores calculated for {ticker}")
-                        any_failed = True
+                        failed_tickers.append((ticker, "No valid Z-Scores calculated"))
                 else:
                     logger.warning(f"No analysis results available for {ticker}")
-                    any_failed = True
-
+                    failed_tickers.append((ticker, "No analysis results available"))
             except ValueError as ve:
-                logger.error(f"Error processing {ticker}: {str(ve)}")
-                any_failed = True
+                logger.error(f"❌ {ticker}: {str(ve)}")
+                failed_tickers.append((ticker, str(ve)))
             except Exception as e:
-                logger.exception(f"Unexpected error processing {ticker}: {str(e)}")
-                any_failed = True
+                logger.exception(f"❌ {ticker}: Unexpected error - {str(e)}")
+                failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
 
-        if any_failed:
+        # Provide comprehensive summary
+        logger.info(f"\n{'='*60}")
+        logger.info("ANALYSIS SUMMARY")
+        logger.info(f"{'='*60}")
+        
+        if successful_tickers:
+            logger.info(f"✅ Successfully analyzed: {', '.join(successful_tickers)}")
+        
+        if failed_tickers:
+            logger.warning(f"❌ Failed to analyze {len(failed_tickers)} ticker(s):")
+            for ticker, reason in failed_tickers:
+                logger.warning(f"   {ticker}: {reason}")
+        
+        if failed_tickers and not successful_tickers:
+            logger.error("All tickers failed analysis")
+            sys.exit(1)
+        elif failed_tickers:
             logger.warning("Some tickers failed analysis")
             sys.exit(1)
         else:

@@ -6,24 +6,18 @@ The progress tracker supports optional callback-based progress reporting for UI 
 """
 
 
-# Pipeline step definitions
+# Pipeline step definitions - Updated to match actual analysis flow
 PIPELINE_STEPS = [
-    "Input Validation",
-    # Data Fetching sub-steps
-    "Fetch Company Profile",
-    "Fetch Financials (SEC)",
-    "Fetch Market Data (Prices, Splits, Dividends)",
-    "Fetch Analyst Recommendations",
-    "Fetch Executive/Officer Data",
-    # End Data Fetching
-    "Data Validation",
-    "Data Processing",
-    "Z-Score Computation",
-    "Raw Data Output (CSV/JSON)",
-    "LLM Prompt Construction",
-    "LLM Report Generation",
-    "Chart Generation",
-    "Final File Output"
+    "Input Validation",                                    # Step 1
+    "Fetch Company Profile",                               # Step 2
+    "Fetch Financials (SEC)",                              # Step 3
+    "Z-Score Computation",                                 # Step 4
+    "Raw Data Output (CSV/JSON)",                          # Step 5
+    "Fetch Market Data (Prices, Splits, Dividends)",       # Step 6
+    "LLM Prompt Construction",                             # Step 7
+    "LLM Report Generation",                               # Step 8
+    "Chart Generation",                                    # Step 9
+    "Final File Output"                                    # Step 10
 ]
 
 class ProgressTracker:

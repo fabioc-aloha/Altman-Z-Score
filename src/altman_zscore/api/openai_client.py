@@ -75,15 +75,14 @@ class AzureOpenAIClient:
         except Exception as e:
             raise RuntimeError(f"OpenAI API call failed: {str(e)}")
 
-    def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None):
+    def suggest_field_mapping(self, raw_fields, canonical_fields, sample_values=None, mapping_overrides=None, ticker=None):
         """
-        Use Azure OpenAI to suggest a mapping from canonical fields to raw fields.
-
-        Args:
+        Use Azure OpenAI to suggest a mapping from canonical fields to raw fields.        Args:
             raw_fields (list[str]): List of raw field names from XBRL/EDGAR
             canonical_fields (list[str]): List of canonical fields (e.g., total_assets, retained_earnings)
             sample_values (dict, optional): Optional dict of {raw_field: value} for context
             mapping_overrides (dict, optional): Optional dict of {canonical_field: raw_field} to override mapping
+            ticker (str, optional): Stock ticker symbol for saving debug files to correct folder
         Returns:
             dict: {canonical_field: {"FoundField": matched_raw_field, "Value": value}}
         Raises:
@@ -170,12 +169,10 @@ Canonical fields to map: {canonical_fields}\n
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
-        ]
-
-        # Save the prompt for troubleshooting
+        ]        # Save the prompt for troubleshooting
         try:
             from altman_zscore.utils.paths import get_output_dir
-            prompt_save_path = os.path.join(get_output_dir(ticker=mapping_overrides.get('ticker') if mapping_overrides and 'ticker' in mapping_overrides else None), "field_mapping_prompt.txt")
+            prompt_save_path = os.path.join(get_output_dir(ticker=ticker), "field_mapping_prompt.txt")
             full_prompt = f"System prompt:\n{system_prompt}\n\nUser prompt:\n{user_prompt}"
             os.makedirs(os.path.dirname(prompt_save_path), exist_ok=True)
             with open(prompt_save_path, "w", encoding="utf-8") as f:
