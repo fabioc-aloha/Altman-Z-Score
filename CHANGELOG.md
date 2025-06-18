@@ -1,9 +1,40 @@
-# Changelog
+# Changelog - Completed Features & Version History
 
-All notable changes to the Altman Z-Score Analysis Platform will be documented in this file.
+**Purpose**: Documents PAST accomplishments, completed features, bug fixes, and version history.
+
+For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)  
+For **FUTURE** development plans → see [`TODO.md`](TODO.md)
+
+All notable changes to the Altman Z-Score Analysis Platform are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.5.4] - 2025-06-18 🛠️ FORD SALES FIELD FIX
+
+### 🐛 Critical Ford Sales Field Fix
+- **Ford "Sales Missing" Resolved**: Fixed "Required field sales is missing" error for Ford (F) and similar companies
+- **Per-Quarter Fallback Mapping**: Added quarter-specific fallback mapping logic to handle companies with different revenue field names across periods
+- **Revenue Field Handling**: Enhanced logic to map both annual "Revenues" and quarterly "RevenueFromContractWithCustomerExcludingAssessedTax" fields appropriately
+- **Complete Z-Score Coverage**: Ford now generates valid Z-Score calculations for ALL quarters (annual and quarterly periods)
+
+### 🔧 Field Mapping Enhancements
+- **Multi-Level Fallback Strategy**: Implemented 3-tier mapping approach:
+  1. AI-powered field mapping for optimal accuracy
+  2. Global fallback mappings for common fields
+  3. Per-quarter fallback for companies with mixed reporting patterns
+- **Revenue Backfilling Logic**: Added automatic backfilling of revenue data for quarters missing specific revenue fields using annual data
+- **Enhanced Debug Logging**: Added comprehensive logging for field mapping troubleshooting
+
+### 📊 Data Quality Improvements
+- **Quarterly Data Completeness**: Resolved data gaps in quarterly financial extraction
+- **Mixed Reporting Pattern Support**: Better handling of companies that report some fields annually vs quarterly
+- **Validation Improvements**: Enhanced validation logic to properly detect and handle missing field scenarios
+
+### 📋 Documentation Updates
+- **TODO.md Streamlined**: Moved all completed milestones (v3.5.3 and earlier) to CHANGELOG.md
+- **Future-Focused Planning**: Updated TODO.md to focus only on v3.6.0+ priorities
+- **FLOW.md Enhanced**: Added documentation for new per-quarter fallback mapping logic
 
 ## [3.5.3] - 2025-06-18 🚀 MAJOR REFACTORING RELEASE
 

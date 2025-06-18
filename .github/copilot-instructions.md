@@ -5,6 +5,12 @@
 
 # GitHub Copilot Instructions
 
+## Documentation Strategy
+- **Past**: `CHANGELOG.md` - Documents completed features, bug fixes, and version history
+- **Present**: `FLOW.md` - Documents current system architecture, data flow, and operational workflow  
+- **Future**: `TODO.md` - Documents planned features, priorities, and actionable tasks
+- Keep each file focused on its time perspective and cross-reference between them
+
 ## Project Guidance
 - Use `TODO.md` for actionable tasks, environment setup, and technical decisions.
 - Ensure compatibility with both local and cloud environments (e.g., Codespaces, local venvs, or system Python). Use `pyproject.toml` or `requirements.txt` for dependencies as appropriate.

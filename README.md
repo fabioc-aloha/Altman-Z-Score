@@ -2,9 +2,11 @@
 
 # Altman Z-Score Analysis Platform
 
-**Version: 3.5.2 (2025-06-18) 🚀 Enhancement Release**
+**Version: 3.5.3 (2025-06-18) �️ Ford Sales Field Fix**
 
 A robust Python tool for comprehensive Altman Z-Score financial analysis with AI-powered insights. Features **47 pre-analyzed companies** with complete **CEO/CFO/Investor guidance matrix** - the industry's most comprehensive stakeholder decision support table.
+
+**Latest (v3.5.4):** Fixed Ford "sales is missing" issue with enhanced per-quarter fallback mapping for companies with mixed annual/quarterly revenue reporting patterns.
 
 ---
 

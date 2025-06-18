@@ -1,4 +1,9 @@
-# Altman Z-Score Analysis Pipeline: Codebase Flow (2025)
+# Altman Z-Score Analysis Pipeline: Current System Architecture & Workflow
+
+**Purpose**: Documents the PRESENT state of the system - current architecture, data flow, and operational workflow.
+
+For **PAST** accomplishments → see [`CHANGELOG.md`](CHANGELOG.md)  
+For **FUTURE** plans → see [`TODO.md`](TODO.md)
 
 ## Overview
 **IMPORTANT**: This tool is strictly limited to U.S.-based companies only. Non-U.S. companies, including ADRs and companies filing Form 20-F, are detected and rejected early in the pipeline.
@@ -111,10 +116,45 @@
   - **AI Field Mapping:** LLM-powered mapping from SEC GAAP concepts to Z-Score canonical fields
   - **No Data Mixing:** Clean separation eliminates conflicts and ensures data consistency
 - **LLM-First Field Mapping:** Canonical fields are mapped to SEC field names using an LLM prompt. The LLM returns all plausible candidates for each canonical field, enabling a robust fallback strategy.
-- **Python Fallback Strategy:** For each period and canonical field, the code tries each mapped SEC field in order, using the first available value.
-- **Full Traceability:** Both the LLM prompt and response are saved for each run, supporting transparency and debugging.
-- **Robust Error Handling:** All steps include error handling and logging. If LLM output is malformed, the error is reported and the pipeline halts for that ticker.
-- **Graceful Handling of Missing Data:** If a quarter has no usable financial data, the pipeline skips/report it with a user-friendly message in the output.
+- **Multi-Level Fallback Strategy:** 
+  1. **AI Mapping:** LLM-powered field mapping for optimal accuracy
+  2. **Global Fallback:** Common field mappings when AI fails
+  3. **Per-Quarter Fallback:** Quarter-specific mapping for mixed reporting patterns (e.g., Ford's annual vs quarterly revenue fields)
+
+## Enhanced Field Mapping System (v3.5.4+)
+
+The pipeline features a robust, multi-tier field mapping system designed to handle diverse SEC reporting patterns:
+
+### Mapping Tiers
+1. **AI-Powered Mapping (Primary)**
+   - LLM analyzes all available SEC GAAP concepts
+   - Returns semantic mappings with confidence scores
+   - Handles complex, non-standard field names
+
+2. **Global Fallback Mapping (Secondary)**
+   - Pre-defined mappings for common SEC concepts
+   - Applied when AI mapping fails or returns null
+   - Covers standard GAAP fields like "Assets", "Revenues", etc.
+
+3. **Per-Quarter Fallback Mapping (Tertiary)**
+   - **Innovation**: Handles companies with inconsistent field naming across periods
+   - **Real-world Case**: Ford uses "Revenues" (annual) vs "RevenueFromContractWithCustomerExcludingAssessedTax" (quarterly)
+   - Each quarter is individually checked for missing fields and mapped using available alternatives
+   - Ensures complete Z-Score calculation coverage across all reporting periods
+
+### Revenue Field Handling
+The system now handles complex revenue reporting patterns:
+- **Annual Periods**: Maps to "Revenues", "TotalRevenue", "OperatingRevenue"
+- **Quarterly Periods**: Maps to "RevenueFromContractWithCustomerExcludingAssessedTax", "QuarterlyRevenue", etc.
+- **Mixed Patterns**: Automatically detects and handles companies that use different field names for different periods
+- **Result**: Zero "Required field sales is missing" errors for companies like Ford
+
+### Backfill Logic
+- **Annual Revenue Backfill**: When quarterly revenue data is missing, attempts to use annual revenue data for the same year
+- **Field Name Normalization**: Maps various revenue concepts to the canonical "sales" field
+- **Validation**: Ensures all quarters have required fields before Z-Score computation
+
+This enhanced system resolved critical issues with companies like Ford Motor Company (F) that had inconsistent revenue field naming across reporting periods.
 
 ## CIK Cache System (New as of 2025-06-17)
 The system now includes a **CIK cache** that dramatically improves reliability and performance:
@@ -200,7 +240,11 @@ python main.py --update-cache
 python main.py TICKER --date 2024-01-01
 ```
 
-## Recent Improvements (2025-06-17)
+## Recent Improvements (2025-06-18 - v3.5.4)
+- **✅ Ford Sales Field Fix:** Resolved "Required field sales is missing" issue for companies with mixed annual/quarterly revenue reporting patterns
+- **✅ Per-Quarter Fallback Mapping:** Enhanced field mapping logic to handle different revenue field names per quarter (e.g., annual "Revenues" vs quarterly "RevenueFromContractWithCustomerExcludingAssessedTax")
+- **✅ Revenue Backfilling Logic:** Added automatic backfilling of revenue data for quarters missing specific revenue fields using annual data
+- **✅ Documentation Streamlining:** Moved completed milestones from TODO.md to CHANGELOG.md, keeping TODO focused on future priorities
 - **✅ Comprehensive SEC Cache:** Pre-shipped database with 10,033+ companies eliminates API rate limiting
 - **✅ Improved File Organization:** Field mapping prompts now saved to ticker-specific folders
 - **✅ Enhanced Model Selection:** Robust validation and fallback mechanisms

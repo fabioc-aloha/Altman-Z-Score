@@ -1,10 +1,17 @@
-# Altman Z-Score Platform - TODO
+# Altman Z-Score Platform - Future Roadmap & Planned Features
+
+**Purpose**: Documents FUTURE development plans, priorities, and actionable tasks.
+
+For **PAST** accomplishments → see [`CHANGELOG.md`](CHANGELOG.md)  
+For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)
 
 ## Vision
 Deliver an industry-leading Altman Z-Score platform with transparency, extensibility, and actionable financial insights. See [vision.md](./vision.md) for details.
 
 ## 🎯 Current Status
-**Version:** 3.5.3 ✅ **COMPLETED** - Major refactoring with clean SEC/Yahoo data architecture
+**Version:** 3.5.4 ✅ **COMPLETED** - Ford sales field fix with enhanced per-quarter fallback mapping
+
+*Latest completed work: Resolved "Required field sales is missing" errors for Ford and similar companies with mixed revenue reporting patterns.*
 
 ## 🚀 Next Release: v3.6.0
 
