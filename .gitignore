@@ -106,3 +106,9 @@ altman_zscore.egg-info/
 .devcontainer/
 venv/
 .venv/
+
+# Temporary test files
+test_*.py
+verify_*.py
+debug_*.py
+temp_*.py
