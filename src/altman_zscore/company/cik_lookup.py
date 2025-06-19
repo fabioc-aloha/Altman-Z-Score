@@ -1,50 +1,81 @@
 """
 cik_lookup.py
 -------------
-Module fo    "DIS": "0000001039",   # Walt Disney
-    "SONO": "0001314727",  # Sonos Inc
-    "UAL": "0000100517",   # United Airlines Holdings Incommon CIK mappings to avoid SEC EDGAR API rate limiting.
+Module for CIK lookup functionality using the SEC cache.
 
-This module provides a dictionary of common ticker symbols mapped to their
-SEC CIK (Central Index Key) numbers. This helps avoid unnecessary API calls
-to the SEC EDGAR service, which has strict rate limits.
+This module provides functionality to look up CIK numbers from ticker symbols
+using the cached SEC company tickers data, eliminating the need for hard-coded
+mappings and ensuring we always have the most up-to-date information.
 """
 
-# Common CIK mappings for frequently used tickers
-# This helps avoid unnecessary SEC API calls
-COMMON_CIK_MAPPINGS = {
-    "MSFT": "0000789019",  # Microsoft
-    "AAPL": "0000320193",  # Apple
-    "GOOGL": "0001652044", # Alphabet (Google)
-    "GOOG": "0001652044",  # Alphabet (Google) - Class C shares
-    "AMZN": "0001018724",  # Amazon
-    "META": "0001326801",  # Meta (Facebook)
-    "TSLA": "0001318605",  # Tesla
-    "NVDA": "0001045810",  # NVIDIA
-    "JPM": "0000019617",   # JPMorgan Chase
-    "V": "0001403161",     # Visa
-    "WMT": "0000104169",   # Walmart
-    "JNJ": "0000200406",   # Johnson & Johnson
-    "PG": "0000080424",    # Procter & Gamble
-    "MA": "0001141391",    # Mastercard
-    "UNH": "0000731766",   # UnitedHealth Group
-    "HD": "0000354950",    # Home Depot
-    "BAC": "0000070858",   # Bank of America
-    "XOM": "0000034088",   # Exxon Mobil
-    "INTC": "0000050863",  # Intel
-    "VZ": "0000732712",    # Verizon
-    "CSCO": "0000858877",  # Cisco
-    "NFLX": "0001065280",  # Netflix
-    "ADBE": "0000796343",  # Adobe
-    "CRM": "0001108524",   # Salesforce
-    "PEP": "0000077476",   # PepsiCo
-    "CMCSA": "0001166691", # Comcast
-    "COST": "0000909832",  # Costco
-    "ABT": "0000001800",   # Abbott Laboratories
-    "TMO": "0000097745",   # Thermo Fisher Scientific
-    "AVGO": "0001730168",  # Broadcom
-    "MRK": "0000310158",   # Merck    
-    "DIS": "0001001039",   # Walt Disney
-    "SONO": "0001537073",  # Sonos Inc
-    "UAL": "0000100517",   # United Airlines Holdings Inc
-}
+import json
+import logging
+from pathlib import Path
+from typing import Optional
+
+logger = logging.getLogger(__name__)
+
+def lookup_cik_from_sec_cache(ticker: str) -> Optional[str]:
+    """
+    Look up CIK from the SEC company tickers cache.
+    
+    Args:
+        ticker: Stock ticker symbol (case-insensitive)
+        
+    Returns:
+        Zero-padded CIK string if found, None otherwise
+    """
+    if not ticker:
+        return None
+        
+    ticker = ticker.upper().strip()
+    
+    # Path to SEC cache file
+    cache_path = Path(__file__).parent.parent / "api" / "cache" / "sec_company_tickers_cache.json"
+    
+    if not cache_path.exists():
+        logger.warning(f"SEC cache file not found at {cache_path}")
+        return None
+        
+    try:
+        with open(cache_path, 'r') as f:
+            cache = json.load(f)
+            
+        # Search for ticker in cache
+        for cik_id, data in cache.items():
+            if data.get('ticker', '').upper() == ticker:
+                cik_str = data.get('cik_str')
+                if cik_str:
+                    # Ensure CIK is zero-padded to 10 digits
+                    return f"{int(cik_str):010d}"
+                    
+        logger.debug(f"Ticker {ticker} not found in SEC cache")
+        return None
+        
+    except Exception as e:
+        logger.error(f"Error reading SEC cache: {e}")
+        return None
+
+# Legacy function name for backward compatibility
+def get_cik_from_common_mappings(ticker: str) -> Optional[str]:
+    """
+    Legacy function that now uses SEC cache instead of hard-coded mappings.
+    Kept for backward compatibility.
+    """
+    return lookup_cik_from_sec_cache(ticker)
+
+# For backward compatibility, provide COMMON_CIK_MAPPINGS as a property that reads from cache
+class _CIKMappingsProxy:
+    """Proxy class to provide backward compatibility for COMMON_CIK_MAPPINGS access."""
+    
+    def get(self, ticker: str, default=None):
+        """Get CIK for ticker, return default if not found."""
+        result = lookup_cik_from_sec_cache(ticker)
+        return result if result is not None else default
+        
+    def __contains__(self, ticker: str):
+        """Check if ticker exists in cache."""
+        return lookup_cik_from_sec_cache(ticker) is not None
+
+# Create a proxy instance for backward compatibility
+COMMON_CIK_MAPPINGS = _CIKMappingsProxy()

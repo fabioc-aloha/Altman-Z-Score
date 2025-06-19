@@ -161,8 +161,7 @@ class SECClient:
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 401:
                 logger.info(
-                    f"SEC API rate limit or authentication issue (401). "
-                    f"Falling back to other data sources. "
+                    f"SEC API rate limit or authentication issue (401). "                    f"Falling back to other data sources. "
                     f"URL: {url}"                )
                 # For 401 errors, return None instead of raising to allow fallback
                 return None
@@ -185,19 +184,27 @@ class SECClient:
         """
         # Import here to avoid circular imports
         from ..company.cik_cache import lookup_cik_cached
-        from ..company.cik_lookup import COMMON_CIK_MAPPINGS
+        from ..company.cik_lookup import lookup_cik_from_sec_cache
         
         if not ticker:
             return None
         
         ticker = ticker.upper().strip()
         
-        # First check common mappings for immediate response
-        if ticker in COMMON_CIK_MAPPINGS:
-            cik = COMMON_CIK_MAPPINGS[ticker]
-            logger.debug(f"Found CIK {cik} for ticker {ticker} in common mappings")
+        # First check SEC cache for immediate response
+        cik = lookup_cik_from_sec_cache(ticker)
+        if cik:
+            logger.debug(f"Found CIK {cik} for ticker {ticker} in SEC cache")
             return cik
-          # Use the robust cache system
+        
+        # Fallback to the robust cache system (which downloads data if needed)
+        cik = lookup_cik_cached(ticker)
+        if cik:
+            logger.debug(f"Found CIK {cik} for ticker {ticker} via cache system")
+            return cik
+        else:
+            logger.debug(f"No CIK found for ticker {ticker}")
+            return None
         cik = lookup_cik_cached(ticker)
         if cik:
             logger.debug(f"Found CIK {cik} for ticker {ticker} via cache")

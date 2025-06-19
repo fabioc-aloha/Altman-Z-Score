@@ -10,6 +10,26 @@ All notable changes to the Altman Z-Score Analysis Platform are documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.7] - 2025-06-19 🔄 DYNAMIC CIK LOOKUP SYSTEM
+
+### 🔧 CIK Lookup System Overhaul
+- **Eliminated Hard-coded Mappings**: Removed static `COMMON_CIK_MAPPINGS` dictionary with ~40 hard-coded entries
+- **Dynamic SEC Cache Integration**: CIK lookups now read directly from the SEC company tickers cache, ensuring always up-to-date data
+- **Backward Compatibility**: Maintained API compatibility with existing code through a proxy class
+- **SONO Analysis Fix**: Resolved incorrect CIK mapping for SONO (was 0001537073 → Shoei Co., now correctly 0001314727 → Sonos Inc)
+- **Cache-First Strategy**: Updated `SECClient.lookup_cik()` to prioritize SEC cache over fallback systems
+- **Eliminated Data Inconsistencies**: Fixed discrepancies between different CIK lookup systems
+
+### 🐛 Bug Fixes
+- **SONO 401 Error Resolution**: Fixed HTTP 401 errors for SONO by using correct CIK (0001314727) instead of incorrect hard-coded value
+- **Analysis Pipeline Success**: SONO analysis now completes successfully with meaningful Z-Score results (2.09-3.44 range)
+- **Data Accuracy**: Ensured all CIK lookups use the most current SEC data rather than potentially stale hard-coded values
+
+### 🔄 Technical Improvements
+- **Dynamic Data Source**: CIK lookups now automatically benefit from SEC cache updates without code changes
+- **Reduced Maintenance**: No more manual updates needed for ticker-to-CIK mappings
+- **Improved Reliability**: Eliminated risk of using outdated or incorrect CIK mappings
+
 ## [3.5.6] - 2025-06-19 🔧 FIELD MAPPING DATABASE BUILDER ROBUSTNESS
 
 ### 🛠️ Field Mapping Database Builder Enhancements
