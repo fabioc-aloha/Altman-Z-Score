@@ -87,8 +87,7 @@ class CachedFieldMapper:
             canonical_field: The canonical field name
             
         Returns:
-            List of SEC field names, ordered by reliability/frequency
-        """
+            List of SEC field names, ordered by reliability/frequency        """
         if not self._lookup_data:
             return []
         
@@ -116,7 +115,13 @@ class CachedFieldMapper:
         if ticker and self._database_data:
             company_mappings = self._database_data.get("company_mappings", {}).get(ticker, {}).get("mappings", {})
         
+        # First pass: Process all direct (non-computed) fields
         for canonical_field in canonical_fields:
+            # Skip computed fields in first pass
+            if (company_mappings and canonical_field in company_mappings and 
+                company_mappings[canonical_field].startswith("COMPUTED_")):
+                continue
+                
             value = None
             mapped_sec_field = None
             
@@ -151,21 +156,45 @@ class CachedFieldMapper:
                                 logger.debug(f"Used alternative mapping: {canonical_field} -> {alternative_field}")
                                 break
             
-            # Special handling for calculated fields
-            if value is None and canonical_field == "working_capital":
-                # Calculate working_capital = current_assets - current_liabilities
-                current_assets = mapped_quarter.get("current_assets")
-                current_liabilities = mapped_quarter.get("current_liabilities")
-                if current_assets is not None and current_liabilities is not None:
-                    value = current_assets - current_liabilities
-                    mapped_sec_field = "Calculated: current_assets - current_liabilities"
-            
             # Store the result
             if value is not None and value not in [0, Decimal("0")]:
                 mapped_quarter[canonical_field] = value
                 field_mapping[canonical_field] = mapped_sec_field
             else:
                 missing_fields.append(canonical_field)
+        
+        # Second pass: Process computed fields now that dependencies are available
+        for canonical_field in canonical_fields:
+            # Only process computed fields in second pass
+            if not (company_mappings and canonical_field in company_mappings and 
+                    company_mappings[canonical_field].startswith("COMPUTED_")):
+                continue
+                
+            value = None
+            mapped_sec_field = None
+            
+            # Handle specific computed fields
+            if canonical_field == "working_capital":
+                # Calculate working_capital = current_assets - current_liabilities
+                current_assets = mapped_quarter.get("current_assets")
+                current_liabilities = mapped_quarter.get("current_liabilities")
+                if current_assets is not None and current_liabilities is not None:
+                    value = current_assets - current_liabilities
+                    mapped_sec_field = "Calculated: current_assets - current_liabilities"
+                    logger.debug(f"Computed working_capital: {current_assets} - {current_liabilities} = {value}")
+                else:
+                    logger.debug(f"Cannot compute working_capital: current_assets={current_assets}, current_liabilities={current_liabilities}")
+            
+            # Add other computed field types here as needed
+            # elif canonical_field == "total_liabilities":
+            #     ... handle total_liabilities computation
+            
+            # Store the result
+            if value is not None and value not in [0, Decimal("0")]:
+                mapped_quarter[canonical_field] = value
+                field_mapping[canonical_field] = mapped_sec_field
+                if canonical_field in missing_fields:
+                    missing_fields.remove(canonical_field)
         
         # Add metadata
         if field_mapping:

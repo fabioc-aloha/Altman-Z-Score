@@ -535,10 +535,9 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=
             if 'working_capital' not in metrics and 'current_assets' in metrics and 'current_liabilities' in metrics:
                 metrics['working_capital'] = metrics['current_assets'] - metrics['current_liabilities']
                 logger.info(f"Computed working_capital: {metrics['working_capital']}")
-            
-            # Validate the data
+              # Validate the data
             validator = FinancialDataValidator()
-            issues = validator.validate(q)
+            issues = validator.validate(metrics)  # Use metrics (mapped canonical fields) instead of q (raw data)
             diagnostic = validator.summarize_issues(issues)
             errors = [i.issue for i in issues if i.level.name == "ERROR"]
             logger.info(f"Validation issues: {issues}")

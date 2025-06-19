@@ -173,8 +173,21 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     quarters = list(quarter_data.values())
     quarters.sort(key=lambda x: x["period_end"], reverse=True)
     
-    logger.info(f"Extracted {len(quarters)} quarters from SEC facts")
-    return quarters
+    # Filter out quarters with insufficient data for Z-Score calculation
+    # A valid quarter should have at least 4-5 core financial fields beyond just period_end
+    valid_quarters = []
+    for quarter in quarters:
+        field_count = len([k for k in quarter.keys() if k not in ['period_end']])
+        
+        # Require at least 4 financial fields for a valid quarter
+        # This filters out spurious periods like 2024-05-01 that only have revenue
+        if field_count >= 4:
+            valid_quarters.append(quarter)
+        else:
+            logger.debug(f"Filtered out incomplete quarter {quarter['period_end']} with only {field_count} fields: {list(quarter.keys())}")
+    
+    logger.info(f"Extracted {len(quarters)} total periods, {len(valid_quarters)} valid quarters after filtering")
+    return valid_quarters
 
 
 def apply_cached_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:
