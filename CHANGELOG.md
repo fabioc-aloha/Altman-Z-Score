@@ -10,6 +10,32 @@ All notable changes to the Altman Z-Score Analysis Platform are documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.6] - 2025-06-19 🔧 FIELD MAPPING DATABASE BUILDER ROBUSTNESS
+
+### 🛠️ Field Mapping Database Builder Enhancements
+- **Computed Fields Recognition**: Enhanced deterministic field mapping to recognize and store computed fields (e.g., working_capital, total_liabilities)
+- **Business Model Categorization**: Added intelligent company classification (banks, REITs, ETFs, insurance, limited data) to separate expected limitations from true issues
+- **Improved Completeness Reporting**: Modified completeness report to only flag fields as missing if they cannot be computed from available data
+- **CIK Type Fix**: Resolved regression where companies returned no useful data due to CIK integer vs string type mismatch
+- **Enhanced Field Coverage**: Expanded deterministic mapping alternatives for better field detection accuracy
+
+### 🚀 SEC Cache Management Improvements
+- **Force Cache Refresh**: Added `--force-cache-update` flag to refresh SEC company cache independently
+- **Cache Status Validation**: Automatic SEC cache freshness checking and updating before database building
+- **Standalone Cache Operations**: Cache refresh now exits cleanly without processing companies when forced
+- **Improved Error Handling**: Better cache validation and fallback logic for stale or missing cache data
+
+### 📊 Reporting & Analysis Enhancements
+- **Accurate Issue Detection**: Completeness reports now distinguish between missing fields and business model limitations
+- **Computed Field Tracking**: Database properly stores and tracks which fields are computed vs directly mapped
+- **Business Model Awareness**: Separate reporting sections for companies with expected limitations (banks, ETFs, etc.)
+- **Progress Bar Customization**: Enhanced progress display with company name truncation and formatting options
+
+### 🔧 Developer Experience Improvements
+- **Log Level Control**: Added ERROR-level logging configuration to reduce verbosity during database building
+- **Test Mode Enhancements**: Improved test mode output to show computed fields and mapping accuracy
+- **Documentation Updates**: Enhanced code comments and function documentation for better maintainability
+
 ## [3.5.5] - 2025-06-18 📚 DOCUMENTATION EXCELLENCE & SYSTEM ARCHITECTURE
 
 ### 📋 Documentation Strategy Implementation

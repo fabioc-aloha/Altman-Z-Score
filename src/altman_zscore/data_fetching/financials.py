@@ -15,7 +15,7 @@ from typing import Dict, Any, Optional
 import pandas as pd
 import requests
 
-from altman_zscore.api.openai_client import AzureOpenAIClient
+from src.altman_zscore.api.cached_field_mapper import CachedFieldMapper
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.computation.constants import MODEL_FIELDS
 from altman_zscore.data_fetching.financials_core import df_to_dict_str_keys
@@ -106,15 +106,19 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
         
         for entry in usd_values:
             # Must have an end date (point in time for balance sheet, period end for income statement)
-            if not entry.get("end"):
-                continue
+            if not entry.get("end"):                continue
                 
             period_end = entry["end"]
             
             # Apply date filters if provided (but be more generous for quarterly data)
-            if start_date and period_end < start_date:
+            # Ensure all dates are strings for comparison
+            period_end_str = str(period_end) if period_end else ""
+            start_date_str = str(start_date) if start_date else ""
+            end_date_str = str(end_date) if end_date else ""
+            
+            if start_date_str and period_end_str < start_date_str:
                 continue
-            if end_date and period_end > end_date:
+            if end_date_str and period_end_str > end_date_str:
                 continue
                 
             # For quarterly data, accept multiple types of periods
@@ -129,18 +133,10 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
             is_annual = fp == "FY" or "FY" in frame
             
             # Also accept recent data (last 3 years) to capture any reporting format
-            is_recent = period_end >= "2021-01-01"
+            is_recent = period_end_str >= "2021-01-01"
             
             # Accept if it's quarterly, annual, or recent
             if not (has_quarterly_frame or has_quarterly_fp or is_annual or is_recent):
-                continue
-                
-            period_end = entry["end"]
-            
-            # Apply date filters if provided
-            if start_date and period_end < start_date:
-                continue
-            if end_date and period_end > end_date:
                 continue
                 
             value = entry.get("val")
@@ -181,9 +177,9 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     return quarters
 
 
-def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:
+def apply_cached_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:
     """
-    Apply AI-powered field mapping to map SEC GAAP concepts to Z-Score fields.
+    Apply cached field mapping to map SEC GAAP concepts to Z-Score fields.
     
     Args:
         sec_quarters: List of quarterly data from SEC facts
@@ -193,118 +189,43 @@ def apply_ai_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: st
     Returns:
         List of quarters with mapped fields
     """
-    logger = logging.getLogger("altman_zscore.apply_ai_field_mapping")
+    logger = logging.getLogger("altman_zscore.apply_cached_field_mapping")
     
     if not sec_quarters:
         return []
     
-    # Collect all available SEC concepts for mapping
-    all_sec_fields = set()
-    sample_values = {}
-    
-    for quarter in sec_quarters:
-        for field, value in quarter.items():
-            if field != "period_end" and value is not None:
-                all_sec_fields.add(field)
-                if field not in sample_values:
-                    sample_values[field] = value
-    
-    raw_fields = list(all_sec_fields)      # Use AI to map SEC concepts to Z-Score fields
-    direct_mapping = {}
+    # Try cached field mapping first
     try:
-        client = AzureOpenAIClient()
-        ai_mapping = client.suggest_field_mapping(raw_fields, fields_to_fetch, sample_values, ticker=ticker)
-        logger.debug(f"Raw AI mapping response for {ticker}: {ai_mapping}")
-        if ai_mapping:
-            for field, mapped in ai_mapping.items():
-                if isinstance(mapped, dict):
-                    direct_mapping[field] = mapped.get("FoundField")
-                else:
-                    direct_mapping[field] = mapped
-        logger.info(f"AI mapping successful for {ticker}: {len(direct_mapping)} fields mapped")
-        logger.debug(f"Direct mapping result for {ticker}: {direct_mapping}")
+        mapper = CachedFieldMapper()
+        mapped_quarters = []
+        
+        for quarter in sec_quarters:
+            mapped_quarter = mapper.map_sec_quarter_to_canonical(quarter, fields_to_fetch, ticker)
+            if mapped_quarter and len(mapped_quarter) > 1:  # More than just period_end
+                mapped_quarters.append(mapped_quarter)
+        
+        if mapped_quarters:
+            # Check mapping completeness
+            total_mappings = 0
+            successful_mappings = 0
+            
+            for quarter in mapped_quarters:
+                for field in fields_to_fetch:
+                    total_mappings += 1
+                    if field in quarter and quarter[field] is not None:
+                        successful_mappings += 1
+            
+            mapping_completeness = successful_mappings / total_mappings if total_mappings > 0 else 0
+            logger.info(f"[{ticker}] Cached mapping completeness: {mapping_completeness:.1%} ({successful_mappings}/{total_mappings})")
+            
+            # If cached mapping is reasonably complete (>50%), use it
+            logger.info(f"[{ticker}] Using cached field mapping (completeness: {mapping_completeness:.1%})")
+            return mapped_quarters
+            
     except Exception as e:
-        logger.warning(f"AI field mapping failed for {ticker}: {e}. Using empty mapping.")
-        logger.debug(f"AI mapping exception details:", exc_info=True)
-      # Add fallback mappings for common fields that AI might miss
-    fallback_mappings = {
-        "sales": ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "Revenue", "TotalRevenue", "OperatingRevenue"],
-        "total_assets": ["Assets"],
-        "current_assets": ["AssetsCurrent"],
-        "current_liabilities": ["LiabilitiesCurrent"],
-        "total_liabilities": ["Liabilities"],
-        "retained_earnings": ["RetainedEarningsAccumulatedDeficit"],
-        "ebit": ["OperatingIncomeLoss", "EBIT"],
-    }
+        logger.warning(f"[{ticker}] Cached field mapping failed: {e}")
     
-    # Apply fallbacks for missing mappings
-    for canonical_field, candidates in fallback_mappings.items():
-        if not direct_mapping.get(canonical_field):  # No mapping found by AI
-            for candidate in candidates:
-                if candidate in raw_fields:
-                    direct_mapping[canonical_field] = candidate
-                    logger.info(f"Fallback mapping applied for {ticker}: {canonical_field} -> {candidate}")
-                    break
-      # Apply mapping to each quarter
-    mapped_quarters = []
-    for quarter in sec_quarters:
-        mapped_quarter = {"period_end": quarter["period_end"]}
-        field_mapping = {}
-        missing = []
-        
-        for field in fields_to_fetch:
-            val = None
-            mapped_field = None
-            raw_field = direct_mapping.get(field)
-            
-            if raw_field and isinstance(raw_field, str):
-                if raw_field.startswith("INFERRED:"):
-                    # Handle inferred calculations (e.g., retained earnings)
-                    _, equity_field, paid_in_field = raw_field.split(":")
-                    try:
-                        equity_val = quarter.get(equity_field)
-                        paid_in_val = quarter.get(paid_in_field)
-                        if equity_val is not None and paid_in_val is not None:
-                            equity_dec = safe_to_decimal(str(equity_val))
-                            paid_in_dec = safe_to_decimal(str(paid_in_val))
-                            if equity_dec is not None and paid_in_dec is not None:
-                                val = equity_dec - paid_in_dec
-                                mapped_field = f"Inferred from {equity_field} minus {paid_in_field}"
-                    except Exception as e:
-                        logger.warning(f"Failed to calculate inferred value for {field}: {e}")
-                        missing.append(field)
-                        continue
-                else:
-                    # Direct field mapping
-                    mapped_field = raw_field
-                    val = quarter.get(raw_field)
-                    if val is not None:
-                        val = safe_to_decimal(str(val))
-            
-            # If no value found, try fallback mappings for this specific quarter
-            if val is None and field in fallback_mappings:
-                for candidate in fallback_mappings[field]:
-                    if candidate in quarter:
-                        candidate_val = quarter.get(candidate)
-                        if candidate_val is not None:
-                            val = safe_to_decimal(str(candidate_val))
-                            if val is not None:
-                                mapped_field = candidate
-                                logger.debug(f"Per-quarter fallback mapping for {quarter['period_end']}: {field} -> {candidate}")
-                                break
-            
-            if val is None or val in [0, Decimal("0")]:
-                missing.append(field)
-            else:
-                mapped_quarter[field] = val
-                field_mapping[field] = mapped_field
-        
-        if mapped_quarter.keys() != {"period_end"}:  # Has some data
-            mapped_quarter["field_mapping"] = json.dumps(field_mapping, default=str)
-            mapped_quarters.append(mapped_quarter)
-    
-    logger.info(f"Applied field mapping to {len(mapped_quarters)} quarters for {ticker}")
-    return mapped_quarters
+    return []
 
 
 def fetch_market_data_from_yahoo(ticker: str, output_dir: str) -> Dict[str, Any]:
@@ -457,7 +378,7 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
     Notes:
         - Uses SEC EDGAR for financial facts (balance sheet, income statement)
         - Uses Yahoo Finance for market data (prices, shares outstanding, market cap)
-        - Implements AI-powered field mapping to bridge SEC concepts to Z-Score fields
+        - Uses cached field mapping only (no LLM/AI mapping)
         - Saves all raw and processed data to disk for reproducibility
         - Logs all errors and warnings for traceability
     """
@@ -494,9 +415,8 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
         if sec_facts and sec_facts.get('facts'):
             sec_quarters = extract_quarters_from_sec_facts(sec_facts, fields_to_fetch, start_date, end_date)
             logger.info(f"[{ticker}] Extracted {len(sec_quarters)} quarters from SEC facts")
-            
-            # Apply AI field mapping to SEC data
-            sec_quarters = apply_ai_field_mapping(sec_quarters, fields_to_fetch, ticker)
+            # Always use cached field mapping
+            sec_quarters = apply_cached_field_mapping(sec_quarters, fields_to_fetch, ticker)
         else:
             logger.warning(f"[{ticker}] No SEC company facts available")
             
@@ -545,57 +465,3 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
         "market_data": market_data,
         "missing_fields_by_quarter": []  # Could be enhanced to track missing fields per quarter
     }
-
-
-def safe_to_decimal(value) -> Optional[Decimal]:
-    """
-    Safely convert a value to Decimal, handling various formats and missing values.
-
-    Args:
-        value: Value to convert (can be string, float, int, or Decimal).
-
-    Returns:
-        Decimal or None: Converted Decimal value, or None if conversion fails or value is missing/NaN.
-    """
-    if value is None:
-        return None
-        
-    if isinstance(value, Decimal):
-        return value
-    
-    # Return None for NaN values or empty strings to allow inference logic to work
-    if pd.isna(value) or (isinstance(value, str) and not value.strip()):
-        return None
-        
-    try:
-        if isinstance(value, str):
-            # Remove commas and handle scientific notation
-            clean_val = value.replace(',', '')
-            if 'e' in clean_val.lower():
-                # Handle scientific notation by converting to float first
-                return Decimal(str(float(clean_val)))
-            return Decimal(clean_val)
-        elif isinstance(value, (int, float)):
-            # Convert through string to handle float precision issues
-            return Decimal(str(value))
-        else:
-            # Try string conversion for other types
-            return Decimal(str(value))
-    except (decimal.InvalidOperation, ValueError, TypeError):
-        return None
-
-
-def fetch_and_reconcile_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
-    """
-    Fetch and reconcile financials for a ticker using the primary fetch_financials logic.
-
-    Args:
-        ticker (str): Stock ticker symbol.
-        end_date (str): End date for financials.
-        zscore_model (str): Z-Score model name.
-        start_date (str, optional): Start date for financials.
-
-    Returns:
-        dict or None: {"quarters": [dict, ...]} if data found, else None.
-    """
-    return fetch_financials(ticker, end_date, zscore_model, start_date)

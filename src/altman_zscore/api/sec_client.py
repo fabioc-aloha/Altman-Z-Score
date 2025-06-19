@@ -79,23 +79,25 @@ class SECClient:
         self.session = self._create_session()
         self._last_request_time = 0
 
+    def _get_dynamic_user_agent(self):
+        from .. import __version__
+        user_agent = os.environ.get("SEC_EDGAR_USER_AGENT", None)
+        if user_agent:
+            if "__version__" in user_agent:
+                user_agent = user_agent.replace("__version__", __version__)
+            return user_agent
+        email = os.environ.get("SEC_API_EMAIL", "info@example.com")
+        return f"AltmanZScore/{__version__} {email}"
+
     def _create_session(self) -> requests.Session:
         """Create and configure requests session with proper headers."""
         session = requests.Session()
-        
-        # Set required headers for SEC EDGAR
         headers = {
             "Accept": "application/json",
             "Accept-Encoding": "gzip, deflate",
-            "Host": "data.sec.gov"        }
-        
-        if self.user_agent:
-            # Use the full User-Agent string from environment
-            headers["User-Agent"] = self.user_agent
-        else:
-            # Fallback to legacy format with email
-            headers["User-Agent"] = f"AltmanZScore/3.2.0 {self.email}"
-        
+            "Host": "data.sec.gov",
+            "User-Agent": self._get_dynamic_user_agent()
+        }
         session.headers.update(headers)
         return session
         

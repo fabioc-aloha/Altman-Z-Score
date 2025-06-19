@@ -264,7 +264,7 @@ class CompanyProfile:
                 f"{SECClient.BROWSE_EDGAR_URL}?CIK={ticker}&owner=exclude&action=getcompany&count=1"
             )
             headers = {
-                "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
+                "User-Agent": sec_client._get_dynamic_user_agent(),
                 "From": os.getenv("SEC_API_EMAIL", ""),
             }
             resp = requests.get(search_url, headers=headers, timeout=10)
@@ -285,7 +285,7 @@ class CompanyProfile:
                 try:
                     url = SECClient.COMPANY_TICKERS_URL
                     headers = {
-                        "User-Agent": os.environ["SEC_EDGAR_USER_AGENT"],
+                        "User-Agent": sec_client._get_dynamic_user_agent(),
                         "From": os.getenv("SEC_API_EMAIL", ""),
                     }
                     resp = requests.get(url, headers=headers, timeout=10)

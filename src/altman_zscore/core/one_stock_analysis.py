@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.computation.compute import compute_zscore
-from altman_zscore.data_fetching.financials import fetch_and_reconcile_financials, fetch_financials
+from altman_zscore.data_fetching.financials import fetch_financials
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.models.industry_classifier import classify_company
 from altman_zscore.company.company_status_helpers import check_company_status, handle_special_status
@@ -49,7 +49,7 @@ from dotenv import load_dotenv
 
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.computation.compute import compute_zscore
-from altman_zscore.data_fetching.financials import fetch_and_reconcile_financials
+from altman_zscore.data_fetching.financials import fetch_financials
 from altman_zscore.data_fetching.prices import get_weekly_price_stats
 from altman_zscore.validation.data_validation import FinancialDataValidator
 from altman_zscore.models.industry_classifier import classify_company
@@ -732,18 +732,22 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str,
 
     This function orchestrates the full pipeline for a single ticker, including input validation, 
     data fetching, validation, computation, reporting, and output generation. Progress can be 
-    tracked via an optional callback.    Args:
+    tracked via an optional callback.
+    
+    Args:
         ticker: Stock ticker symbol.
         start_date: Start date for analysis in YYYY-MM-DD format.
         progress_callback: Optional function to call with progress updates.
                          Should accept (step_name: str, step_index: int, total_steps: int).
         force_model: Optional model type to force instead of using automatic selection.
                     Values: 'original', 'private', 'emerging', 'financial', 'zeta', 'retail'
+    
     Returns:
         DataFrame with Z-Score analysis results.
     
     Raises:
-        ValueError: If the ticker cannot be analyzed due to invalid status, missing data, or other issues.    """
+        ValueError: If the ticker cannot be analyzed due to invalid status, missing data, or other issues.
+    """
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
     out_base = os.path.join(get_output_dir(None, ticker=ticker), f"zscore_{ticker}")
     

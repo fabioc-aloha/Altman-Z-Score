@@ -99,15 +99,14 @@ def parse_args():
         argparse.Namespace: Parsed command-line arguments including tickers, model, date range, and options.
     """
     parser = argparse.ArgumentParser(
-        description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",
-        epilog="Examples:\n"
-               "  python main.py AAPL                    # Single stock analysis\n"
-               "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
-               "  python main.py TSLA --date 2023-01-01  # Custom date range\n"
-               "  python main.py AAPL --model financial  # Force financial institution model\n"
-               "  python main.py --test                  # Run all tests\n"
-               "  python main.py --update-cache          # Update SEC company database\n"
-               "  python main.py --log-level DEBUG       # Set log level",
+        description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",        epilog="Examples:\n"
+               "  python main.py AAPL                          # Single stock analysis\n"
+               "  python main.py AAPL MSFT GOOGL               # Multi-stock portfolio analysis\n"
+               "  python main.py TSLA --date 2023-01-01        # Custom date range\n"
+               "  python main.py AAPL --model financial        # Force financial institution model\n"
+               "  python main.py --test                        # Run all tests\n"
+               "  python main.py --update-cache                # Update SEC company database\n"
+               "  python main.py --log-level DEBUG             # Set log level",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
@@ -157,8 +156,7 @@ def parse_args():
         "--log-level",
         type=str,
         default=os.environ.get("LOG_LEVEL", "ERROR"),
-        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: ERROR or $LOG_LEVEL env var."
-    )
+        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: ERROR or $LOG_LEVEL env var."    )
     parser.add_argument(
         "--update-cache",
         action="store_true",
@@ -288,7 +286,33 @@ def main():
     """
     try:
         args = parse_args()
-        logger.info("Starting Altman Z-Score Analysis")        # If no arguments except possibly --update-cache, show help and exit
+        
+        # Handle cache update command first (before startup messages)
+        if getattr(args, "update_cache", False):
+            print("Updating SEC company tickers cache...")
+            from altman_zscore.company.cik_cache import get_cache, refresh_cache, get_cache_stats
+            
+            # Check existing cache first
+            cache_info = get_cache_stats()
+            if cache_info.get('cache_exists', False):
+                print(f"Existing cache found with {cache_info.get('entry_count', 'unknown')} entries")            
+            success = refresh_cache()
+            if success:
+                cache_info = get_cache_stats()
+                print(f"✅ Cache updated successfully! Downloaded {cache_info.get('entry_count', 'unknown')} company entries.")
+                print(f"Cache location: {cache_info.get('cache_path', 'unknown')}")
+                print(f"Cache last updated: {cache_info.get('last_updated', 'unknown')}")
+            else:
+                if cache_info.get('cache_exists', False):
+                    print("⚠️  Failed to download fresh data due to SEC API rate limiting, but existing cache is available.")
+                    print(f"Existing cache has {cache_info.get('entry_count', 'unknown')} entries from {cache_info.get('last_updated', 'unknown')}")
+                    print("The system will use the existing cache for CIK lookups.")
+                else:
+                    print("❌ Failed to update cache and no existing cache found. Check network connection and try again later.")
+                    sys.exit(1)
+            sys.exit(0)
+
+        # If no arguments except possibly --update-cache, show help and exit
         if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "update_cache", False) and not getattr(args, "test", False)):
             parser = argparse.ArgumentParser(
                 description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",                
@@ -305,41 +329,18 @@ def main():
             parser.print_help()
             sys.exit(0)
 
-        logger.info(f"Processing tickers: {', '.join(args.tickers)}")
-    
         # Validate log level
         valid_log_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
         log_level = args.log_level.upper()
         if log_level not in valid_log_levels:
             logger.error(f"Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
-            sys.exit(2)        # Set logging level
+            sys.exit(2)
+        
+        # Set logging level
         logging.getLogger().setLevel(getattr(logging, log_level, logging.WARNING))
-        logger.info(f"Log level set to {log_level}")        # Handle cache update command
-        if getattr(args, "update_cache", False):
-            logger.info("Updating SEC company tickers cache...")
-            from altman_zscore.company.cik_cache import get_cache, refresh_cache, get_cache_stats
-            
-            # Check existing cache first
-            cache_info = get_cache_stats()
-            if cache_info.get('cache_exists', False):
-                logger.info(f"Existing cache found with {cache_info.get('entry_count', 'unknown')} entries")
-            
-            success = refresh_cache()
-            if success:
-                updated_info = get_cache_stats()
-                logger.info(f"✅ Cache updated successfully! Downloaded {updated_info.get('entry_count', 'unknown')} company entries.")
-                logger.info(f"Cache location: {updated_info.get('cache_path', 'unknown')}")
-                logger.info(f"Cache last updated: {updated_info.get('last_updated', 'unknown')}")
-            else:
-                if cache_info.get('cache_exists', False):
-                    logger.warning("⚠️  Failed to download fresh data due to SEC API rate limiting, but existing cache is available.")
-                    logger.info(f"Existing cache has {cache_info.get('entry_count', 'unknown')} entries from {cache_info.get('last_updated', 'unknown')}")
-                    logger.info("The system will use the existing cache for CIK lookups.")
-                else:
-                    logger.error("❌ Failed to update cache and no existing cache found. Check network connection and try again later.")
-                    sys.exit(1)
-            sys.exit(0)
-          # Validate date format
+        logger.info(f"Log level set to {log_level}")
+
+        # Validate date format
         import re
         from datetime import datetime
         date_pattern = r"^\d{4}-\d{2}-\d{2}$"
@@ -362,7 +363,6 @@ def main():
             sys.exit(result.returncode)
         
         ticker_list = [t.upper() for t in args.tickers]
-        start_date = args.date
         no_plot = args.no_plot
         failed_tickers = []
         successful_tickers = []
@@ -374,9 +374,7 @@ def main():
 
                 def progress_callback(step_idx, total_steps, model_name=None):
                     show_progress_bar(ticker, step_idx, total_steps, model_name)
-                    time.sleep(0.1)
-
-                # Run analysis
+                    time.sleep(0.1)                # Run analysis
                 df = analyze_single_stock_zscore_trend(
                     ticker,
                     start_date=start_date,

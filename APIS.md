@@ -8,6 +8,14 @@ See [vision.md](./vision.md) for the full vision statement.
 
 # APIs Documentation
 
+**Purpose**: Documents current API integrations, data sources, and external service configurations.
+
+**Version**: 3.5.5 (2025-06-18) - Updated for current system architecture
+
+For **PAST** API changes → see [`CHANGELOG.md`](CHANGELOG.md)  
+For **FUTURE** API plans → see [`TODO.md`](TODO.md)  
+For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)
+
 This document provides details about the external APIs used in the Altman Z-Score project.
 
 ## SEC EDGAR APIs
@@ -42,12 +50,35 @@ curl -H "User-Agent: AltmanZScore/1.0 name@domain.com" \
      https://data.sec.gov/submissions/CIK0000789019.json
 ```
 
-### XBRL Data APIs
-- **Base URLs**:
-  - Company Concept: `https://data.sec.gov/api/xbrl/companyconcept`
-  - Company Facts: `https://data.sec.gov/api/xbrl/companyfacts`
-  - Frames: `https://data.sec.gov/api/xbrl/frames`
-- **Endpoints**:
+### Company Facts API (Primary Financial Data Source)
+- **Endpoint**: `/CIK{cik}.json` 
+- **Description**: **PRIMARY DATA SOURCE** - Provides comprehensive XBRL financial facts for Z-Score calculations
+- **Usage**: Core financial data extraction for balance sheet, income statement, and cash flow items
+- **Enhanced Processing (v3.5.4+)**:
+  - **Multi-Tier Field Mapping**: AI-powered semantic mapping with fallback strategies
+  - **Per-Quarter Logic**: Handles companies with different field names across periods (e.g., Ford's annual vs quarterly revenue fields)
+  - **Revenue Backfilling**: Automatic use of annual data when quarterly data missing
+- **Authentication**: Same as Company Submissions API
+- **Rate Limits**: Same as Company Submissions API
+- **Example Request**:
+```bash
+curl -H "User-Agent: AltmanZScore/3.5.5 name@domain.com" \
+     -H "Accept: application/json" \
+     https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json
+```
+
+### CIK Cache System (Performance Enhancement)
+- **Local Cache**: Pre-shipped database at `src/altman_zscore/api/cache/sec_company_tickers_cache.json`
+- **Coverage**: 10,033+ U.S. public companies
+- **Benefits**: 
+  - Instant CIK resolution for major companies (AAPL, MSFT, TSLA, etc.)
+  - Eliminates SEC API 403/429 rate limit errors
+  - Weekly auto-refresh with graceful fallbacks
+- **Management Commands**:
+```bash
+python main.py --update-cache    # Manual cache refresh
+python main.py --cache-stats     # Cache status information
+```
   - Single Concept: `/CIK{cik}/us-gaap/{concept}.json`
   - All Company Facts: `/CIK{cik}.json`
   - Frame Data: `/us-gaap/{concept}/USD/{period}.json`
@@ -162,7 +193,51 @@ curl -H "X-Finnhub-Token: $FINNHUB_API_KEY" \
   - [Finnhub API Docs](https://finnhub.io/docs/api)
   - [finnhub-python SDK](https://github.com/Finnhub-Stock-API/finnhub-python)
 
+## Azure OpenAI API (AI-Powered Features)
+
+### Overview
+- **Purpose**: AI-powered field mapping and comprehensive financial report generation
+- **Authentication**: Requires `AZURE_OPENAI_API_KEY` and `AZURE_OPENAI_ENDPOINT` environment variables
+- **Model**: GPT-4 or equivalent for optimal financial analysis capabilities
+
+### Field Mapping API Usage
+- **Function**: `suggest_field_mapping()` - Maps SEC GAAP concepts to Z-Score canonical fields
+- **Innovation**: Multi-tier fallback strategy implemented in v3.5.4+
+  1. **AI Semantic Mapping**: LLM analyzes SEC concepts and returns semantic mappings
+  2. **Global Fallback**: Pre-defined mappings for common fields when AI fails
+  3. **Per-Quarter Fallback**: Quarter-specific mapping for mixed reporting patterns
+- **Real-World Success**: Resolved Ford Motor Company "sales field missing" issues
+
+### Report Generation API Usage
+- **Function**: `get_llm_qualitative_commentary()` - Generates comprehensive 11-section financial analysis
+- **Capabilities**:
+  - Executive summaries and diagnostic evaluations
+  - Turnaround theory applications and stakeholder recommendations
+  - Market sentiment analysis and strategic insights
+  - Risk assessments and peer comparisons
+
+### Rate Limiting & Error Handling
+- **Intelligent Retry**: Exponential backoff for API failures
+- **Comprehensive Logging**: Debug-level logging for troubleshooting
+- **Graceful Degradation**: Analysis continues with fallback mappings if AI fails
+
 ---
+
+## Current API Architecture (v3.5.5)
+
+### Clean Data Source Separation
+The system implements a clean architecture with distinct data sources:
+
+- **SEC EDGAR APIs**: Exclusive source for financial statement data (balance sheet, income statement, cash flow)
+- **Yahoo Finance APIs**: Exclusive source for market data (prices, analyst recommendations, institutional holdings)
+- **Azure OpenAI API**: AI-powered field mapping and report generation
+- **Finnhub API**: Company profiles and logos (optional enhancement)
+
+### Key Innovations (v3.5.4+)
+- **CIK Cache System**: Pre-shipped database with 10,033+ U.S. companies for instant lookups
+- **Multi-Tier Field Mapping**: AI-powered semantic mapping with comprehensive fallback strategies
+- **Per-Quarter Fallback Logic**: Handles companies with mixed annual/quarterly reporting patterns
+- **Intelligent Rate Limiting**: Token bucket algorithm with exponential backoff
 
 ## Best Practices
 
@@ -217,6 +292,10 @@ YAHOO_FINANCE_API_KEY="your-api-key"  # Do NOT share real API keys
 # Optional: Finnhub (required for company profiles/logos)
 FINNHUB_API_KEY="your-finnhub-api-key"  # Do NOT share real API keys
 
+# Optional: Azure OpenAI (required for AI-powered features)
+AZURE_OPENAI_API_KEY="your-azure-openai-api-key"  # Do NOT share real API keys
+AZURE_OPENAI_ENDPOINT="https://your-resource-name.openai.azure.com/"  # Example endpoint
+
 # Optional: Cache Configuration
 FINANCIAL_CACHE_TTL_DAYS=30        # Default: 30 days
 CACHE_DIR=".cache"                 # Default: .cache in project root
@@ -224,15 +303,33 @@ CACHE_DIR=".cache"                 # Default: .cache in project root
 
 ## Cache Directory Structure
 
+### Current Implementation (v3.5.5)
+
 ```
-.cache/
-├── cik_cache.json            # CIK lookup cache (30-day TTL)
-└── financials/              # Financial data cache
-    └── {CIK}/
-        └── {FILING_TYPE}/   # e.g., 10-Q, 10-K
-            └── {DATE}.json  # Cache entry with metadata
+src/altman_zscore/api/cache/
+└── sec_company_tickers_cache.json    # Pre-shipped CIK database (10,033+ companies)
+
+output/{SYMBOL}/
+├── financials_quarterly.json         # Cached quarterly financial data
+├── financials_annual.json           # Cached annual financial data
+├── company_profile.json             # Cached company profile data
+└── zscore_{SYMBOL}.json             # Cached Z-Score analysis results
 ```
 
-> **Note:** As of v3.0.0, the cache directory structure and TTL-based caching described above are not yet implemented. All data is fetched live from APIs on each run. Planned caching features will be documented in PLAN.md and TODO.md when scheduled for development.
+### Active Cache Features
+- **CIK Cache**: Pre-shipped database with 10,033+ U.S. public companies for instant lookups
+- **Financial Data Cache**: Per-company output files cached in `output/{SYMBOL}/` directory
+- **Automatic Cache Management**: Weekly auto-refresh with graceful fallbacks
+- **Manual Cache Control**: `--update-cache` and `--cache-stats` commands
+
+### Planned Cache Enhancements (Future)
+```
+.cache/                              # Planned centralized cache directory
+├── cik_cache.json                  # Enhanced CIK lookup cache (TTL-based)
+└── financials/                     # Enhanced financial data cache
+    └── {CIK}/
+        └── {FILING_TYPE}/          # e.g., 10-Q, 10-K
+            └── {DATE}.json         # Cache entry with metadata
+```
 
 > **Security Note:** Never commit or share real API keys, secrets, or credentials in documentation, code, or version control. Always use placeholder values (e.g., "your-api-key") and store secrets securely using environment variables or secret managers.

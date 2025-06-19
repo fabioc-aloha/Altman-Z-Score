@@ -71,13 +71,14 @@ $large_caps = @(
 # Helper to run the CLI for a group
 function Invoke-ZScoreBatch($tickers, $groupName) {
     Write-Host "Running Z-Score batch for ${groupName}: $($tickers -join ' ')"
-    python main.py @tickers
+    python build_field_database.py @tickers
+    # python main.py @tickers
 }
 
 # Run all groups (no deduplication) - ordered to test extremes first
 Invoke-ZScoreBatch $distressed 'distressed'
-# Invoke-ZScoreBatch $tech_us 'tech_us'
-# Invoke-ZScoreBatch $industry_mix 'industry_mix'
-# Invoke-ZScoreBatch $large_caps 'large_caps'
+Invoke-ZScoreBatch $tech_us 'tech_us'
+Invoke-ZScoreBatch $industry_mix 'industry_mix'
+Invoke-ZScoreBatch $large_caps 'large_caps'
 
 Write-Host "Batch processing complete. Check the output directories for reports."

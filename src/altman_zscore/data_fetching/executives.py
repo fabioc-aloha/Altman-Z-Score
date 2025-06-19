@@ -8,6 +8,7 @@ import json
 import logging
 from typing import Any, Dict, Optional
 import yfinance as yf
+import requests
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.retry import exponential_retry
 
@@ -123,9 +124,8 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
             cik = client.lookup_cik(ticker)
             if cik:                # Get company submissions
                 url = f"{SECClient.SUBMISSIONS_BASE_URL}/CIK{cik.zfill(10)}.json"
-                import requests
                 response = requests.get(url, 
-                    headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
+                    headers={'User-Agent': client._get_dynamic_user_agent()})
                 
                 if response.ok:
                     data = response.json()
@@ -146,7 +146,7 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
                             filing_date = filing_dates[latest_def_14a_idx]                            # Get the filing content
                             filing_url = f"{SECClient.ARCHIVES_BASE_URL}/{cik}/{accession_number}/{primary_doc}"
                             response = requests.get(filing_url, 
-                                headers={'User-Agent': f'altman-zscore-analyzer ({os.getenv("SEC_API_EMAIL")})'})
+                                headers={'User-Agent': client._get_dynamic_user_agent()})
                             
                             if response.ok:
                                 soup = BeautifulSoup(response.content, 'html.parser')

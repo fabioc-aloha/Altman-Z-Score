@@ -20,6 +20,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Any
 import warnings
+from .. import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -127,13 +128,11 @@ class CIKCache:
         """
         try:
             logger.info("Updating CIK cache from SEC...")
-            
             headers = {
-                'User-Agent': 'Altman-Z-Score-Analysis info@example.com',
+                'User-Agent': self._get_dynamic_user_agent(),
                 'Accept-Encoding': 'gzip, deflate',
                 'Host': 'www.sec.gov'
             }
-            
             response = requests.get(
                 self.company_tickers_url,
                 headers=headers,
@@ -243,6 +242,16 @@ class CIKCache:
             'is_fresh': self._is_cache_fresh(),
             'cache_location': str(self.cache_file)
         }
+    
+    def _get_dynamic_user_agent(self):
+        user_agent = os.environ.get("SEC_EDGAR_USER_AGENT", None)
+        if user_agent:
+            if "__version__" in user_agent:
+                user_agent = user_agent.replace("__version__", __version__)
+            return user_agent
+        # If not set, try to build from components
+        email = os.environ.get("SEC_API_EMAIL", "info@example.com")
+        return f"AltmanZScore/{__version__} {email}"
 
 
 # Global cache instance

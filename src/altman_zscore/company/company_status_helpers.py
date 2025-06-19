@@ -314,7 +314,7 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
             sec_url = (
                 f"{SECClient.BROWSE_EDGAR_URL}?CIK={ticker}&Find=Search&owner=exclude&action=getcompany"
             )
-            sec_response = requests.get(sec_url, headers={"User-Agent": "Mozilla/5.0"})
+            sec_response = requests.get(sec_url, headers={"User-Agent": sec_client._get_dynamic_user_agent()})
             if sec_response.status_code == 404 or "No matching companies" in sec_response.text:
                 status.exists = False
                 status.status_reason = ERROR_MSG_COMPANY_NOT_FOUND_SEC
