@@ -7,10 +7,10 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 
 ## System Overview
 
-**Current Version**: 3.5.5 (2025-06-18)  
+**Current Version**: 3.6.0 (2025-06-20) 🥇 Golden  
 **Architecture**: Clean separation between SEC EDGAR (financials) and Yahoo Finance (market data)  
 **Scope**: U.S. public companies only (10,000+ supported via SEC cache)  
-**Key Innovation**: Multi-tier field mapping with per-quarter fallback logic
+**Key Innovation**: Multi-tier field mapping with per-quarter fallback logic; compact table layout with combined logo & name column for improved usability
 
 **IMPORTANT**: This tool is strictly limited to U.S.-based companies only. Non-U.S. companies, including ADRs and companies filing Form 20-F, are detected and rejected early in the pipeline.
 

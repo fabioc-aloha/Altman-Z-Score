@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Version: 3.5.5 (2025-06-18)
 """
-Altman Z-Score Analysis Platform - Main Entry Point
+AI-Powered Altman Z-Score Analysis - Main Entry Point
 
 A robust, modular Python tool for comprehensive Altman Z-Score trend analysis with
 LLM-powered qualitative insights. This script orchestrates the analysis pipeline for
@@ -96,10 +96,10 @@ def parse_args():
     Parse command line arguments for the Altman Z-Score analysis CLI.
 
     Returns:
-        argparse.Namespace: Parsed command-line arguments including tickers, model, date range, and options.
-    """
+        argparse.Namespace: Parsed command-line arguments including tickers, model, date range, and options.    """
     parser = argparse.ArgumentParser(
-        description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",        epilog="Examples:\n"
+        description="AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights",        
+        epilog="Examples:\n"
                "  python main.py AAPL                          # Single stock analysis\n"
                "  python main.py AAPL MSFT GOOGL               # Multi-stock portfolio analysis\n"
                "  python main.py TSLA --date 2023-01-01        # Custom date range\n"
@@ -279,7 +279,7 @@ def analyze_tickers(tickers: list, model: str = None, **kwargs) -> dict:
 
 def main():
     """
-    Main entry point for the Altman Z-Score Analysis Platform CLI.
+    Main entry point for the AI-Powered Altman Z-Score Analysis CLI.
 
     Handles argument parsing, logging setup, input validation, and orchestrates the
     analysis pipeline for one or more tickers. Outputs results to disk and/or stdout.
@@ -315,7 +315,7 @@ def main():
         # If no arguments except possibly --update-cache, show help and exit
         if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "update_cache", False) and not getattr(args, "test", False)):
             parser = argparse.ArgumentParser(
-                description="Altman Z-Score Analysis Platform - Comprehensive financial analysis with LLM insights",                
+                description="AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights",                
                 epilog="Examples:\n"
                        "  python main.py AAPL                    # Single stock analysis\n"                       
                        "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
@@ -406,8 +406,14 @@ def main():
                 logger.error(f"❌ {ticker}: {str(ve)}")
                 failed_tickers.append((ticker, str(ve)))
             except Exception as e:
-                logger.exception(f"❌ {ticker}: Unexpected error - {str(e)}")
-                failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
+                # Check if it's a sector exclusion error (finance/insurance)
+                from altman_zscore.utils.error_helpers import SectorExclusionError
+                if isinstance(e, SectorExclusionError):
+                    logger.info(f"⚠️ {ticker}: {str(e)} - Skipping analysis")
+                    failed_tickers.append((ticker, f"Sector exclusion: {str(e)}"))
+                else:
+                    logger.exception(f"❌ {ticker}: Unexpected error - {str(e)}")
+                    failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
 
         # Provide comprehensive summary
         logger.info(f"\n{'='*60}")

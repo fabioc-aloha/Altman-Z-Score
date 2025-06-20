@@ -9,7 +9,8 @@ def test_check_company_status_known_bankruptcy():
     assert not status.is_active
     assert status.exists
     assert status.bankruptcy_date == "2008-09-15"
-    assert status.status_reason and "bankruptcy" in status.status_reason.lower()
+    # Accept any substring containing 'bankrupt' (to match both 'bankrupt' and 'bankruptcy')
+    assert status.status_reason and "bankrupt" in status.status_reason.lower()
 
 def test_detect_company_region_us():
     info = {"country": "United States"}

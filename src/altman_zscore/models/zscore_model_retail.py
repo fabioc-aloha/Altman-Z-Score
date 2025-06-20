@@ -82,6 +82,10 @@ class RetailZScoreModel(ZScoreModel):
         except (ValueError, ArithmeticError) as e:
             raise ValueError(f"Error calculating Retail Z-Score: {str(e)}")
 
+    def calculate_zscore(self, financial_data: Dict) -> Decimal:
+        """Calculate the Retail Z-Score for given financial data."""
+        return self._calculate_zscore_impl(financial_data)
+
     def interpret_score(self, score: Decimal) -> str:
         """Interpret the Retail Z-Score result."""
         if score >= self.SAFE_THRESHOLD:

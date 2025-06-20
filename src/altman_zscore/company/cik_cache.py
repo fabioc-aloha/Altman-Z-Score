@@ -16,6 +16,7 @@ import json
 import logging
 import os
 import requests
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Any
@@ -23,6 +24,25 @@ import warnings
 from .. import __version__
 
 logger = logging.getLogger(__name__)
+
+# Global SEC rate limiter to prevent 401 errors across all SEC API calls
+class _GlobalSECRateLimiter:
+    """Global rate limiter for all SEC API calls to prevent 401 errors."""
+    
+    def __init__(self):
+        self._last_request_time = 0
+        self._min_interval = 1.0 / 6.0  # 6 requests per second (conservative)
+    
+    def wait_if_needed(self):
+        """Wait if necessary to respect SEC rate limits."""
+        now = time.time()
+        elapsed = now - self._last_request_time
+        if elapsed < self._min_interval:
+            time.sleep(self._min_interval - elapsed)
+        self._last_request_time = time.time()
+
+# Global instance
+_sec_rate_limiter = _GlobalSECRateLimiter()
 
 class CIKCache:
     """
@@ -133,6 +153,7 @@ class CIKCache:
                 'Accept-Encoding': 'gzip, deflate',
                 'Host': 'www.sec.gov'
             }
+            _sec_rate_limiter.wait_if_needed()  # Respect SEC rate limit
             response = requests.get(
                 self.company_tickers_url,
                 headers=headers,

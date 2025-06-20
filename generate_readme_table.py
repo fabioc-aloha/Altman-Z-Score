@@ -84,21 +84,26 @@ def extract_investor_advice_detailed(report_path):
                             recommendations[clean_profile] = f"{icon} {action}"
             
             if recommendations:                # Create multi-line representation starting with CEO and CFO recommendations
-                result_parts = []                # Add CEO recommendation first if available
+                result_parts = []
+                
+                # Add CEO recommendation first if available
                 if ceo_recommendation:
-                    result_parts.append(f"<sup>CEO: {ceo_recommendation}</sup>")
+                    result_parts.append(f"<sub><b>CEO:</b> {ceo_recommendation}</sub>")
                 
                 # Add CFO recommendation second if available
                 if cfo_recommendation:
-                    result_parts.append(f"<sup>CFO: {cfo_recommendation}</sup>")
+                    result_parts.append(f"<sub><b>CFO:</b> {cfo_recommendation}</sub>")
                 
                 # Add investor profiles
                 profile_order = ['Conservative', 'Dividend', 'Value', 'Growth', 'Aggressive', 'Short-Seller']
                 for profile in profile_order:
                     if profile in recommendations:
-                        result_parts.append(f"<sup>{profile}: {recommendations[profile]}</sup>")                
+                        result_parts.append(f"<sub><b>{profile}:</b> {recommendations[profile]}</sub>")
+                
                 if result_parts:
-                    return "<br>".join(result_parts)
+                    # Use a div with compact styling for better control
+                    content = "<br/>".join(result_parts)
+                    return f'<div style="text-align: left; line-height: 1.2;">{content}</div>'
         
         # Fallback to the original simple extraction
         return extract_investor_advice(report_path)
@@ -292,16 +297,19 @@ def generate_table():
         report_path = os.path.join(ticker_dir, f"{REPORT_PREFIX}{ticker}{REPORT_SUFFIX}")
         
         company_name = get_company_name(info_path)
-        investor_advice = extract_investor_advice_detailed(report_path)        # Dynamic table layout: let columns adjust to content size automatically
-        row = f'| <img src="{logo_rel}" alt="{ticker}" width="50"/> | {company_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="500"/></a> | {investor_advice} |'
+        investor_advice = extract_investor_advice_detailed(report_path)
+        # Combine logo and company name in one column
+        logo_and_name = f'<div style="display: flex; align-items: center;"><img src="{logo_rel}" alt="{ticker}" width="40" style="margin-right:8px;"/> <span>{company_name}</span></div>'
+        row = f'| {logo_and_name} | [Report]({report_rel}) | <a href="{chart_rel}"><img src="{chart_rel}" alt="{ticker} Chart" width="500"/></a> | {investor_advice} |'
         rows.append(row)
     return rows
+
 
 def save_table_to_file(filename):
     """Save the generated table to a file."""
     with open(filename, "w", encoding="utf-8") as f:
-        f.write("| Logo | Company Name | Full Report | Trend Chart | CEO/CFO & Investor Advice |\n")
-        f.write("|------|-------------|-------------|:-------------:|:---------------------------:|\n")
+        f.write("| Logo & Name | Full Report | Trend Chart | AI Generated Advice |\n")
+        f.write("|-------------|-------------|:-------------:|---------------------|\n")
         for row in generate_table():
             f.write(f"{row}\n")
     print(f"Table saved to {filename}")

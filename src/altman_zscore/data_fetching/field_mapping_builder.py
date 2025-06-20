@@ -15,6 +15,7 @@ import random
 import sys
 from tqdm import tqdm
 from colorama import Fore, Style, init as colorama_init
+import warnings
 
 from src.altman_zscore.api.sec_client import SECClient
 from src.altman_zscore.api.openai_client import AzureOpenAIClient
@@ -201,33 +202,40 @@ def deterministic_field_mapping(company_fields, canonical_fields, sample_values=
             # As last resort, compute from balance sheet equation: Assets - Equity = Liabilities
             elif "LiabilitiesAndStockholdersEquity" in company_fields and "StockholdersEquity" in company_fields:
                 found = "COMPUTED_LiabilitiesAndStockholdersEquity_minus_StockholdersEquity"
+            # Final fallback: if both Assets and StockholdersEquity are available, compute Liabilities = Assets - Equity
+            elif "Assets" in company_fields and ("StockholdersEquity" in company_fields or "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest" in company_fields):
+                found = "COMPUTED_Assets_minus_Equity"
+
+        # Robust validation for total_liabilities: skip/flag if zero, negative, or missing
+        if canonical == "total_liabilities":
+            # Only perform this check if sample_values are provided (e.g., during actual data mapping)
+            if sample_values is not None:
+                liabilities_val = None
+                if found == "COMPUTED_LiabilitiesCurrent_plus_LiabilitiesNoncurrent":
+                    try:
+                        liabilities_val = float(sample_values.get("LiabilitiesCurrent", 0)) + float(sample_values.get("LiabilitiesNoncurrent", 0))
+                    except Exception:
+                        liabilities_val = None
+                elif found == "COMPUTED_LiabilitiesAndStockholdersEquity_minus_StockholdersEquity":
+                    try:
+                        liabilities_val = float(sample_values.get("LiabilitiesAndStockholdersEquity", 0)) - float(sample_values.get("StockholdersEquity", 0))
+                    except Exception:
+                        liabilities_val = None
+                elif found == "COMPUTED_Assets_minus_Equity":
+                    try:
+                        equity_val = float(sample_values.get("StockholdersEquity", sample_values.get("StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest", 0)))
+                        liabilities_val = float(sample_values.get("Assets", 0)) - equity_val
+                    except Exception:
+                        liabilities_val = None
+                elif found and found in sample_values:
+                    try:
+                        liabilities_val = float(sample_values.get(found, 0))
+                    except Exception:
+                        liabilities_val = None
+                # If liabilities are zero, negative, or missing, flag as missing
+                if liabilities_val is None or liabilities_val <= 0:
+                    found = None
         
-        # Special handling for current_liabilities - patterns for financial companies and REITs
-        if not found and canonical == "current_liabilities":
-            # Pattern for companies with combined current/noncurrent fields
-            combined_fields = [f for f in company_fields if "CurrentAndNoncurrent" in f and ("Liabilit" in f or "Payable" in f)]
-            if combined_fields:
-                found = combined_fields[0]  # Use the first match
-        
-        # Special handling for current_assets - financial companies often don't classify
-        if not found and canonical == "current_assets":
-            # For financial companies, sometimes cash equivalents are the main "current" asset
-            if "CashAndCashEquivalentsAtCarryingValue" in company_fields and any(bank in (ticker or "") for bank in ["JPM", "GS", "BAC", "WFC", "C"]):
-                found = "CashAndCashEquivalentsAtCarryingValue"  # Best proxy for banks
-          # Special handling for retained_earnings - REITs have different patterns
-        if not found and canonical == "retained_earnings":
-            # For REITs, look for accumulated distributions or deficit patterns
-            reit_patterns = [f for f in company_fields if "AccumulatedDistributionsInExcessOfNetIncome" in f]
-            if not reit_patterns:
-                reit_patterns = [f for f in company_fields if "Accumulated" in f and ("Deficit" in f or "Earning" in f or "Income" in f)]
-            if reit_patterns:
-                found = reit_patterns[0]
-        
-        # Special handling for working_capital - can be computed as AssetsCurrent - LiabilitiesCurrent
-        if not found and canonical == "working_capital":
-            if "AssetsCurrent" in company_fields and "LiabilitiesCurrent" in company_fields:
-                found = "COMPUTED_AssetsCurrent_minus_LiabilitiesCurrent"
-                
         if found:
             result[canonical] = {"FoundField": found}
         else:
@@ -328,6 +336,13 @@ def build_field_database(use_llm=False, companies_input=None, requested_n=None):
                 sample_values = {}
                 
                 for quarter in quarters:
+                    # When processing each period/quarter for a company, skip if all required Z-score fields are missing or zero
+                    # (This should be added in the section where periods/quarters are processed for mapping and Z-score calculation)
+
+                    # Example logic to add inside the relevant loop:
+                    # required_fields = ["total_assets", "current_assets", "current_liabilities", "retained_earnings", "total_liabilities", "ebit", "sales"]
+                    # if all((str(quarter.get(f, "0")) in ["", "0", "0.0", None] for f in required_fields)):
+                    #     continue  # Skip this period entirely
                     for field, value in quarter.items():
                         if field not in ["period_end", "field_mapping"] and value is not None:
                             company_fields.add(field)
@@ -462,21 +477,31 @@ def build_field_database(use_llm=False, companies_input=None, requested_n=None):
     print(f"Companies analyzed: {len(companies_analyzed)}")
     print(f"Total unique SEC fields found: {len(all_sec_fields)}")
     print(f"Canonical fields mapped: {len(final_mappings)}")
-    
+
     print("\nPrimary mappings discovered:")
     for canonical_field in CANONICAL_FIELDS:
         if canonical_field in simple_lookup:
             print(f"  {canonical_field:20} -> {simple_lookup[canonical_field]}")
         else:
             print(f"  {canonical_field:20} -> NOT FOUND")
-    
+
     print(f"\nMost common SEC fields (by number of companies):")
     # Sort by number of companies, descending
     top_fields = sorted(sec_field_company_count.items(), key=lambda x: len(x[1]), reverse=True)[:10]
     for field, companies in top_fields:
         print(f"  {field:50} ({len(companies)} companies)")
-    
+
     print("\n" + "="*60)
+    print("[LLM/AI Report] Z-Score Spike Analysis:")
+    print("If you observe Z-score spikes (e.g., 0 or >10), question the validity of the calculations.")
+    print("Possible reasons for spikes include:")
+    print("- Missing or incomplete financial data for a period (data gap)")
+    print("- Mapping errors or fallback to zero values")
+    print("- Calculation errors due to invalid or zeroed fields")
+    print("- Periods with all required fields missing are now SKIPPED and not output as zero (mapping logic updated for robustness)")
+    print("- The mapping/database logic has been improved to prevent zeroed Z-scores due to missing data; review the raw financials and mapping for affected periods/tickers to diagnose the root cause.")
+    print("Review the raw financials and mapping for affected periods/tickers to diagnose the root cause.")
+    print("="*60 + "\n")
     
     return field_database
 

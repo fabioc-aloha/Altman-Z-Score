@@ -13,6 +13,7 @@ from .rate_limiter import RateLimitExceeded, RateLimitStrategy, TokenBucket
 from ..utils.paths import get_output_dir
 from ..utils.error_helpers import AltmanZScoreError
 from ..utils.retry import exponential_retry
+from ..company.cik_cache import _sec_rate_limiter
 
 # Network exceptions to retry on
 NETWORK_EXCEPTIONS = (
@@ -56,7 +57,7 @@ class SECClient:
     COMPANY_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"  # Complete URL
 
     # SEC EDGAR requires 100ms between requests (10 requests per second)
-    REQUEST_RATE = 10  # requests per second
+    REQUEST_RATE = 6  # requests per second (further reduced to be very conservative)
     MIN_REQUEST_INTERVAL = 0.1  # seconds
 
     def __init__(self, email: Optional[str] = None):
@@ -112,9 +113,7 @@ class SECClient:
                 sleep_time = self.MIN_REQUEST_INTERVAL - time_since_last
                 logger.debug(f"Rate limit hit, sleeping for {sleep_time:.2f}s")
                 time.sleep(sleep_time)
-        self._last_request_time = time.time()
-
-    @exponential_retry(
+        self._last_request_time = time.time()    @exponential_retry(
         max_retries=3,
         base_delay=1.0,
         backoff_factor=2.0,
@@ -128,8 +127,9 @@ class SECClient:
         **kwargs
     ) -> requests.Response:
         """Make an authenticated request to SEC EDGAR API."""
-        # Ensure we're respecting rate limits
-        self._ensure_rate_limit()
+        # Use global SEC rate limiter to coordinate all SEC API calls
+        _sec_rate_limiter.wait_if_needed()
+        
         # Build the full URL - ensure we have proper URL structure
         if endpoint.startswith("http"):
             url = endpoint
@@ -148,7 +148,8 @@ class SECClient:
             logger.debug(
                 f"SEC API Request: {method} {url} "
                 f"Headers: {self.session.headers}"
-            )            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
+            )
+            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
             if "/companyfacts/" in url and response.status_code == 404:
                 logger.info(f"SEC companyfacts not found (404) for {url}; will attempt fallback.")
                 # Return a dummy response with empty facts
@@ -161,8 +162,10 @@ class SECClient:
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 401:
                 logger.info(
-                    f"SEC API rate limit or authentication issue (401). "                    f"Falling back to other data sources. "
-                    f"URL: {url}"                )
+                    f"SEC API rate limit or authentication issue (401). "
+                    f"Falling back to other data sources. "
+                    f"URL: {url}"
+                )
                 # For 401 errors, return None instead of raising to allow fallback
                 return None
             raise

@@ -137,15 +137,7 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     date_to_pos = {date: i for i, date in enumerate(date_range)}
 
     # Use monthly labels for readability on weekly x-axis
-    date_labels = []
-    current_month = None
-    for i, date in enumerate(date_range):
-        # Only show label if it's the first week of a month
-        if date.month != current_month:
-            date_labels.append(date.strftime("%Y-%m"))
-            current_month = date.month
-        else:
-            date_labels.append("")  # Empty label for other weeks
+    date_labels = create_date_labels(date_range)
 
     # Map quarter dates to their positions
     quarter_positions = []
@@ -159,11 +151,9 @@ def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):
     valid_quarters = [(pos, zscore) for pos, zscore in zip(quarter_positions, zscores) if pos != -1]
     if valid_quarters:
         q_pos, q_scores = zip(*valid_quarters)
-        _plot_zscore(ax, q_pos, q_scores)
-
-    # Format x-axis
+        _plot_zscore(ax, q_pos, q_scores)    # Format x-axis
     _format_axes(ax, date_labels, using_weekly, date_range)
-
+    
     # Get company name and prep title
     company_name = None
     try:
@@ -308,15 +298,7 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base):
     date_to_pos = {date: i for i, date in enumerate(date_range)}
 
     # Use monthly labels for readability on weekly x-axis
-    date_labels = []
-    current_month = None
-    for i, date in enumerate(date_range):
-        # Only show label if it's the first week of a month
-        if date.month != current_month:
-            date_labels.append(date.strftime("%Y-%m"))
-            current_month = date.month
-        else:
-            date_labels.append("")  # Empty label for other weeks
+    date_labels = create_date_labels(date_range)
 
     # Map quarter dates to their positions
     quarter_positions = []
@@ -414,3 +396,29 @@ def plot_zscore_trend_pipeline(df, ticker, model, out_base):
     # Only show the plot if running interactively (not in headless environment)
     if hasattr(sys, "ps1") or sys.flags.interactive:
         plt.show()
+
+
+def create_date_labels(date_range):
+    """
+    Create monthly date labels for weekly x-axis, skipping first label to avoid clipping.
+    
+    Args:
+        date_range: pandas date range for weekly ticks
+        
+    Returns:
+        List of date labels with empty strings for non-month boundaries
+    """
+    date_labels = []
+    current_month = None
+    for i, date in enumerate(date_range):
+        # Only show label if it's the first week of a month
+        if date.month != current_month:
+            # Skip the very first label if it's at position 0 or 1 to avoid clipping
+            if i <= 1:
+                date_labels.append("")  # Skip first label to avoid edge clipping
+            else:
+                date_labels.append(date.strftime("%Y-%m"))
+            current_month = date.month
+        else:
+            date_labels.append("")  # Empty label for other weeks
+    return date_labels

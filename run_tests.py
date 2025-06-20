@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test runner for Altman Z-Score Analysis Platform
+Test runner for AI-Powered Altman Z-Score Analysis
 Runs tests with appropriate timeouts to prevent hanging
 """
 

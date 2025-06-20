@@ -38,7 +38,18 @@ class ZScoreModel(ABC):
             ValueError: If validation fails
         """
         from .model_validators import validate_financial_data
-        return validate_financial_data(cls.__name__.lower(), financial_data)
+        # Map class names to expected model type strings
+        name_map = {
+            "originalzscoremodel": "original",
+            "_originalmodel": "original",
+            "privatemanufacturingzscoremodel": "private",
+            "_privatemodel": "private",
+            "financialinstitutionzscoremodel": "financial",
+            "_financialmodel": "financial",
+        }
+        class_name = cls.__name__.lower()
+        model_type = name_map.get(class_name, class_name.replace("zscoremodel", "").replace("_model", "").replace("_", ""))
+        return validate_financial_data(model_type, financial_data)
 
     @abstractmethod
     def calculate_zscore(self, financial_data: Dict) -> Decimal:

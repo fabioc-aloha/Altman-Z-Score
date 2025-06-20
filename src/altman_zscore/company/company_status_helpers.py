@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING
 import requests
 import yfinance as yf
 from altman_zscore.utils.retry import exponential_retry
+from altman_zscore.company.cik_cache import _sec_rate_limiter
 
 if TYPE_CHECKING:
     from altman_zscore.company.company_status import CompanyStatus
@@ -296,6 +297,7 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
                         break
         except Exception as e:
             logger.debug(f"Error checking bankruptcy indicators for {ticker}: {e}")
+        
         try:
             if hasattr(ticker_obj, "news"):
                 news = ticker_obj.news
@@ -308,12 +310,15 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
                             break
         except Exception as e:
             logger.debug(f"Error checking news for {ticker}: {e}")
+    
     if not status.is_active and not status.is_delisted and not status.is_bankrupt:
         try:
             from altman_zscore.api.sec_client import SECClient
             sec_url = (
                 f"{SECClient.BROWSE_EDGAR_URL}?CIK={ticker}&Find=Search&owner=exclude&action=getcompany"
             )
+            # Apply global SEC rate limiting
+            _sec_rate_limiter.wait_if_needed()
             sec_response = requests.get(sec_url, headers={"User-Agent": sec_client._get_dynamic_user_agent()})
             if sec_response.status_code == 404 or "No matching companies" in sec_response.text:
                 status.exists = False

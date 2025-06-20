@@ -339,12 +339,15 @@ def _get_zscore_component_table(df, x_cols):
         except (ValueError, TypeError):
             pass
         diag = row.get("diagnostic")
+        # Add ? symbol for questionable Z-score (0 or >10)
+        questionable = (z == 0 or (isinstance(z, (int, float)) and z > 10))
         row_vals = [q_str]
         for x in x_cols:
             # Get X1..X5 values directly from DataFrame columns
             val = row.get(x)
             row_vals.append(f"{val:.3f}" if val is not None else "")
-        row_vals.append(f"{z:.3f}" if z is not None else "")
+        z_str = f"{z:.3f}" + (" ?" if questionable else "")
+        row_vals.append(z_str)
         row_vals.append(diag or "")
         rows.append(row_vals)
     header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]

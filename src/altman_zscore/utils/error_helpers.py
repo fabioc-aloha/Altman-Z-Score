@@ -20,6 +20,9 @@ class DataFetchingError(AltmanZScoreError):
 class OutputWriteError(AltmanZScoreError):
     """Exception for output writing errors (e.g., file I/O)."""
 
+class SectorExclusionError(AltmanZScoreError):
+    """Exception for companies in sectors where Altman Z-Score is not applicable (e.g., finance/insurance)."""
+
 def raise_with_context(exc_class, message, context=None):
     """Raise an exception with additional context and log the error.
 

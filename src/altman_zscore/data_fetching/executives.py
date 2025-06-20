@@ -11,6 +11,7 @@ import yfinance as yf
 import requests
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.retry import exponential_retry
+from altman_zscore.company.cik_cache import _sec_rate_limiter
 
 def fetch_company_officers(ticker: str) -> Optional[Dict[str, Any]]:
     """Fetch company officers information using yfinance.
@@ -124,6 +125,8 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
             cik = client.lookup_cik(ticker)
             if cik:                # Get company submissions
                 url = f"{SECClient.SUBMISSIONS_BASE_URL}/CIK{cik.zfill(10)}.json"
+                # Apply global SEC rate limiting
+                _sec_rate_limiter.wait_if_needed()
                 response = requests.get(url, 
                     headers={'User-Agent': client._get_dynamic_user_agent()})
                 
@@ -145,6 +148,8 @@ def fetch_executive_data(ticker: str) -> Optional[Dict[str, Any]]:
                             primary_doc = primary_docs[latest_def_14a_idx]
                             filing_date = filing_dates[latest_def_14a_idx]                            # Get the filing content
                             filing_url = f"{SECClient.ARCHIVES_BASE_URL}/{cik}/{accession_number}/{primary_doc}"
+                            # Apply global SEC rate limiting
+                            _sec_rate_limiter.wait_if_needed()
                             response = requests.get(filing_url, 
                                 headers={'User-Agent': client._get_dynamic_user_agent()})
                             

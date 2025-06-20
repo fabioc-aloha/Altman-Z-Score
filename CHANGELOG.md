@@ -5,10 +5,26 @@
 For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)  
 For **FUTURE** development plans → see [`TODO.md`](TODO.md)
 
-All notable changes to the Altman Z-Score Analysis Platform are documented in this file.
+All notable changes to the AI-Powered Altman Z-Score Analysis are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.6.0] - 2025-06-20 🥇 GOLDEN RELEASE
+
+### ✨ Table Layout & Usability Improvements
+- **Logo & Name Combined:** Portfolio table now combines company logo and name into a single column for a more compact, readable presentation
+- **Horizontal Space Optimization:** Improved table layout for better readability and usability, especially on smaller screens
+- **README.md Updated:** Documentation and usage examples updated to reflect the new table structure
+
+### 📚 Documentation & Release Quality
+- **Golden Release Status:** Marked as the "Golden" release for stability, usability, and professional polish
+- **Documentation Refinement:** README.md and related docs updated for clarity, accuracy, and consistency
+- **Version Synchronization:** All documentation and table outputs now reflect v3.6.0 status
+
+### 🛠️ Technical Enhancements
+- **No Breaking Changes:** All APIs and outputs remain stable and backward compatible
+- **Incremental Value:** Each feature phase remains independently testable and delivers incremental improvements
 
 ## [3.5.7] - 2025-06-19 🔄 DYNAMIC CIK LOOKUP SYSTEM
 

@@ -33,14 +33,18 @@ def plot_zscore(ax, q_pos, q_scores):
         )
 
         for pos, score in zip(q_pos, q_scores):
+            # Add '?' annotation for questionable Z-scores (0 or >10)
+            is_questionable = (score == 0 or (isinstance(score, (int, float)) and score > 10))
+            label = f"{score:.2f}" + (" ?" if is_questionable else "")
             ax.annotate(
-                f"{score:.2f}",
+                label,
                 xy=(pos, score),
                 xytext=(0, -20 if score > np.mean(q_scores) else 10),
                 textcoords="offset points",
                 ha="center",
                 fontsize=9,
-                color=ColorScheme.ZSCORE_LINE,
+                color=ColorScheme.ZSCORE_LINE if not is_questionable else "red",
+                fontweight="bold" if is_questionable else "normal",
             )
     except ValueError as exc:
         logging.warning(f"Error plotting Z-Score: {exc}")

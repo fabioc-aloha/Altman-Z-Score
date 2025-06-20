@@ -1,110 +1,62 @@
 # Field Mapping Database Completeness Report (Full Database)
 
-**Date:** 2025-06-19 12:03:30
-**Companies in database:** 264
+**Date:** 2025-06-20 08:05:26
+**Companies in database:** 122
 
 ## Canonical Field Coverage
 | Canonical Field | Companies with Mapping | Coverage (%) |
 |-----------------|-----------------------|--------------|
-| sales | 240 | 90.9 |
-| total_assets | 258 | 97.7 |
-| current_assets | 236 | 89.4 |
-| current_liabilities | 254 | 96.2 |
-| total_liabilities | 258 | 97.7 |
-| retained_earnings | 257 | 97.3 |
-| ebit | 250 | 94.7 |
-| book_value_equity | 258 | 97.7 |
-| working_capital | 205 | 77.7 |
+| sales | 111 | 91.0 |
+| total_assets | 120 | 98.4 |
+| current_assets | 104 | 85.2 |
+| current_liabilities | 111 | 91.0 |
+| total_liabilities | 119 | 97.5 |
+| retained_earnings | 119 | 97.5 |
+| ebit | 117 | 95.9 |
+| book_value_equity | 120 | 98.4 |
 
 ## Canonical Fields with No Mappings
 - None
 
 ## Companies with Incomplete Mappings
-- **AFRM**: missing working_capital
-- **GHLD**: missing current_assets
-- **MSBB**: missing current_assets
-- **MNSB**: missing current_assets, current_liabilities
-- **BYFC**: missing working_capital
-- **SKFG**: missing current_assets
-- **NRSN**: missing sales
-- **BFC**: missing working_capital
-- **MTSR**: missing sales
-- **KB**: missing current_assets, ebit
-- **AMH**: missing current_assets, ebit
-- **FMCCK**: missing working_capital
-- **CSR**: missing working_capital
-- **LPBB**: missing sales
-- **FSUN**: missing current_assets
-- **MGRC**: missing working_capital
-- **HYSR**: missing sales
-- **RC**: missing working_capital
-- **ULE**: missing sales, current_assets, retained_earnings, ebit
-- **REG**: missing current_assets
-- **CLBR**: missing sales
-- **PCOK**: missing working_capital
-- **CFFN**: missing current_liabilities
-- **ARES**: missing current_assets
-- **KVACW**: missing ebit
-- **XHR**: missing current_assets
-- **PRSI**: missing working_capital
-- **OAKU**: missing sales, ebit
-- **PSEC**: missing sales, ebit, working_capital
-- **SVIIW**: missing sales
-- **CMCT**: missing working_capital
-- **EFC**: missing working_capital
-- **RCB**: missing working_capital
-- **APLE**: missing current_assets
-- **OCEA**: missing sales
-- **FNMAO**: missing working_capital
-- **JFIN**: missing working_capital
-- **SUI**: missing working_capital
-- **IRT**: missing working_capital
-- **DHIL**: missing current_assets
-- **TFIN**: missing current_assets
-- **ESBA**: missing working_capital
-- **CARE**: missing current_liabilities
-- **SHOTW**: missing ebit
-- **BULLZ**: missing sales
-- **FRMEP**: missing working_capital
-- **BHR**: missing working_capital
+- **ARE**: missing ebit
+- **PPTA**: missing sales
+- **FFIC**: missing current_assets, current_liabilities
+- **SVBL**: missing sales
+- **RANGR**: missing sales
+- **SDHC**: missing current_assets, current_liabilities
+- **GBDC**: missing current_assets, current_liabilities, ebit
+- **TCBIO**: missing current_liabilities
+- **PBBK**: missing current_assets, current_liabilities
+- **AFJKR**: missing sales
+- **CCBG**: missing current_liabilities
+- **XXAAU**: missing total_liabilities, retained_earnings
+- **UPST**: missing current_assets
+- **HBAN**: missing current_assets
+- **FINW**: missing current_assets, current_liabilities
+- **SCCC**: missing current_assets
+- **BCTXZ**: missing sales
+- **MRCC**: missing current_assets, ebit
+- **PDM**: missing current_assets
+- **VIRT**: missing current_assets, current_liabilities
+- **BAYA**: missing sales
 
 ## Companies with Expected Limitations (by Business Model)
-### REITs/Real Estate
-- **O**: missing working_capital
-- **BFS-PE**: missing working_capital
-- **NLY-PF**: missing current_assets
-- **AGM-PF**: missing current_assets
-- **JPM-PD**: missing working_capital
-- **PSA-PN**: missing working_capital
-- **VNO-PO**: missing working_capital
-- **USB-PA**: missing current_assets, current_liabilities
-- **WFC-PA**: missing current_assets
-
-### Banks/Financial Services
-- **GS**: missing working_capital
-- **JPM**: missing working_capital
-
 ### Insurance Companies
-- **TIPT**: missing current_assets
-- **TRV**: missing current_assets
-- **ATHS**: missing working_capital
-- **CNA**: missing working_capital
+- **SAT**: missing current_assets, ebit
+- **SKWD**: missing current_assets
+- **AFGC**: missing current_assets, current_liabilities
 
-### Companies with Limited Data
-- **EBGEF**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, ebit, book_value_equity
-- **CRTUF**: missing sales
-- **FSHPR**: missing sales
-- **SBXD-UN**: missing sales
-- **SIVR**: missing sales, current_assets, current_liabilities, ebit
-- **DEO**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, ebit, book_value_equity
-- **ALAR**: missing sales, total_assets, current_assets, total_liabilities, retained_earnings, ebit, book_value_equity
-- **SVM**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, ebit, book_value_equity
-- **FORFF**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, ebit, book_value_equity
-- **ATIIU**: missing sales
-- **RDACU**: missing sales, ebit
-- **ETHA**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, book_value_equity
+### REITs/Real Estate
+- **HPP-PC**: missing current_assets
+- **DLR-PL**: missing current_assets
 
 ### ETFs/Funds
-- **VBTX**: missing current_assets
-- **REEUF**: missing sales
+- **VMCUF**: missing sales
+
+### Companies with Limited Data
+- **ETHA**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, book_value_equity
+- **ATGFF**: missing sales, total_assets, current_assets, current_liabilities, total_liabilities, retained_earnings, ebit, book_value_equity
+- **ALDF**: missing sales
+- **OACCW**: missing sales
 

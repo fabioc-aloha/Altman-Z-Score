@@ -250,12 +250,15 @@ def _select_zscore_model_and_key_from_profile(profile) -> tuple:
         # Fallback: try to extract SIC code from industry string if not directly available
         sic_str = extract_sic_code_from_industry(industry)
         sic_code = int(sic_str) if isinstance(sic_str, str) and sic_str.isdigit() else None
-    
-    # Select model type key for computation
+      # Select model type key for computation
     from altman_zscore.computation.model_selection import select_zscore_model, is_finance_or_insurance_company
+    from altman_zscore.utils.error_helpers import SectorExclusionError
+    
     if is_finance_or_insurance_company(sic_code):
-        logger.warning(f"SIC {sic_code} is finance/insurance. Altman Z-Score is not valid for this sector. Skipping analysis.")
-        return None, None
+        sector_name = "finance/insurance" if sic_code else "unknown financial sector"
+        logger.warning(f"SIC {sic_code} is {sector_name}. Altman Z-Score is not valid for this sector. Skipping analysis.")
+        raise SectorExclusionError(f"Altman Z-Score analysis is not applicable to {sector_name} companies (SIC: {sic_code})")
+    
     model_key = select_zscore_model(sic_code, is_public)
     
     # Log the model selection decision
@@ -881,6 +884,10 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str,
         # Re-raise ValueError with original message for graceful handling by main()
         raise ve
     except Exception as e:
+        # Check if it's a sector exclusion error - re-raise as-is
+        from altman_zscore.utils.error_helpers import SectorExclusionError
+        if isinstance(e, SectorExclusionError):
+            raise e
         # Convert other exceptions to ValueError for consistent error handling
         error_msg = f"Unexpected error analyzing {ticker}: {str(e)}"
         logger.error(error_msg)

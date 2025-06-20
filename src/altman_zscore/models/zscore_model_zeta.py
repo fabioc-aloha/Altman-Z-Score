@@ -89,6 +89,10 @@ class ZetaZScoreModel(ZScoreModel):
         except (ValueError, ArithmeticError) as e:
             raise ValueError(f"Error calculating Zeta® Score: {str(e)}")
 
+    def calculate_zscore(self, financial_data: Dict) -> Decimal:
+        """Calculate the Zeta® Score for given financial data."""
+        return self._calculate_zscore_impl(financial_data)
+
     def interpret_score(self, score: Decimal) -> str:
         """Interpret the Zeta® Score result."""
         if score >= self.SAFE_THRESHOLD:
