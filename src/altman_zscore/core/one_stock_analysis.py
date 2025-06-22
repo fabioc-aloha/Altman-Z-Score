@@ -27,8 +27,23 @@ from altman_zscore.data_fetching.prices import get_weekly_price_stats, save_pric
 from altman_zscore.utils.merge_quarters import merge_quarters_by_period
 
 import logging
+from decimal import Decimal  # Add Decimal import to handle Decimal types
+import re  # Import re for camelCase to snake_case conversion
+import requests
+from urllib.error import HTTPError
 
 logger = logging.getLogger(__name__)
+
+# Suppress HTTP 401 errors from logs
+class Suppress401Filter(logging.Filter):
+    def filter(self, record):
+        try:
+            msg = record.getMessage()
+        except Exception:
+            msg = str(record)
+        return 'HTTP Error 401' not in msg
+# Attach filter to root logger to suppress HTTP 401 messages globally
+logging.getLogger().addFilter(Suppress401Filter())
 
 """
 One Stock Analysis Module for Altman Z-Score.
@@ -37,15 +52,17 @@ Currently limited to U.S.-based companies only.
 This module serves as the main orchestrator for analyzing a single stock's Altman Z-Score.
 It coordinates data fetching, validation, computation, and reporting by delegating to specialized modules.
 """
+from datetime import datetime
+import re
+import numpy as np
+from typing import Dict, Optional, Any
+from dotenv import load_dotenv
 
 import json
 import logging
 import os
-from datetime import datetime
-from typing import Dict, Optional, Any
 
 import pandas as pd
-from dotenv import load_dotenv
 
 from altman_zscore.api.yahoo_client import YahooFinanceClient
 from altman_zscore.computation.compute import compute_zscore
@@ -70,10 +87,10 @@ from altman_zscore.models.factory import ModelRegistry
 # Import utility modules
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.utils.io import save_dataframe
-from altman_zscore.plotting.plotting_main import plot_zscore_trend
 from altman_zscore.plotting.plotting_terminal import print_info, print_warning, print_error
 from altman_zscore.company.sic_lookup import sic_map
 from altman_zscore.utils.sec_market_value_helpers import extract_market_value_equity_from_sec
+from altman_zscore.utils.financial_metrics import FinancialMetricsCalculator
 
 
 # ANSI color codes for terminal output
@@ -117,7 +134,9 @@ logger.setLevel(logging.WARNING)
 handler = logging.StreamHandler()
 formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
-logger.addHandler(handler)
+if not logger.hasHandlers():
+    logger.addHandler(handler)
+logger.propagate = False
 
 
 def get_zscore_path(ticker, ext=None):
@@ -256,7 +275,8 @@ def _select_zscore_model_and_key_from_profile(profile) -> tuple:
     
     if is_finance_or_insurance_company(sic_code):
         sector_name = "finance/insurance" if sic_code else "unknown financial sector"
-        logger.warning(f"SIC {sic_code} is {sector_name}. Altman Z-Score is not valid for this sector. Skipping analysis.")
+        # Only log the warning once (remove duplicate print_warning or logger call)
+        logger.warning(f"\nSIC {sic_code} is {sector_name}. Altman Z-Score is not valid for this sector. Skipping analysis.")
         raise SectorExclusionError(f"Altman Z-Score analysis is not applicable to {sector_name} companies (SIC: {sic_code})")
     
     model_key = select_zscore_model(sic_code, is_public)
@@ -275,8 +295,6 @@ def _select_zscore_model_and_key_from_profile(profile) -> tuple:
         if key in ['service', 'service_private']:
             # Service models use original model class but different formulas
             model_type_enum = ModelType.ORIGINAL  
-        elif key == 'zeta':
-            model_type_enum = ModelType.ZETA
         elif key == 'retail':
             model_type_enum = ModelType.RETAIL
         elif key == 'financial':
@@ -334,8 +352,6 @@ def _select_zscore_model_from_profile(profile) -> 'ZScoreModel':
         if key in ['service', 'service_private']:
             # Service models use original model class but different formulas
             model_type_enum = ModelType.ORIGINAL  
-        elif key == 'zeta':
-            model_type_enum = ModelType.ZETA
         elif key == 'retail':
             model_type_enum = ModelType.RETAIL
         elif key == 'financial':
@@ -362,26 +378,66 @@ def _fetch_and_validate_financials(ticker: str, model: str, start_date: str, out
     """
     # Use LLM-based reconciliation instead of legacy fetch
     logger = logging.getLogger("altman_zscore.one_stock_analysis")
-    
-    # Fetch SEC and Yahoo financials independently
+      # Fetch SEC and Yahoo financials independently
     fin_info_sec = fetch_financials(ticker, datetime.now().strftime("%Y-%m-%d"), model, start_date)
     fin_info_yahoo = None
     try:
         from altman_zscore.api.yahoo_helpers import fetch_yfinance_full
         yf_data = fetch_yfinance_full(ticker)
         # Convert Yahoo data to quarters format (reuse existing logic if available)
-        # For now, try to load from output if present
+        # For now, try to load from output if present, but apply start_date filter
         output_dir = get_output_dir(ticker)
         yahoo_quarters_path = os.path.join(output_dir, "financials_quarterly.json")
         if os.path.exists(yahoo_quarters_path):
             with open(yahoo_quarters_path, "r", encoding="utf-8") as f:
-                fin_info_yahoo = {"quarters": json.load(f)}
+                all_quarters = json.load(f)
+                # Apply start_date filter to cached data if start_date is provided
+                if start_date:
+                    try:
+                        from datetime import datetime as _dt
+                        start_dt = _dt.strptime(start_date, "%Y-%m-%d").date()
+                        filtered_quarters = []
+                        for q in all_quarters:
+                            pe = q.get("period_end")
+                            try:
+                                pe_date = _dt.strptime(str(pe)[:10], "%Y-%m-%d").date()
+                            except Exception:
+                                continue
+                            if pe_date >= start_dt:
+                                filtered_quarters.append(q)
+                        fin_info_yahoo = {"quarters": filtered_quarters}
+                        logger.info(f"Filtered cached Yahoo data to {len(filtered_quarters)} quarters on or after start_date {start_date}")
+                    except Exception as e:
+                        logger.warning(f"Failed to apply start_date filter to cached Yahoo data: {e}")
+                        fin_info_yahoo = {"quarters": all_quarters}
+                else:
+                    fin_info_yahoo = {"quarters": all_quarters}
     except Exception as e:
         logger.warning(f"Could not fetch Yahoo financials for {ticker}: {e}")
 
     sec_quarters = fin_info_sec["quarters"] if fin_info_sec and "quarters" in fin_info_sec else []
     yahoo_quarters = fin_info_yahoo["quarters"] if fin_info_yahoo and "quarters" in fin_info_yahoo else []
     merged_quarters = merge_quarters_by_period(sec_quarters, yahoo_quarters, prefer_sec=True)
+    # Enforce start_date: include only quarters ending on or after start_date
+    if start_date:
+        try:
+            from datetime import datetime as _dt
+            start_dt = _dt.strptime(start_date, "%Y-%m-%d").date()
+            filtered_quarters = []
+            for q in merged_quarters:
+                pe = q.get("period_end")
+                try:
+                    pe_date = _dt.strptime(str(pe)[:10], "%Y-%m-%d").date()
+                except Exception:
+                    continue
+                if pe_date >= start_dt:
+                    filtered_quarters.append(q)
+            merged_quarters = filtered_quarters
+            logger = logging.getLogger("altman_zscore.one_stock_analysis")
+            logger.info(f"Filtered to {len(merged_quarters)} quarters on or after start_date {start_date}")
+        except Exception as e:
+            logger = logging.getLogger("altman_zscore.one_stock_analysis")
+            logger.warning(f"Failed to apply start_date filter: {e}")
     if not merged_quarters:
         error_result = [{
             "quarter_end": None,
@@ -436,11 +492,12 @@ def _fetch_and_validate_financials(ticker: str, model: str, start_date: str, out
     return {"quarters": valid_quarters}, valid_quarters
 
 
-def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=None):
+def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=None, start_date=None):
     """
     Compute Altman Z-Scores and perform validation for each quarter in the input list.
 
     For each quarter, this function:
+    - Filters quarters to only include those on or after start_date if provided
     - Checks if all required financial fields are present and nonzero. If not, marks the quarter as invalid and records a diagnostic error.
     - Fetches market value of equity for the period end date using Yahoo Finance.
     - Constructs financial metrics and validates the data, collecting any validation or consistency issues.
@@ -452,26 +509,84 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=
         ticker (str): Stock ticker symbol.
         model (str): Z-Score model name (e.g., 'public', 'private').
         raw_quarters (list[dict], optional): Original raw quarters data for reference (optional).
+        start_date (str, optional): Start date in YYYY-MM-DD format to filter quarters.
 
     Returns:
         pandas.DataFrame: DataFrame with Z-Score results, diagnostics, and error/warning columns for each quarter.
-        If a quarter is missing all required fields, the result will indicate calculation was not possible for that quarter.
-    """
+        If a quarter is missing all required fields, the result will indicate calculation was not possible for that quarter.    """
     yahoo = YahooFinanceClient()
     results = []
     REQUIRED_FIELDS = [
         "current_assets", "current_liabilities", "retained_earnings", "ebit", "market_value_equity", "total_assets", "total_liabilities", "sales"
     ]
 
+    # Filter quarters by start_date if provided
+    if start_date:
+        try:
+            from datetime import datetime as _dt
+            start_dt = _dt.strptime(start_date, "%Y-%m-%d").date()
+            filtered_quarters = []
+            for q in quarters:
+                pe = q.get("period_end")
+                try:
+                    pe_date = _dt.strptime(str(pe)[:10], "%Y-%m-%d").date()
+                except Exception:
+                    continue
+                if pe_date >= start_dt:
+                    filtered_quarters.append(q)
+            quarters = filtered_quarters
+            logger = logging.getLogger("altman_zscore.one_stock_analysis")
+            logger.info(f"[{ticker}] Filtered to {len(quarters)} quarters on or after start_date {start_date} for Z-Score computation")
+        except Exception as e:
+            logger = logging.getLogger("altman_zscore.one_stock_analysis")
+            logger.warning(f"[{ticker}] Failed to apply start_date filter in Z-Score computation: {e}")
+
     # Sort quarters by date first to ensure chronological order
     quarters = sorted(quarters, key=lambda x: x["period_end"])
+    # Ensure no duplicate quarters are processed
+    seen_periods = set()
+    results = []
     
+    calculator = FinancialMetricsCalculator()
+
+    # Get required X component keys for the model
+    from altman_zscore.computation.constants import MODEL_COEFFICIENTS
+    model_key = str(model)
+    if model_key not in MODEL_COEFFICIENTS:
+        # fallback to canonical key if alias
+        from altman_zscore.computation.model_selection import canonicalize_model_key
+        model_key = canonicalize_model_key(model_key)
+    x_component_keys = [
+        k for k in MODEL_COEFFICIENTS.get(model_key, {}).keys()
+    ]
+
     for q in quarters:
-        period_end = q["period_end"] if isinstance(q, dict) and "period_end" in q else None
+        period_end = q.get("period_end")
+        # Skip duplicate quarter ends
+        if period_end in seen_periods:
+            logger.warning(f"Skipping duplicate quarter entry for {period_end} for {ticker}")
+            continue
+        seen_periods.add(period_end)
+        
         logger.info(f"Processing quarter {period_end} for {ticker}")
         logger.info(f"Quarter data keys: {list(q.keys())}")
         logger.info(f"Quarter field values: {dict((k, v) for k, v in q.items() if k in REQUIRED_FIELDS)}")
         
+        # --- Try to derive missing fields ---
+        if q.get("total_liabilities") is None:
+            q["total_liabilities"] = calculator.calculate_total_liabilities(
+                q.get("total_assets"), q.get("book_value_equity")
+            )
+            if q["total_liabilities"] is not None:
+                logger.info(f"Derived total_liabilities for {period_end}")
+
+        if q.get("ebit") is None:
+            q["ebit"] = calculator.calculate_ebit(
+                q.get("net_income"), q.get("interest_expense"), q.get("tax_expense")
+            )
+            if q["ebit"] is not None:
+                logger.info(f"Derived ebit for {period_end}")
+
         # --- PATCH: skip/report empty quarters ---
         if not any(q.get(field) not in (None, "", 0.0) for field in REQUIRED_FIELDS):
             logger.warning(f"Skipping quarter {period_end}: all required fields missing or zero")
@@ -521,24 +636,90 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=
             else:
                 logger.info(f"Using market value equity from merged data: {mve}")
             
-            # Prepare metrics for Z-Score calculation
+            # Helper to safely convert to float, defaulting None/empty to 0 and stripping commas/currency
+            def safe_float(val, Decimal=Decimal):
+                 # Empty or null
+                 if val is None or val == '':
+                     return 0.0
+                 # Numeric types (int, float, Decimal)
+                 if isinstance(val, (int, float, Decimal)):
+                     try:
+                         return float(val)
+                     except Exception:
+                         return 0.0
+                 # String: remove commas, currency symbols, then parse
+                 if isinstance(val, str):
+                    cleaned = val.replace(',', '').replace('$', '').strip()
+                    try:
+                        return float(cleaned)
+                    except Exception:
+                        return 0.0
+                 # Fallback
+                 return 0.0
+
+            # Flatten raw quarter dict: convert camelCase/PascalCase to snake_case, lowercase, replace spaces/dots with underscore
+            flat_q = {}
+            for k, v in q.items():
+                key = k.strip()
+                # Insert underscore before uppercase letters (camelCase to snake_case)
+                key = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', key)
+                # Normalize to snake_case
+                key = key.lower().replace(' ', '_').replace('.', '_')
+                flat_q[key] = v
+            # DEBUG: print flattened quarter dictionary to verify key mapping
+            print_info(f"DEBUG flat_q for quarter {period_end}: {flat_q}")
+
+            # Get metrics for standard models (non-ZETA)
+            ta = safe_float(flat_q.get('total_assets') or flat_q.get('assets'))
+            ni_raw = (
+                flat_q.get('net_income') or flat_q.get('netincome') or
+                flat_q.get('net_income_loss') or 
+                flat_q.get('net_income_loss_available_to_common_stockholders_diluted') or
+                flat_q.get('netincomelossavailabletocommonstockholdersdiluted') or
+                flat_q.get('profit_loss') or
+                flat_q.get('net_earnings_loss')
+            )
+            ni = safe_float(ni_raw)
+            retained_earnings = safe_float(flat_q.get('retained_earnings') or flat_q.get('retained_earnings_accumulated_deficit'))
+            eb = safe_float(flat_q.get('ebit') or flat_q.get('operating_income_loss'))
+            iexp = safe_float(flat_q.get('interest_expense') or flat_q.get('interestexpense') or 
+                             flat_q.get('interest_expense_net_of_interest_income'))
+            
+            # Normalize EBIT/Interest ratio to handle very small interest expenses
+            if iexp and abs(iexp) > 1e-6:  # Only calculate if interest expense is non-zero
+                ebit_interest_ratio = min(20.0, abs(eb / iexp))  # Cap at 20x coverage
+            else:
+                ebit_interest_ratio = 0.0  # No interest expense means no leverage
+            
+            ca = safe_float(flat_q.get('current_assets') or flat_q.get('assets_current') or flat_q.get('assets'))
+            cl = safe_float(flat_q.get('current_liabilities') or flat_q.get('liabilities_current') or 
+                       flat_q.get('liabilities'))
+            tl = safe_float(flat_q.get('total_liabilities') or flat_q.get('liabilities'))
+            sl = safe_float(flat_q.get('sales') or flat_q.get('revenues') or flat_q.get('revenue'))
+            
+            # Combine metrics for Z-Score computation
             metrics = {
-                "current_assets": float(q.get("current_assets", 0)),
-                "current_liabilities": float(q.get("current_liabilities", 0)),
-                "total_assets": float(q.get("total_assets", 0)),
-                "total_liabilities": float(q.get("total_liabilities", 0)),
-                "retained_earnings": float(q.get("retained_earnings", 0)),
-                "ebit": float(q.get("ebit", 0)),
-                "market_value_equity": float(mve),
-                "sales": float(q.get("sales", 0))
+                'net_income': ni,
+                'total_assets': ta,
+                'ebit': eb,  # Use raw EBIT, not the ratio
+                'interest_expense': iexp,
+                'retained_earnings': retained_earnings,
+                'current_assets': ca,
+                'current_liabilities': cl,
+                'market_value_equity': safe_float(mve),
+                'total_liabilities': tl,
+                'sales': sl
             }
-            logger.info(f"Metrics for Z-Score computation: {metrics}")
             
             # Ensure working_capital is present if possible
             if 'working_capital' not in metrics and 'current_assets' in metrics and 'current_liabilities' in metrics:
                 metrics['working_capital'] = metrics['current_assets'] - metrics['current_liabilities']
                 logger.info(f"Computed working_capital: {metrics['working_capital']}")
-              # Validate the data
+            
+            logger.info(f"Raw metrics for Z-Score computation: {metrics}")
+            logger.info(f"Diagnostic: ebit={metrics['ebit']}, total_assets={metrics['total_assets']}")
+            
+            # Validate the data
             validator = FinancialDataValidator()
             issues = validator.validate(metrics)  # Use metrics (mapped canonical fields) instead of q (raw data)
             diagnostic = validator.summarize_issues(issues)
@@ -562,24 +743,27 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=
                 logger.info(f"Attempting Z-Score computation for {period_end} with model {model}")
                 result = compute_zscore(metrics, model_key=model)
                 logger.info(f"Z-Score computation result: {result}")
-                
                 if result.z_score is not None:
                     logger.info(f"Z-Score computed successfully: {result.z_score}")
-                    # Extract Z-Score components (X1..X5 or X1..X4)
                     components = result.components if hasattr(result, "components") else {}
-                    # Flatten components into the result dict
+                    # Strictly require all components to be present and valid (not None or NaN)
+                    valid_components = True
+                    for v in components.values():
+                        if v is None or (isinstance(v, Decimal) and v.is_nan()):
+                            valid_components = False
+                            break
                     result_dict = {
                         "quarter_end": period_end,
-                        "zscore": result.z_score,
-                        "valid": True,
-                        "error": None,
+                        "zscore": result.z_score if valid_components else None,
+                        "valid": valid_components,
+                        "error": None if valid_components else "Missing or invalid Z-Score component(s)",
                         "diagnostic": result.diagnostic,
                         "model": str(model),
                         "api_payload": q.get("raw_payload") if isinstance(q, dict) else getattr(q, "raw_payload", None),
                     }
-                    # Add X1..X5 (or X1..X4) to the result dict
-                    for k in ["X1", "X2", "X3", "X4", "X5"]:
-                        result_dict[k] = components.get(k)
+                    # Add all computed components
+                    for k, v in components.items():
+                        result_dict[k] = v
                     results.append(result_dict)
                 else:
                     logger.error(f"Z-Score computation failed for {period_end}")
@@ -605,7 +789,11 @@ def _process_quarters_and_compute_zscores(quarters, ticker, model, raw_quarters=
                 "api_payload": q.get("raw_payload") if isinstance(q, dict) else getattr(q, "raw_payload", None),
             })
 
-    return pd.DataFrame(results)
+    # Deduplicate quarters by 'quarter_end', keeping only the first valid occurrence
+    import pandas as pd
+    df = pd.DataFrame(results)
+    df = df[df['valid']].drop_duplicates(subset=['quarter_end'], keep='first')
+    return df.reset_index(drop=True)
 
 
 def _save_results_to_disk(df, out_base, error=False):
@@ -742,7 +930,7 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str,
         progress_callback: Optional function to call with progress updates.
                          Should accept (step_name: str, step_index: int, total_steps: int).
         force_model: Optional model type to force instead of using automatic selection.
-                    Values: 'original', 'private', 'emerging', 'financial', 'zeta', 'retail'
+                    Values: 'original', 'private', 'emerging', 'financial', 'retail'
     
     Returns:
         DataFrame with Z-Score analysis results.
@@ -773,29 +961,33 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str,
         current_model = None  # Will store the model key for computation
         model_object = None   # Will store the model instance
         if force_model:
-            from ..models.base import ModelType
-            from ..models.model_validation import validate_model_appropriateness
-            
-            try:
-                model_type = ModelType(force_model)
-                
-                # Validate model appropriateness
-                is_appropriate, warning_level, message = validate_model_appropriateness(profile, model_type)
-                
-                if warning_level == 'warning':
-                    logger.warning(f"WARNING: {message}")
-                elif warning_level == 'caution':
-                    logger.info(f"CAUTION: {message}")
-                if not is_appropriate:
-                    logger.warning("Consider using automatic model selection instead: python main.py %s", ticker)
-                
-                logger.info(f"Proceeding with forced model type: {force_model}")
-                model_object = ModelRegistry.create_model(model_type)
-                current_model = force_model  # Use the forced model key
-                
-            except ValueError:
-                logger.warning(f"Invalid model type '{force_model}', falling back to automatic selection")
+            # Prevent use of deprecated ZETA model
+            if force_model.lower() == 'zeta':
+                logger.warning("The ZETA model has been deprecated due to reliability concerns. Falling back to automatic model selection.")
                 model_object, current_model = _select_zscore_model_and_key_from_profile(profile)
+            else:
+                from ..models.base import ModelType
+                from ..models.model_validation import validate_model_appropriateness
+                try:
+                    model_type = ModelType(force_model)
+                    
+                    # Validate model appropriateness
+                    is_appropriate, warning_level, message = validate_model_appropriateness(profile, model_type)
+                    
+                    if warning_level == 'warning':
+                        logger.warning(f"WARNING: {message}")
+                    elif warning_level == 'caution':
+                        logger.info(f"CAUTION: {message}")
+                    if not is_appropriate:
+                        logger.warning("Consider using automatic model selection instead: python main.py %s", ticker)
+                    
+                    logger.info(f"Proceeding with forced model type: {force_model}")
+                    model_object = ModelRegistry.create_model(model_type)
+                    current_model = force_model  # Use the forced model key
+                    
+                except ValueError:
+                    logger.warning(f"Invalid model type '{force_model}', falling back to automatic selection")
+                    model_object, current_model = _select_zscore_model_and_key_from_profile(profile)
         else:
             model_object, current_model = _select_zscore_model_and_key_from_profile(profile)
         
@@ -807,11 +999,9 @@ def analyze_single_stock_zscore_trend(ticker: str, start_date: str,
         if not fin_info or not quarters:
             error_msg = f"No financial data available for {ticker}. This may indicate the company is delisted, not publicly traded, or has insufficient SEC filings."
             logger.error(error_msg)
-            raise ValueError(error_msg)
-
-        # Step 4: Z-Score Computation
+            raise ValueError(error_msg)        # Step 4: Z-Score Computation
         update_progress("Z-Score Computation")
-        df = _process_quarters_and_compute_zscores(quarters, ticker, current_model, raw_quarters=raw_quarters)
+        df = _process_quarters_and_compute_zscores(quarters, ticker, current_model, raw_quarters=raw_quarters, start_date=start_date)
         
         # Check if Z-Score computation was successful
         if df is None or df.empty:

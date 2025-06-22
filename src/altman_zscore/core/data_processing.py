@@ -54,8 +54,7 @@ def prepare_context_info(ticker: str, profile, model) -> dict:
             model_name = "Z'-Score (Private Company) Model"
         elif "Financial" in class_name:
             model_name = "Financial Institution Z-Score Model"
-        elif "Zeta" in class_name:
-            model_name = "ZETA® Credit Risk Model"
+        # Removed deprecated ZETA model conversion
         elif "Retail" in class_name:
             model_name = "Retail Industry Z-Score Model"
         else:

@@ -16,15 +16,20 @@ from ..utils.retry import exponential_retry
 from ..company.cik_cache import _sec_rate_limiter
 
 # Network exceptions to retry on
+# Include HTTPError to enable retries on HTTP errors like 401
 NETWORK_EXCEPTIONS = (
     requests.exceptions.RequestException,  # All requests exceptions
     requests.exceptions.Timeout,
     requests.exceptions.ConnectionError,
     requests.exceptions.HTTPError,
 )
+# Network exceptions excluding HTTPError for retry logic; HTTPError handled separately
 
 logger = logging.getLogger(__name__)
 
+# Global timer for all API calls (shared across all SECClient instances)
+LAST_API_CALL_TIME = 0.0
+MIN_API_INTERVAL = 0.25  # seconds (adjust as needed for all APIs)
 
 class SECError(AltmanZScoreError):
     """Base exception for SEC API errors."""
@@ -127,15 +132,13 @@ class SECClient:
         **kwargs
     ) -> requests.Response:
         """Make an authenticated request to SEC EDGAR API."""
-        # Use global SEC rate limiter to coordinate all SEC API calls
+        self.validate_credentials()  # Enforce timer and credential check before every API call
         _sec_rate_limiter.wait_if_needed()
-        
-        # Build the full URL - ensure we have proper URL structure
+        # Build the full URL
         if endpoint.startswith("http"):
             url = endpoint
         else:
-            # Properly join URL parts to avoid issues with slashes
-            endpoint = endpoint.lstrip('/')  # Remove leading slash if present
+            endpoint = endpoint.lstrip('/')
             url = f"{self.BASE_URL}/{endpoint}"
         logger.debug(f"Making SEC API request to URL: {url}")
         try:
@@ -145,14 +148,9 @@ class SECClient:
                 timeout=timeout,
                 **kwargs
             )
-            logger.debug(
-                f"SEC API Request: {method} {url} "
-                f"Headers: {self.session.headers}"
-            )
-            # Raise for 4XX/5XX status codes, but suppress 404 for companyfacts
+            # Handle 404 for companyfacts
             if "/companyfacts/" in url and response.status_code == 404:
-                logger.info(f"SEC companyfacts not found (404) for {url}; will attempt fallback.")
-                # Return a dummy response with empty facts
+                logger.info(f"SEC companyfacts not found (404) for {url}; returning empty facts.")
                 class DummyResponse:
                     def json(self_inner):
                         return {"facts": {}}
@@ -160,15 +158,32 @@ class SECClient:
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 401:
-                logger.info(
-                    f"SEC API rate limit or authentication issue (401). "
-                    f"Falling back to other data sources. "
-                    f"URL: {url}"
-                )
-                # For 401 errors, return None instead of raising to allow fallback
-                return None
+            # Rethrow all HTTP errors to be handled by calling methods or retry decorator
             raise
+
+    def validate_credentials(self):
+        """
+        Validate SEC credentials and enforce a global minimum interval between API calls.
+        """
+        global LAST_API_CALL_TIME
+        now = time.time()
+        elapsed = now - LAST_API_CALL_TIME
+        if elapsed < MIN_API_INTERVAL:
+            sleep_time = MIN_API_INTERVAL - elapsed
+            logger.debug(f"Global API timer: sleeping {sleep_time:.2f}s to avoid rapid API calls.")
+            time.sleep(sleep_time)
+        LAST_API_CALL_TIME = time.time()
+        # Refresh User-Agent header (using dynamic user agent or fallback)
+        try:
+            new_ua = self._get_dynamic_user_agent()
+            self.session.headers.update({"User-Agent": new_ua})
+            logger.debug(f"Updated SECClient User-Agent to: {new_ua}")
+        except Exception as e:
+            # If dynamic retrieval fails, fallback to existing header
+            logger.warning(f"Could not update SECClient User-Agent dynamically: {e}")
+        # Note: SEC EDGAR requires a valid User-Agent; ensure header present
+        if not self.session.headers.get("User-Agent"):
+            logger.warning("SECClient session missing User-Agent header. Requests may be rejected.")
 
     def lookup_cik(self, ticker: str) -> Optional[str]:
         """
@@ -228,79 +243,66 @@ class SECClient:
 
         Args:
             ticker_or_cik: Stock ticker symbol or CIK number
-            save_to_file: If True, save the result to output/{TICKER}/company_info.json        Returns:
+            save_to_file: If True, save the result to output/{TICKER}/company_info.json
+        Returns:
             Company info including CIK if found, None otherwise
         """
-        try:
-            # Get/validate CIK
-            if ticker_or_cik.isdigit():
-                cik = ticker_or_cik.zfill(10) 
-            else:
-                # Use comprehensive SEC cache for CIK lookup
-                cik = self.lookup_cik(ticker_or_cik)
-            
-            if not cik:
-                logger.error(f"Could not find CIK for {ticker_or_cik}")
-                return None
-
-            ticker = ticker_or_cik if not ticker_or_cik.isdigit() else None
-            padded_cik = cik.zfill(10)
-            
-            # Get company details using CIK - ensure properly joined URL
-            url = f"{self.BASE_URL}{self.COMPANY_SEARCH.format(padded_cik)}"
-            logger.debug(f"Requesting company info from: {url}")
-            
-            response = self.session.get(url)
-            logger.debug(f"Response status: {response.status_code}")
-            
-            if response.status_code != 200:
-                logger.error(f"Failed to get company info for {ticker_or_cik} (CIK: {padded_cik})")
-                logger.error(f"Response status code: {response.status_code}")
-                logger.error(f"Response text: {response.text[:1000]}")
-                return None
-
-            try:
-                company_info = response.json()
-                logger.debug(f"SEC API Response structure: {list(company_info.keys())}")
-            except ValueError as e:
-                logger.error(f"Failed to parse JSON response for {ticker_or_cik}: {str(e)}")
-                logger.error(f"Raw response content: {response.text[:1000]}")
-                return None
-
-            # Enhanced validation of response structure
-            expected_keys = ["cik", "entityType", "sic", "sicDescription", "name", "tickers", "exchanges"]
-            found_keys = list(company_info.keys())
-            missing_keys = [k for k in expected_keys if k not in found_keys]
-            
-            if missing_keys:
-                logger.warning(f"Missing expected keys in SEC API response: {missing_keys}")
-                logger.debug(f"Available keys: {found_keys}")
-                
-                # Try to find alternative fields
-                if "cik" not in company_info:
-                    company_info["cik"] = padded_cik
-                    
-                # Extract from nested structures if needed
-                if "name" not in company_info and "company" in company_info:
-                    company_info["name"] = company_info["company"].get("name", ticker)
-
-            company_info["cik"] = padded_cik  # Ensure CIK is included
-            
-            # Save to file if requested
-            if save_to_file and ticker:
-                import json
-                out_path = get_output_dir("company_info.json", ticker=ticker)
-                with open(out_path, "w", encoding="utf-8") as f:
-                    json.dump(company_info, f, indent=2, ensure_ascii=False)
-                logger.debug(f"Saved company info to {out_path}")
-                
-            return company_info
-
-        except Exception as e:
-            logger.error(f"Error getting company info for {ticker_or_cik}: {str(e)}")
-            import traceback
-            logger.debug(f"Exception traceback: {traceback.format_exc()}")
+        # Determine CIK
+        if ticker_or_cik.isdigit():
+            cik = ticker_or_cik.zfill(10)
+        else:
+            cik = self.lookup_cik(ticker_or_cik)
+         
+        if not cik:
+            logger.error(f"Could not find CIK for {ticker_or_cik}")
             return None
+
+        ticker = ticker_or_cik if not ticker_or_cik.isdigit() else None
+        padded_cik = cik.zfill(10)
+         
+        # Get company details using CIK
+        url = f"{self.BASE_URL}{self.COMPANY_SEARCH.format(padded_cik)}"
+        logger.debug(f"Requesting company info from: {url}")
+        response = self._make_request(url)
+        if response is None:
+            logger.error(f"SEC API unauthorized or rate-limited for company info {ticker_or_cik} (CIK: {padded_cik})")
+            return None
+
+        try:
+            company_info = response.json()
+            logger.debug(f"SEC API Response structure: {list(company_info.keys())}")
+        except ValueError as e:
+            logger.error(f"Failed to parse JSON response for {ticker_or_cik}: {e}")
+            return None
+
+        # Enhanced validation of response structure
+        expected_keys = ["cik", "entityType", "sic", "sicDescription", "name", "tickers", "exchanges"]
+        found_keys = list(company_info.keys())
+        missing_keys = [k for k in expected_keys if k not in found_keys]
+        
+        if missing_keys:
+            logger.warning(f"Missing expected keys in SEC API response: {missing_keys}")
+            logger.debug(f"Available keys: {found_keys}")
+            
+            # Try to find alternative fields
+            if "cik" not in company_info:
+                company_info["cik"] = padded_cik
+                
+            # Extract from nested structures if needed
+            if "name" not in company_info and "company" in company_info:
+                company_info["name"] = company_info["company"].get("name", ticker)
+
+        company_info["cik"] = padded_cik  # Ensure CIK is included
+        
+        # Save to file if requested
+        if save_to_file and ticker:
+            import json
+            out_path = get_output_dir("company_info.json", ticker=ticker)
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(company_info, f, indent=2, ensure_ascii=False)
+            logger.debug(f"Saved company info to {out_path}")
+            
+        return company_info
 
     def get_company_facts(self, cik: str) -> Dict[str, Any]:
         """

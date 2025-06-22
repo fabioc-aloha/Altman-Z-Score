@@ -10,7 +10,6 @@ from .base import ModelType, ZScoreModel
 from .original import OriginalZScoreModel
 from .zscore_model_private import PrivateManufacturingZScoreModel
 from .zscore_model_financial import FinancialInstitutionZScoreModel
-from .zscore_model_zeta import ZetaZScoreModel
 from .zscore_model_retail import RetailZScoreModel
 from .zscore_model_em import EmergingMarketsZScoreModel
 
@@ -31,7 +30,6 @@ class ModelRegistry:
         ModelType.ORIGINAL: OriginalZScoreModel,
         ModelType.PRIVATE: PrivateManufacturingZScoreModel,
         ModelType.FINANCIAL: FinancialInstitutionZScoreModel,
-        ModelType.ZETA: ZetaZScoreModel,
         ModelType.RETAIL: RetailZScoreModel,
         ModelType.EM: EmergingMarketsZScoreModel,  # Register EM model
     }
@@ -133,11 +131,6 @@ class _PrivateModel(PrivateManufacturingZScoreModel):
 
 @ModelRegistry.register(ModelType.FINANCIAL)
 class _FinancialModel(FinancialInstitutionZScoreModel):
-    pass
-
-
-@ModelRegistry.register(ModelType.ZETA)
-class _ZetaModel(ZetaZScoreModel):
     pass
 
 

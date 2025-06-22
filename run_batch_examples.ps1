@@ -113,7 +113,7 @@ $energy_utilities = @(
     'NEE', # NextEra Energy (Renewable utilities)
     'DUK', # Duke Energy (Utilities)
     'SO', # Southern Company (Utilities)
-    'D', # Dominion Energy (Utilities)
+    'D' # Dominion Energy (Utilities)
     'EXC', # Exelon (Utilities)
     'AEP', # American Electric Power (Utilities)
     'PCG', # PG&E Corporation (California utility)
@@ -143,9 +143,7 @@ $staples_healthcare = @(
     'WBA', # Walgreens Boots Alliance (Pharmacy)
     'MCK', # McKesson (Healthcare distribution)
     'ABC', # AmerisourceBergen (Healthcare distribution)
-    'CAH', # Cardinal Health (Healthcare distribution)
-    'CI', # Cigna (Health insurance)
-    'HUM'  # Humana (Health insurance)
+    'CAH'  # Cardinal Health
 )
 
 # Group 7: Mega-Cap Tech Leaders (FAANG+ and established giants)
@@ -173,40 +171,15 @@ $mega_cap_tech = @(
     'AMAT'  # Applied Materials (Semiconductor equipment)
 )
 
-# Group 8: Z-Score Anomaly Tickers (Z-score = 0 or > 10)
-$zscore_anomaly = @(
-    'TSLA', # Tesla (Electric vehicles, anomaly)
-    'SNOW', # Snowflake (Data cloud, anomaly)
-    'SHOP', # Shopify (E-commerce, anomaly)
-    'PLTR', # Palantir (Big data, anomaly)
-    'NVDA', # NVIDIA (Semiconductors/AI, anomaly)
-    'LULU', # Lululemon (Athletic apparel, anomaly)
-    'DDOG', # Datadog (Cloud monitoring, anomaly)
-    'NOW', # ServiceNow (Enterprise software, anomaly)
-    'NFLX', # Netflix (Streaming, anomaly)
-    'META', # Meta Platforms (Social media, anomaly)
-    'ITW', # Illinois Tool Works (Industrial, anomaly)
-    'GOOGL', # Alphabet Class A (Search/cloud, anomaly)
-    'GOOG', # Alphabet Class C (Search/cloud, anomaly)
-    'MDB', # MongoDB (Database, anomaly)
-    'CRWD', # CrowdStrike (Cybersecurity, anomaly)
-    'ADBE', # Adobe (Creative software, anomaly)
-    'TXN', # Texas Instruments (Semiconductors, anomaly)
-    'M', # Macy's (Department store, anomaly)
-    'MMM', # 3M (Industrial, anomaly)
-    'AMC', # AMC Entertainment (Meme stock, anomaly)
-    'COP', # ConocoPhillips (Oil & gas, anomaly)
-    'PFE', # Pfizer (Pharmaceuticals, anomaly)
-    'GE', # General Electric (Turnaround, anomaly)
-    'ED'  # Consolidated Edison (Utility, anomaly)
-)
-
 # Helper to run the CLI for a group with rate limiting
 function Invoke-ZScoreBatch($tickers, $groupName) {
     Write-Host "Running Z-Score batch for ${groupName}: $($tickers -join ' ')" -ForegroundColor Cyan
     Write-Host "Processing $($tickers.Count) companies..." -ForegroundColor Yellow
-    python build_field_database.py @tickers
-    python main.py @tickers
+    
+    # Redirect stderr to null to suppress 401 errors while keeping progress bars visible
+    $env:PYTHONUNBUFFERED = "1"  # Ensure Python output is not buffered
+    python build_field_database.py @tickers 2>$null
+    python main.py @tickers 2>$null
     
     # Add delay between batches to prevent rate limiting
     Write-Host "Waiting 45 seconds before next batch to prevent rate limiting..." -ForegroundColor Green
@@ -222,10 +195,12 @@ $groups = @{
     '5' = @{ Name = 'Energy & Utilities'; Tickers = $energy_utilities }
     '6' = @{ Name = 'Consumer Staples & Healthcare'; Tickers = $staples_healthcare }
     '7' = @{ Name = 'Mega-Cap Tech Leaders'; Tickers = $mega_cap_tech }
-    '8' = @{ Name = 'Z-Score Anomaly Tickers'; Tickers = $zscore_anomaly }
 }
+# Add an 'All Groups' option (0) combining all tickers
+$all_tickers = $distressed + $high_growth_tech + $consumer_growth + $industrials + $energy_utilities + $staples_healthcare + $mega_cap_tech
+$groups['0'] = @{ Name = 'All Groups'; Tickers = $all_tickers }
 
-Write-Host "\nSelect portfolio group(s) to run (comma-separated, e.g. 1,3,8):" -ForegroundColor Cyan
+Write-Host "\nSelect portfolio group(s) to run (comma-separated, e.g. 1,3,7):" -ForegroundColor Cyan
 foreach ($key in ($groups.Keys | Sort-Object { [int]$_ })) {
     Write-Host ("  $key. " + $groups[$key].Name) -ForegroundColor Yellow
 }

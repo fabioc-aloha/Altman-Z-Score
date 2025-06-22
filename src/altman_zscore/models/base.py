@@ -20,7 +20,6 @@ class ModelType(Enum):
     ORIGINAL = "original"               # Original Z-Score for public manufacturing companies
     PRIVATE = "private"                 # Z'-Score for private manufacturing companies
     FINANCIAL = "financial"             # Modified Z-Score for financial institutions
-    ZETA = "zeta"                       # Zeta® Model (1977 public domain version)
     RETAIL = "retail"                   # Retail industry specific model
     EM = "em"                        # Emerging Markets Model (Altman EM-Score)
 

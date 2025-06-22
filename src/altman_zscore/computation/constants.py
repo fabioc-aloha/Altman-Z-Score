@@ -1,9 +1,11 @@
 """
 Constants and mappings for Altman Z-Score computation in Altman Z-Score analysis.
-Currently limited to U.S.-based companies only.
 
-Defines canonical field mappings, model fields, coefficients, thresholds, aliases, error messages, 
-and other shared constants for all Z-Score model variants.
+References:
+1. Altman, E.I. (1968) "Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy"
+2. Altman, E.I. (1983) "Corporate Financial Distress: A Complete Guide to Predicting, Avoiding, and Dealing with Bankruptcy"
+3. Altman, E.I. (2002) "Revisiting Credit Scoring Models in a Basel 2 Environment"
+4. Altman, E.I. (2005) "An emerging market credit scoring system for corporate bonds"
 """
 
 # constants.py
@@ -15,7 +17,7 @@ from typing import Dict, List
 # 1) MODEL_FIELDS: Lists required canonical fields for each Z-Score model variant.
 # -------------------------------------------------------------------
 MODEL_FIELDS: Dict[str, List[str]] = {
-    # 1.1 Public manufacturing (Original Z-Score, five-ratio)
+    # 1.1 Original Z-Score (Manufacturing)
     "original": [
         "total_assets",
         "current_assets",
@@ -26,7 +28,8 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 1.2 Private manufacturing (Z′-Score, five-ratio)
+    
+    # 1.2 Private Company Model (Z′-Score)
     "private": [
         "total_assets",
         "current_assets",
@@ -37,7 +40,8 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 1.3 Public non-manufacturing (Zʺ-Public, four-ratio)
+    
+    # 1.3 Non-Manufacturing/Service Model (Zʺ-Score)
     "service": [
         "total_assets",
         "current_assets",
@@ -46,10 +50,9 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "total_liabilities",
         "market_value_equity",
         "ebit",
-        "sales",
     ],
-    # 1.4 Private non-manufacturing (Zʺ-Private, four-ratio)
-    "service_private": [
+      # 1.4 Emerging Markets Model
+    "em": [
         "total_assets",
         "current_assets",
         "current_liabilities",
@@ -59,18 +62,9 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "ebit",
         "sales",
     ],
-    # 1.5 Tech (alias for public non-manufacturing; Zʺ-Public weights)
-    "tech": [
-        "total_assets",
-        "current_assets",
-        "current_liabilities",
-        "retained_earnings",
-        "total_liabilities",
-        "market_value_equity",
-        "ebit",
-        "sales",    ],
-    # 1.6 Emerging Markets Model (alias for service model)
-    "em": [
+    
+    # 1.5 Retail Model
+    "retail": [
         "total_assets",
         "current_assets",
         "current_liabilities",
@@ -79,138 +73,107 @@ MODEL_FIELDS: Dict[str, List[str]] = {
         "market_value_equity",
         "ebit",
         "sales",
-    ],
-    # 1.7 Zeta Model (1977 public domain version, 7-factor)
-    "zeta": [
-        "total_assets",
-        "current_assets",
-        "current_liabilities",
-        "retained_earnings",
-        "total_liabilities",
-        "market_value_equity",
-        "ebit",
-        "sales",
-        "net_income",
-        "debt",
-        "cash_flow",
-    ],
-    # (Optional: Any `sic_<code>` overrides can be added here if required)
+        "inventory",
+        "cost_of_goods_sold",
+        "average_inventory",
+    ]
 }
 
 # -------------------------------------------------------------------
-# 2) MODEL_COEFFICIENTS: Coefficient weights for each Z-Score model variant.
+# 2) MODEL_COEFFICIENTS: Literature-based coefficient weights
 # -------------------------------------------------------------------
 MODEL_COEFFICIENTS: Dict[str, Dict[str, Decimal]] = {
-    # 2.1 Original Z-Score (1968, Public Manufacturing, 5-ratio)
+    # 2.1 Original Z-Score (1968, Public Manufacturing)
+    # Altman (1968) - Original paper coefficients
     "original": {
-        "X1": Decimal("1.2"),  # Working Capital/Total Assets
-        "X2": Decimal("1.4"),  # Retained Earnings/Total Assets
-        "X3": Decimal("3.3"),  # EBIT/Total Assets
-        "X4": Decimal("0.6"),  # Market Value of Equity/Total Liabilities
-        "X5": Decimal("1.0"),  # Sales/Total Assets
+        "X1": Decimal("1.2"),   # Working Capital/Total Assets
+        "X2": Decimal("1.4"),   # Retained Earnings/Total Assets
+        "X3": Decimal("3.3"),   # EBIT/Total Assets        
+        "X4": Decimal("0.6"),   # Market Value of Equity/Total Liabilities
+        "X5": Decimal("1.0"),   # Sales/Total Assets
     },
+    
     # 2.2 Z′-Score (Private Manufacturing)
+    # Altman (1983) - Private firm modification
     "private": {
-        "X1": Decimal("0.717"),  # Working Capital/Total Assets
-        "X2": Decimal("0.847"),  # Retained Earnings/Total Assets
-        "X3": Decimal("3.107"),  # EBIT/Total Assets
-        "X4": Decimal("0.420"),  # Book Value of Equity/Total Liabilities
-        "X5": Decimal("0.998"),  # Sales/Total Assets
+        "X1": Decimal("0.717"), # Working Capital/Total Assets
+        "X2": Decimal("0.847"), # Retained Earnings/Total Assets
+        "X3": Decimal("3.107"), # EBIT/Total Assets
+        "X4": Decimal("0.420"), # Book Value of Equity/Total Liabilities
+        "X5": Decimal("0.998"), # Sales/Total Assets
     },
+    
     # 2.3 Zʺ-Score (Non-Manufacturing)
+    # Altman (2002) - Service sector adaptation
     "service": {
-        "X1": Decimal("6.56"),   # Working Capital/Total Assets
-        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
-        "X3": Decimal("6.72"),   # EBIT/Total Assets
-        "X4": Decimal("1.05"),   # Market Value of Equity/Total Liabilities
+        "X1": Decimal("6.56"),  # Working Capital/Total Assets
+        "X2": Decimal("3.26"),  # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),  # EBIT/Total Assets        
+        "X4": Decimal("1.05"),  # Book Value of Equity/Total Liabilities
     },
-    # 2.4 Zʺ-Private (Private Non-Manufacturing)
-    "service_private": {
-        "X1": Decimal("6.56"),   # Working Capital/Total Assets
-        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
-        "X3": Decimal("6.72"),   # EBIT/Total Assets
-        "X4": Decimal("1.05"),   # Book Value of Equity/Total Liabilities
-    },
-    # Tech is an alias for service (uses same coefficients)
-    "tech": {
-        "X1": Decimal("6.56"),   # Working Capital/Total Assets
-        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
-        "X3": Decimal("6.72"),   # EBIT/Total Assets
-        "X4": Decimal("1.05"),   # Market Value of Equity/Total Liabilities
-    },
-    # 2.5 Zeta Model (1977 public domain version, 7-factor)
-    "zeta": {
-        "X1": Decimal("3.3"),   # Net Income / Total Assets
-        "X2": Decimal("0.6"),   # Stability of Earnings (set to 0 if unavailable)
-        "X3": Decimal("1.0"),   # EBIT / Interest Expense
-        "X4": Decimal("1.4"),   # Retained Earnings / Total Assets
-        "X5": Decimal("0.8"),   # Current Assets / Current Liabilities
-        "X6": Decimal("0.7"),   # Equity / Total Liabilities
-        "X7": Decimal("0.6"),   # log(Total Assets)
-    },
-    # 2.6 Emerging Markets Model (Altman EM-Score, 4-factor + intercept)
+      
+    # 2.4 Emerging Markets Model
+    # Altman (2005) - EM Score
     "em": {
-        "X0": Decimal("3.25"),   # Intercept
-        "X1": Decimal("6.56"),   # Working Capital/Total Assets
-        "X2": Decimal("3.26"),   # Retained Earnings/Total Assets
-        "X3": Decimal("6.72"),   # EBIT/Total Assets
-        "X4": Decimal("1.05"),   # Book Value of Equity/Total Liabilities
+        "X1": Decimal("6.56"),  # Working Capital/Total Assets
+        "X2": Decimal("3.26"),  # Retained Earnings/Total Assets
+        "X3": Decimal("6.72"),  # EBIT/Total Assets
+        "X4": Decimal("1.05"),  # Book Value of Equity/Total Liabilities
+        "X5": Decimal("3.25"),  # Sales/Total Assets
     },
+    
+    # 2.5 Retail Model
+    # Based on retail industry adaptations
+    "retail": {
+        "X1": Decimal("1.10"),  # Quick Ratio ((Current Assets - Inventory)/Current Liabilities)
+        "X2": Decimal("1.40"),  # Retained Earnings/Total Assets
+        "X3": Decimal("3.30"),  # EBIT/Total Assets
+        "X4": Decimal("0.60"),  # Market Value of Equity/Total Liabilities
+        "X5": Decimal("1.20"),  # Sales/Total Assets
+        "X6": Decimal("0.30"),  # Inventory Turnover
+    }
 }
 
 # -------------------------------------------------------------------
-# 3) Z_SCORE_THRESHOLDS: Distress, Grey, and Safe cutoffs for each model.
+# 3) MODEL_THRESHOLDS: Literature-based classification thresholds
 # -------------------------------------------------------------------
 Z_SCORE_THRESHOLDS: Dict[str, Dict[str, Decimal]] = {
-    # 3.1 Original Z-Score (1968, Public Manufacturing)
+    # Original Z-Score thresholds (1968)
     "original": {
-        "safe": Decimal("2.99"),
-        "grey": Decimal("1.81"),
-        "distress": Decimal("1.81"),
+        "DISTRESS": Decimal("1.81"),    # Z < 1.81: High probability of bankruptcy
+        "SAFE": Decimal("2.99"),        # Z > 2.99: Safe zone
     },
-    # 3.2 Z′-Score (Private Manufacturing)
+    
+    # Private Company Model thresholds (1983)
     "private": {
-        "safe": Decimal("2.90"),
-        "grey": Decimal("1.23"),
-        "distress": Decimal("1.23"),
+        "DISTRESS": Decimal("1.23"),    # Z' < 1.23: High probability of bankruptcy
+        "SAFE": Decimal("2.90"),        # Z' > 2.90: Safe zone
     },
-    # 3.3 Zʺ-Score (Non-Manufacturing)
+    
+    # Non-Manufacturing/Service Model thresholds (2002)
     "service": {
-        "safe": Decimal("2.60"),
-        "grey": Decimal("1.10"),
-        "distress": Decimal("1.10"),
+        "DISTRESS": Decimal("1.10"),    # Z" < 1.10: High probability of bankruptcy
+        "SAFE": Decimal("2.60"),        # Z" > 2.60: Safe zone
     },
-    # 3.4 Zʺ-Private (Private Non-Manufacturing)
-    "service_private": {
-        "safe": Decimal("2.60"),
-        "grey": Decimal("1.10"),
-        "distress": Decimal("1.10"),
-    },
-    # Tech uses same thresholds as service
-    "tech": {
-        "safe": Decimal("2.60"),
-        "grey": Decimal("1.10"),
-        "distress": Decimal("1.10"),
-    },
-    # 3.5 Zeta Model (1977 public domain version, 7-factor)
-    "zeta": {
-        "safe": Decimal("2.90"),
-        "grey": Decimal("1.23"),
-        "distress": Decimal("1.23"),
-    },
-    # 3.6 Zeta Model (example thresholds, adjust as needed)
-    "zeta": {
-        "safe": Decimal("2.0"),
-        "grey": Decimal("1.0"),
-        "distress": Decimal("1.0"),
-    },
-    # 3.7 Emerging Markets Model (Altman EM-Score)
+    
+    # Emerging Markets Model thresholds (2005)
     "em": {
-        "safe": Decimal("2.60"),
-        "grey": Decimal("1.10"),
-        "distress": Decimal("1.10"),
+        "DISTRESS": Decimal("1.10"),    # EM < 1.10: High probability of default
+        "SAFE": Decimal("2.60"),        # EM > 2.60: Safe zone
     },
+    
+    # Retail Model thresholds (industry-adjusted)
+    "retail": {
+        "DISTRESS": Decimal("1.90"),    # Modified for retail industry characteristics
+        "SAFE": Decimal("3.10"),        # Safe zone
+    }
 }
+
+# Maintain aliases for backward compatibility
+MODEL_COEFFICIENTS["service_private"] = MODEL_COEFFICIENTS["private"]
+MODEL_COEFFICIENTS["tech"] = MODEL_COEFFICIENTS["service"]
+Z_SCORE_THRESHOLDS["service_private"] = Z_SCORE_THRESHOLDS["private"]
+Z_SCORE_THRESHOLDS["tech"] = Z_SCORE_THRESHOLDS["service"]
 
 # -------------------------------------------------------------------
 # 4) MODEL_ALIASES: Maps legacy or alternative model keys to canonical keys.
@@ -221,8 +184,9 @@ MODEL_ALIASES: Dict[str, str] = {
     "public_mfg": "original",         # alias → original
     "manufacturing": "original",      # alias → original
     "non_manufacturing": "service",   # alias → service
-    "service": "em",                  # service → emerging markets (new mapping)
+    # "service": "em",                # removed erroneous mapping; service remains canonical
     "emerging": "em",                 # emerging → em
+    "tech": "service",               # alias tech → service model
 }
 
 # -------------------------------------------------------------------

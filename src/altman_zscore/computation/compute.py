@@ -12,7 +12,7 @@ from altman_zscore.computation.formulas import (
     altman_zscore_original,
     altman_zscore_private,
     altman_zscore_service,
-    altman_zscore_zeta,  # Add Zeta model import
+    altman_zscore_retail
 )
 from altman_zscore.computation.model_selection import (
     canonicalize_model_key,
@@ -65,21 +65,28 @@ def compute_zscore(
     
     # Canonicalize the model key
     model_key = canonicalize_model_key(model_key)
-    
+    # Compute derived working_capital if missing
+    if "working_capital" not in metrics and "current_assets" in metrics and "current_liabilities" in metrics:
+        try:
+            metrics["working_capital"] = float(metrics.get("current_assets", 0)) - float(metrics.get("current_liabilities", 0))
+        except Exception:
+            metrics["working_capital"] = None
     # Get model coefficients and thresholds
     coefficients = MODEL_COEFFICIENTS.get(model_key)
     thresholds = Z_SCORE_THRESHOLDS.get(model_key)
     
     if coefficients is None:
-        raise NotImplementedError(f"Model '{model_key}' not implemented")    # Compute Z-Score using the appropriate model
+        raise NotImplementedError(f"Model '{model_key}' not implemented")
+
+    # Compute Z-Score using the appropriate model
     if model_key in ["service", "tech"]:
         result = altman_zscore_service(metrics)
     elif model_key == "service_private":
         result = altman_zscore_service(metrics, use_book_value=True)
     elif model_key == "private":
         result = altman_zscore_private(metrics)
-    elif model_key == "zeta":
-        result = altman_zscore_zeta(metrics)
+    elif model_key == "retail":
+        result = altman_zscore_retail(metrics)
     else:  # "original" and any SIC-specific models
         result = altman_zscore_original(metrics)
 
@@ -92,12 +99,10 @@ def compute_zscore(
         "model_key": model_key,
         "coefficients": coefficients,
         "thresholds": thresholds
-    })
-
-    # Determine diagnostic based on thresholds
-    if z_score > thresholds["safe"]:
+    })    # Determine diagnostic based on thresholds
+    if z_score > thresholds["SAFE"]:
         diagnostic = "Safe Zone"
-    elif z_score < thresholds["distress"]:
+    elif z_score < thresholds["DISTRESS"]:
         diagnostic = "Distress Zone"
     else:
         diagnostic = "Grey Zone"
@@ -110,3 +115,33 @@ def compute_zscore(
         thresholds=thresholds,
         override_context=context
     )
+
+
+def determine_zscore_zone(z_score, model_key="original"):
+    """
+    Determine the zone classification for a given Z-Score and model.
+
+    Args:
+        z_score: Numeric Z-Score value (float, int, or Decimal).
+        model_key: Z-Score model key to use thresholds from.
+    Returns:
+        str: 'SAFE', 'DISTRESS', or 'GREY' based on thresholds.
+    """
+    from altman_zscore.computation.model_selection import canonicalize_model_key
+    mk = canonicalize_model_key(model_key)
+    thresholds = Z_SCORE_THRESHOLDS.get(mk, Z_SCORE_THRESHOLDS.get("original"))
+    # Compare using Decimal semantics if possible
+    try:
+        score = z_score
+        # Convert if not Decimal
+        from decimal import Decimal as _D
+        if not isinstance(score, _D):
+            score = _D(str(score))
+    except Exception:
+        score = z_score
+    if score > thresholds["SAFE"]:
+        return "SAFE"
+    elif score < thresholds["DISTRESS"]:
+        return "DISTRESS"
+    else:
+        return "GREY"

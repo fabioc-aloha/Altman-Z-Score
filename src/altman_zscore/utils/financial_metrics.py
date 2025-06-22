@@ -106,6 +106,43 @@ class FinancialMetricsCalculator:
         """
         return self.safe_divide(market_value_equity, total_liabilities)
 
+    @staticmethod
+    def calculate_total_liabilities(
+        total_assets: Optional[Decimal], book_value_equity: Optional[Decimal]
+    ) -> Optional[Decimal]:
+        """Calculate total liabilities from total assets and book value of equity.
+
+        Args:
+            total_assets (Decimal, optional): Total assets value.
+            book_value_equity (Decimal, optional): Book value of equity.
+
+        Returns:
+            Optional[Decimal]: Calculated total liabilities or None if inputs are missing.
+        """
+        if total_assets is not None and book_value_equity is not None:
+            return total_assets - book_value_equity
+        return None
+
+    @staticmethod
+    def calculate_ebit(
+        net_income: Optional[Decimal],
+        interest_expense: Optional[Decimal],
+        tax_expense: Optional[Decimal],
+    ) -> Optional[Decimal]:
+        """Calculate EBIT from net income, interest, and taxes.
+
+        Args:
+            net_income (Decimal, optional): Net income value.
+            interest_expense (Decimal, optional): Interest expense value.
+            tax_expense (Decimal, optional): Tax expense value.
+
+        Returns:
+            Optional[Decimal]: Calculated EBIT or None if inputs are missing.
+        """
+        if net_income is not None and interest_expense is not None and tax_expense is not None:
+            return net_income + interest_expense + tax_expense
+        return None
+
     def calculate_sales_ratio(self, sales: Decimal, total_assets: Decimal) -> Optional[Decimal]:
         """Calculate sales to total assets ratio.
 

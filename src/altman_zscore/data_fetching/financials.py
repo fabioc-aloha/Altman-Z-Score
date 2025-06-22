@@ -11,6 +11,7 @@ import os
 import logging
 import json
 from typing import Dict, Any, Optional
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -70,7 +71,7 @@ def merge_quarters_by_period(existing_quarters, new_quarters):
 
 
 def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: list, 
-                                    start_date: str = None, end_date: str = None) -> list:
+                                     start_date: str = None, end_date: str = None) -> list:
     """
     Extract quarterly financial data from SEC facts.
     
@@ -85,6 +86,9 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     """
     logger = logging.getLogger("altman_zscore.extract_quarters_from_sec_facts")
     
+    # DEBUG: Log the start_date parameter
+    logger.info(f"extract_quarters_from_sec_facts called with start_date={start_date}, end_date={end_date}")
+    
     if not sec_facts or "facts" not in sec_facts:
         return []
         
@@ -94,100 +98,71 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     # Build a mapping of quarters using common period endings
     quarter_data = {}
     
-    # Track annual data separately for backfilling revenue/sales
-    annual_data = {}
-    
     # Iterate through all US GAAP concepts
     for concept_name, concept_data in us_gaap.items():
         units = concept_data.get("units", {})
-        
-        # Look for USD values (most financial data is in USD)
         usd_values = units.get("USD", [])
-        
         for entry in usd_values:
-            # Must have an end date (point in time for balance sheet, period end for income statement)
             if not entry.get("end"):                continue
-                
             period_end = entry["end"]
-            
-            # Apply date filters if provided (but be more generous for quarterly data)
-            # Ensure all dates are strings for comparison
-            period_end_str = str(period_end) if period_end else ""
-            start_date_str = str(start_date) if start_date else ""
-            end_date_str = str(end_date) if end_date else ""
-            
-            if start_date_str and period_end_str < start_date_str:
-                continue
-            if end_date_str and period_end_str > end_date_str:
-                continue
-                
-            # For quarterly data, accept multiple types of periods
-            frame = entry.get("frame", "")
-            fp = entry.get("fp", "")
-            
-            # Accept quarterly data: Q1, Q2, Q3, Q4 in frame OR fp
+            period_end_str = str(period_end)
+            # Determine period type
+            frame = entry.get("frame", "") or ""
+            fp = entry.get("fp", "") or ""
+            # Only accept quarterly data (ignore annual FY)
+            # Accept only quarterly data: look for Q1-Q4 marks in fp or frame
             has_quarterly_frame = any(q in frame for q in ["Q1", "Q2", "Q3", "Q4"])
-            has_quarterly_fp = fp in ["Q1", "Q2", "Q3", "Q4"]  # Include Q4
-            
-            # Track annual data (FY) separately for backfilling
-            is_annual = fp == "FY" or "FY" in frame
-            
-            # Also accept recent data (last 3 years) to capture any reporting format
-            is_recent = period_end_str >= "2021-01-01"
-            
-            # Accept if it's quarterly, annual, or recent
-            if not (has_quarterly_frame or has_quarterly_fp or is_annual or is_recent):
+            has_quarterly_fp = fp in ["Q1", "Q2", "Q3", "Q4"]
+            if not (has_quarterly_frame or has_quarterly_fp):
                 continue
-                
+            
             value = entry.get("val")
             if value is not None:
-                # Store annual data separately for revenue backfilling
-                if is_annual and concept_name in ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"]:
-                    year = period_end[:4]  # Extract year from YYYY-MM-DD
-                    if year not in annual_data:
-                        annual_data[year] = {}
-                    annual_data[year][concept_name] = value
-                
+                # Only add to quarter_data if it's quarterly
                 # Initialize quarter if not exists
                 if period_end not in quarter_data:
                     quarter_data[period_end] = {"period_end": period_end}
-                    
-                # Store the value (use the most recent filing for each concept)
                 quarter_data[period_end][concept_name] = value
     
-    # Backfill revenue data for quarters that are missing it
-    for period_end, quarter in quarter_data.items():
-        year = period_end[:4]
-        
-        # If this quarter is missing revenue data, try to use annual data
-        has_revenue = any(concept in quarter for concept in ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"])
-        
-        if not has_revenue and year in annual_data:
-            # Use annual revenue data for this quarter
-            for concept_name, value in annual_data[year].items():
-                if concept_name not in quarter:
-                    quarter[concept_name] = value
-                    logger.debug(f"Backfilled {concept_name} for {period_end} with annual value: {value}")
-    
-    # Convert to list and sort by period_end
+    # Convert to list of quarters and sort by period_end descending
     quarters = list(quarter_data.values())
-    quarters.sort(key=lambda x: x["period_end"], reverse=True)
+    logger.info(f"Total quarters before filtering: {len(quarters)}")
     
-    # Filter out quarters with insufficient data for Z-Score calculation
-    # A valid quarter should have at least 4-5 core financial fields beyond just period_end
-    valid_quarters = []
-    for quarter in quarters:
-        field_count = len([k for k in quarter.keys() if k not in ['period_end']])
-        
-        # Require at least 4 financial fields for a valid quarter
-        # This filters out spurious periods like 2024-05-01 that only have revenue
-        if field_count >= 4:
-            valid_quarters.append(quarter)
-        else:
-            logger.debug(f"Filtered out incomplete quarter {quarter['period_end']} with only {field_count} fields: {list(quarter.keys())}")
-    
-    logger.info(f"Extracted {len(quarters)} total periods, {len(valid_quarters)} valid quarters after filtering")
-    return valid_quarters
+    # Sort and apply date range filters
+    quarters.sort(key=lambda x: x['period_end'], reverse=True)
+    # Filter by start_date and end_date if provided
+    if start_date or end_date:
+        start_dt = None
+        end_dt = None
+        try:
+            if start_date:
+                start_dt = datetime.strptime(start_date, "%Y-%m-%d").date()
+                logger.info(f"Parsed start_date to: {start_dt}")
+            if end_date:
+                end_dt = datetime.strptime(end_date, "%Y-%m-%d").date()
+                logger.info(f"Parsed end_date to: {end_dt}")
+        except Exception as e:
+            logger.warning(f"Invalid date filter format: {e}")
+        filtered = []
+        for q in quarters:
+            pe = q.get('period_end')
+            try:
+                # Parse period_end to date
+                pe_dt = datetime.strptime(str(pe)[:10], "%Y-%m-%d").date()
+            except Exception:
+                continue
+            # Apply filters
+            if start_dt and pe_dt < start_dt:
+                logger.debug(f"Filtering out quarter {pe} (before start_date {start_dt})")
+                continue
+            if end_dt and pe_dt > end_dt:
+                logger.debug(f"Filtering out quarter {pe} (after end_date {end_dt})")
+                continue
+            filtered.append(q)
+        logger.info(f"Filtered to {len(filtered)} quarterly periods after date filtering")
+        quarters = filtered
+    logger.info(f"Extracted {len(quarters)} quarterly periods from SEC facts")
+    return quarters
 
 
 def apply_cached_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:

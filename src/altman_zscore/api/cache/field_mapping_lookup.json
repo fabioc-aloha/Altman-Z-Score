@@ -1,209 +1,69 @@
 {
   "primary_mappings": {
-    "sales": "Revenues",
-    "total_assets": "Assets",
+    "average_inventory": "InventoryNet",
+    "book_value_equity": "StockholdersEquity",
+    "cost_of_goods_sold": "CostOfGoodsAndServicesSold",
     "current_assets": "AssetsCurrent",
     "current_liabilities": "LiabilitiesCurrent",
-    "total_liabilities": "Liabilities",
-    "retained_earnings": "RetainedEarningsAccumulatedDeficit",
     "ebit": "OperatingIncomeLoss",
-    "book_value_equity": "StockholdersEquity"
+    "inventory": "InventoryNet",
+    "retained_earnings": "RetainedEarningsAccumulatedDeficit",
+    "sales": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "total_assets": "Assets",
+    "total_liabilities": "LiabilitiesAndStockholdersEquity",
+    "working_capital": "COMPUTED_AssetsCurrent_minus_LiabilitiesCurrent"
   },
   "all_mappings": {
+    "average_inventory": [
+      "InventoryNet"
+    ],
+    "book_value_equity": [
+      "StockholdersEquity"
+    ],
+    "cost_of_goods_sold": [
+      "CostOfGoodsAndServicesSold",
+      "CostOfRevenue"
+    ],
+    "current_assets": [
+      "AssetsCurrent"
+    ],
+    "current_liabilities": [
+      "LiabilitiesCurrent"
+    ],
+    "ebit": [
+      "OperatingIncomeLoss"
+    ],
+    "inventory": [
+      "InventoryNet"
+    ],
+    "retained_earnings": [
+      "RetainedEarningsAccumulatedDeficit"
+    ],
     "sales": [
-      "Revenues",
       "RevenueFromContractWithCustomerExcludingAssessedTax",
-      "InterestAndDividendIncomeOperating",
-      "AvailableForSaleSecuritiesAmortizedCost",
-      "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetSales",
-      "SalesAndExciseTaxPayableCurrent",
-      "AvailableForSaleSecuritiesFairValueDisclosure",
-      "ExciseAndSalesTaxes",
-      "PremiumsEarnedNet",
-      "ResultsOfOperationsSalesOrTransfersToEntitysOtherOperations",
-      "AmortizationOfDeferredSalesCommissions"
+      "Revenues"
     ],
     "total_assets": [
       "Assets"
     ],
-    "current_assets": [
-      "AssetsCurrent",
-      "ShortTermInvestments",
-      "MarketableSecurities",
-      "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedCurrentAssetsReceivables",
-      "BusinessAcquisitionPurchasePriceAllocationNoncurrentAssets"
-    ],
-    "current_liabilities": [
-      "LiabilitiesCurrent",
-      "AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent",
-      "IncreaseDecreaseInOtherNoncurrentLiabilities",
-      "PensionAndOtherPostretirementDefinedBenefitPlansCurrentLiabilities",
-      "AccruedLiabilitiesCurrentAndNoncurrent",
-      "EmployeeRelatedLiabilitiesCurrentAndNoncurrent"
-    ],
     "total_liabilities": [
-      "Liabilities",
-      "LiabilitiesNoncurrent",
-      "COMPUTED_LiabilitiesAndStockholdersEquity_minus_StockholdersEquity"
+      "LiabilitiesAndStockholdersEquity",
+      "Liabilities"
     ],
-    "retained_earnings": [
-      "RetainedEarningsAccumulatedDeficit",
-      "TaxCutsAndJobsActOf2017ReclassificationFromAociToRetainedEarningsTaxEffect"
-    ],
-    "ebit": [
-      "OperatingIncomeLoss",
-      "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"
-    ],
-    "book_value_equity": [
-      "StockholdersEquity",
-      "PartnersCapital"
+    "working_capital": [
+      "COMPUTED_AssetsCurrent_minus_LiabilitiesCurrent"
     ]
   },
   "metadata": {
-    "created_date": "2025-06-20 08:05:26",
+    "created_date": "2025-06-21 12:13:55",
     "companies_analyzed": [
-      "ABL",
-      "AFGC",
-      "AFJKR",
-      "AIMDW",
-      "ALDF",
-      "APD",
-      "ARE",
-      "ASH",
-      "ATGFF",
-      "BACK",
-      "BAYA",
-      "BCTXZ",
-      "BIOLQ",
-      "BLD",
-      "BYD",
-      "CBZ",
-      "CCBG",
-      "CCS",
-      "CHCI",
-      "CIPI",
-      "CLMB",
-      "CLNN",
-      "CORBF",
-      "CPNG",
-      "CRVS",
-      "CTDD",
-      "CTKYY",
-      "DBMM",
-      "DLR-PL",
-      "DNMRQ",
-      "DRTTF",
-      "DTIL",
-      "DTW",
-      "DXLG",
-      "EBON",
-      "ECVT",
-      "EEGI",
-      "EMCGW",
-      "ETHA",
-      "FFIC",
-      "FINW",
-      "FL",
-      "FMCKL",
-      "FMCQF",
-      "FTDR",
-      "GBDC",
-      "GMTH",
-      "GPC",
-      "HBAN",
-      "HPP-PC",
-      "IDXX",
-      "INOD",
-      "INTJ",
-      "IRRX",
-      "IVDN",
-      "JVA",
-      "KIDS",
-      "LESL",
-      "LFWD",
-      "LGHLW",
-      "LGMK",
-      "LIQT",
-      "LMFA",
-      "LSCC",
-      "LZMH",
-      "MBRX",
-      "MGNC",
-      "MHH",
-      "MNDR",
-      "MRCC",
-      "MRIN",
-      "MTRN",
-      "NBBI",
-      "NGHI",
-      "NLSP",
-      "NSFDF",
-      "NXGLW",
-      "OACCW",
-      "PACS",
-      "PAG",
-      "PBBK",
-      "PCG-PG",
-      "PCRX",
-      "PDM",
-      "POWWP",
-      "PPTA",
-      "PTCO",
-      "PTLO",
-      "QVCGB",
-      "RANGR",
-      "RDGL",
-      "SAT",
-      "SCCC",
-      "SCS",
-      "SDHC",
-      "SFRX",
-      "SGLY",
-      "SKWD",
-      "SNDR",
-      "SOND",
-      "SONX",
-      "SVBL",
-      "SYM",
-      "TBMCR",
-      "TCBIO",
-      "TCX",
-      "TOI",
-      "TPL",
-      "UCB",
-      "UPST",
-      "URG",
-      "VIRT",
-      "VIVS",
-      "VMCUF",
-      "VMEO",
-      "VNRX",
-      "WGSWW",
-      "WLY",
-      "WOW",
-      "XELB",
-      "XTNT",
-      "XXAAU"
+      "AMZN",
+      "MSFT",
+      "SONO",
+      "TSLA"
     ],
-    "successful_companies": 122,
-    "failed_companies": [
-      "RCIAF",
-      "TCKRF",
-      "AGRO",
-      "LPCHY",
-      "BYDIF",
-      "MAUTF",
-      "DGZ",
-      "ODOT",
-      "SRLZF",
-      "GDO",
-      "GRLF",
-      "CBDL",
-      "FGO",
-      "LZM-WT",
-      "LILMF",
-      "PYN"
-    ],
-    "total_unique_fields": 4903
+    "successful_companies": 4,
+    "failed_companies": [],
+    "total_unique_fields": 902
   }
 }

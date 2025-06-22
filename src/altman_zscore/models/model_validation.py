@@ -9,40 +9,42 @@ from typing import Dict, Tuple
 from ..models.base import ModelType
 
 # Industry classification for validation
-INDUSTRY_MODEL_MATRIX = {
-    'Banks': {
+INDUSTRY_MODEL_MATRIX = {    'Banks': {
         'appropriate': [ModelType.FINANCIAL],
-        'potentially_suitable': [ModelType.EMERGING],
+        'potentially_suitable': [ModelType.EM],
         'not_recommended': [ModelType.RETAIL, ModelType.ORIGINAL, ModelType.PRIVATE]
     },
     'Capital Markets': {
         'appropriate': [ModelType.FINANCIAL],
-        'potentially_suitable': [ModelType.EMERGING],
+        'potentially_suitable': [ModelType.EM],
         'not_recommended': [ModelType.RETAIL, ModelType.ORIGINAL, ModelType.PRIVATE]
     },
     'Insurance': {
         'appropriate': [ModelType.FINANCIAL],
-        'potentially_suitable': [ModelType.EMERGING],
+        'potentially_suitable': [ModelType.EM],
         'not_recommended': [ModelType.RETAIL, ModelType.ORIGINAL, ModelType.PRIVATE]
     },
     'Retail': {
         'appropriate': [ModelType.RETAIL],
         'potentially_suitable': [ModelType.ORIGINAL, ModelType.PRIVATE],
         'not_recommended': [ModelType.FINANCIAL]
-    },
-    'Technology': {
-        'appropriate': [ModelType.EMERGING],
-        'potentially_suitable': [ModelType.ZETA],
+    },    'Technology': {
+        'appropriate': [ModelType.PRIVATE],
+        'potentially_suitable': [ModelType.EM],
         'not_recommended': [ModelType.RETAIL, ModelType.FINANCIAL]
     },
     'Manufacturing': {
         'appropriate': [ModelType.ORIGINAL, ModelType.PRIVATE],
-        'potentially_suitable': [ModelType.ZETA],
+        'potentially_suitable': [ModelType.EM],
         'not_recommended': [ModelType.FINANCIAL, ModelType.RETAIL]
+    },    'Services': {
+        'appropriate': [ModelType.PRIVATE],
+        'potentially_suitable': [ModelType.EM],
+        'not_recommended': [ModelType.RETAIL, ModelType.FINANCIAL]
     },
-    'Services': {
-        'appropriate': [ModelType.EMERGING],
-        'potentially_suitable': [ModelType.ZETA],
+    'Emerging Markets': {
+        'appropriate': [ModelType.EM],
+        'potentially_suitable': [ModelType.PRIVATE],
         'not_recommended': [ModelType.RETAIL, ModelType.FINANCIAL]
     }
 }
@@ -84,25 +86,38 @@ def validate_model_appropriateness(
     if model_type in matrix.get('not_recommended', []):
         return False, 'warning', f"Model is not recommended for {industry} companies. Consider using {', '.join([m.value for m in matrix['appropriate']])} instead."
     
-    # Special cases
-    if model_type == ModelType.ZETA and age < 5:
-        return False, 'warning', "Zeta model requires 5+ years of history. Consider using another model."
-    
     return True, 'caution', "Model appropriateness could not be definitively determined."
 
 def _map_sector_to_industry(sector: str) -> str:
     """Map a specific sector to a general industry category."""
     sector = sector.lower()
     
+    # Financial services
     if any(x in sector for x in ['bank', 'capital market', 'financial', 'insurance']):
         return 'Banks'
-    if any(x in sector for x in ['retail', 'store', 'merchandise']):
+    
+    # Retail
+    if any(x in sector for x in ['retail', 'store', 'merchandise', 'consumer']):
         return 'Retail'
-    if any(x in sector for x in ['technology', 'software', 'internet']):
+    
+    # Technology
+    if any(x in sector for x in ['technology', 'software', 'internet', 'semiconductor']):
         return 'Technology'
-    if any(x in sector for x in ['manufact', 'industrial', 'auto', 'aerospace']):
+    
+    # Manufacturing
+    if any(x in sector for x in ['manufact', 'industrial', 'auto', 'aerospace', 'chemical']):
         return 'Manufacturing'
-    if any(x in sector for x in ['service', 'consulting', 'healthcare']):
+    
+    # Pure Services
+    if any(x in sector for x in ['consulting', 'professional services', 'hospitality']):
         return 'Services'
+    
+    # Healthcare (treat as Services with caution)
+    if 'healthcare' in sector:
+        return 'Services'
+    
+    # Emerging Markets (based on region/country)
+    if any(x in sector for x in ['emerging', 'developing']):
+        return 'Emerging Markets'
     
     return None

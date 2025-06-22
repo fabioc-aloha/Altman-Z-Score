@@ -127,6 +127,8 @@ def _get_model_label_and_overrides(df, model, context_info):
         "private_service": "Zʺ-Score (Private Non-Manufacturing, Book Equity, 1995)",
         "service": "Zʺ-Score (Public Non-Manufacturing, 1995)",
         "emerging": "EM-Score (Emerging Markets, mid-1990s)",
+        "em": "EM-Score (Emerging Markets, mid-2000s)",
+        "service_private": "Zʺ-Score (Private Non-Manufacturing, Book Equity, 1995)",
     }
     override_lines = []
     override_context = None
@@ -171,7 +173,7 @@ def _get_model_label_and_overrides(df, model, context_info):
     # Patch context_info if needed
     if context_info is not None:
         for idx, line in enumerate(override_lines):
-            if line.strip().startsWith('- **Model:**'):
+            if line.strip().startswith('- **Model:**'):
                 override_lines[idx] = f'- **Model:** {model_label} ({model_name})'
                 break
     return model_label, model_name, override_lines
@@ -195,29 +197,60 @@ def _get_formula_and_threshold_section(model_name):
     x_cols = []
     coeffs = MODEL_COEFFICIENTS.get(model_name, MODEL_COEFFICIENTS['original'])
     thresholds = Z_SCORE_THRESHOLDS.get(model_name, Z_SCORE_THRESHOLDS['original'])
-    coeff_map = [
-        ("X1", coeffs.get("X1", 0), "(Current Assets - Current Liabilities) / Total Assets"),
-        ("X2", coeffs.get("X2", 0), "Retained Earnings / Total Assets"),
-        ("X3", coeffs.get("X3", 0), "EBIT / Total Assets"),
-        ("X4", coeffs.get("X4", 0), "Equity / Total Liabilities"),
-        ("X5", coeffs.get("X5", 0), "Sales / Total Assets"),
-    ]
+    
+    # Define model-specific descriptions
+    if model_name == "retail":
+        coeff_map = [
+            ("X1_CA-INV/TA", coeffs.get("X1", 0), "(Current Assets - Inventory) / Total Assets"),
+            ("X2_RE/TA", coeffs.get("X2", 0), "Retained Earnings / Total Assets"),
+            ("X3_EBIT/TA", coeffs.get("X3", 0), "EBIT / Total Assets"),
+            ("X4_MVE/TL", coeffs.get("X4", 0), "Market Value of Equity / Total Liabilities"),
+            ("X5_S/TA", coeffs.get("X5", 0), "Sales / Total Assets"),
+            ("X6_CGS/INV", coeffs.get("X6", 0), "Cost of Goods Sold / Average Inventory"),
+        ]
+    elif model_name == "em" or model_name == "emerging":
+        coeff_map = [
+            ("X1_WC/TA", coeffs.get("X1", 6.56), "(Current Assets - Current Liabilities) / Total Assets"),
+            ("X2_RE/TA", coeffs.get("X2", 3.26), "Retained Earnings / Total Assets"),
+            ("X3_EBIT/TA", coeffs.get("X3", 6.72), "EBIT / Total Assets"),
+            ("X4_MVE/TL", coeffs.get("X4", 1.05), "Equity / Total Liabilities"),
+            ("X5_S/TA", coeffs.get("X5", 3.25), "Sales / Total Assets"),
+        ]
+    else:  # original, private, service models
+        coeff_map = [
+            ("X1_WC/TA", coeffs.get("X1", 0), "(Current Assets - Current Liabilities) / Total Assets"),
+            ("X2_RE/TA", coeffs.get("X2", 0), "Retained Earnings / Total Assets"),
+            ("X3_EBIT/TA", coeffs.get("X3", 0), "EBIT / Total Assets"),
+            ("X4_MVE/TL", coeffs.get("X4", 0), "Equity / Total Liabilities"),
+        ]
+    
     terms = []
     for x, coeff, desc in coeff_map:
         if coeff != 0:
             terms.append(f"{coeff}*{x}")
             x_labels.append((x, desc))
             x_cols.append(x)
+    
     formula_str = "Z = " + " + ".join(terms)
-    formula_lines.append(f"## Z-Score Formula Used\n")
+    
+    model_display_name = {
+        "original": "Original Z-Score (Public Manufacturing, 1968)",
+        "private": "Z′-Score (Private Manufacturing, 1983)",
+        "service": "Zʺ-Score (Public Non-Manufacturing, 1995)",
+        "em": "EM-Score (Emerging Markets, mid-1990s)",
+        "emerging": "EM-Score (Emerging Markets, mid-1990s)",
+        "retail": "Retail Z-Score (Retail Industry)",
+        "financial": "Financial Z-Score (Financial Industry)"
+    }.get(str(model_name).lower(), model_name)
+    formula_lines.append(f"## Z-Score Formula Used ({model_display_name})\n")
     formula_lines.append(formula_str)
     for x, desc in x_labels:
         formula_lines.append(f"- {x} = {desc}")
     formula_lines.append("")
     threshold_lines.append("**Thresholds:**")
-    threshold_lines.append(f"- Safe Zone: > {thresholds['safe']}")
-    threshold_lines.append(f"- Grey Zone: > {thresholds['distress']} and <= {thresholds['safe']}")
-    threshold_lines.append(f"- Distress Zone: <= {thresholds['distress']}")
+    threshold_lines.append(f"- Safe Zone: > {thresholds['SAFE']}")
+    threshold_lines.append(f"- Grey Zone: > {thresholds['DISTRESS']} and <= {thresholds['SAFE']}")
+    threshold_lines.append(f"- Distress Zone: <= {thresholds['DISTRESS']}")
     # threshold_lines.append("")
     return formula_lines, threshold_lines, x_cols
 
@@ -315,14 +348,21 @@ def _get_field_mapping_table(df):
     return tabulate.tabulate(mapping_rows, headers=mapping_header, tablefmt="github")
 
 
-def _get_zscore_component_table(df, x_cols):
+def _get_zscore_component_table(df, x_cols):    
     """Generate a Markdown table of Z-Score components and diagnostics by quarter.
-
     Args:
         df (pd.DataFrame): DataFrame with Z-Score results.
         x_cols (list): List of X variable names to include as columns.    
-        Returns: str: Markdown-formatted table as a string.
-    """
+        Returns: str: Markdown-formatted table as a string.    """    
+    import pandas as pd
+    # Only include unique, valid quarters (deduplicate by 'quarter_end')
+    if not df.empty:
+        df = df[df['valid']].drop_duplicates(subset=['quarter_end'], keep='first').copy()
+    # Use x_cols from formula section dynamically (component column names, e.g., 'X1_WC/TA')
+    # x_cols passed into this function should match DataFrame component columns
+    if not x_cols:
+        x_cols = [col for col in df.columns if col.startswith('X')]
+    x_descriptions = {col: col for col in x_cols}
     rows = []
     for _, row in df.iterrows():
         # Skip quarters where Z-Score calculation failed
@@ -338,19 +378,25 @@ def _get_zscore_component_table(df, x_cols):
             q_str = f"{dt.year} Q{((dt.month-1)//3)+1}"
         except (ValueError, TypeError):
             pass
+        
         diag = row.get("diagnostic")
         # Add ? symbol for questionable Z-score (0 or >10)
         questionable = (z == 0 or (isinstance(z, (int, float)) and z > 10))
+        
         row_vals = [q_str]
+        # Add all X component values
         for x in x_cols:
-            # Get X1..X5 values directly from DataFrame columns
             val = row.get(x)
             row_vals.append(f"{val:.3f}" if val is not None else "")
+            
         z_str = f"{z:.3f}" + (" ?" if questionable else "")
         row_vals.append(z_str)
         row_vals.append(diag or "")
         rows.append(row_vals)
-    header = ["Quarter"] + x_cols + ["Z-Score", "Diagnostic"]
+        
+    # Create header with descriptive names for X components
+    header = ["Quarter"] + [x_descriptions[x] for x in x_cols] + ["Z-Score", "Diagnostic"]
+    
     if "consistency_warning" in df.columns:
         header.append("Consistency Warning")
         for i, (_, row) in enumerate(df.iterrows()):
@@ -363,6 +409,7 @@ def _get_zscore_component_table(df, x_cols):
                 rows[i].append("No issues")
             else:
                 rows[i].append(warning)
+                
     return tabulate.tabulate(rows, headers=header, tablefmt="github")
 
 
@@ -981,7 +1028,7 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
         "raw_quarters": raw_quarters,
         "missing_fields": missing_fields
     }
-      # Build report sections
+    # Build report sections
     lines = []
 
     # Insert company logo at the top if available or fetch if missing
@@ -1054,7 +1101,6 @@ def report_zscore_full_report(df, model, out_base=None, print_to_console=True, c
     # lines.append("\n\n## Appendices\n")
     # lines.extend(_get_appendix_section(df, context_info=context_info, out_base=out_base).split('\n'))
     # Inject Market Sentiment Analysis (Analyst Recommendations) -- now handled by LLM
-    # ...existing code...
     # Generate final report
     report_md = "\n".join(lines)
     if not report_md.strip():

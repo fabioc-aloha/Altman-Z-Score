@@ -77,6 +77,14 @@ def select_zscore_model(
     Returns:
         str: Canonical model key for use in computation
     """
+    # If SIC code is missing, we cannot reliably determine the model.
+    if sic_code is None:
+        import logging
+        logging.getLogger(__name__).warning(
+            "No SIC code available. Cannot determine appropriate Z-Score model. Skipping analysis."
+        )
+        return None
+        
     # 0) Finance/Insurance: not supported
     if is_finance_or_insurance_company(sic_code):
         import logging
@@ -95,7 +103,8 @@ def select_zscore_model(
         return "retail"
     # 3) Tech company check
     if is_tech_company(sic_code):
-        return "em" if is_public else "private"
+        # Use 'original' for public tech companies, 'private' for private tech companies
+        return "original" if is_public else "private"
     # 4) Manufacturing (SIC 2000–3999)
     if isinstance(sic_code, int) and 2000 <= sic_code <= 3999:
         return "original" if is_public else "private"
@@ -104,7 +113,8 @@ def select_zscore_model(
         4000 <= sic_code <= 4999   # Transport / Service / Utilities
         or 7000 <= sic_code <= 8999  # Services / Retail
     ):
-        return "em" if is_public else "private"
+        # Use 'service' for public, 'private' for private (not 'em')
+        return "service" if is_public else "private"
     # 6) Default fallback
     return "original" if is_public else "private"
 

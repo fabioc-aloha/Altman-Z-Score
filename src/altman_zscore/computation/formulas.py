@@ -48,8 +48,8 @@ def altman_zscore_original(metrics: Dict[str, float]) -> ZScoreResult:
     # Calculate working capital if not provided
     if "working_capital" not in metrics and all(k in metrics for k in ["current_assets", "current_liabilities"]):
         metrics["working_capital"] = metrics["current_assets"] - metrics["current_liabilities"]
-    
-    # Extract required metrics
+
+    # Extract and validate required fields
     required_fields = [
         "working_capital",
         "retained_earnings",
@@ -57,36 +57,73 @@ def altman_zscore_original(metrics: Dict[str, float]) -> ZScoreResult:
         "market_value_equity",
         "total_assets",
         "total_liabilities",
-        "sales"
+        "sales",
     ]
-    
-    working_capital, retained_earnings, ebit, market_value_equity, total_assets, total_liabilities, sales = _extract_metrics(metrics, required_fields)
 
-    x1 = _safe_decimal_div(Decimal(str(working_capital)), Decimal(str(total_assets)))
-    x2 = _safe_decimal_div(Decimal(str(retained_earnings)), Decimal(str(total_assets)))
-    x3 = _safe_decimal_div(Decimal(str(ebit)), Decimal(str(total_assets)))
-    x4 = _safe_decimal_div(Decimal(str(market_value_equity)), Decimal(str(total_liabilities)))
-    x5 = _safe_decimal_div(Decimal(str(sales)), Decimal(str(total_assets)))
+    working_capital, retained_earnings, ebit, market_value_equity, total_assets, total_liabilities, sales = _extract_metrics(
+        metrics, required_fields
+    )
 
-    # Get coefficients for original model
-    coeffs = MODEL_COEFFICIENTS["original"]
+    # Convert to Decimal for precise calculations
+    ta = Decimal(str(total_assets))
+    wc = Decimal(str(working_capital))
+    re = Decimal(str(retained_earnings))
+    eb = Decimal(str(ebit))
+    me = Decimal(str(market_value_equity))
+    tl = Decimal(str(total_liabilities))
+    sa = Decimal(str(sales))
     
+    # Check for non-zero total assets
+    if ta == Decimal("0"):
+        ta = Decimal("1")  # Prevent division by zero
+        
+    # Calculate ratios
+    X1 = _safe_decimal_div(wc, ta)  # Working Capital/Total Assets
+    X2 = _safe_decimal_div(re, ta)  # Retained Earnings/Total Assets
+    X3 = _safe_decimal_div(eb, ta)  # EBIT/Total Assets
+    X4 = _safe_decimal_div(me, tl)  # Market Value Equity/Total Liabilities
+    X5 = _safe_decimal_div(sa, ta)  # Sales/Total Assets
+
+    # Get coefficients
+    c = MODEL_COEFFICIENTS["original"]
+
+    # Calculate weighted components
+    weighted_components = {
+        "X1_WC/TA": X1 * Decimal(str(c["X1"])),
+        "X2_RE/TA": X2 * Decimal(str(c["X2"])),
+        "X3_EBIT/TA": X3 * Decimal(str(c["X3"])),
+        "X4_MVE/TL": X4 * Decimal(str(c["X4"])),
+        "X5_S/TA": X5 * Decimal(str(c["X5"]))
+    }
+
     # Calculate Z-Score
-    z_score = (
-        Decimal(str(coeffs["X1"])) * x1 +
-        Decimal(str(coeffs["X2"])) * x2 +
-        Decimal(str(coeffs["X3"])) * x3 +
-        Decimal(str(coeffs["X4"])) * x4 +
-        Decimal(str(coeffs["X5"])) * x5
-    )
-    components = {"X1": x1, "X2": x2, "X3": x3, "X4": x4, "X5": x5}
-    return ZScoreResult(
-        z_score=z_score,
+    zscore = sum(weighted_components.values())
+
+    # Determine diagnostic zone
+    thresholds = Z_SCORE_THRESHOLDS["original"]
+    safe_cutoff = thresholds["SAFE"]
+    distress_cutoff = thresholds["DISTRESS"]
+    if zscore > safe_cutoff:
+        diagnostic = "Safe Zone"
+    elif zscore < distress_cutoff:
+        diagnostic = "Distress Zone"
+    else:
+        diagnostic = "Grey Zone"
+    result = ZScoreResult(
+        z_score=zscore,
         model="original",
-        components=components,
-        diagnostic=None,
-        thresholds=MODEL_COEFFICIENTS["original"],
+        components={
+            "X1_WC/TA": X1,
+            "X2_RE/TA": X2,
+            "X3_EBIT/TA": X3,
+            "X4_MVE/TL": X4,
+            "X5_S/TA": X5,
+        },
+        diagnostic=diagnostic,
+        thresholds=thresholds,
     )
+
+    return result
 
 
 # -------------------------------------------------------------------
@@ -131,8 +168,8 @@ def altman_zscore_private(
     )
 
     thresholds = Z_SCORE_THRESHOLDS["private"]
-    safe_cutoff = thresholds["safe"]
-    distress_cutoff = thresholds["distress"]
+    safe_cutoff = thresholds["SAFE"]
+    distress_cutoff = thresholds["DISTRESS"]
 
     if z > safe_cutoff:
         diagnostic = "Safe Zone"
@@ -140,7 +177,13 @@ def altman_zscore_private(
         diagnostic = "Distress Zone"
     else:
         diagnostic = "Grey Zone"
-    components = {"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5}
+    components = {
+        "X1_WC/TA": X1,
+        "X2_RE/TA": X2,
+        "X3_EBIT/TA": X3,
+        "X4_BVE/TL": X4,
+        "X5_S/TA": X5,
+    }
     return ZScoreResult(
         z_score=z,
         model="private",
@@ -171,8 +214,8 @@ def altman_zscore_service(
 
     Coefficients: A=6.56, B=3.26, C=6.72, D=1.05
 
-    Thresholds (public): distress ≤ 1.23, grey (1.23, 2.90], safe > 2.90
-    Thresholds (private): distress ≤ 1.10, grey (1.10, 2.60], safe > 2.60
+    Thresholds (public): distress ≤ 1.10, grey (1.10, 2.60], safe > 2.60
+    Thresholds (private): distress ≤ 1.23, grey (1.23, 2.90], safe > 2.90
     """
     import logging
     logger = logging.getLogger(__name__)
@@ -214,8 +257,8 @@ def altman_zscore_service(
         logger.error(f"[altman_zscore_service] Error in computation: {e}")
         raise
     thresholds = Z_SCORE_THRESHOLDS[model_key]
-    safe_cutoff = thresholds["safe"]
-    distress_cutoff = thresholds["distress"]
+    safe_cutoff = thresholds["SAFE"]
+    distress_cutoff = thresholds["DISTRESS"]
     if z > safe_cutoff:
         diagnostic = "Safe Zone"
     elif z < distress_cutoff:
@@ -233,7 +276,7 @@ def altman_zscore_service(
 
 
 # -------------------------------------------------------------------
-# 4) Z_EM-Score (1995, EM-Adjusted, four-ratio + intercept)
+# 4) Z_EM-Score (2005, EM-Adjusted, five-ratio model)
 # -------------------------------------------------------------------
 def altman_zscore_em(
     metrics: Dict[str, float]
@@ -241,16 +284,13 @@ def altman_zscore_em(
     """
     Compute Altman Z_EM-Score for emerging market companies (any SIC).
 
-    Four-ratio + intercept model:
+    Five-ratio model:
       X1 = (Current Assets - Current Liabilities) / Total Assets
       X2 = Retained Earnings / Total Assets
       X3 = EBIT / Total Assets
       X4 = Book Value of Equity / Total Liabilities
-      Z = 3.25 
-          + 6.56·X1 
-          + 3.26·X2 
-          + 6.72·X3 
-          + 1.05·X4
+      X5 = Sales / Total Assets
+      Z = 6.56·X1 + 3.26·X2 + 6.72·X3 + 1.05·X4 + 3.25·X5
 
     Thresholds: distress ≤ 1.10, grey (1.10, 2.60], safe > 2.60
     """
@@ -262,26 +302,26 @@ def altman_zscore_em(
     ebit_dec = Decimal(str(metrics["ebit"]))
     bve = Decimal(str(metrics["book_value_equity"]))
     tl = Decimal(str(metrics["total_liabilities"]))
+    sales = Decimal(str(metrics["sales"]))
 
-
-    # Compute ratios X1..X4, replacing None with Decimal("0")
+    # Compute ratios X1..X5, replacing None with Decimal("0")
     X1 = _safe_decimal_div(wc, ta)
     X2 = _safe_decimal_div(re, ta)
     X3 = _safe_decimal_div(ebit_dec, ta)
     X4 = _safe_decimal_div(bve, tl)
+    X5 = _safe_decimal_div(sales, ta)
 
-    # coeffs["X0"] is the intercept (3.25)
     z = (
-        coeffs["X0"]
-        + coeffs["X1"] * X1
+        coeffs["X1"] * X1
         + coeffs["X2"] * X2
         + coeffs["X3"] * X3
         + coeffs["X4"] * X4
+        + coeffs["X5"] * X5
     )
 
     thresholds = Z_SCORE_THRESHOLDS["em"]
-    safe_cutoff = thresholds["safe"]
-    distress_cutoff = thresholds["distress"]
+    safe_cutoff = thresholds["SAFE"]
+    distress_cutoff = thresholds["DISTRESS"]
 
     if z > safe_cutoff:
         diagnostic = "Safe Zone"
@@ -293,75 +333,145 @@ def altman_zscore_em(
     return ZScoreResult(
         z_score=z,
         model="em",
-        components={"X1": X1, "X2": X2, "X3": X3, "X4": X4},
+        components={"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5},
         diagnostic=diagnostic,
         thresholds=thresholds,
     )
 
 
+
+
+
 # -------------------------------------------------------------------
-# 5) Zeta Model (Altman, Haldeman & Narayanan, 1977, public domain)
+# 6) Retail Z-Score (Retail-specific with inventory focus)
 # -------------------------------------------------------------------
-def altman_zscore_zeta(metrics: Dict[str, float]) -> ZScoreResult:
+def altman_zscore_retail(metrics: Dict[str, float]) -> ZScoreResult:
     """
-    Compute Zeta Model (Altman, Haldeman & Narayanan, 1977, public domain, 7-factor).
-    Z = 3.3·X1 + 0.6·X2 + 1.0·X3 + 1.4·X4 + 0.8·X5 + 0.7·X6 + 0.6·X7
-    Where:
-      X1 = Net Income / Total Assets
-      X2 = Stability of Earnings (set to 0 if unavailable)
-      X3 = EBIT / Interest Expense
-      X4 = Retained Earnings / Total Assets
-      X5 = Current Assets / Current Liabilities
-      X6 = Equity / Total Liabilities
-      X7 = log(Total Assets)
+    Compute Retail-specific Z-Score for retail companies.
+
+    Six-factor model:
+      X1 = (Current Assets - Inventory) / Total Assets
+      X2 = Retained Earnings / Total Assets
+      X3 = EBIT / Total Assets
+      X4 = Market Value of Equity / Total Liabilities
+      X5 = Sales / Total Assets
+      X6 = Cost of Goods Sold / Average Inventory
+
+    Coefficients: 1.10, 1.40, 3.30, 0.60, 1.20, 0.30
+
+    Thresholds: distress ≤ 1.90, grey (1.90, 3.10], safe > 3.10
     """
-    coeffs: Dict[str, Decimal] = MODEL_COEFFICIENTS["zeta"]
-    ta = Decimal(str(metrics["total_assets"]))
-    net_income = Decimal(str(metrics.get("net_income", 0)))
-    ebit = Decimal(str(metrics.get("ebit", 0)))
-    interest_expense = Decimal(str(metrics.get("interest_expense", 0)))
-    re = Decimal(str(metrics.get("retained_earnings", 0)))
-    ca = Decimal(str(metrics.get("current_assets", 0)))
-    cl = Decimal(str(metrics.get("current_liabilities", 0)))
-    equity = Decimal(str(metrics.get("equity", metrics.get("market_value_equity", 0))))
-    tl = Decimal(str(metrics.get("total_liabilities", 0)))
-    # X1: Net Income / Total Assets
-    X1 = _safe_decimal_div(net_income, ta)
-    # X2: Stability of Earnings (not available for single period)
-    X2 = Decimal("0")
-    # X3: EBIT / Interest Expense
-    X3 = _safe_decimal_div(ebit, interest_expense) if interest_expense != 0 else Decimal("0")
-    # X4: Retained Earnings / Total Assets
-    X4 = _safe_decimal_div(re, ta)
-    # X5: Current Assets / Current Liabilities
-    X5 = _safe_decimal_div(ca, cl) if cl != 0 else Decimal("0")
-    # X6: Equity / Total Liabilities
-    X6 = _safe_decimal_div(equity, tl) if tl != 0 else Decimal("0")
-    # X7: log(Total Assets)
-    import math
-    X7 = Decimal(str(math.log(float(ta)))) if ta > 0 else Decimal("0")
-    z = (
-        coeffs["X1"] * X1
-        + coeffs["X2"] * X2
-        + coeffs["X3"] * X3
-        + coeffs["X4"] * X4
-        + coeffs["X5"] * X5
-        + coeffs["X6"] * X6
-        + coeffs["X7"] * X7
-    )
-    thresholds = Z_SCORE_THRESHOLDS["zeta"]
-    safe_cutoff = thresholds["safe"]
-    distress_cutoff = thresholds["distress"]
-    if z > safe_cutoff:
-        diagnostic = "Safe Zone"
-    elif z < distress_cutoff:
-        diagnostic = "Distress Zone"
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    coeffs: Dict[str, Decimal] = MODEL_COEFFICIENTS["retail"]
+    # Define thresholds once for retail model
+    thresholds = Z_SCORE_THRESHOLDS["retail"]
+    safe_cutoff = thresholds["SAFE"]
+    distress_cutoff = thresholds["DISTRESS"]
+    
+    logger.debug(f"[altman_zscore_retail] Input metrics: {metrics}")
+      # Check for core fields required by all models
+    core_fields = [
+        "total_assets",
+        "current_assets", 
+        "current_liabilities",
+        "retained_earnings",
+        "ebit",
+        "market_value_equity",
+        "total_liabilities",
+        "sales"
+    ]
+    
+    # Check for retail-specific fields
+    retail_fields = [
+        "inventory",
+        "cost_of_goods_sold",
+        "average_inventory"
+    ]
+    
+    missing_core = [f for f in core_fields if f not in metrics or metrics[f] is None]
+    missing_retail = [f for f in retail_fields if f not in metrics or metrics[f] is None]
+    
+    if missing_core:
+        logger.error(f"[altman_zscore_retail] Missing core fields: {missing_core}")
+        raise ValueError(f"Missing required core fields for retail model: {missing_core}")    
+    # If retail fields are missing, fall back to modified original model
+    if missing_retail:
+        logger.warning(f"[altman_zscore_retail] Missing retail fields {missing_retail}, falling back to modified original model")
+        use_retail_formula = False
     else:
-        diagnostic = "Grey Zone"
-    return ZScoreResult(
-        z_score=z,
-        model="zeta",
-        components={"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5, "X6": X6, "X7": X7},
-        diagnostic=diagnostic,
-        thresholds=thresholds,
-    )
+        use_retail_formula = True
+
+    try:
+        # Compute z and components
+        ta = Decimal(str(metrics["total_assets"]))
+        ca = Decimal(str(metrics["current_assets"]))
+        cl = Decimal(str(metrics["current_liabilities"]))
+        re = Decimal(str(metrics["retained_earnings"]))
+        ebit_dec = Decimal(str(metrics["ebit"]))
+        mve = Decimal(str(metrics["market_value_equity"]))
+        tl = Decimal(str(metrics["total_liabilities"]))
+        sales_dec = Decimal(str(metrics["sales"]))
+
+        if use_retail_formula:
+            # Full retail model with inventory adjustments
+            inventory = Decimal(str(metrics["inventory"]))
+            cogs = Decimal(str(metrics["cost_of_goods_sold"]))
+            avg_inventory = Decimal(str(metrics["average_inventory"]))
+
+            # X1: (Current Assets - Inventory) / Total Assets
+            X1 = _safe_decimal_div(ca - inventory, ta)
+            
+            # X2: Retained Earnings / Total Assets
+            X2 = _safe_decimal_div(re, ta)
+            
+            # X3: EBIT / Total Assets
+            X3 = _safe_decimal_div(ebit_dec, ta)
+            
+            # X4: Market Value of Equity / Total Liabilities
+            X4 = _safe_decimal_div(mve, tl)
+            
+            # X5: Sales / Total Assets
+            X5 = _safe_decimal_div(sales_dec, ta)
+            
+            # X6: Inventory Turnover (Cost of Goods Sold / Average Inventory)
+            X6 = _safe_decimal_div(cogs, avg_inventory)
+            # Calculate Z-Score
+            z = (
+                coeffs["X1"] * X1 + coeffs["X2"] * X2 + coeffs["X3"] * X3 +
+                coeffs["X4"] * X4 + coeffs["X5"] * X5 + coeffs["X6"] * X6
+            )
+            components = {"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5, "X6": X6}
+        else:
+            # Fall back to original-like five-factor retail model: compute base ratios
+            wc = ca - cl
+            X1 = _safe_decimal_div(wc, ta)
+            X2 = _safe_decimal_div(re, ta)
+            X3 = _safe_decimal_div(ebit_dec, ta)
+            X4 = _safe_decimal_div(mve, tl)
+            X5 = _safe_decimal_div(sales_dec, ta)
+            z = (coeffs["X1"] * X1 + coeffs["X2"] * X2 + coeffs["X3"] * X3 +
+                 coeffs["X4"] * X4 + coeffs["X5"] * X5)
+            components = {"X1": X1, "X2": X2, "X3": X3, "X4": X4, "X5": X5}
+            logger.debug(f"[altman_zscore_retail] Z-Score fallback: {z}")
+        
+        # Determine diagnostic zone
+        if z > safe_cutoff:
+            diagnostic = "Safe Zone"
+        elif z < distress_cutoff:
+            diagnostic = "Distress Zone"
+        else:
+            diagnostic = "Grey Zone"
+        
+        return ZScoreResult(
+            z_score=z,
+            model="retail",
+            components=components,
+            diagnostic=diagnostic,
+            thresholds=thresholds,
+        )
+
+    except Exception as e:
+        logger.error(f"[altman_zscore_retail] Error in computation: {e}")
+        raise

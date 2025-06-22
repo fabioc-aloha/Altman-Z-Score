@@ -58,9 +58,9 @@ class OriginalZScore(ZScoreModel):
         Returns:
             str: The risk zone label (Safe Zone, Grey Zone, Distress Zone).
         """
-        if score > self.thresholds.safe_zone:
+        if score > self.thresholds.SAFE:
             return "Safe Zone"
-        elif score > self.thresholds.distress_zone:
+        elif score > self.thresholds.DISTRESS:
             return "Grey Zone"
         return "Distress Zone"
 
@@ -102,22 +102,21 @@ class TechZScore(ZScoreModel):
         # Apply tech-specific adjustments
         rd_intensity = financial_data.get("rd_to_revenue", Decimal("0"))
         if rd_intensity > self.calibration.rd_intensity_threshold:
-            base_score *= Decimal("1.1")  # Bonus for high R&D intensity
-
+            base_score *= Decimal("1.1")  # Bonus for high R&D intensity        
         return base_score
 
     def interpret_score(self, score: Decimal) -> str:
         """
-        Interpret the Z-Score using tech-calibrated thresholds.
+        Interpret the tech-adjusted Z-Score using calibrated thresholds.
 
         Args:
             score (Decimal): The Z-Score to interpret.
 
         Returns:
-            str: The risk zone label (Safe Zone, Grey Zone, Distress Zone).
+            str: Descriptive risk label for tech companies.
         """
-        if score > self.calibration.thresholds.safe_zone:
+        if score > self.calibration.thresholds.SAFE:
             return "Safe Zone"
-        elif score > self.calibration.thresholds.distress_zone:
+        elif score > self.calibration.thresholds.DISTRESS:
             return "Grey Zone"
         return "Distress Zone"

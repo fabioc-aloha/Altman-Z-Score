@@ -43,21 +43,32 @@ def get_output_ticker_dir(ticker):
 
 def get_zscore_thresholds(model):
     """
-    Return distress and safe zone thresholds for the given model name.
+    Return distress and safe zone thresholds for plotting. 
+    Converts uppercase threshold keys from Z_SCORE_THRESHOLDS into lowercase plotting format.
+
     Args:
         model: Z-Score model name.
     Returns:
-        Dict with 'distress_zone' and 'safe_zone' keys as floats.
+        Dict with 'distress_zone' and 'safe_zone' keys as floats for plotting.
+        Note: Uses lowercase keys for plotting convention, while computation uses uppercase.
     """
     from altman_zscore.computation.constants import Z_SCORE_THRESHOLDS
     
     # Get thresholds from centralized constants
     thresholds = Z_SCORE_THRESHOLDS.get(model, Z_SCORE_THRESHOLDS["original"])
     
+    # Convert from computation format (SAFE, DISTRESS) to plotting format (safe_zone, distress_zone)
     return {
-        "distress_zone": float(thresholds["distress"]),
-        "safe_zone": float(thresholds["safe"])
+        "distress_zone": float(thresholds["DISTRESS"]),
+        "safe_zone": float(thresholds["SAFE"])
     }
+    
+# Alias for threshold plotting tests and backward compatibility
+def create_thresholds_for_plotting(model):
+    """
+    Alias for get_zscore_thresholds to create plotting-friendly threshold dict.
+    """
+    return get_zscore_thresholds(model)
 
 
 def plot_zscore_trend(df, ticker, model, out_base, stock_prices=None):

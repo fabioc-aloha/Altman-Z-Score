@@ -10,6 +10,8 @@ which replaces the market value of equity with book value of equity.
 from decimal import Decimal
 from typing import Dict
 
+from altman_zscore.models.financial_metrics import ZScoreResult
+
 from .zscore_model_base import ZScoreModel
 
 class PrivateManufacturingZScoreModel(ZScoreModel):
@@ -42,9 +44,9 @@ class PrivateManufacturingZScoreModel(ZScoreModel):
         self.DISTRESS_THRESHOLD = Decimal('1.23')
         self.SAFE_THRESHOLD = Decimal('2.90')
 
-    def calculate_zscore(self, financial_data: Dict) -> Decimal:
+    def calculate_zscore(self, financial_data: Dict) -> ZScoreResult:
         """
-        Calculate Z'-Score using book values instead of market values.
+        Calculate Z'-Score using book values instead of market values and return all components.
         
         Args:
             financial_data: Dictionary containing required financial metrics:
@@ -57,7 +59,7 @@ class PrivateManufacturingZScoreModel(ZScoreModel):
                 - sales
         
         Returns:
-            Decimal: Calculated Z'-Score
+            ZScoreResult: Object containing calculated Z'-Score and components
         """
         try:
             # X1 = Working Capital / Total Assets
@@ -87,7 +89,16 @@ class PrivateManufacturingZScoreModel(ZScoreModel):
                     (self.COEFFICIENT_X4 * x4) + \
                     (self.COEFFICIENT_X5 * x5)
             
-            return zscore.quantize(Decimal('0.01'))
+            components = {"X1": x1, "X2": x2, "X3": x3, "X4": x4, "X5": x5}
+            
+            return ZScoreResult(
+                z_score=zscore.quantize(Decimal('0.01')),
+                model="private",
+                components=components,
+                diagnostic=None,
+                thresholds={"SAFE": self.SAFE_THRESHOLD, "DISTRESS": self.DISTRESS_THRESHOLD},
+                override_context={},
+            )
             
         except KeyError as e:
             raise ValueError(f"Missing required field: {str(e)}")

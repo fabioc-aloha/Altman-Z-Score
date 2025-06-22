@@ -240,6 +240,13 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
             status.is_active = False
             status.error_message = ERROR_MSG_TICKER_NOT_FOUND
             return status
+        # Check for non-equity securities (ETFs, warrants, etc.)
+        quote_type = info.get("quoteType")
+        if quote_type and quote_type != "EQUITY":
+            status.is_active = False
+            status.status_reason = f"Unsupported security type: {quote_type}"
+            logger.info(f"{ticker} is an unsupported security type: {quote_type}. Skipping analysis.")
+            return status
         if "symbol" not in info:
             status.exists = False
             status.is_active = False
@@ -325,4 +332,14 @@ def check_company_status(ticker: str, CompanyStatusClass=None) -> 'CompanyStatus
                 status.status_reason = ERROR_MSG_COMPANY_NOT_FOUND_SEC
         except Exception as e:
             logger.warning(f"Error checking SEC status for {ticker}: {e}")
+    
+    # Check for Business Development Companies (BDCs)
+    long_name = info.get("longName", "").lower()
+    description = info.get("longBusinessSummary", "").lower()
+    if "business development company" in long_name or "business development company" in description:
+        status.is_active = False
+        status.status_reason = "Unsupported entity type: Business Development Company (BDC)"
+        logger.info(f"{ticker} is a BDC. Skipping analysis.")
+        return status
+    
     return status

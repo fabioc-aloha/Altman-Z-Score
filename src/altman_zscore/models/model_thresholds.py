@@ -22,15 +22,15 @@ class ModelThresholds:
     Z-Score thresholds for different company types and models.
 
     Attributes:
-        safe_zone (Decimal): Threshold for 'Safe Zone'.
-        grey_zone_upper (Decimal): Upper bound for 'Grey Zone'.
-        grey_zone_lower (Decimal): Lower bound for 'Grey Zone'.
-        distress_zone (Decimal): Threshold for 'Distress Zone'.
+        SAFE (Decimal): Threshold for 'Safe Zone'.
+        GREY_UPPER (Decimal): Upper bound for 'Grey Zone'.
+        GREY_LOWER (Decimal): Lower bound for 'Grey Zone'.
+        DISTRESS (Decimal): Threshold for 'Distress Zone'.
     """
-    safe_zone: Decimal
-    grey_zone_upper: Decimal
-    grey_zone_lower: Decimal
-    distress_zone: Decimal
+    SAFE: Decimal
+    GREY_UPPER: Decimal
+    GREY_LOWER: Decimal
+    DISTRESS: Decimal
 
     def get_diagnostic(self, score: Decimal, company_type: Optional[str] = None) -> Dict[str, Any]:
         """
@@ -42,10 +42,10 @@ class ModelThresholds:
         Returns:
             dict: Diagnostic information including status, interpretation, and thresholds.
         """
-        if score > self.safe_zone:
+        if score > self.SAFE:
             status = "Safe Zone"
             interpretation = "Strong financial health with low probability of distress."
-        elif score > self.distress_zone:
+        elif score > self.DISTRESS:
             status = "Grey Zone"
             interpretation = "Some signs of financial stress. Requires monitoring."
         else:
@@ -55,72 +55,72 @@ class ModelThresholds:
             "status": status,
             "interpretation": interpretation,
             "score": score,
-            "safe_threshold": self.safe_zone,
-            "distress_threshold": self.distress_zone,
+            "safe_threshold": self.SAFE,
+            "distress_threshold": self.DISTRESS,
             "company_type": company_type,
         }
 
     @classmethod
     def original(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.99"),
-            grey_zone_upper=Decimal("2.99"),
-            grey_zone_lower=Decimal("1.81"),
-            distress_zone=Decimal("1.81"),
+            SAFE=Decimal("2.99"),
+            GREY_UPPER=Decimal("2.99"),
+            GREY_LOWER=Decimal("1.81"),
+            DISTRESS=Decimal("1.81"),
         )
 
     @classmethod
     def private_company(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.90"),
-            grey_zone_upper=Decimal("2.90"),
-            grey_zone_lower=Decimal("1.23"),
-            distress_zone=Decimal("1.23"),
+            SAFE=Decimal("2.90"),
+            GREY_UPPER=Decimal("2.90"),
+            GREY_LOWER=Decimal("1.23"),
+            DISTRESS=Decimal("1.23"),
         )
 
     @classmethod
     def non_manufacturing(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.60"),
-            grey_zone_upper=Decimal("2.60"),
-            grey_zone_lower=Decimal("1.10"),
-            distress_zone=Decimal("1.10"),
+            SAFE=Decimal("2.60"),
+            GREY_UPPER=Decimal("2.60"),
+            GREY_LOWER=Decimal("1.10"),
+            DISTRESS=Decimal("1.10"),
         )
 
     @classmethod
     def tech_early_stage(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.20"),
-            grey_zone_upper=Decimal("2.20"),
-            grey_zone_lower=Decimal("1.40"),
-            distress_zone=Decimal("1.40"),
+            SAFE=Decimal("2.20"),
+            GREY_UPPER=Decimal("2.20"),
+            GREY_LOWER=Decimal("1.40"),
+            DISTRESS=Decimal("1.40"),
         )
 
     @classmethod
     def tech_growth_stage(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.40"),
-            grey_zone_upper=Decimal("2.40"),
-            grey_zone_lower=Decimal("1.45"),
-            distress_zone=Decimal("1.45"),
+            SAFE=Decimal("2.40"),
+            GREY_UPPER=Decimal("2.40"),
+            GREY_LOWER=Decimal("1.45"),
+            DISTRESS=Decimal("1.45"),
         )
 
     @classmethod
     def tech_mature_stage(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.60"),
-            grey_zone_upper=Decimal("2.60"),
-            grey_zone_lower=Decimal("1.50"),
-            distress_zone=Decimal("1.50"),
+            SAFE=Decimal("2.60"),
+            GREY_UPPER=Decimal("2.60"),
+            GREY_LOWER=Decimal("1.50"),
+            DISTRESS=Decimal("1.50"),
         )
 
     @classmethod
     def saas_company(cls) -> "ModelThresholds":
         return cls(
-            safe_zone=Decimal("2.50"),
-            grey_zone_upper=Decimal("2.50"),
-            grey_zone_lower=Decimal("1.50"),
-            distress_zone=Decimal("1.50"),
+            SAFE=Decimal("2.50"),
+            GREY_UPPER=Decimal("2.50"),
+            GREY_LOWER=Decimal("1.50"),
+            DISTRESS=Decimal("1.50"),
         )
 
 @dataclass
@@ -198,12 +198,11 @@ class TechCalibration:
             data_asset_factor=Decimal("1.2"),
             computing_efficiency_factor=Decimal("1.1"),
             customer_acquisition_factor=Decimal("0.9"),
-            coefficients=ModelCoefficients.non_manufacturing(),
-            thresholds=ModelThresholds(
-                safe_zone=Decimal("2.50"),
-                grey_zone_upper=Decimal("2.50"),
-                grey_zone_lower=Decimal("1.50"),
-                distress_zone=Decimal("1.50"),
+            coefficients=ModelCoefficients.non_manufacturing(),            thresholds=ModelThresholds(
+                SAFE=Decimal("2.50"),
+                GREY_UPPER=Decimal("2.50"),
+                GREY_LOWER=Decimal("1.50"),
+                DISTRESS=Decimal("1.50"),
             ),
         )
 
@@ -215,27 +214,24 @@ class TechCalibration:
             data_asset_factor=Decimal("1.5"),
             computing_efficiency_factor=Decimal("1.3"),
             customer_acquisition_factor=Decimal("0.8"),
-            coefficients=ModelCoefficients.non_manufacturing(),
-            thresholds=ModelThresholds(
-                safe_zone=Decimal("2.20"),
-                grey_zone_upper=Decimal("2.20"),
-                grey_zone_lower=Decimal("1.40"),
-                distress_zone=Decimal("1.40"),
+            coefficients=ModelCoefficients.non_manufacturing(),            thresholds=ModelThresholds(
+                SAFE=Decimal("2.20"),
+                GREY_UPPER=Decimal("2.20"),
+                GREY_LOWER=Decimal("1.40"),
+                DISTRESS=Decimal("1.40"),
             ),
         )
-        if stage == CompanyStage.GROWTH:
-            base.thresholds = ModelThresholds(
-                safe_zone=Decimal("2.40"),
-                grey_zone_upper=Decimal("2.40"),
-                grey_zone_lower=Decimal("1.45"),
-                distress_zone=Decimal("1.45"),
+        if stage == CompanyStage.GROWTH:            base.thresholds = ModelThresholds(
+                SAFE=Decimal("2.40"),
+                GREY_UPPER=Decimal("2.40"),
+                GREY_LOWER=Decimal("1.45"),
+                DISTRESS=Decimal("1.45"),
             )
-        elif stage == CompanyStage.MATURE:
-            base.thresholds = ModelThresholds(
-                safe_zone=Decimal("2.60"),
-                grey_zone_upper=Decimal("2.60"),
-                grey_zone_lower=Decimal("1.50"),
-                distress_zone=Decimal("1.50"),
+        elif stage == CompanyStage.MATURE:            base.thresholds = ModelThresholds(
+                SAFE=Decimal("2.60"),
+                GREY_UPPER=Decimal("2.60"),
+                GREY_LOWER=Decimal("1.50"),
+                DISTRESS=Decimal("1.50"),
             )
         return base
 

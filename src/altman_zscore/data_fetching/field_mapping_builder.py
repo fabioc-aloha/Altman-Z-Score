@@ -3,6 +3,37 @@ Field Mapping Database Builder
 
 This module analyzes SEC XBRL data from multiple companies to build a comprehensive
 mapping database from SEC field names to canonical Altman Z-Score fields.
+
+Field Categories:
+---------------
+1. Core Financial Metrics:
+   - sales: Total revenue from operations
+   - total_assets: Total company assets
+   - current_assets: Assets expected to be converted to cash within one year
+   - current_liabilities: Obligations due within one year
+   - total_liabilities: All company obligations
+   - retained_earnings: Accumulated profits not paid as dividends
+   - ebit: Earnings before interest and taxes
+
+2. Equity Valuation:
+   - market_value_equity: Current market capitalization
+   - book_value_equity: Total shareholders' equity
+
+3. Derived Metrics:
+   - working_capital: Current assets minus current liabilities
+
+4. Retail-Specific:
+   - inventory: Current inventory value
+   - cost_of_goods_sold: Direct costs of producing goods
+   - average_inventory: Mean inventory over the period
+
+Model Requirements:
+----------------
+- Original Model: Uses market value of equity
+- Private Model: Uses book value of equity
+- Service Model: Four-ratio model with market value
+- Retail Model: Includes inventory metrics
+- EM Model: Uses market value with intercept
 """
 
 import logging
@@ -16,6 +47,7 @@ import sys
 from tqdm import tqdm
 from colorama import Fore, Style, init as colorama_init
 import warnings
+import re
 
 from src.altman_zscore.api.sec_client import SECClient
 from src.altman_zscore.api.openai_client import AzureOpenAIClient
@@ -26,19 +58,20 @@ from src.altman_zscore.computation.constants import MODEL_FIELDS
 logging.basicConfig(level=logging.INFO, format='%(levelname)s:%(name)s:%(message)s')
 logger = logging.getLogger(__name__)
 
-# Canonical fields we need to map
-CANONICAL_FIELDS = [
-    "sales",
-    "total_assets", 
-    "current_assets",
-    "current_liabilities",
-    "total_liabilities",
-    "retained_earnings",
-    "ebit",
-    "market_value_equity",
-    "book_value_equity",
-    "working_capital"
-]
+# Canonical fields required by all Z-Score models
+# Based on Altman's original papers and subsequent model variants
+
+"""
+Compute canonical fields dynamically from MODEL_FIELDS definitions.
+"""
+CANONICAL_FIELDS = sorted({
+    field
+    for fields in MODEL_FIELDS.values()
+    for field in fields
+})
+# Ensure derived 'working_capital' is included
+if 'working_capital' not in CANONICAL_FIELDS:
+    CANONICAL_FIELDS.append('working_capital')
 
 SEC_CACHE_PATH = "src/altman_zscore/api/cache/sec_company_tickers_cache.json"
 
@@ -122,63 +155,109 @@ def save_field_db(db, db_path="src/altman_zscore/api/cache/field_mapping_databas
 
 def deterministic_field_mapping(company_fields, canonical_fields, sample_values=None, ticker=None):
     """
-    Deterministic mapping from canonical fields to SEC fields using a static dictionary and fallback rules.
-
-    Args:
-        company_fields (set): Set of field names available for the company.
-        canonical_fields (list): List of canonical field names to map to.
-        sample_values (dict, optional): Sample values for fields, used for AI mapping context.
-        ticker (str, optional): Ticker symbol of the company, used for logging.
-
-    Returns:
-        dict: Mapping results, indicating found fields for each canonical field.    """    # Main dictionary for common mappings with extensive fallback alternatives
+    Map canonical fields to SEC fields using literature-based mappings and fallback rules.
+    
+    Based on:
+    1. Altman's original papers and subsequent model variants
+    2. SEC XBRL taxonomy guidelines
+    3. Industry standard reporting practices
+    """
     mapping_dict = {
+        # Core Income Statement Fields
         "sales": [
-            "Revenues", 
-            "RevenueFromContractWithCustomerExcludingAssessedTax", 
-            "Revenue",
+            "Revenues",  # Most common GAAP term
+            "RevenueFromContractWithCustomerExcludingAssessedTax",  # ASC 606 terminology
+            "Revenue",  # Alternative common term
             "OperatingRevenues",  # Insurance/utility companies
             "PremiumsEarnedNet",  # Insurance companies
             "InterestAndDividendIncomeOperating"  # Financial companies
         ],
-        "total_assets": ["Assets"],
+        "ebit": [
+            "OperatingIncomeLoss",  # Primary GAAP term
+            "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+            "UnderwritingIncomeLoss",  # Insurance companies
+            "OperatingIncome",  # Alternative common term
+            "EarningsBeforeInterestAndTaxes"  # Explicit EBIT field
+        ],
+        
+        # Core Balance Sheet Fields
+        "total_assets": [
+            "Assets",  # Primary GAAP term
+            "AssetsCurrent",  # Fallback if only current assets reported
+            "TotalAssets"  # Alternative common term
+        ],
         "current_assets": [
-            "AssetsCurrent",
+            "AssetsCurrent",  # Primary GAAP term
+            "CurrentAssets",  # Alternative term
             "ShortTermInvestments",  # Investment companies
-            "MarketableSecurities"   # Some financial companies
+            "MarketableSecurities"  # Financial companies
         ],
         "current_liabilities": [
-            "LiabilitiesCurrent",
-            "AccruedLiabilitiesCurrentAndNoncurrent",  # AFRM pattern
-            "AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent",  # O, JPM pattern
-            "EmployeeRelatedLiabilitiesCurrentAndNoncurrent",  # GS pattern
+            "LiabilitiesCurrent",  # Primary GAAP term
+            "CurrentLiabilities",  # Alternative term
+            "AccruedLiabilitiesCurrentAndNoncurrent",  # Some company patterns
+            "AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent",
+            "EmployeeRelatedLiabilitiesCurrentAndNoncurrent",
             "PolicyholderFundsCurrent"  # Insurance companies
         ],
-        "total_liabilities": ["Liabilities", "LiabilitiesNoncurrent"],
+        "total_liabilities": [
+            "Liabilities",  # Primary GAAP term
+            "TotalLiabilities",  # Alternative term
+            "LiabilitiesAndStockholdersEquity",  # Can be used with equity to compute
+            "LiabilitiesNoncurrent"  # Used with current liabilities
+        ],
+        
+        # Equity and Retained Earnings
         "retained_earnings": [
-            "RetainedEarningsAccumulatedDeficit",
+            "RetainedEarningsAccumulatedDeficit",  # Primary GAAP term
+            "RetainedEarnings",  # Alternative term
+            "AccumulatedDeficit",  # For companies with accumulated losses
             "AccumulatedDistributionsInExcessOfNetIncome",  # REITs
             "PartnerCapital"  # Partnerships
         ],
-        "ebit": [
-            "OperatingIncomeLoss", 
-            "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
-            "UnderwritingIncomeLoss",  # Insurance companies
-            "OperatingIncome"  # Alternative naming
-        ],
-        "market_value_equity": [],  # Not directly available in SEC XBRL
         "book_value_equity": [
-            "StockholdersEquity", 
+            "StockholdersEquity",  # Primary GAAP term
             "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
             "PartnersCapital",  # Partnerships
-            "MembersEquity"     # LLCs
+            "MembersEquity",  # LLCs
+            "TotalEquity"  # Alternative term
         ],
-        "working_capital": [],  # Can be computed as AssetsCurrent - LiabilitiesCurrent
+        # Market Valuation
+        "market_value_equity": [
+            "MarketCapitalization",  # Primary market cap term
+            "MarketValueOfEquity",    # Alternative term
+            "MarketValueOfCommonStock",
+            "EquityMarketValue"
+        ],
+        
+        # Retail-Specific Fields
+        "inventory": [
+            "InventoryNet",  # Primary GAAP term
+            "Inventory",  # Alternative term
+            "InventoryGross",
+            "MerchandiseInventory"  # Retail-specific term
+        ],
+        "cost_of_goods_sold": [
+            "CostOfGoodsAndServicesSold",  # Primary GAAP term
+            "CostOfRevenue",  # Alternative term
+            "CostOfSales",
+            "CostOfGoodsSold"  # Traditional term
+        ],
+        "average_inventory": [
+            "InventoryNet",  # Will be averaged across periods
+            "Inventory"  # Alternative base for averaging
+        ]
     }
     result = {}
     for canonical in canonical_fields:
-        candidates = mapping_dict.get(canonical, [])
+        # Special computed field: working_capital = current_assets - current_liabilities
         found = None
+        if canonical == "working_capital":
+            if "AssetsCurrent" in company_fields and "LiabilitiesCurrent" in company_fields:
+                found = "COMPUTED_AssetsCurrent_minus_LiabilitiesCurrent"
+            result[canonical] = {"FoundField": found}
+            continue
+        candidates = mapping_dict.get(canonical, [])
         # Try direct match
         for c in candidates:
             if c in company_fields:
@@ -302,67 +381,60 @@ def build_field_database(use_llm=False, companies_input=None, requested_n=None):
     # Track which companies have each SEC field
     sec_field_company_count = defaultdict(set)
     # Main deterministic sampling loop
-    with tqdm(total=actual_companies_to_process, unit="company", desc="Processing", ncols=160, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} {postfix}') as pbar:
+    with tqdm(total=actual_companies_to_process, unit="company", desc="Building Field Mapping DB", ncols=160, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} | {postfix}') as pbar:
         while processed_count < actual_companies_to_process and unprocessed_tickers:
             ticker = random.choice(unprocessed_tickers)
             cik = all_companies[ticker]
             # Fetch company title from SEC cache if possible
-            company_title = ticker
-            if ticker in all_companies_full and all_companies_full[ticker].get('title'):
-                company_title = all_companies_full[ticker]['title']
-            # Pad or truncate company title to fixed width (e.g., 50 chars)
-            fixed_company_title = (company_title[:47] + '...') if len(company_title) > 50 else company_title.ljust(50)
+            # Per literature, company name is for user display only; ticker is always used as fallback
+            company_title = all_companies_full.get(ticker, {}).get('title', '')
+            if not company_title or not str(company_title)[0].isalnum():
+                company_title = ticker
+            else:
+                company_title = str(company_title)
+            # Clean and pad/truncate company title: remove any leading commas or whitespace for display
+            clean_title = re.sub(r'^[,\s]+', '', company_title)
+            fixed_company_title = (clean_title[:47] + '...') if len(clean_title) > 50 else clean_title.ljust(50)
             pbar.set_postfix_str(fixed_company_title)
-            try:                # Fetch SEC facts
+            try:
+                # Fetch SEC facts for this company (all available periods)
                 facts = sec_client.get_company_facts(cik)
                 if not facts:
                     status_dict[ticker] = "failed"
                     failed_count += 1
                     unprocessed_tickers.remove(ticker)
-                    pbar.update(1)  # Update progress even for failed companies
+                    pbar.update(1)
                     continue
-                
-                # Extract quarters to get field names
+                # Extract all available quarters/periods with at least one financial field
                 quarters = extract_quarters_from_sec_facts(facts, CANONICAL_FIELDS)
                 if not quarters:
                     status_dict[ticker] = "failed"
                     failed_count += 1
                     unprocessed_tickers.remove(ticker)
-                    pbar.update(1)  # Update progress even for failed companies
+                    pbar.update(1)
                     continue
-                
-                # Collect all field names from this company
+                # Collect all unique SEC field names and sample values for this company
                 company_fields = set()
                 sample_values = {}
-                
                 for quarter in quarters:
-                    # When processing each period/quarter for a company, skip if all required Z-score fields are missing or zero
-                    # (This should be added in the section where periods/quarters are processed for mapping and Z-score calculation)
-
-                    # Example logic to add inside the relevant loop:
-                    # required_fields = ["total_assets", "current_assets", "current_liabilities", "retained_earnings", "total_liabilities", "ebit", "sales"]
-                    # if all((str(quarter.get(f, "0")) in ["", "0", "0.0", None] for f in required_fields)):
-                    #     continue  # Skip this period entirely
                     for field, value in quarter.items():
                         if field not in ["period_end", "field_mapping"] and value is not None:
                             company_fields.add(field)
                             all_sec_fields.add(field)
                             field_frequency[field] += 1
                             sec_field_company_count[field].add(ticker)
-                            # Store sample values for context
+                            # Store a sample value for each field (first seen)
                             if field not in sample_values:
                                 sample_values[field] = value
-                
-                logger.info(f"{ticker}: Found {len(company_fields)} unique fields")
-                
-                # Use AI to map fields for this company
+                logger.info(f"{ticker}: Found {len(company_fields)} unique SEC fields for mapping.")
+                # Map canonical fields to SEC fields using deterministic (literature-based) or LLM mapping
                 if company_fields:
                     try:
                         if use_llm:
                             ai_mapping = ai_client.suggest_field_mapping(
-                                list(company_fields), 
-                                CANONICAL_FIELDS, 
-                                sample_values, 
+                                list(company_fields),
+                                CANONICAL_FIELDS,
+                                sample_values,
                                 ticker=ticker
                             )
                         else:
@@ -372,13 +444,13 @@ def build_field_database(use_llm=False, companies_input=None, requested_n=None):
                                 sample_values,
                                 ticker=ticker
                             )
-                          # Store successful mappings
+                        # Store successful canonical-to-SEC mappings for this company
                         company_mappings = {}
                         for canonical_field, mapping_info in ai_mapping.items():
                             if isinstance(mapping_info, dict):
                                 sec_field = mapping_info.get("FoundField")
                                 if sec_field:
-                                    # Handle computed fields and regular fields
+                                    # Accept both direct and computed fields per Altman Z-Score literature
                                     if sec_field.startswith("COMPUTED_") or sec_field in company_fields:
                                         company_mappings[canonical_field] = sec_field
                                         canonical_to_sec_mappings[canonical_field].add(sec_field)
@@ -388,24 +460,22 @@ def build_field_database(use_llm=False, companies_input=None, requested_n=None):
                             "all_fields": sorted(list(company_fields)),
                             "sample_values": {k: str(v) for k, v in sample_values.items() if k in list(sample_values.keys())[:10]}
                         }
-                        
                         processed_count += 1
                         companies_analyzed.add(ticker)
-                            # If processed successfully:
                         status_dict[ticker] = "success"
                         pbar.update(1)
                     except Exception as e:
                         status_dict[ticker] = "failed"
                         failed_count += 1
-                        pbar.update(1)  # Update progress for failed mapping
+                        pbar.update(1)
                 else:
                     status_dict[ticker] = "failed"
                     failed_count += 1
-                    pbar.update(1)  # Update progress for companies with no fields
+                    pbar.update(1)
             except Exception as e:
                 status_dict[ticker] = "failed"
                 failed_count += 1
-                pbar.update(1)  # Update progress for exception cases
+                pbar.update(1)
             unprocessed_tickers.remove(ticker)
             time.sleep(0.5)
     
@@ -542,8 +612,15 @@ def generate_completeness_report_from_db(db_path, output_dir):
                 count += 1
         field_coverage[canonical] = count    # Companies with incomplete mappings (accounting for computable fields and dependencies)
     incomplete_companies = []
+    retail_only_companies = []
     expected_limitations = []
-    
+
+    core_fields = [
+        "current_assets", "current_liabilities", "retained_earnings", "ebit", "sales",
+        "total_assets", "total_liabilities", "market_value_equity", "book_value_equity"
+    ]
+    retail_fields = ["inventory", "cost_of_goods_sold", "average_inventory"]
+
     for c in companies:
         available_fields = set(company_mappings[c]["all_fields"])
         company_title = field_database.get("metadata", {}).get("companies_analyzed", {})
@@ -562,10 +639,17 @@ def generate_completeness_report_from_db(db_path, output_dir):
                 missing.append(f)
         
         if missing:
+            # If company is a bank, etf, reit, insurance, or limited_data, treat as expected limitation
             if company_type in ['bank', 'etf', 'reit', 'insurance', 'limited_data']:
                 expected_limitations.append((c, missing, company_type))
             else:
-                incomplete_companies.append((c, missing))
+                # Split into core and retail missing
+                missing_core = [f for f in missing if f in core_fields]
+                missing_retail = [f for f in missing if f in retail_fields]
+                if missing_core:
+                    incomplete_companies.append((c, missing_core))
+                elif missing_retail:
+                    retail_only_companies.append((c, missing_retail))
     # Canonical fields with no mappings at all
     unmapped_fields = [f for f, n in field_coverage.items() if n == 0]
     # Write markdown report
@@ -593,11 +677,17 @@ def generate_completeness_report_from_db(db_path, output_dir):
     report_lines.append("")
     report_lines.append("## Companies with Incomplete Mappings")
     if incomplete_companies:
+        report_lines.append("")
+        report_lines.append("### Companies Missing Core Fields (blocks all Z-Score models)")
         for c, missing in incomplete_companies:
             report_lines.append(f"- **{c}**: missing {', '.join(missing)}")
     else:
         report_lines.append("- None")
-    
+    if retail_only_companies:
+        report_lines.append("")
+        report_lines.append("### Companies Missing Only Retail-Specific Fields (affects only retail model)")
+        for c, missing in retail_only_companies:
+            report_lines.append(f"- **{c}**: missing {', '.join(missing)}")
     report_lines.append("")
     report_lines.append("## Companies with Expected Limitations (by Business Model)")
     if expected_limitations:
@@ -614,7 +704,8 @@ def generate_completeness_report_from_db(db_path, output_dir):
                 'etf': 'ETFs/Funds',
                 'reit': 'REITs/Real Estate',
                 'insurance': 'Insurance Companies',
-                'limited_data': 'Companies with Limited Data'
+                'limited_data': 'Companies with Limited Data',
+                'unsupported': 'Unsupported Entities (Warrants, SPACs, BDCs, etc.)'
             }
             type_name = type_names.get(company_type, company_type.title())
             report_lines.append(f"### {type_name}")
@@ -905,6 +996,13 @@ def categorize_company_type(ticker, available_fields, company_title=""):
     if len(available_fields) < 50:
         return 'limited_data'
     
+    # Unsupported entity types (warrants, SPACs, BDCs)
+    unsupported_keywords = ['ACQUISITION', 'BUSINESS DEVELOPMENT COMPANY']
+    if (any(s in ticker_upper for s in ['-WT', '.WT', '.WS']) or 
+        ticker_upper.endswith(('W', 'WT', 'WS')) or
+        any(keyword in title_upper for keyword in unsupported_keywords)):
+        return 'unsupported'
+
     # ETF/Fund patterns
     etf_patterns = ['SPDR', 'SPY', 'QQQ', 'VTI', 'IWM', 'EFA', 'EEM', 'TLT', 'GLD', 'SLV']
     fund_keywords = ['ETF', 'FUND', 'TRUST', 'INDEX', 'SPDR', 'ISHARES', 'VANGUARD', 'INVESCO']

@@ -10,6 +10,7 @@ openai>=1.12.0
 beautifulsoup4>=4.12.2
 numpy>=1.26.3
 pytest>=8.0.0
+pytest-asyncio>=1.0.0
 pytest-timeout>=2.3.1
 tabulate>=0.9.0
 aiohttp>=3.9.3
@@ -18,3 +19,6 @@ finnhub-python>=2.4.19
 python-dateutil>=2.8.2
 tqdm>=4.66.1  # For progress bars
 pytz>=2024.1  # For timezone handling
+# Output generation dependencies
+plotly>=5.17.0  # For interactive charts
+jinja2>=3.1.2  # For HTML template rendering

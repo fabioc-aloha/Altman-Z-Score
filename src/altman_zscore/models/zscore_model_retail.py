@@ -10,6 +10,8 @@ characteristics, particularly regarding inventory and asset utilization.
 from decimal import Decimal
 from typing import Dict
 
+from altman_zscore.models.financial_metrics import ZScoreResult
+
 from .zscore_model_base import ZScoreModel
 
 class RetailZScoreModel(ZScoreModel):
@@ -39,8 +41,8 @@ class RetailZScoreModel(ZScoreModel):
         self.DISTRESS_THRESHOLD = Decimal('1.90')
         self.SAFE_THRESHOLD = Decimal('3.10')
 
-    def _calculate_zscore_impl(self, financial_data: Dict) -> Decimal:
-        """Calculate Retail Z-Score using modified ratios."""
+    def _calculate_zscore_impl(self, financial_data: Dict) -> ZScoreResult:
+        """Calculate Retail Z-Score using modified ratios and return all components."""
         try:
             # X1 = Quick Ratio Component
             x1 = (Decimal(str(financial_data['current_assets'])) - 
@@ -75,14 +77,23 @@ class RetailZScoreModel(ZScoreModel):
                     (self.COEFFICIENT_X5 * x5) + \
                     (self.COEFFICIENT_X6 * x6)
             
-            return zscore.quantize(Decimal('0.01'))
+            components = {"X1": x1, "X2": x2, "X3": x3, "X4": x4, "X5": x5, "X6": x6}
+            
+            return ZScoreResult(
+                z_score=zscore.quantize(Decimal('0.01')),
+                model="retail",
+                components=components,
+                diagnostic=None,
+                thresholds={"SAFE": self.SAFE_THRESHOLD, "DISTRESS": self.DISTRESS_THRESHOLD},
+                override_context={},
+            )
             
         except KeyError as e:
             raise ValueError(f"Missing required field: {str(e)}")
         except (ValueError, ArithmeticError) as e:
             raise ValueError(f"Error calculating Retail Z-Score: {str(e)}")
 
-    def calculate_zscore(self, financial_data: Dict) -> Decimal:
+    def calculate_zscore(self, financial_data: Dict) -> ZScoreResult:
         """Calculate the Retail Z-Score for given financial data."""
         return self._calculate_zscore_impl(financial_data)
 
