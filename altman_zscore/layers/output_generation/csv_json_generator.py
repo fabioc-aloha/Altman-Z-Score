@@ -106,10 +106,9 @@ class CSVJSONGenerator:
         """Prepare data for CSV export."""
         return [{
             'ticker': zscore_result.ticker,
-            'z_score': zscore_result.z_score,
-            'model_used': zscore_result.model_used,
+            'z_score': zscore_result.z_score,            'model_used': zscore_result.model_used,
             'risk_category': zscore_result.risk_category,
-            'calculation_date': zscore_result.calculation_date.isoformat(),
+            'calculation_date': zscore_result.calculation_timestamp,
             'data_quality_score': zscore_result.data_quality_score,
             'warnings_count': len(zscore_result.warnings),
             'warnings': '; '.join(zscore_result.warnings),
@@ -124,7 +123,7 @@ class CSVJSONGenerator:
                 'z_score': zscore_result.z_score,
                 'risk_category': zscore_result.risk_category,
                 'model_used': zscore_result.model_used,
-                'calculation_date': zscore_result.calculation_date.isoformat(),
+                'calculation_date': zscore_result.calculation_timestamp,
                 'data_quality_score': zscore_result.data_quality_score
             },
             'component_values': zscore_result.component_values,

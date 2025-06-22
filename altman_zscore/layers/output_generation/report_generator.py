@@ -215,7 +215,7 @@ class ReportGenerator:
             risk_category=zscore_result.risk_category,
             model_used=zscore_result.model_used,
             data_quality_score=f"{zscore_result.data_quality_score:.1f}",
-            calculation_date=zscore_result.calculation_date.strftime("%Y-%m-%d %H:%M"),
+            calculation_date=zscore_result.calculation_timestamp,
             component_values=zscore_result.component_values,
             warnings=zscore_result.warnings,
             ai_insights=ai_insights,
@@ -229,7 +229,7 @@ class ReportGenerator:
         content.append(f"ALTMAN Z-SCORE ANALYSIS SUMMARY")
         content.append(f"=" * 40)
         content.append(f"Ticker: {zscore_result.ticker}")
-        content.append(f"Analysis Date: {zscore_result.calculation_date}")
+        content.append(f"Analysis Date: {zscore_result.calculation_timestamp}")
         content.append("")
         content.append(f"Z-Score: {zscore_result.z_score:.2f}")
         content.append(f"Risk Category: {zscore_result.risk_category}")

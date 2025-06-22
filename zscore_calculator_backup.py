@@ -13,10 +13,10 @@ from dataclasses import dataclass
 from datetime import datetime
 import asyncio
 
-from altman_zscore.common.logging_config import get_logger
-from altman_zscore.common.exceptions import CalculationError
-from altman_zscore.models.data_models import MergedFinancialData
-from altman_zscore.layers.zscore_calculation.model_selector import ModelSelector, CompanyType
+from ...common.logging_config import get_logger
+from ...common.exceptions import CalculationError
+from ...models.data_models import MergedFinancialData
+from .model_selector import ModelSelector, CompanyType
 
 
 logger = get_logger(__name__)
@@ -71,8 +71,7 @@ class ZScoreCalculator:
         E = Sales / Total Assets
         """
         components = {}
-        
-        # Component A: Working Capital / Total Assets
+          # Component A: Working Capital / Total Assets
         if data.working_capital_ratio is not None:
             components['working_capital_ratio'] = data.working_capital_ratio
         else:
@@ -83,8 +82,7 @@ class ZScoreCalculator:
             current_liabilities = balance_sheet.get('totalCurrentLiabilities', 0)
             total_assets = balance_sheet.get('totalAssets', 1)
             components['working_capital_ratio'] = (current_assets - current_liabilities) / total_assets if total_assets > 0 else 0
-        
-        # Component B: Retained Earnings / Total Assets
+          # Component B: Retained Earnings / Total Assets
         if data.retained_earnings_ratio is not None:
             components['retained_earnings_ratio'] = data.retained_earnings_ratio
         else:
@@ -94,8 +92,7 @@ class ZScoreCalculator:
             retained_earnings = balance_sheet.get('retainedEarnings', 0)
             total_assets = balance_sheet.get('totalAssets', 1)
             components['retained_earnings_ratio'] = retained_earnings / total_assets if total_assets > 0 else 0
-        
-        # Component C: EBIT / Total Assets
+          # Component C: EBIT / Total Assets
         if data.ebit_ratio is not None:
             components['ebit_ratio'] = data.ebit_ratio
         else:
@@ -106,16 +103,14 @@ class ZScoreCalculator:
             ebit = income_statement.get('operatingIncome', 0)
             total_assets = balance_sheet.get('totalAssets', 1)
             components['ebit_ratio'] = ebit / total_assets if total_assets > 0 else 0
-        
-        # Component D: Market Value Equity / Total Liabilities
+          # Component D: Market Value Equity / Total Liabilities
         if data.market_cap and data.raw_fmp_data:
             balance_sheet = data.raw_fmp_data.get('balance_sheet', {})
             total_liabilities = balance_sheet.get('totalLiabilities', 1)
             components['market_equity_ratio'] = data.market_cap / total_liabilities if total_liabilities > 0 else 0
         else:
             components['market_equity_ratio'] = 0.0
-        
-        # Component E: Sales / Total Assets (Asset Turnover)
+          # Component E: Sales / Total Assets (Asset Turnover)
         if data.asset_turnover is not None:
             components['asset_turnover'] = data.asset_turnover
         else:
@@ -152,35 +147,30 @@ class ZScoreCalculator:
             components['working_capital_ratio'] = data.working_capital_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            balance_sheet = raw_data.get('balance_sheet', {})
-            current_assets = balance_sheet.get('totalCurrentAssets', 0)
-            current_liabilities = balance_sheet.get('totalCurrentLiabilities', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['working_capital_ratio'] = (current_assets - current_liabilities) / total_assets if total_assets > 0 else 0
+            current_assets = raw_data.get('current_assets', 0)
+            current_liabilities = raw_data.get('current_liabilities', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['working_capital_ratio'] = (current_assets - current_liabilities) / total_assets
         
         if data.retained_earnings_ratio is not None:
             components['retained_earnings_ratio'] = data.retained_earnings_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            balance_sheet = raw_data.get('balance_sheet', {})
-            retained_earnings = balance_sheet.get('retainedEarnings', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['retained_earnings_ratio'] = retained_earnings / total_assets if total_assets > 0 else 0
+            retained_earnings = raw_data.get('retained_earnings', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['retained_earnings_ratio'] = retained_earnings / total_assets
         
         if data.ebit_ratio is not None:
             components['ebit_ratio'] = data.ebit_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            income_statement = raw_data.get('income_statement', {})
-            balance_sheet = raw_data.get('balance_sheet', {})
-            ebit = income_statement.get('operatingIncome', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['ebit_ratio'] = ebit / total_assets if total_assets > 0 else 0
+            ebit = raw_data.get('ebit', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['ebit_ratio'] = ebit / total_assets
         
         if data.market_cap and data.raw_fmp_data:
-            balance_sheet = data.raw_fmp_data.get('balance_sheet', {})
-            book_value = balance_sheet.get('totalStockholdersEquity', 1)
-            components['market_to_book_ratio'] = data.market_cap / book_value if book_value > 0 else 0
+            book_value = data.raw_fmp_data.get('book_value_equity', 1)
+            components['market_to_book_ratio'] = data.market_cap / book_value
         else:
             components['market_to_book_ratio'] = 0.0
         
@@ -208,37 +198,32 @@ class ZScoreCalculator:
             components['working_capital_ratio'] = data.working_capital_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            balance_sheet = raw_data.get('balance_sheet', {})
-            current_assets = balance_sheet.get('totalCurrentAssets', 0)
-            current_liabilities = balance_sheet.get('totalCurrentLiabilities', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['working_capital_ratio'] = (current_assets - current_liabilities) / total_assets if total_assets > 0 else 0
+            current_assets = raw_data.get('current_assets', 0)
+            current_liabilities = raw_data.get('current_liabilities', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['working_capital_ratio'] = (current_assets - current_liabilities) / total_assets
         
         if data.retained_earnings_ratio is not None:
             components['retained_earnings_ratio'] = data.retained_earnings_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            balance_sheet = raw_data.get('balance_sheet', {})
-            retained_earnings = balance_sheet.get('retainedEarnings', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['retained_earnings_ratio'] = retained_earnings / total_assets if total_assets > 0 else 0
+            retained_earnings = raw_data.get('retained_earnings', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['retained_earnings_ratio'] = retained_earnings / total_assets
         
         if data.ebit_ratio is not None:
             components['ebit_ratio'] = data.ebit_ratio
         else:
             raw_data = data.raw_fmp_data or {}
-            income_statement = raw_data.get('income_statement', {})
-            balance_sheet = raw_data.get('balance_sheet', {})
-            ebit = income_statement.get('operatingIncome', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['ebit_ratio'] = ebit / total_assets if total_assets > 0 else 0
+            ebit = raw_data.get('ebit', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['ebit_ratio'] = ebit / total_assets
         
         # Book value equity / Total Liabilities (instead of market value)
         if data.raw_fmp_data:
-            balance_sheet = data.raw_fmp_data.get('balance_sheet', {})
-            book_value = balance_sheet.get('totalStockholdersEquity', 0)
-            total_liabilities = balance_sheet.get('totalLiabilities', 1)
-            components['book_equity_ratio'] = book_value / total_liabilities if total_liabilities > 0 else 0
+            book_value = data.raw_fmp_data.get('book_value_equity', 0)
+            total_liabilities = data.raw_fmp_data.get('total_liabilities', 1)
+            components['book_equity_ratio'] = book_value / total_liabilities
         else:
             components['book_equity_ratio'] = 0.0
         
@@ -246,11 +231,9 @@ class ZScoreCalculator:
             components['asset_turnover'] = data.asset_turnover
         else:
             raw_data = data.raw_fmp_data or {}
-            income_statement = raw_data.get('income_statement', {})
-            balance_sheet = raw_data.get('balance_sheet', {})
-            revenue = income_statement.get('revenue', 0)
-            total_assets = balance_sheet.get('totalAssets', 1)
-            components['asset_turnover'] = revenue / total_assets if total_assets > 0 else 0
+            revenue = raw_data.get('revenue', 0)
+            total_assets = raw_data.get('total_assets', 1)
+            components['asset_turnover'] = revenue / total_assets
         
         # Calculate private Z-Score
         z_score = (
@@ -271,7 +254,7 @@ class ZScoreCalculator:
         if z_score >= thresholds["safe"]:
             return "Safe"
         elif z_score >= thresholds["gray"]:
-            return "Gray Zone"
+            return "Gray Zone"        
         else:
             return "Distress"
     
@@ -358,16 +341,14 @@ class ZScoreCalculator:
         
         Args:
             data: Merged financial data structure
-            
-        Returns:
+              Returns:
             ZScoreCalculationResult with calculation details
         """
         self.logger.info(f"Calculating Z-Score for {data.ticker}")
         
         # Detect and fix any scaling issues
         corrected_data = self._detect_and_fix_scaling(data)
-        
-        # Validate input data
+          # Validate input data
         warnings = self._validate_calculation_data(corrected_data)
         
         # Select appropriate model
@@ -379,7 +360,7 @@ class ZScoreCalculator:
             
         except Exception as e:
             self.logger.warning(f"Model selection failed for {data.ticker}: {e}")
-            model_name = "original"  # Default fallback
+            model_name = "original"  # Default fallback            
             warnings.append(f"Using default model due to selection error: {e}")
         
         # Calculate Z-Score based on selected model
@@ -415,8 +396,7 @@ class ZScoreCalculator:
                 metadata={
                     "calculation_method": "direct_from_merged_data",
                     "components_calculated": len(components),
-                    "model_selection_confidence": getattr(model_selection, 'confidence', 0.8) if 'model_selection' in locals() else 0.8
-                }
+                    "model_selection_confidence": getattr(model_selection, 'confidence', 0.8) if 'model_selection' in locals() else 0.8                }
             )
             
             self.logger.info(f"Z-Score calculation completed for {corrected_data.ticker}: {z_score:.3f} ({risk_category})")

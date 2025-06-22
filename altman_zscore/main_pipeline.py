@@ -18,8 +18,8 @@ from pathlib import Path
 
 from .common.logging_config import get_logger
 from .common.exceptions import PipelineError
-from .layers.data_fetch import DataMerger
-from .layers.zscore_calculation import ZScoreCalculator
+from .layers.data_fetch.data_merger import DataMerger
+from .layers.zscore_calculation.zscore_calculator import ZScoreCalculator
 from .layers.output_generation.csv_json_generator import CSVJSONGenerator
 from .layers.output_generation.chart_generator import ChartGenerator
 from .layers.output_generation.report_generator import ReportGenerator
@@ -76,10 +76,9 @@ class AltmanZScorePipeline:
             # Step 1: Merge financial data
             logger.info(f"Step 1: Merging financial data for {ticker}")
             merged_data = await self.data_merger.merge_financial_data(ticker)
-            
-            # Step 2: Calculate Z-Score
+              # Step 2: Calculate Z-Score
             logger.info(f"Step 2: Calculating Z-Score for {ticker}")
-            zscore_result = await self.zscore_calculator.calculate_zscore(ticker, merged_data)
+            zscore_result = self.zscore_calculator.calculate_zscore(merged_data)
             
             # Step 3: Generate outputs
             output_files = {}
@@ -182,7 +181,7 @@ class AltmanZScorePipeline:
                 'file_manager': 'Ready'
             },
             'storage': self.file_manager.get_storage_summary(),
-            'version': '3.8.0-dev'
+            'version': '3.9.0'
         }
 
 
