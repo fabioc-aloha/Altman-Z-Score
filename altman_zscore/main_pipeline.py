@@ -28,6 +28,8 @@ from .layers.output_generation.csv_json_generator import CSVJSONGenerator
 from .layers.output_generation.chart_generator import ChartGenerator
 from .layers.output_generation.report_generator import ReportGenerator
 from .layers.output_generation.file_manager import FileManager
+from .layers.ai_insights.ai_insights_generator import AIInsightsGenerator
+from .layers.ai_analysis.ai_insights_generator import AIInsightsGenerator
 
 logger = get_logger(__name__)
 
@@ -44,14 +46,14 @@ class AltmanZScorePipeline:
         """
         self.output_base_path = output_base_path
         
-        # Initialize components
-        self.data_merger = DataMerger()
+        # Initialize components        self.data_merger = DataMerger()
         self.zscore_calculator = ZScoreCalculator()
         self.market_analyzer = MarketAnalysisOrchestrator()
         self.csv_json_generator = CSVJSONGenerator(output_base_path)
         self.chart_generator = ChartGenerator(output_base_path)
         self.report_generator = ReportGenerator(output_base_path)
         self.file_manager = FileManager(output_base_path)
+        self.ai_insights_generator = AIInsightsGenerator(output_base_path)
     
     async def analyze_ticker(
         self, 
@@ -170,21 +172,32 @@ class AltmanZScorePipeline:
     
     async def _generate_ai_insights(self, zscore_result, market_analysis=None) -> Optional[str]:
         """
-        Generate AI-powered insights (placeholder for future AI integration).
+        Generate AI-powered insights combining Z-Score and market analysis.
         
         Args:
             zscore_result: Z-Score calculation result
             market_analysis: Market analysis result (optional)
             
         Returns:
-            Optional[str]: AI-generated insights
+            Optional[str]: AI-generated comprehensive insights
         """
-        # TODO: Integrate with AI analysis layer when available
-        # This would combine Z-Score analysis with market analysis for enhanced insights
-        logger.info("AI insights generation requested but not yet implemented")
-        if market_analysis:
-            logger.info(f"Market analysis available for AI enhancement: {market_analysis.investment_recommendation.action}")
-        return None
+        try:
+            logger.info(f"Generating AI-powered insights for {zscore_result.ticker}")
+              # Generate comprehensive AI insights combining all analysis
+            insights = await self.ai_insights_generator.generate_investment_narrative(
+                zscore_result, market_analysis
+            )
+            
+            if insights:
+                logger.info(f"AI insights generated for {zscore_result.ticker}: {len(insights)} characters")
+                return insights
+            else:
+                logger.warning(f"No AI insights generated for {zscore_result.ticker}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Failed to generate AI insights for {zscore_result.ticker}: {str(e)}")
+            return None
     
     def get_pipeline_status(self) -> Dict[str, any]:
         """
