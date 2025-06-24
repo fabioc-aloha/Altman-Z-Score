@@ -73,6 +73,10 @@ __version__ = "3.5.5"
 
 
 import os
+# Determine data period and CSV header field
+DATA_PERIOD = os.getenv("FMP_DATA_PERIOD", "annual")  # 'annual' for free tier, 'quarter' for paid
+END_FIELD = 'quarter_end' if DATA_PERIOD == 'quarter' else 'year_end'
+
 # Load .env variables before any other imports that may use them
 try:
     from dotenv import load_dotenv
@@ -90,8 +94,8 @@ from dateutil.relativedelta import relativedelta
 
 import pandas as pd
 
-# Add src directory to path for relative imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Add src directory to path for legacy imports (removed in future versions)
+# sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 # Set up logging with more verbosity
 logging.basicConfig(
@@ -103,8 +107,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-from altman_zscore.core.one_stock_analysis import analyze_single_stock_zscore_trend
-from altman_zscore.core.progress_tracking import PIPELINE_STEPS
+# Import new refactored pipeline
+from altman_zscore.main_pipeline import AltmanZScorePipeline
+import asyncio
+
+# Legacy progress tracking for compatibility
+PIPELINE_STEPS = [
+    "Data Fetching",
+    "Data Integration", 
+    "Z-Score Calculation",
+    "Market Analysis",
+    "Report Generation"
+]
 
 def parse_args():
     """
@@ -186,17 +200,17 @@ def format_zscore_results(df):
     Format Z-Score results DataFrame for human-readable reporting.
 
     Args:
-        df (pandas.DataFrame): DataFrame with 'quarter_end' and 'zscore' columns.
+        df (pandas.DataFrame): DataFrame with 'period_end' and 'zscore' columns.
 
     Returns:
-        list[str]: List of formatted strings summarizing Z-Score and risk zone by quarter.
+        list[str]: List of formatted strings summarizing Z-Score and risk zone by period.
     """
-    result_df = df[['quarter_end', 'zscore']].copy()
-    result_df.columns = ['Quarter', 'Z-Score']
-    result_df = result_df.sort_values('Quarter', ascending=False)
+    result_df = df[['period_end', 'zscore']].copy()
+    result_df.columns = ['Period', 'Z-Score']
+    result_df = result_df.sort_values('Period', ascending=False)
     formatted_results = []
     for _, row in result_df.iterrows():
-        quarter = row['Quarter']
+        period = row['Period']
         z_score = row['Z-Score']
         if pd.isna(z_score):
             score_str = "N/A"
@@ -207,12 +221,11 @@ def format_zscore_results(df):
                 score_str = f"{z_score:.2f} (Grey)"
             else:
                 score_str = f"{z_score:.2f} (Safe)"
-        formatted_results.append(f"{quarter}: {score_str}")
+        formatted_results.append(f"{period}: {score_str}")
     return formatted_results
 
 
-# Import pipeline steps from progress tracking module
-from altman_zscore.core.progress_tracking import PIPELINE_STEPS
+# Pipeline steps are now defined above in the module
 
 def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
     """
@@ -253,44 +266,6 @@ def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
         # Safely ignore any progress display errors
         pass
 
-def analyze_tickers(tickers: list, model: str = None, **kwargs) -> dict:
-    """
-    Analyze multiple stock tickers in sequence, with progress tracking and error handling.
-
-    Args:
-        tickers (list[str]): List of stock ticker symbols to analyze.
-        model (str, optional): Model type to force for all analyses (overrides auto-selection).
-        **kwargs: Additional keyword arguments passed to analyze_ticker.
-
-    Returns:
-        dict: Dictionary mapping each ticker to its analysis results or error info.
-    """
-    results = {}
-    for ticker in tickers:
-        try:
-            # Create progress callback for this ticker
-            def progress_callback(step_idx, total_steps, model_name):
-                show_progress_bar(ticker, step_idx, total_steps, model_name)
-            # Initialize analysis with progress tracking
-            from altman_zscore.core.progress_tracking import create_progress_tracker
-            progress_tracker = create_progress_tracker(progress_callback)
-            # Run analysis with correct parameter names
-            from altman_zscore.core.one_stock_analysis import analyze_ticker
-            results[ticker] = analyze_ticker(
-                ticker=ticker,
-                force_model=model,
-                progress_tracker=progress_tracker,
-                **kwargs
-            )
-        except Exception as e:
-            logger.error(f"Error analyzing {ticker}: {str(e)}")
-            if logger.level <= logging.DEBUG:
-                logger.exception(e)
-            results[ticker] = {"error": str(e)}
-            continue
-    return results
-
-
 def main():
     """
     Main entry point for the AI-Powered Altman Z-Score Analysis CLI.
@@ -301,50 +276,10 @@ def main():
     try:
         args = parse_args()
         
-        # Handle cache update command first (before startup messages)
+        # Handle cache update command (disabled - cache functionality moved to new architecture)
         if getattr(args, "update_cache", False):
-            print("Updating SEC company tickers cache...")
-            from altman_zscore.company.cik_cache import get_cache, refresh_cache, get_cache_stats
-            
-            # Check existing cache first
-            cache_info = get_cache_stats()
-            if cache_info.get('cache_exists', False):
-                print(f"Existing cache found with {cache_info.get('entry_count', 'unknown')} entries")            
-            success = refresh_cache()
-            if success:
-                cache_info = get_cache_stats()
-                # Robustly extract metadata fields for user output
-                entry_count = (
-                    cache_info.get('total_entries')
-                    or cache_info.get('metadata', {}).get('total_entries')
-                    or cache_info.get('metadata', {}).get('entry_count')
-                    or cache_info.get('metadata', {}).get('entryCount')
-                    or cache_info.get('metadata', {}).get('totalEntries')
-                    or 'unknown'
-                )
-                cache_path = (
-                    cache_info.get('cache_location')
-                    or cache_info.get('cache_file')
-                    or cache_info.get('metadata', {}).get('cache_path')
-                    or cache_info.get('metadata', {}).get('cachePath')
-                    or 'unknown'
-                )
-                last_updated = (
-                    cache_info.get('metadata', {}).get('last_updated')
-                    or cache_info.get('metadata', {}).get('lastUpdated')
-                    or 'unknown'
-                )
-                print(f"✅ Cache updated successfully! Downloaded {entry_count} company entries.")
-                print(f"Cache location: {cache_path}")
-                print(f"Cache last updated: {last_updated}")
-            else:
-                if cache_info.get('cache_exists', False):
-                    print("⚠️  Failed to download fresh data due to SEC API rate limiting, but existing cache is available.")
-                    print(f"Existing cache has {cache_info.get('entry_count', 'unknown')} entries from {cache_info.get('last_updated', 'unknown')}")
-                    print("The system will use the existing cache for CIK lookups.")
-                else:
-                    print("❌ Failed to update cache and no existing cache found. Check network connection and try again later.")
-                    sys.exit(1)
+            print("Cache update functionality temporarily disabled during refactoring.")
+            print("The new FMP-based architecture uses 48-hour API caching automatically.")
             sys.exit(0)
 
         # If no arguments except possibly --update-cache, show help and exit
@@ -409,69 +344,52 @@ def main():
 
                 def progress_callback(step_idx, total_steps, model_name=None):
                     show_progress_bar(ticker, step_idx, total_steps, model_name)
-                    time.sleep(0.1)                # Run analysis
-                df = analyze_single_stock_zscore_trend(
-                    ticker,
-                    start_date=start_date,
-                    progress_callback=progress_callback,
-                    force_model=args.model
+                    time.sleep(0.1)
+                
+                # Use the new pipeline to generate CSV, JSON, chart, and reports
+                from altman_zscore.main_pipeline import AltmanZScorePipeline
+                pipeline = AltmanZScorePipeline()
+                output_files = asyncio.run(
+                    pipeline.analyze_ticker(
+                        ticker,
+                        generate_charts=not no_plot,
+                        generate_reports=True,
+                        include_ai_insights=False,
+                        start_date=args.date
+                    )
                 )
+                # Log generated files
+                logger.info(f"Generated CSV: {output_files.get('csv')}")
+                logger.info(f"Generated JSON: {output_files.get('json')}")
+                if output_files.get('chart'):
+                    logger.info(f"Generated Chart: {output_files.get('chart')}")
+                if output_files.get('report'):
+                    logger.info(f"Generated Report: {output_files.get('report')}")
+                if output_files.get('summary'):
+                    logger.info(f"Generated Summary: {output_files.get('summary')}")
 
                 end_time = time.time()
                 elapsed = end_time - start_time
 
-                if df is not None and not df.empty and 'zscore' in df.columns:
-                    valid_scores = df[df['zscore'].notnull()]
-                    if not valid_scores.empty:
-                        formatted_results = format_zscore_results(df)
-                        for result in formatted_results:
-                            logger.info(result)
-                        logger.info(f"Analysis completed in {elapsed:.2f} seconds")
-                        plot_path = os.path.join("output", ticker, f"zscore_{ticker}_trend.png")
-                        if not no_plot:
-                            logger.info(f"Z-Score plot saved to {plot_path}")
-                        successful_tickers.append(ticker)
-                    else:
-                        logger.warning(f"No valid Z-Scores calculated for {ticker}")
-                        failed_tickers.append((ticker, "No valid Z-Scores calculated"))
-                else:
-                    logger.warning(f"No analysis results available for {ticker}")
-                    failed_tickers.append((ticker, "No analysis results available"))
+                # Mark ticker as successfully analyzed after pipeline run
+                logger.info(f"Analysis completed in {elapsed:.2f} seconds for {ticker}")
+                successful_tickers.append(ticker)
             except ValueError as ve:
-                logger.error(f"❌ {ticker}: {str(ve)}")
+                logger.error(f"ERROR {ticker}: {str(ve)}")
                 failed_tickers.append((ticker, str(ve)))
             except Exception as e:
-                # Check if it's a sector exclusion error (finance/insurance)
-                from altman_zscore.utils.error_helpers import SectorExclusionError
-                if isinstance(e, SectorExclusionError):
-                    logger.info(f"⚠️ {ticker}: {str(e)} - Skipping analysis")
-                    failed_tickers.append((ticker, f"Sector exclusion: {str(e)}"))
-                else:
-                    logger.exception(f"❌ {ticker}: Unexpected error - {str(e)}")
-                    failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
+                logger.exception(f"ERROR {ticker}: Unexpected error - {str(e)}")
+                failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
 
-        # Provide comprehensive summary
-        logger.info(f"\n{'='*60}")
+        # Provide comprehensive summary        
         logger.info("ANALYSIS SUMMARY")
         logger.info(f"{'='*60}")
-        
         if successful_tickers:
             logger.info(f"✅ Successfully analyzed: {', '.join(successful_tickers)}")
-        
-        if failed_tickers:
-            logger.warning(f"❌ Failed to analyze {len(failed_tickers)} ticker(s):")
-            for ticker, reason in failed_tickers:
-                logger.warning(f"   {ticker}: {reason}")
-        
-        if failed_tickers and not successful_tickers:
-            logger.error("All tickers failed analysis")
-            sys.exit(1)
-        elif failed_tickers:
-            logger.warning("Some tickers failed analysis")
-            sys.exit(1)
-        else:
-            logger.info("All analyses completed successfully")
             sys.exit(0)
+        else:
+            logger.error(f"❌ Failed to analyze any tickers: {len(failed_tickers)} failure(s)")
+            sys.exit(1)
 
     except Exception as e:
         logger.exception(f"Critical error in main: {str(e)}")

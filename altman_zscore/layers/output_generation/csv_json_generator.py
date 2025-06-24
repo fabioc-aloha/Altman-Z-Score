@@ -38,28 +38,43 @@ class CSVJSONGenerator:
         self.output_base_path = Path(output_base_path)
         self.output_base_path.mkdir(exist_ok=True)
     
-    def generate_csv_report(self, zscore_result: ZScoreCalculationResult) -> str:
+    def generate_csv_report(self, zscore_results):
         """
-        Generate CSV report from Z-Score calculation result.
+        Generate CSV report from one or more Z-Score calculation results.
         
         Args:
-            zscore_result: Z-Score calculation result
+            zscore_results: Z-Score calculation result or list of results
             
         Returns:
             str: Path to generated CSV file
         """
+        # Support single result or list of results
+        results = zscore_results if isinstance(zscore_results, list) else [zscore_results]
         try:
-            ticker_dir = self.output_base_path / zscore_result.ticker
+            # Use first result's ticker for directory
+            ticker = results[0].ticker
+            ticker_dir = self.output_base_path / ticker
             ticker_dir.mkdir(exist_ok=True)
             
-            csv_path = ticker_dir / f"{zscore_result.ticker}_zscore_report.csv"
+            csv_path = ticker_dir / f"{ticker}_zscore_report.csv"
             
-            # Prepare CSV data
-            csv_data = self._prepare_csv_data(zscore_result)
+            # Prepare CSV data for all results
+            csv_data = []
+            for res in results:
+                csv_data.extend(self._prepare_csv_data(res))
             
             # Write CSV file
             with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=csv_data[0].keys())
+                # Determine all fieldnames across all rows
+                all_keys = set()
+                for row in csv_data:
+                    all_keys.update(row.keys())
+                # Preserve order from first row, then append any new keys
+                fieldnames = list(csv_data[0].keys())
+                for key in sorted(all_keys):
+                    if key not in fieldnames:
+                        fieldnames.append(key)
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(csv_data)
             
@@ -67,11 +82,11 @@ class CSVJSONGenerator:
             return str(csv_path)
             
         except Exception as e:
-            error_msg = f"Failed to generate CSV report for {zscore_result.ticker}: {str(e)}"
+            error_msg = f"Failed to generate CSV report for {zscore_results}: {str(e)}"
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def generate_json_report(self, zscore_result: ZScoreCalculationResult) -> str:
+    def generate_json_report(self, zscore_results) -> str:
         """
         Generate JSON report from Z-Score calculation result.
         
@@ -81,14 +96,17 @@ class CSVJSONGenerator:
         Returns:
             str: Path to generated JSON file
         """
+        # Support single result or list of results
+        results = zscore_results if isinstance(zscore_results, list) else [zscore_results]
         try:
-            ticker_dir = self.output_base_path / zscore_result.ticker
+            ticker = results[0].ticker
+            ticker_dir = self.output_base_path / ticker
             ticker_dir.mkdir(exist_ok=True)
             
-            json_path = ticker_dir / f"{zscore_result.ticker}_zscore_data.json"
+            json_path = ticker_dir / f"{ticker}_zscore_data.json"
             
-            # Prepare JSON data
-            json_data = self._prepare_json_data(zscore_result)
+            # Prepare JSON data for all results
+            json_data = [self._prepare_json_data(res) for res in results]
             
             # Write JSON file
             with open(json_path, 'w', encoding='utf-8') as jsonfile:
@@ -98,7 +116,7 @@ class CSVJSONGenerator:
             return str(json_path)
             
         except Exception as e:
-            error_msg = f"Failed to generate JSON report for {zscore_result.ticker}: {str(e)}"
+            error_msg = f"Failed to generate JSON report for {zscore_results}: {str(e)}"
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     

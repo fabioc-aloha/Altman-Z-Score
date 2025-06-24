@@ -16,6 +16,7 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 from pathlib import Path
 
+from altman_zscore.common.config import get_config
 from .common.logging_config import get_logger
 from .common.exceptions import PipelineError
 from .layers.data_fetch.data_merger import DataMerger
@@ -53,7 +54,8 @@ class AltmanZScorePipeline:
         ticker: str,
         generate_charts: bool = True,
         generate_reports: bool = True,
-        include_ai_insights: bool = False
+        include_ai_insights: bool = False,
+        start_date: str = None
     ) -> Dict[str, str]:
         """
         Complete analysis for a single ticker.
@@ -63,6 +65,7 @@ class AltmanZScorePipeline:
             generate_charts: Whether to generate visualization charts
             generate_reports: Whether to generate comprehensive reports
             include_ai_insights: Whether to include AI-powered analysis
+            start_date: Start date for historical data in YYYY-MM-DD format (default: fetch all available)
             
         Returns:
             Dict[str, str]: Paths to generated output files
@@ -70,45 +73,42 @@ class AltmanZScorePipeline:
         try:
             logger.info(f"Starting complete analysis for {ticker}")
             
-            # Create ticker directory structure
-            ticker_dir = self.file_manager.create_ticker_directory(ticker)
-            
             # Step 1: Merge financial data
             logger.info(f"Step 1: Merging financial data for {ticker}")
-            merged_data = await self.data_merger.merge_financial_data(ticker)
-              # Step 2: Calculate Z-Score
-            logger.info(f"Step 2: Calculating Z-Score for {ticker}")
-            zscore_result = self.zscore_calculator.calculate_zscore(merged_data)
+            merged = await self.data_merger.merge_financial_data(ticker, start_date=start_date)
+            if not isinstance(merged, list):
+                merged = [merged]
             
-            # Step 3: Generate outputs
-            output_files = {}
+            # Step 2: Calculate Z-Score for each period
+            logger.info(f"Step 2: Calculating Z-Score for {ticker} ({len(merged)} periods)")
+            zscore_results = []
+            for data in merged:
+                result = self.zscore_calculator.calculate_zscore(data)
+                zscore_results.append(result)
             
-            # Always generate JSON and CSV data
+            # Use the most recent result for dashboard/report
+            latest_result = zscore_results[0]
+            
+            # Step 3a: CSV/JSON report for all results
             logger.info(f"Step 3a: Generating CSV/JSON data for {ticker}")
-            csv_path = self.csv_json_generator.generate_csv_report(zscore_result)
-            json_path = self.csv_json_generator.generate_json_report(zscore_result)
-            output_files['csv'] = csv_path
-            output_files['json'] = json_path
+            csv_path = self.csv_json_generator.generate_csv_report(zscore_results)
+            json_path = self.csv_json_generator.generate_json_report(zscore_results)
+            output_files = {'csv': csv_path, 'json': json_path}
             
-            # Generate charts if requested
+            # Step 3b: Chart using latest result
             if generate_charts:
                 logger.info(f"Step 3b: Generating charts for {ticker}")
-                chart_path = self.chart_generator.generate_zscore_dashboard(zscore_result)
+                chart_path = self.chart_generator.generate_zscore_dashboard(latest_result)
                 output_files['chart'] = chart_path
             
-            # Generate reports if requested
+            # Step 3c: Reports
             if generate_reports:
                 logger.info(f"Step 3c: Generating reports for {ticker}")
-                
-                # Generate AI insights if requested
                 ai_insights = None
                 if include_ai_insights:
-                    ai_insights = await self._generate_ai_insights(zscore_result)
-                
-                report_path = self.report_generator.generate_comprehensive_report(
-                    zscore_result, ai_insights
-                )
-                summary_path = self.report_generator.generate_summary_report(zscore_result)
+                    ai_insights = await self._generate_ai_insights(latest_result)
+                report_path = self.report_generator.generate_comprehensive_report(latest_result, ai_insights)
+                summary_path = self.report_generator.generate_summary_report(latest_result)
                 output_files['report'] = report_path
                 output_files['summary'] = summary_path
             

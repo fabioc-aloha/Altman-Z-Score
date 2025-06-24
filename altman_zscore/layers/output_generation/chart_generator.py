@@ -39,51 +39,107 @@ class ChartGenerator:
         self.output_base_path = Path(output_base_path)
         self.output_base_path.mkdir(exist_ok=True)
     
-    def generate_zscore_dashboard(self, zscore_result: ZScoreCalculationResult) -> str:
+    def generate_zscore_dashboard(self, zscore_results, start_date: Optional[str] = None) -> str:
         """
-        Generate comprehensive Z-Score dashboard chart.
+        Generate comprehensive Z-Score dashboard chart using multiple periods for trend.
         
         Args:
-            zscore_result: Z-Score calculation result
+            zscore_results: Z-Score calculation result or list of results
+            start_date (Optional[str]): Optional start date for filtering results (format: YYYY-MM-DD)
             
         Returns:
             str: Path to generated HTML chart file
         """
         try:
-            ticker_dir = self.output_base_path / zscore_result.ticker
+            # Normalize input to list of results
+            results = zscore_results if isinstance(zscore_results, list) else [zscore_results]
+            latest = results[0]
+            ticker_dir = self.output_base_path / latest.ticker
             ticker_dir.mkdir(exist_ok=True)
             
-            chart_path = ticker_dir / f"{zscore_result.ticker}_zscore_dashboard.html"
+            chart_path = ticker_dir / f"{latest.ticker}_zscore_dashboard.html"
             
-            # Create subplot figure
+            # Create subplot figure with additional trend chart row
             fig = make_subplots(
-                rows=2, cols=2,
+                rows=3, cols=2,
                 subplot_titles=(
                     'Z-Score Overview',
-                    'Component Breakdown', 
+                    'Component Breakdown',
                     'Risk Zone Analysis',
-                    'Data Quality Metrics'
+                    'Data Quality Metrics',
+                    'Z-Score & Price Trend',
+                    ''
                 ),
-                specs=[[{"type": "indicator"}, {"type": "bar"}],
-                       [{"type": "scatter"}, {"type": "pie"}]]
+                specs=[
+                    [{"type": "indicator"}, {"type": "bar"}],
+                    [{"type": "scatter"}, {"type": "pie"}],
+                    [{"type": "xy", "colspan": 2}, None]
+                ],
+                row_heights=[0.3, 0.3, 0.4],
+                vertical_spacing=0.05
             )
             
             # Add Z-Score gauge
-            self._add_zscore_gauge(fig, zscore_result, row=1, col=1)
+            self._add_zscore_gauge(fig, latest, row=1, col=1)
             
             # Add component breakdown
-            self._add_component_breakdown(fig, zscore_result, row=1, col=2)
+            self._add_component_breakdown(fig, latest, row=1, col=2)
             
             # Add risk zone analysis
-            self._add_risk_zone_chart(fig, zscore_result, row=2, col=1)
+            self._add_risk_zone_chart(fig, latest, row=2, col=1)
             
             # Add data quality pie chart
-            self._add_data_quality_chart(fig, zscore_result, row=2, col=2)
+            self._add_data_quality_chart(fig, latest, row=2, col=2)
             
+            # Add Z-Score vs Price trend chart
+            try:
+                # Build Z-Score time series from result list if available
+                # zscore_result may be a list for multiple periods
+                dates = [datetime.fromisoformat(r.calculation_timestamp) for r in results]
+                scores = [r.z_score for r in results]
+                # Filter series by CLI start_date
+                if start_date:
+                    sd = datetime.strptime(start_date, "%Y-%m-%d").date()
+                    filtered = [(d, s) for d, s in zip(dates, scores) if d.date() >= sd]
+                    if filtered:
+                        dates, scores = zip(*filtered)
+                # Fetch historical prices
+                from ...layers.data_fetch.yahoo_fetcher import YahooDataFetcher
+                yf_fetcher = YahooDataFetcher()
+                history = yf_fetcher.get_historical_prices(latest.ticker, period="max")
+                price_dates = []
+                prices = []
+                if history is not None and hasattr(history, 'reset_index'):
+                    hist = history.reset_index()
+                    # Filter by start_date if provided
+                    if start_date and 'Date' in hist.columns:
+                        hist = hist[hist['Date'].dt.date >= sd]
+                    # Use Close prices
+                    price_dates = hist['Date'].tolist()
+                    prices = hist['Close'].tolist()
+                # Add traces
+                fig.add_trace(
+                    go.Scatter(
+                        x=dates, y=scores, mode='lines+markers', name='Z-Score', yaxis='y3'
+                    ), row=3, col=1
+                )
+                fig.add_trace(
+                    go.Scatter(
+                        x=price_dates, y=prices, mode='lines', name='Price', yaxis='y4'
+                    ), row=3, col=1
+                )
+                # Configure axes for trend
+                fig.update_layout(
+                    yaxis3=dict(title='Z-Score'),
+                    yaxis4=dict(title='Price', overlaying='y3', side='right')
+                )
+            except Exception:
+                logger.warning(f"Could not generate price trend for {latest.ticker}")
+             
             # Update layout
             fig.update_layout(
-                title=f"Altman Z-Score Analysis Dashboard - {zscore_result.ticker}",
-                height=800,
+                title=f"Altman Z-Score Analysis Dashboard - {latest.ticker}",
+                height=900,
                 showlegend=True
             )
             
@@ -94,7 +150,7 @@ class ChartGenerator:
             return str(chart_path)
             
         except Exception as e:
-            error_msg = f"Failed to generate dashboard for {zscore_result.ticker}: {str(e)}"
+            error_msg = f"Failed to generate dashboard for {zscore_results.ticker}: {str(e)}"
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     

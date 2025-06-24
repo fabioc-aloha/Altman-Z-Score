@@ -39,8 +39,9 @@ class APIConfig:
     def __post_init__(self):
         """Validate API configuration."""
         if not self.sec_edgar_user_agent:
-            raise ConfigurationError(
-                "SEC_EDGAR_USER_AGENT is required. Format: 'CompanyName/Version ContactEmail'"
+            # SEC EDGAR user agent is optional when not using SEC data fetcher
+            logger.warning(
+                "SEC_EDGAR_USER_AGENT not set; SEC EDGAR data fetch will be disabled"
             )
 
 
@@ -89,11 +90,15 @@ class AnalysisConfig:
     default_model: str = "original"
     enable_reality_checks: bool = True
     max_outlier_threshold: float = 5.0
+    # FMP API data period - use "annual" for free plan, "quarter" for paid plans
+    fmp_data_period: str = "annual"  # "annual" or "quarter"
     
     def __post_init__(self):
         """Validate analysis configuration."""
         if self.minimum_quarters_required < 1:
             raise ConfigurationError("minimum_quarters_required must be at least 1")
+        if self.fmp_data_period not in ["annual", "quarter"]:
+            raise ConfigurationError("fmp_data_period must be 'annual' or 'quarter'")
 
 
 @dataclass
@@ -191,7 +196,9 @@ class ConfigManager:
             minimum_quarters_required=int(os.getenv("MINIMUM_QUARTERS_REQUIRED", "4")),
             default_model=os.getenv("DEFAULT_MODEL", "original"),
             enable_reality_checks=os.getenv("ENABLE_REALITY_CHECKS", "true").lower() == "true",
-            max_outlier_threshold=float(os.getenv("MAX_OUTLIER_THRESHOLD", "5.0"))
+            max_outlier_threshold=float(os.getenv("MAX_OUTLIER_THRESHOLD", "5.0")),
+            # FMP data period setting (annual for free, quarter for paid)
+            fmp_data_period=os.getenv("FMP_DATA_PERIOD", "annual")
         )
         
         # Output Configuration
@@ -319,6 +326,7 @@ MINIMUM_QUARTERS_REQUIRED=4
 DEFAULT_MODEL="original"
 ENABLE_REALITY_CHECKS=true
 MAX_OUTLIER_THRESHOLD=5.0
+FMP_DATA_PERIOD="annual"  # "annual" or "quarter"
 
 # Output Settings
 OUTPUT_DIR="output"
