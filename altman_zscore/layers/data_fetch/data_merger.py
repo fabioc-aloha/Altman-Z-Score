@@ -60,19 +60,25 @@ class DataMerger:
     def __init__(self):
         self.fmp_fetcher = FMPDataFetcher()
         self.yahoo_fetcher = YahooDataFetcher()
-        
+
     @rate_limiter.rate_limited("data_merger")
-    async def merge_financial_data(self, ticker: str) -> MergedFinancialData:
+    async def merge_financial_data(self, ticker: str, start_date: Optional[str] = None) -> List[MergedFinancialData]:
         """
         Merge FMP and Yahoo data for a ticker.
         
         Args:
             ticker: Stock ticker symbol
+            start_date: Optional start date filter (ignored for current implementation)
             
         Returns:
-            MergedFinancialData with integrated ratios and market data
+            List[MergedFinancialData] with integrated ratios and market data (single period for now)
         """
         logger.info(f"Starting data merger for {ticker}")
+        
+        # Note: start_date is currently ignored as we use latest financial data
+        # Future enhancement could support historical period analysis
+        if start_date:
+            logger.info(f"Note: start_date {start_date} specified but using latest data")
         
         try:
             # Fetch FMP financial data and calculate ratios
@@ -85,19 +91,19 @@ class DataMerger:
             merged_data = self._integrate_data_sources(ticker, fmp_data, yahoo_data)
             
             logger.info(f"Successfully merged data for {ticker}")
-            return merged_data
+            return [merged_data]  # Return as list for pipeline compatibility
             
         except Exception as e:
             logger.error(f"Failed to merge data for {ticker}: {e}")
             raise DataFetchError(f"Data merger failed for {ticker}: {str(e)}")
-    
+
     async def _fetch_fmp_ratios(self, ticker: str) -> FMPRatiosData:
         """Fetch financial data from FMP API and calculate Z-Score ratios."""
         try:
             # Get financial statements and ratios
-            ratios = self.fmp_fetcher.get_financial_ratios(ticker, period="annual", limit=1)
-            income_stmt = self.fmp_fetcher.get_income_statement(ticker, period="annual", limit=1)
-            balance_sheet = self.fmp_fetcher.get_balance_sheet(ticker, period="annual", limit=1)
+            ratios = self.fmp_fetcher.get_financial_ratios(ticker, period="annual")
+            income_stmt = self.fmp_fetcher.get_income_statement(ticker, period="annual")
+            balance_sheet = self.fmp_fetcher.get_balance_sheet(ticker, period="annual")
             
             if not ratios or not income_stmt or not balance_sheet:
                 raise DataFetchError(f"Incomplete FMP data for {ticker}")
@@ -225,22 +231,23 @@ class DataMerger:
 
 # Main integration function for external use
 @rate_limiter.rate_limited("data_integration")
-async def merge_financial_data(ticker: str) -> MergedFinancialData:
+async def merge_financial_data(ticker: str, start_date: Optional[str] = None) -> List[MergedFinancialData]:
     """
     Public interface for merging FMP and Yahoo data.
     
     Args:
         ticker: Stock ticker symbol
+        start_date: Optional start date for historical data (ignored for current implementation)
         
     Returns:
-        MergedFinancialData ready for Z-Score calculation
+        List[MergedFinancialData] ready for Z-Score calculation
         
     Strategic Advantage:
         Uses FMP financial statements to calculate Z-Score ratios combined
         with Yahoo market data.
     """
     merger = DataMerger()
-    return await merger.merge_financial_data(ticker)
+    return await merger.merge_financial_data(ticker, start_date=start_date)
 
 
 def validate_data_completeness(data: MergedFinancialData) -> DataQualityReport:

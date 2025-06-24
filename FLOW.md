@@ -1,50 +1,78 @@
-# Altman Z-Score Analysis Pipeline: API-First Architecture & Current Implementation
+# Altman Z-Score Analysis Pipeline: Complete Investment Analysis Platform
 
-**Purpose**: Documents the CURRENT state of the system—API-first strategy with comprehensive caching, modular data fetchers, and production-ready infrastructure.
+**Purpose**: Documents the CURRENT state of the system—comprehensive investment analysis platform combining fundamental analysis with advanced market intelligence.
 
 For **PAST** accomplishments → see [`CHANGELOG.md`](CHANGELOG.md)  
 For **FUTURE** plans → see [`TODO.md`](TODO.md)
 
-## ✅ Current Implementation Status (June 22, 2025)
+## ✅ Current Implementation Status (June 24, 2025)
 
-**COMPLETED**: **Complete End-to-End Pipeline Integration & Production Validation**
-- All external API calls (FMP, Yahoo Finance) cached with 48-hour TTL
-- Complete data integration pipeline with quality gates
-- **✅ Z-SCORE CALCULATION LAYER**: Direct calculation from MergedFinancialData with zero legacy dependencies
-- **✅ COMPLETE PIPELINE INTEGRATION**: End-to-end processing from data fetch to output generation
-- **✅ SCALING INTELLIGENCE**: Automatic market cap scaling detection and correction
-- **✅ PRODUCTION VALIDATION**: Successfully tested with real company data (MSFT, AAPL, TSLA)
-- Full output generation layer with CSV, JSON, charts, and reports working flawlessly
-- Azure OpenAI integration with interaction logging (not cached)
-- Complete environment variable configuration
-- **✅ ENTERPRISE PROJECT ORGANIZATION**: Professional directory structure with organized tests, docs, scripts, and sample data
-- Production-ready with ~95% performance improvement and realistic Z-Score values
+**STRATEGIC TRANSFORMATION COMPLETE**: **Investment Analysis Platform with Comprehensive Market Intelligence**
+- **✅ FUNDAMENTAL ANALYSIS**: Z-Score calculation with multiple model variants and automatic selection
+- **✅ MARKET ANALYSIS LAYER**: ✅ **NEW** - Technical, valuation, performance, and risk-return analysis
+- **✅ INVESTMENT RECOMMENDATIONS**: Clear BUY/SELL/HOLD recommendations with confidence levels and price targets
+- **✅ COMPLETE DATA INTEGRATION**: FMP financial data + Yahoo Finance market data with 48-hour caching
+- **✅ PRODUCTION PIPELINE**: End-to-end processing from data fetch to output generation working flawlessly
+- **✅ REAL-WORLD VALIDATION**: Successfully tested with major companies (MSFT, AAPL, TSLA)
+- **✅ INTERFACE HARMONIZATION**: All pipeline layers use consistent List-based data interfaces
+- **✅ ENTERPRISE ORGANIZATION**: Professional directory structure with organized tests, docs, and scripts
+- Full output generation layer with CSV, JSON, charts, and reports
+- **⚠️ OUTPUT ENHANCEMENT PENDING**: Market analysis integration into all output formats (Phase 2)
+- **⚠️ AI ANALYSIS**: LLM client exists but AI insights generation is placeholder (not implemented)
+- **⚠️ QUALITY GATES**: Quality validation exists but not integrated into main pipeline
 
-**Version**: 3.10.0 (Complete Pipeline Integration)  
-**Architecture**: Production-ready API-first with intelligent caching, direct Z-Score calculation, and complete output generation  
-**Scope**: U.S. public companies with FMP + Yahoo Finance data integration  
-**Key Achievement**: Complete end-to-end pipeline from ticker input to comprehensive reports with zero legacy dependencies
+**Version**: 3.11.0 (Market Analysis Integration Phase 1 Complete)  
+**Architecture**: Complete Investment Analysis Platform with comprehensive market intelligence  
+**Scope**: U.S. public companies with integrated fundamental + market analysis  
+**Key Achievement**: Transformed from basic Z-Score calculator to comprehensive investment analysis platform delivering actionable investment insights
 
-## 🎯 **Strategic Architecture Decision: FMP as Primary Data Source**
+## �️ **LAYERED ARCHITECTURE: 7-Layer Investment Analysis Pipeline**
 
-**KEY INSIGHT**: Financial Modeling Prep (FMP) provides **all Z-Score financial ratios pre-calculated**, eliminating the need for complex SEC EDGAR field mapping and XBRL parsing.
+### **Layer 0: Field Mapping Cache** (Deterministic, Pre-built)
+- **Purpose**: Field mapping database for financial statement standardization
+- **Status**: ✅ Implemented with validation and caching
+- **Data Flow**: Pre-built field mappings → Used by data layers
 
-### **Strategic Benefits:**
-1. **Pre-calculated Metrics**: FMP ratios endpoint provides Working Capital/Total Assets, EBIT/Total Assets, etc. ready for direct use
-2. **Eliminates Field Mapping**: No need to parse/map SEC XBRL concepts to canonical fields
-3. **Deterministic Pipeline**: Consistent metric definitions across all companies
-4. **Simplified Architecture**: Data merger focuses on integration and quality gates, not transformation
-5. **Performance**: 48-hour caching with pre-calculated ratios = lightning-fast calculations
+### **Layer 1: Data Fetch** (SEC + Yahoo, Deterministic, No AI)  
+- **Purpose**: Raw data acquisition from external APIs
+- **Components**: FMP financial data, Yahoo Finance market data, SEC EDGAR (optional)
+- **Status**: ✅ Fully implemented with comprehensive caching
+- **Key Features**: 48-hour TTL caching, rate limiting, error handling
 
-### **Data Source Strategy:**
-- **FMP**: Primary source for ALL financial metrics and ratios
-- **Yahoo Finance**: Market data only (stock prices, market cap, volume)
-- **SEC EDGAR**: Optional backup/validation (not required for calculations)
-- **Azure OpenAI**: Commentary generation only (logged, not cached)
+### **Layer 2: Field Mapping** (AI/LLM Allowed Here Only)
+- **Purpose**: Standardize financial data fields (when needed)  
+- **Status**: ✅ Implemented but bypassed (FMP provides pre-calculated ratios)
+- **Strategic Decision**: FMP pre-calculated ratios eliminate need for complex field mapping
 
-**Result**: The data pipeline focuses on **integration and quality** rather than complex field transformations.
+### **Layer 3: Model Selection** (Rule-based)
+- **Purpose**: Select appropriate Z-Score model based on company characteristics
+- **Status**: ✅ Implemented with Original, Service, Private, and Retail variants
+- **Logic**: Industry classification, data availability, company size considerations
 
-### ✅ **Production-Ready API Infrastructure**
+### **Layer 4: Z-Score Calculation** (Strict Theory Adherence)
+- **Purpose**: Calculate Altman Z-Score using selected model and standardized data
+- **Status**: ✅ Fully implemented with direct FMP data processing
+- **Features**: Multiple model support, component breakdown, risk categorization
+
+### **Layer 5: Market Data Processing** (Yahoo Finance Only)
+- **Purpose**: Process market data for technical and valuation analysis
+- **Status**: ✅ Fully implemented with comprehensive analysis
+- **Components**: Stock prices, volume, market cap, sector data, benchmark comparisons
+
+### **✅ Layer 6: Market Analysis** (✅ **NEW** - Comprehensive Investment Intelligence)
+- **Purpose**: Advanced market analysis combining technical, valuation, and performance insights
+- **Status**: ✅ **FULLY IMPLEMENTED** - Phase 1 Complete
+- **Components**:
+  - **Technical Analyzer**: RSI, MACD, moving averages, volatility, trading signals
+  - **Valuation Analyzer**: P/E, P/B, PEG ratios, dividend analysis, sector comparison, analyst targets
+  - **Performance Analyzer**: Multi-timeframe returns, benchmark comparison, Beta, Sharpe ratio, drawdown
+  - **Risk-Return Analyzer**: Combined fundamental + market risk assessment with investment recommendations
+  - **Market Analysis Orchestrator**: Unified coordination of all market analysis components
+
+### **Layer 7: Output Generation** (CSV, JSON, Charts, Reports)
+- **Purpose**: Generate comprehensive outputs with investment insights
+- **Status**: ✅ Implemented (Phase 2: Market analysis integration pending)
+- **Components**: CSV/JSON exports, interactive charts, detailed reports, executive summaries
 - **FMP API Integration**: Complete financial data fetching with caching
 - **Yahoo Finance Integration**: Market data with intelligent caching
 - **Azure OpenAI Integration**: AI analysis with interaction logging
@@ -66,16 +94,31 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 - **Model Selector** (`model_selector.py`): ✅ **COMPLETE** - Automatic model selection based on company characteristics  
 - **Validation** (`validation.py`): ✅ **COMPLETE** - Z-Score result validation and comprehensive error handling
 
-#### 3. **Cache Infrastructure** (`altman_zscore/common/`)
+#### 3. **Market Analysis Layer** (`altman_zscore/layers/market_analysis/`) ✅ **NEW**
+- **Technical Analyzer** (`technical_analyzer.py`): Price trends, momentum indicators (RSI, MACD), volatility analysis, trading signals
+- **Valuation Analyzer** (`valuation_analyzer.py`): P/E, P/B, PEG ratios, dividend analysis, sector comparison, analyst price targets
+- **Performance Analyzer** (`performance_analyzer.py`): Multi-timeframe returns, benchmark comparison, risk metrics (Beta, Sharpe, drawdown)
+- **Risk-Return Analyzer** (`risk_return_analyzer.py`): Combined fundamental + market risk assessment with investment recommendations
+- **Market Analysis Orchestrator** (`market_analysis_orchestrator.py`): Unified coordination of all market analysis components
+
+#### 4. **Z-Score Calculation Layer** (`altman_zscore/layers/zscore_calculation/`)
+- **Z-Score Calculator** (`zscore_calculator.py`): ✅ **COMPLETE** - Direct calculation from MergedFinancialData with zero legacy dependencies
+- **Model Selector** (`model_selector.py`): ✅ **COMPLETE** - Automatic model selection based on company characteristics  
+- **Validation** (`validation.py`): ✅ **COMPLETE** - Z-Score result validation and comprehensive error handling
+
+#### 5. **Cache Infrastructure** (`altman_zscore/common/`)
 - **Cache Framework** (`cache.py`): TTL-based file caching with thread safety
 - **Configuration Management** (`config.py`): Environment variable integration
 - **Rate Limiting** (`api_rate_limiter.py`): Basic rate limiting for API compliance
 
-#### 4. **Output Generation Layer** (`altman_zscore/layers/output_generation/`)
+#### 6. **Output Generation Layer** (`altman_zscore/layers/output_generation/`)
 - **CSV/JSON Generator** (`csv_json_generator.py`): Export Z-Score results to structured data formats
 - **Chart Generator** (`chart_generator.py`): Interactive Plotly dashboards and visualizations
 - **Report Generator** (`report_generator.py`): Professional HTML reports with Jinja2 templates
 - **File Manager** (`file_manager.py`): Output organization, storage, and cleanup management
+
+#### 7. **Market Data Models** (`altman_zscore/models/`) ✅ **NEW**
+- **Market Models** (`market_models.py`): Complete data structures for technical, valuation, performance, and risk-return analysis
 
 #### 5. **Environment Configuration** (`.env`)
 - **FMP API**: `FINANCIAL_MODELING_PREP_API_KEY`
@@ -116,7 +159,32 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 - **No Data Mixing**: Clear separation of concerns between data sources
 - **No Field Mapping Required**: FMP provides standardized financial data directly
 
-## Current Pipeline Flow (API-First Implementation)
+## 🎯 **Strategic Architecture Decision: Investment Analysis Platform**
+
+**KEY EVOLUTION**: Transformed from Z-Score calculator to comprehensive investment analysis platform combining fundamental analysis with advanced market intelligence.
+
+### **Strategic Benefits:**
+1. **Comprehensive Analysis**: Technical, valuation, performance, and risk analysis in addition to Z-Score
+2. **Investment Recommendations**: Clear BUY/SELL/HOLD recommendations with confidence levels and price targets
+3. **Market Context**: Stock performance analysis complemented by fundamental health assessment
+4. **Actionable Insights**: Users can make informed investment decisions, not just assess financial health
+5. **Competitive Advantage**: Platform provides professional-grade investment analysis capabilities
+
+### **Data Source Strategy:**
+- **FMP**: Primary source for ALL financial metrics and ratios (pre-calculated)
+- **Yahoo Finance**: Market data (stock prices, market cap, volume) + technical analysis data
+- **Market Analysis**: Advanced technical indicators, valuation comparisons, performance metrics
+- **Azure OpenAI**: Commentary generation only (logged, not cached)
+
+### ✅ **Production-Ready Investment Analysis Infrastructure**
+- **Fundamental Analysis**: Z-Score calculation with multiple model variants
+- **Market Analysis**: Comprehensive technical, valuation, and performance analysis
+- **Investment Intelligence**: Combined analysis delivering actionable investment recommendations
+- **Real-time Market Data**: Yahoo Finance integration with technical indicators
+- **Comprehensive Caching**: 48-hour TTL for all financial/market data APIs
+- **Enterprise Architecture**: Professional pipeline with comprehensive error handling and logging
+
+## Current Pipeline Flow (Complete Investment Analysis Implementation)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -130,8 +198,8 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 ┌──────────────────────────────────────────────────────────────┐
 │ 2. Input Validation & Initialization                         │
 │ Inputs: ticker symbol, optional parameters                   │
-│ Process: Validate ticker, initialize data fetchers           │
-│ Status: ✅ COMPLETE - Ready for ticker analysis             │
+│ Process: Validate ticker, initialize all data fetchers       │
+│ Status: ✅ COMPLETE - Ready for comprehensive analysis      │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
@@ -147,7 +215,7 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 ┌──────────────────────────────────────────────────────────────┐
 │ 4. Yahoo Finance Market Data Fetch (CACHED 48h)              │
 │ Inputs: ticker symbol                                        │
-│ Process: Fetch market cap, prices, shares outstanding        │
+│ Process: Fetch prices, market cap, volume, technical data    │
 │ Cache: 48-hour TTL with automatic expiration                 │
 │ Status: ✅ COMPLETE - Production ready with caching         │
 └────────────┬─────────────────────────────────────────────────┘
@@ -157,7 +225,7 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 │ 5. Data Integration & Quality Gates                          │
 │ Inputs: FMP financial data, Yahoo market data                │
 │ Process: Merge data sources, validate completeness           │
-│ Status: ✅ COMPLETE - Production ready                      │
+│ Status: ✅ MERGER COMPLETE, ⚠️ QUALITY GATES NOT INTEGRATED│
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
@@ -166,79 +234,133 @@ For **FUTURE** plans → see [`TODO.md`](TODO.md)
 │ Inputs: Integrated financial and market data                 │
 │ Process: Calculate Altman Z-Scores with automatic model      │
 │          selection based on company type and data availability│
-│ Status: ✅ COMPLETE - Direct calculation with zero legacy dependencies│
+│ Status: ✅ COMPLETE - Direct calculation, zero legacy deps  │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ 7. AI-Enhanced Analysis & Insights                           │
-│ Inputs: Z-Score results, financial data                      │
+│ 7. ✅ NEW: Comprehensive Market Analysis                     │
+│ Inputs: Market data, financial data, Z-Score results         │
+│ Process: Technical analysis (RSI, MACD, volatility)          │
+│          Valuation analysis (P/E, P/B, PEG, sector comparison)│
+│          Performance analysis (returns, Beta, Sharpe, drawdown)│
+│          Risk-return analysis (investment recommendations)    │
+│ Status: ✅ COMPLETE - Phase 1 fully implemented and tested  │
+└────────────┬─────────────────────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────────────────────┐
+│ 8. AI-Enhanced Analysis & Insights                           │
+│ Inputs: Z-Score results, market analysis results             │
 │ Process: Generate AI-powered insights and recommendations    │
-│ AI Integration: Azure OpenAI for comprehensive analysis      │
-│ Status: ✅ INTEGRATED - LLM client working in main pipeline │
+│ AI Integration: Azure OpenAI client exists, insights placeholder│
+│ Status: ⚠️ PARTIAL - LLM client implemented, insights TODO   │
 └────────────┬─────────────────────────────────────────────────┘
              │
              ▼
 ┌───────────────────────────────────────────────────────────────┐
-│ 8. Output Generation & Reporting                              │
-│ Inputs: Z-Score results, AI insights, market data             │
+│ 9. Output Generation & Reporting                              │
+│ Inputs: Z-Scores, market analysis, AI insights (optional)     │
 │ Process: Generate CSV, JSON, charts, and comprehensive reports│
-│ Status: ✅ COMPLETE - Production ready with full functionality│
-│ Validation: Successfully generates all 5 output files per ticker│
+│ Status: ✅ BASE COMPLETE, 🔄 Phase 2: Market analysis integration│
+│ Note: Current outputs are Z-Score focused, market analysis    │
+│       integration into all outputs is Phase 2 priority       │
 └───────────────────────────────────────────────────────────────┘
 ```
 
 ## Implementation Status & Next Steps
 
-### ✅ **COMPLETED (Production Ready)**
-1. **API Infrastructure**: All data fetchers implemented and tested
-2. **Caching System**: 48-hour TTL caching for all financial/market APIs  
+## Implementation Status & Next Steps
+
+### ✅ **PHASE 1 COMPLETED: COMPREHENSIVE INVESTMENT ANALYSIS PLATFORM**
+1. **API Infrastructure**: All data fetchers implemented and tested with production-ready caching
+2. **Caching System**: 48-hour TTL caching for all financial/market APIs with ~95% hit rate
 3. **Environment Configuration**: Complete API key and user agent setup
-4. **LLM Integration**: Azure OpenAI client with interaction logging
-5. **Testing Framework**: Comprehensive test scripts and validation
-6. **Performance Validation**: ~95% cache hit rate demonstrated via `api_caching_demo.py`
-7. **API Integration Testing**: All endpoints validated via `comprehensive_api_test.py`
-8. **LLM Client Testing**: Azure OpenAI integration verified via `llm_demo.py`
-9. **Data Integration & Quality Gates**: Complete FMP+Yahoo data merger with quality validation
-10. **Output Generation Layer**: Complete CSV, JSON, chart, and report generation
-11. **File Management**: Automated output organization and storage
-12. **Dependencies**: All required packages (Plotly, Jinja2) installed and working
-13. **✅ Z-SCORE CALCULATION INTEGRATION**: Complete direct calculation from MergedFinancialData
-14. **✅ ZERO LEGACY DEPENDENCIES**: Eliminated all `src.altman_zscore.*` imports from calculation layer
-15. **✅ MULTI-MODEL SUPPORT**: Original, Service, Private, and Retail Z-Score variants implemented
-16. **✅ INTEGRATION TESTING**: Comprehensive end-to-end testing with synthetic data validation
-17. **✅ COMPLETE PIPELINE INTEGRATION**: End-to-end pipeline from ticker to reports working perfectly
-18. **✅ SCALING INTELLIGENCE**: Market cap scaling detection and correction implemented
-19. **✅ PRODUCTION VALIDATION**: Successfully tested with real companies (MSFT, AAPL, TSLA)
-20. **✅ OUTPUT VERIFICATION**: All 5 output files generated and validated for each ticker
-21. **✅ REALISTIC Z-SCORES**: MSFT: 10.474, AAPL: 7.883, TSLA: 14.552 (all in Safe category)
-22. **✅ MAIN PIPELINE ORCHESTRATION**: Complete ticker-to-reports automation working
+4. **Testing Framework**: Comprehensive test scripts and validation with real-world data
+5. **Data Integration & Merger**: Complete FMP+Yahoo data merger with standardized interfaces
+6. **Z-Score Calculation Integration**: Complete direct calculation from MergedFinancialData with zero legacy dependencies
+7. **Multi-Model Support**: Original, Service, Private, and Retail Z-Score variants implemented
+8. **Complete Pipeline Integration**: End-to-end pipeline from ticker to reports working perfectly
+9. **Interface Standardization**: All layers use consistent List-based data interfaces
+10. **Production Validation**: Successfully tested with real companies (MSFT, AAPL, TSLA)
+11. **✅ MARKET ANALYSIS LAYER COMPLETE**: Comprehensive technical, valuation, performance, and risk-return analysis
+12. **✅ INVESTMENT RECOMMENDATIONS**: Clear BUY/SELL/HOLD recommendations with confidence levels and price targets
+13. **✅ TECHNICAL ANALYSIS**: RSI, MACD, moving averages, volatility analysis, trading signals
+14. **✅ VALUATION ANALYSIS**: P/E, P/B, PEG ratios, dividend analysis, sector comparison, analyst targets
+15. **✅ PERFORMANCE ANALYSIS**: Multi-timeframe returns, benchmark comparison, Beta, Sharpe ratio, drawdown
+16. **✅ RISK-RETURN INTEGRATION**: Combined fundamental + market risk assessment
+17. **✅ COMPREHENSIVE TESTING**: Full test suite for all market analysis components
+18. **✅ REAL-WORLD VALIDATION**: Tested with major stocks delivering accurate investment insights
 
-### 🔄 **NEXT PHASE: Advanced Features & Optimization (Priority)**
+### 🎯 **STRATEGIC TRANSFORMATION COMPLETE**
+**FROM**: Basic Z-Score calculator with minimal market data  
+**TO**: ✅ **Complete Investment Analysis Platform** combining fundamental health with comprehensive market intelligence
 
-#### **IMMEDIATE NEXT STEPS (Week 1)**
-1. **Batch Processing Enhancement** (`altman_zscore/main_pipeline.py`)
-   - Implement batch analysis for multiple tickers
+### 🚀 **CURRENT PRIORITY: PHASE 2 - OUTPUT GENERATION ENHANCEMENT**
+
+#### **Goal**: Integrate comprehensive market analysis results into all output formats
+
+#### **Phase 2 Tasks (Current Priority)**
+1. **🔄 Enhanced Chart Generation**: Integrate technical analysis charts, valuation comparisons, performance metrics
+2. **🔄 Enhanced Report Generation**: Add market analysis sections to reports with investment recommendations
+3. **🔄 Enhanced CSV/JSON Output**: Include all market analysis metrics in data exports
+4. **🔄 Main Pipeline Integration**: Ensure market analysis flows through to all output generators
+5. **🔄 Comprehensive Testing**: Validate all output formats with market analysis integration
+
+### ⚠️ **PARTIALLY IMPLEMENTED**
+1. **Quality Gates Integration**: `quality_gates.py` exists but not integrated into main pipeline
+   - `validate_data_completeness()` function exists in data_merger.py
+   - Used in tests but not in production pipeline
+   - Full QualityGates class exists but unused
+
+2. **AI-Enhanced Analysis**: LLM client infrastructure complete but insights generation placeholder
+   - `llm_client.py` fully implemented with Azure OpenAI integration
+   - `_generate_ai_insights()` method returns None (TODO placeholder)
+   - AI insights parameter exists but not functional
+
+3. **Output Generation Enhancement**: Base output generation complete, market analysis integration pending
+   - Current outputs focus on Z-Score analysis
+   - Market analysis results not yet integrated into charts, reports, CSV/JSON
+   - All infrastructure exists, integration work required
+
+### 🔄 **NEXT PHASE: ADVANCED FEATURES & AI INTEGRATION (Future)**
+
+#### **Phase 3: AI Integration & Advanced Features**
+1. **AI-Enhanced Market Analysis**: Implement natural language investment summaries and market sentiment analysis
+2. **Advanced Analytics**: Portfolio optimization features and correlation analysis
+3. **Quality Gates Integration**: Real-time data quality monitoring and validation
+4. **Enhanced Market Intelligence**: Forward-looking catalysts and risk factors
+
+#### **Phase 4: Enterprise Features**
+1. **Scalability & Performance**: High-volume processing and parallel optimization
+2. **Integration & Deployment**: REST API development and cloud deployment
+3. **Advanced Market Data**: Real-time streaming and additional data sources
+       def analyze_risk_return_profile(self, zscore_result: ZScoreResult, price_data: pd.DataFrame) -> RiskReturnProfile
+   ```
+
+2. **Enhanced Output Generation**: Integrate market analysis into reports
+   - Update `chart_generator.py` to include technical analysis charts
+   - Update `report_generator.py` to include market valuation context
+   - Add market performance section to comprehensive reports
+   - Create market analysis dashboard alongside Z-Score dashboard
+
+3. **Complete Missing Components**
+   - **Integrate Quality Gates**: Use `validate_data_completeness()` in main pipeline
+   - **Implement AI Insights**: Replace `_generate_ai_insights()` placeholder with actual LLM integration
+
+4. **Batch Processing Enhancement** (`altman_zscore/main_pipeline.py`)
+   - Implement batch analysis for multiple tickers (basic version exists)
    - Add progress tracking and parallel processing
    - Implement portfolio-level Z-Score analysis
    - Add batch report generation and comparison
 
-2. **Advanced AI Analysis Features** 
-   ```python
-   # Enhanced AI functions to implement:
-   def generate_industry_comparison(ticker: str, zscore_result: ZScoreCalculationResult) -> IndustryAnalysis
-   def analyze_historical_trends(ticker: str, quarters: int = 12) -> TrendAnalysis
-   def generate_risk_scenarios(data: MergedFinancialData) -> ScenarioAnalysis
-   def create_executive_summary(analysis: ComprehensiveAnalysis) -> ExecutiveSummary
-   ```
-
-3. **Performance Optimization & Monitoring**
+5. **Performance Optimization & Monitoring**
    - Add pipeline performance metrics and monitoring
    - Implement concurrent processing for multiple tickers
    - Add memory usage optimization for large datasets
    - Create performance benchmarking tools
 
-**Key Strategic Focus**: With complete pipeline working, focus shifts to advanced features, batch processing, and comprehensive AI-enhanced analysis.
+**Key Strategic Focus**: 🎯 **CRITICAL PRIORITY** - Implement comprehensive market analysis to complement Z-Score analysis, providing complete investment perspective combining fundamental health (Z-Score) with market valuation and technical analysis.
 
 #### **TESTING REQUIREMENTS**
 ```python
