@@ -34,16 +34,17 @@ class CSVJSONGenerator:
         
         Args:
             output_base_path: Base directory for output files
-        """
+        """        
         self.output_base_path = Path(output_base_path)
         self.output_base_path.mkdir(exist_ok=True)
     
-    def generate_csv_report(self, zscore_results):
+    def generate_csv_report(self, zscore_results, market_analysis=None):
         """
         Generate CSV report from one or more Z-Score calculation results.
         
         Args:
             zscore_results: Z-Score calculation result or list of results
+            market_analysis: Optional market analysis results
             
         Returns:
             str: Path to generated CSV file
@@ -58,10 +59,10 @@ class CSVJSONGenerator:
             
             csv_path = ticker_dir / f"{ticker}_zscore_report.csv"
             
-            # Prepare CSV data for all results
+            # Prepare CSV data for all results (enhanced with market analysis)
             csv_data = []
             for res in results:
-                csv_data.extend(self._prepare_csv_data(res))
+                csv_data.extend(self._prepare_csv_data(res, market_analysis))
             
             # Write CSV file
             with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
@@ -78,7 +79,7 @@ class CSVJSONGenerator:
                 writer.writeheader()
                 writer.writerows(csv_data)
             
-            logger.info(f"CSV report generated: {csv_path}")
+            logger.info(f"Enhanced CSV report generated: {csv_path}")
             return str(csv_path)
             
         except Exception as e:
@@ -86,12 +87,13 @@ class CSVJSONGenerator:
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def generate_json_report(self, zscore_results) -> str:
+    def generate_json_report(self, zscore_results, market_analysis=None) -> str:
         """
         Generate JSON report from Z-Score calculation result.
         
         Args:
-            zscore_result: Z-Score calculation result
+            zscore_results: Z-Score calculation result or list of results
+            market_analysis: Optional market analysis results
             
         Returns:
             str: Path to generated JSON file
@@ -106,7 +108,7 @@ class CSVJSONGenerator:
             json_path = ticker_dir / f"{ticker}_zscore_data.json"
             
             # Prepare JSON data for all results
-            json_data = [self._prepare_json_data(res) for res in results]
+            json_data = [self._prepare_json_data(res, market_analysis) for res in results]
             
             # Write JSON file
             with open(json_path, 'w', encoding='utf-8') as jsonfile:
@@ -120,7 +122,7 @@ class CSVJSONGenerator:
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def _prepare_csv_data(self, zscore_result: ZScoreCalculationResult) -> List[Dict[str, Any]]:
+    def _prepare_csv_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None) -> List[Dict[str, Any]]:
         """Prepare data for CSV export."""
         return [{
             'ticker': zscore_result.ticker,
@@ -133,7 +135,7 @@ class CSVJSONGenerator:
             **zscore_result.component_values
         }]
     
-    def _prepare_json_data(self, zscore_result: ZScoreCalculationResult) -> Dict[str, Any]:
+    def _prepare_json_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None) -> Dict[str, Any]:
         """Prepare data for JSON export."""
         return {
             'ticker': zscore_result.ticker,
