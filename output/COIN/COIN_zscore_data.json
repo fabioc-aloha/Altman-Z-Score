@@ -1,0 +1,242 @@
+[
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 5.927535392203553,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2025-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.4841202013381249,
+      "retained_earnings_ratio": 0.231305858550681,
+      "ebit_ratio": 0.0324792142618708,
+      "market_equity_ratio": 8.036614977173459,
+      "book_equity_ratio": 0.9294555174101993,
+      "asset_turnover": 0.09361255525860146,
+      "z_score": 5.927535392203553,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 21731006000,
+        "total_liabilities": 11262766000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 5.529622956463232,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.4512179535835208,
+      "retained_earnings_ratio": 0.22007416305713734,
+      "ebit_ratio": 0.04587309235123437,
+      "market_equity_ratio": 7.379837710370124,
+      "book_equity_ratio": 0.8378924312861794,
+      "asset_turnover": 0.10077375290186728,
+      "z_score": 5.529622956463232,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 22541951000,
+        "total_liabilities": 12265109000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 0.25268835383083366,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03041427359811691,
+      "retained_earnings_ratio": 0.012629895996748443,
+      "ebit_ratio": 0.0005834038136636447,
+      "market_equity_ratio": 0.32116651113464,
+      "book_equity_ratio": 0.03096940335972028,
+      "asset_turnover": 0.0038842318517715367,
+      "z_score": 0.25268835383083366,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 290558608000,
+        "total_liabilities": 281830486000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 0.25691519657186035,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.029735634204660882,
+      "retained_earnings_ratio": 0.012525231246049068,
+      "ebit_ratio": 0.0011956997102162683,
+      "market_equity_ratio": 0.32490409730047487,
+      "book_equity_ratio": 0.030047083366757793,
+      "asset_turnover": 0.0048088443577999854,
+      "z_score": 0.25691519657186035,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 286959173000,
+        "total_liabilities": 278588404000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 0.2133859919625687,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.023291659167093567,
+      "retained_earnings_ratio": 0.010223296220757919,
+      "ebit_ratio": 0.0021850037287901867,
+      "market_equity_ratio": 0.2662461880578623,
+      "book_equity_ratio": 0.023740627809559125,
+      "asset_turnover": 0.00416516111327032,
+      "z_score": 0.2133859919625687,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 348036477000,
+        "total_liabilities": 339965483000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 7.148533946892597,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.39797711805169356,
+      "retained_earnings_ratio": 0.12338065708858965,
+      "ebit_ratio": 0.007089650391445625,
+      "market_equity_ratio": 10.683642781163734,
+      "book_equity_ratio": 0.7414379317329088,
+      "asset_turnover": 0.0646469703165285,
+      "z_score": 7.148533946892597,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 14753901000,
+        "total_liabilities": 8472252000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 0.5206275829345979,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.04414916720667304,
+      "retained_earnings_ratio": 0.012151147009681703,
+      "ebit_ratio": -0.0006270344991514316,
+      "market_equity_ratio": 0.7456844678730319,
+      "book_equity_ratio": 0.0487799221762059,
+      "asset_turnover": 0.005295509596416403,
+      "z_score": 0.5206275829345979,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 127305595000,
+        "total_liabilities": 121384470000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "COIN",
+    "analysis_summary": {
+      "z_score": 0.48078297276538007,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.04157787935139392,
+      "retained_earnings_ratio": 0.011254395413894929,
+      "ebit_ratio": -0.0005345055768927954,
+      "market_equity_ratio": 0.6862573676301257,
+      "book_equity_ratio": 0.04363065282285711,
+      "asset_turnover": 0.005142811789925324,
+      "z_score": 0.48078297276538007,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 137650575000,
+        "total_liabilities": 131895872000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T18:26:44.197592",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

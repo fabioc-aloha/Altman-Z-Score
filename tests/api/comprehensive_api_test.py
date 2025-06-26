@@ -51,7 +51,7 @@ def test_environment_variables():
             if required:
                 all_good = False
     
-    return all_good
+    assert all_good, "Missing required environment variables"
 
 def test_fmp_fetcher():
     """Test FMP API fetcher with caching."""
@@ -68,11 +68,12 @@ def test_fmp_fetcher():
         print(f"   API Key: {fetcher.config.api_key[:10]}...")
         print("✅ FMP fetcher ready for API calls")
         
-        return True
+        assert fetcher is not None
+        assert hasattr(fetcher, 'config')
         
     except Exception as e:
         print(f"❌ FMP fetcher failed: {e}")
-        return False
+        assert False, f"FMP fetcher test failed: {e}"
 
 def test_yahoo_fetcher():
     """Test Yahoo Finance fetcher with caching."""
@@ -89,11 +90,12 @@ def test_yahoo_fetcher():
             print(f"   User Agent: {fetcher.config.user_agent}")
         print("✅ Yahoo fetcher ready for API calls")
         
-        return True
+        assert fetcher is not None
+        assert hasattr(fetcher, 'config')
         
     except Exception as e:
         print(f"❌ Yahoo fetcher failed: {e}")
-        return False
+        assert False, f"Yahoo fetcher test failed: {e}"
 
 def test_llm_client():
     """Test LLM client with logging."""
@@ -111,11 +113,12 @@ def test_llm_client():
         print("✅ LLM client ready for API calls")
         print("💡 Note: LLM calls are NOT cached - logged to ticker folders")
         
-        return True
+        assert client is not None
+        assert hasattr(client, 'config')
         
     except Exception as e:
         print(f"❌ LLM client failed: {e}")
-        return False
+        assert False, f"LLM client test failed: {e}"
 
 def test_cache_directories():
     """Test cache directory structure."""
@@ -151,7 +154,8 @@ def test_cache_directories():
     else:
         print(f"📁 {output_dir}: Will be created on first LLM interaction")
     
-    return True
+    # Basic assertion that we can check directories
+    assert True
 
 def test_caching_behavior():
     """Test that caching is working correctly."""
@@ -176,7 +180,7 @@ def test_caching_behavior():
             print("✅ Cache set/get operations working correctly")
         else:
             print("❌ Cache set/get operations failed")
-            return False
+            assert False, "Cache set/get operations failed"
         
         # Test TTL (this is instant, so we can't test expiration easily)
         print("✅ Cache TTL system implemented (48h for APIs)")
@@ -185,11 +189,11 @@ def test_caching_behavior():
         test_cache.delete(test_key)
         print("✅ Cache cleanup working")
         
-        return True
+        assert test_cache is not None
         
     except Exception as e:
         print(f"❌ Caching behavior test failed: {e}")
-        return False
+        assert False, f"Caching behavior test failed: {e}"
 
 def main():
     """Run comprehensive API configuration test."""

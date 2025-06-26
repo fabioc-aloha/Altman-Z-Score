@@ -16,10 +16,10 @@ def test_basic_imports():
         from altman_zscore.layers.data_fetch.fmp_fetcher import FMPDataFetcher
         print("✅ FMP fetcher import successful")
         
-        return True
+        assert True, "Cache imports successful"
     except Exception as e:
         print(f"❌ Import error: {e}")
-        return False
+        assert False, f"Import error: {e}"
 
 def test_cache_creation():
     """Test cache creation."""
@@ -36,11 +36,12 @@ def test_cache_creation():
             print("✅ Cache set/get works correctly")
         else:
             print(f"❌ Cache get returned: {value}")
+            assert False, f"Cache get returned unexpected value: {value}"
         
-        return True
+        assert True, "Cache creation successful"
     except Exception as e:
         print(f"❌ Cache test error: {e}")
-        return False
+        assert False, f"Cache test error: {e}"
 
 if __name__ == "__main__":
     print("🧪 Simple API Caching Test")

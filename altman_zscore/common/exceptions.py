@@ -98,6 +98,15 @@ class OutputGenerationError(ZScoreError):
     pass
 
 
+class AIAnalysisError(ZScoreError):
+    """Exception raised for AI analysis and narrative generation errors."""
+    
+    def __init__(self, message: str, source: str = None, response_details: dict = None):
+        self.source = source
+        self.response_details = response_details or {}
+        super().__init__(message)
+
+
 class PipelineError(ZScoreError):
     """Exception raised for pipeline orchestration errors."""
     pass

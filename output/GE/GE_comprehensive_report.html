@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - GE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>General Electric Company (GE)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="GE_logo.png" alt="General Electric Company Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="GE_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="GE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.61</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$249.90</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$266.5B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>39.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>48.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.46%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>6.00%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>7.3%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>17.8%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>52.2%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.15</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.37</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-21.4%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.8/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0212</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.6613</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0157</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>2.546</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.1839</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0800</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>2.611</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: General Electric (GE) – March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>General Electric (GE) presents a nuanced investment profile as of March 31, 2025. The company’s Altman Z-Score of 2.61 places it in the “Gray Zone,” indicating moderate financial distress risk but no immediate threat of bankruptcy. Coupled with a favorable market technical trend and a “buy” recommendation at a 60% confidence level, GE offers a cautiously optimistic opportunity for investors willing to monitor key financial and market indicators closely.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected metric for assessing bankruptcy risk, stands at 2.61 for GE, situating the company within the Gray Zone (scores between 1.8 and 3.0). This zone signals that while GE is not currently in financial distress, it is not entirely free from risk either. The score reflects a balance between strengths and vulnerabilities in GE’s financial structure.</p>
+<p>Breaking down the components:</p>
+<ul>
+<li>
+<p><strong>Working Capital Ratio (0.021):</strong> This low ratio suggests limited short-term liquidity cushion, indicating that GE’s current assets barely cover its current liabilities. While not alarming, it warrants attention as liquidity pressures could arise under adverse conditions.</p>
+</li>
+<li>
+<p><strong>Retained Earnings Ratio (0.661):</strong> A strong positive, this ratio indicates that GE has accumulated significant earnings over time, which supports its equity base and long-term solvency.</p>
+</li>
+<li>
+<p><strong>EBIT Ratio (0.016):</strong> The relatively low earnings before interest and taxes relative to total assets points to modest operational profitability, which may constrain the company’s ability to generate internal cash flow.</p>
+</li>
+<li>
+<p><strong>Market Equity Ratio (2.546) and Book Equity Ratio (0.184):</strong> The high market equity ratio suggests that the market values GE’s equity substantially above its book value, reflecting investor confidence in future growth prospects. However, the low book equity ratio relative to assets signals a capital structure with significant liabilities.</p>
+</li>
+<li>
+<p><strong>Asset Turnover (0.080):</strong> This low turnover ratio indicates that GE’s asset utilization efficiency is limited, which could impact revenue generation and operational leverage.</p>
+</li>
+</ul>
+<p>Overall, the Z-Score and its components highlight a company with solid retained earnings and market confidence but facing challenges in liquidity and operational efficiency. The total assets of approximately $124 billion against liabilities of about $105 billion underscore a leveraged balance sheet that requires prudent management.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, GE’s current share price of $249.90 and a market capitalization of $266.5 billion reflect strong investor interest. The price-to-earnings (P/E) ratio of 39.4 is elevated relative to historical averages, suggesting that the market is pricing in significant growth expectations or premium valuation for GE’s future prospects.</p>
+<p>Technical indicators support a cautiously positive outlook:</p>
+<ul>
+<li>
+<p><strong>Volatility at 30.0%</strong> indicates a relatively high level of price fluctuation, which may present both risk and opportunity for investors.</p>
+</li>
+<li>
+<p><strong>Relative Strength Index (RSI) at 48.9</strong> is near neutral, implying that the stock is neither overbought nor oversold.</p>
+</li>
+<li>
+<p><strong>Technical Trend: Uptrend</strong> signals positive momentum, which could attract momentum-driven investors and support price appreciation in the near term.</p>
+</li>
+</ul>
+<p>The market’s “buy” recommendation with 60% confidence aligns with these technical signals, suggesting that while the stock is not without risk, the prevailing sentiment favors accumulation.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the combined fundamental and market analysis, GE represents a balanced investment opportunity with moderate risk and potential for reward. The Gray Zone Z-Score advises caution but does not preclude investment, especially when supported by positive market momentum and investor confidence.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li>
+<p><strong>For Growth-Oriented Investors:</strong> The elevated P/E ratio and market optimism suggest that GE is expected to deliver earnings growth. Investors with a higher risk tolerance may find GE attractive as part of a diversified portfolio, capitalizing on the uptrend and potential operational improvements.</p>
+</li>
+<li>
+<p><strong>For Risk-Averse Investors:</strong> The moderate financial risk indicated by the Z-Score and low liquidity ratios recommend a watchful approach. It may be prudent to wait for further evidence of operational efficiency gains or balance sheet strengthening before increasing exposure.</p>
+</li>
+<li>
+<p><strong>Portfolio Positioning:</strong> Consider a measured allocation to GE, balancing potential upside against the company’s financial leverage and operational challenges.</p>
+</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>Investors should closely monitor the following factors to manage risk and optimize timing:</p>
+<ol>
+<li>
+<p><strong>Liquidity and Working Capital:</strong> Given the low working capital ratio, any deterioration in short-term assets or increase in liabilities could strain GE’s liquidity. Quarterly cash flow statements and current ratio trends should be reviewed regularly.</p>
+</li>
+<li>
+<p><strong>Operational Profitability:</strong> The low EBIT ratio signals the need for improved operational efficiency. Watch for margin expansion, cost control initiatives, and revenue growth in upcoming earnings reports.</p>
+</li>
+<li>
+<p><strong>Leverage and Capital Structure:</strong> With liabilities nearing $105 billion, any adverse changes in debt servicing costs or credit conditions could impact financial stability. Debt maturity schedules and interest coverage ratios are critical metrics to track.</p>
+</li>
+<li>
+<p><strong>Market Volatility:</strong> The 30% volatility level suggests potential price swings. Investors should be prepared for short-term fluctuations and consider technical support and resistance levels.</p>
+</li>
+<li>
+<p><strong>Macroeconomic and Industry Trends:</strong> GE’s performance is sensitive to broader economic cycles and sector-specific dynamics, including industrial demand and energy markets. Stay informed on relevant macroeconomic indicators and industry developments.</p>
+</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>General Electric’s current financial and market profile presents a cautiously optimistic investment case. The Gray Zone Altman Z-Score underscores moderate financial risk, balanced by strong retained earnings and positive market sentiment. Investors should adopt a disciplined approach, leveraging the company’s growth potential while vigilantly monitoring liquidity, profitability, and leverage metrics. With careful risk management, GE can be a valuable addition to a diversified portfolio seeking exposure to industrial innovation and recovery.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:05 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

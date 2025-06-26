@@ -64,7 +64,7 @@ class ModelSelector:
         # Model mapping based on company characteristics
         self.model_mapping = {
             CompanyType.PUBLIC_MANUFACTURING: "original",
-            CompanyType.PUBLIC_SERVICE: "public_service", 
+            CompanyType.PUBLIC_SERVICE: "service",  # Changed from "public_service" to match constants
             CompanyType.PUBLIC_TECH: "original",
             CompanyType.PUBLIC_RETAIL: "retail",
             CompanyType.PRIVATE_COMPANY: "private",

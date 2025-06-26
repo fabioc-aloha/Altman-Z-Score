@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - WM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Waste Management, Inc. (WM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="WM_logo.png" alt="Waste Management, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="WM_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="WM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.24</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$228.58</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$92.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>34.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>27.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>buy</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>1.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-2.37%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-2.44%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-3.1%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>1.0%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>12.0%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.31</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.31</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-11.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.5/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0201</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.3633</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0228</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>2.567</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.2414</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1353</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>2.235</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: WM (Waste Management, Inc.)</strong><br />
+<em>Analysis Date: March 31, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Waste Management, Inc. (Ticker: WM) presents a nuanced investment profile characterized by moderate financial risk and attractive market dynamics. The company’s Altman Z-Score of 2.24 places it in the “Gray Zone,” indicating neither strong financial distress nor robust safety, while market indicators suggest a compelling buying opportunity supported by a strong technical uptrend and a favorable relative strength index (RSI). Investors should weigh the company’s solid market position and growth prospects against its moderate financial leverage and operational efficiency metrics.</p>
+<hr />
+<h3 id="fundamental-health-assessment-altman-z-score-analysis">Fundamental Health Assessment (Altman Z-Score Analysis)</h3>
+<p>WM’s Altman Z-Score of 2.24 situates the company within the Gray Zone, a middle ground that signals caution but not immediate distress. This score reflects a balance between financial stability and risk, suggesting that while WM is not currently at high risk of bankruptcy, it does not exhibit the strong financial cushion typical of low-risk firms.</p>
+<p>Breaking down the components:<br />
+- <strong>Working Capital Ratio (-0.020):</strong> Slightly negative, indicating tight short-term liquidity which could constrain operational flexibility.<br />
+- <strong>Retained Earnings Ratio (0.363):</strong> A healthy level, showing accumulated profits have been reinvested, supporting long-term stability.<br />
+- <strong>EBIT Ratio (0.023):</strong> Modest operating profitability relative to total assets, pointing to moderate earnings generation efficiency.<br />
+- <strong>Market Equity Ratio (2.567):</strong> Strong market valuation relative to liabilities, reflecting investor confidence.<br />
+- <strong>Book Equity Ratio (0.241):</strong> Indicates moderate equity buffer against liabilities.<br />
+- <strong>Asset Turnover (0.135):</strong> Relatively low, suggesting WM’s asset utilization efficiency is limited, which is typical in capital-intensive industries like waste management.</p>
+<p>The company’s total assets stand at approximately $44.5 billion against liabilities of $35.8 billion, underscoring a leveraged balance sheet that warrants monitoring but is not alarming. The Z-Score’s gray zone status advises investors to maintain vigilance on liquidity and profitability trends while recognizing the company’s resilience.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>WM commands a substantial market capitalization of $92 billion, reflecting its status as a leading player in the waste management sector. The current share price of $228.58, combined with a price-to-earnings (P/E) ratio of 34.4, suggests that the market is pricing in significant growth expectations and operational stability.</p>
+<p>From a technical perspective, WM is in a confirmed uptrend, supported by a Relative Strength Index (RSI) of 27.8, which is near the oversold threshold. This technical setup often precedes upward price momentum, indicating potential near-term appreciation. Volatility at 20% is moderate, consistent with large-cap industrial stocks, and suggests a balanced risk-return profile.</p>
+<p>The market’s strong buy recommendation with 70% confidence aligns with these technical and valuation signals, implying that investors see WM as undervalued relative to its growth prospects and market position.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the combined fundamental and market analysis, WM represents a compelling investment opportunity with a cautiously optimistic outlook. The Gray Zone Z-Score advises prudence, highlighting the need to monitor financial health metrics closely, especially liquidity and profitability. However, the strong market endorsement and technical indicators support a <strong>strong buy</strong> stance for investors with a medium to long-term horizon.</p>
+<p><strong>Investment Implications:</strong><br />
+- The moderate financial risk profile suggests that WM is suitable for investors comfortable with some degree of leverage and operational risk inherent in capital-intensive industries.<br />
+- The strong market capitalization and positive technical signals indicate potential for capital appreciation, especially if WM can improve asset turnover and operating margins.<br />
+- The relatively high P/E ratio reflects growth expectations; investors should watch for earnings execution to justify this premium.</p>
+<p><strong>Recommended Actions:</strong><br />
+- Initiate or add to positions on price dips, leveraging the current RSI near oversold levels.<br />
+- Monitor quarterly earnings for improvements in EBIT margins and working capital management.<br />
+- Track debt levels and liquidity ratios to ensure the company maintains financial flexibility.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ul>
+<li><strong>Liquidity Constraints:</strong> The slightly negative working capital ratio signals potential short-term cash flow pressures. Investors should watch for any deterioration in current assets or increases in short-term liabilities.  </li>
+<li><strong>Profitability Margins:</strong> The low EBIT ratio indicates limited operating efficiency; any decline could pressure earnings and valuation.  </li>
+<li><strong>Leverage and Debt Servicing:</strong> With liabilities close to $36 billion, rising interest rates or operational setbacks could strain WM’s balance sheet.  </li>
+<li><strong>Market Sentiment Shifts:</strong> The current strong buy recommendation is contingent on continued positive market momentum; adverse macroeconomic conditions or sector-specific headwinds could reverse this trend.  </li>
+<li><strong>Regulatory and Environmental Factors:</strong> As a waste management company, WM faces regulatory risks related to environmental policies and compliance costs that could impact profitability.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Waste Management, Inc. offers a balanced investment proposition with moderate financial risk offset by strong market positioning and positive technical indicators. The Gray Zone Altman Z-Score advises careful monitoring but does not preclude investment, especially given the company’s growth potential and market confidence. Investors should adopt a measured approach, capitalizing on market opportunities while vigilantly tracking fundamental health metrics to manage risk effectively.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:02 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

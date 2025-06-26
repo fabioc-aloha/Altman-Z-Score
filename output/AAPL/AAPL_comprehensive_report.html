@@ -1,103 +1,463 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altman Z-Score Analysis - AAPL</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; }
-        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
-        .risk-high { background-color: #ffebee; border-left: 4px solid #f44336; }
-        .risk-medium { background-color: #fff3e0; border-left: 4px solid #ff9800; }
-        .risk-low { background-color: #e8f5e8; border-left: 4px solid #4caf50; }
-        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-        .metric { background: #f5f5f5; padding: 10px; border-radius: 4px; text-align: center; }
-        .warning { background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; border-radius: 4px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="header">
-        <h1>Altman Z-Score Analysis Report</h1>
-        <h2>AAPL - 2025-06-24T07:38:21.744220</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Apple Inc. (AAPL)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="AAPL_logo.png" alt="Apple Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Negative price trend</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
     </div>
     
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="AAPL_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="AAPL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
     <div class="section risk-low">
         <h2>Z-Score Summary</h2>
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 2em; font-weight: bold;">7.88</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">7.25</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
-                <p style="font-size: 1.5em;">Safe</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
-                <p>original</p>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
             </div>
             <div class="metric">
                 <h3>Data Quality</h3>
-                <p>0.8%</p>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$201.56</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$3,010.5B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>31.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>47.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>downtrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.63%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>3.03%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>3.2%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-9.8%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-19.1%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.21</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.14</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-33.4%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.9/10</p>
             </div>
         </div>
     </div>
     
+
     <div class="section">
         <h2>Component Analysis</h2>
         <div class="metrics">
             
             <div class="metric">
-                <h4>working_capital_ratio</h4>
-                <p>-0.06412680146857362</p>
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0782</p>
             </div>
             
             <div class="metric">
-                <h4>retained_earnings_ratio</h4>
-                <p>-0.0524795879226259</p>
+                <h4>Retained Earnings Ratio</h4>
+                <p>-0.0470</p>
             </div>
             
             <div class="metric">
-                <h4>ebit_ratio</h4>
-                <p>0.33759658063455533</p>
+                <h4>Ebit Ratio</h4>
+                <p>0.0893</p>
             </div>
             
             <div class="metric">
-                <h4>market_equity_ratio</h4>
-                <p>9.746114444645002</p>
+                <h4>Market Equity Ratio</h4>
+                <p>11.38</p>
             </div>
             
             <div class="metric">
-                <h4>asset_turnover</h4>
-                <p>1.0713874732862074</p>
+                <h4>Book Equity Ratio</h4>
+                <p>0.2526</p>
             </div>
             
             <div class="metric">
-                <h4>z_score</h4>
-                <p>7.882701271313277</p>
+                <h4>Asset Turnover</h4>
+                <p>0.2879</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>7.254</p>
             </div>
             
         </div>
     </div>
+
     
-    
-    
-    
+
     
     <div class="section">
-        <h2>Risk Assessment Guide</h2>
-        <ul>
-            <li><strong>Z-Score > 2.99:</strong> Safe Zone - Low bankruptcy risk</li>
-            <li><strong>1.8 < Z-Score < 2.99:</strong> Grey Zone - Moderate risk, requires monitoring</li>
-            <li><strong>Z-Score < 1.8:</strong> Distress Zone - High bankruptcy risk</li>
-        </ul>
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Apple Inc. (AAPL)<br />
+Analysis Date: March 29, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Apple Inc. (AAPL) continues to demonstrate exceptional financial resilience and operational strength, as evidenced by its robust Altman Z-Score of 7.25, categorizing it firmly within the "Safe" risk zone. Despite a current technical downtrend and elevated volatility, the company’s dominant market position, strong earnings profile, and attractive valuation metrics underpin a compelling long-term growth story. We recommend a <strong>Strong Buy</strong> with a 60% confidence level, emphasizing Apple’s ability to navigate market fluctuations while delivering sustained shareholder value.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>Apple’s Altman Z-Score of 7.25 significantly exceeds the distress threshold of 3.0, signaling a very low probability of financial distress or bankruptcy risk. This score reflects Apple’s solid balance sheet and operational efficiency, supported by a market equity ratio of 11.384, which highlights the company’s substantial market capitalization relative to its liabilities. The positive EBIT ratio (0.089) confirms consistent profitability, while the asset turnover ratio of 0.288 indicates effective utilization of assets to generate revenue.</p>
+<p>Notably, the working capital and retained earnings ratios are slightly negative (-0.078 and -0.047 respectively), which may reflect strategic capital allocation decisions or short-term operational dynamics rather than fundamental weakness, given the overall strong Z-Score. The book equity ratio of 0.253 further supports a healthy equity base relative to total assets.</p>
+<p>In summary, Apple’s financial fundamentals are exceptionally strong, providing a solid foundation for growth and resilience against economic headwinds.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Apple’s market capitalization stands at an impressive $3.01 trillion, underscoring its status as a global technology leader with a diversified product and services ecosystem. The current share price of $201.56, combined with a P/E ratio of 31.3, suggests that the market is pricing in continued growth and innovation, albeit at a premium reflective of Apple’s brand strength and earnings stability.</p>
+<p>However, the stock is currently experiencing a technical downtrend, with a Relative Strength Index (RSI) of 47.8 and volatility at 40%. These indicators suggest short-term market caution and increased price fluctuations, likely driven by broader macroeconomic uncertainties or sector rotation. Despite this, the moderate RSI near the midpoint indicates that the stock is neither oversold nor overbought, potentially presenting a tactical entry point for long-term investors.</p>
+<p>Apple’s ability to maintain strong earnings growth and market share in key segments such as smartphones, wearables, and services, combined with its robust cash flow generation, supports a positive valuation outlook.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Apple’s exceptional fundamental health and dominant market position, the investment outlook remains highly favorable. The strong Altman Z-Score reassures investors of the company’s financial stability, reducing downside risk even amid market volatility. The current technical downtrend and elevated volatility present a potential buying opportunity for investors with a medium to long-term horizon.</p>
+<p>We recommend a <strong>Strong Buy</strong> position with a 60% confidence level, emphasizing the following actionable points:</p>
+<ul>
+<li><strong>Accumulate on dips:</strong> Use short-term price weakness as an opportunity to build or increase positions, capitalizing on Apple’s resilient fundamentals.</li>
+<li><strong>Focus on long-term growth:</strong> Apple’s innovation pipeline, expanding services revenue, and ecosystem lock-in provide durable competitive advantages.</li>
+<li><strong>Monitor valuation multiples:</strong> While the P/E ratio is elevated, it remains justified by growth prospects; however, investors should watch for any significant expansion or contraction in multiples driven by market sentiment.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While Apple’s financial health is robust, investors should remain vigilant on the following:</p>
+<ul>
+<li><strong>Working capital and retained earnings trends:</strong> Continued negative ratios could signal shifts in operational efficiency or capital management that warrant closer scrutiny.</li>
+<li><strong>Market volatility and technical trends:</strong> Sustained downtrends or RSI moving into oversold territory may indicate deeper market concerns or sector-specific headwinds.</li>
+<li><strong>Macroeconomic factors:</strong> Inflation, interest rate changes, and global supply chain disruptions could impact margins and growth trajectories.</li>
+<li><strong>Competitive landscape:</strong> Rapid technological changes and intensifying competition in key markets require ongoing monitoring of Apple’s innovation and market share.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Apple’s strong Altman Z-Score combined with its commanding market position and growth prospects make it a highly attractive investment in the current environment. Despite short-term technical challenges, the company’s financial stability and strategic initiatives support a confident long-term investment thesis. Investors are encouraged to consider Apple as a core holding, leveraging market volatility to enhance portfolio returns while monitoring key operational and market indicators.</p></div></div>
     </div>
     
+
     <footer style="margin-top: 40px; text-align: center; color: #666;">
-        <p>Generated on 2025-06-24 07:38 by Altman Z-Score Analysis v3.8.0-dev</p>
+        <p>Generated on June 25, 2025 at 07:51 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
     </footer>
 </body>
+
 </html>
-        

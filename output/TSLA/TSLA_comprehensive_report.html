@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - TSLA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Tesla, Inc. (TSLA)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="TSLA_logo.png" alt="Tesla, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="TSLA_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="TSLA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">13.59</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$327.55</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1,055.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>188.2</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>48.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-3.79%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>3.54%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-3.5%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>13.7%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-24.9%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>2.41</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.00</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-53.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.2369</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.2847</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0032</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>21.23</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>1.502</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1545</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>13.59</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Tesla, Inc. (TSLA) – March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Tesla (TSLA) continues to demonstrate exceptional financial stability and operational resilience, as evidenced by its outstanding Altman Z-Score of 13.59, categorizing the company firmly within the "Safe" risk zone. Despite a high valuation reflected in a P/E ratio of 188.2 and significant stock price volatility, Tesla’s dominant market position and robust balance sheet underpin a positive investment outlook with a recommended “buy” stance at a 60% confidence level.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>Tesla’s Altman Z-Score of 13.59 is a compelling indicator of its strong financial health and low bankruptcy risk. This score, derived from the original Altman model, far exceeds the threshold of 3.0 that typically signals financial distress, placing Tesla in an elite category of companies with exceptional solvency and liquidity profiles.</p>
+<p>Breaking down the components:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.237):</strong> Tesla maintains positive working capital, supporting its short-term operational needs.</li>
+<li><strong>Retained Earnings Ratio (0.285):</strong> The company has accumulated significant retained earnings, reflecting consistent profitability and reinvestment capacity.</li>
+<li><strong>EBIT Ratio (0.003):</strong> While EBIT margin appears modest, this is consistent with Tesla’s aggressive growth and reinvestment strategy.</li>
+<li><strong>Market Equity Ratio (21.231) &amp; Book Equity Ratio (1.502):</strong> These ratios highlight Tesla’s strong market capitalization relative to its book value, underscoring investor confidence and substantial equity cushion.</li>
+<li><strong>Asset Turnover (0.155):</strong> Tesla’s asset utilization is moderate, reflecting ongoing capital investments in production capacity and innovation.</li>
+</ul>
+<p>The balance sheet is robust, with total assets of approximately $125.1 billion against liabilities of $49.7 billion, indicating a strong equity base and manageable leverage. The data quality is high (1.0% error margin), reinforcing confidence in these metrics.</p>
+<p>Overall, Tesla’s fundamental health is exemplary, providing a solid foundation for sustained growth and risk mitigation.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Tesla’s market capitalization stands at an impressive $1.055 trillion, reflecting its status as a global leader in electric vehicles (EVs), energy storage, and renewable energy solutions. The current stock price of $327.55, combined with a high P/E ratio of 188.2, signals strong investor expectations for future earnings growth, albeit at a premium valuation.</p>
+<p>Volatility remains elevated at 100%, indicative of the stock’s sensitivity to market sentiment, technological developments, and macroeconomic factors. The Relative Strength Index (RSI) at 48.7 suggests a neutral momentum, while the technical trend is sideways, pointing to a consolidation phase after recent price fluctuations.</p>
+<p>Tesla’s dominant market share, innovation pipeline, and expanding production footprint position it well to capitalize on the accelerating global transition to sustainable transportation and energy solutions. However, the premium valuation necessitates careful monitoring of growth execution and margin expansion.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Tesla’s exceptional financial stability and market leadership, the investment outlook is optimistic with a “buy” recommendation supported by a 60% confidence level. The company’s strong Altman Z-Score mitigates concerns about financial distress, allowing investors to focus on growth potential and market dynamics.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li><strong>Growth Potential:</strong> Tesla’s continued innovation in battery technology, autonomous driving, and energy products is expected to drive revenue and earnings growth, justifying its premium valuation over the medium to long term.</li>
+<li><strong>Balance Sheet Strength:</strong> The robust financial position provides flexibility for strategic investments, acquisitions, and weathering economic cycles.</li>
+<li><strong>Volatility Management:</strong> Investors should be prepared for short-term price swings due to high volatility but can view these as opportunities to accumulate shares at attractive levels during market pullbacks.</li>
+<li><strong>Valuation Discipline:</strong> While the P/E ratio is elevated, it reflects growth expectations; investors should monitor earnings delivery closely to validate this premium.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>Despite the positive outlook, several risks warrant close attention:</p>
+<ul>
+<li><strong>Execution Risk:</strong> Tesla’s ability to scale production efficiently and maintain quality standards is critical. Delays or cost overruns could impact margins and investor sentiment.</li>
+<li><strong>Market Volatility:</strong> High stock volatility may lead to abrupt price corrections, especially in response to macroeconomic shifts or competitive pressures.</li>
+<li><strong>Valuation Sensitivity:</strong> The elevated P/E ratio means that any earnings disappointments could disproportionately affect the stock price.</li>
+<li><strong>Regulatory Environment:</strong> Changes in government policies, subsidies, or trade relations could influence Tesla’s growth trajectory.</li>
+<li><strong>Technological Competition:</strong> Rapid advancements by competitors in EV and battery technology could erode Tesla’s market share if not matched.</li>
+</ul>
+<p>Investors should monitor quarterly earnings reports, production updates, regulatory developments, and broader market conditions to adjust their positions accordingly.</p>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Tesla’s financial robustness, as demonstrated by its outstanding Altman Z-Score, combined with its commanding market position, supports a confident investment stance. While the stock’s high valuation and volatility require vigilance, the company’s growth prospects and strategic initiatives make it a compelling buy for investors with a medium to long-term horizon. Maintaining a disciplined approach to monitoring execution and market dynamics will be key to capitalizing on Tesla’s transformative potential in the evolving energy and transportation landscape.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:56 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

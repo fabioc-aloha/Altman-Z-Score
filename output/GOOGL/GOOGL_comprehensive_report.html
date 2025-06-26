@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - GOOGL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Alphabet Inc. (GOOGL)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="GOOGL_logo.png" alt="Alphabet Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 80.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="GOOGL_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="GOOGL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">10.93</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$170.68</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$2,076.6B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>19.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>54.2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>2.34%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-3.00%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>1.4%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>0.2%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-9.2%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.02</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.20</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-29.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>2.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.1481</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.5525</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0644</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>15.96</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>2.654</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1898</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>10.93</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative for Alphabet Inc. (GOOGL)</strong><br />
+<em>Analysis Date: March 31, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Alphabet Inc. (GOOGL) presents a compelling investment opportunity characterized by robust fundamental health and a strong market position. With an exceptionally high Altman Z-Score of 10.93 indicating a very low risk of financial distress, combined with a favorable valuation and a strong buy recommendation supported by 80% confidence, GOOGL stands out as a resilient growth stock in the current market environment.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score for GOOGL is an impressive 10.93, placing the company firmly in the "Safe" risk category. This score, derived from the original Altman model, reflects Alphabet’s exceptional financial stability and low bankruptcy risk. Key drivers of this strong score include:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.148):</strong> Demonstrates solid short-term liquidity, ensuring the company can comfortably meet its current obligations.  </li>
+<li><strong>Retained Earnings Ratio (0.552):</strong> Indicates a substantial accumulation of earnings reinvested into the business, underscoring Alphabet’s capacity for sustained growth and innovation.  </li>
+<li><strong>EBIT Ratio (0.064):</strong> Reflects healthy operating profitability relative to total assets, supporting ongoing operational efficiency.  </li>
+<li><strong>Market Equity Ratio (15.961) and Book Equity Ratio (2.654):</strong> These ratios highlight a strong market valuation relative to book value, signaling investor confidence and robust equity capitalization.  </li>
+<li><strong>Asset Turnover (0.190):</strong> While moderate, this ratio suggests efficient use of assets to generate revenue, consistent with a large-cap technology company investing heavily in long-term growth initiatives.</li>
+</ul>
+<p>The company’s total assets stand at approximately $475 billion against liabilities of $130 billion, reinforcing a strong balance sheet with ample equity cushion. The data quality is high (1.0% error margin), lending credibility to these findings.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Alphabet’s market capitalization of $2.08 trillion underscores its status as a dominant player in the technology sector. The current share price of $170.68, paired with a P/E ratio of 19.0, suggests the stock is reasonably valued relative to its earnings, especially given its growth prospects and market leadership.</p>
+<p>The stock exhibits a volatility of 30%, which is typical for large-cap tech stocks, reflecting both market sensitivity and growth potential. The Relative Strength Index (RSI) at 54.2 indicates a neutral momentum, with the technical trend described as sideways. This suggests a period of consolidation, potentially setting the stage for a breakout as new catalysts emerge.</p>
+<p>The strong buy recommendation with 80% confidence aligns well with the fundamental and valuation metrics, signaling that the market recognizes Alphabet’s growth trajectory and financial resilience.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Alphabet’s exceptional financial health and solid market positioning, the investment outlook is highly favorable. The company’s strong Altman Z-Score confirms minimal financial distress risk, providing a stable foundation for continued innovation and expansion in key areas such as artificial intelligence, cloud computing, and digital advertising.</p>
+<p><strong>Investment Implications:</strong><br />
+- <strong>Long-Term Growth Potential:</strong> Alphabet’s reinvestment of earnings and strong equity base support ongoing R&amp;D and strategic acquisitions, positioning it well to capitalize on emerging technology trends.<br />
+- <strong>Reasonable Valuation:</strong> The P/E ratio of 19.0 offers an attractive entry point relative to growth expectations, especially for investors seeking exposure to a financially secure tech giant.<br />
+- <strong>Market Stability:</strong> Despite moderate volatility and a sideways technical trend, the stock’s fundamentals suggest resilience against market downturns, making it suitable for both growth-oriented and risk-conscious portfolios.</p>
+<p>Investors are encouraged to consider initiating or increasing positions in GOOGL, leveraging its strong buy status and robust financial metrics. Monitoring quarterly earnings and innovation pipeline developments will be key to capturing upside potential.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While Alphabet’s outlook is optimistic, investors should remain vigilant regarding the following factors:  </p>
+<ul>
+<li><strong>Regulatory Environment:</strong> Increased scrutiny on data privacy, antitrust issues, and digital advertising practices could impact profitability and growth.  </li>
+<li><strong>Market Volatility:</strong> The 30% volatility indicates susceptibility to broader tech sector swings and macroeconomic shifts, which may affect short-term price movements.  </li>
+<li><strong>Competitive Landscape:</strong> Rapid innovation by competitors in AI, cloud services, and digital platforms requires continuous investment and strategic agility.  </li>
+<li><strong>Technical Indicators:</strong> The current sideways trend and neutral RSI suggest a lack of immediate momentum; investors should watch for breakout signals or shifts in market sentiment.</li>
+</ul>
+<p>Regular review of Alphabet’s financial disclosures, regulatory developments, and sector trends will be essential to managing risk and optimizing investment timing.</p>
+<hr />
+<p><strong>Conclusion:</strong><br />
+Alphabet Inc. (GOOGL) combines exceptional financial strength with a dominant market position and attractive valuation, making it a highly recommended investment for growth-focused portfolios. The company’s low financial distress risk, supported by a stellar Altman Z-Score, and a strong buy market recommendation underscore its potential as a cornerstone holding in the evolving technology landscape.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:52 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

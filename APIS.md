@@ -27,7 +27,7 @@ See [vision.md](./vision.md) for the full vision statement.
 
 **Purpose**: Documents current API integrations, data sources, and external service configurations.
 
-**Version**: 3.5.5 (2025-06-18) - Updated for current system architecture
+**Version**: 4.0.0 (2025-01-07) - Professional Investment Analysis Platform
 
 For **PAST** API changes → see [`CHANGELOG.md`](CHANGELOG.md)  
 For **FUTURE** API plans → see [`TODO.md`](TODO.md)  
@@ -151,7 +151,7 @@ curl -H "User-Agent: AltmanZScore/1.0 name@domain.com" \
 - **Rate Limits**: Same as Company Submissions API
 - **Example Request**:
 ```bash
-curl -H "User-Agent: AltmanZScore/3.5.5 name@domain.com" \
+curl -H "User-Agent: AltmanZScore/4.0.0 name@domain.com" \
      -H "Accept: application/json" \
      https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json
 ```
@@ -165,8 +165,8 @@ curl -H "User-Agent: AltmanZScore/3.5.5 name@domain.com" \
   - Weekly auto-refresh with graceful fallbacks
 - **Management Commands**:
 ```bash
-python main.py --update-cache    # Manual cache refresh
-python main.py --cache-stats     # Cache status information
+python main.py --clear-cache    # Manual cache refresh
+python main.py --cache-stats    # Cache status information
 ```
   - Single Concept: `/CIK{cik}/us-gaap/{concept}.json`
   - All Company Facts: `/CIK{cik}.json`
@@ -496,7 +496,7 @@ All data processing operations are auditable and reproducible with clear data li
 
 ---
 
-## Current API Architecture (v3.5.5)
+## Current API Architecture (v4.0.0)
 
 ### Clean Data Source Separation
 The system implements a clean architecture with distinct data sources:
@@ -624,7 +624,7 @@ CACHE_DIR=".cache"                 # Default: .cache in project root
 
 ## Cache Directory Structure
 
-### Current Implementation (v3.5.5)
+### Current Implementation (v4.0.0)
 
 ```
 src/altman_zscore/api/cache/
@@ -641,7 +641,7 @@ output/{SYMBOL}/
 - **CIK Cache**: Pre-shipped database with 10,033+ U.S. public companies for instant lookups
 - **Financial Data Cache**: Per-company output files cached in `output/{SYMBOL}/` directory
 - **Automatic Cache Management**: Weekly auto-refresh with graceful fallbacks
-- **Manual Cache Control**: `--update-cache` and `--cache-stats` commands
+- **Manual Cache Control**: `--clear-cache` and `--cache-stats` commands
 
 ### New Cache Structure (Refactored Architecture)
 ```

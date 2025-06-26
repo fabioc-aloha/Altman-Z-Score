@@ -2,23 +2,240 @@
   {
     "ticker": "AAPL",
     "analysis_summary": {
-      "z_score": 7.882701271313277,
+      "z_score": 7.2537740589619135,
       "risk_category": "Safe",
       "model_used": "original",
-      "calculation_date": "2025-06-24T11:41:36.130418",
-      "data_quality_score": 0.8
+      "calculation_date": "2025-03-29",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.0781836350846685,
+      "retained_earnings_ratio": -0.046951843566311324,
+      "ebit_ratio": 0.08932986749508653,
+      "market_equity_ratio": 11.384412396873357,
+      "book_equity_ratio": 0.25259702689109315,
+      "asset_turnover": 0.2878910011985521,
+      "z_score": 7.2537740589619135,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 331233000000,
+        "total_liabilities": 264437000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 7.200743545437789,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-12-28",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.03233212723600273,
+      "retained_earnings_ratio": -0.03261112806428644,
+      "ebit_ratio": 0.12448086955258149,
+      "market_equity_ratio": 10.855271434054384,
+      "book_equity_ratio": 0.24071943950643104,
+      "asset_turnover": 0.361247947454844,
+      "z_score": 7.200743545437789,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 344085000000,
+        "total_liabilities": 277327000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 6.241183619241149,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-09-28",
+      "data_quality_score": 1.0
     },
     "component_values": {
       "working_capital_ratio": -0.06412680146857362,
       "retained_earnings_ratio": -0.0524795879226259,
-      "ebit_ratio": 0.33759658063455533,
-      "market_equity_ratio": 9.746114444645002,
-      "asset_turnover": 1.0713874732862074,
-      "z_score": 7.882701271313277
+      "ebit_ratio": 0.08107567537947284,
+      "market_equity_ratio": 9.773268386170178,
+      "book_equity_ratio": 0.18488458916339318,
+      "asset_turnover": 0.26009644364074747,
+      "z_score": 6.241183619241149,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 364980000000,
+        "total_liabilities": 308030000000
+      }
     },
     "warnings": [],
     "metadata": {
-      "generated_at": "2025-06-24T11:41:36.133006",
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 7.287211752521878,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-06-29",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.018663377682351663,
+      "retained_earnings_ratio": -0.014251595237808041,
+      "ebit_ratio": 0.07645079188931643,
+      "market_equity_ratio": 11.364342784525714,
+      "book_equity_ratio": 0.2518195270739589,
+      "asset_turnover": 0.25866675512345755,
+      "z_score": 7.287211752521878,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 331612000000,
+        "total_liabilities": 264904000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 7.438489965204321,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-03-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.013615442294412453,
+      "retained_earnings_ratio": 0.01285968744350362,
+      "ebit_ratio": 0.08268847192296636,
+      "market_equity_ratio": 11.437178681437748,
+      "book_equity_ratio": 0.28187389112405353,
+      "asset_turnover": 0.26896870582168336,
+      "z_score": 7.438489965204321,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 337411000000,
+        "total_liabilities": 263217000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 7.245268808341168,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-12-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.027492546264080063,
+      "retained_earnings_ratio": 0.023314493909717862,
+      "ebit_ratio": 0.11420481225637458,
+      "market_equity_ratio": 10.774191203704897,
+      "book_equity_ratio": 0.2651978784169727,
+      "asset_turnover": 0.33824685868169296,
+      "z_score": 7.245268808341168,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 353514000000,
+        "total_liabilities": 279414000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 6.718639035508114,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.004940680634063469,
+      "retained_earnings_ratio": -0.0006069492857001047,
+      "ebit_ratio": 0.0764897910562903,
+      "market_equity_ratio": 10.365276672710433,
+      "book_equity_ratio": 0.2139741148682847,
+      "asset_turnover": 0.2538352671569531,
+      "z_score": 6.718639035508114,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 352583000000,
+        "total_liabilities": 290437000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "AAPL",
+    "analysis_summary": {
+      "z_score": 7.042213213596479,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-07-01",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.006876831881756696,
+      "retained_earnings_ratio": 0.0042025083721846474,
+      "ebit_ratio": 0.06864295990305577,
+      "market_equity_ratio": 10.95652946161797,
+      "book_equity_ratio": 0.21936643810688444,
+      "asset_turnover": 0.24414245548266167,
+      "z_score": 7.042213213596479,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 335038000000,
+        "total_liabilities": 274764000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T19:50:57.629354",
       "generator_version": "3.8.0-dev"
     }
   }

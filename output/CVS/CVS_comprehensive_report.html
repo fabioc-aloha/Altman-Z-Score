@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CVS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>CVS Health Corporation (CVS)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CVS_logo.png" alt="CVS Health Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="CVS_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="CVS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.97</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$66.37</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$84.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>15.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>66.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.79%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-1.07%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>9.1%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>0.9%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>55.1%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.36</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.43</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-34.4%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0617</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.2495</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0132</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>0.4704</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.4310</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.3701</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>0.9712</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: CVS Health Corporation (Ticker: CVS)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>CVS Health currently exhibits significant financial distress as indicated by an Altman Z-Score of 0.97, placing it well within the distress zone and signaling a heightened risk of bankruptcy or severe financial strain. Despite this, the stock is experiencing an upward technical trend with moderate valuation metrics, leading to a cautious “hold” recommendation with 60% confidence. Investors should approach CVS with vigilance, closely monitoring its fundamental recovery and market dynamics before considering new positions.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of corporate bankruptcy risk, is a critical indicator in CVS’s current financial profile. CVS’s Z-Score of 0.97 is alarmingly low, falling below the distress threshold of 1.8, which strongly suggests that the company is at significant risk of financial distress or insolvency if corrective actions are not taken promptly.</p>
+<p>Breaking down the components:</p>
+<ul>
+<li><strong>Working Capital Ratio (-0.062):</strong> Negative working capital indicates liquidity challenges, suggesting CVS may struggle to meet short-term obligations without additional financing or asset sales.</li>
+<li><strong>Retained Earnings Ratio (0.249):</strong> While positive, this moderate retained earnings level reflects limited accumulated profits to buffer against operational or financial shocks.</li>
+<li><strong>EBIT Ratio (0.013):</strong> Extremely thin operating earnings relative to total assets highlight weak profitability and operational efficiency.</li>
+<li><strong>Market Equity Ratio (0.470) and Book Equity Ratio (0.431):</strong> These ratios show that equity financing constitutes less than half of the company’s capital structure, with a heavy reliance on liabilities (total liabilities of $178.5 billion against total assets of $255.6 billion), increasing financial leverage and risk.</li>
+<li><strong>Asset Turnover (0.370):</strong> Modest asset utilization suggests CVS is generating limited revenue from its asset base, which may constrain growth and cash flow generation.</li>
+</ul>
+<p>Collectively, these metrics paint a picture of a company under significant financial strain, with liquidity and profitability concerns that could impair its ability to sustain operations without restructuring or capital infusion.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, CVS’s current share price of $66.37 and market capitalization of $84 billion reflect investor recognition of the company’s scale and market presence. The price-to-earnings (P/E) ratio of 15.8 is relatively moderate, indicating that the market is not pricing in extreme growth expectations but also not discounting the company heavily for distress, which may reflect some optimism or market inertia.</p>
+<p>Technical indicators provide a mixed but cautiously optimistic signal:</p>
+<ul>
+<li><strong>Volatility (30.0%):</strong> Elevated volatility underscores the stock’s risk profile and potential for sharp price swings, consistent with the underlying financial uncertainty.</li>
+<li><strong>Relative Strength Index (RSI) at 66.5:</strong> Approaching overbought territory, the RSI suggests recent buying momentum but also warns of a possible near-term pullback.</li>
+<li><strong>Technical Trend: Uptrend:</strong> The current upward price movement may be driven by short-term market sentiment, sector rotation, or speculative interest rather than fundamental improvement.</li>
+</ul>
+<p>The market’s “hold” recommendation with 60% confidence reflects this ambivalence—acknowledging both the company’s distressed fundamentals and the potential for stabilization or recovery.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the critical financial distress signals from the Altman Z-Score and the mixed market signals, CVS represents a high-risk investment at this juncture. The company’s weak liquidity, low profitability, and high leverage necessitate a cautious approach.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li><strong>For Current Investors:</strong> Maintain existing positions but avoid adding exposure until there is clear evidence of fundamental improvement, such as improved working capital, stronger EBIT margins, or deleveraging efforts.</li>
+<li><strong>For Potential Investors:</strong> Refrain from initiating new positions until CVS demonstrates a credible turnaround strategy and tangible financial stabilization.</li>
+<li><strong>For Risk-Tolerant Investors:</strong> Consider limited exposure only if comfortable with volatility and potential restructuring scenarios, while employing strict stop-loss strategies.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>Investors should vigilantly monitor the following critical factors that will influence CVS’s trajectory:</p>
+<ol>
+<li><strong>Liquidity and Working Capital Trends:</strong> Improvement in working capital ratios and cash flow generation will be essential to avoid solvency issues.</li>
+<li><strong>Profitability Metrics:</strong> EBIT margin expansion and operational efficiency gains are necessary to restore investor confidence and reduce distress risk.</li>
+<li><strong>Leverage and Capital Structure:</strong> Any deleveraging initiatives, asset sales, or equity raises that reduce the debt burden will materially impact financial stability.</li>
+<li><strong>Market Sentiment and Technical Signals:</strong> Watch for RSI shifts and volatility changes that may signal shifts in investor confidence or speculative pressures.</li>
+<li><strong>Strategic Developments:</strong> Announcements related to restructuring, divestitures, or strategic partnerships could alter the risk profile significantly.</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>CVS Health is currently navigating a precarious financial position as evidenced by its distressed Altman Z-Score and underlying fundamental weaknesses. While market indicators show some positive momentum, the elevated risk profile demands a cautious, watchful investment stance. Investors should prioritize monitoring key financial and operational metrics before considering increased exposure, maintaining a disciplined approach to risk management in this uncertain environment.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:46 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

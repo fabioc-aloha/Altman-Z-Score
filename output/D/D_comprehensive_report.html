@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - D</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Dominion Energy, Inc. (D)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="D_logo.png" alt="Dominion Energy, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="D_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="D_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.46</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$55.20</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$47.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>21.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>42.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.39%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>2.66%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-0.7%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>5.7%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>6.7%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.26</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.61</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-16.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0227</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.0201</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0117</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>0.6376</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.3706</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0390</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>0.4611</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative for D</strong><br />
+<em>Analysis Date: March 31, 2025</em>  </p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Company D currently exhibits significant financial distress as indicated by an Altman Z-Score of 0.46, placing it well within the distress zone. Despite a sizable market capitalization of $47.1 billion and a moderate P/E ratio of 21.3, the company’s fundamental weaknesses and elevated volatility warrant a cautious investment stance. Given the mixed signals from market valuation and technical indicators, a hold recommendation with close monitoring is appropriate at this juncture.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, signals acute financial vulnerability for Company D. With a Z-Score of 0.46—far below the distress threshold of 1.8—the company is in a precarious position, suggesting a high probability of financial distress or potential insolvency if corrective actions are not taken promptly.  </p>
+<p>Breaking down the components:<br />
+- <strong>Working Capital Ratio (-0.023):</strong> Negative working capital indicates liquidity challenges, raising concerns about the company’s ability to meet short-term obligations.<br />
+- <strong>Retained Earnings Ratio (0.020) and EBIT Ratio (0.012):</strong> Both are notably low, reflecting minimal accumulated profits and weak operating earnings relative to total assets.<br />
+- <strong>Market Equity Ratio (0.638) vs. Book Equity Ratio (0.371):</strong> The market values the company’s equity significantly higher than its book value, suggesting some investor confidence or growth expectations despite fundamental weaknesses.<br />
+- <strong>Asset Turnover (0.039):</strong> Extremely low asset turnover points to inefficient use of assets in generating revenue, compounding operational concerns.  </p>
+<p>Total assets stand at approximately $104.6 billion against liabilities of $73.8 billion, indicating a strained balance sheet with a high leverage ratio. The data quality is robust (1.0%), reinforcing the reliability of these distress signals.  </p>
+<p>In summary, the fundamental analysis paints a cautionary picture: Company D is financially fragile, with limited earnings power and liquidity constraints that could impair its operational sustainability.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, Company D’s current share price of $55.20 and market capitalization of $47.1 billion reflect a valuation that is not deeply discounted despite the fundamental red flags. The P/E ratio of 21.3 is moderate, neither indicating extreme overvaluation nor a bargain price relative to earnings.  </p>
+<p>However, the stock exhibits high volatility at 40%, signaling significant price fluctuations and investor uncertainty. The Relative Strength Index (RSI) at 42.6 suggests the stock is neither oversold nor overbought, aligning with the observed sideways technical trend. This lack of clear directional momentum underscores market indecision about the company’s near-term prospects.  </p>
+<p>The divergence between the market’s relatively stable valuation and the company’s distressed fundamentals may be driven by external factors such as sector dynamics, potential restructuring plans, or speculative investor sentiment. Nonetheless, the market’s current stance does not fully mitigate the underlying financial risks.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the pronounced financial distress indicated by the Altman Z-Score and the mixed market signals, a <strong>hold</strong> recommendation is prudent with a confidence level of approximately 60%. Investors should exercise caution and avoid initiating new positions until there is clear evidence of financial stabilization or operational turnaround.  </p>
+<p>Key considerations for investors include:<br />
+- <strong>Liquidity and Solvency Improvements:</strong> Watch for improvements in working capital and EBIT margins, which would signal enhanced operational health.<br />
+- <strong>Debt Management:</strong> Any deleveraging efforts or refinancing that reduce liabilities relative to assets would materially improve the risk profile.<br />
+- <strong>Market Sentiment Shifts:</strong> A breakout from the current sideways technical trend accompanied by volume increases could indicate renewed investor confidence.<br />
+- <strong>Earnings Guidance:</strong> Positive revisions in earnings forecasts or strategic initiatives aimed at asset utilization could alter the outlook favorably.  </p>
+<p>Until such developments materialize, the risk of further downside remains elevated. Investors with lower risk tolerance should consider reducing exposure, while those with a higher risk appetite may monitor for entry points contingent on fundamental improvements.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ul>
+<li><strong>Financial Distress Risk:</strong> The low Z-Score signals a heightened risk of bankruptcy or restructuring. Any deterioration in liquidity or earnings could accelerate this risk.  </li>
+<li><strong>Operational Inefficiency:</strong> Persistently low asset turnover and EBIT ratios may impair cash flow generation, limiting the company’s ability to service debt and invest in growth.  </li>
+<li><strong>Market Volatility:</strong> Elevated stock price volatility increases the risk of sharp declines, especially if negative news or earnings misses occur.  </li>
+<li><strong>Macroeconomic and Sectoral Factors:</strong> Adverse economic conditions or sector-specific headwinds could exacerbate financial pressures.  </li>
+<li><strong>Management Actions:</strong> Investors should closely monitor management’s strategic responses, including cost-cutting, asset sales, or capital raises, which will be critical to reversing distress signals.  </li>
+</ul>
+<hr />
+<p><strong>Conclusion:</strong> Company D’s current financial distress, as evidenced by a critically low Altman Z-Score, demands a cautious investment approach. While market valuation and technical indicators do not yet reflect a crisis, the underlying fundamentals suggest significant risk. A hold stance with vigilant monitoring of liquidity, earnings, and debt metrics is recommended until clear signs of recovery emerge.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:26 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

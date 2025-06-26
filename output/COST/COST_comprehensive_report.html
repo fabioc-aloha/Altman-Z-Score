@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - COST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Costco Wholesale Corporation (COST)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">May 11, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="COST_logo.png" alt="Costco Wholesale Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="COST_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="COST_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">6.77</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$986.54</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$437.5B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>56.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>27.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>buy</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>1.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.54%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>0.90%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-2.2%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>6.2%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>3.6%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.61</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.57</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-17.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.2/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0076</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.2768</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0335</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>9.047</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.5609</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.8374</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>6.773</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Costco Wholesale Corporation (Ticker: COST)</strong><br />
+<em>Analysis Date: May 11, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Costco Wholesale Corporation (COST) presents a compelling investment opportunity characterized by robust fundamental health and a strong market position. With an exceptionally high Altman Z-Score indicating financial safety and a favorable technical uptrend supported by a low RSI, the stock is well-positioned for continued growth. Given the current valuation and market dynamics, a strong buy recommendation is warranted with a 70% confidence level.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>Costco’s Altman Z-Score stands at an impressive 6.77, placing the company firmly in the “Safe” risk category according to the original Altman model. This score reflects a very low probability of financial distress, underscoring Costco’s solid balance sheet and operational resilience. Key contributors to this strong score include:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.008):</strong> While modest, this indicates efficient management of short-term assets and liabilities, consistent with Costco’s business model emphasizing inventory turnover and cash flow.</li>
+<li><strong>Retained Earnings Ratio (0.277):</strong> A healthy level of retained earnings signals sustained profitability and reinvestment capacity, supporting long-term growth initiatives.</li>
+<li><strong>EBIT Ratio (0.034):</strong> Reflects stable earnings before interest and taxes relative to total assets, highlighting operational efficiency.</li>
+<li><strong>Market Equity Ratio (9.047):</strong> A very high market equity ratio demonstrates strong market confidence and substantial equity cushion relative to liabilities.</li>
+<li><strong>Book Equity Ratio (0.561):</strong> Indicates a solid equity base underpinning the company’s asset structure.</li>
+<li><strong>Asset Turnover (0.837):</strong> Reflects effective utilization of assets to generate revenue, consistent with Costco’s high-volume, low-margin retail strategy.</li>
+</ul>
+<p>The company’s total assets of approximately $75.5 billion against liabilities of $48.4 billion further reinforce its strong financial footing. The Altman Z-Score’s robustness, combined with high-quality data (1.0% data quality metric), provides investors with confidence in Costco’s financial stability and capacity to weather economic fluctuations.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Costco’s market capitalization stands at an impressive $437.5 billion, reflecting its status as a dominant player in the wholesale retail sector. The current share price of $986.54, while premium, is supported by a P/E ratio of 56.0, indicating strong investor expectations for future earnings growth. This elevated valuation is justified by Costco’s consistent revenue growth, brand loyalty, and operational efficiency.</p>
+<p>From a technical perspective, the stock is in a clear uptrend, supported by a Relative Strength Index (RSI) of 27.8, which suggests the stock is approaching oversold territory and may be poised for a rebound or continued upward momentum. However, the volatility at 50.0% signals that investors should be prepared for price fluctuations, typical of growth stocks with high market capitalization.</p>
+<p>Costco’s asset turnover ratio of 0.837 further highlights its ability to efficiently convert assets into sales, a critical factor in maintaining competitive advantage in the retail sector. The company’s strong market equity ratio also reflects investor confidence and a robust equity buffer, which is particularly reassuring in volatile market conditions.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Costco’s exceptional fundamental health and favorable market dynamics, the investment outlook is decidedly optimistic. The strong Altman Z-Score confirms the company’s low financial risk, while the technical indicators and market valuation suggest that the stock is well-positioned for sustained growth.</p>
+<p><strong>Investment Implications:</strong><br />
+- <strong>Strong Buy Recommendation:</strong> With a 70% confidence level, investors are encouraged to consider increasing exposure to COST, capitalizing on its financial strength and growth trajectory.<br />
+- <strong>Growth Potential:</strong> Costco’s ability to maintain operational efficiency and reinvest earnings supports ongoing expansion, including potential new store openings and e-commerce enhancements.<br />
+- <strong>Market Timing:</strong> The current RSI near oversold levels combined with an uptrend presents a tactical entry point for investors seeking growth with a margin of safety.<br />
+- <strong>Long-Term Stability:</strong> The company’s low risk of distress and strong equity position make it a reliable core holding in diversified portfolios.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While Costco’s fundamentals and market position are strong, investors should remain vigilant regarding the following factors:  </p>
+<ul>
+<li><strong>Valuation Sensitivity:</strong> The high P/E ratio implies elevated expectations; any earnings miss or macroeconomic headwinds could lead to price corrections.  </li>
+<li><strong>Volatility:</strong> The 50% volatility indicates potential for significant price swings, necessitating risk management strategies for short-term investors.  </li>
+<li><strong>Competitive Landscape:</strong> Intensifying competition in retail and wholesale sectors, including from e-commerce giants, could pressure margins and growth.  </li>
+<li><strong>Macroeconomic Factors:</strong> Inflationary pressures, supply chain disruptions, or changes in consumer spending patterns could impact operational performance.  </li>
+<li><strong>Monitoring Z-Score Trends:</strong> Continued tracking of the Altman Z-Score is recommended to detect any shifts in financial health, especially if liabilities increase or asset efficiency declines.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Costco Wholesale Corporation stands out as a financially robust and strategically positioned company with strong growth prospects. The combination of a high Altman Z-Score and positive market indicators supports a strong buy recommendation. Investors should consider Costco as a core growth investment while monitoring valuation levels and market volatility to optimize entry and exit points.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

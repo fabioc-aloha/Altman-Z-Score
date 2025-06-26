@@ -217,7 +217,7 @@ class YahooDataFetcher:
         
         return None
       # @rate_limiter.rate_limited("finance.yahoo.com")
-    def get_historical_prices(self, symbol: str, period: str = "1y") -> Optional[pd.DataFrame]:
+    def get_historical_prices(self, symbol: str, period: str = "max") -> Optional[pd.DataFrame]:
         """
         Get historical price data with caching.
         
@@ -240,16 +240,109 @@ class YahooDataFetcher:
         time.sleep(0.5)
         
         try:
+            logger.info(f"Fetching historical data for {symbol} with period {period}")
             ticker = yf.Ticker(symbol)
             history = ticker.history(period=period)
             
             if not history.empty:
+                logger.info(f"Successfully fetched {len(history)} historical records for {symbol}")
                 # Cache result
                 self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)
                 return history
+            else:
+                logger.warning(f"No historical data returned for {symbol} with period {period}")
             
         except Exception as e:
+            import traceback
             logger.error(f"Failed to get historical prices for {symbol}: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+        
+        return None
+    
+    def get_historical_prices_range(self, symbol: str, start_date: str, end_date: Optional[str] = None) -> Optional[pd.DataFrame]:
+        """
+        Get historical price data for a specific date range with caching.
+        
+        Args:
+            symbol: Stock ticker symbol
+            start_date: Start date in 'YYYY-MM-DD' format
+            end_date: End date in 'YYYY-MM-DD' format (defaults to today)
+            
+        Returns:
+            DataFrame with historical prices or None if not available
+        """
+        end_date = end_date or datetime.now().strftime('%Y-%m-%d')
+        cache_key = f"yahoo_history_range:{symbol}:{start_date}:{end_date}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached historical prices for {symbol} ({start_date} to {end_date})")
+            return cached_result
+          
+        # Basic rate limiting - 0.5 seconds between requests
+        time.sleep(0.5)
+        
+        try:
+            logger.info(f"Fetching historical data for {symbol} from {start_date} to {end_date}")
+            ticker = yf.Ticker(symbol)
+            history = ticker.history(start=start_date, end=end_date)
+            
+            if not history.empty:
+                logger.info(f"Successfully fetched {len(history)} historical records for {symbol} ({start_date} to {end_date})")
+                # Cache result
+                self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)
+                return history
+            else:
+                logger.warning(f"No historical data returned for {symbol} from {start_date} to {end_date}")
+            
+        except Exception as e:
+            import traceback
+            logger.error(f"Failed to get historical prices for {symbol} ({start_date} to {end_date}): {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+        
+        return None
+
+    def get_all_historical_prices(self, symbol: str) -> Optional[pd.DataFrame]:
+        """
+        Get all available historical price data with caching.
+        This method fetches the maximum available data from Yahoo Finance.
+        
+        Args:
+            symbol: Stock ticker symbol
+            
+        Returns:
+            DataFrame with all available historical prices or None if not available
+        """
+        cache_key = f"yahoo_history_all:{symbol}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached all historical prices for {symbol}")
+            return cached_result
+          
+        # Basic rate limiting - 0.5 seconds between requests
+        time.sleep(0.5)
+        
+        try:
+            logger.info(f"Fetching all available historical data for {symbol}")
+            ticker = yf.Ticker(symbol)
+            # Call history() without any parameters to get all available data
+            history = ticker.history(period="max")
+            
+            if not history.empty:
+                logger.info(f"Successfully fetched all available data: {len(history)} historical records for {symbol}")
+                # Cache result
+                self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)
+                return history
+            else:
+                logger.warning(f"No historical data returned for {symbol} with max period")
+            
+        except Exception as e:
+            import traceback
+            logger.error(f"Failed to get all historical prices for {symbol}: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
         
         return None
     

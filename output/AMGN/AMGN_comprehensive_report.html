@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - AMGN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Amgen Inc. (AMGN)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="AMGN_logo.png" alt="Amgen Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="AMGN_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="AMGN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.85</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$280.35</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$150.7B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>25.6</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>43.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>1.03%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-3.34%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>3.2%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-7.8%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>9.2%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.46</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.34</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-22.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0439</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>-0.3037</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0132</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>1.813</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.0746</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0912</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>0.8498</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Amgen Inc. (Ticker: AMGN)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Amgen Inc. currently exhibits significant financial distress as indicated by an Altman Z-Score of 0.85, placing it well within the distress zone. Despite a sizable market capitalization of $150.7 billion and a moderate P/E ratio of 25.6, the company’s fundamental health raises urgent concerns about its short- to medium-term solvency. Given the combination of weak financial metrics and sideways technical trends, a cautious “hold” stance is recommended, with close monitoring of liquidity and operational performance.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, signals a critical warning for Amgen. With a score of 0.85—substantially below the distress threshold of 1.8—the company is classified in the “Distress” risk category. This low score reflects several troubling underlying financial dynamics:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.044):</strong> Near zero working capital suggests minimal buffer to cover short-term liabilities, increasing liquidity risk.</li>
+<li><strong>Retained Earnings Ratio (-0.304):</strong> Negative retained earnings indicate accumulated losses or dividend payouts exceeding earnings, undermining equity strength.</li>
+<li><strong>EBIT Ratio (0.013):</strong> Extremely thin operating earnings relative to total assets point to weak profitability and operational inefficiency.</li>
+<li><strong>Market Equity Ratio (1.813):</strong> While this component is relatively strong, it is insufficient to offset the poor performance in other areas.</li>
+<li><strong>Book Equity Ratio (0.075) and Asset Turnover (0.091):</strong> Both ratios are low, signaling limited asset productivity and a fragile equity base.</li>
+</ul>
+<p>The company’s total liabilities stand at approximately $83.16 billion against total assets of $89.37 billion, resulting in a high leverage position that exacerbates financial vulnerability. The data quality is robust (1.0%), confirming the reliability of these findings.</p>
+<p>In sum, Amgen’s fundamental profile is precarious, with a high risk of distress that demands immediate attention from investors.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, Amgen maintains a substantial market capitalization of $150.7 billion and trades at $280.35 per share. The P/E ratio of 25.6 suggests that the market currently prices in moderate growth expectations, which may be optimistic given the company’s fundamental challenges.</p>
+<p>Volatility is elevated at 40%, reflecting significant price fluctuations and investor uncertainty. The Relative Strength Index (RSI) at 43 indicates neither oversold nor overbought conditions, consistent with the observed sideways technical trend. This lack of directional momentum underscores market indecision and the absence of a clear catalyst for price appreciation.</p>
+<p>While Amgen’s market equity component somewhat supports valuation, the disconnect between market optimism and fundamental distress signals a potential mispricing risk. Investors should be wary of complacency given the company’s fragile financial footing.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the convergence of a distress-level Altman Z-Score and a neutral-to-bearish technical outlook, the prudent investment stance is a <strong>hold</strong> with a 60% confidence level. This recommendation reflects the following considerations:</p>
+<ul>
+<li><strong>Short-Term Risk:</strong> The company’s liquidity and profitability metrics suggest potential near-term solvency challenges. Investors should be prepared for possible volatility or negative surprises in earnings or cash flow.</li>
+<li><strong>Market Sentiment:</strong> Current valuation multiples imply moderate growth expectations, but these may need downward revision if fundamental issues persist or worsen.</li>
+<li><strong>Operational Improvements Needed:</strong> Any turnaround in working capital management, profitability, or asset utilization could materially improve the Z-Score and investor confidence.</li>
+<li><strong>Potential for Recovery:</strong> Amgen’s strong market presence and product portfolio provide a foundation for recovery, but this is contingent on effective management actions and favorable market conditions.</li>
+</ul>
+<p>Investors should avoid initiating new long positions until there is clear evidence of financial stabilization or operational improvement. Existing shareholders should monitor developments closely and consider risk mitigation strategies.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>To navigate the risks associated with Amgen’s current profile, investors should focus on the following critical indicators:</p>
+<ol>
+<li><strong>Liquidity Metrics:</strong> Watch for changes in working capital and cash flow statements to assess short-term solvency.</li>
+<li><strong>Profitability Trends:</strong> Monitor EBIT margins and retained earnings for signs of operational recovery or further deterioration.</li>
+<li><strong>Leverage and Debt Servicing:</strong> Keep track of total liabilities and interest coverage ratios to evaluate financial flexibility.</li>
+<li><strong>Market Volatility and Technical Signals:</strong> Given the high volatility and sideways trend, sudden shifts in price momentum could signal changing investor sentiment.</li>
+<li><strong>Corporate Actions:</strong> Any announcements regarding restructuring, asset sales, or capital raises could materially impact the risk profile.</li>
+<li><strong>Regulatory and Industry Developments:</strong> As a biotech leader, Amgen is exposed to regulatory risks and competitive pressures that could affect earnings stability.</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Amgen’s current financial distress, as evidenced by a critically low Altman Z-Score, combined with a cautious market outlook, necessitates a conservative investment approach. While the company’s market capitalization and product pipeline offer some upside potential, the immediate risks to solvency and profitability cannot be overlooked. Investors should maintain a hold position, vigilantly monitor key financial and operational metrics, and be prepared to adjust their exposure should the company’s fundamental health improve or deteriorate further.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:41 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

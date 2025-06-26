@@ -1,0 +1,202 @@
+[
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 0.9863105967969028,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.008583462174121662,
+      "retained_earnings_ratio": 0.2071759876312843,
+      "ebit_ratio": -0.008050327877592366,
+      "book_equity_ratio": 1.6941970698075266,
+      "asset_turnover": 0.13069787279415684,
+      "z_score": 0.9863105967969028
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 1.1520152112656687,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.010078387458006719,
+      "retained_earnings_ratio": 0.19883647884631142,
+      "ebit_ratio": 0.0413514325512796,
+      "book_equity_ratio": 1.7237762237762237,
+      "asset_turnover": 0.1386392811296534,
+      "z_score": 1.1520152112656687
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 0.9699200737656787,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.013696369636963697,
+      "retained_earnings_ratio": 0.18655115511551154,
+      "ebit_ratio": -0.006078107810781078,
+      "book_equity_ratio": 1.6654937321310754,
+      "asset_turnover": 0.1413916391639164,
+      "z_score": 0.9699200737656787
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 0.91140976218953,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.024144925902969516,
+      "retained_earnings_ratio": 0.16653518904603595,
+      "ebit_ratio": -0.00814222122048797,
+      "book_equity_ratio": 1.6303542315103008,
+      "asset_turnover": 0.1284724178734434,
+      "z_score": 0.91140976218953
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 1.0329336369391877,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.012849981998947631,
+      "retained_earnings_ratio": 0.1548921321554183,
+      "ebit_ratio": 0.045445733750588496,
+      "book_equity_ratio": 1.5302361432275244,
+      "asset_turnover": 0.1273089811404359,
+      "z_score": 1.0329336369391877
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 1.1691110358426622,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2022-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": -0.0045047565752658085,
+      "retained_earnings_ratio": 0.15906547285954112,
+      "ebit_ratio": 0.05660324566312255,
+      "book_equity_ratio": 1.7077808924918554,
+      "asset_turnover": 0.14476776720761053,
+      "z_score": 1.1691110358426622
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 1.272585488876063,
+      "risk_category": "Gray Zone",
+      "model_used": "private",
+      "calculation_date": "2022-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.0031611928607396633,
+      "retained_earnings_ratio": 0.15556985396967493,
+      "ebit_ratio": 0.06960219325239188,
+      "book_equity_ratio": 1.793310932249746,
+      "asset_turnover": 0.16944553236725787,
+      "z_score": 1.272585488876063
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "PXD",
+    "analysis_summary": {
+      "z_score": 1.3419762367552863,
+      "risk_category": "Gray Zone",
+      "model_used": "private",
+      "calculation_date": "2022-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.04214364226160157,
+      "retained_earnings_ratio": 0.1509342913058631,
+      "ebit_ratio": 0.08270555749175626,
+      "book_equity_ratio": 1.7607875064762046,
+      "asset_turnover": 0.1877965738183963,
+      "z_score": 1.3419762367552863
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T19:18:36.616366",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

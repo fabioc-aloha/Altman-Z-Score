@@ -23,6 +23,7 @@ from ...common.api_rate_limiter import rate_limiter
 from ...models.data_models import MergedFinancialData, DataQualityReport
 from .fmp_fetcher import FMPDataFetcher
 from .yahoo_fetcher import YahooDataFetcher
+from .finnhub_fetcher import FinnhubDataFetcher
 
 logger = get_logger(__name__)
 
@@ -36,6 +37,7 @@ class FMPRatiosData:
     asset_turnover: Optional[float] = None
     current_ratio: Optional[float] = None
     debt_to_equity: Optional[float] = None
+    company_name: Optional[str] = None
     raw_ratios: Dict[str, Any] = None
 
 
@@ -60,37 +62,98 @@ class DataMerger:
     def __init__(self):
         self.fmp_fetcher = FMPDataFetcher()
         self.yahoo_fetcher = YahooDataFetcher()
+        self.finnhub_fetcher = FinnhubDataFetcher()
 
     @rate_limiter.rate_limited("data_merger")
-    async def merge_financial_data(self, ticker: str, start_date: Optional[str] = None) -> List[MergedFinancialData]:
+    async def merge_financial_data(self, ticker: str, start_date: Optional[str] = None, quarters: int = 4) -> List[MergedFinancialData]:
         """
         Merge FMP and Yahoo data for a ticker.
         
         Args:
             ticker: Stock ticker symbol
             start_date: Optional start date filter (ignored for current implementation)
+            quarters: Number of quarters for analysis (enhanced accounts: 8-20)
             
         Returns:
             List[MergedFinancialData] with integrated ratios and market data (single period for now)
         """
-        logger.info(f"Starting data merger for {ticker}")
+        logger.info(f"Starting data merger for {ticker} (quarters: {quarters})")
         
         # Note: start_date is currently ignored as we use latest financial data
         # Future enhancement could support historical period analysis
         if start_date:
             logger.info(f"Note: start_date {start_date} specified but using latest data")
         
+        # Enhanced analysis mode detection
+        enhanced_mode = quarters > 4
+        if enhanced_mode:
+            logger.info(f"Enhanced analysis mode detected: processing {quarters} quarters")
+        
         try:
             # Fetch FMP financial data and calculate ratios
-            fmp_data = await self._fetch_fmp_ratios(ticker)
+            # For enhanced mode, fetch multiple quarters of data
+            if enhanced_mode:
+                fmp_data_list = await self._fetch_multiple_quarters_fmp_data(ticker, quarters)
+                yahoo_data = await self._fetch_yahoo_market_data(ticker)
+                
+                # Process each quarter and create multiple MergedFinancialData objects
+                merged_data_list = []
+                for i, fmp_data in enumerate(fmp_data_list):
+                    # Fetch company logo and cache locally (only for first iteration)
+                    logo_file_path = None
+                    logo_url = None
+                    if i == 0:  # Only fetch logo once
+                        try:
+                            logo_file_path = self.finnhub_fetcher.download_and_cache_logo(ticker)
+                            if logo_file_path:
+                                logger.debug(f"Downloaded and cached logo for {ticker}: {logo_file_path}")
+                                logo_url = self.finnhub_fetcher.get_company_logo_url(ticker)
+                        except Exception as e:
+                            logger.warning(f"Failed to fetch and cache logo for {ticker}: {e}")
+                    
+                    # Merge the data sources for this quarter
+                    merged_data = self._integrate_data_sources(ticker, fmp_data, yahoo_data, logo_url, logo_file_path)
+                    
+                    # Validate data quality and set quality score
+                    quality_report = validate_data_completeness(merged_data)
+                    merged_data.data_quality_score = quality_report.quality_score
+                    
+                    merged_data_list.append(merged_data)
+                
+                logger.info(f"Successfully merged {len(merged_data_list)} quarters of data for {ticker}")
+                return merged_data_list
+            else:
+                # Standard single-quarter analysis
+                fmp_data = await self._fetch_fmp_ratios(ticker)
+                
+                # Fetch Yahoo market data
+                yahoo_data = await self._fetch_yahoo_market_data(ticker)
+                
+                # Fetch company logo and cache locally (non-blocking, best effort)
+                logo_file_path = None
+                logo_url = None
+                try:
+                    # Download and cache logo file
+                    logo_file_path = self.finnhub_fetcher.download_and_cache_logo(ticker)
+                    if logo_file_path:
+                        logger.debug(f"Downloaded and cached logo for {ticker}: {logo_file_path}")
+                        # Also get URL for backward compatibility
+                        logo_url = self.finnhub_fetcher.get_company_logo_url(ticker)
+                    else:
+                        logger.debug(f"No logo available for {ticker}")
+                except Exception as e:
+                    logger.warning(f"Failed to fetch and cache logo for {ticker}: {e}")
+                
+                # Merge the data sources
+                merged_data = self._integrate_data_sources(ticker, fmp_data, yahoo_data, logo_url, logo_file_path)
+                
+                # Validate data quality and set quality score
+                quality_report = validate_data_completeness(merged_data)
+                merged_data.data_quality_score = quality_report.quality_score
+                
+                return [merged_data]  # Return as list for consistency
             
-            # Fetch Yahoo market data
-            yahoo_data = await self._fetch_yahoo_market_data(ticker)
-            
-            # Merge the data sources
-            merged_data = self._integrate_data_sources(ticker, fmp_data, yahoo_data)
-            
-            logger.info(f"Successfully merged data for {ticker}")
+            logger.info(f"Successfully merged data for {ticker} with quality score: {quality_report.quality_score:.2f}")
             return [merged_data]  # Return as list for pipeline compatibility
             
         except Exception as e:
@@ -104,6 +167,7 @@ class DataMerger:
             ratios = self.fmp_fetcher.get_financial_ratios(ticker, period="annual")
             income_stmt = self.fmp_fetcher.get_income_statement(ticker, period="annual")
             balance_sheet = self.fmp_fetcher.get_balance_sheet(ticker, period="annual")
+            company_profile = self.fmp_fetcher.get_company_profile(ticker)
             
             if not ratios or not income_stmt or not balance_sheet:
                 raise DataFetchError(f"Incomplete FMP data for {ticker}")
@@ -111,6 +175,11 @@ class DataMerger:
             latest_ratios = ratios[0]
             latest_income = income_stmt[0]
             latest_balance = balance_sheet[0]
+            
+            # Extract company name from profile
+            company_name = None
+            if company_profile and len(company_profile) > 0:
+                company_name = company_profile[0].get('companyName', ticker)
             
             # Calculate Z-Score ratios from raw financial data
             total_assets = latest_balance.get('totalAssets', 0)
@@ -144,6 +213,7 @@ class DataMerger:
                 asset_turnover=asset_turnover,
                 current_ratio=self._safe_get_ratio(latest_ratios, 'currentRatio'),
                 debt_to_equity=self._safe_get_ratio(latest_ratios, 'debtEquityRatio'),
+                company_name=company_name,
                 raw_ratios={
                     'ratios': latest_ratios,
                     'income_statement': latest_income,
@@ -176,17 +246,112 @@ class DataMerger:
             logger.error(f"Failed to fetch Yahoo market data for {ticker}: {e}")
             raise DataFetchError(f"Yahoo market data fetch failed: {str(e)}")
     
+    async def _fetch_multiple_quarters_fmp_data(self, ticker: str, quarters: int) -> List[FMPRatiosData]:
+        """Fetch multiple quarters of financial data from FMP API."""
+        try:
+            logger.info(f"Fetching {quarters} quarters of financial data for {ticker}")
+            
+            # Get multiple periods of financial statements and ratios
+            ratios_list = self.fmp_fetcher.get_financial_ratios(ticker, period="quarter", limit=quarters)
+            income_list = self.fmp_fetcher.get_income_statement(ticker, period="quarter", limit=quarters)
+            balance_list = self.fmp_fetcher.get_balance_sheet(ticker, period="quarter", limit=quarters)
+            company_profile = self.fmp_fetcher.get_company_profile(ticker)
+            
+            if not ratios_list or not income_list or not balance_list:
+                raise DataFetchError(f"Incomplete FMP multi-quarter data for {ticker}")
+            
+            # Extract company name from profile
+            company_name = None
+            if company_profile and len(company_profile) > 0:
+                company_name = company_profile[0].get('companyName', ticker)
+            
+            fmp_data_list = []
+            # Process each quarter (limit to requested quarters or available data)
+            max_quarters = min(quarters, len(ratios_list), len(income_list), len(balance_list))
+            logger.info(f"Processing {max_quarters} quarters of data for {ticker}")
+            
+            for i in range(max_quarters):
+                ratios = ratios_list[i]
+                income_stmt = income_list[i]
+                balance_sheet = balance_list[i]
+                
+                # Calculate Z-Score ratios from raw financial data for this quarter
+                total_assets = balance_sheet.get('totalAssets', 0)
+                current_assets = balance_sheet.get('totalCurrentAssets', 0)
+                current_liabilities = balance_sheet.get('totalCurrentLiabilities', 0)
+                retained_earnings = balance_sheet.get('retainedEarnings', 0)
+                ebit = income_stmt.get('operatingIncome', 0)  # EBIT approximation
+                revenue = income_stmt.get('revenue', 0)
+                
+                # Calculate working capital ratio (X1)
+                working_capital = current_assets - current_liabilities
+                working_capital_ratio = working_capital / total_assets if total_assets > 0 else None
+                
+                # Calculate retained earnings ratio (X2)
+                retained_earnings_ratio = retained_earnings / total_assets if total_assets > 0 else None
+                
+                # Calculate EBIT ratio (X3)
+                ebit_ratio = ebit / total_assets if total_assets > 0 else None
+                
+                # Calculate sales ratio (X5)
+                sales_ratio = revenue / total_assets if total_assets > 0 else None
+                
+                # Get market value from ratios or calculate fallback
+                market_value_equity_ratio = ratios.get('marketCapitalizationToTotalAssets')
+                if market_value_equity_ratio is None:
+                    # Try alternative calculation
+                    market_cap = ratios.get('marketCap')
+                    if market_cap and total_assets > 0:
+                        market_value_equity_ratio = market_cap / total_assets
+                
+                # Create FMPRatiosData for this quarter
+                period_date = balance_sheet.get('date', 'Unknown')
+                fmp_data = FMPRatiosData(
+                    working_capital_ratio=working_capital_ratio,
+                    retained_earnings_ratio=retained_earnings_ratio,
+                    ebit_ratio=ebit_ratio,
+                    asset_turnover=sales_ratio,  # Sales to total assets is asset turnover
+                    company_name=company_name,
+                    raw_ratios={
+                        'ratios': ratios,
+                        'income_statement': income_stmt,
+                        'balance_sheet': balance_sheet,
+                        'period_ending': period_date,
+                        'market_value_equity_to_total_liabilities': market_value_equity_ratio
+                    }
+                )
+                
+                fmp_data_list.append(fmp_data)
+                
+            logger.info(f"Successfully processed {len(fmp_data_list)} quarters for {ticker}")
+            return fmp_data_list
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch multiple quarters data for {ticker}: {e}")
+            raise DataFetchError(f"Multi-quarter data fetch failed for {ticker}: {str(e)}")
+    
     def _integrate_data_sources(self, ticker: str, fmp_data: FMPRatiosData, 
-                               yahoo_data: YahooMarketData) -> MergedFinancialData:
+                               yahoo_data: YahooMarketData, logo_url: Optional[str] = None, 
+                               logo_file_path: Optional[str] = None) -> MergedFinancialData:
         """
-        Integrate FMP ratios with Yahoo market data.
+        Integrate FMP ratios with Yahoo market data and Finnhub logo.
         
         Strategic advantage: Uses calculated ratios from FMP financial statements
-        combined with Yahoo market data.
+        combined with Yahoo market data and enhanced with Finnhub company branding.
         """
+        # Extract the period date from FMP data, fallback to current time if not available
+        period_date = None
+        if fmp_data.raw_ratios and 'balance_sheet' in fmp_data.raw_ratios:
+            period_date = fmp_data.raw_ratios['balance_sheet'].get('date')
+        elif fmp_data.raw_ratios and 'period_ending' in fmp_data.raw_ratios:
+            period_date = fmp_data.raw_ratios['period_ending']
+        
+        # Use period date if available, otherwise current timestamp
+        timestamp = period_date if period_date else datetime.now().isoformat()
+        
         return MergedFinancialData(
             ticker=ticker,
-            timestamp=datetime.now().isoformat(),
+            timestamp=timestamp,
             
             # Z-Score ratios (calculated from FMP data)
             working_capital_ratio=fmp_data.working_capital_ratio,
@@ -205,7 +370,15 @@ class DataMerger:
             
             # Raw data for debugging/validation
             raw_fmp_data=fmp_data.raw_ratios,
-            raw_yahoo_data=yahoo_data.raw_data
+            raw_yahoo_data=yahoo_data.raw_data,
+            
+            # Include company name, logo URL and cached logo file path in metadata
+            metadata={
+                **({'company_name': fmp_data.company_name} if fmp_data.company_name else {}),
+                **({'logo_url': logo_url} if logo_url else {}),
+                **({'logo_file_path': logo_file_path} if logo_file_path else {}),
+                **({'period_date': period_date} if period_date else {})
+            }
         )
     
     def _safe_get_ratio(self, data: Dict[str, Any], key: str) -> Optional[float]:
@@ -231,23 +404,24 @@ class DataMerger:
 
 # Main integration function for external use
 @rate_limiter.rate_limited("data_integration")
-async def merge_financial_data(ticker: str, start_date: Optional[str] = None) -> List[MergedFinancialData]:
+async def merge_financial_data(ticker: str, start_date: Optional[str] = None, quarters: int = 4) -> List[MergedFinancialData]:
     """
     Public interface for merging FMP and Yahoo data.
     
     Args:
         ticker: Stock ticker symbol
-        start_date: Optional start date for historical data (ignored for current implementation)
-        
+        start_date: Optional start date filter
+        quarters: Number of quarters for analysis (enhanced accounts: 8-20)
+    
     Returns:
-        List[MergedFinancialData] ready for Z-Score calculation
+        List[MergedFinancialData] with integrated financial and market data
         
     Strategic Advantage:
         Uses FMP financial statements to calculate Z-Score ratios combined
         with Yahoo market data.
     """
     merger = DataMerger()
-    return await merger.merge_financial_data(ticker, start_date=start_date)
+    return await merger.merge_financial_data(ticker, start_date, quarters)
 
 
 def validate_data_completeness(data: MergedFinancialData) -> DataQualityReport:

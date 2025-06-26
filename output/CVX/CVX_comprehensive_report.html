@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CVX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Chevron Corporation (CVX)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CVX_logo.png" alt="Chevron Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="CVX_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="CVX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.70</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$143.23</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$248.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>16.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>64.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-0.22%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-3.78%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>4.9%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-12.6%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>3.8%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.67</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.22</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-20.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.2/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0112</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.8048</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>-0.0072</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>2.334</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>1.404</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1857</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>2.702</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Chevron Corporation (CVX) Investment Analysis</strong><br />
+<em>As of March 31, 2025</em></p>
+<hr />
+<h3 id="1-executive-summary">1. Executive Summary</h3>
+<p>Chevron Corporation (CVX) presents a nuanced investment profile as of Q1 2025. While the company demonstrates solid market capitalization and a reasonable valuation, its Altman Z-Score places it in the "Gray Zone," indicating moderate financial risk. Investors should weigh Chevron’s stable market position and strong buy recommendation against its middling fundamental health, with close attention to evolving operational and macroeconomic factors.</p>
+<hr />
+<h3 id="2-fundamental-health-assessment">2. Fundamental Health Assessment</h3>
+<p>Chevron’s Altman Z-Score of 2.70 situates the company in the Gray Zone, a range that signals neither clear financial distress nor robust safety. The Z-Score, derived from a blend of liquidity, profitability, leverage, and activity ratios, provides a holistic view of bankruptcy risk:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.011):</strong> This low figure suggests limited short-term liquidity, indicating that Chevron’s current assets only marginally exceed its current liabilities. While not immediately alarming for a large, capital-intensive firm, it does warrant monitoring, especially in volatile commodity cycles.</li>
+<li><strong>Retained Earnings Ratio (0.805):</strong> A strong positive, this ratio reflects Chevron’s ability to accumulate profits over time, supporting long-term solvency and reinvestment capacity.</li>
+<li><strong>EBIT Ratio (-0.007):</strong> The negative EBIT ratio is a concern, as it points to recent operational losses relative to assets. This could be due to temporary factors such as one-off charges or market disruptions, but persistent negative EBIT would undermine financial stability.</li>
+<li><strong>Market Equity Ratio (2.334) &amp; Book Equity Ratio (1.404):</strong> Both ratios are healthy, indicating that market and book equity comfortably exceed total liabilities, providing a buffer against financial shocks.</li>
+<li><strong>Asset Turnover (0.186):</strong> This moderate figure suggests Chevron is generating reasonable revenue from its asset base, typical for the oil &amp; gas sector.</li>
+</ul>
+<p>Overall, the Z-Score’s placement in the Gray Zone means Chevron is not at imminent risk of distress, but it is not immune to financial headwinds. Investors should interpret this as a signal to remain vigilant, particularly regarding operational profitability and liquidity trends.</p>
+<hr />
+<h3 id="3-market-position-valuation">3. Market Position &amp; Valuation</h3>
+<p>Chevron maintains a commanding market presence, with a market capitalization of $248.1 billion and a current share price of $143.23. The company’s P/E ratio of 16.4 is in line with industry averages, suggesting the stock is fairly valued relative to earnings. Technical indicators present a mixed picture:</p>
+<ul>
+<li><strong>Volatility (30.0%):</strong> Elevated volatility reflects both sector-wide uncertainty and Chevron’s sensitivity to commodity price swings.</li>
+<li><strong>RSI (64.1):</strong> The Relative Strength Index is approaching overbought territory but remains below the critical threshold, indicating neither excessive bullishness nor imminent reversal.</li>
+<li><strong>Technical Trend:</strong> The sideways trend suggests a period of consolidation, with no clear directional momentum in the near term.</li>
+</ul>
+<p>The market’s strong buy recommendation (60% confidence) underscores positive sentiment, likely driven by Chevron’s scale, dividend reliability, and potential for upside in a recovering energy market.</p>
+<hr />
+<h3 id="4-investment-outlook-recommendations">4. Investment Outlook &amp; Recommendations</h3>
+<p>Given the current data, Chevron offers a balanced risk-reward profile for investors with a moderate risk appetite:</p>
+<ul>
+<li><strong>Actionable Implications:</strong> The strong buy recommendation, supported by a reasonable P/E and robust market capitalization, makes CVX attractive for long-term investors seeking exposure to the energy sector. However, the Gray Zone Z-Score tempers enthusiasm, suggesting that position sizing and ongoing monitoring are prudent.</li>
+<li><strong>Portfolio Role:</strong> CVX can serve as a core holding in diversified portfolios, particularly for those seeking dividend income and exposure to global energy markets. However, it should not be considered a low-risk, defensive play at this time.</li>
+<li><strong>Entry Strategy:</strong> Given the sideways technical trend and moderate RSI, investors may consider accumulating shares gradually, taking advantage of any short-term price weakness.</li>
+</ul>
+<hr />
+<h3 id="5-key-risks-monitoring-points">5. Key Risks &amp; Monitoring Points</h3>
+<p>Investors should remain attentive to the following factors:</p>
+<ul>
+<li><strong>Operational Profitability:</strong> The negative EBIT ratio is a red flag. Sustained operational losses could erode financial health and pressure the Z-Score further.</li>
+<li><strong>Liquidity Management:</strong> The low working capital ratio highlights the need for careful cash flow and debt management, especially if market conditions deteriorate.</li>
+<li><strong>Commodity Price Volatility:</strong> Chevron’s earnings are highly sensitive to oil and gas prices. Macro shocks or prolonged price weakness could impact both profitability and investor sentiment.</li>
+<li><strong>Capital Expenditure &amp; Debt:</strong> Monitor any significant changes in capital spending or leverage, as these could affect both short-term liquidity and long-term solvency.</li>
+<li><strong>Regulatory &amp; ESG Factors:</strong> The energy sector faces increasing regulatory scrutiny and transition risks related to decarbonization. Chevron’s ability to adapt will be critical for long-term value creation.</li>
+</ul>
+<hr />
+<p><strong>Conclusion:</strong><br />
+Chevron is a fundamentally sound but not risk-free investment. The company’s market strength and fair valuation support a positive outlook, but the Gray Zone Z-Score and negative EBIT ratio warrant a measured approach. Investors should consider CVX as a core energy holding, with ongoing attention to operational performance and sector dynamics.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:15 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

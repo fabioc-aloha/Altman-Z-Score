@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - ZM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Zoom Video Communications, Inc. (ZM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">April 30, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="ZM_logo.png" alt="Zoom Video Communications, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 80.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="ZM_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="ZM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.21</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$76.62</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$23.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>23.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>28.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>buy</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>1.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.22%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-1.64%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-3.4%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-1.9%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-8.8%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.76</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.90</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-25.1%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>2.1/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.6020</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.3702</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0221</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>11.31</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>4.344</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1073</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>8.207</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Zoom Video Communications, Inc. (Ticker: ZM)</strong><br />
+<em>Analysis Date: April 30, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Zoom Video Communications (ZM) presents a compelling investment opportunity characterized by robust fundamental health and a favorable market position. With an Altman Z-Score of 8.21, the company is firmly in the “Safe” risk category, signaling strong financial stability. Coupled with a strong buy recommendation supported by an 80% confidence level, attractive valuation metrics, and positive technical indicators, ZM is well-positioned for sustained growth.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>Zoom’s Altman Z-Score of 8.21 significantly exceeds the threshold for financial distress, underscoring the company’s exceptional balance sheet strength and operational resilience. The original Altman model, applied with high data quality (1.0% error margin), confirms that ZM is in a very low risk category for bankruptcy or financial distress.</p>
+<p>Breaking down the components:<br />
+- <strong>Working Capital Ratio (0.602):</strong> Indicates solid liquidity, ensuring Zoom can comfortably meet short-term obligations.<br />
+- <strong>Retained Earnings Ratio (0.370):</strong> Reflects consistent profitability and effective reinvestment of earnings to fuel growth.<br />
+- <strong>EBIT Ratio (0.022):</strong> While modest, this positive operating income margin suggests operational efficiency in a competitive tech environment.<br />
+- <strong>Market Equity Ratio (11.311) and Book Equity Ratio (4.344):</strong> These high ratios highlight strong market confidence and substantial equity cushion relative to liabilities.<br />
+- <strong>Asset Turnover (0.107):</strong> Although relatively low, this is typical for a technology company investing heavily in intangible assets and growth initiatives.</p>
+<p>Total assets stand at approximately $10.95 billion against liabilities of $2.05 billion, reflecting a conservative capital structure and ample asset backing. This financial robustness provides Zoom with the flexibility to invest in innovation, strategic acquisitions, and market expansion without undue risk.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Zoom’s current market capitalization of $23.2 billion and share price of $76.62 reflect strong investor confidence. The company trades at a reasonable P/E ratio of 23.0, which balances growth expectations with valuation discipline. This multiple suggests that the market anticipates continued earnings growth but is not excessively pricing in speculative upside.</p>
+<p>From a technical perspective, Zoom is in an uptrend, supported by a Relative Strength Index (RSI) of 28.1, which is near oversold territory. This technical setup often precedes upward price momentum, indicating a potential entry point for investors. However, the stock exhibits a volatility of 30%, which is elevated but typical for high-growth technology firms, implying that investors should be prepared for price fluctuations.</p>
+<p>Zoom’s market position remains strong due to its leadership in video communications, a sector with enduring demand driven by hybrid work trends and digital collaboration needs. The company’s ability to innovate and expand its product suite will be critical to maintaining competitive advantage.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Zoom’s excellent fundamental health and favorable market dynamics, the investment outlook is decidedly optimistic. The Altman Z-Score’s indication of financial safety reduces downside risk, making ZM an attractive candidate for growth-oriented portfolios seeking exposure to the evolving digital communications space.</p>
+<p>The strong buy recommendation, with 80% confidence, is supported by:<br />
+- Solid balance sheet and liquidity<br />
+- Reasonable valuation relative to growth prospects<br />
+- Positive technical indicators signaling potential price appreciation<br />
+- Market leadership in a high-demand sector</p>
+<p><strong>Investment Implications:</strong><br />
+- Investors can consider initiating or adding to positions in ZM with a medium to long-term horizon, capitalizing on the company’s growth trajectory and financial stability.<br />
+- The current RSI near oversold levels suggests a tactical entry point, potentially enhancing risk-adjusted returns.<br />
+- The moderate P/E ratio provides a margin of safety compared to more aggressively valued tech peers.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While Zoom’s fundamentals and market position are strong, investors should remain vigilant on the following:<br />
+- <strong>Volatility:</strong> The 30% volatility indicates potential for significant price swings; risk tolerance should be assessed accordingly.<br />
+- <strong>Competitive Landscape:</strong> The video communications market is highly competitive, with rapid innovation cycles. Monitoring Zoom’s product development and market share trends is essential.<br />
+- <strong>Macroeconomic Factors:</strong> Broader economic conditions, including interest rate changes and tech sector sentiment, could impact valuation multiples and investor appetite.<br />
+- <strong>Operational Margins:</strong> The relatively low EBIT ratio warrants attention to margin expansion efforts and cost management as the company scales.</p>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Zoom Video Communications stands out as a financially sound and strategically positioned company with strong growth potential. The combination of a high Altman Z-Score and positive market signals supports a confident investment stance. Investors seeking exposure to the digital collaboration space should consider Zoom as a core growth holding, while monitoring volatility and competitive dynamics to optimize timing and risk management.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

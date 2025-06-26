@@ -162,10 +162,9 @@ class ConfigManager:
         
         # Environment        config.environment = os.getenv("ENVIRONMENT", "development")
         config.debug = os.getenv("DEBUG", "false").lower() == "true"
-        
-        # API Configuration
+          # API Configuration
         config.api = APIConfig(
-            sec_edgar_user_agent=self._get_required_env("SEC_EDGAR_USER_AGENT", "SEC_USER_AGENT"),
+            sec_edgar_user_agent=os.getenv("SEC_EDGAR_USER_AGENT", ""),
             yahoo_finance_api_key=os.getenv("YAHOO_FINANCE_API_KEY"),
             finnhub_api_key=os.getenv("FINNHUB_API_KEY"),
             fmp_api_key=os.getenv("FINANCIAL_MODELING_PREP_API_KEY"),  # Financial Modeling Prep API key

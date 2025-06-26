@@ -20,6 +20,7 @@ Key Features:
 """
 
 import os
+import re
 import requests
 import time
 from typing import Dict, Any, Optional, List, Union
@@ -29,7 +30,7 @@ from datetime import datetime, timedelta
 from ...common.logging_config import get_logger
 from ...common.config import get_config
 from ...common.cache import get_cache, CacheBackend  
-# from ...common.api_rate_limiter import rate_limiter
+from ...common.api_rate_limiter import APIRateLimiter
 from ...common.exceptions import DataFetchError, ValidationError
 from ...cache.cache_manager import store_financial_data, load_financial_data
 
@@ -79,6 +80,8 @@ class FMPDataFetcher:
         self.config = config or FMPConfig.from_env()
         self.cache = get_cache("fmp_api", backend=CacheBackend.FILE, cache_dir=".cache/fmp")
         self.session = requests.Session()
+        self.current_url = ""  # For error handling
+        self.rate_limiter = APIRateLimiter.get_instance()
         
         logger.info(f"Initialized FMP data fetcher with base URL: {self.config.base_url}")
     
@@ -99,6 +102,9 @@ class FMPDataFetcher:
         """
         url = f"{self.config.base_url}/{endpoint.lstrip('/')}"
         
+        # Store current URL for error handling
+        self.current_url = url
+        
         # Add API key to params
         if params is None:
             params = {}
@@ -106,8 +112,8 @@ class FMPDataFetcher:
         
         logger.debug(f"Making FMP API request: {url}")
         
-        # Basic rate limiting - 0.5 seconds between requests (2 requests per second)
-        time.sleep(0.5)
+        # Apply rate limiting for FMP API
+        self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
         
         for attempt in range(self.config.max_retries):
             try:
@@ -120,17 +126,37 @@ class FMPDataFetcher:
                 
                 data = response.json()
                 
+                # Record successful request for rate limiter
+                self.rate_limiter.record_request("financialmodelingprep.com")
+                
                 # Check for FMP API errors
                 if isinstance(data, dict) and 'Error Message' in data:
-                    raise DataFetchError(f"FMP API error: {data['Error Message']}")
+                    error_msg = data['Error Message']
+                    if "Invalid ticker" in error_msg or "not found" in error_msg.lower():
+                        raise DataFetchError(f"Invalid ticker symbol: {error_msg}")
+                    else:
+                        raise DataFetchError(f"FMP API error: {error_msg}")
                 
                 if not data:
-                    raise DataFetchError("Empty response from FMP API")
+                    # Check if this looks like an invalid ticker endpoint
+                    if any(endpoint in self.current_url for endpoint in ['/ratios/', '/income-statement/', '/balance-sheet-statement/']):
+                        # Extract ticker from URL for better error message
+                        ticker_match = re.search(r'/([A-Z0-9_]+)\?', self.current_url)
+                        if not ticker_match:
+                            # Try alternative pattern for ticker extraction
+                            ticker_match = re.search(r'/ratios/([A-Z0-9_]+)', self.current_url)
+                        ticker = ticker_match.group(1) if ticker_match else "unknown"
+                        raise DataFetchError(f"Invalid ticker symbol '{ticker}' - not found in financial databases")
+                    else:
+                        raise DataFetchError("Empty response from FMP API")
                 
                 logger.debug(f"FMP API request successful: {len(data) if isinstance(data, list) else 'dict'} items")
                 return data
                 
             except requests.exceptions.RequestException as e:
+                # Record failed request for rate limiter backoff
+                self.rate_limiter.record_failed_request("financialmodelingprep.com")
+                
                 logger.warning(f"FMP API request failed (attempt {attempt + 1}/{self.config.max_retries}): {e}")
                 if attempt == self.config.max_retries - 1:
                     raise DataFetchError(f"FMP API request failed after {self.config.max_retries} attempts: {e}")
@@ -138,7 +164,7 @@ class FMPDataFetcher:
                 # Exponential backoff
                 time.sleep(2 ** attempt)
 
-    def get_income_statement(self, symbol: str, period: str = "annual") -> List[Dict[str, Any]]:
+    def get_income_statement(self, symbol: str, period: str = "annual", limit: int = None) -> List[Dict[str, Any]]:
         """
         Get income statement data from FMP API with caching.
         
@@ -147,11 +173,12 @@ class FMPDataFetcher:
         Args:
             symbol: Stock ticker symbol
             period: "annual" or "quarter"
+            limit: Maximum number of periods to fetch (enhanced accounts: up to 30)
             
         Returns:
             List of income statement data
         """
-        cache_key = f"fmp_income:{symbol}:{period}"
+        cache_key = f"fmp_income:{symbol}:{period}:{limit}"
         
         # Try cache first
         cached_result = self.cache.get(cache_key)
@@ -159,11 +186,13 @@ class FMPDataFetcher:
             logger.debug(f"Using cached income statement for {symbol}")
             return cached_result
         
-        # Fetch from API (let API use default limit based on plan)
+        # Fetch from API (with limit for enhanced accounts)
         endpoint = f"income-statement/{symbol}"
         params = {
             'period': period
         }
+        if limit:
+            params['limit'] = limit
         
         result = self._make_request(endpoint, params)
         
@@ -172,7 +201,7 @@ class FMPDataFetcher:
         
         return result
     
-    def get_balance_sheet(self, symbol: str, period: str = "annual") -> List[Dict[str, Any]]:
+    def get_balance_sheet(self, symbol: str, period: str = "annual", limit: int = None) -> List[Dict[str, Any]]:
         """
         Get balance sheet data from FMP API with caching.
         
@@ -181,11 +210,12 @@ class FMPDataFetcher:
         Args:
             symbol: Stock ticker symbol
             period: "annual" or "quarter"
+            limit: Maximum number of periods to fetch (enhanced accounts: up to 30)
             
         Returns:
             List of balance sheet data
         """
-        cache_key = f"fmp_balance:{symbol}:{period}"
+        cache_key = f"fmp_balance:{symbol}:{period}:{limit}"
         
         # Try cache first
         cached_result = self.cache.get(cache_key)
@@ -193,11 +223,13 @@ class FMPDataFetcher:
             logger.debug(f"Using cached balance sheet for {symbol}")
             return cached_result
         
-        # Fetch from API (let API use default limit based on plan)
+        # Fetch from API (with limit for enhanced accounts)
         endpoint = f"balance-sheet-statement/{symbol}"
         params = {
             'period': period
         }
+        if limit:
+            params['limit'] = limit
         
         result = self._make_request(endpoint, params)
         
@@ -240,7 +272,7 @@ class FMPDataFetcher:
         
         return result
     
-    def get_financial_ratios(self, symbol: str, period: str = "annual") -> List[Dict[str, Any]]:
+    def get_financial_ratios(self, symbol: str, period: str = "annual", limit: int = None) -> List[Dict[str, Any]]:
         """
         Get financial ratios data from FMP API with caching.
         
@@ -249,11 +281,12 @@ class FMPDataFetcher:
         Args:
             symbol: Stock ticker symbol
             period: "annual" or "quarter"
+            limit: Maximum number of periods to fetch (enhanced accounts: up to 30)
             
         Returns:
             List of financial ratios data
         """
-        cache_key = f"fmp_ratios:{symbol}:{period}"
+        cache_key = f"fmp_ratios:{symbol}:{period}:{limit}"
         
         # Try cache first
         cached_result = self.cache.get(cache_key)
@@ -261,11 +294,13 @@ class FMPDataFetcher:
             logger.debug(f"Using cached financial ratios for {symbol}")
             return cached_result
         
-        # Fetch from API (let API use default limit based on plan)
+        # Fetch from API (with limit for enhanced accounts)
         endpoint = f"ratios/{symbol}"
         params = {
             'period': period
         }
+        if limit:
+            params['limit'] = limit
         
         result = self._make_request(endpoint, params)
         

@@ -1,0 +1,242 @@
+[
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 2.425262088931073,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2025-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.24653850347058182,
+      "retained_earnings_ratio": -0.13442599120543663,
+      "ebit_ratio": 0.013446233237634917,
+      "market_equity_ratio": 3.7325857288897977,
+      "book_equity_ratio": 0.4065119607442241,
+      "asset_turnover": 0.03368826543591234,
+      "z_score": 2.425262088931073,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 27517000000,
+        "total_liabilities": 19564000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 2.619457397125078,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.2672700194753122,
+      "retained_earnings_ratio": -0.15408408752434413,
+      "ebit_ratio": 0.021308282735708558,
+      "market_equity_ratio": 4.009020433708482,
+      "book_equity_ratio": 0.43766126818556134,
+      "asset_turnover": 0.03872150303585749,
+      "z_score": 2.619457397125078,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 26187000000,
+        "total_liabilities": 18215000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 1.2662395809299336,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.15370563070875246,
+      "retained_earnings_ratio": -0.11448722395652676,
+      "ebit_ratio": 0.0034917331483408486,
+      "market_equity_ratio": 2.026370319393956,
+      "book_equity_ratio": 0.20001664955462442,
+      "asset_turnover": 0.014730026592669672,
+      "z_score": 1.2662395809299336,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 43245000000,
+        "total_liabilities": 36037000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 1.3296541595724622,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.15880617230203647,
+      "retained_earnings_ratio": -0.12337348231993421,
+      "ebit_ratio": 0.00457117979973879,
+      "market_equity_ratio": 2.133716316035531,
+      "book_equity_ratio": 0.20809957924263675,
+      "asset_turnover": 0.01649494509747013,
+      "z_score": 1.3296541595724622,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 41346000000,
+        "total_liabilities": 34224000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 1.149307643091497,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.13955910432216628,
+      "retained_earnings_ratio": -0.11475872244402013,
+      "ebit_ratio": 0.003471619510501649,
+      "market_equity_ratio": 1.8627224243042624,
+      "book_equity_ratio": 0.17562431446572965,
+      "asset_turnover": 0.01340913035931262,
+      "z_score": 1.149307643091497,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 46088000000,
+        "total_liabilities": 39203000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 4.035272447966269,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.3543463458919655,
+      "retained_earnings_ratio": -0.30901044030867,
+      "ebit_ratio": 0.0018157058556513845,
+      "market_equity_ratio": 6.682312152269399,
+      "book_equity_ratio": 0.6127379209370425,
+      "asset_turnover": 0.027292328642759874,
+      "z_score": 4.035272447966269,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 17624000000,
+        "total_liabilities": 10928000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 2.214981081757431,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.23143855916103048,
+      "retained_earnings_ratio": -0.2080705220761456,
+      "ebit_ratio": -0.002545786153963067,
+      "market_equity_ratio": 3.6985568881685573,
+      "book_equity_ratio": 0.33296191247974066,
+      "asset_turnover": 0.01782050307774147,
+      "z_score": 2.214981081757431,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 26318000000,
+        "total_liabilities": 19744000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "HOOD",
+    "analysis_summary": {
+      "z_score": 2.07974176420126,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.235519888346127,
+      "retained_earnings_ratio": -0.18810188415910678,
+      "ebit_ratio": 0.0008722958827634334,
+      "market_equity_ratio": 3.400750114096773,
+      "book_equity_ratio": 0.3346993899315419,
+      "asset_turnover": 0.01713189113747383,
+      "z_score": 2.07974176420126,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 28660000000,
+        "total_liabilities": 21473000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-25T20:14:06.874019",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

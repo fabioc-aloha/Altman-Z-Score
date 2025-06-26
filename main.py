@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 3.6.0-dev (2025-06-22) - FMP-First API Strategy
+# Version: 4.0.0 (2025-01-07) - Professional Investment Analysis Platform
 """
 AI-Powered Altman Z-Score Analysis - Main Entry Point
 
@@ -49,33 +49,27 @@ Output Structure:
 
 USAGE:
     python main.py AAPL MSFT TSLA
-    python main.py TSLA --date 2023-01-01
-    python main.py AAPL MSFT --no-plot
-    python main.py --test
+    python main.py TSLA --quarters 8
+    python main.py AAPL --model financial
 
 Examples:
     # Single stock analysis
     python main.py AAPL
     # Multi-stock portfolio analysis
     python main.py AAPL MSFT GOOGL TSLA
-    # Custom date range analysis
-    python main.py AAPL --date 2022-01-01
-    # Analysis without chart generation
-    python main.py AAPL MSFT --no-plot
-    # Run tests
-    python main.py --test
+    # Multi-quarter analysis
+    python main.py AAPL --quarters 8
+    # Force specific model
+    python main.py AAPL --model financial
     # Set log level
     python main.py --log-level DEBUG
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "3.5.5"
+__version__ = "4.0.0"
 
 
 import os
-# Determine data period and CSV header field
-DATA_PERIOD = os.getenv("FMP_DATA_PERIOD", "annual")  # 'annual' for free tier, 'quarter' for paid
-END_FIELD = 'quarter_end' if DATA_PERIOD == 'quarter' else 'year_end'
 
 # Load .env variables before any other imports that may use them
 try:
@@ -88,14 +82,10 @@ import argparse
 import sys
 import time
 import logging
-import threading
 import datetime
 from dateutil.relativedelta import relativedelta
 
 import pandas as pd
-
-# Add src directory to path for legacy imports (removed in future versions)
-# sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 # Set up logging with more verbosity
 logging.basicConfig(
@@ -120,6 +110,61 @@ PIPELINE_STEPS = [
     "Report Generation"
 ]
 
+# CLI help epilog - single source of truth
+CLI_EPILOG = ("Examples:\n"
+              "  python main.py AAPL                        # Single stock analysis\n"
+              "  python main.py AAPL MSFT GOOGL             # Multi-stock portfolio analysis\n"
+              "  python main.py TSLA --quarters 8           # Multi-quarter analysis\n"
+              "  python main.py AAPL --model financial      # Force financial institution model\n"
+              "  python main.py --clear-cache               # Clear all API caches\n"
+              "  python main.py --cache-stats               # Show cache statistics\n"
+              "  python main.py --log-level DEBUG           # Set log level")
+
+# CLI description - single source of truth
+CLI_DESCRIPTION = "AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights"
+
+class HelpFormatterWithEmptyLine(argparse.RawDescriptionHelpFormatter):
+    """Custom formatter for consistent help formatting."""
+    
+    def format_help(self):
+        help_text = super().format_help()
+        return help_text
+
+class HelpAction(argparse._HelpAction):
+    """Custom help action that prints empty line before exit."""
+    
+    def __call__(self, parser, namespace, values, option_string=None):
+        parser.print_help()
+        print()  # Add empty line
+        parser.exit()
+
+def get_env_default(key: str, default_value, value_type=str):
+    """
+    Get environment variable with type conversion and fallback to default.
+    
+    Args:
+        key: Environment variable name
+        default_value: Default value if env var not found or invalid
+        value_type: Type to convert to (str, int, bool)
+    
+    Returns:
+        Converted value or default_value
+    """
+    try:
+        env_value = os.environ.get(key)
+        if env_value is None:
+            return default_value
+        
+        if value_type == bool:
+            return env_value.lower() in ('1', 'true', 'yes', 'on')
+        elif value_type == int:
+            return int(env_value)
+        else:
+            return str(env_value)
+    except (ValueError, TypeError):
+        return default_value
+
+
 def parse_args():
     """
     Parse command line arguments for the Altman Z-Score analysis CLI.
@@ -127,16 +172,17 @@ def parse_args():
     Returns:
         argparse.Namespace: Parsed command-line arguments including tickers, model, date range, and options.    """
     parser = argparse.ArgumentParser(
-        description="AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights",        
-        epilog="Examples:\n"
-               "  python main.py AAPL                          # Single stock analysis\n"
-               "  python main.py AAPL MSFT GOOGL               # Multi-stock portfolio analysis\n"
-               "  python main.py TSLA --date 2023-01-01        # Custom date range\n"
-               "  python main.py AAPL --model financial        # Force financial institution model\n"
-               "  python main.py --test                        # Run all tests\n"
-               "  python main.py --update-cache                # Update SEC company database\n"
-               "  python main.py --log-level DEBUG             # Set log level",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        description=CLI_DESCRIPTION,        
+        epilog=CLI_EPILOG,
+        formatter_class=HelpFormatterWithEmptyLine,
+        add_help=False  # Disable default help to use custom
+    )
+    
+    # Add custom help argument
+    parser.add_argument(
+        '-h', '--help',
+        action=HelpAction,
+        help='show this help message and exit'
     )
     parser.add_argument(
         "tickers",
@@ -146,6 +192,11 @@ def parse_args():
              "Each ticker generates comprehensive reports with Z-Score trends, "
              "LLM qualitative analysis, and executive/officer profiles."
     )
+    # Determine defaults based on environment configuration
+    fmp_enhanced = get_env_default('FMP_ENHANCED_MODE', False, bool)
+    default_quarters = get_env_default('DEFAULT_QUARTERS', 4 if not fmp_enhanced else 8, int)
+    default_batch_size = get_env_default('MAX_BATCH_SIZE', 10 if not fmp_enhanced else 25, int)
+    
     parser.add_argument(
         "--model",
         type=str,
@@ -154,75 +205,50 @@ def parse_args():
              "financial (banks), retail (retail sector), service (service sector), emerging (emerging markets)"
     )
     
-    def default_start_date():
-        """Calculate default analysis date.
-        Default to 3 years of data, but users can request more historical data if available.
-        """
-        today = datetime.date.today()
-        dt = today.replace(day=1) - relativedelta(months=36)  # Default to 3 years
-        return dt.strftime("%Y-%m-%d")
-    
     parser.add_argument(
-        "--date",
-        type=str,
-        default=default_start_date(),
-        help="Analysis date for historical data in YYYY-MM-DD format (default: 1st of the month 36 months before today). "
-             "Historical data availability varies by company, with many U.S. companies having 15+ years of data available."
+        "--quarters",
+        type=int,
+        default=default_quarters,
+        help=f"Number of quarters for historical Z-Score trend analysis (default: {default_quarters}). "
+             "Enhanced FMP accounts support extended historical data (up to 20+ quarters). "
+             "Provides quarter-over-quarter Z-Score trends and seasonality analysis."
     )
     parser.add_argument(
-        "--no-plot",        
+        "--enhanced-analysis",
         action="store_true",
-        help="Disable trend chart generation (default: False). "
-             "When enabled, saves processing time but skips visual trend analysis."
+        default=fmp_enhanced,
+        help=f"Enable enhanced analysis features for upgraded FMP accounts (default: {'enabled' if fmp_enhanced else 'disabled'} based on .env). "
+             "Includes: detailed quarterly trends, peer comparison data, "
+             "industry benchmarking, and comprehensive ratio decomposition."
     )
     parser.add_argument(
-        "--test",
-        action="store_true",
-        help="Run the test suite and exit. Ignores all other arguments."
+        "--batch-size",
+        type=int,
+        default=default_batch_size,
+        help=f"Batch size for concurrent processing (default: {default_batch_size} based on .env). "
+             "Upgraded accounts can process larger batches efficiently."
     )
     parser.add_argument(
         "--log-level",
         type=str,
-        default=os.environ.get("LOG_LEVEL", "ERROR"),
-        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default: ERROR or $LOG_LEVEL env var."    )
+        default=get_env_default("LOG_LEVEL", "ERROR"),
+        help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). "
+             f"Default: {get_env_default('LOG_LEVEL', 'ERROR')} (from .env or ERROR)."
+    )
     parser.add_argument(
-        "--update-cache",
+        "--clear-cache",
         action="store_true",
-        help="Download and update the SEC company tickers cache, then exit. "
-             "This improves CIK lookup performance and reliability."
+        help="Clear all cached API responses (FMP financial data + Yahoo Finance market data), then exit. "
+             "Forces fresh data retrieval on next analysis run."
+    )
+    parser.add_argument(
+        "--cache-stats",
+        action="store_true",
+        help="Display cache statistics (size, entries, hit rates) and exit. "
+             "Shows details for both FMP financial data and Yahoo Finance market data caches."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
-
-
-def format_zscore_results(df):
-    """
-    Format Z-Score results DataFrame for human-readable reporting.
-
-    Args:
-        df (pandas.DataFrame): DataFrame with 'period_end' and 'zscore' columns.
-
-    Returns:
-        list[str]: List of formatted strings summarizing Z-Score and risk zone by period.
-    """
-    result_df = df[['period_end', 'zscore']].copy()
-    result_df.columns = ['Period', 'Z-Score']
-    result_df = result_df.sort_values('Period', ascending=False)
-    formatted_results = []
-    for _, row in result_df.iterrows():
-        period = row['Period']
-        z_score = row['Z-Score']
-        if pd.isna(z_score):
-            score_str = "N/A"
-        else:
-            if z_score < 1.8:
-                score_str = f"{z_score:.2f} (Distress)"
-            elif z_score < 3.0:
-                score_str = f"{z_score:.2f} (Grey)"
-            else:
-                score_str = f"{z_score:.2f} (Safe)"
-        formatted_results.append(f"{period}: {score_str}")
-    return formatted_results
 
 
 # Pipeline steps are now defined above in the module
@@ -245,7 +271,7 @@ def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
         # Safely compute filled length
         progress = (step_idx + 1) / total_steps if total_steps > 0 else 0
         filled_length = int(bar_length * progress)
-        bar = '■' * filled_length + '□' * (bar_length - filled_length)
+        bar = '#' * filled_length + '-' * (bar_length - filled_length)
         step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
         # Header message
         if step_name == "Z-Score Computation" and model_name:
@@ -255,7 +281,7 @@ def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
         # Compose and print
         current_msg = f"{header}: |{bar}| {step_idx + 1}/{total_steps} {step_name}"
         max_length = max(
-            len(f"[{ticker}] Analysis Pipeline: |{'■' * bar_length}| {i+1}/{total_steps} {step}")
+            len(f"[{ticker}] Analysis Pipeline: |{'#' * bar_length}| {i+1}/{total_steps} {step}")
             for i, step in enumerate(PIPELINE_STEPS)
         ) + 1
         print(f"\r{' ' * max_length}\r", end='', flush=True)
@@ -265,6 +291,190 @@ def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
     except Exception:
         # Safely ignore any progress display errors
         pass
+
+def show_cache_stats():
+    """
+    Display comprehensive cache statistics for all cached data sources.
+    
+    Shows statistics for:
+    - FMP financial data cache
+    - Yahoo Finance market data cache
+    - Overall cache performance metrics
+    """
+    try:
+        import shutil
+        from pathlib import Path
+        import json
+        from datetime import datetime as dt
+        
+        print("CACHE STATISTICS REPORT")
+        print("=" * 60)
+        
+        # Define cache directory
+        cache_dir = Path(".cache")
+        
+        if not cache_dir.exists():
+            print("[ERROR] No cache directory found")
+            print("   Run an analysis first to populate the cache.")
+            return
+        
+        # Overall cache statistics
+        total_files = 0
+        total_size = 0
+        cache_sources = {}
+        
+        # Scan cache directories
+        for source_dir in cache_dir.iterdir():
+            if source_dir.is_dir():
+                source_name = source_dir.name.upper()
+                source_files = 0
+                source_size = 0
+                source_entries = []
+                
+                # Count files and calculate size
+                for cache_file in source_dir.rglob("*"):
+                    if cache_file.is_file():
+                        file_size = cache_file.stat().st_size
+                        source_files += 1
+                        source_size += file_size
+                        total_files += 1
+                        total_size += file_size
+                        
+                        # Try to get metadata for this cache entry
+                        if cache_file.suffix == '.json' and not cache_file.name.endswith('.meta'):
+                            try:
+                                modified_time = dt.fromtimestamp(cache_file.stat().st_mtime)
+                                
+                                # Try to extract ticker from corresponding .meta file
+                                ticker_info = "Unknown"
+                                meta_file = cache_file.with_suffix('.json.meta')
+                                if meta_file.exists():
+                                    try:
+                                        with open(meta_file, 'r') as f:
+                                            meta_data = json.load(f)
+                                            cache_key = meta_data.get('key', '')
+                                            # Extract ticker from key formats like "fmp_income:AAPL:annual" or "yahoo_summary:AAPL"
+                                            if ':' in cache_key:
+                                                parts = cache_key.split(':')
+                                                if len(parts) >= 2:
+                                                    ticker_info = parts[1]  # Second part should be ticker
+                                            elif cache_key:
+                                                ticker_info = cache_key
+                                    except Exception:
+                                        pass
+                                
+                                source_entries.append({
+                                    'file': cache_file.name,
+                                    'ticker': ticker_info,
+                                    'size': file_size,
+                                    'modified': modified_time
+                                })
+                            except Exception:
+                                pass
+                
+                cache_sources[source_name] = {
+                    'files': source_files,
+                    'size': source_size,
+                    'entries': source_entries
+                }
+        
+        # Display overall statistics
+        print(f"Cache Directory: {cache_dir.absolute()}")
+        print(f"Total Files: {total_files:,}")
+        print(f"Total Size: {_format_bytes(total_size)}")
+        print()
+        
+        # Display per-source statistics
+        for source_name, stats in cache_sources.items():
+            print(f"[{source_name}] Cache")
+            print(f"   Files: {stats['files']:,}")
+            print(f"   Size: {_format_bytes(stats['size'])}")
+            
+            if stats['entries']:
+                # Group entries by ticker for better organization
+                ticker_groups = {}
+                for entry in stats['entries']:
+                    ticker = entry.get('ticker', 'Unknown')
+                    if ticker not in ticker_groups:
+                        ticker_groups[ticker] = []
+                    ticker_groups[ticker].append(entry)
+                
+                print(f"   Cached Tickers: {', '.join(sorted(ticker_groups.keys()))}")
+                
+                # Show most recent entries
+                recent_entries = sorted(stats['entries'], key=lambda x: x['modified'], reverse=True)[:5]
+                print(f"   Recent Entries:")
+                for entry in recent_entries:
+                    age_str = _format_time_ago(entry['modified'])
+                    ticker_display = entry.get('ticker', 'Unknown')
+                    cache_type = ""
+                    if source_name == "FMP":
+                        cache_type = " (Financial Data)"
+                    elif source_name == "YAHOO":
+                        cache_type = " (Market Data)"
+                    print(f"     - {ticker_display}{cache_type} ({_format_bytes(entry['size'])}, {age_str})")
+            print()
+        
+        # Cache effectiveness estimates
+        if total_files > 0:
+            print("Cache Effectiveness")
+            estimated_api_calls_saved = total_files // 2  # Rough estimate (JSON + meta files)
+            print(f"   Estimated API calls saved: ~{estimated_api_calls_saved:,}")
+            print(f"   Storage efficiency: {_format_bytes(total_size / total_files if total_files > 0 else 0)} per entry")
+            
+            # Time-based analysis
+            if any(stats['entries'] for stats in cache_sources.values()):
+                all_entries = []
+                for stats in cache_sources.values():
+                    all_entries.extend(stats['entries'])
+                
+                if all_entries:
+                    oldest = min(entry['modified'] for entry in all_entries)
+                    newest = max(entry['modified'] for entry in all_entries)
+                    print(f"   Cache age range: {_format_time_ago(oldest)} to {_format_time_ago(newest)}")
+        
+        print("=" * 60)
+        print("TIPS:")
+        print("   - Use --clear-cache to remove all cached data")
+        print("   - Cache files expire automatically after 48 hours")
+        print("   - Large cache = fewer API calls = faster analysis")
+        
+    except Exception as e:
+        print(f"[ERROR] Error retrieving cache statistics: {e}")
+        print("   This may indicate cache corruption or permission issues.")
+
+def _format_bytes(bytes_count: int) -> str:
+    """Format bytes into human-readable string."""
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if bytes_count < 1024.0:
+            return f"{bytes_count:.1f} {unit}"
+        bytes_count /= 1024.0
+    return f"{bytes_count:.1f} TB"
+
+
+def _format_time_ago(timestamp: datetime.datetime) -> str:
+    """Format timestamp as time ago string."""
+    try:
+        # Ensure we have a timezone-naive datetime for comparison
+        if timestamp.tzinfo is not None:
+            timestamp = timestamp.replace(tzinfo=None)
+        
+        now = datetime.datetime.now()
+        diff = now - timestamp
+        
+        if diff.days > 0:
+            return f"{diff.days} day{'s' if diff.days != 1 else ''} ago"
+        elif diff.seconds > 3600:
+            hours = diff.seconds // 3600
+            return f"{hours} hour{'s' if hours != 1 else ''} ago"
+        elif diff.seconds > 60:
+            minutes = diff.seconds // 60
+            return f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+        else:
+            return "just now"
+    except Exception as e:
+        return f"unknown ({e})"
+
 
 def main():
     """
@@ -276,27 +486,57 @@ def main():
     try:
         args = parse_args()
         
-        # Handle cache update command (disabled - cache functionality moved to new architecture)
-        if getattr(args, "update_cache", False):
-            print("Cache update functionality temporarily disabled during refactoring.")
-            print("The new FMP-based architecture uses 48-hour API caching automatically.")
+        # Handle cache update command
+        if getattr(args, "clear_cache", False):
+            print("Updating cache files...")
+            print("This operation clears all cached API responses to ensure fresh data.")
+            
+            try:
+                import shutil
+                from pathlib import Path
+                
+                # Define cache directory (matches the caching strategy used in fetchers)
+                cache_dir = Path(".cache")
+                
+                if cache_dir.exists():
+                    files_removed = 0
+                    # Count files recursively
+                    for item in cache_dir.rglob("*"):
+                        if item.is_file():
+                            files_removed += 1
+                    
+                    # Remove the entire cache directory
+                    shutil.rmtree(cache_dir)
+                    print(f"[SUCCESS] Cache updated: {files_removed} cached files removed")
+                else:
+                    print("[SUCCESS] Cache directory was already empty")
+                    
+                print("Next analysis will fetch fresh data from all APIs.")
+                print("Note: This includes FMP financial data and Yahoo Finance market data caches.")
+                
+            except Exception as e:
+                print(f"[ERROR] Cache update failed: {str(e)}")
+                print()  # Empty line before exit
+                sys.exit(1)
+                
+            print()  # Empty line before exit
             sys.exit(0)
 
-        # If no arguments except possibly --update-cache, show help and exit
-        if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "update_cache", False) and not getattr(args, "test", False)):
+        # Handle cache stats command
+        if getattr(args, "cache_stats", False):
+            show_cache_stats()
+            print()  # Empty line before exit
+            sys.exit(0)
+
+        # If no arguments except possibly --clear-cache or --cache-stats, show help and exit
+        if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "clear_cache", False) and not getattr(args, "cache_stats", False)):
             parser = argparse.ArgumentParser(
-                description="AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights",                
-                epilog="Examples:\n"
-                       "  python main.py AAPL                    # Single stock analysis\n"                       
-                       "  python main.py AAPL MSFT GOOGL         # Multi-stock portfolio analysis\n"
-                       "  python main.py TSLA --date 2023-01-01  # Custom date range\n"
-                       "  python main.py AAPL --no-plot          # Skip chart generation\n"
-                       "  python main.py --test                  # Run all tests\n"
-                       "  python main.py --update-cache          # Update SEC company database\n"
-                       "  python main.py --log-level DEBUG       # Set log level",
+                description=CLI_DESCRIPTION,                
+                epilog=CLI_EPILOG,
                 formatter_class=argparse.RawDescriptionHelpFormatter
             )
             parser.print_help()
+            print()  # Empty line before exit
             sys.exit(0)
 
         # Validate log level
@@ -304,58 +544,46 @@ def main():
         log_level = args.log_level.upper()
         if log_level not in valid_log_levels:
             logger.error(f"Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            print()  # Empty line before exit
             sys.exit(2)
         
         # Set logging level
         logging.getLogger().setLevel(getattr(logging, log_level, logging.WARNING))
         logger.info(f"Log level set to {log_level}")
 
+        # Show environment-based defaults if enhanced mode is detected
+        fmp_enhanced = get_env_default('FMP_ENHANCED_MODE', False, bool)
+        if fmp_enhanced:
+            logger.info("Enhanced FMP account detected - using enhanced defaults:")
+            logger.info(f"  - Default quarters: {args.quarters}")
+            logger.info(f"  - Enhanced analysis: {'enabled' if args.enhanced_analysis else 'disabled'}")
+            logger.info(f"  - Batch size: {args.batch_size}")
+        else:
+            logger.info("Free FMP account mode - using conservative defaults")
+
         # Validate date format
-        import re
-        from datetime import datetime
-        date_pattern = r"^\d{4}-\d{2}-\d{2}$"
-        if not re.match(date_pattern, args.date):
-            logger.error(f"Invalid --date: {args.date}. Must be in YYYY-MM-DD format.")
-            sys.exit(2)
-
-        # Validate date is not in the future
-        start_date = datetime.strptime(args.date, "%Y-%m-%d").date()
-        if start_date > datetime.now().date():
-            logger.error(f"Analysis date ({args.date}) cannot be in the future.")
-            sys.exit(2)
-
-        logger.info(f"Analysis date: {args.date}")
-
-        if getattr(args, "test", False):
-            import subprocess
-            logger.info("Running test suite with pytest...")
-            result = subprocess.run([sys.executable, "-m", "pytest"], check=False)
-            sys.exit(result.returncode)
-        
         ticker_list = [t.upper() for t in args.tickers]
-        no_plot = args.no_plot
         failed_tickers = []
         successful_tickers = []
 
         for ticker in ticker_list:
             try:
-                logger.info(f"\nProcessing {ticker}...")
+                logger.info(f"Processing {ticker}...")
                 start_time = time.time()
-
-                def progress_callback(step_idx, total_steps, model_name=None):
-                    show_progress_bar(ticker, step_idx, total_steps, model_name)
-                    time.sleep(0.1)
                 
-                # Use the new pipeline to generate CSV, JSON, chart, and reports
+                # Use the new pipeline to generate CSV, JSON, chart, and reports                
                 from altman_zscore.main_pipeline import AltmanZScorePipeline
                 pipeline = AltmanZScorePipeline()
                 output_files = asyncio.run(
                     pipeline.analyze_ticker(
                         ticker,
-                        generate_charts=not no_plot,
+                        generate_charts=True,  # Always generate charts and dashboards
                         generate_reports=True,
-                        include_ai_insights=False,
-                        start_date=args.date
+                        include_ai_insights=True,  # Enable AI-powered investment narratives
+                        forced_model=args.model,  # Pass model override if specified
+                        quarters=getattr(args, 'quarters', 4),  # Pass quarters argument
+                        enhanced_analysis=getattr(args, 'enhanced_analysis', False),  # Pass enhanced analysis flag
+                        batch_size=getattr(args, 'batch_size', 10)  # Pass batch size
                     )
                 )
                 # Log generated files
@@ -374,25 +602,55 @@ def main():
                 # Mark ticker as successfully analyzed after pipeline run
                 logger.info(f"Analysis completed in {elapsed:.2f} seconds for {ticker}")
                 successful_tickers.append(ticker)
-            except ValueError as ve:
-                logger.error(f"ERROR {ticker}: {str(ve)}")
-                failed_tickers.append((ticker, str(ve)))
+                
             except Exception as e:
-                logger.exception(f"ERROR {ticker}: Unexpected error - {str(e)}")
-                failed_tickers.append((ticker, f"Unexpected error: {str(e)}"))
+                # Handle all pipeline errors gracefully
+                error_message = str(e)
+                
+                # Provide user-friendly error messages for common issues
+                if "Invalid ticker symbol" in error_message and "not found in financial databases" in error_message:
+                    user_message = f"Invalid ticker symbol '{ticker}' - not found in financial databases"
+                elif "Data merger failed" in error_message:
+                    user_message = f"Unable to retrieve financial data for '{ticker}' - ticker may be invalid or delisted"
+                elif "Empty response from FMP API" in error_message:
+                    user_message = f"No financial data available for '{ticker}' - ticker may be invalid or not supported"
+                elif "API rate limit" in error_message.lower():
+                    user_message = f"API rate limit exceeded while processing '{ticker}' - please try again later"
+                elif "Network" in error_message or "Connection" in error_message:
+                    user_message = f"Network error while processing '{ticker}' - please check internet connection"
+                else:
+                    user_message = f"Analysis failed for '{ticker}': {error_message}"
+                
+                # Log the error once with a clean message
+                logger.error(f"{ticker}: {user_message}")
+                failed_tickers.append((ticker, user_message))
+                # Continue processing other tickers instead of stopping
 
         # Provide comprehensive summary        
         logger.info("ANALYSIS SUMMARY")
         logger.info(f"{'='*60}")
         if successful_tickers:
-            logger.info(f"✅ Successfully analyzed: {', '.join(successful_tickers)}")
+            logger.info(f"SUCCESS: Successfully analyzed: {', '.join(successful_tickers)}")
+            if failed_tickers:
+                logger.warning(f"WARNING: {len(failed_tickers)} ticker(s) failed:")
+                for ticker, error in failed_tickers:
+                    logger.warning(f"  - {ticker}: {error}")
+            print()  # Empty line before exit
             sys.exit(0)
         else:
-            logger.error(f"❌ Failed to analyze any tickers: {len(failed_tickers)} failure(s)")
+            logger.error(f"FAILED: No tickers were successfully analyzed ({len(failed_tickers)} failure(s)):")
+            for ticker, error in failed_tickers:
+                logger.error(f"  - {ticker}: {error}")
+            logger.info("\nTips:")
+            logger.info("  - Verify ticker symbols are correct (e.g., AAPL, MSFT, TSLA)")
+            logger.info("  - Check if companies are publicly traded")
+            logger.info("  - Ensure internet connection is stable")
+            print()  # Empty line before exit
             sys.exit(1)
 
     except Exception as e:
         logger.exception(f"Critical error in main: {str(e)}")
+        print()  # Empty line before exit
         sys.exit(2)
 
 if __name__ == '__main__':

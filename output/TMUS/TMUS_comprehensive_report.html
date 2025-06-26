@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - TMUS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>T-Mobile US, Inc. (TMUS)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="TMUS_logo.png" alt="T-Mobile US, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="TMUS_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="TMUS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.32</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$230.90</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$262.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>22.5</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>37.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.47%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>4.28%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-4.6%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-10.4%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>6.7%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.35</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.02</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-18.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0178</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.0761</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0224</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>1.708</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.3980</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0973</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>1.324</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: T-Mobile US, Inc. (TMUS)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>T-Mobile US (TMUS) currently exhibits signs of financial distress, as indicated by an Altman Z-Score of 1.32, placing the company in the "Distress" risk category. While the market valuation remains robust with a market capitalization of $262.2 billion and a moderate P/E ratio of 22.5, caution is warranted given the company’s weak fundamental health and sideways technical trend. Investors should adopt a cautious stance, maintaining a hold position while closely monitoring key financial and operational metrics.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, places TMUS firmly in the distress zone with a score of 1.32 (threshold for distress is generally below 1.8). This low score signals elevated financial vulnerability and potential liquidity challenges ahead. Breaking down the components:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.018):</strong> Near zero, indicating minimal short-term liquidity cushion to cover current liabilities.</li>
+<li><strong>Retained Earnings Ratio (0.076):</strong> Low retained earnings relative to total assets, suggesting limited internal capital accumulation.</li>
+<li><strong>EBIT Ratio (0.022):</strong> Operating earnings are thin relative to assets, reflecting constrained profitability.</li>
+<li><strong>Market Equity Ratio (1.708):</strong> Market capitalization significantly exceeds book equity, indicating strong market confidence despite fundamental weaknesses.</li>
+<li><strong>Book Equity Ratio (0.398):</strong> Book equity is less than 40% of total assets, highlighting a leveraged balance sheet.</li>
+<li><strong>Asset Turnover (0.097):</strong> Low asset efficiency, implying the company generates limited revenue per dollar of assets.</li>
+</ul>
+<p>The company’s total assets stand at approximately $214.6 billion against liabilities of $153.5 billion, resulting in a high leverage profile. The minimal working capital and low profitability ratios underscore the risk of financial distress, potentially limiting TMUS’s flexibility to invest or weather economic downturns.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Despite fundamental concerns, TMUS maintains a strong market presence with a substantial market cap of $262.2 billion and a current share price of $230.90. The P/E ratio of 22.5 suggests that the market is pricing in moderate growth expectations, which may reflect confidence in TMUS’s competitive positioning in the wireless telecommunications sector.</p>
+<p>However, technical indicators paint a more cautious picture. The Relative Strength Index (RSI) at 37.6 is approaching oversold territory, and the stock’s volatility at 20% indicates significant price fluctuations. The technical trend is sideways, signaling a lack of clear directional momentum. This combination suggests investor uncertainty and potential vulnerability to negative catalysts.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the distress-level Z-Score and mixed market signals, the prudent investment stance is to <strong>hold</strong> TMUS shares with a moderate confidence level of 60%. The company’s strong market capitalization and brand presence provide some buffer, but the fundamental risks cannot be ignored.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li>The low Z-Score warns of potential liquidity or solvency issues, which could lead to credit rating downgrades or increased borrowing costs.</li>
+<li>The market’s relatively optimistic valuation may be vulnerable to a re-rating if earnings disappoint or if operational challenges intensify.</li>
+<li>Sideways price action and moderate volatility suggest limited upside in the near term, with downside risk if fundamentals deteriorate further.</li>
+</ul>
+<p>Investors should consider maintaining exposure only if they have a higher risk tolerance and a long-term horizon, anticipating potential operational improvements or strategic initiatives that could stabilize fundamentals.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ol>
+<li><strong>Liquidity and Solvency Metrics:</strong> Watch for changes in working capital, retained earnings, and EBIT margins. Any further deterioration could signal escalating distress.</li>
+<li><strong>Leverage and Debt Servicing:</strong> Monitor total liabilities and interest coverage ratios. Rising debt levels or refinancing difficulties would heighten financial risk.</li>
+<li><strong>Operational Performance:</strong> Track revenue growth and asset turnover improvements. Failure to enhance operational efficiency may exacerbate financial strain.</li>
+<li><strong>Market Sentiment and Technical Indicators:</strong> RSI dropping below 30 or increased volatility could presage sharper price declines.</li>
+<li><strong>Macroeconomic and Industry Factors:</strong> Regulatory changes, competitive pressures, or shifts in consumer demand could impact TMUS’s market position and profitability.</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>T-Mobile US presents a complex investment profile characterized by fundamental financial distress juxtaposed against a strong market valuation and brand presence. The Altman Z-Score signals urgent caution, underscoring the need for vigilant monitoring of liquidity and profitability metrics. While the current recommendation is to hold, investors should be prepared to reassess their position promptly should financial or market conditions worsen. Maintaining a disciplined, data-driven approach will be critical to navigating the risks inherent in TMUS’s current financial landscape.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:33 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

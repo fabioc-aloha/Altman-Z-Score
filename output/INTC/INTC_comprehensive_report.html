@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - INTC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Intel Corporation (INTC)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="INTC_logo.png" alt="Intel Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="sell">Strong Sell</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="INTC_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="INTC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.15</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$22.20</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$96.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>22.9</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>62.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.55%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>6.73%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>10.7%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-8.3%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>16.5%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.77</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.23</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-47.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>7.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0518</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.2514</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>-0.0016</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>1.128</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>1.162</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0659</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>1.152</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Intel Corporation (INTC)</strong><br />
+<em>Analysis Date: March 29, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Intel Corporation (INTC) currently exhibits significant financial distress as indicated by an Altman Z-Score of 1.15, placing it firmly in the distress risk category. Coupled with a volatile market environment and a technical trend that remains sideways, the investment outlook is decidedly cautious. Given these factors, a strong sell recommendation is warranted, with investors urged to closely monitor fundamental and market signals before considering exposure.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, places Intel at 1.15, well below the safe threshold of 1.8 and deep into the distress zone. This low score signals a heightened probability of financial instability or potential insolvency risks in the near to medium term. Breaking down the components:</p>
+<ul>
+<li>
+<p><strong>Working Capital Ratio (0.052):</strong> Extremely low, indicating limited short-term liquidity to cover current liabilities. This tight liquidity position raises concerns about Intel’s ability to meet immediate financial obligations without resorting to asset sales or additional debt.</p>
+</li>
+<li>
+<p><strong>Retained Earnings Ratio (0.251):</strong> Moderately positive, reflecting some accumulated profits retained in the business. However, this is insufficient to offset other weaknesses.</p>
+</li>
+<li>
+<p><strong>EBIT Ratio (-0.002):</strong> Negative earnings before interest and taxes highlight operational challenges and potential profitability issues. This is a critical red flag, suggesting Intel is currently struggling to generate core earnings.</p>
+</li>
+<li>
+<p><strong>Market Equity Ratio (1.128) and Book Equity Ratio (1.162):</strong> These ratios suggest that market and book values of equity are roughly aligned, but do not compensate for the weak operational and liquidity metrics.</p>
+</li>
+<li>
+<p><strong>Asset Turnover (0.066):</strong> Very low, indicating Intel is not efficiently utilizing its asset base to generate revenue, which may reflect operational inefficiencies or declining demand.</p>
+</li>
+</ul>
+<p>The total assets stand at approximately $192 billion against liabilities of $85.8 billion, showing a leverage ratio that, while not extreme, is concerning given the weak earnings and liquidity profile. The data quality is flagged at 1.0%, which suggests caution in over-reliance on these figures, but the overall distress signal remains clear.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Intel’s current market capitalization is approximately $96.8 billion, with a share price of $22.20. The price-to-earnings (P/E) ratio stands at 22.9, which is moderate but may be misleading given the negative EBIT and operational challenges. The market appears to price in some recovery potential but remains cautious.</p>
+<p>Volatility is extremely high at 100%, indicating significant price fluctuations and investor uncertainty. The Relative Strength Index (RSI) at 62.1 suggests the stock is neither oversold nor overbought, consistent with the sideways technical trend observed. This lack of clear directional momentum further complicates the investment thesis.</p>
+<p>The combination of a distressed fundamental profile and a volatile, indecisive market environment suggests that Intel is currently a high-risk investment. The market’s sideways trend reflects uncertainty about the company’s near-term prospects and the broader semiconductor industry dynamics.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the fundamental distress signals and the volatile market conditions, the investment recommendation is a <strong>strong sell</strong> with a confidence level of 70%. Investors should consider the following actionable points:</p>
+<ul>
+<li><strong>Avoid initiating new long positions</strong> until there is clear evidence of operational turnaround and improved liquidity.</li>
+<li><strong>Existing shareholders should evaluate risk tolerance carefully</strong> and consider reducing exposure to mitigate potential downside.</li>
+<li><strong>Watch for improvements in EBIT and working capital</strong> as early indicators of financial stabilization.</li>
+<li><strong>Monitor market volatility and technical trends</strong> for signs of a breakout from the current sideways pattern, which could signal a shift in investor sentiment.</li>
+<li><strong>Stay alert to industry developments</strong>, including competitive pressures, supply chain issues, and technological innovation, which could materially impact Intel’s recovery trajectory.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ul>
+<li><strong>Liquidity Constraints:</strong> The extremely low working capital ratio suggests Intel may face short-term cash flow challenges. Watch quarterly cash flow statements and liquidity ratios closely.</li>
+<li><strong>Operational Profitability:</strong> Negative EBIT is a critical concern. Improvement here is essential for any sustainable recovery.</li>
+<li><strong>Market Volatility:</strong> High volatility increases risk and may lead to sharp price declines. Investors should be prepared for potential rapid changes in valuation.</li>
+<li><strong>Industry Competition:</strong> Intel faces intense competition from rivals advancing in semiconductor technology. Market share erosion could exacerbate financial distress.</li>
+<li><strong>Macroeconomic Factors:</strong> Global economic conditions, including interest rates and supply chain disruptions, could further pressure Intel’s financial health.</li>
+<li><strong>Data Quality Caveat:</strong> The low data quality (1.0%) flags potential inaccuracies or incomplete information, necessitating cautious interpretation and corroboration with updated financial disclosures.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Intel’s current financial and market profile signals a precarious position with elevated risk of distress. The Altman Z-Score and component analysis reveal fundamental weaknesses that are not yet fully discounted by the market, which remains volatile and directionless. Investors are advised to adopt a defensive stance, prioritizing capital preservation and closely monitoring key financial and market indicators before considering any engagement with INTC shares.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:59 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

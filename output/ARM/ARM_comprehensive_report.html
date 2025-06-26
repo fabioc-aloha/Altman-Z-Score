@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - ARM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Arm Holdings plc American Depositary Shares (ARM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="ARM_logo.png" alt="Arm Holdings plc American Depositary Shares Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="ARM_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="ARM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">49.14</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$157.31</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$166.6B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>209.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>83.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-5.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.58%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>8.70%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>23.7%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>26.6%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>19.1%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>2.42</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.21</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-54.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.4367</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.3967</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0459</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>79.61</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>3.268</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1389</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>49.14</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p>Executive Summary<br />
+ARM Holdings plc (“ARM”) demonstrates exceptional financial resilience with an Altman Z-Score of 49.14, placing the company firmly in the “Safe” category for bankruptcy risk. Coupled with its strong market position in semiconductor design and a premium P/E ratio of 209.7, ARM remains a core holding for growth-oriented portfolios. Our recommendation is to hold at current levels, while monitoring valuation and technology leadership developments.</p>
+<ol>
+<li>
+<p>Fundamental Health Assessment<br />
+• Altman Z-Score Insight: ARM’s Z-Score of 49.14 far exceeds the traditional safe threshold of 3.0. This extraordinary result is driven by robust retained earnings (39.7% of total assets) and a significant market equity component (79.6%), underscoring the strength of ARM’s balance sheet and investor confidence in future earnings.<br />
+• Liquidity &amp; Leverage: The working capital ratio of 0.437 indicates prudent short-term liquidity management. Total assets stand at $8.93 billion against liabilities of $2.09 billion, resulting in a conservative leverage profile that reduces financial distress risk.<br />
+• Profitability &amp; Efficiency: While ARM’s ebit-to-assets ratio is moderate at 4.6%, the firm’s strategy of licensing high-margin IP supports consistent cash generation. Asset turnover of 0.139 reflects the capital-light nature of its business model, where intellectual property yields outsized returns on invested capital.<br />
+• Equity Composition: A book equity ratio of 3.27% reflects the high intangible content typical of a technology licensor. Combined with market equity representing nearly 80% of total assets, ARM leverages shareholder expectations and brand strength to underpin its valuation.</p>
+</li>
+<li>
+<p>Market Position &amp; Valuation<br />
+• Industry Leadership: ARM holds a dominant share of the global CPU architecture licensing market, supplying chips to mobile device manufacturers, automotive platforms, and emerging IoT applications. Its ongoing transition into server and data-center segments positions the company for accelerated growth as cloud computing and AI workloads expand.<br />
+• P/E Ratio &amp; Growth Expectations: At a P/E of 209.7, the market is pricing in robust future revenue growth and margin expansion. This premium valuation underscores confidence in ARM’s technology roadmap, including RISC-V collaborations and enhanced CPU/GPU designs. Investors should be comfortable with high growth multiples in exchange for exposure to market-leading IP.<br />
+• Technical Indicators: With a Relative Strength Index (RSI) of 83.1, ARM’s stock is in overbought territory, suggesting limited upside in the very short term. Volatility at 100% and a sideways technical trend point to potential consolidation in the $150–$165 range before a decisive breakout.<br />
+• Market Cap &amp; Liquidity: A market capitalization of $166.6 billion ensures deep liquidity and efficient trading. Institutional ownership remains high, reflecting broad conviction among asset managers.</p>
+</li>
+<li>
+<p>Investment Outlook &amp; Recommendations<br />
+• Hold Rating (60% Confidence): Given the entrenched market leadership and fortress balance sheet, ARM is a compelling long-term growth asset. However, near-term technical signals and elevated valuation metrics warrant a Hold recommendation rather than an immediate Buy.<br />
+• Entry &amp; Accumulation Strategy: Investors seeking to establish or add to positions should consider dollar-cost averaging on pullbacks below $150. A sustained move under $145 after earnings could signal an attractive re-entry point. Conversely, a breakout above $165 on strong revenue guidance may justify incremental purchases.<br />
+• Long-Term Growth Drivers:<br />
+  – Expansion into data center and 5G infrastructure licenses.<br />
+  – Licensing partnerships around RISC-V and custom IP solutions.<br />
+  – Recurring royalty streams as semiconductor content per device continues to rise.<br />
+• Dividend &amp; Capital Allocation: ARM does not currently pay dividends, preferring to reinvest in R&amp;D and strategic M&amp;A. Investors should monitor any shifts toward shareholder returns, which could provide an additional yield component.</p>
+</li>
+<li>
+<p>Key Risks &amp; Monitoring Points<br />
+• Valuation Risk: The P/E of 209.7 is among the highest in the semiconductor sector and could compress if growth expectations are unmet. A significant miss in quarterly revenue or guidance could trigger multiple contraction.<br />
+• Competitive Dynamics: Advances from x86 incumbents (Intel, AMD) or open-source architectures (RISC-V) may erode ARM’s licensing moat over time.<br />
+• Macro &amp; Geopolitical Factors: Trade tensions, export controls, or a slowdown in end-market demand (smartphones, IoT devices) could impact royalty streams.<br />
+• Technical Breakdown: Watch for a drop below the $145–$150 support zone on elevated volume, which may signal a short-term trend reversal.<br />
+• Regulatory Environment: Any antitrust actions or licensing disputes in key markets (China, EU) should be monitored for potential impact on royalty collection.</p>
+</li>
+</ol>
+<p>Actionable Summary<br />
+ARM’s financial strength, reflected in a Z-Score of 49.14, supports its “Safe” risk designation and underpins confidence in continued license and royalty growth. While the premium valuation calls for patience, targeted accumulation on technical dips offers a path to enhanced returns. Investors should maintain a Hold stance, with clear buy triggers below $150 and build-on strength signals above $165, while closely monitoring competitive, geopolitical, and execution risks.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 08:09 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

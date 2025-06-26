@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - MDB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>MongoDB, Inc. (MDB)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">April 30, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="MDB_logo.png" alt="MongoDB, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="MDB_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="MDB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">17.33</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$206.76</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$16.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>63.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>55.3</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.19%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>0.56%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>11.3%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>4.1%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-15.6%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.63</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.00</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-58.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.6808</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>-0.5182</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>-0.0148</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>28.56</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>5.128</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1515</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>17.33</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: MongoDB, Inc. (Ticker: MDB)</strong><br />
+<em>Analysis Date: April 30, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>MongoDB, Inc. (MDB) presents a compelling investment opportunity characterized by robust financial health and a strong market presence. With an exceptionally high Altman Z-Score of 17.33, the company is firmly in the "Safe" risk category, indicating minimal bankruptcy risk and solid balance sheet fundamentals. Despite a relatively high valuation reflected in a P/E ratio of 63.8 and notable stock volatility, the current market positioning and growth prospects support a cautiously optimistic "buy" recommendation with a 60% confidence level.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score of 17.33 for MDB is a standout indicator of financial stability and resilience. This score far exceeds the traditional threshold of 3.0 that separates financially distressed companies from those considered safe, underscoring MDB’s strong solvency and low bankruptcy risk. Key drivers of this exceptional score include:</p>
+<ul>
+<li><strong>Market Equity Ratio (28.565):</strong> This extremely high ratio reflects a substantial market capitalization relative to total liabilities, signaling strong investor confidence and equity cushion.</li>
+<li><strong>Book Equity Ratio (5.128):</strong> Indicates solid book value backing the company’s assets.</li>
+<li><strong>Working Capital Ratio (0.681):</strong> Positive working capital suggests adequate short-term liquidity to meet operational needs.</li>
+</ul>
+<p>However, some components warrant attention:<br />
+- <strong>Retained Earnings Ratio (-0.518):</strong> A negative figure here may reflect recent reinvestments or losses, which is not uncommon in high-growth tech companies prioritizing expansion over immediate profitability.<br />
+- <strong>EBIT Ratio (-0.015):</strong> Slightly negative EBIT ratio suggests the company is currently operating at a marginal operating loss, likely due to aggressive investment in growth initiatives such as R&amp;D and market expansion.</p>
+<p>Overall, the Altman Z-Score’s strength outweighs these concerns, indicating that MDB’s financial structure is robust enough to support its growth trajectory without undue risk.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>MongoDB’s market capitalization stands at approximately $16.9 billion, with a current share price of $206.76. The company’s P/E ratio of 63.8 is elevated, reflecting high investor expectations for future earnings growth. This premium valuation is typical for innovative technology firms in the database and cloud computing space, where growth potential often justifies higher multiples.</p>
+<p>The stock exhibits significant volatility (100%), which is consistent with the tech sector’s dynamic nature and MDB’s growth-oriented profile. The Relative Strength Index (RSI) at 55.3 indicates a neutral momentum, while the technical trend is currently sideways, suggesting a period of consolidation as the market digests recent performance and awaits new catalysts.</p>
+<p>MDB’s asset turnover ratio of 0.151 is modest, reflecting the capital-intensive nature of its business model and ongoing investments in infrastructure and product development. This metric should improve as the company scales and leverages its platform more efficiently.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the combination of a very strong Altman Z-Score and a high-growth market profile, MongoDB is well-positioned for continued expansion. The company’s financial safety net allows it to invest aggressively in innovation and market penetration without compromising solvency. Investors seeking exposure to the cloud database sector should consider MDB as a core growth holding.</p>
+<p><strong>Investment Implications:</strong><br />
+- The "Safe" risk category per the Altman Z-Score reduces concerns about financial distress, making MDB a relatively lower-risk growth play in the tech space.<br />
+- The high P/E ratio and volatility suggest that investors should be prepared for price fluctuations and maintain a long-term perspective to capitalize on growth potential.<br />
+- The sideways technical trend indicates a potential accumulation phase; a breakout could signal renewed upward momentum.</p>
+<p><strong>Actionable Recommendations:</strong><br />
+- Initiate or add to positions on dips or consolidation phases to optimize entry points.<br />
+- Monitor quarterly earnings for signs of improving EBIT margins and positive retained earnings trends, which would validate the growth investments.<br />
+- Watch for developments in product innovation and market expansion, particularly in cloud services, which could drive future revenue acceleration.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While MDB’s fundamentals are strong, investors should remain vigilant regarding the following risks:  </p>
+<ul>
+<li><strong>Profitability Metrics:</strong> The current negative EBIT ratio and retained earnings warrant close monitoring. Sustained operating losses could pressure valuations if growth slows.  </li>
+<li><strong>Valuation Sensitivity:</strong> The elevated P/E ratio exposes the stock to downside risk if growth expectations are not met or if broader market sentiment shifts away from high-multiple tech stocks.  </li>
+<li><strong>Volatility:</strong> High stock price volatility may lead to short-term price swings, requiring disciplined risk management and a long-term investment horizon.  </li>
+<li><strong>Competitive Landscape:</strong> The cloud database market is highly competitive, with rapid technological changes. MDB must continue innovating to maintain its market share.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>MongoDB’s exceptional Altman Z-Score combined with its strong market capitalization and growth prospects make it an attractive investment for growth-oriented portfolios. While valuation and volatility present challenges, the company’s financial safety and strategic positioning support a positive outlook. Investors should consider MDB a "buy" with a focus on monitoring profitability improvements and market developments to optimize timing and risk management.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:23 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

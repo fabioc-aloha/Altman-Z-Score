@@ -2,275 +2,353 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 3.11.0 (2025-06-24) 🚀 Complete Investment Analysis Platform**
+**Version: 4.0.0 (2025-06-25) 🚀 Golden Release - Professional Investment Analysis Platform**
 
-A comprehensive investment analysis platform combining fundamental financial health assessment (Altman Z-Score) with advanced market intelligence. Features **technical analysis**, **valuation metrics**, **performance analysis**, and **actionable investment recommendations** powered by AI.
+Transform your investment decisions with **AI-powered financial health analysis**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis**.
 
-**Latest Update (June 24, 2025):** ✅ **MARKET ANALYSIS INTEGRATION COMPLETE** - Transformed from basic Z-Score calculator to comprehensive investment analysis platform. Now provides technical analysis (RSI, MACD, volatility), valuation analysis (P/E, P/B, PEG, sector comparison), performance analysis (returns, risk metrics), and clear investment recommendations with confidence levels and price targets.
+## 🚀 **NEW v4.0.0 GOLDEN RELEASE: PROFESSIONAL FEATURES**
+
+### ⚡ **Enhanced Multi-Quarter Analysis**
+- **📊 Extended Historical Data:** 4-20+ quarters of Z-Score trend analysis with seasonality detection
+- **🎯 Environment-Driven Configuration:** Smart CLI defaults based on your FMP account type and .env settings
+- **📈 Enhanced Chart Generation:** Risk zone colored markers, improved visualization, professional formatting
+- **🔄 Intelligent Batch Processing:** Optimized individual ticker processing with API rate limiting
+
+### 🎯 **Account-Optimized Experience**
+```bash
+# CLI automatically adapts to your account type
+python main.py AAPL                # Uses intelligent defaults from .env
+python main.py AAPL --quarters 8   # Extended analysis for paid accounts
+
+# Large portfolio analysis with enhanced batch script
+pwsh.exe -File run_batch_examples.ps1   # Interactive menu with 8 sector groups
+```
+
+### 🏢 **Professional Portfolio Analysis**
+- **🎯 8 Sector Groups:** 130+ companies across distressed, tech, consumer, industrial, energy, healthcare, mega-cap, and recent IPOs
+- **📊 Smart Processing:** Individual ticker processing to respect API limits and ensure reliability
+- **⏱️ Rate Limiting:** Intelligent delays between groups and tickers for optimal API usage
+- **📈 Comprehensive Coverage:** From distressed companies to mega-cap tech leaders
+
+**📖 See [QUICK_START_ENHANCED.md](QUICK_START_ENHANCED.md) for complete features guide**
 
 ---
 
-## 🎯 **Strategic Architecture: FMP-First Data Pipeline**
+## 🎯 **What You Get**
 
-### 🚀 **Production-Ready API Infrastructure**
-- **⚡ FMP Pre-Calculated Ratios:** All Z-Score metrics (Working Capital/Total Assets, EBIT/Total Assets, etc.) provided **calculation-ready** from Financial Modeling Prep
-- **🎯 Eliminates Field Mapping Complexity:** No need for SEC EDGAR XBRL parsing or complex field transformations
-- **📊 48-Hour Intelligent Caching:** All FMP and Yahoo Finance API calls cached for optimal performance
-- **🤖 Smart LLM Integration:** Azure OpenAI prompts/responses logged (not cached) for maximum insight variability
-- **🔧 Complete Environment Configuration:** All API keys and user agents properly configured
-- **🔒 Production Security:** Thread-safe operations with proper error handling
-- **� Performance Optimized:** ~95% faster response times with deterministic data pipeline
+### 💡 **Professional Investment Intelligence v4.0.0**
+- **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
+- **💡 Investment Recommendations:** Clear BUY/HOLD/SELL guidance with historical context and confidence scoring
+- **🤖 AI-Powered Insights:** Comprehensive reports integrating multi-quarter trends and market intelligence
+- **⚡ Production-Ready Performance:** Environment-driven configuration with intelligent caching and batch processing
 
-### 🏗️ **API-First Data Sources**
-- **Primary Financial Data:** FMP API with pre-calculated Z-Score ratios (eliminates field mapping)
-- **Market Data:** Yahoo Finance integration for real-time pricing and market cap
-- **AI Analysis:** Azure OpenAI for intelligent insights and commentary generation
-- **Rate Limiting:** Intelligent API call management to prevent throttling
-- **Cache Management:** Automatic 48-hour TTL with thread-safe file operations
-
-**Strategic Advantage:** With FMP providing calculation-ready financial ratios, the system focuses on data integration and quality assurance rather than complex field transformations.
+### 💡 **Smart Investment Decisions with Historical Context**
+- **🎯 Risk-Adjusted Recommendations:** Tailored advice with multi-quarter trend analysis for all investor profiles
+- **📱 Enhanced Interactive Dashboards:** Professional charts with risk zone markers and multi-quarter visualizations
+- **🔍 Trend Pattern Recognition:** AI identifies seasonal patterns, trends, and turning points in financial health
+- **📊 Intelligent Portfolio Optimization:** Analyze multiple stocks with account-optimized batch processing
 
 ---
 
-## Quick Start
+## 🚀 **Get Started in 60 Seconds**
 
-```sh
-# Analyze a single company
-python main.py MSFT
+```bash
+# Install and analyze your first stock
+pip install -r requirements.txt
+python main.py AAPL
 
-# Analyze with specific date
-python main.py AAPL --date 2024-01-01
+# Analyze multiple companies with enhanced batch processing
+pwsh.exe -File run_batch_examples.ps1    # Interactive menu for sector analysis
 
-# Multiple companies
-python main.py AAPL MSFT TSLA
-
-# Generate portfolio table
+# Generate comprehensive portfolio table
 python generate_readme_table.py
 ```
 
-## 🚀 Key Features
-
-- **🤖 Advanced AI Analysis:** 11-section comprehensive financial health reports with intelligent pattern recognition
-- **📊 AI-Generated Portfolio Table:** Immediate investment recommendations with AI-driven stakeholder insights
-- **🧠 Smart Cross-Data Analysis:** AI identifies hidden patterns across financial metrics and market data
-- **💡 AI-Enhanced Insights:** Intelligent detection of market sentiment and financial health indicators
-- **🛡️ Robust Data Validation:** Excludes non-standard company types (e.g., ETFs, BDCs) to ensure analysis is performed only on standard corporate structures.
-- **🔄 Robust Data Pipeline:** SEC EDGAR + Yahoo Finance integration with intelligent error handling
-- **🏢 135-Company AI Portfolio:** Real-world examples with comprehensive AI-generated recommendations
-
-## 📁 Output Structure
-
-All analysis saved to `output/<TICKER>/`:
-
-- **📋 Full Report:** `zscore_<TICKER>_zscore_full_report.md` (11-section AI analysis + strategic recommendations)
-- **📈 Trend Chart:** `zscore_<TICKER>_trend.png` (visual Z-Score analysis)
-- **💾 Data Files:** CSV/JSON with quarterly calculations and real analyst recommendations
+### 💡 **What You'll Receive**
+- **📋 Comprehensive Report:** 11-section AI analysis with strategic insights
+- **📈 Interactive Dashboard:** Professional charts and trend analysis
+- **💾 Data Export:** CSV/JSON files for your own analysis
+- **💡 Investment Recommendations:** Personalized for your risk profile
+- **🏢 Portfolio Analysis:** 8 sector groups with 130+ companies
 
 ---
 
-## 📊 Portfolio Analysis - 135 Companies
+## 📊 **Investment Portfolio - Major Companies**
 
-Comprehensive test portfolio demonstrating platform capabilities across diverse market segments and industries:
+**Analyze the companies that matter to your portfolio.** From blue-chip dividend stocks to high-growth tech darlings, get professional-grade analysis on the stocks you care about.
 
-### 🏭 Market Segments
+### 🏆 **Market Leaders Included**
+- **💎 Mega-Cap Tech:** AAPL, MSFT, GOOGL, AMZN, META, TSLA, NVDA
+- **🏛️ Warren Buffett Holdings:** AAPL, KO, PG, CVX
+- **📈 Growth Champions:** NVDA, TSLA, NFLX, CRM, ADBE, NOW
+- **💰 Dividend Aristocrats:** KO, PG, JNJ, CAT, MMM, VZ
+- **🚀 AI & Cloud Leaders:** NVDA, MSFT, GOOGL, SNOW, CRWD
+- **⚡ High-Growth SaaS:** SNOW, PLTR, CRWD, NOW, DDOG
 
-- **⚠️ Distressed/Cyclical (15):** T, UAL, AAL, AMC, GME, CCL, NCLH, GE, F, GM, X, FCX, BBY, M, SONO
-- **� High-Growth Tech & SaaS (20):** SNOW, PLTR, UBER, LYFT, DASH, ROKU, DOCU, ZM, DDOG, NET, CRWD, MDB, SHOP, SQ, AFRM, COIN, RBLX, U, TWLO, OKTA
-- **🛒 Consumer & Growth (20):** NFLX, DIS, SBUX, NKE, LULU, HD, LOW, TGT, COST, WMT, AMGN, GILD, MRNA, PFE, ABBV, TMO, DHR, CRM, ADBE, PYPL
-- **� Industrial & Infrastructure (20):** CAT, DE, MMM, HON, GD, LMT, RTX, BA, UPS, FDX, CSX, UNP, WM, RSG, EMR, ETN, PH, ITW, ROK, ADP
-- **⚡ Energy & Utilities (20):** XOM, CVX, COP, EOG, PXD, SLB, HAL, KMI, WMB, NEE, DUK, SO, D, EXC, AEP, PCG, ED, AWK, VZ, TMUS
-- **🥤 Consumer Staples & Healthcare (20):** KO, PEP, PG, UL, CL, KMB, GIS, K, HSY, MO, PM, JNJ, UNH, CVS, WBA, MCK, ABC, CAH, CI, HUM
-- **💎 Mega-Cap Tech Leaders (20):** AAPL, MSFT, GOOGL, GOOG, AMZN, META, TSLA, NVDA, AVGO, ORCL, INTC, AMD, QCOM, TXN, CSCO, IBM, INTU, NOW, PANW, AMAT
+### 🎯 **Investment Profiles Supported**
+Get tailored recommendations for your investment style:
 
-### ⭐ Notable Investor Favorites Included
+| Profile | Focus | Risk Level | Typical Holdings |
+|---------|-------|------------|------------------|
+| **📊 Conservative** | Capital preservation | Low | JNJ, PG, KO, VZ |
+| **💰 Dividend** | Income generation | Low-Medium | VZ, T, XOM, CVX |
+| **💎 Value** | Undervalued stocks | Medium | IBM, INTC, F, GM |
+| **📈 Growth** | Capital appreciation | Medium-High | NVDA, TSLA, AMZN |
+| **🚀 Aggressive** | Maximum returns | High | PLTR, SNOW, ROKU |
 
-**Warren Buffett Holdings:** AAPL, KO, PG, CVX  
-**Growth Darlings:** TSLA, NVDA, NFLX, CRM, ADBE, NOW  
-**Dividend Aristocrats:** KO, PG, JNJ, CAT, MMM, VZ  
-**ESG Leaders:** MSFT, AAPL, NEE, UNH, TMO  
-**Meme Stocks:** GME, AMC, TSLA, ROKU  
-**AI/Cloud Plays:** NVDA, MSFT, GOOGL, SNOW, CRWD
-
-### 🎯 Recommendation Framework
-
-**Investment Profiles:**
-- **CEO**: Strategic leadership focus 
-- **CFO**: Financial strategy focus 
-- **Conservative**: Capital Preservation 
-- **Dividend**: Income-focused  
-- **Value**: Value investing 
-- **Growth**: Capital Appreciation  
-- **Aggressive**: High-risk growth 
-- **Short-Seller**: Bearish positions  
-
-**Recommendation Indicators:**
-- **📈 BUY** • **⚖️ HOLD** • **📉 SELL**
-
-**CEO Action Categories:** 
-- 🚀 FOCUS INNOVATION 
-- 📢 COMMUNICATE GROWTH 
-- 🔧 RESTRUCTURE 
-- ⚡ EXECUTION FOCUS 
-- 🎯 STRATEGIC FOCUS  
-
-**CFO Action Categories:** 
-- 💰 OPTIMIZE & INVEST 
-- 💰 OPTIMIZE CAPITAL 
-- 📊 STRATEGIC INVEST 
-- 📊 MONITOR CAPITAL 
-- ⚖️ MAINTAIN STABILITY
-
----
-
-### 📋 How to Use This Table
-
-1. **🔍 Find Your Company**: Browse by ticker symbol or company name
-2. **📊 View Analysis**: Click "Report" for detailed 11-section AI analysis  
-3. **📈 See Trends**: Click chart thumbnail for full Z-Score trend visualization
-4. **🎯 Get Advice**: Review tailored recommendations for your investment profile
-5. **📱 Mobile Friendly**: Table scales for viewing on any device
-
-**💡 Pro Tip**: Use Ctrl+F to quickly find specific companies or sectors in your browser.
+### 💼 **For Investment Professionals**
+- **CEO Insights:** Strategic leadership recommendations
+- **CFO Analysis:** Financial strategy and capital allocation
+- **Risk Assessment:** Comprehensive financial health scoring
 
 ---
 
 <!-- BEGIN_TICKERS_TABLE -->
-
+| Company | Report | Dashboard | Investment Recommendation |
+|---------|--------|:---------:|---------------------------|
+| <div style="display: flex; align-items: center;"><img src="output/AAL/AAL_logo.png" alt="AAL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>American Airlines Group Inc.</span></div> | [Full Report](output/AAL/AAL_comprehensive_report.html) | <a href="output/AAL/AAL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -0.15 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AAPL/AAPL_logo.png" alt="AAPL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Apple Inc.</span></div> | [Full Report](output/AAPL/AAPL_comprehensive_report.html) | <a href="output/AAPL/AAPL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 7.25 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ABBV/ABBV_logo.png" alt="ABBV" width="40" style="margin-right:8px; border-radius:4px;"/> <span>AbbVie Inc.</span></div> | [Full Report](output/ABBV/ABBV_comprehensive_report.html) | <a href="output/ABBV/ABBV_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.47 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ABNB/ABNB_logo.png" alt="ABNB" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Airbnb, Inc.</span></div> | [Full Report](output/ABNB/ABNB_comprehensive_report.html) | <a href="output/ABNB/ABNB_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.85 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ADBE/ADBE_logo.png" alt="ADBE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Adobe Inc.</span></div> | [Full Report](output/ADBE/ADBE_comprehensive_report.html) | <a href="output/ADBE/ADBE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 8.48 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ADP/ADP_logo.png" alt="ADP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Automatic Data Processing, Inc.</span></div> | [Full Report](output/ADP/ADP_comprehensive_report.html) | <a href="output/ADP/ADP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.17 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AEP/AEP_logo.png" alt="AEP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>American Electric Power Company, Inc.</span></div> | [Full Report](output/AEP/AEP_comprehensive_report.html) | <a href="output/AEP/AEP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.61 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AFRM/AFRM_logo.png" alt="AFRM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Affirm Holdings, Inc.</span></div> | [Full Report](output/AFRM/AFRM_comprehensive_report.html) | <a href="output/AFRM/AFRM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.38 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AMAT/AMAT_logo.png" alt="AMAT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Applied Materials, Inc.</span></div> | [Full Report](output/AMAT/AMAT_comprehensive_report.html) | <a href="output/AMAT/AMAT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 9.03 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AMC/AMC_logo.png" alt="AMC" width="40" style="margin-right:8px; border-radius:4px;"/> <span>AMC Entertainment Holdings, Inc.</span></div> | [Full Report](output/AMC/AMC_comprehensive_report.html) | <a href="output/AMC/AMC_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -1.49 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AMD/AMD_logo.png" alt="AMD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Advanced Micro Devices, Inc.</span></div> | [Full Report](output/AMD/AMD_comprehensive_report.html) | <a href="output/AMD/AMD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 10.64 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AMGN/AMGN_logo.png" alt="AMGN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Amgen Inc.</span></div> | [Full Report](output/AMGN/AMGN_comprehensive_report.html) | <a href="output/AMGN/AMGN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.85 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AMZN/AMZN_logo.png" alt="AMZN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Amazon.com, Inc.</span></div> | [Full Report](output/AMZN/AMZN_comprehensive_report.html) | <a href="output/AMZN/AMZN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.77 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ARM/ARM_logo.png" alt="ARM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Arm Holdings plc American Depositary Shares</span></div> | [Full Report](output/ARM/ARM_comprehensive_report.html) | <a href="output/ARM/ARM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 49.14 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AVGO/AVGO_logo.png" alt="AVGO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Broadcom Inc.</span></div> | [Full Report](output/AVGO/AVGO_comprehensive_report.html) | <a href="output/AVGO/AVGO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 8.10 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/AWK/AWK_logo.png" alt="AWK" width="40" style="margin-right:8px; border-radius:4px;"/> <span>American Water Works Company, Inc.</span></div> | [Full Report](output/AWK/AWK_comprehensive_report.html) | <a href="output/AWK/AWK_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.85 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/BA/BA_logo.png" alt="BA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Boeing Company</span></div> | [Full Report](output/BA/BA_comprehensive_report.html) | <a href="output/BA/BA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.02 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/BBY/BBY_logo.png" alt="BBY" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Best Buy Co., Inc.</span></div> | [Full Report](output/BBY/BBY_comprehensive_report.html) | <a href="output/BBY/BBY_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.69 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/BMBL/BMBL_logo.png" alt="BMBL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Bumble Inc.</span></div> | [Full Report](output/BMBL/BMBL_comprehensive_report.html) | <a href="output/BMBL/BMBL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.37 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CAH/CAH_logo.png" alt="CAH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Cardinal Health, Inc.</span></div> | [Full Report](output/CAH/CAH_comprehensive_report.html) | <a href="output/CAH/CAH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.57 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CAT/CAT_logo.png" alt="CAT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Caterpillar Inc.</span></div> | [Full Report](output/CAT/CAT_comprehensive_report.html) | <a href="output/CAT/CAT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 2.99 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CCL/CCL_logo.png" alt="CCL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Carnival Corporation & plc</span></div> | [Full Report](output/CCL/CCL_comprehensive_report.html) | <a href="output/CCL/CCL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.54 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CL/CL_logo.png" alt="CL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Colgate-Palmolive Company</span></div> | [Full Report](output/CL/CL_comprehensive_report.html) | <a href="output/CL/CL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.34 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CMI/CMI_logo.png" alt="CMI" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Cummins Inc.</span></div> | [Full Report](output/CMI/CMI_comprehensive_report.html) | <a href="output/CMI/CMI_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.71 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/COIN/COIN_logo.png" alt="COIN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Coinbase Global, Inc.</span></div> | [Full Report](output/COIN/COIN_comprehensive_report.html) | <a href="output/COIN/COIN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.93 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/COP/COP_logo.png" alt="COP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>ConocoPhillips</span></div> | [Full Report](output/COP/COP_comprehensive_report.html) | <a href="output/COP/COP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.29 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/COST/COST_logo.png" alt="COST" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Costco Wholesale Corporation</span></div> | [Full Report](output/COST/COST_comprehensive_report.html) | <a href="output/COST/COST_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 6.77 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CRM/CRM_logo.png" alt="CRM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Salesforce, Inc.</span></div> | [Full Report](output/CRM/CRM_comprehensive_report.html) | <a href="output/CRM/CRM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.48 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CRWD/CRWD_logo.png" alt="CRWD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>CrowdStrike Holdings, Inc.</span></div> | [Full Report](output/CRWD/CRWD_comprehensive_report.html) | <a href="output/CRWD/CRWD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 14.40 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CSCO/CSCO_logo.png" alt="CSCO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Cisco Systems, Inc.</span></div> | [Full Report](output/CSCO/CSCO_comprehensive_report.html) | <a href="output/CSCO/CSCO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.39 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CSX/CSX_logo.png" alt="CSX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>CSX Corporation</span></div> | [Full Report](output/CSX/CSX_comprehensive_report.html) | <a href="output/CSX/CSX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.64 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CVS/CVS_logo.png" alt="CVS" width="40" style="margin-right:8px; border-radius:4px;"/> <span>CVS Health Corporation</span></div> | [Full Report](output/CVS/CVS_comprehensive_report.html) | <a href="output/CVS/CVS_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.97 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/CVX/CVX_logo.png" alt="CVX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Chevron Corporation</span></div> | [Full Report](output/CVX/CVX_comprehensive_report.html) | <a href="output/CVX/CVX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.70 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/D/D_logo.png" alt="D" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Dominion Energy, Inc.</span></div> | [Full Report](output/D/D_comprehensive_report.html) | <a href="output/D/D_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.46 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DAL/DAL_logo.png" alt="DAL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Delta Air Lines, Inc.</span></div> | [Full Report](output/DAL/DAL_comprehensive_report.html) | <a href="output/DAL/DAL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.39 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DASH/DASH_logo.png" alt="DASH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>DoorDash, Inc.</span></div> | [Full Report](output/DASH/DASH_comprehensive_report.html) | <a href="output/DASH/DASH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 11.46 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DDOG/DDOG_logo.png" alt="DDOG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Datadog, Inc.</span></div> | [Full Report](output/DDOG/DDOG_comprehensive_report.html) | <a href="output/DDOG/DDOG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 9.50 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DE/DE_logo.png" alt="DE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Deere & Company</span></div> | [Full Report](output/DE/DE_comprehensive_report.html) | <a href="output/DE/DE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.44 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DHR/DHR_logo.png" alt="DHR" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Danaher Corporation</span></div> | [Full Report](output/DHR/DHR_comprehensive_report.html) | <a href="output/DHR/DHR_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.02 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DIS/DIS_logo.png" alt="DIS" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Walt Disney Company</span></div> | [Full Report](output/DIS/DIS_comprehensive_report.html) | <a href="output/DIS/DIS_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 1.97 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DOCU/DOCU_logo.png" alt="DOCU" width="40" style="margin-right:8px; border-radius:4px;"/> <span>DocuSign, Inc.</span></div> | [Full Report](output/DOCU/DOCU_comprehensive_report.html) | <a href="output/DOCU/DOCU_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.34 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/DUK/DUK_logo.png" alt="DUK" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Duke Energy Corporation</span></div> | [Full Report](output/DUK/DUK_comprehensive_report.html) | <a href="output/DUK/DUK_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.49 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><div style="width:40px;height:40px;background:#2c3e50;color:white;display:flex;align-items:center;justify-content:center;margin-right:8px;font-weight:bold;border-radius:4px;">ED</div> <span>Consolidated Edison, Inc.</span></div> | [Full Report](output/ED/ED_comprehensive_report.html) | <a href="output/ED/ED_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.88 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/EMR/EMR_logo.png" alt="EMR" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Emerson Electric Co.</span></div> | [Full Report](output/EMR/EMR_comprehensive_report.html) | <a href="output/EMR/EMR_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.37 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/EOG/EOG_logo.png" alt="EOG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>EOG Resources, Inc.</span></div> | [Full Report](output/EOG/EOG_comprehensive_report.html) | <a href="output/EOG/EOG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.49 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ETN/ETN_logo.png" alt="ETN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Eaton Corporation plc</span></div> | [Full Report](output/ETN/ETN_comprehensive_report.html) | <a href="output/ETN/ETN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.60 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/EXC/EXC_logo.png" alt="EXC" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Exelon Corporation</span></div> | [Full Report](output/EXC/EXC_comprehensive_report.html) | <a href="output/EXC/EXC_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.52 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/F/F_logo.png" alt="F" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Ford Motor Company</span></div> | [Full Report](output/F/F_comprehensive_report.html) | <a href="output/F/F_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.47 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/FCX/FCX_logo.png" alt="FCX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Freeport-McMoRan Inc.</span></div> | [Full Report](output/FCX/FCX_comprehensive_report.html) | <a href="output/FCX/FCX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.69 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/FDX/FDX_logo.png" alt="FDX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>FedEx Corporation</span></div> | [Full Report](output/FDX/FDX_comprehensive_report.html) | <a href="output/FDX/FDX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.56 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/FSLR/FSLR_logo.png" alt="FSLR" width="40" style="margin-right:8px; border-radius:4px;"/> <span>First Solar, Inc.</span></div> | [Full Report](output/FSLR/FSLR_comprehensive_report.html) | <a href="output/FSLR/FSLR_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.85 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GD/GD_logo.png" alt="GD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>General Dynamics Corporation</span></div> | [Full Report](output/GD/GD_comprehensive_report.html) | <a href="output/GD/GD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.81 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GE/GE_logo.png" alt="GE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>General Electric Company</span></div> | [Full Report](output/GE/GE_comprehensive_report.html) | <a href="output/GE/GE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.61 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GILD/GILD_logo.png" alt="GILD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Gilead Sciences, Inc.</span></div> | [Full Report](output/GILD/GILD_comprehensive_report.html) | <a href="output/GILD/GILD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.73 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GIS/GIS_logo.png" alt="GIS" width="40" style="margin-right:8px; border-radius:4px;"/> <span>General Mills, Inc.</span></div> | [Full Report](output/GIS/GIS_comprehensive_report.html) | <a href="output/GIS/GIS_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.79 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GM/GM_logo.png" alt="GM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>General Motors Company</span></div> | [Full Report](output/GM/GM_comprehensive_report.html) | <a href="output/GM/GM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.68 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GME/GME_logo.png" alt="GME" width="40" style="margin-right:8px; border-radius:4px;"/> <span>GameStop Corp.</span></div> | [Full Report](output/GME/GME_comprehensive_report.html) | <a href="output/GME/GME_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.62 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GOOG/GOOG_logo.png" alt="GOOG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Alphabet Inc.</span></div> | [Full Report](output/GOOG/GOOG_comprehensive_report.html) | <a href="output/GOOG/GOOG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 10.92 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Alphabet Inc.</span></div> | [Full Report](output/GOOGL/GOOGL_comprehensive_report.html) | <a href="output/GOOGL/GOOGL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 10.93 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/GWW/GWW_logo.png" alt="GWW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>W.W. Grainger, Inc.</span></div> | [Full Report](output/GWW/GWW_comprehensive_report.html) | <a href="output/GWW/GWW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 7.37 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/HAL/HAL_logo.png" alt="HAL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Halliburton Company</span></div> | [Full Report](output/HAL/HAL_comprehensive_report.html) | <a href="output/HAL/HAL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.05 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/HD/HD_logo.png" alt="HD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Home Depot, Inc.</span></div> | [Full Report](output/HD/HD_comprehensive_report.html) | <a href="output/HD/HD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.26 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/HON/HON_logo.png" alt="HON" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Honeywell International Inc.</span></div> | [Full Report](output/HON/HON_comprehensive_report.html) | <a href="output/HON/HON_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.76 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/HOOD/HOOD_logo.png" alt="HOOD" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Robinhood Markets, Inc.</span></div> | [Full Report](output/HOOD/HOOD_comprehensive_report.html) | <a href="output/HOOD/HOOD_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.43 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/HSY/HSY_logo.png" alt="HSY" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Hershey Company</span></div> | [Full Report](output/HSY/HSY_comprehensive_report.html) | <a href="output/HSY/HSY_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.20 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/IBM/IBM_logo.png" alt="IBM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>International Business Machines Corporation</span></div> | [Full Report](output/IBM/IBM_comprehensive_report.html) | <a href="output/IBM/IBM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.96 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/INTC/INTC_logo.png" alt="INTC" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Intel Corporation</span></div> | [Full Report](output/INTC/INTC_comprehensive_report.html) | <a href="output/INTC/INTC_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.15 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/INTU/INTU_logo.png" alt="INTU" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Intuit Inc.</span></div> | [Full Report](output/INTU/INTU_comprehensive_report.html) | <a href="output/INTU/INTU_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 9.14 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ITW/ITW_logo.png" alt="ITW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Illinois Tool Works Inc.</span></div> | [Full Report](output/ITW/ITW_comprehensive_report.html) | <a href="output/ITW/ITW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 6.80 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/JNJ/JNJ_logo.png" alt="JNJ" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Johnson & Johnson</span></div> | [Full Report](output/JNJ/JNJ_comprehensive_report.html) | <a href="output/JNJ/JNJ_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.39 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/K/K_logo.png" alt="K" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Kellanova</span></div> | [Full Report](output/K/K_comprehensive_report.html) | <a href="output/K/K_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.50 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/KMB/KMB_logo.png" alt="KMB" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Kimberly-Clark Corporation</span></div> | [Full Report](output/KMB/KMB_comprehensive_report.html) | <a href="output/KMB/KMB_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.83 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/KMI/KMI_logo.png" alt="KMI" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Kinder Morgan, Inc.</span></div> | [Full Report](output/KMI/KMI_comprehensive_report.html) | <a href="output/KMI/KMI_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.79 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/KO/KO_logo.png" alt="KO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Coca-Cola Company</span></div> | [Full Report](output/KO/KO_comprehensive_report.html) | <a href="output/KO/KO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.75 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LCID/LCID_logo.png" alt="LCID" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Lucid Group, Inc.</span></div> | [Full Report](output/LCID/LCID_comprehensive_report.html) | <a href="output/LCID/LCID_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -1.19 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LMT/LMT_logo.png" alt="LMT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Lockheed Martin Corporation</span></div> | [Full Report](output/LMT/LMT_comprehensive_report.html) | <a href="output/LMT/LMT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.14 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LOW/LOW_logo.png" alt="LOW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Lowe's Companies, Inc.</span></div> | [Full Report](output/LOW/LOW_comprehensive_report.html) | <a href="output/LOW/LOW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.49 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LULU/LULU_logo.png" alt="LULU" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Lululemon Athletica Inc.</span></div> | [Full Report](output/LULU/LULU_comprehensive_report.html) | <a href="output/LULU/LULU_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 6.90 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LUV/LUV_logo.png" alt="LUV" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Southwest Airlines Co.</span></div> | [Full Report](output/LUV/LUV_comprehensive_report.html) | <a href="output/LUV/LUV_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.18 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/LYFT/LYFT_logo.png" alt="LYFT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Lyft, Inc.</span></div> | [Full Report](output/LYFT/LYFT_comprehensive_report.html) | <a href="output/LYFT/LYFT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -1.68 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/M/M_logo.png" alt="M" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Macy's, Inc.</span></div> | [Full Report](output/M/M_comprehensive_report.html) | <a href="output/M/M_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.44 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MCK/MCK_logo.png" alt="MCK" width="40" style="margin-right:8px; border-radius:4px;"/> <span>McKesson Corporation</span></div> | [Full Report](output/MCK/MCK_comprehensive_report.html) | <a href="output/MCK/MCK_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.21 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MDB/MDB_logo.png" alt="MDB" width="40" style="margin-right:8px; border-radius:4px;"/> <span>MongoDB, Inc.</span></div> | [Full Report](output/MDB/MDB_comprehensive_report.html) | <a href="output/MDB/MDB_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 17.33 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/META/META_logo.png" alt="META" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Meta Platforms, Inc.</span></div> | [Full Report](output/META/META_comprehensive_report.html) | <a href="output/META/META_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 12.34 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MMM/MMM_logo.png" alt="MMM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>3M Company</span></div> | [Full Report](output/MMM/MMM_comprehensive_report.html) | <a href="output/MMM/MMM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.10 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MO/MO_logo.png" alt="MO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Altria Group, Inc.</span></div> | [Full Report](output/MO/MO_comprehensive_report.html) | <a href="output/MO/MO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.02 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MRNA/MRNA_logo.png" alt="MRNA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Moderna, Inc.</span></div> | [Full Report](output/MRNA/MRNA_comprehensive_report.html) | <a href="output/MRNA/MRNA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.59 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/MSFT/MSFT_logo.png" alt="MSFT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Microsoft Corporation</span></div> | [Full Report](output/MSFT/MSFT_comprehensive_report.html) | <a href="output/MSFT/MSFT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 10.07 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NCLH/NCLH_logo.png" alt="NCLH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Norwegian Cruise Line Holdings Ltd.</span></div> | [Full Report](output/NCLH/NCLH_comprehensive_report.html) | <a href="output/NCLH/NCLH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -0.29 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NEE/NEE_logo.png" alt="NEE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>NextEra Energy, Inc.</span></div> | [Full Report](output/NEE/NEE_comprehensive_report.html) | <a href="output/NEE/NEE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.89 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NET/NET_logo.png" alt="NET" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Cloudflare, Inc.</span></div> | [Full Report](output/NET/NET_comprehensive_report.html) | <a href="output/NET/NET_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 17.46 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NFLX/NFLX_logo.png" alt="NFLX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Netflix, Inc.</span></div> | [Full Report](output/NFLX/NFLX_comprehensive_report.html) | <a href="output/NFLX/NFLX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 12.98 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NKE/NKE_logo.png" alt="NKE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>NIKE, Inc.</span></div> | [Full Report](output/NKE/NKE_comprehensive_report.html) | <a href="output/NKE/NKE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.05 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NOW/NOW_logo.png" alt="NOW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>ServiceNow, Inc.</span></div> | [Full Report](output/NOW/NOW_comprehensive_report.html) | <a href="output/NOW/NOW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 12.07 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/NVDA/NVDA_logo.png" alt="NVDA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>NVIDIA Corporation</span></div> | [Full Report](output/NVDA/NVDA_comprehensive_report.html) | <a href="output/NVDA/NVDA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 56.86 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/OKTA/OKTA_logo.png" alt="OKTA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Okta, Inc.</span></div> | [Full Report](output/OKTA/OKTA_comprehensive_report.html) | <a href="output/OKTA/OKTA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.50 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/OPEN/OPEN_logo.png" alt="OPEN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Opendoor Technologies Inc.</span></div> | [Full Report](output/OPEN/OPEN_comprehensive_report.html) | <a href="output/OPEN/OPEN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -0.48 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ORCL/ORCL_logo.png" alt="ORCL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Oracle Corporation</span></div> | [Full Report](output/ORCL/ORCL_comprehensive_report.html) | <a href="output/ORCL/ORCL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.55 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PANW/PANW_logo.png" alt="PANW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Palo Alto Networks, Inc.</span></div> | [Full Report](output/PANW/PANW_comprehensive_report.html) | <a href="output/PANW/PANW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.77 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PATH/PATH_logo.png" alt="PATH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>UiPath Inc.</span></div> | [Full Report](output/PATH/PATH_comprehensive_report.html) | <a href="output/PATH/PATH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.91 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PCAR/PCAR_logo.png" alt="PCAR" width="40" style="margin-right:8px; border-radius:4px;"/> <span>PACCAR Inc</span></div> | [Full Report](output/PCAR/PCAR_comprehensive_report.html) | <a href="output/PCAR/PCAR_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.64 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PCG/PCG_logo.png" alt="PCG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>PG&E Corporation</span></div> | [Full Report](output/PCG/PCG_comprehensive_report.html) | <a href="output/PCG/PCG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.21 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PEP/PEP_logo.png" alt="PEP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>PepsiCo, Inc.</span></div> | [Full Report](output/PEP/PEP_comprehensive_report.html) | <a href="output/PEP/PEP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.46 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PFE/PFE_logo.png" alt="PFE" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Pfizer Inc.</span></div> | [Full Report](output/PFE/PFE_comprehensive_report.html) | <a href="output/PFE/PFE_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.70 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PG/PG_logo.png" alt="PG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Procter & Gamble Company</span></div> | [Full Report](output/PG/PG_comprehensive_report.html) | <a href="output/PG/PG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.83 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PH/PH_logo.png" alt="PH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Parker-Hannifin Corporation</span></div> | [Full Report](output/PH/PH_comprehensive_report.html) | <a href="output/PH/PH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.67 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PLTR/PLTR_logo.png" alt="PLTR" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Palantir Technologies Inc.</span></div> | [Full Report](output/PLTR/PLTR_comprehensive_report.html) | <a href="output/PLTR/PLTR_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 166.26 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PM/PM_logo.png" alt="PM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Philip Morris International Inc.</span></div> | [Full Report](output/PM/PM_comprehensive_report.html) | <a href="output/PM/PM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.48 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/PYPL/PYPL_logo.png" alt="PYPL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>PayPal Holdings, Inc.</span></div> | [Full Report](output/PYPL/PYPL_comprehensive_report.html) | <a href="output/PYPL/PYPL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.56 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/QCOM/QCOM_logo.png" alt="QCOM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>QUALCOMM Incorporated</span></div> | [Full Report](output/QCOM/QCOM_comprehensive_report.html) | <a href="output/QCOM/QCOM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.15 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/RBLX/RBLX_logo.png" alt="RBLX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Roblox Corporation</span></div> | [Full Report](output/RBLX/RBLX_comprehensive_report.html) | <a href="output/RBLX/RBLX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.10 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/RIVN/RIVN_logo.png" alt="RIVN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Rivian Automotive, Inc.</span></div> | [Full Report](output/RIVN/RIVN_comprehensive_report.html) | <a href="output/RIVN/RIVN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: -0.60 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ROK/ROK_logo.png" alt="ROK" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Rockwell Automation, Inc.</span></div> | [Full Report](output/ROK/ROK_comprehensive_report.html) | <a href="output/ROK/ROK_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.93 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ROKU/ROKU_logo.png" alt="ROKU" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Roku, Inc.</span></div> | [Full Report](output/ROKU/ROKU_comprehensive_report.html) | <a href="output/ROKU/ROKU_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 4.75 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/RSG/RSG_logo.png" alt="RSG" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Republic Services, Inc.</span></div> | [Full Report](output/RSG/RSG_comprehensive_report.html) | <a href="output/RSG/RSG_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.72 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/RTX/RTX_logo.png" alt="RTX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>RTX Corporation</span></div> | [Full Report](output/RTX/RTX_comprehensive_report.html) | <a href="output/RTX/RTX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.74 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SBUX/SBUX_logo.png" alt="SBUX" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Starbucks Corporation</span></div> | [Full Report](output/SBUX/SBUX_comprehensive_report.html) | <a href="output/SBUX/SBUX_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.45 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SHOP/SHOP_logo.png" alt="SHOP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Shopify Inc.</span></div> | [Full Report](output/SHOP/SHOP_comprehensive_report.html) | <a href="output/SHOP/SHOP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 38.53 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SLB/SLB_logo.png" alt="SLB" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Schlumberger Limited</span></div> | [Full Report](output/SLB/SLB_comprehensive_report.html) | <a href="output/SLB/SLB_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.78 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SNOW/SNOW_logo.png" alt="SNOW" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Snowflake Inc.</span></div> | [Full Report](output/SNOW/SNOW_comprehensive_report.html) | <a href="output/SNOW/SNOW_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 6.50 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SO/SO_logo.png" alt="SO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Southern Company</span></div> | [Full Report](output/SO/SO_comprehensive_report.html) | <a href="output/SO/SO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.75 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SOFI/SOFI_logo.png" alt="SOFI" width="40" style="margin-right:8px; border-radius:4px;"/> <span>SoFi Technologies, Inc.</span></div> | [Full Report](output/SOFI/SOFI_comprehensive_report.html) | <a href="output/SOFI/SOFI_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.47 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/SONO/SONO_logo.png" alt="SONO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Sonos, Inc.</span></div> | [Full Report](output/SONO/SONO_comprehensive_report.html) | <a href="output/SONO/SONO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.09 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/T/T_logo.png" alt="T" width="40" style="margin-right:8px; border-radius:4px;"/> <span>AT&T Inc.</span></div> | [Full Report](output/T/T_comprehensive_report.html) | <a href="output/T/T_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.53 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TGT/TGT_logo.png" alt="TGT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Target Corporation</span></div> | [Full Report](output/TGT/TGT_comprehensive_report.html) | <a href="output/TGT/TGT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.33 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TMO/TMO_logo.png" alt="TMO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Thermo Fisher Scientific Inc.</span></div> | [Full Report](output/TMO/TMO_comprehensive_report.html) | <a href="output/TMO/TMO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.16 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TMUS/TMUS_logo.png" alt="TMUS" width="40" style="margin-right:8px; border-radius:4px;"/> <span>T-Mobile US, Inc.</span></div> | [Full Report](output/TMUS/TMUS_comprehensive_report.html) | <a href="output/TMUS/TMUS_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.32 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TSLA/TSLA_logo.png" alt="TSLA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Tesla, Inc.</span></div> | [Full Report](output/TSLA/TSLA_comprehensive_report.html) | <a href="output/TSLA/TSLA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 13.59 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TWLO/TWLO_logo.png" alt="TWLO" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Twilio Inc.</span></div> | [Full Report](output/TWLO/TWLO_comprehensive_report.html) | <a href="output/TWLO/TWLO_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 5.44 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/TXN/TXN_logo.png" alt="TXN" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Texas Instruments Incorporated</span></div> | [Full Report](output/TXN/TXN_comprehensive_report.html) | <a href="output/TXN/TXN_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 9.24 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/U/U_logo.png" alt="U" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Unity Software Inc.</span></div> | [Full Report](output/U/U_comprehensive_report.html) | <a href="output/U/U_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.33 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UAL/UAL_logo.png" alt="UAL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>United Airlines Holdings, Inc.</span></div> | [Full Report](output/UAL/UAL_comprehensive_report.html) | <a href="output/UAL/UAL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.35 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UBER/UBER_logo.png" alt="UBER" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Uber Technologies, Inc.</span></div> | [Full Report](output/UBER/UBER_comprehensive_report.html) | <a href="output/UBER/UBER_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.61 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UL/UL_logo.png" alt="UL" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Unilever PLC</span></div> | [Full Report](output/UL/UL_comprehensive_report.html) | <a href="output/UL/UL_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.87 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UNH/UNH_logo.png" alt="UNH" width="40" style="margin-right:8px; border-radius:4px;"/> <span>UnitedHealth Group Incorporated</span></div> | [Full Report](output/UNH/UNH_comprehensive_report.html) | <a href="output/UNH/UNH_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.63 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UNP/UNP_logo.png" alt="UNP" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Union Pacific Corporation</span></div> | [Full Report](output/UNP/UNP_comprehensive_report.html) | <a href="output/UNP/UNP_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.08 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UPS/UPS_logo.png" alt="UPS" width="40" style="margin-right:8px; border-radius:4px;"/> <span>United Parcel Service, Inc.</span></div> | [Full Report](output/UPS/UPS_comprehensive_report.html) | <a href="output/UPS/UPS_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 1.78 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/UPST/UPST_logo.png" alt="UPST" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Upstart Holdings, Inc.</span></div> | [Full Report](output/UPST/UPST_comprehensive_report.html) | <a href="output/UPST/UPST_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.35 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/VZ/VZ_logo.png" alt="VZ" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Verizon Communications Inc.</span></div> | [Full Report](output/VZ/VZ_comprehensive_report.html) | <a href="output/VZ/VZ_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.80 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/WBA/WBA_logo.png" alt="WBA" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Walgreens Boots Alliance, Inc.</span></div> | [Full Report](output/WBA/WBA_comprehensive_report.html) | <a href="output/WBA/WBA_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📉 SELL<br/><sub>Z-Score: 0.77 (Distress)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/WM/WM_logo.png" alt="WM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Waste Management, Inc.</span></div> | [Full Report](output/WM/WM_comprehensive_report.html) | <a href="output/WM/WM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.24 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/WMB/WMB_logo.png" alt="WMB" width="40" style="margin-right:8px; border-radius:4px;"/> <span>The Williams Companies, Inc.</span></div> | [Full Report](output/WMB/WMB_comprehensive_report.html) | <a href="output/WMB/WMB_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 18.42 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/WMT/WMT_logo.png" alt="WMT" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Walmart Inc.</span></div> | [Full Report](output/WMT/WMT_comprehensive_report.html) | <a href="output/WMT/WMT_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.81 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/X/X_logo.png" alt="X" width="40" style="margin-right:8px; border-radius:4px;"/> <span>United States Steel Corporation</span></div> | [Full Report](output/X/X_comprehensive_report.html) | <a href="output/X/X_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | ⚖️ HOLD<br/><sub>Z-Score: 2.09 (Gray Zone)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/XOM/XOM_logo.png" alt="XOM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Exxon Mobil Corporation</span></div> | [Full Report](output/XOM/XOM_comprehensive_report.html) | <a href="output/XOM/XOM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 3.23 (Safe)</sub> |
+| <div style="display: flex; align-items: center;"><img src="output/ZM/ZM_logo.png" alt="ZM" width="40" style="margin-right:8px; border-radius:4px;"/> <span>Zoom Video Communications, Inc.</span></div> | [Full Report](output/ZM/ZM_comprehensive_report.html) | <a href="output/ZM/ZM_zscore_dashboard.html" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a> | 📈 STRONG BUY<br/><sub>Z-Score: 8.21 (Safe)</sub> |
 <!-- END_TICKERS_TABLE -->
-
-## 🔄 Table Generation
-
-Update the comprehensive portfolio table automatically:
-
-```sh
-python generate_readme_table.py
-```
-
-### ✨ Enhanced Features
-
-- **📊 Detailed Investor Profiles**: Shows BUY/HOLD/SELL for each investor type across 135 companies
-- **📝 Multi-line Format**: Clear, readable recommendations in table cells
-- **🎨 Professional Layout**: Full profile names with emoji indicators
-- **📈 Comprehensive Coverage**: 7 industry segments with complete investment guidance
-- **🔧 Profile-Based Recommendations**: Shows BUY/HOLD/SELL for each investor type
-- **⚖️ Conservative to Aggressive**: Covers all risk tolerance levels  
-- **📊 Visual Indicators**: 📈 BUY, ⚖️ HOLD, 📉 SELL with compact notation
-- **🔄 Auto-updates README**: Updates content between table markers for all 135 companies
-
-## ⚙️ Setup & Installation
-
-### Prerequisites
-- **Python 3.11+** required
-
-### Installation Steps
-
-```sh
-# 1. Install dependencies
-pip install -r requirements.txt
-
-# 2. Copy environment template (add your API keys)
-cp .env.example .env
-
-# 3. Test installation
-python main.py --test
-```
-
-## 🔧 Environment Setup & Configuration
-
-### Required Environment Variables
-
-Create a `.env` file in the project root with the following configuration:
-
-```bash
-# Financial Modeling Prep API Key (Required)
-FINANCIAL_MODELING_PREP_API_KEY="your-fmp-api-key"
-
-# SEC EDGAR User-Agent (Required for SEC compliance)
-SEC_EDGAR_USER_AGENT="YourCompany/1.0 your.email@domain.com"
-
-# Azure OpenAI Configuration (Required for AI analysis)
-AZURE_OPENAI_ENDPOINT="https://your-endpoint.openai.azure.com/"
-AZURE_OPENAI_API_KEY="your-azure-openai-key"
-AZURE_OPENAI_DEPLOYMENT="your-deployment-name"
-
-# Optional: Additional API Services
-FINNHUB_API_KEY="your-finnhub-key"
-YAHOO_FINANCE_USER_AGENT="YourCompany/1.0 your.email@domain.com"
-```
-
-### Quick Configuration Test
-
-```bash
-# Test all API configurations
-python comprehensive_api_test.py
-
-# Test specific components
-python api_caching_demo.py  # API caching demonstration
-python llm_demo.py          # LLM client testing
-```
-
-### 📊 API Services Integration
-
-| Service | Purpose | Caching | TTL | Status |
-|---------|---------|---------|-----|--------|
-| **FMP API** | Financial statements, ratios | ✅ Yes | 48h | ✅ Production Ready |
-| **Yahoo Finance** | Market data, prices | ✅ Yes | 48h | ✅ Production Ready |
-| **Azure OpenAI** | AI analysis, insights | ❌ No* | N/A | ✅ Production Ready |
-| **SEC EDGAR** | Regulatory filings | - | - | 🔄 Legacy Support |
-| **Finnhub** | Additional market data | - | - | 🔄 Optional |
-
-*_Azure OpenAI responses are logged (not cached) to preserve response variability_
-
-## 🧪 Testing
-
-The project now features a clean, modern test infrastructure:
-
-```sh
-# Run all infrastructure tests
-python run_tests.py
-
-# Or use pytest directly
-python -m pytest tests/ -v
-```
-
-**Test Organization:**
-- **Clean Structure**: Removed old legacy tests to avoid confusion
-- **Infrastructure Tests**: 61 comprehensive tests for all core modules
-- **Layered Architecture**: Tests organized by architectural layers
-
-## 📚 Documentation
-
-### Core Project Documentation
-- **[README.md](./README.md)** - This main project overview and quick start guide
-- **[FLOW.md](./FLOW.md)** - Current system architecture and data flow
-- **[CHANGELOG.md](./CHANGELOG.md)** - Version history and completed features
-- **[TODO.md](./TODO.md)** - Development roadmap and planned features
-- **[MODELS.md](./MODELS.md)** - Z-Score model specifications and selection logic
-- **[APIS.md](./APIS.md)** - API configuration and integration guide
-- **[REFACTORING_PLAN.md](./REFACTORING_PLAN.md)** - Architecture modernization plan
-
-### Detailed Documentation (`docs/`)
-Comprehensive documentation organized by category:
-- **[Implementation Details](./docs/implementation/)** - Feature implementation summaries and completion reports
-- **[Analysis & Research](./docs/analysis/)** - Data analysis, validation studies, and research findings
-- **[Guides & References](./docs/guides/)** - Development guides, testing references, and API documentation
-- **[Status Reports](./docs/status/)** - Project progress and component status tracking
-
-See **[docs/README.md](./docs/README.md)** for complete documentation index and navigation guide.
-
-> **⚠️ Note:** Advanced multiperiod analysis features will be added in future releases.
 
 ---
 
-## 📄 License & Data Sources
+## 🔄 **Update Your Analysis**
 
-### License
-**MIT License** (see [LICENSE](LICENSE) file)
+Keep your portfolio analysis current with a single command:
 
-### Data Sources
-- **📊 Yahoo Finance** - Market data and pricing
-- **🏛️ SEC EDGAR** - Regulatory filings and financial statements  
-- **🏢 Finnhub.io** - Company profiles and logos
+```bash
+python generate_readme_table.py
+```
 
-### Disclaimer
-*All trademarks are property of their respective owners. This project is not affiliated with any data provider. Use for educational and informational purposes only.*
+This updates the comprehensive investment table with the latest market data and AI insights for all 135+ companies.
+
+---
+
+## ⚙️ **Quick Setup**
+
+### **Step 1: Install**
+```bash
+pip install -r requirements.txt
+```
+
+### **Step 2: Configure APIs** 
+Create a `.env` file with your API keys:
+```bash
+# Required for financial data
+FINANCIAL_MODELING_PREP_API_KEY="your-fmp-key"
+
+# Required for AI insights  
+AZURE_OPENAI_ENDPOINT="your-azure-endpoint"
+AZURE_OPENAI_API_KEY="your-azure-key"
+AZURE_OPENAI_DEPLOYMENT="your-deployment"
+
+# Required for SEC compliance
+SEC_EDGAR_USER_AGENT="YourCompany/1.0 your.email@domain.com"
+```
+
+### **Step 3: Start Analyzing**
+```bash
+# Single company
+python main.py AAPL
+
+# Your favorite stocks
+python main.py AAPL MSFT GOOGL TSLA NVDA
+```
+
+### **📊 API Costs**
+- **Free Tier Available:** 250 API calls/day (analyze ~50 companies)
+- **Paid Plans:** Unlimited analysis for serious investors
+- **Smart Caching:** Reduces API usage by 95%
+
+---
+
+## 🎯 **Perfect For**
+
+### 👨‍💼 **Individual Investors**
+- Research stocks before buying
+- Monitor portfolio health
+- Get AI-powered insights
+- Identify bankruptcy risks early
+
+### 🏢 **Investment Professionals**
+- Due diligence automation
+- Client reporting
+- Risk assessment
+- Portfolio optimization
+
+### 📚 **Students & Educators**
+- Learn financial analysis
+- Understand Z-Score methodology
+- Practice with real data
+- Academic research projects
+
+---
+
+## � **Support & Community**
+
+### 🚀 **Getting Started**
+- Check the **[Quick Start Guide](docs/guides/)** for detailed setup
+- Browse **[Sample Reports](output/)** to see what you'll get
+- Review **[API Documentation](APIS.md)** for configuration help
+
+### 📈 **Advanced Features**
+- **[Technical Documentation](docs/)** for developers
+- **[Customization Guide](docs/guides/)** for power users
+- **[Integration Examples](scripts/exploration/)** for workflows
+
+---
+
+## 📄 **Legal & Data Sources**
+
+**License:** MIT License - Free for personal and commercial use
+
+**Data Sources:**
+- 📊 **Financial Modeling Prep** - Professional financial data
+- 📈 **Yahoo Finance** - Real-time market pricing  
+- 🤖 **Azure OpenAI** - AI-powered analysis and insights
+
+**Disclaimer:** This tool is for educational and informational purposes. Always consult with qualified financial advisors before making investment decisions. Past performance does not guarantee future results.

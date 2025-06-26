@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - ADBE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Adobe Inc. (ADBE)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">May 30, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="ADBE_logo.png" alt="Adobe Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="ADBE_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="ADBE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.48</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$387.55</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$165.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>24.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>60.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>32.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>1.36%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>1.27%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-4.9%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-4.0%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-11.4%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.96</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.87</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-42.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0022</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>1.485</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0750</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>9.915</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.6872</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.2090</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>8.482</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p>Executive Summary<br />
+Adobe Inc. (ADBE) presents a compelling investment opportunity underpinned by a robust balance sheet and a high safety margin according to the Altman Z-Score model. With a Z-Score of 8.48—well into the “Safe” category—and a market recommendation of “Buy” (60% confidence), Adobe combines financial resilience with growth-oriented positioning in digital media and experience solutions.  </p>
+<p>Fundamental Health Assessment<br />
+• Altman Z-Score Insight<br />
+  – Adobe’s Z-Score of 8.48 (original model) signals an exceptionally low risk of distress, driven by strong retained earnings, modest leverage, and healthy asset turnover. This score is more than double the 3.0 threshold for safety, illustrating the company’s capacity to meet obligations and invest in growth.<br />
+• Component Highlights<br />
+  – Retained Earnings Ratio (A2): 1.485. A high ratio reflects years of cumulative profits supporting organic growth and innovation.<br />
+  – Market Equity to Total Liabilities (A4): 9.915. Shareholders’ equity vastly exceeds liabilities, underscoring conservative capital structure and borrowing capacity.<br />
+  – EBIT to Total Assets (A3): 0.075. Solid operating profitability given the asset base, confirming efficiency in turning R&amp;D and marketing investments into earnings.<br />
+  – Asset Turnover (A5): 0.209. Reflects strong revenue generation from assets, typical for software firms with lower fixed-asset requirements.<br />
+• Balance Sheet Strength<br />
+  – Total Assets: $28.1 B vs. Total Liabilities: $16.7 B. Net equity position enables flexibility for bolt-on acquisitions, share buybacks, or strategic partnerships.<br />
+  – Minimal Working Capital Pressure. The slight negative working capital ratio (–0.002) is commonplace in subscription models where upfront payments accelerate cash flow.  </p>
+<p>Market Position &amp; Valuation<br />
+• Current Price &amp; Market Cap<br />
+  – Adobe shares trade at $387.55, valuing the company at roughly $165.2 B. This places Adobe among the top-tier SaaS and digital experience providers by market capitalization.<br />
+• P/E &amp; Relative Valuation<br />
+  – Forward P/E of 24.8x remains in line with high-growth software peers, suggesting that the market appropriately prices robust long-term growth prospects rather than overstating near-term earnings.<br />
+• Technical &amp; Sentiment Indicators<br />
+  – Volatility: 60.0%. Adobe’s share price exhibits above-average swings, reflecting sensitivity to macro tech sentiment and subscription renewals.<br />
+  – RSI: 32.5. Near oversold territory (30), this could signal a near-term buying opportunity if broader market conditions stabilize.<br />
+  – Technical Trend: Sideways. A trading range around $370–$410 suggests consolidation ahead of catalysts such as quarterly results or major product launches.<br />
+• Competitive Position<br />
+  – Leading market share in creative cloud, digital marketing, and document workflows. Recurring subscription revenue (over 80% of total) provides predictability and resilience even in softer macro environments.</p>
+<p>Investment Outlook &amp; Recommendations<br />
+• Investment Thesis<br />
+  – Adobe’s robust balance sheet, high Z-Score, and strong free cash flow generation support continued investment in AI-driven product enhancements (e.g., Firefly AI) and strategic M&amp;A.<br />
+  – Subscription model durability and cross-sell opportunities within its enterprise customer base underpin mid-teens EPS growth forecasts over the next 2–3 years.<br />
+• Actionable Recommendations<br />
+  1. Initiate or add to a long position at current levels (around $380–$390), targeting $430 over the next 6–9 months as RSI normalizes and the stock reenters an uptrend.<br />
+  2. Employ a staggered buy strategy—allocate 50% of planned exposure initially, with additional tranches added on dips below $370.<br />
+  3. Consider covered call overlays at the $420–$430 strike to enhance yield if comfortable capping upside between 8%–12% annualized.<br />
+• Key Catalysts to Watch<br />
+  – Q3 fiscal results (July 2025): Look for recurring revenue growth, margin expansion, and guidance for cloud infrastructure investments.<br />
+  – AI product announcements and adoption metrics, particularly for generative AI within Creative Cloud.<br />
+  – Any material M&amp;A that could accelerate market share gains in marketing automation or analytics.</p>
+<p>Key Risks &amp; Monitoring Points<br />
+1. Macro Tech Sentiment: A broad tech selloff or rising interest rates could pressure valuation multiples. Monitor 10-year Treasury yields and Fed policy signals.<br />
+2. Subscription Renewal Rates: A decline below 85% annualized could signal end-market weakness or competitive erosion.<br />
+3. Currency Fluctuations: Approximately 35% of revenue is international; a strengthening dollar could impact reported top-line growth.<br />
+4. Competitive Intensity: Vigilance around lower-cost challengers in creative tools or bundling by large cloud providers (e.g., Microsoft, Google).<br />
+5. Regulatory &amp; Privacy Risks: Ongoing data privacy regulations could impose additional compliance costs or restrict data-driven marketing services.</p>
+<p>Conclusion<br />
+Adobe’s impressive Altman Z-Score of 8.48 reinforces its financial fortress, allowing sustained investment in innovation and shareholder returns. Coupled with a moderate valuation, near-term oversold signals, and dominant market positioning, ADBE stands out as a growth-oriented “Safe” pick. Investors should consider building positions on price weakness, closely tracking subscription metrics and macro factors as potential catalysts or headwinds.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:48 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

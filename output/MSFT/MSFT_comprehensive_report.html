@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - MSFT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Microsoft Corporation (MSFT)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="MSFT_logo.png" alt="Microsoft Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="MSFT_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="MSFT_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">10.07</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$492.27</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$3,658.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>38.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>79.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-5.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.44%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>2.98%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>9.3%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>24.8%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>13.1%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.94</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.32</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-23.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0754</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.3906</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0569</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>15.20</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>1.337</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1245</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>10.07</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Microsoft Corporation (MSFT)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Microsoft (MSFT) continues to demonstrate exceptional financial stability and robust growth potential, underpinned by a stellar Altman Z-Score of 10.07, categorizing it firmly within the "Safe" risk bracket. Coupled with a strong market position reflected in a $3.66 trillion market capitalization and a sustained uptrend in share price, MSFT presents a compelling investment opportunity. The current recommendation is a strong buy, supported by solid fundamentals and positive technical momentum, though investors should remain vigilant on valuation and market volatility.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>Microsoft’s Altman Z-Score of 10.07 significantly exceeds the threshold for financial distress, which is typically below 1.8, confirming the company’s exceptional creditworthiness and low bankruptcy risk. This score is derived from a combination of key financial ratios that highlight Microsoft’s operational efficiency and capital structure strength:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.075):</strong> Indicates positive short-term liquidity, ensuring the company can comfortably meet its current obligations.</li>
+<li><strong>Retained Earnings Ratio (0.391):</strong> Reflects a strong history of profitability and reinvestment, supporting sustainable growth.</li>
+<li><strong>EBIT Ratio (0.057):</strong> Demonstrates consistent earnings before interest and taxes relative to total assets, underscoring operational profitability.</li>
+<li><strong>Market Equity Ratio (15.199) and Book Equity Ratio (1.337):</strong> These ratios reveal a substantial market valuation relative to book value, signaling strong investor confidence and asset quality.</li>
+<li><strong>Asset Turnover (0.125):</strong> While moderate, this ratio suggests efficient use of assets to generate revenue, typical for a large-cap technology firm with significant intangible assets.</li>
+</ul>
+<p>The Altman Z-Score’s robustness is further validated by high-quality data inputs and no calculation warnings, reinforcing confidence in Microsoft’s financial health. The company’s total assets of approximately $563 billion against liabilities of $241 billion reflect a solid balance sheet with ample equity cushion.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Microsoft’s market capitalization of $3.66 trillion positions it as one of the most valuable and influential technology companies globally. The current share price of $492.27, supported by a price-to-earnings (P/E) ratio of 38.0, indicates that investors are willing to pay a premium for Microsoft’s growth prospects and market leadership. While the P/E ratio is elevated relative to the broader market, it is justified by Microsoft’s consistent earnings growth, diversified revenue streams, and dominant presence in cloud computing, software, and enterprise services.</p>
+<p>From a technical perspective, the stock is in a strong uptrend, supported by a Relative Strength Index (RSI) of 79.7, which, although approaching overbought territory, reflects robust buying momentum. Volatility at 30% is moderate for a large-cap tech stock, suggesting that while price fluctuations exist, they are within a manageable range for long-term investors.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given Microsoft’s impeccable fundamental health and commanding market position, the investment outlook remains highly favorable. The Altman Z-Score’s indication of financial safety combined with a strong technical trend supports a <strong>strong buy</strong> recommendation with a confidence level of 60%. Key drivers for this positive outlook include:</p>
+<ul>
+<li><strong>Sustained Revenue Growth:</strong> Continued expansion in cloud services (Azure), productivity software, and AI integration positions Microsoft for long-term earnings acceleration.</li>
+<li><strong>Robust Balance Sheet:</strong> Low financial distress risk enables strategic investments, acquisitions, and shareholder returns without compromising stability.</li>
+<li><strong>Market Leadership:</strong> Dominance in enterprise software and cloud infrastructure provides competitive moats and pricing power.</li>
+</ul>
+<p>Investors should consider initiating or increasing exposure to MSFT, particularly those with a growth-oriented portfolio focus. The current valuation premium is justified by Microsoft’s growth trajectory and resilience, but investors should monitor entry points carefully to optimize returns.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While Microsoft’s outlook is optimistic, prudent investors should remain attentive to the following risks and indicators:</p>
+<ul>
+<li><strong>Valuation Pressure:</strong> The elevated P/E ratio and high RSI suggest potential short-term pullbacks or consolidation phases. Monitoring price action and technical signals will be critical to timing entries or exits.</li>
+<li><strong>Macroeconomic Factors:</strong> Rising interest rates or economic slowdowns could impact technology sector valuations and corporate IT spending.</li>
+<li><strong>Competitive Landscape:</strong> Intensifying competition in cloud computing and AI from peers like Amazon, Google, and emerging players could pressure margins.</li>
+<li><strong>Regulatory Environment:</strong> Increased scrutiny on large tech firms globally may introduce compliance costs or operational constraints.</li>
+</ul>
+<p>Regularly reviewing Microsoft’s quarterly earnings, cash flow generation, and debt levels alongside market sentiment will help investors maintain an informed position.</p>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Microsoft’s exceptional Altman Z-Score and dominant market presence underscore its status as a financially secure and growth-oriented investment. The company’s strong fundamentals, combined with positive technical momentum, justify a strong buy recommendation. Investors should capitalize on Microsoft’s growth potential while remaining vigilant to valuation dynamics and external risks to optimize portfolio outcomes.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:51 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

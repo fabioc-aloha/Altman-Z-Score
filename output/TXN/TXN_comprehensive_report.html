@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - TXN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Texas Instruments Incorporated (TXN)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="TXN_logo.png" alt="Texas Instruments Incorporated Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="TXN_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="TXN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.24</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$205.38</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$186.6B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>38.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>71.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-5.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-0.21%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>3.89%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>16.5%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>12.6%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>13.1%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.43</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.31</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-33.4%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.3139</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>1.546</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0392</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>10.75</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.9455</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1205</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>9.243</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Texas Instruments Incorporated (TXN)</strong><br />
+<em>Analysis Date: March 31, 2025</em></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Texas Instruments (TXN) presents a compelling investment opportunity characterized by robust financial health and a strong market position. With an exceptionally high Altman Z-Score of 9.24, TXN is firmly in the “Safe” risk category, signaling minimal bankruptcy risk and solid balance sheet fundamentals. Coupled with a strong buy recommendation supported by a $186.6 billion market capitalization and a confident growth outlook, TXN stands out as a resilient and growth-oriented semiconductor leader.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score of 9.24 for TXN is a standout indicator of the company’s financial stability and low default risk. This score, derived from the original Altman model, far exceeds the threshold of 3.0 that typically delineates financial distress, placing TXN in a very safe zone. The breakdown of the Z-Score components reveals several strengths:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.314):</strong> Reflects healthy liquidity, ensuring TXN can comfortably meet short-term obligations.  </li>
+<li><strong>Retained Earnings Ratio (1.546):</strong> Indicates strong accumulated profits, underscoring consistent earnings retention and reinvestment capacity.  </li>
+<li><strong>EBIT Ratio (0.039):</strong> While modest, this reflects steady operating profitability relative to total assets.  </li>
+<li><strong>Market Equity Ratio (10.753):</strong> Highlights significant market valuation relative to liabilities, reinforcing investor confidence.  </li>
+<li><strong>Book Equity Ratio (0.946):</strong> Demonstrates a solid equity base supporting the company’s asset structure.  </li>
+<li><strong>Asset Turnover (0.121):</strong> Suggests efficient use of assets to generate revenue, typical for capital-intensive semiconductor firms.</li>
+</ul>
+<p>The total assets of approximately $33.76 billion against liabilities of $17.35 billion further confirm a strong equity cushion. The near-perfect data quality (1.0% error margin) adds credibility to these findings. Overall, TXN’s fundamental profile is exceptionally robust, providing a strong foundation for sustainable growth and resilience against market volatility.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Texas Instruments commands a dominant position in the semiconductor industry, reflected in its substantial market capitalization of $186.6 billion. The current share price of $205.38, combined with a P/E ratio of 38.8, suggests that the market values TXN’s growth prospects and earnings quality highly. While the P/E is elevated relative to broader market averages, it is justified by TXN’s consistent profitability, innovation pipeline, and strong cash flow generation.</p>
+<p>From a technical perspective, the stock exhibits a sideways trend with a Relative Strength Index (RSI) of 71.6, indicating the stock is approaching overbought territory but still retains momentum. Volatility at 40% is relatively high, reflecting the inherent cyclicality and rapid innovation cycles in the semiconductor sector. However, this volatility also presents opportunities for strategic entry points for long-term investors.</p>
+<p>TXN’s market equity ratio and strong retained earnings position it well to capitalize on emerging trends such as automotive electronics, industrial automation, and IoT applications, where demand for analog and embedded processing solutions is expanding rapidly.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given TXN’s exceptional fundamental health and favorable market positioning, the investment outlook is decidedly optimistic. The Altman Z-Score’s indication of financial safety reduces downside risk, making TXN an attractive core holding for growth-oriented portfolios seeking exposure to the semiconductor sector.</p>
+<p>The current market recommendation is a <strong>strong buy</strong> with 60% confidence, reflecting both the company’s intrinsic strength and positive market sentiment. Investors should consider the following actionable implications:</p>
+<ul>
+<li><strong>Long-Term Growth Potential:</strong> TXN’s strong balance sheet and retained earnings enable continued R&amp;D investment and strategic acquisitions, supporting innovation leadership.  </li>
+<li><strong>Resilience in Cyclical Markets:</strong> The safe financial profile buffers TXN against semiconductor industry cyclicality, providing stability during downturns.  </li>
+<li><strong>Valuation Discipline:</strong> While the P/E ratio is elevated, it is supported by consistent earnings growth; investors should monitor earnings reports for confirmation of sustained profitability.  </li>
+<li><strong>Entry Points:</strong> Given the sideways technical trend and elevated RSI, investors may look for short-term pullbacks as attractive entry opportunities without compromising long-term conviction.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>Despite the strong outlook, investors should remain vigilant to several risk factors and monitor key indicators:</p>
+<ul>
+<li><strong>Market Volatility:</strong> The 40% volatility signals potential price swings; investors should be prepared for short-term fluctuations.  </li>
+<li><strong>Valuation Sensitivity:</strong> High P/E ratios can lead to sharp corrections if growth expectations are not met; quarterly earnings and guidance updates are critical.  </li>
+<li><strong>Industry Cyclicality:</strong> Semiconductor demand can be impacted by macroeconomic shifts, supply chain disruptions, and geopolitical tensions.  </li>
+<li><strong>Technological Disruption:</strong> Rapid innovation cycles require continuous investment; failure to keep pace could erode competitive advantage.  </li>
+<li><strong>RSI Levels:</strong> An RSI above 70 suggests overbought conditions; monitoring technical indicators can help optimize timing for new investments or profit-taking.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Texas Instruments stands out as a financially secure, market-leading semiconductor company with strong growth prospects. The combination of an outstanding Altman Z-Score and a robust market valuation underpins a strong buy recommendation. Investors seeking exposure to a resilient, innovation-driven technology firm should consider TXN a core portfolio holding, while actively monitoring valuation metrics and industry dynamics to optimize investment timing and risk management.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 08:02 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

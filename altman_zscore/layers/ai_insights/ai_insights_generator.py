@@ -35,7 +35,7 @@ class AIInsightsGenerator:
             output_base_path: Base directory for output files
         """
         self.output_base_path = output_base_path
-        self.llm_client = LLMClient(output_base_path)
+        self.llm_client = LLMClient()  # Uses default config from environment
     
     async def generate_investment_narrative(
         self, 
@@ -141,8 +141,7 @@ class AIInsightsGenerator:
             # Z-Score analysis
             "z_score": zscore_result.z_score,
             "risk_category": zscore_result.risk_category,
-            "model_used": zscore_result.model_used,
-            "data_quality_score": zscore_result.data_quality_score,
+            "model_used": zscore_result.model_used,            "data_quality_score": zscore_result.data_quality_score,
             "component_values": zscore_result.component_values,
             "warnings": zscore_result.warnings,
             
@@ -151,28 +150,26 @@ class AIInsightsGenerator:
         }
         
         if market_analysis:
-            rec = market_analysis.investment_recommendation
+            rec = market_analysis.risk_return_profile if market_analysis.risk_return_profile else None
             tech = market_analysis.technical_analysis
-            val = market_analysis.valuation_analysis
-            perf = market_analysis.performance_analysis
-            risk = market_analysis.risk_analysis
+            val = market_analysis.valuation_metrics
+            perf = market_analysis.market_performance
+            risk = market_analysis.risk_return_profile
             
             context.update({
                 # Investment recommendation
-                "investment_action": rec.action,
-                "investment_confidence": rec.confidence,
-                "investment_rationale": rec.rationale,
-                "price_target": rec.price_target,
-                
-                # Technical analysis
-                "rsi": tech.rsi_14,
-                "macd_signal": tech.macd_signal,
-                "bollinger_signal": tech.bollinger_signal,
-                "momentum_score": tech.momentum_score,
-                "trend_direction": tech.trend_direction,
-                
-                # Valuation metrics
-                "current_price": val.current_price,
+                "investment_action": rec.investment_rating if rec else "N/A",
+                "investment_confidence": rec.confidence_level if rec else 0.0,
+                "overall_risk_category": rec.overall_risk_category if rec else "unknown",
+                "key_risks": rec.key_risks if rec else [],
+                "key_opportunities": rec.key_opportunities if rec else [],
+                  # Technical analysis
+                "rsi": tech.indicators.rsi if tech and tech.indicators and hasattr(tech.indicators, 'rsi') else None,
+                "macd_signal": tech.overall_signal if tech else None,
+                "momentum_score": tech.momentum_score if tech else None,
+                "trend_direction": tech.price_trend if tech else None,
+                  # Valuation metrics
+                "current_price": tech.current_price if tech else None,
                 "market_cap": val.market_cap,
                 "pe_ratio": val.pe_ratio,
                 "pb_ratio": val.pb_ratio,
@@ -184,14 +181,12 @@ class AIInsightsGenerator:
                 "return_1m": perf.return_1m,
                 "return_3m": perf.return_3m,
                 "return_1y": perf.return_1y,
-                
-                # Risk metrics
-                "beta": risk.beta,
-                "volatility_1y": risk.volatility_1y,
-                "sharpe_ratio": risk.sharpe_ratio,
-                "max_drawdown": risk.max_drawdown,
-                "risk_score": risk.risk_score
-            })
+                  # Risk metrics
+                "beta": perf.beta if perf else None,
+                "volatility_risk": risk.volatility_risk if risk else None, 
+                "sharpe_ratio": perf.sharpe_ratio if perf else None,
+                "max_drawdown": perf.max_drawdown if perf else None,
+                "overall_risk_score": risk.overall_risk_score if risk else None            })
         
         return context
     
@@ -201,9 +196,12 @@ class AIInsightsGenerator:
         prompt = self._create_investment_narrative_prompt(context_data)
         
         try:
-            response = await self.llm_client.generate_completion(
-                prompt=prompt,
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
+            response = self.llm_client.chat_completion(
                 ticker=context_data["ticker"],
+                messages=messages,
                 interaction_type="investment_narrative"
             )
             return response
@@ -217,9 +215,12 @@ class AIInsightsGenerator:
         prompt = self._create_executive_summary_prompt(context_data)
         
         try:
-            response = await self.llm_client.generate_completion(
-                prompt=prompt,
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
+            response = self.llm_client.chat_completion(
                 ticker=context_data["ticker"],
+                messages=messages,
                 interaction_type="executive_summary"
             )
             return response
@@ -233,9 +234,12 @@ class AIInsightsGenerator:
         prompt = self._create_risk_assessment_prompt(context_data)
         
         try:
-            response = await self.llm_client.generate_completion(
-                prompt=prompt,
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
+            response = self.llm_client.chat_completion(
                 ticker=context_data["ticker"],
+                messages=messages,
                 interaction_type="risk_assessment"
             )
             return response
@@ -296,7 +300,7 @@ Generate a concise executive summary (150-200 words) for investment decision-mak
 
 ## Key Data:
 - Z-Score: {context['z_score']:.2f} ({context['risk_category']})
-{f"- Investment Recommendation: {context['investment_action']} (Confidence: {context['investment_confidence']*100:.0f}%)" if context['has_market_analysis'] else ''}
+{f"- Investment Recommendation: {context['investment_action']} (Confidence: {context['investment_confidence']*100:.0f}%)" if context['has_market_analysis'] and context.get('investment_confidence') else ''}
 {f"- Current Price: ${context['current_price']:.2f}" if context.get('current_price') else ''}
 {f"- 1Y Return: {context['return_1y']*100:.1f}%" if context.get('return_1y') else ''}
 
@@ -320,7 +324,7 @@ Generate a focused risk assessment narrative (300-400 words) analyzing investmen
 ## Risk Context:
 - Z-Score Risk Category: {context['risk_category']}
 - Financial Health Score: {context['z_score']:.2f}
-{f"- Market Volatility: {context['volatility_1y']*100:.1f}%" if context.get('volatility_1y') else ''}
+{f"- Market Volatility: {context['volatility_risk']*100:.1f}%" if context.get('volatility_risk') else ''}
 {f"- Beta: {context['beta']:.2f}" if context.get('beta') else ''}
 
 ## Analysis Focus:
@@ -355,17 +359,16 @@ Provide specific, actionable risk insights for portfolio management."""
     def _add_market_analysis_section(self, context: Dict[str, Any]) -> str:
         """Add market analysis section to prompt if available."""
         if not context['has_market_analysis']:
-            return ""
-        
+            return ""        
         section = f"""
 ## Market Analysis:
-- Investment Recommendation: {context['investment_action']} (Confidence: {context['investment_confidence']*100:.0f}%)
-- Current Price: ${context['current_price']:.2f}
-- Market Cap: ${context['market_cap']/1e9:.1f}B
-- P/E Ratio: {context['pe_ratio']:.1f}
-- 1Y Return: {context['return_1y']*100:.1f}%
-- Volatility: {context['volatility_1y']*100:.1f}%
-- RSI: {context['rsi']:.1f}
-- Technical Trend: {context['trend_direction']}
+{f"- Investment Recommendation: {context['investment_action']} (Confidence: {context['investment_confidence']*100:.0f}%)" if context.get('investment_confidence') else ''}
+{f"- Current Price: ${context['current_price']:.2f}" if context.get('current_price') else ''}
+{f"- Market Cap: ${context['market_cap']/1e9:.1f}B" if context.get('market_cap') else ''}
+{f"- P/E Ratio: {context['pe_ratio']:.1f}" if context.get('pe_ratio') else ''}
+{f"- 1Y Return: {context['return_1y']*100:.1f}%" if context.get('return_1y') else ''}
+{f"- Volatility: {context['volatility_risk']*100:.1f}%" if context.get('volatility_risk') else ''}
+{f"- RSI: {context['rsi']:.1f}" if context.get('rsi') else ''}
+{f"- Technical Trend: {context['trend_direction']}" if context.get('trend_direction') else ''}
 """
         return section

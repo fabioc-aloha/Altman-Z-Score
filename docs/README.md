@@ -1,4 +1,15 @@
-# Docu### 📁 Organization (`./`)
+# Docu### 📁 Orga### 📊 Analysis (`analysis/`)
+Research, data analysis, and validation reports:
+- `F_SCORE_DATA_ANALYSIS.md` - F-Score data structure analysis
+- `FSCORE_VALIDATION_SUMMARY.md` - F-Score implementation validation
+- `ZSCORE_CALCULATION_AUDIT.md` - Z-Score calculation audit and analysis
+- `LLM_Analysis.md` - LLM integration analysis
+- `LLM_Prompt_Optimization_Summary.md` - Prompt engineering optimization
+- `Piotroski.md` - Piotroski F-Score methodology
+- `industry_support.md` - Industry classification support
+- `international_support.md` - International market support
+- `vision.md` - Project vision and goals
+- `table.md` - Data structure tables./`)
 Documentation about the documentation organization itself:
 - `README.md` - This documentation index and navigation guide
 - `DOCUMENTATION_ORGANIZATION_SUMMARY.md` - Documentation organization summary
@@ -48,6 +59,8 @@ Detailed implementation summaries and completion reports:
 - `TEST_ORGANIZATION_SUMMARY.md` - Test structure organization
 - `Z-Score_Data_Integration_Summary.md` - Z-Score data integration
 - `FMP_STRATEGY_ALIGNMENT_SUMMARY.md` - FMP strategy alignment
+- `ZSCORE_AUDIT_FINAL_SUMMARY.md` - Z-Score audit final summary
+- `ZSCORE_CALCULATION_AUDIT_COMPLETION.md` - Z-Score calculation audit completion
 - `DOCUMENTATION_UPDATE_COMPLETE.md` - Documentation updates
 - `DOCUMENTATION_UPDATE_SUMMARY.md` - Documentation summary
 
@@ -55,6 +68,9 @@ Detailed implementation summaries and completion reports:
 Project status reports and progress tracking:
 - `LAYER_0_STATUS.md` - Layer 0 (cache) implementation status
 - `PROJECT_STATUS_UPDATE.md` - Overall project status
+- `PHASE_1_COMPLETION_SUMMARY.md` - Phase 1 completion summary
+- `ERROR_HANDLING_FIX_SUMMARY.md` - Comprehensive error handling fix documentation
+- `ERROR_HANDLING_AUDIT_COMPLETE.md` - Error handling audit completion report
 
 ## Root Documentation
 

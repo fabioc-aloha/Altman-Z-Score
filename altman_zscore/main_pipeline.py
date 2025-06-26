@@ -15,10 +15,8 @@ Key Features:
 
 import asyncio
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
-from pathlib import Path
+from typing import Dict, List, Optional
 
-from altman_zscore.common.config import get_config
 from .common.logging_config import get_logger
 from .common.exceptions import PipelineError
 from .layers.data_fetch.data_merger import DataMerger
@@ -29,7 +27,6 @@ from .layers.output_generation.chart_generator import ChartGenerator
 from .layers.output_generation.report_generator import ReportGenerator
 from .layers.output_generation.file_manager import FileManager
 from .layers.ai_insights.ai_insights_generator import AIInsightsGenerator
-from .layers.ai_analysis.ai_insights_generator import AIInsightsGenerator
 
 logger = get_logger(__name__)
 
@@ -46,7 +43,8 @@ class AltmanZScorePipeline:
         """
         self.output_base_path = output_base_path
         
-        # Initialize components        self.data_merger = DataMerger()
+        # Initialize components
+        self.data_merger = DataMerger()
         self.zscore_calculator = ZScoreCalculator()
         self.market_analyzer = MarketAnalysisOrchestrator()
         self.csv_json_generator = CSVJSONGenerator(output_base_path)
@@ -62,7 +60,10 @@ class AltmanZScorePipeline:
         generate_reports: bool = True,
         include_ai_insights: bool = False,
         include_market_analysis: bool = True,
-        start_date: str = None
+        forced_model: str = None,
+        quarters: int = 4,
+        enhanced_analysis: bool = False,
+        batch_size: int = 10
     ) -> Dict[str, str]:
         """
         Complete analysis for a single ticker.
@@ -73,7 +74,10 @@ class AltmanZScorePipeline:
             generate_reports: Whether to generate comprehensive reports
             include_ai_insights: Whether to include AI-powered analysis
             include_market_analysis: Whether to include market analysis
-            start_date: Start date for historical data in YYYY-MM-DD format (default: fetch all available)
+            forced_model: Optional model to force (overrides automatic selection)
+            quarters: Number of quarters for historical analysis (enhanced accounts: 8-20)
+            enhanced_analysis: Enable enhanced features for upgraded FMP accounts
+            batch_size: Batch size for concurrent processing (enhanced accounts: 20-50)
             
         Returns:
             Dict[str, str]: Paths to generated output files
@@ -81,9 +85,30 @@ class AltmanZScorePipeline:
         try:
             logger.info(f"Starting complete investment analysis for {ticker}")
             
+            # Enhanced analysis mode handling
+            if enhanced_analysis:
+                logger.info(f"Enhanced analysis mode enabled: {quarters} quarters, batch size {batch_size}")
+                # Set enhanced mode environment variables for downstream components
+                import os
+                os.environ['FMP_ENHANCED_MODE'] = '1'
+                os.environ['ANALYSIS_QUARTERS'] = str(quarters)
+                os.environ['BATCH_SIZE'] = str(batch_size)
+            
+            # Validate quarters parameter for enhanced vs regular accounts
+            if quarters > 4 and not enhanced_analysis:
+                logger.warning(f"Quarters={quarters} requested but enhanced_analysis=False. Using 4 quarters for free account compatibility.")
+                quarters = 4
+            elif enhanced_analysis and quarters < 8:
+                logger.info(f"Enhanced analysis enabled but quarters={quarters}. Consider using 8+ quarters for better trend analysis.")
+            
             # Step 1: Merge financial data
             logger.info(f"Step 1: Merging financial data for {ticker}")
-            merged = await self.data_merger.merge_financial_data(ticker, start_date=start_date)
+            # Pass enhanced parameters to data merger
+            merged = await self.data_merger.merge_financial_data(
+                ticker, 
+                start_date=None,
+                quarters=quarters if enhanced_analysis else 4
+            )
             if not isinstance(merged, list):
                 merged = [merged]
             
@@ -91,19 +116,25 @@ class AltmanZScorePipeline:
             logger.info(f"Step 2: Calculating Z-Score for {ticker} ({len(merged)} periods)")
             zscore_results = []
             for data in merged:
-                result = self.zscore_calculator.calculate_zscore(data)
+                result = self.zscore_calculator.calculate_zscore(data, forced_model=forced_model)
                 zscore_results.append(result)
             
             # Use the most recent result for dashboard/report
-            latest_result = zscore_results[0]
-            
-            # Step 3: Market Analysis (NEW)
+            latest_result = zscore_results[0]            # Step 3: Market Analysis (NEW)
             market_analysis = None
             if include_market_analysis:
                 logger.info(f"Step 3: Conducting market analysis for {ticker}")
                 try:
-                    market_analysis = await self.market_analyzer.analyze_comprehensive(ticker)
-                    logger.info(f"Market analysis complete for {ticker}: {market_analysis.investment_recommendation.action} ({market_analysis.investment_recommendation.confidence:.1%} confidence)")
+                    # Note: analyze_ticker method is not async, but we'll call it directly
+                    market_analysis = self.market_analyzer.analyze_ticker(
+                        ticker, 
+                        zscore_results[0].z_score, 
+                        zscore_results[0].risk_category
+                    )
+                    if market_analysis.risk_return_profile:
+                        logger.info(f"Market analysis complete for {ticker}: {market_analysis.risk_return_profile.investment_rating} ({market_analysis.risk_return_profile.confidence_level:.1%} confidence)")
+                    else:
+                        logger.info(f"Market analysis complete for {ticker} (no risk-return profile generated)")
                 except Exception as e:
                     logger.warning(f"Market analysis failed for {ticker}: {str(e)}. Continuing with Z-Score only.")
                     market_analysis = None
@@ -113,12 +144,14 @@ class AltmanZScorePipeline:
             csv_path = self.csv_json_generator.generate_csv_report(zscore_results, market_analysis)
             json_path = self.csv_json_generator.generate_json_report(zscore_results, market_analysis)
             output_files = {'csv': csv_path, 'json': json_path}
-            
-            # Step 4b: Chart using latest result (enhanced with market analysis)
+              # Step 4b: Chart using all results for multi-quarter trend analysis (enhanced with market analysis)
             if generate_charts:
-                logger.info(f"Step 4b: Generating enhanced charts for {ticker}")
-                chart_path = self.chart_generator.generate_zscore_dashboard(latest_result, market_analysis)
-                output_files['chart'] = chart_path
+                logger.info(f"Step 4b: Generating enhanced charts for {ticker} ({len(zscore_results)} periods)")
+                try:
+                    chart_path = self.chart_generator.generate_zscore_dashboard(zscore_results, market_analysis)
+                    output_files['chart'] = chart_path
+                except Exception as e:
+                    logger.warning(f"Chart generation failed for {ticker}: {str(e)}. Continuing with other outputs.")
             
             # Step 4c: Reports (enhanced with market analysis)
             if generate_reports:
@@ -179,11 +212,11 @@ class AltmanZScorePipeline:
             market_analysis: Market analysis result (optional)
             
         Returns:
-            Optional[str]: AI-generated comprehensive insights
-        """
+            Optional[str]: AI-generated comprehensive insights        """
         try:
             logger.info(f"Generating AI-powered insights for {zscore_result.ticker}")
-              # Generate comprehensive AI insights combining all analysis
+            
+            # Generate comprehensive AI insights combining all analysis
             insights = await self.ai_insights_generator.generate_investment_narrative(
                 zscore_result, market_analysis
             )
@@ -216,37 +249,5 @@ class AltmanZScorePipeline:
                 'file_manager': 'Ready'
             },
             'storage': self.file_manager.get_storage_summary(),
-            'version': '3.11.0'
+            'version': '4.0.0'
         }
-
-
-# Convenience function for single ticker analysis
-async def analyze_single_ticker(ticker: str, **kwargs) -> Dict[str, str]:
-    """
-    Convenience function to analyze a single ticker.
-    
-    Args:
-        ticker: Stock ticker symbol
-        **kwargs: Additional arguments
-        
-    Returns:
-        Dict[str, str]: Generated output file paths
-    """
-    pipeline = AltmanZScorePipeline()
-    return await pipeline.analyze_ticker(ticker, **kwargs)
-
-
-# Convenience function for batch analysis
-async def analyze_multiple_tickers(tickers: List[str], **kwargs) -> Dict[str, Dict[str, str]]:
-    """
-    Convenience function to analyze multiple tickers.
-    
-    Args:
-        tickers: List of ticker symbols
-        **kwargs: Additional arguments
-        
-    Returns:
-        Dict[str, Dict[str, str]]: Results for each ticker
-    """
-    pipeline = AltmanZScorePipeline()
-    return await pipeline.batch_analyze(tickers, **kwargs)

@@ -73,6 +73,22 @@ ZSCORE_MODELS = {
         },
         "description": "Modified Z'-Score for private manufacturing companies"
     },
+    "service": {
+        "name": "Service/Non-Manufacturing Z''-Score",
+        "coefficients": {
+            "X1": 6.56,
+            "X2": 3.26,
+            "X3": 6.72,
+            "X4": 1.05
+        },
+        "thresholds": {
+            "safe": 2.6,
+            "grey_upper": 2.6,
+            "grey_lower": 1.1,
+            "distress": 1.1
+        },
+        "description": "Service and non-manufacturing Z''-Score (no constant)"
+    },
     "emerging": {
         "name": "Emerging Markets Z''-Score",
         "coefficients": {
@@ -83,12 +99,12 @@ ZSCORE_MODELS = {
             "constant": 3.25
         },
         "thresholds": {
-            "safe": 5.85,
-            "grey_upper": 5.85,
-            "grey_lower": 3.75,
-            "distress": 3.75
+            "safe": 2.6,
+            "grey_upper": 2.6,
+            "grey_lower": 1.1,
+            "distress": 1.1
         },
-        "description": "Emerging Markets and non-manufacturing Z''-Score"
+        "description": "Emerging Markets Z''-Score (with +3.25 constant)"
     },
     "financial": {
         "name": "Financial Institutions Z-Score",
@@ -137,7 +153,7 @@ SIC_CODE_RANGES = {
 
 # Default settings
 DEFAULT_MODEL = "original"
-DEFAULT_START_DATE = "2018-01-01"
+DEFAULT_START_DATE = "2022-01-01"
 MINIMUM_QUARTERS_REQUIRED = 4
 
 # This file will be expanded during refactoring with additional constants

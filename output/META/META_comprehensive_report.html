@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - META</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Meta Platforms, Inc. (META)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="META_logo.png" alt="Meta Platforms, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 80.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="META_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="META_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.34</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$708.68</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1,781.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>27.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>58.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-0.49%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>1.64%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>13.1%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>13.2%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>19.2%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.37</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.95</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-34.2%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.2011</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.3616</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0626</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>18.72</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>1.944</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1510</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>12.34</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: META (Ticker: META)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>META presents a compelling investment opportunity characterized by exceptional financial stability and robust market positioning. With an Altman Z-Score of 12.34, META is firmly in the "Safe" risk category, underscoring its strong balance sheet and low bankruptcy risk. Coupled with a favorable market environment highlighted by a strong buy recommendation and an ongoing uptrend, META stands out as a growth-oriented investment with attractive risk-adjusted potential.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>META’s Altman Z-Score of 12.34 significantly exceeds the traditional safety threshold of 3.0, signaling an exceptionally low probability of financial distress. This score reflects the company’s solid liquidity, profitability, and capital structure. Breaking down the components:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.201):</strong> Indicates healthy short-term liquidity, ensuring META can comfortably meet its current obligations.</li>
+<li><strong>Retained Earnings Ratio (0.362):</strong> Demonstrates consistent profitability and effective reinvestment of earnings to fuel growth.</li>
+<li><strong>EBIT Ratio (0.063):</strong> Reflects steady operating earnings relative to total assets, supporting sustainable operational efficiency.</li>
+<li><strong>Market Equity Ratio (18.720) &amp; Book Equity Ratio (1.944):</strong> These ratios highlight META’s strong market valuation relative to its book value, signaling investor confidence and robust equity base.</li>
+<li><strong>Asset Turnover (0.151):</strong> While moderate, this suggests efficient use of assets to generate revenue, typical for a technology and social media giant with significant intangible assets.</li>
+</ul>
+<p>The company’s total assets stand at approximately $280 billion against liabilities of $95 billion, reinforcing a strong net asset position. The pristine data quality (1.0% error margin) further validates the reliability of this assessment.</p>
+<p>Overall, META’s fundamental health is exemplary, providing a solid foundation for sustained growth and resilience against market volatility.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>META’s market capitalization of $1.78 trillion places it among the elite global technology leaders, reflecting its dominant position in social media, virtual reality, and digital advertising ecosystems. The current share price of $708.68, combined with a P/E ratio of 27.7, suggests that the market values META’s earnings growth prospects favorably, albeit with a moderate premium typical for high-growth tech stocks.</p>
+<p>The stock’s volatility at 40% indicates a higher risk-return profile, consistent with the dynamic nature of the technology sector. However, the Relative Strength Index (RSI) at 58.8 and a clear technical uptrend signal positive momentum without being overbought, suggesting room for further appreciation.</p>
+<p>Investor confidence is further reinforced by an 80% confidence level in the strong buy recommendation, reflecting consensus optimism about META’s future earnings growth, innovation pipeline, and market expansion opportunities.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>META’s combination of outstanding financial health and strong market momentum positions it as a prime candidate for growth-focused portfolios. The exceptionally high Altman Z-Score confirms minimal bankruptcy risk, allowing investors to focus on upside potential rather than downside protection.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li><strong>Growth Potential:</strong> META’s reinvestment of earnings and asset base support ongoing innovation in AI, metaverse technologies, and advertising platforms, which are expected to drive revenue expansion.</li>
+<li><strong>Valuation Justification:</strong> The P/E ratio of 27.7 is justified by robust earnings growth forecasts and dominant market share, making the current price attractive for long-term investors.</li>
+<li><strong>Momentum Play:</strong> The technical uptrend and moderate RSI suggest favorable entry points for investors seeking capital appreciation.</li>
+</ul>
+<p><strong>Recommended Action:</strong> Investors should consider increasing exposure to META, particularly those with a medium to long-term horizon, to capitalize on its growth trajectory and financial stability. Position sizing should account for the inherent volatility, balancing growth ambitions with risk tolerance.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>While META’s fundamentals and market outlook are strong, investors should remain vigilant on the following:</p>
+<ul>
+<li><strong>Regulatory Environment:</strong> Heightened scrutiny on data privacy, antitrust issues, and content moderation could impact operational flexibility and profitability.</li>
+<li><strong>Market Volatility:</strong> The 40% volatility underscores potential price swings; investors should monitor macroeconomic conditions and sector-specific disruptions.</li>
+<li><strong>Innovation Execution:</strong> Continued success depends on META’s ability to innovate and monetize emerging technologies like the metaverse and AI-driven advertising.</li>
+<li><strong>Valuation Sensitivity:</strong> Although current valuations are supported by growth, any slowdown in earnings momentum could lead to multiple contraction.</li>
+</ul>
+<p><strong>Monitoring Recommendations:</strong> Regularly review quarterly earnings reports, regulatory developments, and technical indicators such as RSI and trend strength to adjust investment positions accordingly.</p>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>META’s exceptional financial health, validated by a stellar Altman Z-Score, combined with a strong market position and positive technical signals, make it a highly attractive investment opportunity. The company’s resilience and growth prospects justify a strong buy stance, with prudent attention to regulatory and market risks. Investors seeking a blend of safety and growth should consider META a core holding in their technology portfolio.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:55 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

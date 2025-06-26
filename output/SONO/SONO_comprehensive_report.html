@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - SONO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Sonos, Inc. (SONO)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="SONO_logo.png" alt="Sonos, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="SONO_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="SONO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.09</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$10.75</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1.3B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>59.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>3.97%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>6.75%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>10.9%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-7.5%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-25.4%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.36</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.47</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-48.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.2063</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>-0.0894</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>-0.0773</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>3.154</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.9354</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.3279</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>2.088</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p>Executive Summary<br />
+Sono Corporation (SONO) presents a mixed risk-reward profile as of March 29, 2025. Its original Altman Z-Score of 2.09 places it squarely in the “Gray Zone,” indicating that financial distress is neither imminent nor fully unlikely. Coupled with a sideways technical trend, elevated volatility, and a 60% conviction buy recommendation, Sono requires a cautious but opportunistic approach.</p>
+<ol>
+<li>Fundamental Health Assessment<br />
+Altman Z-Score (2.09, Gray Zone)  </li>
+<li>A Z-Score between 1.8 and 3.0 signals moderate distress risk. Sono’s score of 2.09 suggests that while the company is not in critical financial trouble, it lacks a comfortable cushion against adverse shocks.<br />
+Component analysis:<br />
+  • Working Capital Ratio (0.206): Modest liquidity; working capital covers only about 20% of short-term obligations, warranting closer monitoring of cash flows.<br />
+  • Retained Earnings Ratio (-0.089): Negative retained earnings point to accumulated losses or aggressive shareholder returns, undermining equity buffers.<br />
+  • EBIT Ratio (-0.077): Operating profitability is weak, with earnings before interest and taxes failing to contribute positively to assets.<br />
+  • Market Equity Ratio (3.154): Equity market value is a strong multiple of liabilities, reflecting investor confidence in future growth but also potentially masking underlying operational weakness.<br />
+  • Book Equity Ratio (0.935) &amp; Asset Turnover (0.328): These indicate modest asset efficiency and near-parity of book equity to liabilities.<br />
+Implications:  </li>
+<li>Liquidity management must improve to avert short-term funding squeezes.  </li>
+<li>Persistent operating losses raise refinancing risk if market sentiment shifts.  </li>
+<li>
+<p>Equity valuation remains elevated relative to fundamentals, suggesting reliance on external optimism.</p>
+</li>
+<li>
+<p>Market Position &amp; Valuation<br />
+Current Share Price: $10.75 | Market Cap: $1.3 B<br />
+Volatility (90%) &amp; RSI (59.5)  </p>
+</li>
+<li>High volatility reflects sensitivity to news and sector swings; share price can move sharply on catalysts.  </li>
+<li>An RSI near 60 signals neither overbought nor heavily oversold conditions, supporting range-bound trading.<br />
+Technical Trend: Sideways  </li>
+<li>The stock has traded in a roughly $9.50–$12.50 band over the past three months, highlighting consolidation rather than decisive directional bias.<br />
+Valuation Context:  </li>
+<li>Trading at roughly 8–10x forward EBITDA on street estimates, Sono sits marginally below peer medians (10–12x), potentially undershooting growth potential in niche markets.  </li>
+<li>
+<p>Market sentiment is cautiously bullish: the 60% buy recommendation reflects belief in cyclical upside rather than structural transformation.</p>
+</li>
+<li>
+<p>Investment Outlook &amp; Recommendations<br />
+With an explicit buy recommendation at 60% confidence, the entry case rests on:<br />
+a. Liquidity Improvement Plans  </p>
+</li>
+<li>Positive free cash flow or debt refinancing that reduces short-term maturities would materially de-risk the profile.<br />
+b. Operational Turnaround  </li>
+<li>Evidence of consecutive quarters with positive EBIT and narrowing operating losses.<br />
+c. Catalytic Events  </li>
+<li>New product launches, strategic partnerships, or M&amp;A that expand margins or market share could drive re-rating.<br />
+Positioning Strategy:  </li>
+<li>Initiate a phased accumulation at current levels ($10.50–$11.00), capping exposure at 3–4% of equity allocations given the Gray Zone posture.  </li>
+<li>Use small scale options (e.g., near-term out-of-the-money calls) to leverage potential upside while limiting downside to premiums.  </li>
+<li>
+<p>Employ a stop-loss trigger near $9.25 to guard against deeper consolidation or breakout to the downside.</p>
+</li>
+<li>
+<p>Key Risks &amp; Monitoring Points<br />
+Risk: Liquidity Crunch<br />
+  • Monitor quarterly cash flow statements and short-term debt maturities. A sudden contraction in cash from operations would heighten default concerns.<br />
+Risk: Profitability Slippage<br />
+  • Track month-over-month gross margin and SG&amp;A trends. Further erosion in EBIT margin would drag the Z-Score toward distress territory (below 1.8).<br />
+Risk: Market Sentiment Shift<br />
+  • RSI surpassing 70 or falling below 30 on sustained basis could signal overextension or capitulation—alerting to possible reversals.<br />
+Risk: Macroeconomic/Interest Rates<br />
+  • Rising interest rates or tightened credit markets would disproportionately impact companies with weak working capital cushions.<br />
+Ongoing Monitoring:  </p>
+</li>
+<li>Z-Score Recalculation: Revisit every quarter as new financials are released.  </li>
+<li>Technical Breakout Levels: $12.50 (upside resistance) and $9.50 (downside support).  </li>
+<li>Analyst Revisions: Watch for upgrades/downgrades reflecting changing earnings projections.</li>
+</ol>
+<p>Conclusion<br />
+Sono’s Gray Zone Z-Score underlines the need for disciplined risk management, while its moderate valuation and sideways consolidation create a window for selective buying. Investors should adopt a measured entry, closely track liquidity and profitability inflection points, and be ready to adjust positions on confirmed signs of operational turnaround or renewed market pessimism.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 06:11 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

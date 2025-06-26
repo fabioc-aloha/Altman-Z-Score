@@ -52,11 +52,12 @@ class APIRateLimiter:
     
     # Default rate limits per domain (requests per second)
     DEFAULT_RATE_LIMITS = {
-        "sec.gov": 0.1,           # SEC EDGAR: max 10 requests per second (100ms between requests)
-        "finance.yahoo.com": 0.5,  # Yahoo Finance: max 2 requests per second (500ms between requests)
-        "finnhub.io": 1.0,         # Finnhub: max 1 request per second
-        "openai.azure.com": 1.0,   # Azure OpenAI: max 1 request per second
-        "default": 1.0             # Default for any other domain
+        "sec.gov": 0.1,                      # SEC EDGAR: max 10 requests per second (100ms between requests)
+        "finance.yahoo.com": 0.5,            # Yahoo Finance: max 2 requests per second (500ms between requests)
+        "finnhub.io": 1.0,                   # Finnhub: max 1 request per second
+        "openai.azure.com": 1.0,             # Azure OpenAI: max 1 request per second
+        "financialmodelingprep.com": 0.1,    # FMP: max 1 request per 10 seconds (very conservative for free tier)
+        "default": 1.0                       # Default for any other domain
     }
     
     # Maximum backoff time in seconds

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - LUV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Southwest Airlines Co. (LUV)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="LUV_logo.png" alt="Southwest Airlines Co. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="sell">Strong Sell</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="LUV_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="LUV_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.18</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$31.34</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$17.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>35.2</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>60.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>44.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-1.63%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>0.26%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>1.8%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-9.1%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-2.8%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.22</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.39</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-31.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>7.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0954</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.4842</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>-0.0067</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>0.7489</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.3927</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1935</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>1.184</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: LUV (Southwest Airlines Co.)</strong><br />
+<strong>Analysis Date:</strong> March 31, 2025</p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Southwest Airlines (LUV) currently exhibits significant financial distress as indicated by an Altman Z-Score of 1.18, placing it firmly in the distress zone. Coupled with a high valuation multiple and elevated volatility, the company faces considerable near-term risks. Given these factors, a cautious and defensive stance is warranted, with a strong sell recommendation supported by 70% confidence.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, signals urgent concern for LUV. With a score of 1.18—well below the critical threshold of 1.8—the company is categorized in the distress zone, implying a heightened probability of financial distress or insolvency within the near future if conditions do not improve.</p>
+<p>Breaking down the components:</p>
+<ul>
+<li>
+<p><strong>Working Capital Ratio (-0.095):</strong> Negative working capital suggests liquidity challenges, indicating that current liabilities exceed current assets. This raises immediate concerns about the company’s ability to meet short-term obligations.</p>
+</li>
+<li>
+<p><strong>Retained Earnings Ratio (0.484):</strong> While positive, this moderate level of retained earnings relative to total assets reflects some historical profitability but is insufficient to offset other weaknesses.</p>
+</li>
+<li>
+<p><strong>EBIT Ratio (-0.007):</strong> Negative earnings before interest and taxes highlight operational losses, signaling that core business activities are not generating positive returns.</p>
+</li>
+<li>
+<p><strong>Market Equity Ratio (0.749) and Book Equity Ratio (0.393):</strong> The relatively high market equity ratio suggests that the market still values the company’s equity significantly, but the book equity ratio indicates weaker underlying net asset value.</p>
+</li>
+<li>
+<p><strong>Asset Turnover (0.194):</strong> Low asset turnover points to inefficient use of assets to generate revenue, further stressing operational performance.</p>
+</li>
+</ul>
+<p>The total liabilities of approximately $23.85 billion against total assets of $33.21 billion underscore a leveraged balance sheet, which, combined with operational losses, exacerbates financial vulnerability.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, LUV’s current share price of $31.34 and market capitalization of $17.9 billion reflect investor optimism that appears disconnected from the company’s fundamental distress signals. The price-to-earnings (P/E) ratio stands at 35.2, which is elevated relative to industry averages, suggesting that the stock is priced for growth or recovery that may not materialize given current financial headwinds.</p>
+<p>Volatility is notably high at 60%, indicating significant price fluctuations and investor uncertainty. The Relative Strength Index (RSI) at 44.9 points to a neutral momentum, neither oversold nor overbought, while the technical trend remains sideways, reflecting a lack of clear directional movement in the stock price.</p>
+<p>This combination of high valuation, elevated volatility, and stagnant technical trends suggests that the market is conflicted, possibly pricing in a turnaround that is not yet supported by fundamentals.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the distress-level Z-Score and the market’s mixed signals, the investment outlook for LUV is decidedly cautious and negative in the near term. The strong sell recommendation, supported by 70% confidence, is grounded in the following considerations:</p>
+<ul>
+<li>
+<p><strong>Financial Distress Risk:</strong> The low Z-Score signals a material risk of bankruptcy or severe financial restructuring. Investors should anticipate potential liquidity crises or the need for dilutive capital raises.</p>
+</li>
+<li>
+<p><strong>Operational Challenges:</strong> Negative EBIT and low asset turnover indicate ongoing operational inefficiencies that must be addressed before profitability can be restored.</p>
+</li>
+<li>
+<p><strong>Valuation Disconnect:</strong> The elevated P/E ratio suggests that the market may be overly optimistic about a recovery, exposing investors to downside risk if earnings fail to improve.</p>
+</li>
+<li>
+<p><strong>Volatility and Uncertainty:</strong> High price volatility and sideways technical trends imply that the stock may experience further price swings, increasing risk for short-term investors.</p>
+</li>
+</ul>
+<p><strong>Actionable Implications:</strong><br />
+Investors currently holding LUV shares should consider reducing exposure to mitigate downside risk. Prospective investors are advised to avoid initiating new positions until there is clear evidence of operational turnaround and financial stabilization. Monitoring quarterly earnings reports, liquidity metrics, and any restructuring announcements will be critical.</p>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ul>
+<li>
+<p><strong>Liquidity and Solvency:</strong> Watch for changes in working capital and debt maturities. Any signs of worsening liquidity or covenant breaches could accelerate distress.</p>
+</li>
+<li>
+<p><strong>Operational Performance:</strong> Improvements in EBIT and asset turnover ratios will be key indicators of management’s ability to restore profitability.</p>
+</li>
+<li>
+<p><strong>Market Sentiment Shifts:</strong> Given the current high volatility, sudden shifts in investor sentiment could lead to sharp price movements. RSI and volume trends should be monitored closely.</p>
+</li>
+<li>
+<p><strong>Macroeconomic and Industry Factors:</strong> Fuel prices, labor costs, and travel demand trends remain significant external risks that could impact recovery prospects.</p>
+</li>
+<li>
+<p><strong>Capital Structure Changes:</strong> Potential equity dilution or debt restructuring could materially affect shareholder value.</p>
+</li>
+</ul>
+<hr />
+<p><strong>Conclusion:</strong><br />
+Southwest Airlines (LUV) is currently navigating a precarious financial position with clear signs of distress. The combination of fundamental weaknesses and market volatility necessitates a defensive investment approach. Until tangible improvements in financial health and operational efficiency are demonstrated, the prudent course is to maintain a strong sell stance and closely monitor key financial and market indicators.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 25, 2025 at 07:11 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

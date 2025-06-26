@@ -1,0 +1,202 @@
+[
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 0.8273685780788391,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2022-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6098351024940405,
+      "retained_earnings_ratio": -0.4555799979664201,
+      "ebit_ratio": -0.03523903440462107,
+      "book_equity_ratio": 1.769160979490411,
+      "asset_turnover": 0.14271857352440376,
+      "z_score": 0.8273685780788391
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 0.935401134153117,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2022-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6291439832972351,
+      "retained_earnings_ratio": -0.4207171522045959,
+      "ebit_ratio": -0.03616655934749946,
+      "book_equity_ratio": 1.9248234370912896,
+      "asset_turnover": 0.14488575386836816,
+      "z_score": 0.935401134153117
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 0.995497399892289,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2022-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6241923707122908,
+      "retained_earnings_ratio": -0.3719502483011596,
+      "ebit_ratio": -0.021824323578438408,
+      "book_equity_ratio": 1.8755691197010649,
+      "asset_turnover": 0.1433491718300797,
+      "z_score": 0.995497399892289
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 1.1457551497462801,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2021-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6628649537600649,
+      "retained_earnings_ratio": -0.36445677728435466,
+      "ebit_ratio": -0.024766993114529477,
+      "book_equity_ratio": 2.1858689166413683,
+      "asset_turnover": 0.13833864817397848,
+      "z_score": 1.1457551497462801
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 1.2109500789573229,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2021-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6780702634344324,
+      "retained_earnings_ratio": -0.34737527607250984,
+      "ebit_ratio": -0.011902980349721995,
+      "book_equity_ratio": 2.202999241498462,
+      "asset_turnover": 0.13098540824196697,
+      "z_score": 1.2109500789573229
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 1.275907736421336,
+      "risk_category": "Gray Zone",
+      "model_used": "private",
+      "calculation_date": "2021-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.683662950137118,
+      "retained_earnings_ratio": -0.3403527033248594,
+      "ebit_ratio": -0.004772437629694871,
+      "book_equity_ratio": 2.268385499866426,
+      "asset_turnover": 0.13637895256587332,
+      "z_score": 1.275907736421336
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 1.1501828108684573,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2021-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.6757616634421632,
+      "retained_earnings_ratio": -0.3364490517281777,
+      "ebit_ratio": -0.034675686350643005,
+      "book_equity_ratio": 2.197983290426517,
+      "asset_turnover": 0.13548939930511392,
+      "z_score": 1.1501828108684573
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "POSH",
+    "analysis_summary": {
+      "z_score": 0.2502966392995627,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2020-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.36671875109482405,
+      "retained_earnings_ratio": -0.44321629518557704,
+      "ebit_ratio": 0.005468864956522349,
+      "book_equity_ratio": 0.24621356001763875,
+      "asset_turnover": 0.24284773362668777,
+      "z_score": 0.2502966392995627
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-25T20:20:05.465136",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]
