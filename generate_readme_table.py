@@ -142,13 +142,10 @@ def generate_table():
         else:
             logo_display = f'<div style="width:40px;height:40px;background:#2c3e50;color:white;display:flex;align-items:center;justify-content:center;margin-right:8px;font-weight:bold;border-radius:4px;">{ticker}</div>'
         
-        # Combine logo and company name in one column
-        logo_and_name = f'<div style="display: flex; align-items: center;">{logo_display} <span>{company_name}</span></div>'
+        # Combine logo and company name in one column with line break
+        logo_and_name = f'<div style="display: flex; flex-direction: column; align-items: center; text-align: center;">{logo_display}<br/><span>{company_name}</span></div>'
         
-        # Create dashboard preview (using iframe for interactive chart)
-        dashboard_preview = f'<a href="{dashboard_rel}" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a>'
-        
-        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {dashboard_preview} | {investment_rec} |'
+        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {investment_rec} |'
         rows.append(row)
         
     print(f"Generated table with {len(rows)} companies")
@@ -160,8 +157,8 @@ def save_table_to_file(filename):
     table_rows = generate_table()
     
     with open(filename, "w", encoding="utf-8") as f:
-        f.write("| Company | Report | Dashboard | Investment Recommendation |\n")
-        f.write("|---------|--------|:---------:|---------------------------|\n")
+        f.write("| Company | Report | Investment Recommendation |\n")
+        f.write("|---------|--------|---------------------------|\n")
         for row in table_rows:
             f.write(f"{row}\n")
     print(f"Table saved to {filename}")
