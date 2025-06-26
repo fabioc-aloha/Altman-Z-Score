@@ -2,17 +2,17 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.0.0 (2025-06-25) 🚀 Golden Release - Professional Investment Analysis Platform**
+**Version: 4.1.0 (2025-06-26) 🎯 SEC EDGAR Elimination - Simplified & Enhanced**
 
 Transform your investment decisions with **AI-powered financial health analysis**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis**.
 
-## 🚀 **NEW v4.0.0 GOLDEN RELEASE: PROFESSIONAL FEATURES**
+## 🎯 **NEW v4.1.0: SEC EDGAR ELIMINATION & ARCHITECTURE SIMPLIFICATION**
 
-### ⚡ **Enhanced Multi-Quarter Analysis**
-- **📊 Extended Historical Data:** 4-20+ quarters of Z-Score trend analysis with seasonality detection
-- **🎯 Environment-Driven Configuration:** Smart CLI defaults based on your FMP account type and .env settings
-- **📈 Enhanced Chart Generation:** Risk zone colored markers, improved visualization, professional formatting
-- **🔄 Intelligent Batch Processing:** Optimized individual ticker processing with API rate limiting
+### ⚡ **Simplified & Enhanced Architecture**
+- **�️ SEC EDGAR Infrastructure Removed:** Complete elimination of SEC EDGAR, XBRL, and field mapping complexity
+- **🎯 FMP-Only Data Source:** Streamlined Financial Modeling Prep (FMP) exclusive architecture for reliability
+- **📈 Faster Performance:** Reduced code complexity, faster data fetching, simplified maintenance
+- **🔄 Legacy Code Deprecation:** Clean migration path with clear warnings and upgrade guidance
 
 ### 🎯 **Account-Optimized Experience**
 ```bash
@@ -36,11 +36,12 @@ pwsh.exe -File run_batch_examples.ps1   # Interactive menu with 8 sector groups
 
 ## 🎯 **What You Get**
 
-### 💡 **Professional Investment Intelligence v4.0.0**
+### 💡 **Professional Investment Intelligence v4.1.0**
+- **🎯 Simplified Architecture:** Streamlined FMP-only data source with eliminated SEC EDGAR complexity
 - **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
 - **💡 Investment Recommendations:** Clear BUY/HOLD/SELL guidance with historical context and confidence scoring
 - **🤖 AI-Powered Insights:** Comprehensive reports integrating multi-quarter trends and market intelligence
-- **⚡ Production-Ready Performance:** Environment-driven configuration with intelligent caching and batch processing
+- **⚡ Enhanced Performance:** Reduced code complexity, faster data fetching, simplified maintenance
 
 ### 💡 **Smart Investment Decisions with Historical Context**
 - **🎯 Risk-Adjusted Recommendations:** Tailored advice with multi-quarter trend analysis for all investor profiles

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 4.0.0 (2025-01-07) - Professional Investment Analysis Platform
+# Version: 4.1.0 (2025-06-26) - SEC EDGAR Elimination & Architectural Simplification
 """
 AI-Powered Altman Z-Score Analysis - Main Entry Point
 
@@ -7,9 +7,9 @@ A robust, modular Python tool for comprehensive Altman Z-Score trend analysis wi
 FMP pre-calculated ratios and LLM-powered qualitative insights. This script orchestrates 
 the analysis pipeline for single or multiple stock tickers.
 
-🎯 **Strategic Architecture: FMP-First Data Pipeline**
+🎯 **Strategic Architecture: FMP-Only Data Pipeline (SEC EDGAR Eliminated)**
 Financial Modeling Prep (FMP) provides **all Z-Score financial ratios pre-calculated**,
-eliminating the need for complex SEC EDGAR field mapping and XBRL parsing.
+completely eliminating the need for SEC EDGAR, XBRL parsing, and complex field mapping.
 
 Architecture Overview:
     1. Input Layer: Accepts ticker(s) and analysis parameters; validates input.
@@ -28,14 +28,13 @@ Key Principles:
     - **Production Ready**: Thread-safe operations with comprehensive error handling
 
 Data Sources:
-    - **Primary Financial**: FMP API with pre-calculated Z-Score ratios (eliminates field mapping)
+    - **Primary Financial**: FMP API with pre-calculated Z-Score ratios (no field mapping needed)
     - **Market Data**: Yahoo Finance for real-time pricing and market capitalization
     - **AI Analysis**: Azure OpenAI for intelligent insights and commentary generation
-    - **Optional Backup**: SEC EDGAR for validation (not required for calculations)
 
 Strategic Advantages:
     - **Pre-calculated Ratios**: Working Capital/Total Assets, EBIT/Total Assets, etc. ready for use
-    - **No Field Mapping**: Eliminates SEC XBRL parsing complexity
+    - **Massive Simplification**: ~2000+ lines of SEC EDGAR/XBRL code eliminated
     - **Lightning Fast**: 48-hour caching + pre-calculated ratios = optimal performance
     - **Reliable**: Deterministic data pipeline with intelligent AI enhancement
 

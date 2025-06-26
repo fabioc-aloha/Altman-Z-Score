@@ -18,7 +18,7 @@ def test_summary():
     print("🧪 ALTMAN Z-SCORE PIPELINE TESTING SUMMARY")
     print("=" * 60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Version: 4.0.0")
+    print(f"Version: 4.1.0")
     print()
     
     # Test results summary

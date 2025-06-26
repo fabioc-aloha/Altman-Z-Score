@@ -6,28 +6,28 @@ All API and data source decisions are guided by the project vision:
 
 See [vision.md](./vision.md) for the full vision statement.
 
-## Strategic Architecture Decision: API-First with FMP
+## Strategic Architecture Decision: FMP-Only with Complete SEC EDGAR Elimination
 
-**KEY INSIGHT**: The refactored architecture eliminates the need for complex SEC EDGAR field mapping by leveraging Financial Modeling Prep (FMP) as the primary source for **pre-calculated financial metrics**.
+**BREAKTHROUGH INSIGHT**: FMP provides all financial data in standardized format, **completely eliminating the need for SEC EDGAR**, XBRL parsing, and complex field mapping infrastructure.
 
 **Strategic Benefits:**
-1. **FMP provides all Z-Score ratios pre-calculated** (Working Capital/Total Assets, EBIT/Total Assets, etc.)
-2. **Eliminates field mapping complexity** - no need to parse/map SEC XBRL concepts
-3. **Deterministic data pipeline** - consistent metric definitions across all companies
-4. **48-hour caching** - optimal balance of data freshness and API efficiency
-5. **Clear data source separation** - FMP for financials, Yahoo for market data
+1. **FMP provides all Z-Score fields standardized** (`totalAssets`, `revenue`, `retainedEarnings`, etc.)
+2. **Complete elimination of field mapping** - direct field access replaces complex XBRL parsing
+3. **Massive simplification** - ~2000+ lines of SEC EDGAR code eliminated
+4. **Deterministic data pipeline** - consistent field definitions across all companies
+5. **Enhanced performance** - direct API integration vs. complex processing pipeline
 
 **Architecture Impact:**
-- SEC EDGAR field mapping/caching is **no longer required** for Z-Score calculations
-- FMP provides standardized financial statement data that can be accessed directly
-- Data pipeline focuses on integration, quality gates, and caching
-- LLM usage limited to commentary and insights generation only
+- **🗑️ SEC EDGAR completely removed** - no longer needed for any calculations
+- **⚡ Simplified data pipeline** - FMP + Yahoo Finance only
+- **🚀 Performance gains** - eliminate XBRL parsing, field mapping, AI disambiguation
+- **🔧 Reduced maintenance** - single financial data source with standardized fields
 
 # APIs Documentation
 
 **Purpose**: Documents current API integrations, data sources, and external service configurations.
 
-**Version**: 4.0.0 (2025-01-07) - Professional Investment Analysis Platform
+**Version**: 4.1.0 (2025-06-26) - SEC EDGAR Elimination & Simplified Architecture
 
 For **PAST** API changes → see [`CHANGELOG.md`](CHANGELOG.md)  
 For **FUTURE** API plans → see [`TODO.md`](TODO.md)  
@@ -106,110 +106,6 @@ FMP's pre-calculated ratios eliminate the need for:
 - Field name variations across companies
 
 This results in a **deterministic, reliable data pipeline** focused on integration rather than transformation.
-
-## SEC EDGAR APIs
-
-### Company Submissions API
-- **Base URL**: `https://data.sec.gov/submissions`
-- **Endpoint**: `/CIK{cik}.json` (where CIK is 10-digit with leading zeros)
-- **Description**: Provides company filing metadata and general information
-- **Authentication**: 
-  - Requires User-Agent header in format: `Company/Project Contact-Email`
-  - Environment Variable: `SEC_EDGAR_USER_AGENT` or `SEC_USER_AGENT`
-  - Example: `AltmanZScore/1.0 name@domain.com`
-- **Rate Limits**: 
-  - 100ms minimum between requests (0.1 seconds)
-  - No authentication or API keys required
-  - Must respect HTTP 429 responses
-  - Implement exponential backoff for retries
-- **Update Schedule**:
-  - Real-time updates (< 1 second delay)
-  - Data refreshed as filings are disseminated
-  - Bulk data updated nightly at 3:00 AM ET
-- **Key Fields**:
-  - `sic`: Standard Industrial Classification code
-  - `sicDescription`: Industry description
-  - `flags.foreignPrivateIssuer`: Boolean indicating foreign/ADR status
-  - `name`: Company name
-  - `tickers`: Array of ticker symbols
-- **Example Request**:
-```bash
-curl -H "User-Agent: AltmanZScore/1.0 name@domain.com" \
-     -H "Accept: application/json" \
-     https://data.sec.gov/submissions/CIK0000789019.json
-```
-
-### Company Facts API (Primary Financial Data Source)
-- **Endpoint**: `/CIK{cik}.json` 
-- **Description**: **PRIMARY DATA SOURCE** - Provides comprehensive XBRL financial facts for Z-Score calculations
-- **Usage**: Core financial data extraction for balance sheet, income statement, and cash flow items
-- **Enhanced Processing (v3.5.4+)**:
-  - **Multi-Tier Field Mapping**: AI-powered semantic mapping with fallback strategies
-  - **Per-Quarter Logic**: Handles companies with different field names across periods (e.g., Ford's annual vs quarterly revenue fields)
-  - **Revenue Backfilling**: Automatic use of annual data when quarterly data missing
-- **Authentication**: Same as Company Submissions API
-- **Rate Limits**: Same as Company Submissions API
-- **Example Request**:
-```bash
-curl -H "User-Agent: AltmanZScore/4.0.0 name@domain.com" \
-     -H "Accept: application/json" \
-     https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json
-```
-
-### CIK Cache System (Performance Enhancement)
-- **Local Cache**: Pre-shipped database at `src/altman_zscore/api/cache/sec_company_tickers_cache.json`
-- **Coverage**: 10,033+ U.S. public companies
-- **Benefits**: 
-  - Instant CIK resolution for major companies (AAPL, MSFT, TSLA, etc.)
-  - Eliminates SEC API 403/429 rate limit errors
-  - Weekly auto-refresh with graceful fallbacks
-- **Management Commands**:
-```bash
-python main.py --clear-cache    # Manual cache refresh
-python main.py --cache-stats    # Cache status information
-```
-  - Single Concept: `/CIK{cik}/us-gaap/{concept}.json`
-  - All Company Facts: `/CIK{cik}.json`
-  - Frame Data: `/us-gaap/{concept}/USD/{period}.json`
-- **Description**: Provides normalized XBRL financial data from forms 10-Q, 10-K, 8-K, 20-F, 40-F, 6-K
-- **Authentication**: Same as submissions API
-- **Rate Limits**: Same as submissions API
-- **Update Schedule**: Real-time updates (< 1 minute delay)
-- **Core Financial Tags**:
-  - Current Assets: `us-gaap:AssetsCurrent`, `us-gaap:CurrentAssets`, `us-gaap:AssetsNetCurrent`
-  - Total Assets: `us-gaap:Assets`, `us-gaap:TotalAssets`, `us-gaap:AssetsNet`
-  - Retained Earnings: `us-gaap:RetainedEarnings`, `us-gaap:RetainedEarningsAccumulatedDeficit`
-  - Operating Income: `us-gaap:OperatingIncomeLoss`, `us-gaap:IncomeLossFromOperations`
-  - Total Liabilities: `us-gaap:Liabilities`, `us-gaap:TotalLiabilities`, `us-gaap:LiabilitiesTotal`
-  - Revenue: `us-gaap:Revenues`, `us-gaap:RevenueFromContractWithCustomer`, `us-gaap:SalesRevenueNet`
-- **Industry-Specific Tags**:
-  - Tech/AI:
-    * R&D: `us-gaap:ResearchAndDevelopmentExpense`, `us-gaap:TechnologyAndDevelopmentExpense`
-    * Subscription Revenue: `us-gaap:SubscriptionRevenue`, `us-gaap:CloudServicesRevenue`
-  - Manufacturing:
-    * Inventory: `us-gaap:InventoryNet`, `us-gaap:Inventories`
-    * COGS: `us-gaap:CostOfGoodsAndServicesSold`, `us-gaap:CostOfRevenue`
-    * CapEx: `us-gaap:PaymentsToAcquirePropertyPlantAndEquipment`
-
-### Company Search API 
-- **Base URL**: `https://www.sec.gov/cgi-bin/browse-edgar`
-- **Description**: Search for companies and filings
-- **Parameters**:
-  - `CIK`: Company CIK number
-  - `type`: Filing type (e.g., "10-Q", "10-K")
-  - `dateb`: End date for search
-  - `owner`: "include" for ownership filings
-- **Authentication**: Same as above
-- **Additional Features**:
-  - CORS: Not supported on data.sec.gov
-  - Bulk Data: Available via nightly ZIP files
-    * Companies: `/Archives/edgar/daily-index/xbrl/companyfacts.zip`
-    * Submissions: `/Archives/edgar/daily-index/bulkdata/submissions.zip`
-- **Example**:
-```bash
-curl -H "User-Agent: AltmanZScore/1.0 name@domain.com" \
-     "https://www.sec.gov/cgi-bin/browse-edgar?CIK=789019&type=10-Q"
-```
 
 ## Yahoo Finance API
 
@@ -433,18 +329,18 @@ cached_data = load_financial_data('AAPL')
 
 # Z-Score Model Data/API Mapping Summary
 
-| Model Name   | Required Fields (Canonical)                | Primary API/Data Source(s)         | Fallback/AI Mapping |
+| Model Name   | Required Fields (Canonical)                | Primary API/Data Source(s)         | Processing Method   |
 |--------------|--------------------------------------------|------------------------------------|---------------------|
-| Original     | Working Capital, Retained Earnings, EBIT,  | SEC EDGAR Company Facts            | Azure OpenAI        |
-|              | Market Value of Equity, Sales, Total Assets| (market value: Yahoo Finance only) | (semantic mapping)  |
-| Private      | Working Capital, Retained Earnings, EBIT,  | SEC EDGAR Company Facts            | Azure OpenAI        |
+| Original     | Working Capital, Retained Earnings, EBIT,  | FMP Financial Statements API       | Direct field access |
+|              | Market Value of Equity, Sales, Total Assets| (market value: Yahoo Finance only) | (standardized)      |
+| Private      | Working Capital, Retained Earnings, EBIT,  | FMP Financial Statements API       | Direct field access |
 |              | Book Value of Equity, Sales, Total Assets  |                                    |                     |
-| Emerging     | Working Capital, Retained Earnings, EBIT,  | SEC EDGAR Company Facts            | Azure OpenAI        |
+| Emerging     | Working Capital, Retained Earnings, EBIT,  | FMP Financial Statements API       | Direct field access |
 |              | Book Value of Equity, Total Assets         |                                    |                     |
-| Financial    | Equity, Intangible Assets, Retained        | SEC EDGAR Company Facts            | Azure OpenAI        |
+| Financial    | Equity, Intangible Assets, Retained        | FMP Financial Statements API       | Direct field access |
 |              | Earnings, EBIT, Book Value of Equity,      |                                    |                     |
 |              | Total Assets, Total Liabilities            |                                    |                     |
-| Retail       | Current Assets, Inventory, Retained        | SEC EDGAR Company Facts            | None (deterministic) |
+| Retail       | Current Assets, Inventory, Retained        | FMP Financial Statements API       | Direct field access |
 |              | Earnings, EBIT, Market Value of Equity,    | (market value: Yahoo Finance only) |                      |
 |              | Sales, Inventory Turnover, Total Assets    |                                    |                      |
 
@@ -496,23 +392,22 @@ All data processing operations are auditable and reproducible with clear data li
 
 ---
 
-## Current API Architecture (v4.0.0)
+## Current API Architecture (v4.1.0)
 
 ### Clean Data Source Separation
 The system implements a clean architecture with distinct data sources:
 
-- **SEC EDGAR APIs**: Exclusive source for financial statement data (balance sheet, income statement, cash flow)
+- **FMP APIs**: Primary source for all financial statement data (balance sheet, income statement, cash flow)
 - **Yahoo Finance APIs**: Exclusive source for market data (prices, analyst recommendations, institutional holdings)
-- **Azure OpenAI API**: AI-powered field mapping and report generation
-- **Finnhub API**: Company profiles and logos (optional enhancement)
+- **Azure OpenAI API**: AI-powered narrative generation and insights
 
-### Key Innovations (v3.5.4+)
-- **CIK Cache System**: Pre-shipped database with 10,033+ U.S. companies for instant lookups
-- **Multi-Tier Field Mapping**: AI-powered semantic mapping with comprehensive fallback strategies
-- **Per-Quarter Fallback Logic**: Handles companies with mixed annual/quarterly reporting patterns
-- **Intelligent Rate Limiting**: Token bucket algorithm with exponential backoff
+### Key Innovations (v4.1.0+)
+- **FMP-First Architecture**: Direct standardized field access eliminates complex field mapping
+- **Simplified Data Pipeline**: Single financial data source reduces complexity by ~2000+ lines
+- **Enhanced Performance**: Direct field access improves processing speed and reliability
+- **Intelligent Rate Limiting**: Account-aware rate limiting based on FMP subscription tier
 
-### API Rate Limiting Infrastructure (v4.0.0+)
+### API Rate Limiting Infrastructure (v4.1.0+)
 
 The refactored architecture implements a centralized API rate limiter to prevent sporadic 401/429 errors:
 
@@ -520,12 +415,11 @@ The refactored architecture implements a centralized API rate limiter to prevent
 - **Global Timer**: Centralized tracking of all API requests across the application
 - **Token Bucket Algorithm**: Smooth distribution of API requests to prevent bursts
 - **Per-Domain Configuration**: Different rate limits for each API provider:
-  - SEC EDGAR: 100ms minimum between requests (10 requests per second)
+  - FMP: Account-aware rate limiting (60/min free, 300/min paid)
   - Yahoo Finance: 500ms minimum (2 requests per second)
-  - Finnhub: 1000ms minimum (1 request per second)
   - Azure OpenAI: 1000ms minimum (1 request per second)
 - **Exponential Backoff**: Automatic retry with increasing delays after failures
-- **Special Error Handling**: Enhanced backoff for SEC 401/429 errors
+- **Account Detection**: Automatic FMP account tier detection for optimal rate limiting
 - **Thread Safety**: Lock-based synchronization for concurrent API requests
 - **Comprehensive Logging**: Detailed logging of all rate limiting actions
 - **Usage Statistics**: Real-time monitoring of API request patterns
@@ -560,7 +454,7 @@ except Exception as e:
 ## Best Practices
 
 1. **Rate Limiting**
-   - Enforce minimum 100ms delay between SEC EDGAR requests
+   - Account-aware rate limiting for FMP (60/min free, 300/min paid)
    - Implement exponential backoff for retries (up to 3 attempts)
    - Track request timing with millisecond precision
    - Respect HTTP 429 (Too Many Requests) responses
@@ -570,15 +464,14 @@ except Exception as e:
    - Handle HTTP errors gracefully (especially 404, 429, 503)
    - Implement retries with exponential backoff (2^attempt seconds)
    - Log all API errors with request context for debugging
-   - Custom handling for common SEC EDGAR errors:
-     * 404: Invalid CIK or company not found
+   - Custom handling for common FMP errors:
+     * 401: Invalid API key or subscription expired
      * 429: Rate limit exceeded
-     * 503: Service temporarily unavailable
+     * 404: Invalid ticker symbol or data not available
 
 3. **Data Caching**
    - Cache locations:
-     * SEC CIK data: `.cache/cik_cache.json` (30-day TTL)
-     * Financial statements: `.cache/financials/` (30-day TTL)
+     * FMP financial data: `.cache/financials/` (48-hour TTL)
      * Market data: Based on data update frequency
    - Cache invalidation:
      * Automatic TTL-based expiration
@@ -586,9 +479,9 @@ except Exception as e:
      * Forced refresh on HTTP errors
 
 4. **Authentication**
-   - SEC EDGAR credentials:
-     * Use `SEC_EDGAR_USER_AGENT` or `SEC_USER_AGENT` env var
-     * Format: "CompanyName/Version ContactEmail"
+   - FMP credentials:
+     * Use `FINANCIAL_MODELING_PREP_API_KEY` env var
+     * Support for both free and paid subscription tiers
    - Never commit API keys or credentials to source control
    - Validate all environment variables on startup
    - Use separate credentials for development/production
@@ -597,34 +490,24 @@ except Exception as e:
 
 Required environment variables for API access:
 ```bash
-# SEC EDGAR (one of these is required)
-SEC_EDGAR_USER_AGENT="CompanyName/Version ContactEmail"  # Primary environment variable
-SEC_USER_AGENT="CompanyName/Version ContactEmail"        # Alternative name
-
-# Example:
-SEC_EDGAR_USER_AGENT="AltmanZScore/1.0 name@domain.com"  # Use your own contact email
+# FMP (Financial Modeling Prep) - Required
+FINANCIAL_MODELING_PREP_API_KEY="your-fmp-api-key"  # Do NOT share real API keys
 
 # Optional: Yahoo Finance (if using premium API)
 YAHOO_FINANCE_API_KEY="your-api-key"  # Do NOT share real API keys
 
-# Optional: Finnhub (required for company profiles/logos)
-FINNHUB_API_KEY="your-finnhub-api-key"  # Do NOT share real API keys
-
-# Optional: Financial Modeling Prep (for validation and benchmarking)
-FINANCIAL_MODELING_PREP_API_KEY="your-fmp-api-key"  # Do NOT share real API keys
-
-# Optional: Azure OpenAI (required for AI-powered features)
+# Optional: Azure OpenAI (required for AI-powered narratives)
 AZURE_OPENAI_API_KEY="your-azure-openai-api-key"  # Do NOT share real API keys
 AZURE_OPENAI_ENDPOINT="https://your-resource-name.openai.azure.com/"  # Example endpoint
 
 # Optional: Cache Configuration
-FINANCIAL_CACHE_TTL_DAYS=30        # Default: 30 days
+FINANCIAL_CACHE_TTL_DAYS=2         # Default: 2 days (48 hours)
 CACHE_DIR=".cache"                 # Default: .cache in project root
 ```
 
 ## Cache Directory Structure
 
-### Current Implementation (v4.0.0)
+### Current Implementation (v4.1.0)
 
 ```
 src/altman_zscore/api/cache/
@@ -667,57 +550,6 @@ This new structure separates:
 
 > **Security Note:** Never commit or share real API keys, secrets, or credentials in documentation, code, or version control. Always use placeholder values (e.g., "your-api-key") and store secrets securely using environment variables or secret managers.
 
-## Field Mapping Cache Infrastructure (Layer 0)
+---
 
-### Overview
-- **Purpose**: Generate and manage deterministic, rule-based field mappings from SEC EDGAR XBRL concepts to Z-Score canonical fields
-- **Location**: `altman_zscore/cache/field_mapping_cache.json`
-- **Process**: Pre-built cache of mappings for common companies and fields, with versioned schema and validation
-- **Key Principle**: No LLM/AI involvement in cache generation or usage
-
-### Field Mapping Cache Generator
-- **Command**: `python build_field_database.py --deterministic` (To be refactored from current build_field_database.py)
-- **Features**:
-  - Rule-based field extraction from SEC EDGAR
-  - Canonical field normalization
-  - Common patterns detection and mapping
-  - Industry-specific mapping rules
-  - Statistical frequency analysis of field occurrences
-- **Output Structure**:
-```json
-{
-  "metadata": {
-    "version": "4.0.0",
-    "generated_date": "2025-06-21",
-    "company_count": 500,
-    "mapping_approach": "deterministic",
-    "validation_status": "verified"
-  },
-  "mappings": {
-    "us-gaap:AssetsCurrent": {
-      "canonical_field": "current_assets",
-      "confidence": 1.0,
-      "occurrence_count": 495
-    },
-    "us-gaap:Assets": {
-      "canonical_field": "total_assets",
-      "confidence": 1.0,
-      "occurrence_count": 500
-    },
-    // Additional mappings...
-  },
-  "industry_specific": {
-    "financial": {
-      // Specialized mappings for financial sector
-    }
-  }
-}
-```
-
-### Relationship to Data Fetch Layer
-- Field Mapping Cache (Layer 0) provides the deterministic mapping rules for the Data Fetch Layer (Layer 1)
-- The Field Mapping Layer (Layer 2) uses this cache as its primary source and only falls back to AI/LLM for unmapped fields
-
-### Cross-References
-- See [REFACTORING_PLAN.md](REFACTORING_PLAN.md) for implementation details of Layer 0
-- See [FLOW.md](FLOW.md) for how Layer 0 fits into the overall architecture
+*This API documentation reflects the simplified, FMP-first architecture that eliminates SEC EDGAR complexity while maintaining all analytical capabilities.*

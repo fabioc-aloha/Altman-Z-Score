@@ -1,7 +1,8 @@
 """
 Financials data fetching utilities for Altman Z-Score analysis.
 
-Clean architecture: SEC EDGAR for financial facts, Yahoo Finance for market data only.
+DEPRECATED: This file is part of the legacy SEC EDGAR architecture.
+New development should use: altman_zscore/layers/data_fetch/fmp_fetcher.py
 """
 
 # All imports should be at the top of the file, per Python best practices.
@@ -15,8 +16,6 @@ from datetime import datetime
 
 import pandas as pd
 import requests
-
-from src.altman_zscore.api.cached_field_mapper import CachedFieldMapper
 from altman_zscore.utils.paths import get_output_dir
 from altman_zscore.computation.constants import MODEL_FIELDS
 from altman_zscore.data_fetching.financials_core import df_to_dict_str_keys
@@ -165,57 +164,6 @@ def extract_quarters_from_sec_facts(sec_facts: Dict[str, Any], fields_to_fetch: 
     return quarters
 
 
-def apply_cached_field_mapping(sec_quarters: list, fields_to_fetch: list, ticker: str) -> list:
-    """
-    Apply cached field mapping to map SEC GAAP concepts to Z-Score fields.
-    
-    Args:
-        sec_quarters: List of quarterly data from SEC facts
-        fields_to_fetch: Required Z-Score field names
-        ticker: Stock ticker for context
-        
-    Returns:
-        List of quarters with mapped fields
-    """
-    logger = logging.getLogger("altman_zscore.apply_cached_field_mapping")
-    
-    if not sec_quarters:
-        return []
-    
-    # Try cached field mapping first
-    try:
-        mapper = CachedFieldMapper()
-        mapped_quarters = []
-        
-        for quarter in sec_quarters:
-            mapped_quarter = mapper.map_sec_quarter_to_canonical(quarter, fields_to_fetch, ticker)
-            if mapped_quarter and len(mapped_quarter) > 1:  # More than just period_end
-                mapped_quarters.append(mapped_quarter)
-        
-        if mapped_quarters:
-            # Check mapping completeness
-            total_mappings = 0
-            successful_mappings = 0
-            
-            for quarter in mapped_quarters:
-                for field in fields_to_fetch:
-                    total_mappings += 1
-                    if field in quarter and quarter[field] is not None:
-                        successful_mappings += 1
-            
-            mapping_completeness = successful_mappings / total_mappings if total_mappings > 0 else 0
-            logger.info(f"[{ticker}] Cached mapping completeness: {mapping_completeness:.1%} ({successful_mappings}/{total_mappings})")
-            
-            # If cached mapping is reasonably complete (>50%), use it
-            logger.info(f"[{ticker}] Using cached field mapping (completeness: {mapping_completeness:.1%})")
-            return mapped_quarters
-            
-    except Exception as e:
-        logger.warning(f"[{ticker}] Cached field mapping failed: {e}")
-    
-    return []
-
-
 def fetch_market_data_from_yahoo(ticker: str, output_dir: str) -> Dict[str, Any]:
     """
     Fetch market data from Yahoo Finance: prices, shares outstanding, market cap, etc.
@@ -352,7 +300,12 @@ def fetch_market_data_from_yahoo(ticker: str, output_dir: str) -> Dict[str, Any]
 )
 def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: str = None) -> Optional[Dict[str, Any]]:
     """
-    Fetch quarterly financials using SEC EDGAR for financial facts and Yahoo Finance for market data.
+    DEPRECATED: Legacy SEC EDGAR-based financial data fetcher.
+    
+    This function is part of the legacy architecture that used SEC EDGAR for financial data.
+    It has been deprecated in favor of the new FMP-based pipeline.
+    
+    Please use: altman_zscore.main_pipeline.AltmanZScorePipeline instead.
 
     Args:
         ticker (str): Stock ticker symbol (e.g., 'AAPL').
@@ -361,95 +314,17 @@ def fetch_financials(ticker: str, end_date: str, zscore_model: str, start_date: 
         start_date (str, optional): Start date for financials (if provided, filters quarters).
 
     Returns:
-        dict or None: {"quarters": [dict, ...]} if data found, else None.
+        dict: Error message indicating this function is deprecated.
 
     Notes:
-        - Uses SEC EDGAR for financial facts (balance sheet, income statement)
-        - Uses Yahoo Finance for market data (prices, shares outstanding, market cap)
-        - Uses cached field mapping only (no LLM/AI mapping)
-        - Saves all raw and processed data to disk for reproducibility
-        - Logs all errors and warnings for traceability
+        - DEPRECATED: This function has been replaced by FMP-based pipeline
+        - Please use: altman_zscore.main_pipeline.AltmanZScorePipeline instead
     """
     logger = logging.getLogger("altman_zscore.fetch_financials")
-
-    if zscore_model not in MODEL_FIELDS:
-        logger.error(f"Invalid Z-Score model {zscore_model}")
-        return None
-
-    output_dir = get_output_dir(ticker)
-    fields_to_fetch = list(MODEL_FIELDS[zscore_model]) if zscore_model in MODEL_FIELDS else list(MODEL_FIELDS["original"])
-    if "sales" not in fields_to_fetch:
-        fields_to_fetch.append("sales")
-
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # --- 1. SEC EDGAR for Financial Facts ---
-    sec_quarters = []
-    try:
-        from altman_zscore.api.sec_client import SECClient
-        sec_client = SECClient()
-        cik = sec_client.lookup_cik(ticker)
-        sec_facts = sec_client.get_company_facts(cik) if cik else None
-        
-        # Save raw SEC facts
-        try:
-            with open(os.path.join(output_dir, "sec_facts_raw.json"), "w", encoding="utf-8") as f:
-                json.dump(sec_facts, f, indent=2, ensure_ascii=False, default=str)
-        except Exception as e:
-            logger.warning(f"[{ticker}] Could not save raw SEC facts: {e}")
-        
-        # Extract quarters from SEC facts
-        if sec_facts and sec_facts.get('facts'):
-            sec_quarters = extract_quarters_from_sec_facts(sec_facts, fields_to_fetch, start_date, end_date)
-            logger.info(f"[{ticker}] Extracted {len(sec_quarters)} quarters from SEC facts")
-            # Always use cached field mapping
-            sec_quarters = apply_cached_field_mapping(sec_quarters, fields_to_fetch, ticker)
-        else:
-            logger.warning(f"[{ticker}] No SEC company facts available")
-            
-    except Exception as sec_e:
-        logger.warning(f"[{ticker}] SEC EDGAR extraction failed: {sec_e}")
-
-    # --- 2. Yahoo Finance for Market Data ---
-    market_data = fetch_market_data_from_yahoo(ticker, output_dir)
-
-    # --- 3. Combine and Validate ---
-    if not sec_quarters:
-        logger.error(f"[{ticker}] No financial data available from SEC EDGAR")
-        return {
-            "error": "No financial data available from SEC EDGAR. SEC data is required for financial analysis.",
-            "quarters": [],
-            "missing_fields_by_quarter": []
-        }
-
-    # Save processed SEC quarters
-    try:
-        with open(os.path.join(output_dir, "financials_quarterly.json"), "w", encoding="utf-8") as f:
-            json.dump(sec_quarters, f, indent=2, ensure_ascii=False, default=str)
-    except Exception as e:
-        logger.warning(f"[{ticker}] Could not save processed quarters: {e}")
-
-    # Validate that we have meaningful financial data
-    if sec_quarters:
-        non_asset_fields = [f for f in fields_to_fetch if f not in ("total_assets", "current_assets", "current_liabilities", "total_liabilities")]
-        all_zero = True
-        for q in sec_quarters:
-            if any(q.get(f, 0) not in (0, None, Decimal("0")) for f in non_asset_fields):
-                all_zero = False
-                break
-        
-        if all_zero:
-            logger.error(f"[{ticker}] SEC data contains only balance sheet items; no income statement data found")
-            return {
-                "error": "SEC data for this ticker does not contain the required income statement fields (e.g., sales, EBIT, retained earnings). Only balance sheet data is available. No Z-Score can be computed.",
-                "quarters": sec_quarters,
-                "missing_fields_by_quarter": []
-            }
-
-    logger.info(f"[{ticker}] Successfully fetched financials: {len(sec_quarters)} quarters from SEC, market data from Yahoo")
+    logger.warning(f"[{ticker}] DEPRECATED: fetch_financials() is deprecated. Please use altman_zscore.main_pipeline.AltmanZScorePipeline instead.")
+    
     return {
-        "quarters": sec_quarters,
-        "market_data": market_data,
-        "missing_fields_by_quarter": []  # Could be enhanced to track missing fields per quarter
+        "error": "DEPRECATED: This function has been replaced by the FMP-based pipeline. Please use altman_zscore.main_pipeline.AltmanZScorePipeline.",
+        "quarters": [],
+        "message": "SEC EDGAR functionality has been eliminated in favor of FMP pre-calculated ratios."
     }
