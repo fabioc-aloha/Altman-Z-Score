@@ -1,4 +1,22 @@
-# Investment Recommendation System Flow - Technical Analysis
+# Investment Recommendation Syst**SEC EDGAR Elimination Benefits**: 
+- ⚡ **Massive Simplification**: ~2000+ lines of SEC/XBRL code can be removed
+- 🚀 **Performance Gains**: No complex field mapping or AI disambiguation needed
+- 🔧 **Maintenance**: Eliminates most complex codebase components
+- 🛡️ **Reliability**: Direct FMP fields vs. complex XBRL parsing
+
+### Centralized Logging System
+
+**Configurable Multi-Level Logging**: 
+- **🔍 Debug Levels**: Console (INFO) and File (DEBUG) with separate control
+- **⚙️ Configuration**: CLI arguments with `.env` fallback support
+- **📁 Log Management**: Configurable directory, structured JSON option
+- **🎯 Production Ready**: All application flow uses centralized logger, no print statements
+
+```bash
+# Logging configuration examples
+python main.py AAPL --log-level DEBUG --log-file-level DEBUG --log-dir "analysis_logs"
+python main.py AAPL --log-structured  # JSON formatted logs for integration
+```ow - Technical Analysis
 
 **How the Altman Z-Score System Generates Investment Recommendations**
 
@@ -8,7 +26,7 @@
 
 ## 🎯 Executive Summary
 
-The Altman Z-Score Investment Analysis Platform provides sophisticated investment recommendations through a **7-layer modular architecture** that combines:
+The Altman Z-Score Investment Analysis Platform provides sophisticated investment recommendations through a **6-layer modular architecture** that combines:
 
 - **Rigorous quantitative analysis** (Altman Z-Score methodology)
 - **Modern market intelligence** (technical + valuation metrics)  
@@ -38,7 +56,7 @@ The system generates **three types of investment guidance**: quantitative rating
 
 ---
 
-## 🏗️ Architecture Overview: Simplified 5-Layer Recommendation System
+## 🏗️ Architecture Overview: 6-Layer Recommendation System
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -229,13 +247,18 @@ else:                              rating = 'STRONG_SELL'
 ```python
 confidence = 0.5  # Base confidence (50%)
 
-# Data quality bonuses
+# Data availability bonuses
 if technical_analysis_available: confidence += 0.1
 if valuation_metrics_available:  confidence += 0.1  
-if comprehensive_data:           confidence += 0.1
+if supporting_factors >= 4:      confidence += 0.1   # 4+ confidence factors
 
-# Signal consistency penalties
-if conflicting_signals_detected: confidence -= 0.1
+# Signal consistency analysis
+positive_factors = count_positive_signals()  # Strong, high, positive, attractive, low risk
+negative_factors = count_negative_signals()  # Weak, negative, rich, high risk
+
+# Conflicting signals penalty
+if abs(positive_factors - negative_factors) < 2:  # Too close = conflicting
+    confidence -= 0.1
 
 # Final range: 10% - 100%
 confidence = max(0.1, min(1.0, confidence))

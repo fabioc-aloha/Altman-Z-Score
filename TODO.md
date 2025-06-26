@@ -25,13 +25,29 @@ Transform the financial analysis landscape with the industry's most comprehensiv
 
 **Platform Maturity**: Simplified, high-performance, production-ready professional investment analysis tool with streamlined FMP-only architecture.
 
-## 🚀 **FUTURE DEVELOPMENT PHASES (Post v4.1.0)**
+## 🚀 **ACTIVE DEVELOPMENT: VERSION 4.2.0 (Current Priority)**
 
-### **Phase 5: Advanced Enterprise Features (Optional Enhancement)**
+### **🎯 Version 4.2.0: Enterprise Features & Legacy Cleanup**
 
-**Goal**: Add enterprise-grade features for institutional users and advanced analytics capabilities based on the simplified v4.1.0 architecture.
+**Development Status**: 🔄 **IN PROGRESS** (Started June 26, 2025)  
+**Target Release**: July 15, 2025  
+**Focus**: Enterprise features, legacy cleanup, risk-return analysis validation
 
-### 🎯 **Phase 5 Tasks: Enterprise Enhancement** (Future Development)
+**Key Goals**:
+- ✅ **Legacy Infrastructure Cleanup**: Complete removal of `src/` directory
+- 🔄 **Risk-Return Analysis Validation**: Comprehensive testing and enhancement of recommendation scoring
+- 🔄 **Enterprise Features**: Real-time monitoring, alerts, API development
+- 🔄 **Advanced Analytics**: Predictive models, scenario analysis, portfolio optimization
+
+**Detailed Plan**: See [`VERSION_4.2.0_PLAN.md`](VERSION_4.2.0_PLAN.md) for comprehensive development roadmap.
+
+## 🚀 **FUTURE DEVELOPMENT PHASES (Post v4.2.0)**
+
+### **Phase 6: Advanced Enterprise Features (Optional Enhancement)**
+
+**Goal**: Additional enterprise-grade features for institutional users and advanced analytics capabilities after v4.2.0 foundation.
+
+### 🎯 **Phase 6 Tasks: Advanced Enterprise Features** (Future Development)
 
 **Priority 1: Real-time Monitoring & Alerts**
 - [ ] **Live Z-Score Monitoring Dashboard**

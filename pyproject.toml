@@ -1,0 +1,59 @@
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=altman_zscore",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+markers = [
+    "unit: Unit tests for individual components",
+    "integration: Integration tests for component interactions", 
+    "performance: Performance and load tests",
+    "slow: Tests that take a long time to run",
+    "api: Tests that require external API access",
+    "mock: Tests using mock data only",
+    "real_data: Tests using real financial data",
+    "cache: Tests related to caching functionality",
+    "batch: Tests for batch processing",
+    "error_handling: Tests for error scenarios",
+]
+
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+# Test discovery
+norecursedirs = ["*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__"]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["altman_zscore"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/cache/*",
+    "*/logs/*",
+    "*/output/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

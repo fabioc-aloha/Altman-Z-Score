@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - GS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>The Goldman Sachs Group, Inc. (GS)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="GS_logo.png" alt="The Goldman Sachs Group, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="GS_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="GS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.15</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$688.67</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$211.4B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>16.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>86.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>sell</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-5.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>2.81%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>8.41%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>12.4%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>20.6%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>22.9%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.33</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.30</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-30.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.3/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0707</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.0889</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0032</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>0.1287</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.0757</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0179</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>0.1453</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: Goldman Sachs (GS) – March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>Goldman Sachs (GS) currently exhibits significant financial distress as indicated by an alarmingly low Altman Z-Score of 0.15, placing it deep within the distress zone. Despite a strong technical uptrend and elevated market valuation metrics, the fundamental health of the company raises urgent caution for investors. A hold recommendation with moderate confidence reflects the tension between market optimism and underlying financial vulnerabilities.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, signals critical concern for GS. With a Z-Score of 0.15—far below the distress threshold of 1.8—the company is classified in the distress category, suggesting a high probability of financial instability or potential insolvency if conditions do not improve. This is corroborated by the component breakdown:</p>
+<ul>
+<li><strong>Working Capital Ratio (-0.071):</strong> Negative working capital indicates liquidity challenges, implying GS may struggle to meet short-term obligations without additional financing.</li>
+<li><strong>Retained Earnings Ratio (0.089):</strong> Low retained earnings relative to total assets reflect limited internal capital generation, constraining the firm’s ability to absorb losses or fund growth organically.</li>
+<li><strong>EBIT Ratio (0.003):</strong> Near-zero earnings before interest and taxes highlight minimal operational profitability, raising concerns about the firm’s core business performance.</li>
+<li><strong>Market Equity Ratio (0.129) and Book Equity Ratio (0.076):</strong> These low ratios suggest a thin equity buffer relative to total assets, increasing leverage risk.</li>
+<li><strong>Asset Turnover (0.018):</strong> Extremely low asset turnover points to inefficient use of assets in generating revenue.</li>
+</ul>
+<p>The balance sheet data further underscores risk: total liabilities stand at approximately $1.64 trillion against total assets of $1.77 trillion, leaving a narrow equity margin. The data quality is flagged at 1.0%, indicating potential limitations in data reliability, which necessitates cautious interpretation.</p>
+<p>In sum, the fundamental analysis paints a dire picture of GS’s financial health, with liquidity constraints, weak profitability, and high leverage all contributing to elevated distress risk.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>Contrasting the fundamental distress signals, GS’s market metrics reveal a more optimistic investor sentiment:</p>
+<ul>
+<li><strong>Current Price:</strong> $688.67 per share</li>
+<li><strong>Market Capitalization:</strong> $211.4 billion</li>
+<li><strong>Price-to-Earnings (P/E) Ratio:</strong> 16.0, which is moderate and suggests the market is not pricing in extreme distress.</li>
+<li><strong>Volatility:</strong> High at 40%, indicating significant price fluctuations and investor uncertainty.</li>
+<li><strong>Relative Strength Index (RSI):</strong> Elevated at 86.5, signaling an overbought condition and potential for near-term price correction.</li>
+<li><strong>Technical Trend:</strong> Uptrend, reflecting recent positive momentum in share price.</li>
+</ul>
+<p>The divergence between fundamental weakness and technical strength suggests that market participants may be focusing on short-term catalysts or external factors such as macroeconomic conditions, regulatory developments, or anticipated strategic initiatives by GS. However, the high volatility and overbought RSI warn of potential abrupt reversals.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given the stark contrast between GS’s precarious fundamental position and its buoyant market performance, investors should approach with heightened caution. The Altman Z-Score’s distress classification cannot be overlooked, as it signals underlying solvency risks that could materialize if operational or market conditions deteriorate.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li><strong>Hold Position:</strong> The current recommendation is to maintain existing holdings rather than initiate new positions or liquidate. This stance reflects a balance between the potential for recovery and the risk of financial distress.</li>
+<li><strong>Monitor for Stabilization:</strong> Investors should watch for improvements in liquidity, profitability, and equity buffers as early signs of turnaround.</li>
+<li><strong>Beware of Overvaluation:</strong> The elevated RSI and high volatility suggest the stock may be vulnerable to sharp corrections, especially if fundamental issues worsen or market sentiment shifts.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<ol>
+<li><strong>Liquidity and Solvency Risk:</strong> Negative working capital and minimal retained earnings heighten the risk of cash flow shortages. Monitor quarterly cash flow statements and debt maturities closely.</li>
+<li><strong>Profitability Trends:</strong> EBIT near zero is unsustainable. Watch for any signs of operational improvement or further erosion in earnings.</li>
+<li><strong>Leverage and Capital Adequacy:</strong> The thin equity cushion relative to liabilities increases vulnerability to market shocks. Regulatory capital ratios and balance sheet strengthening efforts should be tracked.</li>
+<li><strong>Market Sentiment Shifts:</strong> Given the high volatility and overbought technical indicators, sudden market corrections could exacerbate financial strain.</li>
+<li><strong>Data Quality Concerns:</strong> The low data quality score (1.0%) necessitates verification of reported figures and caution in relying solely on quantitative models.</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>Goldman Sachs faces a precarious financial situation as evidenced by its distressed Altman Z-Score and weak fundamental ratios. While market optimism and technical momentum provide some support, the underlying risks are substantial and warrant a cautious, vigilant investment approach. Investors should hold current positions, closely monitor key financial and market indicators, and be prepared to act swiftly should the company’s financial health deteriorate further or market conditions shift unfavorably.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 26, 2025 at 02:57 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

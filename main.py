@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 4.1.0 (2025-06-26) - SEC EDGAR Elimination & Architectural Simplification
+# Version: 4.0.1 (2025-06-26) - SEC EDGAR Elimination & Progress Bar Enhancement
 """
 AI-Powered Altman Z-Score Analysis - Main Entry Point
 
@@ -82,19 +82,19 @@ import sys
 import time
 import logging
 import datetime
+import os
 from dateutil.relativedelta import relativedelta
 
 import pandas as pd
 
-# Set up logging with more verbosity
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-logger = logging.getLogger(__name__)
+# Prevent automatic logging initialization from altman_zscore modules
+os.environ["ALTMAN_ZSCORE_SKIP_LOGGING_INIT"] = "1"
+
+# Import and initialize proper logging configuration first
+from altman_zscore.common.logging_config import LoggingConfig, get_logger
+
+# Initialize logger (logging config will be set up later based on CLI args)
+logger = get_logger(__name__)
 
 # Import new refactored pipeline
 from altman_zscore.main_pipeline import AltmanZScorePipeline
@@ -117,7 +117,11 @@ CLI_EPILOG = ("Examples:\n"
               "  python main.py AAPL --model financial      # Force financial institution model\n"
               "  python main.py --clear-cache               # Clear all API caches\n"
               "  python main.py --cache-stats               # Show cache statistics\n"
-              "  python main.py --log-level DEBUG           # Set log level")
+              "  python main.py --log-level DEBUG           # Enable debug logging\n"
+              "  python main.py --log-structured            # Enable JSON structured logging\n"
+              "  python main.py --log-dir ./my-logs         # Custom log directory\n"
+              "  python main.py --progress always           # Always show progress bars\n"
+              "  python main.py --progress never            # Never show progress bars")
 
 # CLI description - single source of truth
 CLI_DESCRIPTION = "AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights"
@@ -233,6 +237,36 @@ def parse_args():
         default=get_env_default("LOG_LEVEL", "ERROR"),
         help="Set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). "
              f"Default: {get_env_default('LOG_LEVEL', 'ERROR')} (from .env or ERROR)."
+    )
+    parser.add_argument(
+        "--log-structured",
+        action="store_true",
+        default=get_env_default("LOG_STRUCTURED", False, bool),
+        help="Enable structured JSON logging output. "
+             f"Default: {get_env_default('LOG_STRUCTURED', False, bool)} (from .env or False)."
+    )
+    parser.add_argument(
+        "--log-dir",
+        type=str,
+        default=get_env_default("LOG_DIR", "logs"),
+        help="Directory for log files. "
+             f"Default: {get_env_default('LOG_DIR', 'logs')} (from .env or 'logs')."
+    )
+    parser.add_argument(
+        "--log-file-level",
+        type=str,
+        default=get_env_default("LOG_FILE_LEVEL", "DEBUG"),
+        help="Set file logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). "
+             f"Default: {get_env_default('LOG_FILE_LEVEL', 'DEBUG')} (from .env or DEBUG)."
+    )
+    parser.add_argument(
+        "--progress",
+        type=str,
+        choices=["auto", "always", "never"],
+        default=get_env_default("SHOW_PROGRESS_BARS", "auto"),
+        help="Control progress bar display. 'auto' shows progress bars when logging is quiet (WARNING/ERROR/CRITICAL), "
+             "'always' shows them regardless of log level, 'never' disables them. "
+             f"Default: {get_env_default('SHOW_PROGRESS_BARS', 'auto')} (from .env or auto)."
     )
     parser.add_argument(
         "--clear-cache",
@@ -538,17 +572,45 @@ def main():
             print()  # Empty line before exit
             sys.exit(0)
 
-        # Validate log level
+        # Validate log levels
         valid_log_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
         log_level = args.log_level.upper()
+        file_log_level = args.log_file_level.upper()
+        
         if log_level not in valid_log_levels:
-            logger.error(f"Invalid log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            logger.error(f"Invalid console log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            print()  # Empty line before exit
+            sys.exit(2)
+            
+        if file_log_level not in valid_log_levels:
+            logger.error(f"Invalid file log level: {args.log_file_level}. Must be one of: {', '.join(valid_log_levels)}.")
             print()  # Empty line before exit
             sys.exit(2)
         
-        # Set logging level
-        logging.getLogger().setLevel(getattr(logging, log_level, logging.WARNING))
-        logger.info(f"Log level set to {log_level}")
+        # Initialize proper logging configuration with CLI preferences
+        logging_config = LoggingConfig(
+            log_dir=args.log_dir,
+            console_level=log_level,
+            file_level=file_log_level,
+            structured_output=args.log_structured
+        )
+        logging_config.setup_logging()
+        
+        # Set progress bar preference from CLI argument
+        os.environ["SHOW_PROGRESS_BARS"] = args.progress
+        
+        # Get fresh logger instance after config setup
+        logger = get_logger(__name__)
+        logger.info(f"Console log level set to {log_level}")
+        logger.info(f"File log level set to {file_log_level}")
+        logger.info(f"Progress bars set to '{args.progress}' mode")
+        logger.info(f"Log directory: {args.log_dir}")
+        if args.log_structured:
+            logger.info("Structured JSON logging enabled")
+            
+        # Test logging levels to verify configuration
+        logger.debug("Debug logging test - this should only appear if debug level is enabled")
+        logger.info("Info logging test - logging configuration successful")
 
         # Show environment-based defaults if enhanced mode is detected
         fmp_enhanced = get_env_default('FMP_ENHANCED_MODE', False, bool)

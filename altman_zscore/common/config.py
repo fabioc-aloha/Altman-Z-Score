@@ -38,11 +38,8 @@ class APIConfig:
     
     def __post_init__(self):
         """Validate API configuration."""
-        if not self.sec_edgar_user_agent:
-            # SEC EDGAR user agent is optional when not using SEC data fetcher
-            logger.warning(
-                "SEC_EDGAR_USER_AGENT not set; SEC EDGAR data fetch will be disabled"
-            )
+        # SEC EDGAR is no longer used in the current pipeline
+        pass
 
 
 @dataclass
@@ -260,10 +257,7 @@ class ConfigManager:
         errors = []
         
         # Validate API configuration
-        if not self.config.api.sec_edgar_user_agent:
-            errors.append("SEC EDGAR User-Agent is required")
-        elif "@" not in self.config.api.sec_edgar_user_agent:
-            errors.append("SEC EDGAR User-Agent should include contact email")
+        # SEC EDGAR validation removed - no longer used in current pipeline
         
         # Validate cache configuration
         if self.config.cache.enable_cache:

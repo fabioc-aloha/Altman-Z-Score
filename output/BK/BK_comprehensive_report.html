@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - BK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>The Bank of New York Mellon Corporation (BK)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="BK_logo.png" alt="The Bank of New York Mellon Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="BK_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="BK_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.26</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$90.25</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$64.6B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>14.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>56.3</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.28%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-1.47%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>0.0%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>6.7%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>17.6%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.87</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.80</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-17.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0000</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.0984</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0043</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>0.1626</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.1086</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.0106</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>0.2602</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><p><strong>Investment Analysis Narrative: BK (Ticker: BK)<br />
+Analysis Date: March 31, 2025</strong></p>
+<hr />
+<h3 id="executive-summary">Executive Summary</h3>
+<p>BK currently exhibits significant financial distress as indicated by an alarmingly low Altman Z-Score of 0.26, placing it deep within the distress zone. Despite this precarious fundamental position, the market reflects a cautiously optimistic stance, with a moderate uptrend and a hold recommendation supported by a 60% confidence level. Investors should approach BK with heightened vigilance, balancing the company’s fragile financial health against its current market valuation and technical signals.</p>
+<hr />
+<h3 id="fundamental-health-assessment">Fundamental Health Assessment</h3>
+<p>The Altman Z-Score, a widely respected predictor of bankruptcy risk, signals severe financial instability for BK. With a Z-Score of 0.26—far below the distress threshold of 1.8—the company is at a critical risk of insolvency or financial restructuring. This score is derived from several troubling component ratios:</p>
+<ul>
+<li><strong>Working Capital Ratio (0.000):</strong> Essentially zero, indicating no buffer of liquid assets over current liabilities, which severely limits BK’s short-term financial flexibility.</li>
+<li><strong>Retained Earnings Ratio (0.098):</strong> Very low retained earnings relative to total assets, suggesting limited accumulated profits to absorb losses.</li>
+<li><strong>EBIT Ratio (0.004):</strong> Minimal earnings before interest and taxes, reflecting weak operational profitability.</li>
+<li><strong>Market Equity Ratio (0.163) and Book Equity Ratio (0.109):</strong> Both ratios are low, indicating a thin equity cushion relative to total assets and market capitalization.</li>
+<li><strong>Asset Turnover (0.011):</strong> Extremely low, pointing to inefficient use of assets to generate revenue.</li>
+</ul>
+<p>The company’s total assets stand at approximately $440.7 billion against liabilities of $397.1 billion, resulting in a narrow equity base and high leverage. The data quality is flagged at 1.0%, which may suggest some caution in interpreting these figures, but the overall distress signal remains unequivocal.</p>
+<p>In summary, BK’s fundamental profile is deeply concerning. The company’s financial structure is fragile, with minimal operational earnings and equity to withstand adverse shocks. This precarious position demands urgent attention from investors.</p>
+<hr />
+<h3 id="market-position-valuation">Market Position &amp; Valuation</h3>
+<p>From a market perspective, BK’s current share price is $90.25, with a market capitalization of $64.6 billion. The price-to-earnings (P/E) ratio stands at 14.7, which is moderate and suggests that the market is not pricing in extreme distress or growth expectations. This valuation may reflect a degree of market skepticism tempered by some confidence in BK’s ability to navigate its challenges.</p>
+<p>Technical indicators provide a mixed but cautiously positive signal:</p>
+<ul>
+<li><strong>Volatility at 30.0%</strong> indicates significant price fluctuations, consistent with the underlying financial uncertainty.</li>
+<li><strong>Relative Strength Index (RSI) of 56.3</strong> suggests neither overbought nor oversold conditions, implying a balanced market sentiment.</li>
+<li><strong>Technical Trend: Uptrend</strong> indicates recent positive momentum in the stock price, possibly driven by market speculation or short-term catalysts.</li>
+</ul>
+<p>The market’s hold recommendation with 60% confidence reflects this ambivalence—investors are neither fully convinced of a turnaround nor ready to exit entirely.</p>
+<hr />
+<h3 id="investment-outlook-recommendations">Investment Outlook &amp; Recommendations</h3>
+<p>Given BK’s distressed fundamental condition juxtaposed with a cautiously optimistic market stance, the investment outlook is one of guarded caution. The extremely low Altman Z-Score signals a high probability of financial distress or bankruptcy risk in the near to medium term. This risk profile should weigh heavily in any investment decision.</p>
+<p><strong>Investment Implications:</strong></p>
+<ul>
+<li><strong>Hold Position:</strong> Current investors should maintain their holdings but prepare for potential volatility and downside risk. The hold recommendation aligns with the market’s tentative optimism but underscores the need for vigilance.</li>
+<li><strong>Avoid New Large Positions:</strong> Prospective investors should refrain from initiating significant positions until there is clear evidence of fundamental improvement.</li>
+<li><strong>Monitor for Turnaround Signs:</strong> Key indicators such as improvements in EBIT, working capital, and equity ratios would be critical signals of financial stabilization.</li>
+<li><strong>Consider Hedging Strategies:</strong> Given the high volatility and distress risk, hedging or diversification strategies are advisable to mitigate potential losses.</li>
+</ul>
+<hr />
+<h3 id="key-risks-monitoring-points">Key Risks &amp; Monitoring Points</h3>
+<p>Investors should closely monitor the following factors to reassess BK’s risk profile and investment potential:</p>
+<ol>
+<li><strong>Operational Profitability:</strong> Any sustained increase in EBIT or operating cash flow would be a positive sign.</li>
+<li><strong>Liquidity Position:</strong> Improvements in working capital and current ratio to ensure short-term solvency.</li>
+<li><strong>Leverage and Equity Cushion:</strong> Reduction in liabilities or capital raises that strengthen the equity base.</li>
+<li><strong>Market Sentiment and Technical Trends:</strong> Changes in volatility, RSI, and trend direction that may signal shifts in investor confidence.</li>
+<li><strong>Corporate Actions:</strong> Announcements related to restructuring, asset sales, or strategic partnerships that could alter the financial outlook.</li>
+<li><strong>Macroeconomic Environment:</strong> External factors such as interest rates, credit markets, and sector-specific conditions impacting BK’s financial health.</li>
+</ol>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>BK’s financial distress, as evidenced by its critically low Altman Z-Score, presents a clear warning to investors. While the market currently maintains a cautious hold stance supported by moderate valuation and technical uptrend, the underlying fundamental risks are substantial and warrant urgent attention. Investors should adopt a vigilant, risk-aware approach, prioritizing close monitoring of operational and financial metrics before considering any increase in exposure. The path to recovery remains uncertain, and BK’s investment case is best characterized by caution and preparedness for potential volatility.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 26, 2025 at 02:58 PM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

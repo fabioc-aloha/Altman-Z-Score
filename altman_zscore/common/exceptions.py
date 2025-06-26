@@ -122,4 +122,14 @@ class UnsupportedFeatureError(ZScoreError):
     pass
 
 
+class AnalysisError(ZScoreError):
+    """Exception raised for analysis engine errors."""
+    pass
+
+
+class ValidationError(ZScoreError):
+    """Exception raised for data validation errors."""
+    pass
+
+
 # This file will be expanded during refactoring with additional exceptions

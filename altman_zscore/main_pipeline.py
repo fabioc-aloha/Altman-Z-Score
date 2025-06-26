@@ -9,15 +9,16 @@ Key Features:
 - Complete pipeline orchestration with market analysis
 - Z-Score calculation with market intelligence
 - Error handling and recovery
-- Progress tracking and logging
+- Progress tracking and logging with conditional progress bars
 - Batch processing capabilities
 """
 
 import asyncio
+import sys
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from .common.logging_config import get_logger
+from .common.logging_config import get_logger, should_show_progress_bars, is_quiet_logging_mode
 from .common.exceptions import PipelineError
 from .layers.data_fetch.data_merger import DataMerger
 from .layers.zscore_calculation.zscore_calculator import ZScoreCalculator
@@ -29,6 +30,84 @@ from .layers.output_generation.file_manager import FileManager
 from .layers.ai_insights.ai_insights_generator import AIInsightsGenerator
 
 logger = get_logger(__name__)
+
+
+class PipelineProgressBar:
+    """
+    Progress bar for pipeline operations that shows when logging is in quiet mode.
+    """
+    
+    def __init__(self, ticker: str, total_steps: int):
+        """
+        Initialize progress bar.
+        
+        Args:
+            ticker: Stock ticker being analyzed
+            total_steps: Total number of pipeline steps
+        """
+        self.ticker = ticker
+        self.total_steps = total_steps
+        self.current_step = 0
+        self.show_progress = should_show_progress_bars()
+        self.last_line_length = 0  # Track last message length for proper clearing
+        
+    def update(self, step_name: str, step_number: Optional[int] = None):
+        """
+        Update progress bar with current step.
+        
+        Args:
+            step_name: Name of the current step
+            step_number: Optional step number (auto-increments if not provided)
+        """
+        if step_number is not None:
+            self.current_step = step_number
+        else:
+            self.current_step += 1
+            
+        if self.show_progress:
+            self._display_progress(step_name)
+    
+    def _display_progress(self, step_name: str, force_newline: bool = False):
+        """Display the progress bar in terminal."""
+        try:
+            bar_length = 30
+            progress = min(1.0, self.current_step / self.total_steps)
+            filled_length = int(bar_length * progress)
+            bar = '■' * filled_length + '□' * (bar_length - filled_length)
+            
+            # Create progress message
+            percentage = int(progress * 100)
+            msg = f"[{self.ticker}] |{bar}| {percentage:3d}% - {step_name}"
+            
+            # Clear the previous line completely using the tracked length
+            clear_length = max(self.last_line_length, len(msg), 80)
+            print(f"\r{' ' * clear_length}\r{msg}", end='', flush=True)
+            
+            # Update tracked length
+            self.last_line_length = len(msg)
+            
+            # Add newline only when explicitly requested
+            if force_newline:
+                print()
+                
+        except Exception:
+            # Silently ignore any progress display errors
+            pass
+    
+    def finish(self, success: bool = True):
+        """
+        Finish the progress bar.
+        
+        Args:
+            success: Whether the operation completed successfully
+        """
+        if self.show_progress:
+            status = "✓ Complete" if success else "✗ Failed"
+            if self.current_step < self.total_steps:
+                self.current_step = self.total_steps
+            # Update to final status and add a single newline
+            self._display_progress(status, force_newline=False)
+            print()  # Single newline to end the progress line
 
 
 class AltmanZScorePipeline:
@@ -85,6 +164,18 @@ class AltmanZScorePipeline:
         try:
             logger.info(f"Starting complete investment analysis for {ticker}")
             
+            # Calculate total steps for progress tracking
+            total_steps = 4  # Base steps: data merge, zscore calc, market analysis, output
+            if generate_charts:
+                total_steps += 1
+            if generate_reports:
+                total_steps += 1
+            if include_ai_insights:
+                total_steps += 1
+            
+            # Initialize progress bar (only shows in quiet logging mode)
+            progress = PipelineProgressBar(ticker, total_steps)
+            
             # Enhanced analysis mode handling
             if enhanced_analysis:
                 logger.info(f"Enhanced analysis mode enabled: {quarters} quarters, batch size {batch_size}")
@@ -102,6 +193,7 @@ class AltmanZScorePipeline:
                 logger.info(f"Enhanced analysis enabled but quarters={quarters}. Consider using 8+ quarters for better trend analysis.")
             
             # Step 1: Merge financial data
+            progress.update("Fetching Financial Data", 1)
             logger.info(f"Step 1: Merging financial data for {ticker}")
             # Pass enhanced parameters to data merger
             merged = await self.data_merger.merge_financial_data(
@@ -113,6 +205,7 @@ class AltmanZScorePipeline:
                 merged = [merged]
             
             # Step 2: Calculate Z-Score for each period
+            progress.update("Calculating Z-Score", 2)
             logger.info(f"Step 2: Calculating Z-Score for {ticker} ({len(merged)} periods)")
             zscore_results = []
             for data in merged:
@@ -120,7 +213,10 @@ class AltmanZScorePipeline:
                 zscore_results.append(result)
             
             # Use the most recent result for dashboard/report
-            latest_result = zscore_results[0]            # Step 3: Market Analysis (NEW)
+            latest_result = zscore_results[0]
+            
+            # Step 3: Market Analysis (NEW)
+            progress.update("Market Analysis", 3)
             market_analysis = None
             if include_market_analysis:
                 logger.info(f"Step 3: Conducting market analysis for {ticker}")
@@ -140,12 +236,18 @@ class AltmanZScorePipeline:
                     market_analysis = None
             
             # Step 4a: CSV/JSON report for all results (enhanced with market analysis)
+            progress.update("Generating Reports", 4)
             logger.info(f"Step 4a: Generating CSV/JSON data for {ticker}")
             csv_path = self.csv_json_generator.generate_csv_report(zscore_results, market_analysis)
             json_path = self.csv_json_generator.generate_json_report(zscore_results, market_analysis)
             output_files = {'csv': csv_path, 'json': json_path}
-              # Step 4b: Chart using all results for multi-quarter trend analysis (enhanced with market analysis)
+            
+            current_step = 4
+            
+            # Step 4b: Chart using all results for multi-quarter trend analysis (enhanced with market analysis)
             if generate_charts:
+                current_step += 1
+                progress.update("Creating Charts", current_step)
                 logger.info(f"Step 4b: Generating enhanced charts for {ticker} ({len(zscore_results)} periods)")
                 try:
                     chart_path = self.chart_generator.generate_zscore_dashboard(zscore_results, market_analysis)
@@ -153,21 +255,32 @@ class AltmanZScorePipeline:
                 except Exception as e:
                     logger.warning(f"Chart generation failed for {ticker}: {str(e)}. Continuing with other outputs.")
             
-            # Step 4c: Reports (enhanced with market analysis)
+            # Step 4c: AI Insights (if enabled)
+            ai_insights = None
+            if include_ai_insights:
+                current_step += 1
+                progress.update("AI Analysis", current_step)
+                ai_insights = await self._generate_ai_insights(latest_result, market_analysis)
+            
+            # Step 4d: Reports (enhanced with market analysis)
             if generate_reports:
+                current_step += 1
+                progress.update("Final Reports", current_step)
                 logger.info(f"Step 4c: Generating enhanced reports for {ticker}")
-                ai_insights = None
-                if include_ai_insights:
-                    ai_insights = await self._generate_ai_insights(latest_result, market_analysis)
                 report_path = self.report_generator.generate_comprehensive_report(latest_result, ai_insights, market_analysis)
                 summary_path = self.report_generator.generate_summary_report(latest_result, market_analysis)
                 output_files['report'] = report_path
                 output_files['summary'] = summary_path
             
+            # Complete progress
+            progress.finish(success=True)
             logger.info(f"Complete investment analysis finished for {ticker}. Generated {len(output_files)} files.")
             return output_files
             
         except Exception as e:
+            # Mark progress as failed if we have it
+            if 'progress' in locals():
+                progress.finish(success=False)
             error_msg = f"Pipeline failed for {ticker}: {str(e)}"
             logger.error(error_msg)
             raise PipelineError(error_msg) from e
@@ -191,14 +304,25 @@ class AltmanZScorePipeline:
         
         logger.info(f"Starting batch analysis for {len(tickers)} tickers")
         
+        # Show batch progress if in quiet logging mode
+        show_batch_progress = should_show_progress_bars() and len(tickers) > 1
+        
         for i, ticker in enumerate(tickers, 1):
             try:
+                if show_batch_progress:
+                    # Simple batch progress indicator
+                    print(f"\n[BATCH] Processing {i}/{len(tickers)}: {ticker}")
+                
                 logger.info(f"Processing ticker {i}/{len(tickers)}: {ticker}")
                 results[ticker] = await self.analyze_ticker(ticker, **kwargs)
                 
             except Exception as e:
                 logger.error(f"Failed to process {ticker}: {str(e)}")
                 results[ticker] = {'error': str(e)}
+        
+        if show_batch_progress:
+            successful = len([r for r in results.values() if 'error' not in r])
+            print(f"\n✓ Batch analysis complete: {successful}/{len(tickers)} successful")
         
         logger.info(f"Batch analysis complete. Processed {len(results)} tickers.")
         return results
