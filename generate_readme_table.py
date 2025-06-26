@@ -89,13 +89,13 @@ def extract_investment_recommendation_from_json(json_path):
         z_score = summary.get("z_score", 0)
         risk_category = summary.get("risk_category", "Unknown")
         
-        # Generate recommendation based on Z-Score thresholds
+        # Generate investment recommendation with simpler formatting
         if z_score > 2.99:
-            return f"📈 STRONG BUY<br/><sub>Z-Score: {z_score:.2f} ({risk_category})</sub>"
+            return f"📈 **STRONG BUY** (Z-Score: {z_score:.2f})"
         elif z_score > 1.8:
-            return f"⚖️ HOLD<br/><sub>Z-Score: {z_score:.2f} ({risk_category})</sub>"
+            return f"⚖️ **HOLD** (Z-Score: {z_score:.2f})"
         else:
-            return f"📉 SELL<br/><sub>Z-Score: {z_score:.2f} ({risk_category})</sub>"
+            return f"📉 **SELL** (Z-Score: {z_score:.2f})"
             
     except Exception as e:
         return f"❌ Error: {str(e)[:30]}..."
@@ -136,19 +136,23 @@ def generate_table():
         company_name, logo_url, ticker_code = get_company_info_from_html(html_path)
         investment_rec = extract_investment_recommendation_from_json(json_path)
         
-        # Create logo display (use logo_url if available, otherwise use a placeholder)
+        # Create logo display (use simple text for GitHub Markdown compatibility)
         if logo_url:
-            logo_display = f'<img src="{logo_url}" alt="{ticker}" width="40" style="margin-right:8px; border-radius:4px;"/>'
+            # For GitHub Markdown, we'll use a simpler approach
+            logo_display = f'![{ticker}]({logo_url})'
         else:
-            logo_display = f'<div style="width:40px;height:40px;background:#2c3e50;color:white;display:flex;align-items:center;justify-content:center;margin-right:8px;font-weight:bold;border-radius:4px;">{ticker}</div>'
+            # Use ticker as fallback text
+            logo_display = f'**{ticker}**'
         
-        # Combine logo and company name in one column
-        logo_and_name = f'<div style="display: flex; align-items: center;">{logo_display} <span>{company_name}</span></div>'
+        # Combine logo and company name in one column (simplified for Markdown)
+        logo_and_name = f'{logo_display} {company_name}'
         
-        # Create dashboard preview (using iframe for interactive chart)
-        dashboard_preview = f'<a href="{dashboard_rel}" target="_blank"><div style="border:1px solid #ddd;padding:10px;text-align:center;border-radius:4px;background:#f8f9fa;">📊 Interactive Dashboard<br/><small>Click to view full dashboard</small></div></a>'
+        # Create report and dashboard links using proper Markdown syntax
+        report_link = f'[📄 Download Report]({report_rel})'
+        dashboard_link = f'[📊 Download Dashboard]({dashboard_rel})'
         
-        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {dashboard_preview} | {investment_rec} |'
+        # Generate table row with new format
+        row = f'| {logo_and_name} | {report_link} | {dashboard_link} | {investment_rec} |'
         rows.append(row)
         
     print(f"Generated table with {len(rows)} companies")
@@ -161,7 +165,7 @@ def save_table_to_file(filename):
     
     with open(filename, "w", encoding="utf-8") as f:
         f.write("| Company | Report | Dashboard | Investment Recommendation |\n")
-        f.write("|---------|--------|:---------:|---------------------------|\n")
+        f.write("|---------|--------|-----------|---------------------------|\n")
         for row in table_rows:
             f.write(f"{row}\n")
     print(f"Table saved to {filename}")
