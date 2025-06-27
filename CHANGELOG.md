@@ -1,16 +1,41 @@
-# Changelog ## [4.1.0] - SEC EDGAR Elimination & Architectural Simplification (June 26, 2025) Completed Features & Version History
+# Changelog ## [4.3.0] - Enhanced Configuration & Modern Defaults (June 27, 2025)
 
-**Purpose**: Documents PAST accomplishments, completed features, bug fixes, and version history.
+### 🚀 **LLM CONFIGURATION MANAGEMENT**
+- **✅ ENVIRONMENT-DRIVEN CONFIG:** Exposed all LLM temperature and token settings in `.env`
+- **✅ DYNAMIC CONFIGURATION:** Updated `LLMConfig` class to use environment variables
+- **✅ CLIENT METHOD UPDATES:** All LLM client methods now use configurable temperature/token settings
+- **✅ VALIDATION SCRIPT:** Added `validate_llm_config.py` for configuration testing
 
-For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)  
-For **FUTURE** development plans → see [`TODO.md`](TODO.md)
+### 🔧 **PARALLEL PROCESSING OPTIMIZATION**
+- **✅ MODERN DEFAULTS:** Updated `run_parallel_portfolio.ps1` for high-performance systems
+  - Default parallel processes: 4 → **8**
+  - Default quarters: 4 → **12**
+  - Enhanced analysis: disabled → **enabled by default**
+- **✅ ENHANCED HELP:** Comprehensive help system with examples and performance tips
+- **✅ PARAMETER UPDATES:** Changed `EnhancedAnalysis` from switch to boolean for default true value
 
-All notable changes to the AI-Powered Altman Z-Score Analysis are documented in this file.
+### 📋 **SCRIPT IMPROVEMENTS**
+- **✅ BATCH SCRIPT ENHANCEMENT:** Updated `analyze_portfolio.bat` with robust help and error handling
+- **✅ POWERSHELL HELP:** Added comprehensive help functions to both PowerShell scripts
+- **✅ USER EXPERIENCE:** Scripts now show help when called without parameters
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### 📁 **PROJECT ORGANIZATION**
+- **✅ DOCUMENTATION CLEANUP:** Moved technical docs to `docs/technical/`
+- **✅ SCRIPT ORGANIZATION:** Moved validation scripts to `scripts/utilities/`
+- **✅ TEST CLEANUP:** Moved test files to appropriate directories
+- **✅ VERSION UPDATE:** Updated all version references to 4.3.0
 
-## [4.1.0] - SEC EDGAR Elimination & Architectural Simplification (June 26, 2025)
+### 📚 **DOCUMENTATION UPDATES**
+- **✅ LLM CONFIG GUIDE:** Updated `LLM_CONFIGURATION_OPTIMIZATION.md`
+- **✅ ENVIRONMENT EXAMPLE:** Updated `.env.example` with new LLM settings
+- **✅ SCRIPT DOCUMENTATION:** Enhanced help and examples in all scripts
+
+### ⚖️ **LICENSE CHANGE**
+- **✅ PROPRIETARY LICENSE:** Changed from MIT to proprietary license with all rights reserved
+- **✅ COPYRIGHT PROTECTION:** Full copyright protection for intellectual property
+- **✅ CONTROLLED USAGE:** Personal evaluation use only, commercial use prohibited without permission
+
+## [4.2.0] - SEC EDGAR Elimination & Architectural Simplification (June 26, 2025)
 
 ### 🗑️ **MAJOR ARCHITECTURAL SIMPLIFICATION: COMPLETE SEC EDGAR ELIMINATION**
 - **✅ MASSIVE CODE REDUCTION:** Removed ~2000+ lines of SEC EDGAR/XBRL parsing code
@@ -706,90 +731,3 @@ This Golden Release represents the culmination of platform development, deliveri
 - **✅ MULTI-TICKER VALIDATION:** Successfully tested with MSFT and AAPL
 - **✅ OUTPUT GENERATION:** All output types (CSV, JSON, Charts, Reports) working correctly
 - **✅ INTERFACE COMPATIBILITY:** Both public and class methods properly aligned
-
-## [3.11.0] - Market Analysis Integration Phase 1 (June 24, 2025)
-
-### 🚀 **STRATEGIC MILESTONE: MARKET ANALYSIS LAYER IMPLEMENTATION**
-- **✅ COMPLETE TRANSFORMATION:** From "Z-Score Calculator" to "Complete Investment Analysis Platform"
-- **✅ MARKET ANALYSIS LAYER:** Full implementation of comprehensive market analysis components
-- **✅ TECHNICAL ANALYSIS:** Price trends, momentum indicators (RSI, MACD), volatility analysis, trading signals
-- **✅ VALUATION ANALYSIS:** P/E, P/B, PEG ratios, dividend analysis, sector-relative valuation, analyst price targets
-- **✅ PERFORMANCE ANALYSIS:** Multi-timeframe returns, benchmark comparison, risk metrics (Beta, Sharpe, drawdown)
-- **✅ RISK-RETURN ANALYSIS:** Combined fundamental and market risk assessment with investment recommendations
-- **✅ ORCHESTRATION:** Unified market analysis orchestrator coordinating all components
-- **✅ DATA MODELS:** Complete market analysis data models with proper dataclass structure
-- **✅ TESTING & VALIDATION:** All components tested individually and in integration
-- **✅ REAL-WORLD TESTING:** Demonstrated with AAPL, MSFT, TSLA showing different investment scenarios
-
-### 🎯 **Core Market Analysis Components**
-#### Technical Analysis (`technical_analyzer.py`)
-- **Price Trend Analysis:** Moving averages (SMA 20/50/200, EMA 12/26), trend direction and strength
-- **Momentum Indicators:** RSI (14-period), MACD line/signal/histogram
-- **Volatility Analysis:** Bollinger Bands, Average True Range, historical volatility ranking
-- **Volume Analysis:** Volume moving averages and relative volume ratios  
-- **Trading Signals:** Buy/sell signal generation with overall recommendation
-- **Support/Resistance:** Basic support and resistance level identification
-
-#### Valuation Analysis (`valuation_analyzer.py`)
-- **Core Ratios:** P/E, P/B, P/S, PEG ratio calculation and analysis
-- **Dividend Analysis:** Yield, payout ratio, growth rate calculation
-- **Market Metrics:** Market cap, enterprise value, EV/EBITDA
-- **Sector Comparison:** Relative valuation vs sector medians for 11 major sectors
-- **Analyst Data:** Price targets and upside potential from analyst estimates
-- **Valuation Summary:** Investment attractiveness scoring based on multiple factors
-
-#### Performance Analysis (`performance_analyzer.py`)
-- **Multi-Timeframe Returns:** 1D, 1W, 1M, 3M, 6M, 1Y return calculation
-- **Benchmark Comparison:** Performance vs S&P 500 with relative outperformance metrics
-- **Risk Metrics:** Beta calculation, Sharpe ratio, maximum drawdown analysis
-- **Sector Analysis:** Performance vs sector ETFs with sector ranking
-- **Correlation Analysis:** Market correlation and relative strength metrics
-- **Performance Summary:** Risk-adjusted performance scoring and categorization
-
-#### Risk-Return Analysis (`risk_return_analyzer.py`)
-- **Fundamental Risk:** Z-Score based risk scoring with valuation adjustments
-- **Market Risk:** Volatility and liquidity risk assessment from market data
-- **Combined Risk:** Overall risk score and categorization (low/medium/high)
-- **Return Potential:** Growth potential, dividend income, total return estimation
-- **Investment Recommendation:** Rating system (strong_buy/buy/hold/sell/strong_sell)
-- **Confidence Scoring:** Data-driven confidence levels for recommendations
-- **Risk-Opportunity Identification:** Key risks and opportunities extraction
-- **Z-Score Correlation:** Analysis of fundamental vs market performance correlation
-
-### 🔧 **Technical Implementation**
-- **Market Data Models:** Complete dataclass definitions for all analysis components
-- **Rate Limiting:** Proper API rate limiting for all external data calls
-- **Error Handling:** Graceful degradation when components fail individually
-- **Data Quality Scoring:** Analysis completeness and data quality metrics
-- **Orchestration:** Unified interface coordinating all analysis components
-- **Type Safety:** Full type hints and proper data validation
-
-### 📊 **Transformation Results**
-- **BEFORE:** Basic Z-Score number and risk category with limited actionable insights
-- **AFTER:** Complete investment analysis with technical, valuation, and performance context
-- **USER VALUE:** Clear investment recommendations with confidence levels and price targets
-- **DECISION SUPPORT:** Comprehensive risk-return assessment combining fundamental and market factors
-
-### 🧪 **Testing & Validation**
-- **Unit Testing:** All analyzers tested individually with real market data
-- **Integration Testing:** Full orchestrator tested with multiple ticker scenarios
-- **Error Handling:** Validated graceful degradation for API failures and data issues
-- **Real-World Validation:** Demonstrated with actual stocks showing diverse analysis outcomes
-
-### Example Output Enhancement:
-```
-BEFORE: AAPL Z-Score: 2.8 (Grey Zone) → Limited guidance
-AFTER:  AAPL BUY rating (60% confidence) with $228.85 price target
-        Technical: Downtrend, Technical: Overvalued but 13.6% analyst upside
-        Risk: Medium, Return Potential: 55.6%
-        Thesis: Attractive opportunity despite near-term headwinds
-```
-
-### 📈 **Strategic Impact**
-- **Platform Evolution:** Successfully transformed from single-metric calculator to comprehensive investment platform
-- **User Experience:** Actionable investment insights beyond basic financial health assessment
-- **Market Context:** Added crucial market valuation and performance perspective to Z-Score analysis
-- **Investment Workflow:** Complete analysis pipeline supporting investment decision-making
-
-### 🔄 **Next Phase Ready**
-Phase 1 complete and validated. Ready for Phase 2: Output Generation Enhancement to integrate market analysis into reports, charts, and CSV/JSON outputs.

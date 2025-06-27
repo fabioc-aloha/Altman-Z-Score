@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 4.0.1 (2025-06-26) - SEC EDGAR Elimination & Progress Bar Enhancement
+# Version: 4.2.0 (2025-06-26) - SEC EDGAR Elimination & Progress Bar Enhancement
 """
 AI-Powered Altman Z-Score Analysis - Main Entry Point
 
@@ -65,7 +65,9 @@ Examples:
 
 Note: This code follows PEP 8 style guidelines and uses 4-space indentation.
 """
-__version__ = "4.0.0"
+
+# Import version from centralized location
+from altman_zscore._version import __version__
 
 
 import os
@@ -83,6 +85,7 @@ import time
 import logging
 import datetime
 import os
+from typing import List
 from dateutil.relativedelta import relativedelta
 
 import pandas as pd
@@ -113,6 +116,8 @@ PIPELINE_STEPS = [
 CLI_EPILOG = ("Examples:\n"
               "  python main.py AAPL                        # Single stock analysis\n"
               "  python main.py AAPL MSFT GOOGL             # Multi-stock portfolio analysis\n"
+              "  python main.py --portfolio-file portfolios/tech_portfolio.txt  # Analyze portfolio from file\n"
+              "  python main.py --sector technology         # Analyze technology sector portfolio\n"
               "  python main.py TSLA --quarters 8           # Multi-quarter analysis\n"
               "  python main.py AAPL --model financial      # Force financial institution model\n"
               "  python main.py --clear-cache               # Clear all API caches\n"
@@ -141,6 +146,32 @@ class HelpAction(argparse._HelpAction):
         print()  # Add empty line
         parser.exit()
 
+def load_portfolio_from_file(file_path: str) -> list:
+    """Load ticker symbols from a portfolio file."""
+    try:
+        with open(file_path, 'r') as f:
+            tickers = [line.strip().upper() for line in f if line.strip() and not line.startswith('#')]
+        return tickers
+    except FileNotFoundError:
+        print(f"Error: Portfolio file not found: {file_path}")
+        return []
+    except Exception as e:
+        print(f"Error reading portfolio file {file_path}: {e}")
+        return []
+
+
+def get_sector_portfolio(sector: str) -> list:
+    """Get pre-defined sector portfolio tickers."""
+    sector_portfolios = {
+        'technology': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'NFLX', 'ADBE', 'CRM'],
+        'healthcare': ['JNJ', 'UNH', 'PFE', 'ABBV', 'TMO', 'DHR', 'AMGN', 'GILD', 'MRNA', 'CVS'],
+        'financial': ['JPM', 'BAC', 'WFC', 'GS', 'MS', 'C', 'AXP', 'USB', 'PNC', 'BK'],
+        'industrial': ['CAT', 'DE', 'MMM', 'HON', 'UPS', 'GD', 'LMT', 'RTX', 'BA', 'FDX'],
+        'energy': ['XOM', 'CVX', 'COP', 'EOG', 'PXD', 'SLB', 'HAL', 'KMI', 'WMB', 'NEE']
+    }
+    return sector_portfolios.get(sector.lower(), [])
+
+
 def get_env_default(key: str, default_value, value_type=str):
     """
     Get environment variable with type conversion and fallback to default.
@@ -157,6 +188,10 @@ def get_env_default(key: str, default_value, value_type=str):
         env_value = os.environ.get(key)
         if env_value is None:
             return default_value
+        
+        # Strip inline comments (everything after #)
+        if '#' in env_value:
+            env_value = env_value.split('#')[0].strip()
         
         if value_type == bool:
             return env_value.lower() in ('1', 'true', 'yes', 'on')
@@ -267,6 +302,19 @@ def parse_args():
         help="Control progress bar display. 'auto' shows progress bars when logging is quiet (WARNING/ERROR/CRITICAL), "
              "'always' shows them regardless of log level, 'never' disables them. "
              f"Default: {get_env_default('SHOW_PROGRESS_BARS', 'auto')} (from .env or auto)."
+    )
+    parser.add_argument(
+        "--portfolio-file",
+        type=str,
+        help="File containing list of tickers (one per line, comments with # ignored). "
+             "Useful for analyzing predefined portfolios or large lists of stocks."
+    )
+    parser.add_argument(
+        "--sector",
+        type=str,
+        choices=["technology", "healthcare", "financial", "industrial", "energy"],
+        help="Pre-defined sector portfolio for quick analysis. "
+             "Available sectors: technology, healthcare, financial, industrial, energy."
     )
     parser.add_argument(
         "--clear-cache",
@@ -562,7 +610,8 @@ def main():
             sys.exit(0)
 
         # If no arguments except possibly --clear-cache or --cache-stats, show help and exit
-        if len(sys.argv) == 1 or (not args.tickers and not getattr(args, "clear_cache", False) and not getattr(args, "cache_stats", False)):
+        has_ticker_source = args.tickers or args.portfolio_file or args.sector
+        if len(sys.argv) == 1 or (not has_ticker_source and not getattr(args, "clear_cache", False) and not getattr(args, "cache_stats", False)):
             parser = argparse.ArgumentParser(
                 description=CLI_DESCRIPTION,                
                 epilog=CLI_EPILOG,
@@ -578,12 +627,12 @@ def main():
         file_log_level = args.log_file_level.upper()
         
         if log_level not in valid_log_levels:
-            logger.error(f"Invalid console log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            print(f"Error: Invalid console log level: {args.log_level}. Must be one of: {', '.join(valid_log_levels)}.")
             print()  # Empty line before exit
             sys.exit(2)
             
         if file_log_level not in valid_log_levels:
-            logger.error(f"Invalid file log level: {args.log_file_level}. Must be one of: {', '.join(valid_log_levels)}.")
+            print(f"Error: Invalid file log level: {args.log_file_level}. Must be one of: {', '.join(valid_log_levels)}.")
             print()  # Empty line before exit
             sys.exit(2)
         
@@ -622,8 +671,27 @@ def main():
         else:
             logger.info("Free FMP account mode - using conservative defaults")
 
-        # Validate date format
-        ticker_list = [t.upper() for t in args.tickers]
+        # Determine ticker list from various sources
+        ticker_list = []
+        
+        if args.portfolio_file:
+            ticker_list = load_portfolio_from_file(args.portfolio_file)
+            if not ticker_list:
+                logger.error(f"No valid tickers found in portfolio file: {args.portfolio_file}")
+                sys.exit(1)
+            logger.info(f"Loaded {len(ticker_list)} tickers from portfolio file: {args.portfolio_file}")
+        elif args.sector:
+            ticker_list = get_sector_portfolio(args.sector)
+            if not ticker_list:
+                logger.error(f"Unknown sector: {args.sector}")
+                sys.exit(1)
+            logger.info(f"Loaded {len(ticker_list)} tickers from {args.sector} sector portfolio")
+        else:
+            ticker_list = [t.upper() for t in args.tickers]
+        
+        if not ticker_list:
+            logger.error("No tickers specified. Use --help for usage instructions.")
+            sys.exit(1)
         failed_tickers = []
         successful_tickers = []
 

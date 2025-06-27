@@ -18,6 +18,56 @@ from typing import Dict, Optional, Any
 from pathlib import Path
 
 
+class SafeStreamHandler(logging.StreamHandler):
+    """
+    A stream handler that safely handles encoding errors on Windows.
+    """
+    
+    def emit(self, record):
+        """Emit a record, handling encoding errors gracefully."""
+        try:
+            # Format the message and replace problematic Unicode characters
+            msg = self.format(record)
+            
+            # If on Windows with cp1252 encoding, replace emojis and special chars
+            if hasattr(self.stream, 'encoding') and self.stream.encoding and 'cp' in self.stream.encoding.lower():
+                # Replace common emojis and Unicode chars that cause issues
+                emoji_replacements = {
+                    '📊': '[CHART]',
+                    '📈': '[TRENDING_UP]', 
+                    '📉': '[TRENDING_DOWN]',
+                    '💰': '[MONEY]',
+                    '⚠️': '[WARNING]',
+                    '✅': '[CHECK]',
+                    '❌': '[X]',
+                    '🚀': '[ROCKET]',
+                    '🔍': '[SEARCH]',
+                    '💡': '[BULB]',
+                    '⭐': '[STAR]',
+                    '🎯': '[TARGET]',
+                    '📋': '[CLIPBOARD]'
+                }
+                
+                for emoji, replacement in emoji_replacements.items():
+                    msg = msg.replace(emoji, replacement)
+                
+                # Also handle any remaining non-ASCII characters
+                msg = msg.encode(self.stream.encoding, errors='replace').decode(self.stream.encoding)
+            
+            self.stream.write(msg + self.terminator)
+            self.flush()
+            
+        except (OSError, UnicodeEncodeError) as e:
+            # If console output fails, try to write a safe fallback message
+            try:
+                safe_msg = f"[LOGGING ERROR] Failed to output log message for {record.name}: {str(e)}\n"
+                self.stream.write(safe_msg.encode('ascii', errors='replace').decode('ascii'))
+                self.stream.flush()
+            except Exception:
+                # If even the fallback fails, just ignore it
+                pass
+
+
 class StructuredFormatter(logging.Formatter):
     """
     Custom formatter that outputs structured JSON logs for better parsing.
@@ -130,6 +180,19 @@ class LoggingConfig:
         """
         Set up centralized logging configuration.
         """
+        # Set up console encoding for Windows compatibility
+        import sys
+        if hasattr(sys.stdout, 'reconfigure'):
+            try:
+                sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+            except Exception:
+                pass
+        if hasattr(sys.stderr, 'reconfigure'):
+            try:
+                sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+            except Exception:
+                pass
+        
         config = {
             "version": 1,
             "disable_existing_loggers": False,
@@ -148,10 +211,10 @@ class LoggingConfig:
             },
             "handlers": {
                 "console": {
-                    "class": "logging.StreamHandler",
+                    "()": SafeStreamHandler,
                     "level": self.console_level,
                     "formatter": "structured" if self.structured_output else "standard",
-                    "stream": "ext://sys.stdout"
+                    "stream": sys.stdout
                 },
                 "file": {
                     "class": "logging.handlers.RotatingFileHandler",
@@ -159,7 +222,8 @@ class LoggingConfig:
                     "formatter": "detailed",
                     "filename": str(self.log_dir / "altman_zscore.log"),
                     "maxBytes": 10485760,  # 10MB
-                    "backupCount": 5
+                    "backupCount": 5,
+                    "encoding": "utf-8"
                 },
                 "error_file": {
                     "class": "logging.handlers.RotatingFileHandler",
@@ -167,7 +231,8 @@ class LoggingConfig:
                     "formatter": "detailed",
                     "filename": str(self.log_dir / "errors.log"),
                     "maxBytes": 10485760,  # 10MB
-                    "backupCount": 5
+                    "backupCount": 5,
+                    "encoding": "utf-8"
                 }
             },
             "loggers": {},

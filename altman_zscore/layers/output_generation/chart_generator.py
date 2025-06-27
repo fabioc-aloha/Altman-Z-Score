@@ -63,10 +63,9 @@ class ChartGenerator:
             ticker_dir.mkdir(exist_ok=True)
             
             chart_path = ticker_dir / f"{latest.ticker}_zscore_dashboard.html"
-              # Enhanced layout based on whether market analysis is available
+            # Enhanced layout based on whether market analysis is available
             if market_analysis:
                 # Create enhanced subplot figure with market analysis
-                # Note: Using "xy" instead of "indicator" to avoid xaxis property conflicts
                 fig = make_subplots(
                     rows=4, cols=3,
                     subplot_titles=(
@@ -87,7 +86,7 @@ class ChartGenerator:
                         [{"type": "xy"}, {"type": "bar"}, {"type": "xy"}],
                         [{"type": "bar"}, {"type": "bar"}, {"type": "bar"}],
                         [{"type": "bar"}, {"type": "bar"}, {"type": "xy"}],
-                        [{"type": "xy", "secondary_y": True, "colspan": 3}, None, None]  # Enable secondary y-axis for trend chart
+                        [{"type": "xy", "secondary_y": True, "colspan": 3}, None, None]  # Trend chart with secondary y-axis
                     ],                    
                     row_heights=[0.25, 0.25, 0.25, 0.25],
                     vertical_spacing=0.08
@@ -104,7 +103,7 @@ class ChartGenerator:
                     specs=[
                         [{"type": "xy"}, {"type": "bar"}],
                         [{"type": "bar"}, {"type": "bar"}],
-                        [{"type": "xy", "secondary_y": True, "colspan": 2}, None]  # Enable secondary y-axis for trend chart
+                        [{"type": "xy", "secondary_y": True, "colspan": 2}, None]  # Trend chart with secondary y-axis
                     ],                    
                     row_heights=[0.3, 0.3, 0.4],
                     vertical_spacing=0.08
@@ -150,26 +149,6 @@ class ChartGenerator:
                 height=height,
                 showlegend=True
             )
-            
-            # Configure secondary y-axis for price data in the trend chart
-            if market_analysis:
-                # For enhanced layout, the trend chart is in row 4
-                fig.update_yaxes(title_text="Z-Score", row=4, col=1, secondary_y=False)
-                fig.update_yaxes(
-                    title_text="Price ($)",
-                    row=4, col=1, secondary_y=True,
-                    showgrid=False,
-                    tickformat="$.0f"
-                )
-            else:
-                # For basic layout, the trend chart is in row 3
-                fig.update_yaxes(title_text="Z-Score", row=3, col=1, secondary_y=False)
-                fig.update_yaxes(
-                    title_text="Price ($)",
-                    row=3, col=1, secondary_y=True,
-                    showgrid=False,
-                    tickformat="$.0f"
-                )
             
             # Configure x-axis font sizes to prevent label overlap
             fig.update_xaxes(tickfont=dict(size=10))  # Make all x-axis labels smaller
@@ -561,97 +540,60 @@ class ChartGenerator:
                 if filtered:
                     dates, scores = zip(*filtered)
             
-            # Try to get price data from market analysis first, then fallback to direct fetch
+            # Fetch historical prices from FMP instead of Yahoo Finance
             price_dates = []
             prices = []
-            history = None
             
-            # Fetch ALL available historical prices - always use "max" period to get full history
             try:
-                from ...layers.data_fetch.yahoo_fetcher import YahooDataFetcher
-                yf_fetcher = YahooDataFetcher()
+                from ...layers.data_fetch.fmp_fetcher import FMPDataFetcher
+                fmp_fetcher = FMPDataFetcher()
                 
-                logger.info(f"Fetching all available price data for {latest.ticker} using 'max' period")
-                
-                # Always fetch maximum available data first
-                history = yf_fetcher.get_historical_prices(latest.ticker, period="max")
-                
-                if history is None or not hasattr(history, 'empty') or history.empty:
-                    # If "max" fails, try other long periods
-                    logger.warning(f"'max' period failed for {latest.ticker}, trying fallback periods")
-                    for period in ["10y", "5y", "2y", "1y"]:
-                        try:
-                            history = yf_fetcher.get_historical_prices(latest.ticker, period=period)
-                            if history is not None and hasattr(history, 'empty') and not history.empty:
-                                logger.info(f"Successfully fetched {period} price data: {len(history)} records for {latest.ticker}")
-                                break
-                        except Exception as period_error:
-                            logger.warning(f"Failed to fetch {period} price data for {latest.ticker}: {str(period_error)}")
-                            continue
+                # Calculate date range for price data
+                if len(results) > 1 and dates:
+                    # For multi-quarter analysis, get data from 30 days before first quarter
+                    earliest_zscore_date = min(dates).replace(tzinfo=None)
+                    import pandas as pd
+                    buffer_start_date = earliest_zscore_date - pd.Timedelta(days=30)
+                    from_date = buffer_start_date.strftime('%Y-%m-%d')
+                    to_date = None  # Use current date
+                    
+                    logger.info(f"Fetching FMP price data for {latest.ticker} from {from_date}")
                 else:
-                    logger.info(f"Successfully fetched max price data: {len(history)} records for {latest.ticker}")
+                    # For single Z-Score point, get last 2 years of data
+                    import pandas as pd
+                    from_date = (pd.Timestamp.now() - pd.Timedelta(days=730)).strftime('%Y-%m-%d')
+                    to_date = None
+                    
+                    logger.info(f"Fetching FMP price data for {latest.ticker} from {from_date} (2 years)")
+                
+                # Get daily price data from FMP
+                price_data = fmp_fetcher.get_historical_prices_daily(latest.ticker, from_date, to_date)
+                
+                if price_data and len(price_data) > 0:
+                    # Convert FMP data format
+                    import pandas as pd
+                    
+                    # FMP returns data in descending order (newest first), so reverse it
+                    price_data.reverse()
+                    
+                    # Extract dates and prices
+                    price_dates = [pd.to_datetime(item['date']) for item in price_data]
+                    prices = [float(item['close']) for item in price_data]
+                    
+                    logger.info(f"Successfully fetched {len(price_dates)} price records from FMP for {latest.ticker}")
+                    logger.info(f"FMP price range: ${min(prices):.2f} - ${max(prices):.2f}")
+                else:
+                    logger.warning(f"No price data available from FMP for {latest.ticker}")
                         
             except Exception as e:
-                logger.error(f"Error fetching price data: {str(e)}")
+                logger.error(f"Error fetching price data from FMP: {str(e)}")
                 import traceback
                 logger.error(f"Traceback: {traceback.format_exc()}")
             
-            # Process price data and filter to required date range
-            if history is not None and hasattr(history, 'reset_index'):
-                hist = history.reset_index()
-                logger.info(f"Retrieved {len(hist)} price records for {latest.ticker}")
-                logger.info(f"Full date range: {hist['Date'].min()} to {hist['Date'].max()}")
-                
-                # For multi-quarter analysis, filter price data to show from 30 days before first quarter to today
-                if len(results) > 1 and dates:
-                    # Get the Z-Score date range
-                    earliest_zscore_date = min(dates).replace(tzinfo=None)
-                    
-                    # Add buffer: 30 days before earliest quarter, extend to today
-                    import pandas as pd
-                    buffer_start_date = earliest_zscore_date - pd.Timedelta(days=30)
-                    buffer_end_date = pd.Timestamp.now().tz_localize(None)  # Today
-                    
-                    logger.info(f"Filtering price data from {buffer_start_date.strftime('%Y-%m-%d')} to {buffer_end_date.strftime('%Y-%m-%d')}")
-                    
-                    # Remove timezone info from price data for comparison
-                    hist_dates = hist['Date'].dt.tz_localize(None) if hist['Date'].dt.tz is not None else hist['Date']
-                    
-                    # Filter price data to required date range
-                    before_filter = len(hist)
-                    hist = hist[(hist_dates >= buffer_start_date) & (hist_dates <= buffer_end_date)]
-                    after_filter = len(hist)
-                    
-                    logger.info(f"Filtered price data from {before_filter} to {after_filter} records")
-                elif start_date and 'Date' in hist.columns:
-                    # Apply start_date filter if provided
-                    sd = datetime.strptime(start_date, "%Y-%m-%d").date()
-                    before_filter = len(hist)
-                    hist = hist[hist['Date'].dt.date >= sd]
-                    logger.info(f"Filtered by start_date {start_date}: {before_filter} -> {len(hist)} records")
-                elif len(results) == 1:
-                    # For single Z-Score point, show recent price history (last year)
-                    import pandas as pd
-                    recent_date = pd.Timestamp.now().tz_localize(None) - pd.Timedelta(days=365)
-                    hist_dates = hist['Date'].dt.tz_localize(None) if hist['Date'].dt.tz is not None else hist['Date']
-                    before_filter = len(hist)
-                    hist = hist[hist_dates >= recent_date]
-                    logger.info(f"Filtered to last 365 days: {before_filter} -> {len(hist)} records")
-                
-                # Extract price dates and values
-                if not hist.empty:
-                    price_dates = hist['Date'].tolist()
-                    prices = hist['Close'].tolist()
-                    logger.info(f"Final price data: {len(price_dates)} dates from {min(price_dates)} to {max(price_dates)}, price range ${min(prices):.2f} - ${max(prices):.2f}")
-                else:
-                    logger.warning(f"No price data after filtering for {latest.ticker}")
-            else:
-                logger.warning(f"No price data available for {latest.ticker}")
-            
             logger.info(f"Z-Score data: {len(dates)} points, scores: {scores}")
-            logger.info(f"Price data: {len(price_dates)} points, will normalize to 0-10 scale")
+            logger.info(f"Price data: {len(price_dates)} points for dual y-axis chart")
             
-            # Add Z-Score trace with risk-zone colored markers
+            # Add Z-Score trace on primary y-axis
             marker_colors = self._get_marker_colors(scores)
             fig.add_trace(
                 go.Scatter(
@@ -661,55 +603,46 @@ class ChartGenerator:
                     line=dict(color='blue', width=3),
                     marker=dict(size=10, color=marker_colors)
                 ), 
-                row=row, col=col
+                row=row, col=col,
+                secondary_y=False  # Primary y-axis for Z-Score
             )
             
-            # Add price trace - normalize to Z-Score scale for better visualization
+            # Add price trace on secondary y-axis
             if price_dates and prices:
-                logger.info(f"Adding price trace with {len(price_dates)} data points")
-                # Scale prices to be visible alongside Z-Score (normalize to 0-10 range)
+                logger.info(f"Adding price trace with {len(price_dates)} data points on secondary y-axis")
                 min_price, max_price = min(prices), max(prices)
                 logger.info(f"Price range: ${min_price:.2f} - ${max_price:.2f}")
                 
                 if max_price > min_price:
-                    # Scale prices to Z-Score range for better visualization but keep original for hover
-                    z_min, z_max = min(scores), max(scores)
-                    z_range = max(z_max - z_min, 10)  # Ensure minimum range
-                    
-                    # Scale prices to fit within Z-Score range
-                    price_range = max_price - min_price
-                    scaled_prices = []
-                    for p in prices:
-                        # Scale price to Z-Score range
-                        normalized = (p - min_price) / price_range  # 0-1
-                        scaled = z_min + (normalized * z_range)  # Scale to Z-Score range
-                        scaled_prices.append(scaled)
-                    
-                    logger.info(f"Scaled price range: {min(scaled_prices):.2f} - {max(scaled_prices):.2f} (Z-range: {z_min:.2f} - {z_max:.2f})")
-                    
+                    # Add price trace to secondary y-axis with original values
                     fig.add_trace(
                         go.Scatter(
-                            x=price_dates, y=prices,  # Use actual prices instead of scaled
+                            x=price_dates, 
+                            y=prices,  # Use actual prices
                             mode='lines',
-                            name=f'Price (${min_price:.0f} - ${max_price:.0f})',
+                            name=f'Price ($)',
                             line=dict(color='green', width=2, dash='dot'),
                             opacity=0.8
                         ),
-                        row=row, col=col, secondary_y=True  # Use secondary y-axis parameter
+                        row=row, col=col,
+                        secondary_y=True  # Secondary y-axis for price
                     )
                     
-                    # Remove the annotation since we'll have a proper price axis
-                    logger.info(f"Price trace added successfully with secondary y-axis")
+                    logger.info(f"Price trace added successfully on secondary y-axis")
                 else:
                     logger.warning(f"Price data has no variance for {latest.ticker}")
             else:
                 logger.warning(f"No price data available for trend chart - price_dates: {len(price_dates) if price_dates else 0}, prices: {len(prices) if prices else 0}")
             
-            # Add Z-Score risk zones
+            # Add Z-Score risk zones on primary y-axis
             fig.add_hline(y=1.8, line_dash="dash", line_color="red", 
                          annotation_text="Distress Zone", row=row, col=col)
             fig.add_hline(y=2.99, line_dash="dash", line_color="orange", 
                          annotation_text="Gray Zone", row=row, col=col)
+            
+            # Update y-axis labels
+            fig.update_yaxes(title_text="Z-Score", row=row, col=col, secondary_y=False)
+            fig.update_yaxes(title_text="Price ($)", row=row, col=col, secondary_y=True)
                          
         except Exception as e:
             logger.warning(f"Could not generate enhanced trend chart: {str(e)}")
@@ -731,77 +664,57 @@ class ChartGenerator:
                 if filtered:
                     dates, scores = zip(*filtered)
             
-            # Fetch ALL available historical prices - always use "max" period to get full history
-            from ...layers.data_fetch.yahoo_fetcher import YahooDataFetcher
-            yf_fetcher = YahooDataFetcher()
-            
-            logger.info(f"Basic chart: Fetching all available price data for {latest.ticker} using 'max' period")
+            # Fetch historical prices from FMP
+            price_dates = []
+            prices = []
             
             try:
-                # Always fetch maximum available data first
-                history = yf_fetcher.get_historical_prices(latest.ticker, period="max")
+                from ...layers.data_fetch.fmp_fetcher import FMPDataFetcher
+                fmp_fetcher = FMPDataFetcher()
                 
-                if history is None or not hasattr(history, 'empty') or history.empty:
-                    # If "max" fails, try other long periods
-                    logger.warning(f"Basic chart: 'max' period failed for {latest.ticker}, trying fallback periods")
-                    for period in ["10y", "5y", "2y", "1y"]:
-                        try:
-                            history = yf_fetcher.get_historical_prices(latest.ticker, period=period)
-                            if history is not None and hasattr(history, 'empty') and not history.empty:
-                                logger.info(f"Basic chart: Successfully fetched {period} price data: {len(history)} records for {latest.ticker}")
-                                break
-                        except Exception as period_error:
-                            logger.warning(f"Basic chart: Failed to fetch {period} price data for {latest.ticker}: {str(period_error)}")
-                            continue
+                # Calculate date range for price data
+                if len(results) > 1 and dates:
+                    # For multi-quarter analysis, get data from 30 days before first quarter
+                    earliest_zscore_date = min(dates).replace(tzinfo=None)
+                    import pandas as pd
+                    buffer_start_date = earliest_zscore_date - pd.Timedelta(days=30)
+                    from_date = buffer_start_date.strftime('%Y-%m-%d')
+                    to_date = None
+                    
+                    logger.info(f"Basic chart: Fetching FMP price data for {latest.ticker} from {from_date}")
                 else:
-                    logger.info(f"Basic chart: Successfully fetched max price data: {len(history)} records for {latest.ticker}")
+                    # For single Z-Score point, get last 2 years of data
+                    import pandas as pd
+                    from_date = (pd.Timestamp.now() - pd.Timedelta(days=730)).strftime('%Y-%m-%d')
+                    to_date = None
+                    
+                    logger.info(f"Basic chart: Fetching FMP price data for {latest.ticker} from {from_date} (2 years)")
+                
+                # Get daily price data from FMP
+                price_data = fmp_fetcher.get_historical_prices_daily(latest.ticker, from_date, to_date)
+                
+                if price_data and len(price_data) > 0:
+                    # Convert FMP data format
+                    import pandas as pd
+                    
+                    # FMP returns data in descending order (newest first), so reverse it
+                    price_data.reverse()
+                    
+                    # Extract dates and prices
+                    price_dates = [pd.to_datetime(item['date']) for item in price_data]
+                    prices = [float(item['close']) for item in price_data]
+                    
+                    logger.info(f"Basic chart: Successfully fetched {len(price_dates)} price records from FMP for {latest.ticker}")
+                    logger.info(f"Basic chart: FMP price range: ${min(prices):.2f} - ${max(prices):.2f}")
+                else:
+                    logger.warning(f"Basic chart: No price data available from FMP for {latest.ticker}")
                         
             except Exception as e:
-                logger.error(f"Basic chart: Error fetching price data: {str(e)}")
+                logger.error(f"Basic chart: Error fetching price data from FMP: {str(e)}")
                 import traceback
                 logger.error(f"Basic chart: Traceback: {traceback.format_exc()}")
             
-            # Process price data and filter to required date range
-            price_dates = []
-            prices = []
-            if history is not None and hasattr(history, 'reset_index'):
-                hist = history.reset_index()
-                logger.info(f"Basic chart: Retrieved {len(hist)} price records for {latest.ticker}")
-                logger.info(f"Basic chart: Full date range: {hist['Date'].min()} to {hist['Date'].max()}")
-                
-                # For multi-quarter analysis, filter price data to show from 30 days before first quarter to today
-                if len(results) > 1 and dates:
-                    # Get the Z-Score date range
-                    earliest_zscore_date = min(dates).replace(tzinfo=None)
-                    
-                    # Add buffer: 30 days before earliest quarter, extend to today
-                    import pandas as pd
-                    buffer_start_date = earliest_zscore_date - pd.Timedelta(days=30)
-                    buffer_end_date = pd.Timestamp.now().tz_localize(None)  # Today
-                    
-                    logger.info(f"Basic chart: Filtering price data from {buffer_start_date.strftime('%Y-%m-%d')} to {buffer_end_date.strftime('%Y-%m-%d')}")
-                    
-                    # Remove timezone info from price data for comparison
-                    hist_dates = hist['Date'].dt.tz_localize(None) if hist['Date'].dt.tz is not None else hist['Date']
-                    
-                    # Filter price data to required date range
-                    before_filter = len(hist)
-                    hist = hist[(hist_dates >= buffer_start_date) & (hist_dates <= buffer_end_date)]
-                    after_filter = len(hist)
-                    
-                    logger.info(f"Basic chart: Filtered price data from {before_filter} to {after_filter} records")
-                
-                # Extract price dates and values
-                if not hist.empty:
-                    price_dates = hist['Date'].tolist()
-                    prices = hist['Close'].tolist()
-                    logger.info(f"Basic chart: Using {len(price_dates)} price points from {min(price_dates)} to {max(price_dates)}")
-                else:
-                    logger.warning(f"Basic chart: No price data after filtering for {latest.ticker}")
-            else:
-                logger.warning(f"Basic chart: No price data available for {latest.ticker}")
-            
-            # Add Z-Score trace with risk-zone colored markers
+            # Add Z-Score trace on primary y-axis
             marker_colors = self._get_marker_colors(scores)
             fig.add_trace(
                 go.Scatter(
@@ -811,46 +724,41 @@ class ChartGenerator:
                     line=dict(color='blue', width=3),
                     marker=dict(size=10, color=marker_colors)
                 ), 
-                row=row, col=col
+                row=row, col=col,
+                secondary_y=False  # Primary y-axis for Z-Score
             )
             
-            # Add price trace - scale to Z-Score range for better visualization
+            # Add price trace on secondary y-axis
             if price_dates and prices:
-                # Scale prices to be visible alongside Z-Score but keep original for hover
                 min_price, max_price = min(prices), max(prices)
                 if max_price > min_price:
-                    # Scale prices to Z-Score range for better visualization
-                    z_min, z_max = min(scores), max(scores)
-                    z_range = max(z_max - z_min, 10)  # Ensure minimum range
-                    
-                    # Scale prices to fit within Z-Score range
-                    price_range = max_price - min_price
-                    scaled_prices = []
-                    for p in prices:
-                        normalized = (p - min_price) / price_range  # 0-1
-                        scaled = z_min + (normalized * z_range)  # Scale to Z-Score range
-                        scaled_prices.append(scaled)
-                    
+                    # Add price trace to secondary y-axis with original values
                     fig.add_trace(
                         go.Scatter(
-                            x=price_dates, y=prices,  # Use actual prices instead of scaled
+                            x=price_dates, 
+                            y=prices,  # Use actual prices
                             mode='lines',
-                            name=f'Price (${min_price:.0f} - ${max_price:.0f})',
+                            name=f'Price ($)',
                             line=dict(color='green', width=2, dash='dot'),
                             opacity=0.8
                         ),
-                        row=row, col=col, secondary_y=True  # Use secondary y-axis parameter
+                        row=row, col=col,
+                        secondary_y=True  # Secondary y-axis for price
                     )
                     
-                    logger.info(f"Price trace added successfully with secondary y-axis")
+                    logger.info(f"Price trace added successfully on secondary y-axis")
                 else:
                     logger.warning(f"Price data has no variance for {latest.ticker}")
             
-            # Add Z-Score risk zones
+            # Add Z-Score risk zones on primary y-axis
             fig.add_hline(y=1.8, line_dash="dash", line_color="red", 
                          annotation_text="Distress Zone", row=row, col=col)
             fig.add_hline(y=2.99, line_dash="dash", line_color="orange", 
                          annotation_text="Gray Zone", row=row, col=col)
+            
+            # Update y-axis labels
+            fig.update_yaxes(title_text="Z-Score", row=row, col=col, secondary_y=False)
+            fig.update_yaxes(title_text="Price ($)", row=row, col=col, secondary_y=True)
                          
         except Exception as e:
             logger.warning(f"Could not generate basic trend chart: {str(e)}")

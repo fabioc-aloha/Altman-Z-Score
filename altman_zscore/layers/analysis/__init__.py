@@ -10,6 +10,7 @@ Strategic Components:
 - Sector Benchmarking: Industry-specific comparisons
 - Investment Recommendations: AI-powered decision support
 - Real-time Monitoring: Continuous risk assessment
+- Enhanced Financial Indicators: Advanced quality metrics and competitive positioning
 
 Enterprise Features (v4.2.0):
 - Advanced risk scoring algorithms
@@ -17,6 +18,7 @@ Enterprise Features (v4.2.0):
 - Sector-specific benchmarks and peer analysis
 - Investment recommendation engine with confidence scoring
 - Real-time risk monitoring and alert capabilities
+- Enhanced financial indicators for deeper insights
 """
 
 from .risk_return_engine import (
@@ -28,6 +30,17 @@ from .risk_return_engine import (
     PortfolioRiskProfile,
     analyze_single_security,
     analyze_portfolio
+)
+
+# Import enhanced indicators for external use
+from .enhanced_indicators import (
+    EnhancedIndicatorsCalculator,
+    EnhancedFinancialIndicators,
+    CashFlowQualityMetrics,
+    EarningsQualityMetrics,
+    CapitalAllocationMetrics,
+    CompetitivePositioningMetrics,
+    format_enhanced_indicators_for_llm
 )
 
 __all__ = [
@@ -45,10 +58,14 @@ __all__ = [
     
     # Utility functions
     'analyze_single_security',
-    'analyze_portfolio'
+    'analyze_portfolio',
+    
+    # Enhanced indicators
+    'EnhancedIndicatorsCalculator',
+    'EnhancedFinancialIndicators',
+    'CashFlowQualityMetrics',
+    'EarningsQualityMetrics',
+    'CapitalAllocationMetrics',
+    'CompetitivePositioningMetrics',
+    'format_enhanced_indicators_for_llm'
 ]
-
-# Version info
-__version__ = "4.2.0"
-__author__ = "Altman Z-Score Analysis System"
-__description__ = "Advanced Financial Risk-Return Analysis Engine"

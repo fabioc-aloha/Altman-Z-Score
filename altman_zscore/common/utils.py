@@ -12,6 +12,67 @@ from typing import Any, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
+
+def sanitize_for_logging(text: str) -> str:
+    """
+    Sanitize text for safe logging on Windows systems.
+    
+    Replaces emojis and problematic Unicode characters with safe alternatives.
+    This is particularly important on Windows systems where the default console
+    encoding (cp1252) cannot handle Unicode emojis.
+    
+    Args:
+        text: Text to sanitize
+        
+    Returns:
+        Sanitized text safe for logging
+    """
+    if not text:
+        return text
+    
+    # Replace common emojis that cause encoding issues
+    emoji_replacements = {
+        '📊': '[CHART]',
+        '📈': '[UP_TREND]', 
+        '📉': '[DOWN_TREND]',
+        '💰': '[MONEY]',
+        '⚠️': '[WARNING]',
+        '✅': '[CHECK]',
+        '❌': '[X]',
+        '🚀': '[ROCKET]',
+        '🔍': '[SEARCH]',
+        '💡': '[IDEA]',
+        '⭐': '[STAR]',
+        '🎯': '[TARGET]',
+        '📋': '[LIST]',
+        '🔥': '[FIRE]',
+        '⚡': '[LIGHTNING]',
+        '🌟': '[SPARKLE]',
+        '📱': '[PHONE]',
+        '💻': '[LAPTOP]',
+        '🖥️': '[DESKTOP]',
+        '📝': '[MEMO]',
+        '📄': '[PAGE]',
+        '🎨': '[ART]',
+        '🎭': '[THEATER]',
+        '🎪': '[CIRCUS]',
+        '🎯': '[DART]'
+    }
+    
+    sanitized = text
+    for emoji, replacement in emoji_replacements.items():
+        sanitized = sanitized.replace(emoji, replacement)
+    
+    # Handle any remaining problematic characters by encoding/decoding
+    try:
+        # Try to encode/decode with cp1252 to catch other problematic chars
+        sanitized = sanitized.encode('cp1252', errors='replace').decode('cp1252')
+    except Exception:
+        # If that fails, fall back to ASCII replacement
+        sanitized = sanitized.encode('ascii', errors='replace').decode('ascii')
+    
+    return sanitized
+
 # Constants and configuration
 DEFAULT_CACHE_DIR = ".cache"
 OUTPUT_DIR = "output"

@@ -10,16 +10,21 @@ Key Features:
 - Market context integration
 - Investment recommendation explanations
 - Professional narrative generation
+- Enhanced financial indicators for deeper insights
 """
 
 import json
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from datetime import datetime
 
 from ...common.logging_config import get_logger
 from ...common.exceptions import OutputGenerationError
 from ..data_fetch.llm_client import LLMClient
 from ..zscore_calculation import ZScoreCalculationResult
+from ..analysis.enhanced_indicators import (
+    EnhancedIndicatorsCalculator, 
+    format_enhanced_indicators_for_llm
+)
 
 logger = get_logger(__name__)
 
@@ -36,6 +41,7 @@ class AIInsightsGenerator:
         """
         self.output_base_path = output_base_path
         self.llm_client = LLMClient()  # Uses default config from environment
+        self.enhanced_calculator = EnhancedIndicatorsCalculator()  # Add enhanced indicators
     
     async def generate_investment_narrative(
         self, 
@@ -118,6 +124,101 @@ class AIInsightsGenerator:
             logger.error(f"Failed to generate risk assessment for {zscore_result.ticker}: {str(e)}")
             return None
     
+    async def generate_comprehensive_analysis(
+        self, 
+        zscore_results: List,  # List of ZScoreCalculationResult objects
+        financial_data: Dict[str, Any],
+        market_analysis=None
+    ) -> Optional[str]:
+        """
+        Generate comprehensive financial analysis using structured prompt template with enhanced indicators.
+        
+        Args:
+            zscore_results: List of Z-Score calculation results for trend analysis
+            financial_data: Complete financial data
+            market_analysis: Optional market analysis results
+            
+        Returns:
+            Optional[str]: Comprehensive AI-generated analysis with investment profiles and enhanced insights
+        """
+        try:
+            # Get the latest result for primary data
+            latest_result = zscore_results[0] if zscore_results else None
+            if not latest_result:
+                logger.warning("No Z-Score results available for comprehensive analysis")
+                return None
+            
+            # Calculate enhanced financial indicators
+            enhanced_indicators = None
+            try:
+                # Convert financial_data to MergedFinancialData if it's a string representation
+                if isinstance(financial_data, str):
+                    # Parse the string representation to extract the data
+                    from ...models.data_models import MergedFinancialData
+                    # This is a simplified approach - in production, you'd want more robust parsing
+                    logger.info("Financial data is string format - enhanced indicators calculation skipped")
+                    enhanced_indicators = None
+                elif hasattr(financial_data, 'ticker'):
+                    # Direct MergedFinancialData object
+                    quarterly_data = [result.__dict__ for result in zscore_results] if zscore_results else None
+                    enhanced_indicators = self.enhanced_calculator.calculate_all_indicators(
+                        financial_data, quarterly_data
+                    )
+                    logger.info(f"Enhanced indicators calculated for {latest_result.ticker}")
+                else:
+                    logger.info("Financial data format not supported for enhanced indicators")
+            except Exception as e:
+                logger.warning(f"Failed to calculate enhanced indicators: {str(e)}")
+                enhanced_indicators = None
+            
+            # Convert Z-Score results to quarterly data for trend analysis
+            quarterly_data = []
+            for i, result in enumerate(zscore_results):
+                quarterly_data.append({
+                    'quarter_index': i,
+                    'ticker': result.ticker,
+                    'z_score': result.z_score,
+                    'risk_category': result.risk_category,
+                    'model_used': result.model_used,
+                    'component_values': result.component_values,
+                    'calculation_timestamp': result.calculation_timestamp,
+                    'data_quality_score': result.data_quality_score,
+                    'warnings': result.warnings,
+                    'metadata': getattr(result, 'metadata', {})
+                })
+            
+            # Convert Z-Score data with quarterly trend information and enhanced indicators
+            zscore_data = {
+                'ticker': latest_result.ticker,
+                'z_score': latest_result.z_score,
+                'risk_category': latest_result.risk_category,
+                'model_used': latest_result.model_used,
+                'component_values': latest_result.component_values,
+                'quarterly_data': quarterly_data,  # Now populated with actual data
+                'calculation_timestamp': latest_result.calculation_timestamp,
+                'data_quality_score': latest_result.data_quality_score,
+                'warnings': latest_result.warnings,
+                'enhanced_indicators': format_enhanced_indicators_for_llm(enhanced_indicators) if enhanced_indicators else None
+            }
+            
+            # Use the LLM client's comprehensive report method with enhanced data
+            comprehensive_report = self.llm_client.generate_comprehensive_report(
+                ticker=latest_result.ticker,
+                financial_data=financial_data,
+                zscore_data=zscore_data,
+                market_data=market_analysis
+            )
+            
+            logger.info(f"Comprehensive analysis with enhanced indicators generated for {latest_result.ticker}")
+            return comprehensive_report
+            
+        except Exception as e:
+            logger.error(f"Failed to generate comprehensive analysis for {latest_result.ticker if latest_result else 'unknown'}: {str(e)}")
+            # Fallback to basic narrative using the latest result
+            if zscore_results:
+                return await self.generate_investment_narrative(zscore_results[0], market_analysis)
+            return None
+    
     def _prepare_analysis_context(
         self, 
         zscore_result: ZScoreCalculationResult,
@@ -187,6 +288,13 @@ class AIInsightsGenerator:
                 "sharpe_ratio": perf.sharpe_ratio if perf else None,
                 "max_drawdown": perf.max_drawdown if perf else None,
                 "overall_risk_score": risk.overall_risk_score if risk else None            })
+        
+        # Calculate and integrate enhanced indicators
+        try:
+            enhanced_indicators = self.enhanced_calculator.calculate_indicators(zscore_result, market_analysis)
+            context.update(enhanced_indicators)
+        except Exception as e:
+            logger.warning(f"Failed to calculate enhanced indicators for {zscore_result.ticker}: {str(e)}")
         
         return context
     

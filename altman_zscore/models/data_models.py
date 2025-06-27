@@ -9,6 +9,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Union
 
+from .._version import __version__
+
 
 @dataclass
 class FilteredSecData:
@@ -195,7 +197,7 @@ class AnalysisContext:
     company_profile: CompanyProfile
     quarters_analyzed: int
     analysis_date: str = field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d"))
-    version: str = "4.0.0"
+    version: str = __version__
     metadata: Dict = field(default_factory=dict)
 
 

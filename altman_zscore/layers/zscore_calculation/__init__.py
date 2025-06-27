@@ -20,5 +20,3 @@ __all__ = [
     'ModelSelector', 
     'select_appropriate_model'
 ]
-
-__version__ = "4.0.0"

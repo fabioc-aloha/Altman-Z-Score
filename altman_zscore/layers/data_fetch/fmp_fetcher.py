@@ -409,3 +409,159 @@ class FMPDataFetcher:
             logger.warning(f"Failed to store complete financial data for {symbol}: {e}")
         
         return financial_data
+    
+    def get_historical_prices_daily(self, symbol: str, from_date: str = None, to_date: str = None) -> List[Dict[str, Any]]:
+        """
+        Get daily historical price data from FMP.
+        
+        Args:
+            symbol: Stock ticker symbol
+            from_date: Start date in YYYY-MM-DD format (optional, defaults to 5 years ago)
+            to_date: End date in YYYY-MM-DD format (optional, defaults to today)
+            
+        Returns:
+            List of daily price records with date, open, high, low, close, volume
+        """
+        # Build URL parameters
+        params = {"apikey": self.config.api_key}
+        if from_date:
+            params["from"] = from_date
+        if to_date:
+            params["to"] = to_date
+            
+        url = f"{self.config.base_url}/historical-price-full/{symbol}"
+        cache_key = f"fmp_daily_prices:{symbol}:{from_date}:{to_date}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached daily prices for {symbol}")
+            return cached_result
+        
+        try:
+            # Rate limiting
+            self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
+            
+            logger.info(f"Fetching daily price data for {symbol} from FMP")
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if 'historical' in data:
+                prices = data['historical']
+                logger.info(f"Successfully fetched {len(prices)} daily price records for {symbol}")
+                
+                # Cache result
+                self.cache.set(cache_key, prices, ttl=CACHE_TTL_SECONDS)
+                return prices
+            else:
+                logger.warning(f"No historical price data returned for {symbol}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Failed to get daily prices for {symbol}: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return []
+
+    def get_historical_prices_weekly(self, symbol: str, from_date: str = None, to_date: str = None) -> List[Dict[str, Any]]:
+        """
+        Get weekly historical price data from FMP.
+        
+        Args:
+            symbol: Stock ticker symbol
+            from_date: Start date in YYYY-MM-DD format (optional)
+            to_date: End date in YYYY-MM-DD format (optional)
+            
+        Returns:
+            List of weekly price records
+        """
+        # Build URL parameters
+        params = {"apikey": self.config.api_key}
+        if from_date:
+            params["from"] = from_date
+        if to_date:
+            params["to"] = to_date
+            
+        url = f"{self.config.base_url}/historical-price-full/{symbol}?serietype=line"
+        cache_key = f"fmp_weekly_prices:{symbol}:{from_date}:{to_date}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached weekly prices for {symbol}")
+            return cached_result
+        
+        try:
+            # Rate limiting
+            self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
+            
+            logger.info(f"Fetching weekly price data for {symbol} from FMP")
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if 'historical' in data:
+                prices = data['historical']
+                logger.info(f"Successfully fetched {len(prices)} weekly price records for {symbol}")
+                
+                # Cache result
+                self.cache.set(cache_key, prices, ttl=CACHE_TTL_SECONDS)
+                return prices
+            else:
+                logger.warning(f"No weekly price data returned for {symbol}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Failed to get weekly prices for {symbol}: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return []
+
+    def get_current_price(self, symbol: str) -> Optional[Dict[str, Any]]:
+        """
+        Get current/latest price data from FMP.
+        
+        Args:
+            symbol: Stock ticker symbol
+            
+        Returns:
+            Current price data or None if not available
+        """
+        url = f"{self.config.base_url}/quote/{symbol}"
+        cache_key = f"fmp_current_price:{symbol}"
+        
+        # Short cache for current prices (5 minutes)
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached current price for {symbol}")
+            return cached_result
+        
+        try:
+            # Rate limiting
+            self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
+            
+            logger.info(f"Fetching current price for {symbol} from FMP")
+            response = requests.get(url, params={"apikey": self.config.api_key}, timeout=30)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if data and len(data) > 0:
+                price_data = data[0]  # FMP returns array
+                logger.info(f"Successfully fetched current price for {symbol}: ${price_data.get('price', 'N/A')}")
+                
+                # Cache for 5 minutes (300 seconds)
+                self.cache.set(cache_key, price_data, ttl=300)
+                return price_data
+            else:
+                logger.warning(f"No current price data returned for {symbol}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Failed to get current price for {symbol}: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return None

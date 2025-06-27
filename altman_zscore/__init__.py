@@ -5,7 +5,7 @@ This package implements a modular, layered architecture for Altman Z-Score calcu
 and financial analysis with AI-enhanced insights.
 """
 
-__version__ = '4.0.0'
+from ._version import __version__
 
 # Import key modules for easy access
 from . import models

@@ -19,4 +19,4 @@ Key Architectural Benefits:
 Each layer has a single responsibility and clear interfaces.
 """
 
-__version__ = "4.0.0"  # Updated for professional-grade platform
+# Layer components for easy access

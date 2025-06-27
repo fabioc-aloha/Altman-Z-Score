@@ -18,6 +18,7 @@ import sys
 from datetime import datetime
 from typing import Dict, List, Optional
 
+from ._version import __version__
 from .common.logging_config import get_logger, should_show_progress_bars, is_quiet_logging_mode
 from .common.exceptions import PipelineError
 from .layers.data_fetch.data_merger import DataMerger
@@ -102,7 +103,7 @@ class PipelineProgressBar:
             success: Whether the operation completed successfully
         """
         if self.show_progress:
-            status = "✓ Complete" if success else "✗ Failed"
+            status = "Complete" if success else "Failed"
             if self.current_step < self.total_steps:
                 self.current_step = self.total_steps
             # Update to final status and add a single newline
@@ -137,7 +138,7 @@ class AltmanZScorePipeline:
         ticker: str,
         generate_charts: bool = True,
         generate_reports: bool = True,
-        include_ai_insights: bool = False,
+        include_ai_insights: bool = True,
         include_market_analysis: bool = True,
         forced_model: str = None,
         quarters: int = 4,
@@ -151,7 +152,7 @@ class AltmanZScorePipeline:
             ticker: Stock ticker symbol
             generate_charts: Whether to generate visualization charts
             generate_reports: Whether to generate comprehensive reports
-            include_ai_insights: Whether to include AI-powered analysis
+            include_ai_insights: Whether to include AI-powered investment profile analysis (default: True)
             include_market_analysis: Whether to include market analysis
             forced_model: Optional model to force (overrides automatic selection)
             quarters: Number of quarters for historical analysis (enhanced accounts: 8-20)
@@ -260,7 +261,9 @@ class AltmanZScorePipeline:
             if include_ai_insights:
                 current_step += 1
                 progress.update("AI Analysis", current_step)
-                ai_insights = await self._generate_ai_insights(latest_result, market_analysis)
+                # Pass merged financial data for comprehensive analysis
+                financial_data_for_ai = merged[0] if merged else None
+                ai_insights = await self._generate_ai_insights(zscore_results, market_analysis, financial_data_for_ai)
             
             # Step 4d: Reports (enhanced with market analysis)
             if generate_reports:
@@ -322,38 +325,54 @@ class AltmanZScorePipeline:
         
         if show_batch_progress:
             successful = len([r for r in results.values() if 'error' not in r])
-            print(f"\n✓ Batch analysis complete: {successful}/{len(tickers)} successful")
+            print(f"\nBatch analysis complete: {successful}/{len(tickers)} successful")
         
         logger.info(f"Batch analysis complete. Processed {len(results)} tickers.")
         return results
     
-    async def _generate_ai_insights(self, zscore_result, market_analysis=None) -> Optional[str]:
+    async def _generate_ai_insights(self, zscore_results, market_analysis=None, financial_data=None) -> Optional[str]:
         """
         Generate AI-powered insights combining Z-Score and market analysis.
         
         Args:
-            zscore_result: Z-Score calculation result
+            zscore_results: List of Z-Score calculation results for trend analysis
             market_analysis: Market analysis result (optional)
+            financial_data: Raw financial data for comprehensive analysis
             
         Returns:
-            Optional[str]: AI-generated comprehensive insights        """
+            Optional[str]: AI-generated comprehensive insights with investment profiles
+        """
         try:
-            logger.info(f"Generating AI-powered insights for {zscore_result.ticker}")
+            # Get the latest result for primary analysis
+            latest_result = zscore_results[0] if zscore_results else None
+            if not latest_result:
+                logger.warning("No Z-Score results available for AI insights")
+                return None
+                
+            logger.info(f"Generating AI-powered insights for {latest_result.ticker}")
             
-            # Generate comprehensive AI insights combining all analysis
-            insights = await self.ai_insights_generator.generate_investment_narrative(
-                zscore_result, market_analysis
-            )
+            # Use comprehensive analysis if financial data is available
+            if financial_data:
+                logger.info(f"Generating comprehensive analysis with investment profiles for {latest_result.ticker}")
+                insights = await self.ai_insights_generator.generate_comprehensive_analysis(
+                    zscore_results, financial_data, market_analysis
+                )
+            else:
+                # Fallback to basic narrative using latest result
+                logger.info(f"Generating basic investment narrative for {latest_result.ticker}")
+                insights = await self.ai_insights_generator.generate_investment_narrative(
+                    latest_result, market_analysis
+                )
             
             if insights:
-                logger.info(f"AI insights generated for {zscore_result.ticker}: {len(insights)} characters")
+                logger.info(f"AI insights generated for {latest_result.ticker}: {len(insights)} characters")
                 return insights
             else:
-                logger.warning(f"No AI insights generated for {zscore_result.ticker}")
+                logger.warning(f"No AI insights generated for {latest_result.ticker}")
                 return None
                 
         except Exception as e:
-            logger.error(f"Failed to generate AI insights for {zscore_result.ticker}: {str(e)}")
+            logger.error(f"Failed to generate AI insights for {latest_result.ticker if latest_result else 'unknown'}: {str(e)}")
             return None
     
     def get_pipeline_status(self) -> Dict[str, any]:
@@ -373,5 +392,5 @@ class AltmanZScorePipeline:
                 'file_manager': 'Ready'
             },
             'storage': self.file_manager.get_storage_summary(),
-            'version': '4.0.0'
+            'version': __version__
         }

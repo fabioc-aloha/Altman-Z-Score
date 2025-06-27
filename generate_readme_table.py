@@ -26,6 +26,32 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+# Import the sanitization function for safe console output
+try:
+    from altman_zscore.common.utils import sanitize_for_logging
+except ImportError:
+    # Fallback if import fails
+    def sanitize_for_logging(text):
+        """Basic emoji replacement for console output"""
+        replacements = {
+            '🔄': '[REFRESH]',
+            '✅': '[SUCCESS]',
+            '📊': '[CHART]',
+            '❌': '[FAILED]',
+            '⚠️': '[WARNING]'
+        }
+        for emoji, replacement in replacements.items():
+            text = text.replace(emoji, replacement)
+        return text
+
+def safe_print(text):
+    """Print text with emoji sanitization for Windows compatibility"""
+    try:
+        print(sanitize_for_logging(text))
+    except UnicodeEncodeError:
+        # Fallback for extreme cases
+        print(text.encode('ascii', errors='replace').decode('ascii'))
+
 OUTPUT_DIR = "output"
 # File structure for new analysis pipeline
 REPORT_SUFFIX = "_comprehensive_report.html"
@@ -101,6 +127,124 @@ def extract_investment_recommendation_from_json(json_path):
         return f"❌ Error: {str(e)[:30]}..."
 
 
+def extract_ai_investment_profiles(html_path):
+    """Extract AI-generated investment profile recommendations from HTML report."""
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Enhanced patterns to match multiple table formats and layouts
+        profile_patterns = {
+            '📊 Conservative': [
+                r'[\|\s]*📊 Conservative[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'[\|\s]*Conservative[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'📊\s*Conservative.*?\|\s*.*?\|\s*.*?\|\s*\*\*([^*]+)\*\*',
+                r'Conservative.*?Capital preservation.*?\|\s*\*\*([^*]+)\*\*',
+                r'Conservative.*?\|\s*Capital preservation.*?\|\s*Low.*?\|\s*\*\*([^*]+)\*\*'
+            ],
+            '💰 Dividend': [
+                r'[\|\s]*💰 Dividend[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'[\|\s]*Dividend[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'💰\s*Dividend.*?\|\s*.*?\|\s*.*?\|\s*\*\*([^*]+)\*\*',
+                r'Dividend.*?Income generation.*?\|\s*\*\*([^*]+)\*\*',
+                r'Dividend.*?\|\s*Income generation.*?\|\s*Low-Medium.*?\|\s*\*\*([^*]+)\*\*'
+            ],
+            '💎 Value': [
+                r'[\|\s]*💎 Value[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'[\|\s]*Value[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'💎\s*Value.*?\|\s*.*?\|\s*.*?\|\s*\*\*([^*]+)\*\*',
+                r'Value.*?Undervalued stocks.*?\|\s*\*\*([^*]+)\*\*',
+                r'Value.*?\|\s*Undervalued stocks.*?\|\s*Medium.*?\|\s*\*\*([^*]+)\*\*'
+            ],
+            '📈 Growth': [
+                r'[\|\s]*📈 Growth[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'[\|\s]*Growth[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'📈\s*Growth.*?\|\s*.*?\|\s*.*?\|\s*\*\*([^*]+)\*\*',
+                r'Growth.*?Capital appreciation.*?\|\s*\*\*([^*]+)\*\*',
+                r'Growth.*?\|\s*Capital appreciation.*?\|\s*Medium-High.*?\|\s*\*\*([^*]+)\*\*'
+            ],
+            '🚀 Aggressive': [
+                r'[\|\s]*🚀 Aggressive[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'[\|\s]*Aggressive[^|]*\|[^|]*\|[^|]*\|\s*\*\*([^*]+)\*\*',
+                r'🚀\s*Aggressive.*?\|\s*.*?\|\s*.*?\|\s*\*\*([^*]+)\*\*',
+                r'Aggressive.*?Maximum returns.*?\|\s*\*\*([^*]+)\*\*',
+                r'Aggressive.*?\|\s*Maximum returns.*?\|\s*High.*?\|\s*\*\*([^*]+)\*\*'
+            ]
+        }
+        
+        profiles = {}
+        for profile_name, patterns in profile_patterns.items():
+            for pattern in patterns:
+                match = re.search(pattern, content, re.IGNORECASE | re.DOTALL)
+                if match:
+                    recommendation = match.group(1).strip()
+                    # Clean up recommendation (remove extra whitespace, normalize)
+                    recommendation = re.sub(r'\s+', ' ', recommendation)
+                    # Extract just the action word (BUY/HOLD/SELL)
+                    action_match = re.search(r'\b(STRONG\s+BUY|BUY|HOLD|SELL|STRONG\s+SELL)\b', recommendation.upper())
+                    if action_match:
+                        profiles[profile_name] = action_match.group(1)
+                    else:
+                        profiles[profile_name] = recommendation[:20] + "..." if len(recommendation) > 20 else recommendation
+                    break  # Found a match, stop trying other patterns
+        
+        # Fallback: look for Section 7 investment recommendations
+        if not profiles:
+            section7_match = re.search(r'7\.\s*Investor\s*Recommendation.*?(\|.*?\|.*?\|.*?\|.*?\|)', content, re.IGNORECASE | re.DOTALL)
+            if section7_match:
+                table_content = section7_match.group(1)
+                # Extract recommendations from table rows
+                rows = re.findall(r'\|([^|]*Conservative[^|]*)\|[^|]*\|[^|]*\|[^|]*\*\*([^*]+)\*\*', table_content, re.IGNORECASE)
+                for row in rows:
+                    action_match = re.search(r'\b(STRONG\s+BUY|BUY|HOLD|SELL|STRONG\s+SELL)\b', row[1].upper())
+                    if action_match:
+                        profiles['📊 Conservative'] = action_match.group(1)
+        
+        return profiles
+        
+    except Exception as e:
+        return {}
+
+
+def format_investment_profiles_mini(profiles):
+    """Format investment profiles for compact table display."""
+    if not profiles:
+        return "🔍 Analysis Pending"
+    
+    # Priority order for display (most common investor types first)
+    priority_profiles = ['📊 Conservative', '💰 Dividend', '💎 Value', '📈 Growth', '🚀 Aggressive']
+    
+    formatted_recs = []
+    for profile in priority_profiles:
+        if profile in profiles:
+            rec = profiles[profile]
+            # Normalize the recommendation
+            rec_upper = rec.upper()
+            
+            emoji = profile.split()[0]  # Extract emoji
+            
+            if 'STRONG BUY' in rec_upper:
+                formatted_recs.append(f"{emoji} STRONG BUY")
+            elif 'BUY' in rec_upper:
+                formatted_recs.append(f"{emoji} BUY")
+            elif 'HOLD' in rec_upper:
+                formatted_recs.append(f"{emoji} HOLD")
+            elif 'SELL' in rec_upper:
+                if 'STRONG' in rec_upper:
+                    formatted_recs.append(f"{emoji} STRONG SELL")
+                else:
+                    formatted_recs.append(f"{emoji} SELL")
+            else:
+                # If no clear action, show first few words
+                formatted_recs.append(f"{emoji} {rec[:15]}...")
+    
+    if formatted_recs:
+        # Show top 3 to keep compact, separated by line breaks
+        return "<br/>".join(formatted_recs[:3])
+    else:
+        return "🔍 Profiles Available"
+
+
 def has_required_files(ticker_dir, ticker):
     """Check if ticker directory has all required files for new structure."""
     report = os.path.join(ticker_dir, f"{ticker}{REPORT_SUFFIX}")
@@ -115,7 +259,7 @@ def generate_table():
     rows = []
     
     if not os.path.exists(OUTPUT_DIR):
-        print(f"Warning: Output directory '{OUTPUT_DIR}' not found")
+        safe_print(f"Warning: Output directory '{OUTPUT_DIR}' not found")
         return rows
     
     for ticker in sorted(os.listdir(OUTPUT_DIR)):
@@ -123,7 +267,7 @@ def generate_table():
         if not os.path.isdir(ticker_dir):
             continue
         if not has_required_files(ticker_dir, ticker):
-            print(f"Warning: Missing required files for {ticker}, skipping")
+            safe_print(f"Warning: Missing required files for {ticker}, skipping")
             continue
         
         # File paths for new structure
@@ -136,6 +280,10 @@ def generate_table():
         company_name, logo_url, ticker_code = get_company_info_from_html(html_path)
         investment_rec = extract_investment_recommendation_from_json(json_path)
         
+        # Extract AI investment profiles
+        ai_profiles = extract_ai_investment_profiles(html_path)
+        profile_summary = format_investment_profiles_mini(ai_profiles)
+        
         # Create logo display (use logo_url if available, otherwise use a placeholder)
         if logo_url:
             logo_display = f'<img src="{logo_url}" alt="{ticker}" width="40" style="margin-right:8px; border-radius:4px;"/>'
@@ -145,10 +293,18 @@ def generate_table():
         # Combine logo and company name in one column with line break
         logo_and_name = f'<div style="display: flex; flex-direction: column; align-items: center; text-align: center;">{logo_display}<br/><span>{company_name}</span></div>'
         
-        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {investment_rec} |'
+        # Combine traditional recommendation with AI profiles in a more structured way
+        combined_recommendation = f"""
+<div style="margin-bottom: 8px;">{investment_rec}</div>
+<details style="font-size: 0.9em;">
+<summary style="cursor: pointer; font-weight: bold; color: #0366d6;">🎯 AI Investment Profiles</summary>
+<div style="margin-top: 4px; padding: 4px 0;">{profile_summary}</div>
+</details>"""
+        
+        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {combined_recommendation} |'
         rows.append(row)
         
-    print(f"Generated table with {len(rows)} companies")
+    safe_print(f"Generated table with {len(rows)} companies")
     return rows
 
 
@@ -158,10 +314,10 @@ def save_table_to_file(filename):
     
     with open(filename, "w", encoding="utf-8") as f:
         f.write("| Company | Report | Investment Recommendation |\n")
-        f.write("|---------|--------|---------------------------|\n")
+        f.write("|---------|--------|----------------------------|\n")
         for row in table_rows:
             f.write(f"{row}\n")
-    print(f"Table saved to {filename}")
+    safe_print(f"Table saved to {filename}")
     return len(table_rows)
 
 
@@ -196,24 +352,24 @@ def update_readme(readme_path="README.md", table_path="table.md"):
             with open(readme_path, "w", encoding="utf-8") as f:
                 f.write(updated_content)
             
-            print(f"Successfully updated table in {readme_path}")
+            safe_print(f"Successfully updated table in {readme_path}")
             return True
         else:
-            print(f"Could not find markers in {readme_path}. Table not updated.")
-            print("Make sure your README.md contains the markers:")
-            print(f"  {start_marker}")
-            print(f"  {end_marker}")
+            safe_print(f"Could not find markers in {readme_path}. Table not updated.")
+            safe_print("Make sure your README.md contains the markers:")
+            safe_print(f"  {start_marker}")
+            safe_print(f"  {end_marker}")
             return False
             
     except Exception as e:
-        print(f"Error updating README: {e}")
+        safe_print(f"Error updating README: {e}")
         return False
 
 
 def main():
     """Main entry point for the README table generator."""
-    print("🔄 Generating README Portfolio Table")
-    print("=" * 50)
+    safe_print("🔄 Generating README Portfolio Table")
+    safe_print("=" * 50)
     
     # Generate the table and save to file
     table_count = save_table_to_file("table.md")
@@ -223,15 +379,15 @@ def main():
         success = update_readme()
         
         if success:
-            print("✅ README table successfully updated!")
-            print(f"📊 Portfolio now includes {table_count} companies")
+            safe_print("✅ README table successfully updated!")
+            safe_print(f"📊 Portfolio now includes {table_count} companies")
         else:
-            print("❌ Failed to update README, but table.md was generated")
+            safe_print("❌ Failed to update README, but table.md was generated")
     else:
-        print("⚠️  No companies found in output directory")
-        print("   Run some analyses first: python main.py AAPL MSFT TSLA")
+        safe_print("⚠️  No companies found in output directory")
+        safe_print("   Run some analyses first: python main.py AAPL MSFT TSLA")
     
-    print("=" * 50)
+    safe_print("=" * 50)
 
 
 if __name__ == "__main__":

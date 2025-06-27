@@ -26,6 +26,37 @@ from .logging_config import get_logger
 logger = get_logger(__name__)
 
 
+def safe_getenv(key: str, default_value: str = "", value_type=str):
+    """
+    Safely get environment variable with comment stripping and type conversion.
+    
+    Args:
+        key: Environment variable name
+        default_value: Default value if env var not found or invalid
+        value_type: Type to convert to (str, int, bool)
+    
+    Returns:
+        Converted value or default_value
+    """
+    try:
+        env_value = os.getenv(key, default_value)
+        
+        # Strip inline comments (everything after #)
+        if '#' in env_value:
+            env_value = env_value.split('#')[0].strip()
+        
+        if value_type == bool:
+            return env_value.lower() in ('1', 'true', 'yes', 'on')
+        elif value_type == int:
+            return int(env_value)
+        elif value_type == float:
+            return float(env_value)
+        else:
+            return str(env_value)
+    except (ValueError, TypeError):
+        return default_value
+
+
 @dataclass
 class APIConfig:
     """Configuration for external APIs."""
@@ -40,6 +71,19 @@ class APIConfig:
         """Validate API configuration."""
         # SEC EDGAR is no longer used in the current pipeline
         pass
+
+
+@dataclass
+class LLMParameters:
+    """Configuration for LLM temperature and token settings."""
+    default_temperature: float = 0.2
+    default_max_tokens: int = 12288
+    comprehensive_temperature: float = 0.3
+    comprehensive_max_tokens: int = 32768
+    field_mapping_temperature: float = 0.0
+    field_mapping_max_tokens: int = 8192
+    financial_analysis_temperature: float = 0.2
+    financial_analysis_max_tokens: int = 12288
 
 
 @dataclass
@@ -124,6 +168,7 @@ class AppConfig:
     rate_limit: RateLimitConfig = field(default_factory=RateLimitConfig)
     analysis: AnalysisConfig = field(default_factory=AnalysisConfig)
     output: OutputConfig = field(default_factory=OutputConfig)
+    llm: LLMParameters = field(default_factory=LLMParameters)
 
 
 class ConfigManager:
@@ -157,55 +202,67 @@ class ConfigManager:
         # Load from environment variables
         config = AppConfig()
         
-        # Environment        config.environment = os.getenv("ENVIRONMENT", "development")
-        config.debug = os.getenv("DEBUG", "false").lower() == "true"
+        # Environment        config.environment = safe_getenv("ENVIRONMENT", "development")
+        config.debug = safe_getenv("DEBUG", "false", bool)
           # API Configuration
         config.api = APIConfig(
-            sec_edgar_user_agent=os.getenv("SEC_EDGAR_USER_AGENT", ""),
-            yahoo_finance_api_key=os.getenv("YAHOO_FINANCE_API_KEY"),
-            finnhub_api_key=os.getenv("FINNHUB_API_KEY"),
-            fmp_api_key=os.getenv("FINANCIAL_MODELING_PREP_API_KEY"),  # Financial Modeling Prep API key
-            azure_openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-            azure_openai_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+            sec_edgar_user_agent=safe_getenv("SEC_EDGAR_USER_AGENT", ""),
+            yahoo_finance_api_key=safe_getenv("YAHOO_FINANCE_API_KEY"),
+            finnhub_api_key=safe_getenv("FINNHUB_API_KEY"),
+            fmp_api_key=safe_getenv("FINANCIAL_MODELING_PREP_API_KEY"),  # Financial Modeling Prep API key
+            azure_openai_api_key=safe_getenv("AZURE_OPENAI_API_KEY"),
+            azure_openai_endpoint=safe_getenv("AZURE_OPENAI_ENDPOINT")
         )
         
         # Cache Configuration
         config.cache = CacheConfig(
-            cache_dir=os.getenv("CACHE_DIR", ".cache"),
-            financial_cache_ttl_days=int(os.getenv("FINANCIAL_CACHE_TTL_DAYS", "30")),
-            cik_cache_ttl_days=int(os.getenv("CIK_CACHE_TTL_DAYS", "30")),
-            enable_cache=os.getenv("ENABLE_CACHE", "true").lower() == "true"
+            cache_dir=safe_getenv("CACHE_DIR", ".cache"),
+            financial_cache_ttl_days=safe_getenv("FINANCIAL_CACHE_TTL_DAYS", "30", int),
+            cik_cache_ttl_days=safe_getenv("CIK_CACHE_TTL_DAYS", "30", int),
+            enable_cache=safe_getenv("ENABLE_CACHE", "true", bool)
         )
           # Rate Limiting Configuration
         config.rate_limit = RateLimitConfig(
-            sec_requests_per_second=float(os.getenv("SEC_REQUESTS_PER_SECOND", "10.0")),
-            yahoo_requests_per_second=float(os.getenv("YAHOO_REQUESTS_PER_SECOND", "2.0")),
-            finnhub_requests_per_second=float(os.getenv("FINNHUB_REQUESTS_PER_SECOND", "1.0")),
-            fmp_requests_per_second=float(os.getenv("FMP_REQUESTS_PER_SECOND", "2.0")),
-            openai_requests_per_second=float(os.getenv("OPENAI_REQUESTS_PER_SECOND", "1.0")),
-            max_backoff_seconds=int(os.getenv("MAX_BACKOFF_SECONDS", "64"))
+            sec_requests_per_second=safe_getenv("SEC_REQUESTS_PER_SECOND", "10.0", float),
+            yahoo_requests_per_second=safe_getenv("YAHOO_REQUESTS_PER_SECOND", "2.0", float),
+            finnhub_requests_per_second=safe_getenv("FINNHUB_REQUESTS_PER_SECOND", "1.0", float),
+            fmp_requests_per_second=safe_getenv("FMP_REQUESTS_PER_SECOND", "2.0", float),
+            openai_requests_per_second=safe_getenv("OPENAI_REQUESTS_PER_SECOND", "1.0", float),
+            max_backoff_seconds=safe_getenv("MAX_BACKOFF_SECONDS", "64", int)
         )
         
         # Analysis Configuration
         config.analysis = AnalysisConfig(
-            default_start_date=os.getenv("DEFAULT_START_DATE", "2018-01-01"),
-            minimum_quarters_required=int(os.getenv("MINIMUM_QUARTERS_REQUIRED", "4")),
-            default_model=os.getenv("DEFAULT_MODEL", "original"),
-            enable_reality_checks=os.getenv("ENABLE_REALITY_CHECKS", "true").lower() == "true",
-            max_outlier_threshold=float(os.getenv("MAX_OUTLIER_THRESHOLD", "5.0")),
+            default_start_date=safe_getenv("DEFAULT_START_DATE", "2018-01-01"),
+            minimum_quarters_required=safe_getenv("MINIMUM_QUARTERS_REQUIRED", "4", int),
+            default_model=safe_getenv("DEFAULT_MODEL", "original"),
+            enable_reality_checks=safe_getenv("ENABLE_REALITY_CHECKS", "true", bool),
+            max_outlier_threshold=safe_getenv("MAX_OUTLIER_THRESHOLD", "5.0", float),
             # FMP data period setting (annual for free, quarter for paid)
-            fmp_data_period=os.getenv("FMP_DATA_PERIOD", "annual")
+            fmp_data_period=safe_getenv("FMP_DATA_PERIOD", "annual")
         )
         
         # Output Configuration
         config.output = OutputConfig(
-            output_dir=os.getenv("OUTPUT_DIR", "output"),
-            generate_csv=os.getenv("GENERATE_CSV", "true").lower() == "true",
-            generate_json=os.getenv("GENERATE_JSON", "true").lower() == "true",
-            generate_charts=os.getenv("GENERATE_CHARTS", "true").lower() == "true",
-            generate_reports=os.getenv("GENERATE_REPORTS", "true").lower() == "true",
-            chart_width=int(os.getenv("CHART_WIDTH", "1200")),
-            chart_height=int(os.getenv("CHART_HEIGHT", "800"))
+            output_dir=safe_getenv("OUTPUT_DIR", "output"),
+            generate_csv=safe_getenv("GENERATE_CSV", "true", bool),
+            generate_json=safe_getenv("GENERATE_JSON", "true", bool),
+            generate_charts=safe_getenv("GENERATE_CHARTS", "true", bool),
+            generate_reports=safe_getenv("GENERATE_REPORTS", "true", bool),
+            chart_width=safe_getenv("CHART_WIDTH", "1200", int),
+            chart_height=safe_getenv("CHART_HEIGHT", "800", int)
+        )
+        
+        # LLM Parameters Configuration
+        config.llm = LLMParameters(
+            default_temperature=safe_getenv("LLM_DEFAULT_TEMPERATURE", "0.2", float),
+            default_max_tokens=safe_getenv("LLM_DEFAULT_MAX_TOKENS", "12288", int),
+            comprehensive_temperature=safe_getenv("LLM_COMPREHENSIVE_TEMPERATURE", "0.3", float),
+            comprehensive_max_tokens=safe_getenv("LLM_COMPREHENSIVE_MAX_TOKENS", "32768", int),
+            field_mapping_temperature=safe_getenv("LLM_FIELD_MAPPING_TEMPERATURE", "0.0", float),
+            field_mapping_max_tokens=safe_getenv("LLM_FIELD_MAPPING_MAX_TOKENS", "8192", int),
+            financial_analysis_temperature=safe_getenv("LLM_FINANCIAL_ANALYSIS_TEMPERATURE", "0.2", float),
+            financial_analysis_max_tokens=safe_getenv("LLM_FINANCIAL_ANALYSIS_MAX_TOKENS", "12288", int)
         )
         
         # Load from config file if it exists
