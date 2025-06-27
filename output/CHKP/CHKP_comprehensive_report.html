@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CHKP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Check Point Software Technologies Ltd. (CHKP)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CHKP_logo.png" alt="Check Point Software Technologies Ltd. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="CHKP_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="CHKP_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.87</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$217.26</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$23.5B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>28.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>27.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>buy</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>1.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>-0.74%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-0.44%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>-3.0%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>-6.1%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>15.2%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.55</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.00</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-18.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0309</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>2.556</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0352</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>8.380</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.9783</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1148</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>8.874</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<hr />
+<h2 id="1-tldr-executive-summary">1. TL;DR / Executive Summary</h2>
+<p>Check Point Software Technologies Ltd. (CHKP) currently exhibits a <strong>"Safe" Z-Score risk category</strong> of approximately 8.87, indicating strong financial health and low bankruptcy risk. The company’s Z-Score has shown a stable, slightly improving trend over recent quarters, reinforcing its resilient position amid market fluctuations. The market signals a moderate valuation premium, with positive technical momentum and low volatility supporting a balanced risk-return profile. The primary opportunity lies in the company’s robust fundamentals and positive price momentum, suggesting potential for modest upside, while the main risks involve sector valuation overextensions and relative overvaluation compared to sector peers.</p>
+<p><strong>Investment Recommendation:</strong><br />
+<strong>For balanced portfolios, a </strong>HOLD<strong> is advised</strong>—the fundamentals support stability, but valuation premiums warrant caution. The moderate risk profile aligns with the current Z-Score strength and positive technical indicators. The target price of ~$235.04 implies an ~8.2% upside, supported by technical momentum and fundamental resilience. Investors should monitor sector valuation trends and market sentiment shifts that could influence future risk dynamics.</p>
+<hr />
+<h2 id="2-company-profile">2. Company Profile</h2>
+<p>Check Point Software Technologies Ltd. is a global leader in cybersecurity solutions, providing enterprise security, cloud security, and threat prevention services. Its competitive positioning is reinforced by a strong brand, diversified product portfolio, and a loyal customer base, positioning it as a resilient player in the rapidly evolving cybersecurity industry. The company’s leadership has maintained stability, with recent quarterly reports reflecting consistent revenue growth and margin stability.</p>
+<p>Ownership remains largely institutional, with significant holdings by major asset managers, underscoring broad investor confidence. Recent news highlights ongoing investments in cloud security and threat intelligence, aligning with industry trends toward digital transformation. The company’s strategic focus on innovation and expanding its security platform supports its strong fundamental health as reflected in its high Z-Score.</p>
+<hr />
+<h2 id="3-diagnostic-evaluation-of-financial-health">3. Diagnostic Evaluation of Financial Health</h2>
+<p>The latest quarterly Z-Score of approximately <strong>8.87</strong> places CHKP firmly within the <strong>"Safe" zone</strong>, indicating minimal bankruptcy risk. The model used—original Altman Z-Score—has a confidence level of 1.0, confirming its appropriateness given the company's financial profile.</p>
+<p><strong>Trend Analysis:</strong><br />
+Over the past year, the Z-Score has remained consistently above 8.4, with slight upward movement from 8.42 (2022 Q4) to 8.87 (2025 Q1). This stability suggests ongoing financial robustness. The components reveal:</p>
+<ul>
+<li><strong>Working Capital Ratio (~0.03–0.07):</strong> Slight fluctuation but overall positive liquidity buffer.</li>
+<li><strong>Retained Earnings Ratio (~2.3–2.56):</strong> Steady accumulation of retained earnings, supporting internal financing.</li>
+<li><strong>EBIT Ratio (~0.035–0.044):</strong> Consistent operating profitability.</li>
+<li><strong>Market Equity Ratio (~8.1–8.8):</strong> Strong market valuation relative to assets.</li>
+<li><strong>Book Equity Ratio (~0.97–1.05):</strong> Solid equity base.</li>
+<li><strong>Asset Turnover (~0.11–0.12):</strong> Stable asset utilization efficiency.</li>
+</ul>
+<p>The company’s leverage remains low, with total liabilities well below assets, and cash flow indicators (e.g., free cash flow yield ~1.7%) reinforce liquidity strength. Earnings quality metrics (e.g., high earnings smoothness ~0.998, low accruals ratio) confirm sustainable profitability.</p>
+<p><strong>Summary:</strong><br />
+The Z-Score trajectory and component analysis confirm a resilient financial position, with no immediate distress signals. The company’s liquidity, profitability, and leverage metrics align with a low-risk profile, supported by consistent operational performance.</p>
+<hr />
+<h2 id="4-turnaround-renewal-theory-application">4. Turnaround &amp; Renewal Theory Application</h2>
+<p>Given the <strong>"Safe" zone</strong> status, CHKP is in a stable, mature phase rather than a turnaround scenario. Applying Hofer’s (1980) model, the firm is in a <strong>renewal phase of incremental growth</strong>—focused on maintaining core strengths, investing in innovation, and expanding security offerings. Strategic restructuring is minimal, emphasizing operational stability and market share retention.</p>
+<p>The company’s consistent Z-Score and positive market momentum suggest it is in a <strong>post-recovery, growth sustainment stage</strong>, leveraging its strong fundamentals. Management should prioritize continuous innovation, customer retention, and disciplined capital deployment to sustain this stability.</p>
+<p>In line with Bibeault’s (1999) framework, the focus should be on <strong>incremental improvements</strong> rather than radical change, reinforcing its core competencies and expanding market penetration. The current environment favors <strong>strategic renewal through innovation and market expansion</strong>, rather than crisis management or retrenchment.</p>
+<hr />
+<h2 id="5-internal-stakeholder-recommendations">5. Internal Stakeholder Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Title/Role</th>
+<th>Responsibilities</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Z-Score/Price Trend Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CEO &amp; Leadership</strong></td>
+<td>Strategic vision, market positioning</td>
+<td>Z-Score stability, market share</td>
+<td>Continue innovation, communicate stability</td>
+<td>Z-Score stable (~8.87), positive trend supports confidence; monitor sector valuation for overextension risks</td>
+</tr>
+<tr>
+<td><strong>CFO &amp; Finance</strong></td>
+<td>Capital management, liquidity, risk mitigation</td>
+<td>Liquidity ratios, cash flow metrics</td>
+<td>Maintain disciplined capital allocation, monitor debt levels</td>
+<td>Strong cash flow and low leverage reinforce Z-Score robustness; avoid over-leverage in sector context</td>
+</tr>
+<tr>
+<td><strong>Operations &amp; R&amp;D</strong></td>
+<td>Product development, customer retention</td>
+<td>R&amp;D investment efficiency, product pipeline</td>
+<td>Invest in cybersecurity innovation, expand cloud offerings</td>
+<td>Innovation supports sustained profitability; Z-Score indicates operational stability</td>
+</tr>
+<tr>
+<td><strong>Board Members</strong></td>
+<td>Oversight, governance</td>
+<td>Risk management, strategic oversight</td>
+<td>Ensure ongoing risk monitoring, sector valuation awareness</td>
+<td>Z-Score confirms low distress risk; sector valuation overreach warrants vigilance</td>
+</tr>
+<tr>
+<td><strong>Employees &amp; Stakeholders</strong></td>
+<td>Service delivery, customer engagement</td>
+<td>Customer satisfaction, retention rates</td>
+<td>Focus on service excellence, cybersecurity expertise</td>
+<td>Stable fundamentals underpin confidence; market perception may vary</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary:</strong><br />
+All internal stakeholders should focus on sustaining operational excellence, prudent capital management, and transparent communication about the company’s resilient financial health. Monitoring sector valuation and market sentiment is essential to preempt overvaluation risks.</p>
+<hr />
+<h2 id="6-communication-marketing-execution-strategy">6. Communication, Marketing &amp; Execution Strategy</h2>
+<table>
+<thead>
+<tr>
+<th>Communication Area</th>
+<th>Literature Recommendations</th>
+<th>Current Company Practice</th>
+<th>Gap Analysis</th>
+<th>Recommended Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Executive Leadership</strong></td>
+<td>Transparent strategic messaging emphasizing stability</td>
+<td>Consistent messaging on innovation and resilience</td>
+<td>Slight gaps in addressing valuation concerns</td>
+<td>Emphasize stability and growth prospects in leadership communications</td>
+</tr>
+<tr>
+<td><strong>Investor Relations</strong></td>
+<td>Regular updates on financial health, risk mitigation</td>
+<td>Quarterly disclosures, investor calls</td>
+<td>Need for proactive valuation commentary</td>
+<td>Highlight Z-Score stability and sector positioning; address valuation overreach concerns</td>
+</tr>
+<tr>
+<td><strong>Internal Communications</strong></td>
+<td>Change management aligned with strategic renewal</td>
+<td>Focused on operational stability</td>
+<td>Opportunities to reinforce innovation culture</td>
+<td>Promote innovation initiatives and reinforce stability messaging internally</td>
+</tr>
+<tr>
+<td><strong>External Relations</strong></td>
+<td>Stakeholder engagement emphasizing resilience</td>
+<td>Customer and partner communications</td>
+<td>Potential overvaluation perception</td>
+<td>Communicate technological leadership and market resilience</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phased Execution Plan:</strong><br />
+- <strong>Near-term (1-3 months):</strong> Reinforce messaging on financial stability, address valuation concerns, and highlight innovation pipeline.<br />
+- <strong>Mid-term (4-6 months):</strong> Share progress on strategic initiatives, maintain transparency on sector dynamics.<br />
+- <strong>Long-term (7-18 months):</strong> Position as a leader in cybersecurity innovation, emphasizing sustained growth and resilience.</p>
+<p><strong>Tone:</strong><br />
+Given the "Safe" Z-Score, the tone should be confident, emphasizing stability and growth potential, while transparently addressing valuation concerns to maintain credibility.</p>
+<hr />
+<h2 id="7-investor-recommendation-risk-aware">7. Investor Recommendation (Risk-Aware)</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Focus</th>
+<th>Risk Level</th>
+<th>Recommendation</th>
+<th>Z-Score/Price Trend Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 <strong>Conservative</strong></td>
+<td>Capital preservation</td>
+<td>Low</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score (~8.87) indicates minimal distress; stable fundamentals support holding. Price trend is uptrend with technical support at ~$215.88, with no imminent risk signals.</td>
+</tr>
+<tr>
+<td>💰 <strong>Dividend</strong></td>
+<td>Income generation</td>
+<td>Low-Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Although dividend payout is zero currently, the company’s stable cash flows and strong balance sheet suggest dividend sustainability in future. Valuation premium warrants cautious holding.</td>
+</tr>
+<tr>
+<td>💎 <strong>Value</strong></td>
+<td>Undervalued stocks</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>High Z-Score and consistent profitability imply undervaluation is unlikely; current valuation over sector median suggests waiting for correction or better entry point.</td>
+</tr>
+<tr>
+<td>📈 <strong>Growth</strong></td>
+<td>Capital appreciation</td>
+<td>Medium-High</td>
+<td><strong>HOLD</strong></td>
+<td>Price momentum remains positive; Z-Score stability supports continued growth. Upside potential (~8.2%) is supported by technical momentum, but valuation risks should be monitored.</td>
+</tr>
+<tr>
+<td>🚀 <strong>Aggressive</strong></td>
+<td>Maximum returns</td>
+<td>High</td>
+<td><strong>HOLD</strong></td>
+<td>Despite positive fundamentals, sector overvaluation and premium valuation suggest avoiding aggressive positions until valuation normalizes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall:</strong><br />
+The company’s strong financial health and positive momentum support a <strong>Hold</strong> recommendation across profiles, with a focus on monitoring valuation and sector dynamics. The risk-adjusted return profile remains attractive but warrants caution against overvaluation.</p>
+<blockquote>
+<p><em>This is not financial advice—consult your financial advisor.</em></p>
+</blockquote>
+<hr />
+<h2 id="8-market-sentiment-analysis-analyst-recommendations">8. Market Sentiment Analysis (Analyst Recommendations)</h2>
+<p>The analyst consensus indicates a <strong>"Strong Buy"</strong> rating, with a target price of approximately <strong>$235.04</strong>, implying an ~8.2% upside. The recent trend shows sustained positive sentiment, supported by technical indicators such as SMA crossovers and oversold RSI signals, aligning with the company's fundamental strength.</p>
+<p><strong>Sentiment vs. Z-Score:</strong><br />
+The high Z-Score (~8.87) confirms low bankruptcy risk, consistent with analyst optimism. The sector’s moderate overvaluation (sector PE median ~25 vs. CHKP’s ~28.7) suggests the market perceives the company favorably, though valuation premiums exist. The technical momentum and positive risk-return profile reinforce analyst confidence, but valuation overreach remains a concern for longer-term stability.</p>
+<hr />
+<h2 id="9-other-relevant-insights">9. Other Relevant Insights</h2>
+<ul>
+<li><strong>Stable Financial Ratios:</strong> The asset turnover (~0.11–0.12) and high gross margins (~86.8%) reflect operational efficiency and pricing power, supporting resilience.</li>
+<li><strong>Market Dynamics:</strong> The low volatility (~0.20) and low beta (~0.55) indicate defensive characteristics, aligning with the company’s stable Z-Score.</li>
+<li><strong>Valuation Overreach:</strong> The sector’s median PE (~25) versus CHKP’s (~28.7) suggests the stock is slightly overvalued, which could temper upside if sector sentiment shifts.</li>
+<li><strong>Institutional Holdings:</strong> Broad institutional backing reduces idiosyncratic risk, but sector valuation concerns could influence future flows.</li>
+<li><strong>Recent Price Momentum:</strong> Technical indicators (SMA crossovers, RSI oversold) suggest near-term bounce potential, consistent with positive fundamental outlook.</li>
+</ul>
+<hr />
+<h2 id="10-references-and-data-sources">10. References and Data Sources</h2>
+<p>This analysis draws on financial data from SEC EDGAR filings, Yahoo Finance, and company reports, with quarterly financials and balance sheets validated for accuracy. Market data was sourced from Yahoo Finance, including historical prices and technical indicators. The Z-Score calculations follow the original Altman (1968) methodology, supported by the open-source Altman Z-Score Analysis project. Theoretical frameworks referenced include Altman (1968), Hofer (1980), Bibeault (1999), and others, ensuring a comprehensive, academically grounded assessment.</p>
+<hr />
+<h2 id="11-appendices-llm-generated">11. Appendices (LLM-Generated)</h2>
+<h3 id="a-z-score-calculations-by-quarter">A. Z-Score Calculations by Quarter</h3>
+<table>
+<thead>
+<tr>
+<th>Quarter</th>
+<th>Date</th>
+<th>Z-Score</th>
+<th>Risk Category</th>
+<th>Components (Working Capital, Retained Earnings, EBIT, Market Equity, Book Equity, Asset Turnover)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2025-03-31</td>
+<td>8.87</td>
+<td>Safe</td>
+<td>0.031, 2.556, 0.035, 8.38, 0.978, 0.115</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2024-12-31</td>
+<td>8.52</td>
+<td>Safe</td>
+<td>0.043, 2.44, 0.044, 7.97, 0.944, 0.123</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2024-09-30</td>
+<td>9.05</td>
+<td>Safe</td>
+<td>0.043, 2.50, 0.040, 8.77, 1.054, 0.115</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2024-06-30</td>
+<td>8.85</td>
+<td>Safe</td>
+<td>0.073, 2.43, 0.037, 8.55, 1.027, 0.112</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2024-03-31</td>
+<td>8.84</td>
+<td>Safe</td>
+<td>0.052, 2.42, 0.035, 8.59, 1.010, 0.109</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2023-12-31</td>
+<td>8.42</td>
+<td>Safe</td>
+<td>0.060, 2.30, 0.044, 8.11, 0.972, 0.116</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2023-09-30</td>
+<td>9.02</td>
+<td>Safe</td>
+<td>0.027, 2.39, 0.042, 8.99, 1.064, 0.110</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2023-06-30</td>
+<td>8.85</td>
+<td>Safe</td>
+<td>0.053, 2.32, 0.040, 8.83, 1.061, 0.107</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2023-03-31</td>
+<td>8.74</td>
+<td>Safe</td>
+<td>0.062, 2.26, 0.036, 8.81, 1.074, 0.102</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2022-12-31</td>
+<td>8.43</td>
+<td>Safe</td>
+<td>0.086, 2.15, 0.044, 8.42, 1.048, 0.112</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2022-09-30</td>
+<td>8.94</td>
+<td>Safe</td>
+<td>0.067, 2.21, 0.040, 9.22, 1.142, 0.106</td>
+</tr>
+<tr>
+<td>11</td>
+<td>2022-06-30</td>
+<td>8.73</td>
+<td>Safe</td>
+<td>0.072, 2.12, 0.037, 9.10, 1.168, 0.102</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-financial-ratios-summary">B. Financial Ratios Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Ratio</th>
+<th>Latest Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Ratio</td>
+<td>1.096</td>
+<td>Slight liquidity buffer, consistent with Z-Score component</td>
+</tr>
+<tr>
+<td>Debt/Equity</td>
+<td>0</td>
+<td>Virtually no long-term debt, low leverage supports stability</td>
+</tr>
+<tr>
+<td>Gross Margin</td>
+<td>86.8%</td>
+<td>High operational efficiency</td>
+</tr>
+<tr>
+<td>Net Margin</td>
+<td>29.9%</td>
+<td>Strong profitability</td>
+</tr>
+<tr>
+<td>ROA</td>
+<td>3.43%</td>
+<td>Moderate asset utilization efficiency</td>
+</tr>
+<tr>
+<td>ROE</td>
+<td>6.95%</td>
+<td>Stable return on equity</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-market-data-summary">C. Market Data Summary</h3>
+<ul>
+<li><strong>Price:</strong> ~$217.26, with technical indicators showing an uptrend supported by SMA crossovers and oversold RSI signals.</li>
+<li><strong>Volatility:</strong> Low (~20%), consistent with defensive profile.</li>
+<li><strong>Institutional holdings:</strong> Broadly diversified, reinforcing stability.</li>
+<li><strong>Analyst target:</strong> ~$235.04, implying +8.2% upside.</li>
+</ul>
+<h3 id="d-data-provenance-quality">D. Data Provenance &amp; Quality</h3>
+<ul>
+<li>Data sourced from SEC filings, Yahoo Finance, and validated financial statements.</li>
+<li>Z-Score calculations follow Altman (1968), with model confidence at 1.0.</li>
+<li>Data completeness is high; no significant missing data.</li>
+</ul>
+<h3 id="e-analytical-reasoning-summary">E. Analytical Reasoning Summary</h3>
+<p>The company’s high Z-Score, stable financial ratios, and positive technical momentum collectively support a low-risk, stable outlook. Sector valuation premiums and sector performance metrics suggest cautious optimism, emphasizing the importance of monitoring valuation trends.</p>
+<hr />
+<p><strong>This comprehensive analysis leverages all injected data, integrating quantitative Z-Score insights with qualitative market and business fundamentals to provide a nuanced, actionable investment perspective.</strong></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 27, 2025 at 09:40 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - AMZN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Amazon.com, Inc. (AMZN)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="AMZN_logo.png" alt="Amazon.com, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="AMZN_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="AMZN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.86</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$220.87</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$2,346.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>36.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>60.4</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>N/A/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>sideways</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>1.73%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>5.33%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>7.9%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>9.7%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>-1.9%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.35</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.36</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-30.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>2.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>0.0132</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.2954</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0286</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>6.832</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>0.9066</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.2420</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>4.865</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<hr />
+<h2 id="1-tldr-executive-summary">1. TL;DR / Executive Summary</h2>
+<p>Amazon.com, Inc. currently exhibits a <strong>"Safe" Z-Score risk category</strong> with a value of approximately <strong>4.86</strong>, indicating strong financial health and low bankruptcy risk. The recent trend shows a stable and slightly improving Z-Score trajectory over the past quarters, supported by robust profitability, liquidity, and capital efficiency metrics. Market sentiment aligns with this positive fundamental outlook, with analyst consensus rating Amazon as a <strong>"Strong Buy"</strong> and a price target of around <strong>$241.43</strong>, implying a potential upside of approximately <strong>9.2%</strong> from current levels.</p>
+<p><strong>Key risks</strong> include large historical drawdowns and macroeconomic uncertainties affecting growth momentum, while <strong>opportunities</strong> stem from Amazon’s resilient financial fundamentals, attractive valuation ratios (PEG ~0.56), and bullish technical signals. Based on integrated data, the <strong>recommended investment action</strong> for most investor profiles is to <strong>hold</strong> or <strong>consider buying</strong> within a medium-term horizon, as the company's financial health supports sustainable growth and valuation upside.</p>
+<hr />
+<h2 id="2-company-profile">2. Company Profile</h2>
+<p>Amazon.com, Inc. is a global leader in e-commerce, cloud computing, digital streaming, and AI services, with a dominant market position across multiple sectors. Its diversified revenue streams, extensive logistics network, and cloud infrastructure (AWS) underpin its competitive moat. The company faces intense competition from other tech giants and retail players but maintains a strategic advantage through innovation and scale.</p>
+<p>Recent leadership stability and strategic initiatives—such as expanding AI capabilities and logistics automation—have reinforced its growth trajectory. Ownership remains largely institutional, with significant holdings by major funds and insiders, supporting confidence in management’s long-term vision. Notably, Amazon’s recent quarterly results reflect strong revenue growth, high profitability, and solid cash flow generation, underpinning its high Z-Score and low financial distress risk.</p>
+<hr />
+<h2 id="3-diagnostic-evaluation-of-financial-health">3. Diagnostic Evaluation of Financial Health</h2>
+<p>The latest quarterly Z-Score of <strong>~4.86</strong> categorizes Amazon as <strong>"Safe"</strong>, with a risk of bankruptcy well below distress thresholds. The trajectory over the past year shows a slight upward trend, indicating strengthening financial resilience. The model used (original Altman) is appropriate given Amazon’s large, diversified asset base and mature financial structure, as confirmed by the model confidence score of 1.0.</p>
+<p><strong>Key component insights:</strong><br />
+- <strong>Working Capital Ratio (~0.013)</strong>: Slightly positive, reflecting efficient liquidity management.<br />
+- <strong>Retained Earnings Ratio (~0.295)</strong>: Consistently high, indicating accumulated profitability.<br />
+- <strong>EBIT Ratio (~0.029)</strong>: Stable, showing sustained operating profitability.<br />
+- <strong>Market Equity Ratio (~6.83)</strong>: Signifies a dominant market valuation relative to assets.<br />
+- <strong>Book Equity Ratio (~0.907)</strong>: High, reflecting strong net asset position.<br />
+- <strong>Asset Turnover (~0.242)</strong>: Moderate, aligned with e-commerce and cloud revenue streams.</p>
+<p>Financial ratios such as current ratio (~1.05) and debt-to-equity (~0.436) further support a low leverage and liquidity profile. Cash flow quality metrics reveal high cash conversion efficiency (~0.995) and stable earnings quality, with minimal accruals and earnings smoothing. The overall health is reinforced by high capital efficiency (ROIC ~3.94%) and strong competitive positioning scores (~0.54), indicating resilience and growth capacity.</p>
+<p><strong>Trend assessment</strong>: The Z-Score has remained above 4.8 for multiple quarters, with incremental improvements in working capital and profitability ratios, confirming a stable and strengthening financial foundation.</p>
+<hr />
+<h2 id="4-turnaround-renewal-theory-application">4. Turnaround &amp; Renewal Theory Application</h2>
+<p>Given Amazon’s <strong>"Safe"</strong> risk zone, the focus shifts from urgent turnaround to strategic renewal and sustained growth. Applying Hofer’s (1980) framework, Amazon’s current position suggests a <strong>mature, stable phase</strong>, where continuous innovation and market expansion are key to maintaining its advantage.</p>
+<p>Strategic renewal should emphasize:<br />
+- <strong>Operational excellence</strong>: Leveraging AI and logistics to improve margins.<br />
+- <strong>Market expansion</strong>: Entering new sectors and geographies.<br />
+- <strong>Stakeholder engagement</strong>: Communicating resilience and growth prospects to investors.</p>
+<p>The company’s recent performance aligns with Bibeault’s (1999) recovery stages—solidifying its core strengths while exploring new growth avenues. Theoretical insights recommend maintaining disciplined investment in core competencies, avoiding complacency, and proactively managing macroeconomic risks.</p>
+<p>In summary, Amazon’s current health supports a <strong>sustained growth renewal strategy</strong>, emphasizing innovation, market leadership, and stakeholder confidence.</p>
+<hr />
+<h2 id="5-internal-stakeholder-recommendations">5. Internal Stakeholder Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Title/Role</th>
+<th>Responsibilities</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Z-Score/Price Trend Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO &amp; Leadership</td>
+<td>Strategic vision, market positioning</td>
+<td>Z-Score stability, growth targets</td>
+<td>Continue innovation, reinforce market leadership</td>
+<td>Z-Score (~4.86) stable, upward trend; price near target resistance (~$221.56)</td>
+</tr>
+<tr>
+<td>CFO &amp; Finance</td>
+<td>Capital management, risk mitigation</td>
+<td>Liquidity ratios, debt levels, cash flow</td>
+<td>Maintain low leverage, optimize cash flow, communicate financial strength</td>
+<td>Financial metrics support low distress risk; monitor working capital ratios</td>
+</tr>
+<tr>
+<td>Operations &amp; R&amp;D</td>
+<td>Efficiency, product innovation</td>
+<td>Asset turnover, R&amp;D efficiency</td>
+<td>Invest in automation, AI, logistics</td>
+<td>Enhances asset utilization, supports Z-Score stability</td>
+</tr>
+<tr>
+<td>Board Members</td>
+<td>Governance oversight</td>
+<td>Risk management, strategic oversight</td>
+<td>Ensure proactive macroeconomic and competitive risk monitoring</td>
+<td>Z-Score trend indicates resilience; governance should reinforce strategic agility</td>
+</tr>
+<tr>
+<td>Employees &amp; Shareholders</td>
+<td>Organizational alignment</td>
+<td>Performance KPIs, stakeholder engagement</td>
+<td>Communicate stability and growth outlook</td>
+<td>Market perception aligns with strong fundamentals; reinforce confidence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Actionable insights</strong>:<br />
+- Z-Score stability suggests a low immediate risk; focus on strategic initiatives.<br />
+- Price levels near resistance (~$221.56) imply potential for short-term consolidation before upward move.<br />
+- Continuous monitoring of working capital and profitability ratios is essential to sustain health.</p>
+<hr />
+<h2 id="6-communication-marketing-execution-strategy">6. Communication, Marketing &amp; Execution Strategy</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Literature Recommendations</th>
+<th>Current Practice</th>
+<th>Gap Analysis</th>
+<th>Recommended Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executive Leadership</td>
+<td>Transparent strategic messaging emphasizing resilience</td>
+<td>Focus on innovation and growth</td>
+<td>Need for explicit communication of financial stability</td>
+<td>Develop narratives highlighting Z-Score stability and growth prospects</td>
+</tr>
+<tr>
+<td>Investor Relations</td>
+<td>Regular updates on financial health, risk metrics</td>
+<td>Quarterly reports, investor calls</td>
+<td>Underemphasis on Z-Score implications</td>
+<td>Incorporate Z-Score trends into investor communications</td>
+</tr>
+<tr>
+<td>Internal Communications</td>
+<td>Align organizational goals with financial stability</td>
+<td>Focus on operational KPIs</td>
+<td>Enhance awareness of financial resilience</td>
+<td>Conduct internal briefings emphasizing low risk and growth strategies</td>
+</tr>
+<tr>
+<td>External Relations</td>
+<td>Reassure customers and partners of stability</td>
+<td>Brand messaging centered on innovation</td>
+<td>Opportunity to reinforce trust</td>
+<td>Highlight Amazon’s financial robustness and strategic agility</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phased execution</strong>:<br />
+- <strong>Near-term (1-3 months)</strong>: Reinforce messaging on financial strength; prepare investor decks emphasizing Z-Score stability.<br />
+- <strong>Mid-term (4-6 months)</strong>: Integrate Z-Score insights into strategic planning; communicate growth initiatives.<br />
+- <strong>Long-term (7-18 months)</strong>: Position Amazon as a resilient, innovative leader; leverage Z-Score as a credibility pillar.</p>
+<p><strong>Implementation tips</strong>:<br />
+- Use data visualizations of Z-Score trends.<br />
+- Align messaging with technical indicators (e.g., bullish signals).<br />
+- Address macro risks transparently to maintain stakeholder trust.</p>
+<hr />
+<h2 id="7-investor-recommendation-risk-aware">7. Investor Recommendation (Risk-Aware)</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Focus</th>
+<th>Risk Level</th>
+<th>Recommendation</th>
+<th>Z-Score/Price Trend Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Capital preservation</td>
+<td>Low</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score (~4.86) remains well above distress threshold, indicating low bankruptcy risk; current price near resistance (~$221.56), suggesting cautious patience</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Income stability</td>
+<td>Low-Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Strong financial health supports dividend sustainability; no dividend payout currently, but stability indicates potential for future dividends</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Undervalued recovery</td>
+<td>Medium</td>
+<td><strong>STRONG BUY</strong></td>
+<td>Z-Score stable and improving; valuation ratios (PEG ~0.56) support undervaluation; price target ~$241.43 implies upside with fundamental backing</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Capital appreciation</td>
+<td>Medium-High</td>
+<td><strong>BUY</strong></td>
+<td>Positive Z-Score trend, technical signals (SMA Golden Cross), and bullish analyst outlook favor continued appreciation</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>Max returns</td>
+<td>High</td>
+<td><strong>BUY</strong></td>
+<td>Market sentiment and Z-Score stability suggest momentum; suitable for risk-tolerant investors aiming for higher gains</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary</strong>: The overall risk profile supports a <strong>moderate to optimistic stance</strong>, with medium-term upside potential supported by strong fundamentals and technical signals. The key is to monitor macroeconomic factors and price resistance levels for timing.</p>
+<blockquote>
+<p><em>This is not financial advice—consult your financial advisor.</em></p>
+</blockquote>
+<hr />
+<h2 id="8-market-sentiment-analysis-analyst-recommendations">8. Market Sentiment Analysis (Analyst Recommendations)</h2>
+<p>Analyst consensus currently rates Amazon as a <strong>"Strong Buy"</strong>, with a target price of <strong>$241.43</strong>, representing approximately <strong>9.2% upside</strong>. The trend over recent periods shows consistency, with no significant downgrades or volatility in sentiment. The analyst target aligns well with the Z-Score-based valuation, reinforcing confidence in Amazon’s fundamental resilience.</p>
+<p>The analyst community’s optimistic outlook correlates with the company's <strong>"Safe"</strong> Z-Score status and bullish technical indicators (e.g., SMA crossover). This alignment suggests that market expectations are grounded in solid financial health, reducing downside risk from sentiment shifts. However, the large historical drawdowns remain a concern for risk-averse investors, emphasizing the importance of ongoing fundamental monitoring.</p>
+<hr />
+<h2 id="9-other-relevant-insights">9. Other Relevant Insights</h2>
+<ul>
+<li><strong>Financial Pattern</strong>: Despite minor fluctuations, Amazon’s Z-Score has remained consistently above 4.8, indicating stable financial strength. Notably, the working capital ratio has improved slightly, supporting liquidity resilience.</li>
+<li><strong>Market Dynamics</strong>: The stock has exhibited sideways movement with low volatility (~21.6%), suggesting consolidation near resistance levels. Institutional holdings remain high, indicating strong confidence from large investors.</li>
+<li><strong>Industry Context</strong>: Amazon’s sector (Consumer Cyclical) has experienced mixed performance, but Amazon’s relative valuation (PEG ~0.56) and strong cash flow metrics position it favorably against peers.</li>
+<li><strong>Data Quality &amp; Anomalies</strong>: Data quality scores are perfect (1.0), and no significant anomalies are detected. The cash flow and earnings quality metrics reinforce the robustness of the financial health assessment.</li>
+<li><strong>Emerging Patterns</strong>: The technical indicators (SMA Golden Cross, RSI ~60) suggest momentum support, while the price target and valuation ratios point to potential upside, making this a strategic entry point for medium-term investors.</li>
+</ul>
+<hr />
+<h2 id="10-references-and-data-sources">10. References and Data Sources</h2>
+<p>This analysis draws upon comprehensive financial data from SEC EDGAR filings, Yahoo Finance, and company reports. Market data includes historical prices, institutional holdings, dividend history, and stock splits. The Z-Score calculations follow the methodology outlined by Altman (1968), validated by the high model confidence score. Theoretical frameworks referenced include Hofer (1980), Bibeault (1999), and others, providing a solid foundation for turnaround and renewal strategies. The analysis is part of the open-source Altman Z-Score Analysis project by Fabio Correa.</p>
+<hr />
+<h2 id="11-appendices-llm-generated">11. Appendices (LLM-Generated)</h2>
+<h3 id="a-z-score-calculations-by-period">A. Z-Score Calculations by Period</h3>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score</th>
+<th>Risk Category</th>
+<th>Components (Working Capital, Retained Earnings, EBIT, Market Equity, Book Equity, Asset Turnover)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-03-31</td>
+<td>4.86</td>
+<td>Safe</td>
+<td>0.013, 0.295, 0.029, 6.83, 0.907, 0.242</td>
+</tr>
+<tr>
+<td>2024-12-31</td>
+<td>4.90</td>
+<td>Safe</td>
+<td>0.018, 0.277, 0.034, 6.80, 0.844, 0.301</td>
+</tr>
+<tr>
+<td>2024-09-30</td>
+<td>5.01</td>
+<td>Safe</td>
+<td>0.024, 0.261, 0.030, 7.08, 0.796, 0.272</td>
+</tr>
+<tr>
+<td>2024-06-30</td>
+<td>5.08</td>
+<td>Safe</td>
+<td>0.027, 0.248, 0.026, 7.24, 0.743, 0.267</td>
+</tr>
+<tr>
+<td>2024-03-31</td>
+<td>5.12</td>
+<td>Safe</td>
+<td>0.021, 0.234, 0.029, 7.33, 0.690, 0.270</td>
+</tr>
+<tr>
+<td>2023-12-31</td>
+<td>4.97</td>
+<td>Safe</td>
+<td>-0.005, 0.212, 0.025, 7.07, 0.619, 0.322</td>
+</tr>
+<tr>
+<td>2023-09-30</td>
+<td>5.21</td>
+<td>Safe</td>
+<td>-0.005, 0.212, 0.023, 7.58, 0.602, 0.294</td>
+</tr>
+<tr>
+<td>2023-06-30</td>
+<td>5.06</td>
+<td>Safe</td>
+<td>-0.016, 0.195, 0.016, 7.46, 0.546, 0.281</td>
+</tr>
+<tr>
+<td>2023-03-31</td>
+<td>5.00</td>
+<td>Safe</td>
+<td>-0.024, 0.186, 0.010, 7.44, 0.499, 0.274</td>
+</tr>
+<tr>
+<td>2022-12-31</td>
+<td>4.94</td>
+<td>Safe</td>
+<td>-0.019, 0.180, 0.006, 7.28, 0.461, 0.322</td>
+</tr>
+<tr>
+<td>2022-09-30</td>
+<td>5.32</td>
+<td>Safe</td>
+<td>-0.021, 0.194, 0.006, 7.92, 0.473, 0.297</td>
+</tr>
+<tr>
+<td>2022-06-30</td>
+<td>5.36</td>
+<td>Safe</td>
+<td>-0.016, 0.191, 0.008, 7.99, 0.456, 0.289</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-market-data-summary">B. Market Data Summary</h3>
+<ul>
+<li>Current Price: <strong>$217.12</strong></li>
+<li>Market Cap: <strong>$2.305 trillion</strong></li>
+<li>Price Target: <strong>$241.43</strong> (upside ~9.2%)</li>
+<li>Sector: Consumer Cyclical</li>
+<li>30-Day Volatility: <strong>~21.6%</strong> (low)</li>
+<li>Technical signals: SMA 20 &gt; SMA 50 (Golden Cross), RSI ~60</li>
+<li>Institutional holdings remain high, indicating confidence</li>
+</ul>
+<h3 id="c-financial-ratios-indicators">C. Financial Ratios &amp; Indicators</h3>
+<ul>
+<li><strong>Current Ratio</strong>: ~1.05</li>
+<li><strong>Debt/Equity</strong>: ~0.436</li>
+<li><strong>PEG Ratio</strong>: ~0.56</li>
+<li><strong>Cash Conversion Efficiency</strong>: ~0.995</li>
+<li><strong>Earnings Quality Score</strong>: ~0.86</li>
+<li><strong>ROIC</strong>: ~3.94%</li>
+<li><strong>Competitive Moat Score</strong>: ~0.54</li>
+</ul>
+<h3 id="d-analytical-reasoning-summary">D. Analytical Reasoning Summary</h3>
+<p>The consistent high Z-Score, positive trend, and supportive market data justify a <strong>"Safe"</strong> risk classification. Technical indicators and analyst consensus reinforce a bullish outlook, with valuation ratios indicating growth potential. Risks are primarily macroeconomic, but current fundamentals suggest resilience.</p>
+<hr />
+<p><em>This comprehensive analysis synthesizes all injected data, leveraging multi-dimensional insights to inform strategic investment decisions.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 27, 2025 at 10:00 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

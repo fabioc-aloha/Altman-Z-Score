@@ -1,0 +1,362 @@
+[
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 2.9613940978825393,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2025-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.001578943755277448,
+      "retained_earnings_ratio": 1.034572003267727,
+      "ebit_ratio": 0.012116677078542155,
+      "market_equity_ratio": 2.2854832604073656,
+      "book_equity_ratio": 0.2264265377293327,
+      "asset_turnover": 0.09982357019777986,
+      "z_score": 2.9613940978825393,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 145667000000,
+        "total_liabilities": 118714000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.2591492231957515,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.009768543830872972,
+      "retained_earnings_ratio": 1.1019719336613814,
+      "ebit_ratio": 0.028438126480772735,
+      "market_equity_ratio": 2.471433019766446,
+      "book_equity_ratio": 0.24873840884662332,
+      "asset_turnover": 0.1279606342263532,
+      "z_score": 3.2591492231957515,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 137175000000,
+        "total_liabilities": 109782000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.214862573205521,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.005389350821429369,
+      "retained_earnings_ratio": 1.1150075555125467,
+      "ebit_ratio": 0.016205271737916763,
+      "market_equity_ratio": 2.470825340145161,
+      "book_equity_ratio": 0.22264113141910044,
+      "asset_turnover": 0.11141217368001846,
+      "z_score": 3.214862573205521,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 134339000000,
+        "total_liabilities": 109809000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.2712864226942395,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.019828462136154443,
+      "retained_earnings_ratio": 1.1330688542227003,
+      "ebit_ratio": 0.018184806646345107,
+      "market_equity_ratio": 2.472288779122321,
+      "book_equity_ratio": 0.2189276862516402,
+      "asset_turnover": 0.11781274281274282,
+      "z_score": 3.2712864226942395,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 133848000000,
+        "total_liabilities": 109744000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.1460986231930717,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.023467401526583994,
+      "retained_earnings_ratio": 1.1034709008595236,
+      "ebit_ratio": 0.011394702884762593,
+      "market_equity_ratio": 2.383418775923258,
+      "book_equity_ratio": 0.20433781931902034,
+      "asset_turnover": 0.10542469508416624,
+      "z_score": 3.1460986231930717,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 137169000000,
+        "total_liabilities": 113836000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.2177476214397505,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.01635598672000355,
+      "retained_earnings_ratio": 1.11856611530527,
+      "ebit_ratio": 0.029539858474870787,
+      "market_equity_ratio": 2.4089823114678413,
+      "book_equity_ratio": 0.20006570302233903,
+      "asset_turnover": 0.12851132422859932,
+      "z_score": 3.2177476214397505,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 135241000000,
+        "total_liabilities": 112628000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.29337980133847,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.022432551557751642,
+      "retained_earnings_ratio": 1.1560844719728427,
+      "ebit_ratio": 0.016462910122872543,
+      "market_equity_ratio": 2.5556337755004,
+      "book_equity_ratio": 0.21740686666980644,
+      "asset_turnover": 0.11407273374007315,
+      "z_score": 3.29337980133847,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 129321000000,
+        "total_liabilities": 106165000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.250463459445926,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.01471111010263741,
+      "retained_earnings_ratio": 1.1293745698229372,
+      "ebit_ratio": 0.016344837497069123,
+      "market_equity_ratio": 2.4678363116552364,
+      "book_equity_ratio": 0.20193374688472104,
+      "asset_turnover": 0.1170459788371794,
+      "z_score": 3.250463459445926,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 132213000000,
+        "total_liabilities": 109942000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.1980542989600185,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03733247528753265,
+      "retained_earnings_ratio": 1.1168538653217297,
+      "ebit_ratio": 0.008807441053001788,
+      "market_equity_ratio": 2.423247084142366,
+      "book_equity_ratio": 0.19295315500379584,
+      "asset_turnover": 0.10664711120423236,
+      "z_score": 3.1980542989600185,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 133637000000,
+        "total_liabilities": 111965000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.3948869391601324,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2022-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.018759381655572407,
+      "retained_earnings_ratio": 1.177471452260635,
+      "ebit_ratio": 0.027467129822465675,
+      "market_equity_ratio": 2.5785373759860106,
+      "book_equity_ratio": 0.20854954287126268,
+      "asset_turnover": 0.13117420997618728,
+      "z_score": 3.3948869391601324,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 127243000000,
+        "total_liabilities": 105222000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.331972612620246,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2022-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.01165673420738975,
+      "retained_earnings_ratio": 1.1808581644815257,
+      "ebit_ratio": 0.01230035756853397,
+      "market_equity_ratio": 2.5668037782844384,
+      "book_equity_ratio": 0.1899283842464263,
+      "asset_turnover": 0.11208581644815256,
+      "z_score": 3.331972612620246,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 125850000000,
+        "total_liabilities": 105703000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "analysis_summary": {
+      "z_score": 3.3248698395531195,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2022-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.03096397731818075,
+      "retained_earnings_ratio": 1.2023089652792482,
+      "ebit_ratio": 0.015152584645067175,
+      "market_equity_ratio": 2.51158376865043,
+      "book_equity_ratio": 0.1796680459514751,
+      "asset_turnover": 0.12184027042500961,
+      "z_score": 3.3248698395531195,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 127503000000,
+        "total_liabilities": 108027000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:21:03.878206",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

@@ -1,0 +1,394 @@
+[
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 1.4694541162349335,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2025-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.08945197585903618,
+      "retained_earnings_ratio": 0.0,
+      "ebit_ratio": 0.017324780881327148,
+      "market_equity_ratio": 2.040876149911264,
+      "book_equity_ratio": 1.288826251870411,
+      "asset_turnover": 0.08041427834895218,
+      "z_score": 1.4694541162349335,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 131892000000,
+        "total_liabilities": 57474000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 1.474004463689015,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.10110092019458124,
+      "retained_earnings_ratio": 0.0,
+      "ebit_ratio": 0.004314824018434012,
+      "market_equity_ratio": 2.1349687089787226,
+      "book_equity_ratio": 1.4107315119855846,
+      "asset_turnover": 0.057463214807451916,
+      "z_score": 1.474004463689015,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 132798000000,
+        "total_liabilities": 54941000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 0.0,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 0.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0,
+      "retained_earnings_ratio": 0,
+      "ebit_ratio": 0,
+      "market_equity_ratio": 0,
+      "book_equity_ratio": 0,
+      "asset_turnover": 0,
+      "z_score": 0.0,
+      "_calculation_metadata": {
+        "ebit_method": "operating_income",
+        "warnings": [
+          "Total assets missing or zero - all ratios will be zero",
+          "Total liabilities missing or zero - equity ratio will be zero"
+        ],
+        "total_assets": 0,
+        "total_liabilities": -72997000000
+      }
+    },
+    "warnings": [
+      "Total assets missing - ratios cannot be calculated reliably"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 2.071887026462453,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.00040075526954645296,
+      "retained_earnings_ratio": 0.5016608223189858,
+      "ebit_ratio": 0.012546722669646642,
+      "market_equity_ratio": 2.0666217245146057,
+      "book_equity_ratio": 1.2807005179886535,
+      "asset_turnover": 0.08770374937381989,
+      "z_score": 2.071887026462453,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 129755000000,
+        "total_liabilities": 56758000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 0.0,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 0.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0,
+      "retained_earnings_ratio": 0,
+      "ebit_ratio": 0,
+      "market_equity_ratio": 0,
+      "book_equity_ratio": 0,
+      "asset_turnover": 0,
+      "z_score": 0.0,
+      "_calculation_metadata": {
+        "ebit_method": "operating_income",
+        "warnings": [
+          "Total assets missing or zero - all ratios will be zero",
+          "EBIT methods differ significantly: Operating Income 2,032,000,000 vs Calculated 1,550,000,000",
+          "Total liabilities missing or zero - equity ratio will be zero"
+        ],
+        "total_assets": 0,
+        "total_liabilities": 0
+      }
+    },
+    "warnings": [
+      "Total assets missing - ratios cannot be calculated reliably",
+      "Total liabilities missing - equity ratios may be inaccurate"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 2.4871312012096403,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.05108963815789474,
+      "retained_earnings_ratio": 0.5337408274291497,
+      "ebit_ratio": 0.04457394989878542,
+      "market_equity_ratio": 2.2509127792596573,
+      "book_equity_ratio": 1.4208132639941664,
+      "asset_turnover": 0.18094477479757085,
+      "z_score": 2.4871312012096403,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 126464000000,
+        "total_liabilities": 52111000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 0.0,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 0.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0,
+      "retained_earnings_ratio": 0,
+      "ebit_ratio": 0,
+      "market_equity_ratio": 0,
+      "book_equity_ratio": 0,
+      "asset_turnover": 0,
+      "z_score": 0.0,
+      "_calculation_metadata": {
+        "ebit_method": "operating_income",
+        "warnings": [
+          "Total assets missing or zero - all ratios will be zero",
+          "Total liabilities missing or zero - equity ratio will be zero"
+        ],
+        "total_assets": 0,
+        "total_liabilities": 0
+      }
+    },
+    "warnings": [
+      "Total assets missing - ratios cannot be calculated reliably",
+      "Total liabilities missing - equity ratios may be inaccurate"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 2.2607334301960056,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.04161049197067482,
+      "retained_earnings_ratio": 0.5240720206137867,
+      "ebit_ratio": 0.014830119741849019,
+      "market_equity_ratio": 2.238242106629012,
+      "book_equity_ratio": 1.3858909285196352,
+      "asset_turnover": 0.0852153518463858,
+      "z_score": 2.2607334301960056,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 125353000000,
+        "total_liabilities": 52406000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 0.0,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 0.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0,
+      "retained_earnings_ratio": 0,
+      "ebit_ratio": 0,
+      "market_equity_ratio": 0,
+      "book_equity_ratio": 0,
+      "asset_turnover": 0,
+      "z_score": 0.0,
+      "_calculation_metadata": {
+        "ebit_method": "operating_income",
+        "warnings": [
+          "Total assets missing or zero - all ratios will be zero",
+          "EBIT methods differ significantly: Operating Income 4,139,000,000 vs Calculated 2,622,000,000",
+          "Total liabilities missing or zero - equity ratio will be zero"
+        ],
+        "total_assets": 0,
+        "total_liabilities": 0
+      }
+    },
+    "warnings": [
+      "Total assets missing - ratios cannot be calculated reliably",
+      "Total liabilities missing - equity ratios may be inaccurate"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 2.3779501983584193,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2022-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.07940215590031723,
+      "retained_earnings_ratio": 0.5266173198024021,
+      "ebit_ratio": 0.02735910102428939,
+      "market_equity_ratio": 2.274526194299011,
+      "book_equity_ratio": 1.4501454333915067,
+      "asset_turnover": 0.09040261359511371,
+      "z_score": 2.3779501983584193,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 126722000000,
+        "total_liabilities": 51570000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 0.0,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2022-09-30",
+      "data_quality_score": 0.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0,
+      "retained_earnings_ratio": 0,
+      "ebit_ratio": 0,
+      "market_equity_ratio": 0,
+      "book_equity_ratio": 0,
+      "asset_turnover": 0,
+      "z_score": 0.0,
+      "_calculation_metadata": {
+        "ebit_method": "operating_income",
+        "warnings": [
+          "Total assets missing or zero - all ratios will be zero",
+          "EBIT methods differ significantly: Operating Income 5,835,500,000 vs Calculated 2,780,000,000",
+          "Total liabilities missing or zero - equity ratio will be zero"
+        ],
+        "total_assets": 0,
+        "total_liabilities": 0
+      }
+    },
+    "warnings": [
+      "Total assets missing - ratios cannot be calculated reliably",
+      "Total liabilities missing - equity ratios may be inaccurate"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "SNY",
+    "analysis_summary": {
+      "z_score": 2.3486679076538657,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2022-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.05171309901006353,
+      "retained_earnings_ratio": 0.507962175561867,
+      "ebit_ratio": 0.02856533088174938,
+      "market_equity_ratio": 2.321707688531729,
+      "book_equity_ratio": 1.40435849728831,
+      "asset_turnover": 0.08817493802636547,
+      "z_score": 2.3486679076538657,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 121826000000,
+        "total_liabilities": 50522000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:34:20.075914",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

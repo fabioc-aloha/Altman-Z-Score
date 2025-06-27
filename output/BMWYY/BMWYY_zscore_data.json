@@ -1,0 +1,203 @@
+[
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.3753134773369129,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.0359681742171453,
+      "retained_earnings_ratio": 0.0,
+      "ebit_ratio": 0.0,
+      "book_equity_ratio": 0.5382137454394448,
+      "asset_turnover": 0.1237219672731993,
+      "z_score": 0.3753134773369129
+    },
+    "warnings": [
+      "Operating income (EBIT) missing - profitability ratios unavailable",
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.364791",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.7419899426159813,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03553895081359805,
+      "retained_earnings_ratio": 0.3507001265940038,
+      "ebit_ratio": 0.015002161361039924,
+      "book_equity_ratio": 0.548930697612636,
+      "asset_turnover": 0.14258807546237687,
+      "z_score": 0.7419899426159813
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.7752668907079479,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.0444785215767227,
+      "retained_earnings_ratio": 0.3616396343261575,
+      "ebit_ratio": 0.015920574068612994,
+      "book_equity_ratio": 0.5807722119644332,
+      "asset_turnover": 0.14396539860414823,
+      "z_score": 0.7752668907079479
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.740927748462337,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.030151951309005488,
+      "retained_earnings_ratio": 0.33693320875620836,
+      "ebit_ratio": 0.01680656375183934,
+      "book_equity_ratio": 0.5226145895309091,
+      "asset_turnover": 0.16253532101936366,
+      "z_score": 0.740927748462337
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.7491756768982998,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.04243181720232102,
+      "retained_earnings_ratio": 0.34070437600153586,
+      "ebit_ratio": 0.01640853651369533,
+      "book_equity_ratio": 0.5448035300497954,
+      "asset_turnover": 0.15067800793784503,
+      "z_score": 0.7491756768982998
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.7481595946353656,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03788636490930476,
+      "retained_earnings_ratio": 0.34511397914849695,
+      "ebit_ratio": 0.017738980148664974,
+      "book_equity_ratio": 0.5356316809401763,
+      "asset_turnover": 0.14890101537058226,
+      "z_score": 0.7481595946353656
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.7964084887064983,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.047100688273499856,
+      "retained_earnings_ratio": 0.3588635408924936,
+      "ebit_ratio": 0.021120787152228003,
+      "book_equity_ratio": 0.5821428571428572,
+      "asset_turnover": 0.14885530099848127,
+      "z_score": 0.7964084887064983
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "BMWYY",
+    "analysis_summary": {
+      "z_score": 0.8770664390047043,
+      "risk_category": "Distress",
+      "model_used": "private",
+      "calculation_date": "2022-12-31",
+      "data_quality_score": 0.8
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03151956456590233,
+      "retained_earnings_ratio": 0.34595384852141936,
+      "ebit_ratio": 0.05361930294906166,
+      "book_equity_ratio": 0.5597925956385973,
+      "asset_turnover": 0.16005604918072622,
+      "z_score": 0.8770664390047043
+    },
+    "warnings": [
+      "Market data not available - may affect model selection"
+    ],
+    "metadata": {
+      "generated_at": "2025-06-27T09:48:04.366076",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]

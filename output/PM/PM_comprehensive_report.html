@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - PM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Philip Morris International Inc. (PM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="PM_logo.png" alt="Philip Morris International Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
+            <iframe src="PM_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
+                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+                <p>Your browser does not support iframes.
+                    <a href="PM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.49</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$180.66</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$281.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>28.5</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>46.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Technical Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>MACD Signal</h4>
+                <p>hold</p>
+            </div>
+            <div class="metric">
+                <h4>Bollinger Signal</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Momentum Score</h4>
+                <p>-4.0/10</p>
+            </div>
+            <div class="metric">
+                <h4>Technical Trend</h4>
+                <p>uptrend</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Performance Analysis</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>1 Day</h4>
+                <p>0.59%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Week</h4>
+                <p>-1.07%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Month</h4>
+                <p>0.8%</p>
+            </div>
+            <div class="metric">
+                <h4>3 Months</h4>
+                <p>17.1%</p>
+            </div>
+            <div class="metric">
+                <h4>6 Months</h4>
+                <p>48.3%</p>
+            </div>
+            <div class="metric">
+                <h4>1 Year</h4>
+                <p>N/A%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.12</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>2.38</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-11.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <h2>Component Analysis</h2>
+        <div class="metrics">
+            
+            <div class="metric">
+                <h4>Working Capital Ratio</h4>
+                <p>-0.0905</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Retained Earnings Ratio</h4>
+                <p>0.0000</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Ebit Ratio</h4>
+                <p>0.0545</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Market Equity Ratio</h4>
+                <p>3.800</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Book Equity Ratio</h4>
+                <p>-0.1473</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Asset Turnover</h4>
+                <p>0.1429</p>
+            </div>
+            
+            <div class="metric">
+                <h4>Z Score</h4>
+                <p>2.494</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+    <div class="section">
+        <h2>AI-Powered Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<hr />
+<h2 id="1-tldr-executive-summary">1. TL;DR / Executive Summary</h2>
+<p>Philip Morris International (PM) currently resides in the <strong>Gray Zone</strong> with a Z-Score of approximately <strong>2.49</strong>, indicating moderate financial stability but with some underlying vulnerabilities. Over recent quarters, PM's Z-Score has shown a slight upward trend, moving from a distressed risk level towards a more balanced position, supported by improving asset and equity ratios. The company's financial health remains cautiously stable, with recent data suggesting resilience, but not without risks of deterioration if leverage or working capital issues persist.</p>
+<p>Market signals and analyst sentiment align with this moderate risk profile—positive technical momentum and attractive dividend yield support a <strong>Hold</strong> recommendation for balanced investors. The key opportunities include stable cash flows and defensive sector positioning, while risks involve potential leverage buildup and market volatility. Given current fundamentals and market conditions, a strategic patience is advised, with close monitoring of Z-Score components and market momentum.</p>
+<hr />
+<h2 id="2-company-profile">2. Company Profile</h2>
+<p>Philip Morris International (PM) is a leading global tobacco company, renowned for its cigarette brands and expanding into reduced-risk products like heated tobacco and vaping devices. Its competitive positioning benefits from strong brand recognition, extensive distribution networks, and a resilient consumer base in the tobacco sector. The company operates in a highly regulated environment, facing ongoing legal and health-related challenges but maintaining a dominant market share in many regions.</p>
+<p>Leadership has recently maintained a stable executive team, with no major recent changes reported. Ownership remains largely institutional, with significant holdings by major asset managers, reflecting broad investor confidence. Recent news highlights ongoing efforts to diversify product offerings and adapt to regulatory pressures, supporting a cautious optimism about future growth prospects.</p>
+<hr />
+<h2 id="3-diagnostic-evaluation-of-financial-health">3. Diagnostic Evaluation of Financial Health</h2>
+<p>The latest Z-Score of <strong>2.49</strong> places PM firmly in the <strong>Gray Zone</strong>, indicating moderate financial stability with some cautionary signals. Over the past four quarters, the Z-Score has improved from below 2.5 to above 3.3, reflecting a positive trajectory driven mainly by enhancements in working capital management and retained earnings ratios.</p>
+<p><strong>Model Validation:</strong> The use of the original Altman model is appropriate here, given the company's size, industry, and financial structure, with a high confidence level (1.0). The component analysis reveals that asset turnover remains modest (~0.14), but the negative working capital ratio (~ -0.09 to -0.04) indicates ongoing liquidity tightness, albeit improving.</p>
+<p><strong>Trend Assessment:</strong> The upward trend from a Z-Score of 2.49 to over 3.37 suggests strengthening financial health, primarily due to better retained earnings ratios and asset efficiency. However, the persistent negative working capital ratio and high leverage (total liabilities exceeding assets) caution against complacency.</p>
+<p><strong>Financial Ratios &amp; Components:</strong><br />
+- <strong>Liquidity:</strong> Current ratio data indicates a modest liquidity buffer (~0.79), but with negative working capital ratios, liquidity remains tight.<br />
+- <strong>Profitability:</strong> EBIT ratios hover around 5-5.4%, with net margins around 29%, indicating stable operational profitability.<br />
+- <strong>Leverage:</strong> Total liabilities remain high (~$74 billion), with a negative equity position (~ -$10.9 billion), reflecting leverage challenges but with a recent trend of slight asset base expansion.<br />
+- <strong>Efficiency:</strong> Asset turnover remains low (~0.14), consistent with industry norms for mature consumer staples.</p>
+<p>In sum, PM's financial health is cautiously improving but still vulnerable to leverage and liquidity pressures.</p>
+<hr />
+<h2 id="4-turnaround-renewal-theory-application">4. Turnaround &amp; Renewal Theory Application</h2>
+<p>Applying turnaround theory, PM's current <strong>Gray Zone</strong> status suggests a <strong>stabilization phase</strong>. According to Hofer (1980), the company appears to be transitioning from a period of financial distress toward stability, with recent improvements in key ratios indicating potential for further recovery if leverage and liquidity are managed prudently.</p>
+<p><strong>Strategic implications:</strong><br />
+- <strong>Distress Zone (Z &lt; 1.8):</strong> Urgent restructuring and liquidity preservation needed—PM is not there.<br />
+- <strong>Gray Zone (1.8–3.0):</strong> Focus on consolidating recent gains, improving working capital, and reducing leverage.<br />
+- <strong>Safe Zone (&gt;3.0):</strong> PM is approaching stability, with potential for growth if momentum continues.</p>
+<p>Given the current trajectory, a <strong>renewal strategy</strong> emphasizing operational efficiency, debt management, and stakeholder communication is appropriate. Management should prioritize liquidity buffers and leverage reduction to solidify the upward Z-Score trend, aligning with Bibeault’s (1999) recovery stages.</p>
+<hr />
+<h2 id="5-internal-stakeholder-recommendations">5. Internal Stakeholder Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Title/Role</th>
+<th>Responsibilities</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Z-Score/Price Trend Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO &amp; Leadership</td>
+<td>Strategic vision, operational execution</td>
+<td>Z-Score trend, market perception</td>
+<td>Continue focus on product diversification, communicate stability improvements</td>
+<td>Z-Score rising from 2.49 to 3.37; stock price stable around $180, slight upward momentum</td>
+</tr>
+<tr>
+<td>CFO &amp; Finance</td>
+<td>Capital structure, liquidity, risk management</td>
+<td>Leverage ratios, working capital, cash flow quality</td>
+<td>Prioritize debt reduction, optimize working capital, enhance earnings quality</td>
+<td>Improving component ratios support Z-Score trend; monitor working capital ratios closely</td>
+</tr>
+<tr>
+<td>Operational Executives</td>
+<td>Efficiency, cost control</td>
+<td>Asset turnover, operating margins</td>
+<td>Maintain cost discipline, streamline supply chain</td>
+<td>Asset efficiency stable; operational improvements support financial stability</td>
+</tr>
+<tr>
+<td>Board Members</td>
+<td>Oversight, governance</td>
+<td>Risk management, strategic oversight</td>
+<td>Ensure management maintains focus on leverage and liquidity</td>
+<td>Trend indicates stabilization; governance oversight critical to sustain momentum</td>
+</tr>
+<tr>
+<td>Shareholders &amp; Investors</td>
+<td>Confidence, communication</td>
+<td>Stock price, dividend yield, analyst sentiment</td>
+<td>Support transparent communication on stability efforts</td>
+<td>Price remains resilient; Z-Score improvement suggests potential for value realization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key insight:</strong> The Z-Score trend and stock price are aligned, indicating market recognition of recent stability. Continued focus on liquidity and leverage reduction will reinforce this trajectory.</p>
+<hr />
+<h2 id="6-communication-marketing-execution-strategy">6. Communication, Marketing &amp; Execution Strategy</h2>
+<table>
+<thead>
+<tr>
+<th>Communication Area</th>
+<th>Literature Recommendations</th>
+<th>Current Company Practice</th>
+<th>Gap Analysis</th>
+<th>Recommended Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executive Leadership</td>
+<td>Transparent strategic updates, emphasizing stability</td>
+<td>Regular investor briefings, but limited focus on Z-Score trends</td>
+<td>Need for more explicit communication on financial health improvements</td>
+<td>Incorporate Z-Score trends into strategic messaging, highlight operational resilience</td>
+</tr>
+<tr>
+<td>Investor Relations</td>
+<td>Clear articulation of risk profile, dividend stability</td>
+<td>Focus on dividend yield (~2.99%) and sector stability</td>
+<td>Slight underemphasis on financial health metrics</td>
+<td>Emphasize Z-Score improvements and risk mitigation strategies in disclosures</td>
+</tr>
+<tr>
+<td>Internal Communications</td>
+<td>Engage employees on stability initiatives</td>
+<td>Standard internal updates</td>
+<td>Opportunity to align internal morale with financial progress</td>
+<td>Use internal channels to reinforce stability and future growth plans</td>
+</tr>
+<tr>
+<td>External Relations</td>
+<td>Stakeholder engagement, reputation management</td>
+<td>Focus on product innovation and compliance</td>
+<td>Need to address financial stability narrative</td>
+<td>Develop external messaging emphasizing recent Z-Score improvements and sector resilience</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phased Execution Plan:</strong><br />
+- <strong>Near-term (1-3 months):</strong> Communicate recent Z-Score improvements, reinforce liquidity management efforts.<br />
+- <strong>Mid-term (4-6 months):</strong> Share progress on leverage reduction, operational efficiencies.<br />
+- <strong>Long-term (7-18 months):</strong> Position as a stable, resilient leader in the sector, emphasizing ongoing strategic initiatives.</p>
+<p><strong>Theory Grounding:</strong> Kotter’s (1995) change management principles support transparent, phased communication to reinforce stakeholder confidence and sustain momentum.</p>
+<hr />
+<h2 id="7-investor-recommendation-risk-aware">7. Investor Recommendation (Risk-Aware)</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Focus</th>
+<th>Risk Level</th>
+<th>Recommendation</th>
+<th>Z-Score/Price Trend Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Capital preservation</td>
+<td>Low</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score has improved from distress to 3.37, indicating stability; stock price stable around $180, with low volatility (0.174). The company's moderate leverage and positive momentum support cautious holding.</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Income generation</td>
+<td>Low-Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Dividend yield (~2.99%) remains attractive; Z-Score trending upward suggests dividend sustainability. Price momentum is modest but stable, aligning with risk profile.</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Undervalued stocks</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Despite recent improvements, leverage and negative working capital ratios warrant caution. The stock is fairly valued (~$178.78 target), with limited upside (~-1%). Recovery potential exists if stability continues.</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Capital appreciation</td>
+<td>Medium-High</td>
+<td><strong>HOLD</strong></td>
+<td>Price momentum is upward, but Z-Score's moderate level suggests waiting for further stability before aggressive positioning. Entry at current levels is prudent.</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>Maximum returns</td>
+<td>High</td>
+<td><strong>SELL</strong></td>
+<td>Elevated leverage and negative working capital ratios increase risk. The Z-Score, while improving, still indicates moderate risk; aggressive positions are unwarranted at this stage.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall:</strong> The company's improving financial health and sector stability support a <strong>Hold</strong> recommendation across profiles, with slight caution for risk-averse investors. The key trigger for a more bullish stance would be sustained Z-Score above 3.5 and further leverage reduction.</p>
+<blockquote>
+<p><em>This is not financial advice—consult your financial advisor.</em></p>
+</blockquote>
+<hr />
+<h2 id="8-market-sentiment-analysis-analyst-recommendations">8. Market Sentiment Analysis (Analyst Recommendations)</h2>
+<p>Analyst consensus indicates a <strong>moderate bullish outlook</strong>, with recent upgrades and a target price of approximately <strong>$178.78</strong>, implying a slight downside of about <strong>-1%</strong> from current levels. The sentiment has been stable over recent periods, with no significant shifts in ratings or target adjustments.</p>
+<p>The technical analysis shows a <strong>short-term uptrend</strong> supported by the SMA crossover (Golden Cross) and bullish MACD signals, aligning with Z-Score improvements. The sector's low beta (~0.12) and low volatility reinforce the defensive nature of PM, consistent with its risk profile.</p>
+<p><strong>Alignment with Z-Score:</strong> The positive analyst sentiment correlates with the upward trend in Z-Score, reinforcing the view that PM's financial health is stabilizing. However, the slight downside target suggests cautious optimism rather than exuberance, aligning with the moderate risk category.</p>
+<hr />
+<h2 id="9-other-relevant-insights">9. Other Relevant Insights</h2>
+<ul>
+<li><strong>Financial Pattern:</strong> The persistent negative working capital ratio indicates ongoing liquidity tightness, though recent improvements suggest better cash flow management.  </li>
+<li><strong>Market Dynamics:</strong> The low beta (~0.12) and defensive sector positioning imply resilience against macroeconomic shocks, but high leverage (~$74 billion liabilities) remains a vulnerability.  </li>
+<li><strong>Dividend Policy:</strong> The dividend payout ratio (~84%) is high but supported by stable cash flows; dividend sustainability appears secure in the near term.  </li>
+<li><strong>Price &amp; Institutional Holdings:</strong> Stock price has maintained stability (~$180), with institutional holdings likely supportive, but any increase in leverage or liquidity issues could trigger market re-evaluation.  </li>
+<li><strong>Cyclical Behavior:</strong> No significant seasonal or cyclical anomalies detected; recent Z-Score improvements suggest a positive momentum phase.</li>
+</ul>
+<hr />
+<h2 id="10-references-and-data-sources">10. References and Data Sources</h2>
+<p>This analysis draws upon financial data from SEC EDGAR filings, Yahoo Finance, and company reports. Market data was sourced from Yahoo Finance, including historical prices and institutional holdings. The Z-Score calculations follow the methodology established by Altman (1968), with validation from the associated metadata confirming model appropriateness. The analysis incorporates insights from academic frameworks such as Hofer (1980) and Bibeault (1999) for turnaround strategies, and is supported by open-source contributions from the Altman Z-Score Analysis project (https://github.com/fabioc-aloha/Altman-Z-Score). Additional references include industry-specific studies and corporate governance literature.</p>
+<hr />
+<h2 id="11-appendices-llm-generated">11. Appendices (LLM-Generated)</h2>
+<h3 id="a-z-score-calculations-by-quarter">A. Z-Score Calculations by Quarter</h3>
+<table>
+<thead>
+<tr>
+<th>Quarter</th>
+<th>Date</th>
+<th>Z-Score</th>
+<th>Risk Category</th>
+<th>Components (Key)</th>
+<th>Total Assets</th>
+<th>Total Liabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1 2025</td>
+<td>2025-03-31</td>
+<td>2.49</td>
+<td>Gray Zone</td>
+<td>Working Capital Ratio: -0.0905, Retained Earnings: 0, EBIT Ratio: 0.0545, Market Equity Ratio: 3.80, Book Equity Ratio: -0.1473, Asset Turnover: 0.1429</td>
+<td>$65.08B</td>
+<td>$74.01B</td>
+</tr>
+<tr>
+<td>Q2 2024</td>
+<td>2024-12-31</td>
+<td>3.38</td>
+<td>Safe</td>
+<td>Similar components with improved ratios</td>
+<td>$61.78B</td>
+<td>$71.65B</td>
+</tr>
+<tr>
+<td>Q3 2024</td>
+<td>2024-09-30</td>
+<td>3.29</td>
+<td>Safe</td>
+<td>Slightly lower ratios than Q2</td>
+<td>$66.89B</td>
+<td>$74.61B</td>
+</tr>
+<tr>
+<td>Q4 2024</td>
+<td>2024-06-30</td>
+<td>3.32</td>
+<td>Safe</td>
+<td>Consistent with prior quarter</td>
+<td>$65.78B</td>
+<td>$73.72B</td>
+</tr>
+<tr>
+<td>Q1 2024</td>
+<td>2024-03-31</td>
+<td>3.26</td>
+<td>Safe</td>
+<td>Slight decline from previous quarter</td>
+<td>$65.31B</td>
+<td>$73.88B</td>
+</tr>
+<tr>
+<td>Q2 2023</td>
+<td>2023-09-30</td>
+<td>3.42</td>
+<td>Safe</td>
+<td>Slight improvement</td>
+<td>$62.93B</td>
+<td>$70.63B</td>
+</tr>
+<tr>
+<td>Q3 2023</td>
+<td>2023-06-30</td>
+<td>3.40</td>
+<td>Safe</td>
+<td>Stable trend</td>
+<td>$61.87B</td>
+<td>$69.83B</td>
+</tr>
+<tr>
+<td>Q4 2023</td>
+<td>2023-12-31</td>
+<td>3.16</td>
+<td>Safe</td>
+<td>Slight dip, still stable</td>
+<td>$65.30B</td>
+<td>$74.75B</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-financial-ratios-key-metrics">B. Financial Ratios &amp; Key Metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Latest Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.0905</td>
+<td>Slight improvement from previous quarter</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.0</td>
+<td>Stable at zero, indicating no recent retained earnings accumulation</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.0545</td>
+<td>Consistent profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.1429</td>
+<td>Low efficiency typical for mature consumer staples</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>~$281.2B</td>
+<td>Large-cap, defensive sector</td>
+</tr>
+<tr>
+<td>Price per Share</td>
+<td>$180.66</td>
+<td>Stable with recent slight upward bias</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>2.99%</td>
+<td>Attractive, supported by cash flows</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-data-provenance-quality">C. Data Provenance &amp; Quality</h3>
+<ul>
+<li>Financial data sourced from SEC filings, latest quarterly report (Q1 2025)</li>
+<li>Market data from Yahoo Finance, last updated June 27, 2025</li>
+<li>Z-Score calculations validated with high confidence (metadata confidence 1.0)</li>
+<li>Data completeness: Full financials available, minor estimation in working capital ratios</li>
+</ul>
+<h3 id="d-company-profile-summary">D. Company Profile Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Philip Morris International Inc.</td>
+</tr>
+<tr>
+<td>Sector</td>
+<td>Consumer Defensive</td>
+</tr>
+<tr>
+<td>Industry</td>
+<td>Tobacco</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>~$281B</td>
+</tr>
+<tr>
+<td>Employees</td>
+<td>~73,000</td>
+</tr>
+<tr>
+<td>Fiscal Year End</td>
+<td>December 31</td>
+</tr>
+<tr>
+<td>Exchange</td>
+<td>NYSE</td>
+</tr>
+<tr>
+<td>Website</td>
+<td><a href="https://www.pmi.com">https://www.pmi.com</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="e-analytical-reasoning-recommendations">E. Analytical Reasoning &amp; Recommendations</h3>
+<ul>
+<li>The upward Z-Score trend indicates improved financial stability, driven by better retained earnings and asset efficiency.</li>
+<li>The negative working capital ratio remains a concern but has improved marginally, suggesting ongoing liquidity management.</li>
+<li>Market signals and analyst sentiment support a cautious but stable outlook, with no immediate distress signals.</li>
+<li>The sector's defensive nature and dividend support mitigate downside risks, but leverage remains a key watchpoint.</li>
+</ul>
+<hr />
+<p><strong>In summary</strong>, Philip Morris International's financial health is gradually strengthening, with recent Z-Score improvements and stable market positioning. While not yet in a fully safe zone, the company exhibits resilience suitable for balanced portfolios. Continuous monitoring of leverage, working capital, and market momentum is recommended to sustain this trajectory.</p>
+<hr />
+<p><em>This report synthesizes all injected data, applying the Altman Z-Score framework with comprehensive contextual analysis to inform strategic investment decisions.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on June 27, 2025 at 09:26 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+</body>
+
+</html>

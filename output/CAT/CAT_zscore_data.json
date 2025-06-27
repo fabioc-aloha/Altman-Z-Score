@@ -1,0 +1,362 @@
+[
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 3.043167730804912,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2025-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.1226728175677266,
+      "retained_earnings_ratio": 0.7220561583543201,
+      "ebit_ratio": 0.030350460140748936,
+      "market_equity_ratio": 2.695397705129738,
+      "book_equity_ratio": 0.2700436446251345,
+      "asset_turnover": 0.16768658648527784,
+      "z_score": 3.043167730804912,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 84974000000,
+        "total_liabilities": 66904000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 3.0097121426542306,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.15279613508955836,
+      "retained_earnings_ratio": 0.6762681737386628,
+      "ebit_ratio": 0.03331662184950549,
+      "market_equity_ratio": 2.6414660621649335,
+      "book_equity_ratio": 0.28549875494360627,
+      "asset_turnover": 0.18475684791030492,
+      "z_score": 3.0097121426542306,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 87764000000,
+        "total_liabilities": 68270000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 3.042060304072408,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.1475316727133634,
+      "retained_earnings_ratio": 0.6713572032965123,
+      "ebit_ratio": 0.03647722926060297,
+      "market_equity_ratio": 2.696768178017048,
+      "book_equity_ratio": 0.2900702856288321,
+      "asset_turnover": 0.18668644883103636,
+      "z_score": 3.042060304072408,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 86273000000,
+        "total_liabilities": 66870000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 3.0516685005332214,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.11438033982912547,
+      "retained_earnings_ratio": 0.6654387059614092,
+      "ebit_ratio": 0.04487856388595565,
+      "market_equity_ratio": 2.7240617532326286,
+      "book_equity_ratio": 0.25876132930513596,
+      "asset_turnover": 0.20026159162906787,
+      "z_score": 3.0516685005332214,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 83336000000,
+        "total_liabilities": 66200000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 3.0305280913665147,
+      "risk_category": "Safe",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.13485628306325456,
+      "retained_earnings_ratio": 0.6461351070562806,
+      "ebit_ratio": 0.041950776799894916,
+      "market_equity_ratio": 2.7283479796659407,
+      "book_equity_ratio": 0.26686940208182036,
+      "asset_turnover": 0.18866505057259886,
+      "z_score": 3.0305280913665147,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 83741000000,
+        "total_liabilities": 66096000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.893046065174011,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.13970689103296904,
+      "retained_earnings_ratio": 0.5858749828524396,
+      "ebit_ratio": 0.03582696968311308,
+      "market_equity_ratio": 2.6530076363261883,
+      "book_equity_ratio": 0.28679034322451563,
+      "asset_turnover": 0.1951392381910467,
+      "z_score": 2.893046065174011,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 87476000000,
+        "total_liabilities": 67973000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.967666667362016,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.17145787005565094,
+      "retained_earnings_ratio": 0.574806143494141,
+      "ebit_ratio": 0.0397391434595753,
+      "market_equity_ratio": 2.7206096201798324,
+      "book_equity_ratio": 0.30910928730915455,
+      "asset_turnover": 0.19368367687893906,
+      "z_score": 2.967666667362016,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 86791000000,
+        "total_liabilities": 66284000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.8905508105473587,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.1367951584393693,
+      "retained_earnings_ratio": 0.5512776990881103,
+      "ebit_ratio": 0.04274995024992099,
+      "market_equity_ratio": 2.684683688853821,
+      "book_equity_ratio": 0.2714713194682229,
+      "asset_turnover": 0.20272279255972936,
+      "z_score": 2.8905508105473587,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 85427000000,
+        "total_liabilities": 67171000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.908823303896593,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.16519025929778,
+      "retained_earnings_ratio": 0.5434255041901278,
+      "ebit_ratio": 0.032648328133032076,
+      "market_equity_ratio": 2.754056843629255,
+      "book_equity_ratio": 0.277172834038394,
+      "asset_turnover": 0.1896256978565195,
+      "z_score": 2.908823303896593,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 83649000000,
+        "total_liabilities": 65479000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.831189586705547,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2022-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.14954297499481348,
+      "retained_earnings_ratio": 0.5310276655724101,
+      "ebit_ratio": 0.020502056307433215,
+      "market_equity_ratio": 2.7301654463755827,
+      "book_equity_ratio": 0.24025010597710894,
+      "asset_turnover": 0.20254323127051732,
+      "z_score": 2.831189586705547,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 81943000000,
+        "total_liabilities": 66052000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.8744468085188846,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2022-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.15295339093032742,
+      "retained_earnings_ratio": 0.5352318093613655,
+      "ebit_ratio": 0.029972684687357087,
+      "market_equity_ratio": 2.7622407607260473,
+      "book_equity_ratio": 0.23881442904189323,
+      "asset_turnover": 0.18532389039267308,
+      "z_score": 2.8744468085188846,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 80907000000,
+        "total_liabilities": 65285000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "analysis_summary": {
+      "z_score": 2.815365436739482,
+      "risk_category": "Gray Zone",
+      "model_used": "original",
+      "calculation_date": "2022-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.16051635493853797,
+      "retained_earnings_ratio": 0.508747703650733,
+      "ebit_ratio": 0.02396833812124724,
+      "market_equity_ratio": 2.7595777692354777,
+      "book_equity_ratio": 0.24066536083736303,
+      "asset_turnover": 0.17565684836080733,
+      "z_score": 2.815365436739482,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 81107000000,
+        "total_liabilities": 65348000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-06-27T09:43:35.834650",
+      "generator_version": "3.8.0-dev"
+    }
+  }
+]
