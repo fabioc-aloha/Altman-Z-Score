@@ -1,40 +1,20 @@
-# =====================================================
-# Altman Z-Score Analysis Project .gitignore
-# =====================================================
+# Altman Z-Score Analysis Project - Minimal .gitignore
 
-# Python
+# Python cache
 __pycache__/
-*.py[cod]
 *.pyc
-*.pyo
 
-# Environment and secrets
-.env
-.env.local
-.env.production
-venv/
-.venv/
-
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Project specific
-logs/
-*.log
-cache/
+# API data cache
 .cache/
 
-# API keys and secrets
+# Log files
+logs/
+*.log
+
+# Environment files and secrets
+.env
 secrets/
-api_keys/
 
 # Temporary files
-temp_*.py
-debug_*.py
-*.bak
-*.backup
+temp_*
+*.tmp
