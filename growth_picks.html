@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Investor Stock Picks - Altman Z-Score</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #1a5276;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .date {
+            text-align: right;
+            font-size: 1.1em;
+            color: #666;
+        }
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .company-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .company-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .company-name {
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #2c3e50;
+            flex: 1;
+        }
+        .ticker {
+            background-color: #eef2f5;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            color: #34495e;
+            display: inline-block;
+            margin-top: 3px;
+            margin-left: auto;
+        }
+        .z-score {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 15px 0;
+        }
+        .recommendation {
+            background-color: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        .recommendation.buy {
+            background-color: #27ae60;
+        }
+        .recommendation.strongbuy {
+            background-color: #219653;
+        }
+        .label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+        .view-report {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .view-report:hover {
+            background-color: #2980b9;
+        }
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+        select, input {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-left: 10px;
+        }
+        .total-count {
+            background-color: #eef2f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .summary {
+            background-color: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .highest-z-score {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .disclaimer {
+            margin-top: 40px;
+            padding: 15px;
+            background-color: #efefef;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+        .category-label {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background-color: #8e44ad;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .risk-category {
+            color: #27ae60;
+            font-weight: 500;
+        }
+        .profile-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .profile-description {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #8e44ad;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1><span class="profile-icon">📈</span> Growth Investor Stock Picks</h1>
+        <div class="date">June 27, 2025</div>
+    </div>
+
+    <div class="profile-description">
+        <p><strong>Growth Investor Profile:</strong> Focused on capital appreciation with medium to high risk tolerance. 
+        Growth investors prioritize companies with strong growth potential, increasing market share, and promising future prospects. 
+        The stocks in this list combine solid financial health (Z-Score > 3.0) with growth characteristics and positive analyst recommendations.</p>
+    </div>
+
+    <div class="summary">
+        <h2>Investment Summary</h2>
+        <p>Based on the Altman Z-Score analysis and growth investor criteria, we have identified <strong>25</strong> companies that show strong growth potential while maintaining solid financial health. These companies combine high Z-Scores (good financial foundation) with favorable growth prospects.</p>
+        <p>The highest Z-Score belongs to <span class="highest-z-score">Monolithic Power Systems, Inc. (MPWR)</span> with an exceptional Z-Score of 40.90 (if available), followed by <span class="highest-z-score">monday.com Ltd. (MNDY)</span> and <span class="highest-z-score">Tesla, Inc. (TSLA)</span>.</p>
+        <p>These recommendations are particularly suitable for investors focused on capital appreciation and growth potential.</p>
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by">
+                <option value="z-score-desc">Z-Score (Highest First)</option>
+                <option value="z-score-asc">Z-Score (Lowest First)</option>
+                <option value="name-asc">Company Name (A-Z)</option>
+                <option value="name-desc">Company Name (Z-A)</option>
+                <option value="rec-strongbuy">Strong Buy First</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="search">Search:</label>
+            <input type="text" id="search" placeholder="Company or ticker...">
+        </div>
+        <div class="total-count">25 Companies</div>
+    </div>
+
+    <div class="company-grid" id="company-container">
+        <div class="company-card" data-ticker="MPWR" data-z-score="40.9" data-rec="strongbuy">
+            <span class="category-label">Top Growth Pick</span>
+            <div class="company-header">
+                <img src="output/MPWR/MPWR_logo.png" alt="MPWR" class="company-logo">
+                <div>
+                    <div class="company-name">Monolithic Power Systems, Inc.</div>
+                    <span class="ticker">MPWR</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">40.90</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation strongbuy">STRONG BUY</div>
+            <a href="output/MPWR/MPWR_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="MNDY" data-z-score="14.66" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/MNDY/MNDY_logo.png" alt="MNDY" class="company-logo">
+                <div>
+                    <div class="company-name">monday.com Ltd.</div>
+                    <span class="ticker">MNDY</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">14.66</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/MNDY/MNDY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="TSLA" data-z-score="13.52" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/TSLA/TSLA_logo.png" alt="TSLA" class="company-logo">
+                <div>
+                    <div class="company-name">Tesla, Inc.</div>
+                    <span class="ticker">TSLA</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">13.52</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/TSLA/TSLA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="GOOG" data-z-score="11.09" data-rec="strongbuy">
+            
+            <div class="company-header">
+                <img src="output/GOOG/GOOG_logo.png" alt="GOOG" class="company-logo">
+                <div>
+                    <div class="company-name">Alphabet Inc.</div>
+                    <span class="ticker">GOOG</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">11.09</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation strongbuy">STRONG BUY</div>
+            <a href="output/GOOG/GOOG_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="GOOGL" data-z-score="11.09" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" class="company-logo">
+                <div>
+                    <div class="company-name">Alphabet Inc.</div>
+                    <span class="ticker">GOOGL</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">11.09</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/GOOGL/GOOGL_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="MSFT" data-z-score="10.16" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/MSFT/MSFT_logo.png" alt="MSFT" class="company-logo">
+                <div>
+                    <div class="company-name">Microsoft Corporation</div>
+                    <span class="ticker">MSFT</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">10.16</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/MSFT/MSFT_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="HUBS" data-z-score="9.35" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/HUBS/HUBS_logo.png" alt="HUBS" class="company-logo">
+                <div>
+                    <div class="company-name">HubSpot, Inc.</div>
+                    <span class="ticker">HUBS</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">9.35</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/HUBS/HUBS_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="SAP" data-z-score="8.16" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/SAP/SAP_logo.png" alt="SAP" class="company-logo">
+                <div>
+                    <div class="company-name">Sap Se</div>
+                    <span class="ticker">SAP</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">8.16</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/SAP/SAP_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="V" data-z-score="7.98" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/V/V_logo.png" alt="V" class="company-logo">
+                <div>
+                    <div class="company-name">Visa Inc.</div>
+                    <span class="ticker">V</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">7.98</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/V/V_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="ASML" data-z-score="7.46" data-rec="strongbuy">
+            
+            <div class="company-header">
+                <img src="output/ASML/ASML_logo.png" alt="ASML" class="company-logo">
+                <div>
+                    <div class="company-name">ASML Holding N.V.</div>
+                    <span class="ticker">ASML</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">7.46</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation strongbuy">STRONG BUY</div>
+            <a href="output/ASML/ASML_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="GWW" data-z-score="7.32" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/GWW/GWW_logo.png" alt="GWW" class="company-logo">
+                <div>
+                    <div class="company-name">W.W. Grainger, Inc.</div>
+                    <span class="ticker">GWW</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">7.32</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/GWW/GWW_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="PODD" data-z-score="6.84" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/PODD/PODD_logo.png" alt="PODD" class="company-logo">
+                <div>
+                    <div class="company-name">Insulet Corporation</div>
+                    <span class="ticker">PODD</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">6.84</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/PODD/PODD_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="ADI" data-z-score="6.21" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/ADI/ADI_logo.png" alt="ADI" class="company-logo">
+                <div>
+                    <div class="company-name">Analog Devices, Inc.</div>
+                    <span class="ticker">ADI</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">6.21</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/ADI/ADI_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="AMZN" data-z-score="4.86" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/AMZN/AMZN_logo.png" alt="AMZN" class="company-logo">
+                <div>
+                    <div class="company-name">Amazon.com, Inc.</div>
+                    <span class="ticker">AMZN</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.86</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/AMZN/AMZN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="BX" data-z-score="4.65" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/BX/BX_logo.png" alt="BX" class="company-logo">
+                <div>
+                    <div class="company-name">Blackstone Inc.</div>
+                    <span class="ticker">BX</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.65</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/BX/BX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="CRM" data-z-score="4.53" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/CRM/CRM_logo.png" alt="CRM" class="company-logo">
+                <div>
+                    <div class="company-name">Salesforce, Inc.</div>
+                    <span class="ticker">CRM</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.53</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/CRM/CRM_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="SYK" data-z-score="4.46" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/SYK/SYK_logo.png" alt="SYK" class="company-logo">
+                <div>
+                    <div class="company-name">Stryker Corporation</div>
+                    <span class="ticker">SYK</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.46</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/SYK/SYK_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="MU" data-z-score="4.36" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/MU/MU_logo.png" alt="MU" class="company-logo">
+                <div>
+                    <div class="company-name">Micron Technology, Inc.</div>
+                    <span class="ticker">MU</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.36</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/MU/MU_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="NICE" data-z-score="4.07" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/NICE/NICE_logo.png" alt="NICE" class="company-logo">
+                <div>
+                    <div class="company-name">NICE Ltd.</div>
+                    <span class="ticker">NICE</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">4.07</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/NICE/NICE_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="EFX" data-z-score="3.72" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/EFX/EFX_logo.png" alt="EFX" class="company-logo">
+                <div>
+                    <div class="company-name">Equifax Inc.</div>
+                    <span class="ticker">EFX</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.72</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/EFX/EFX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="UBER" data-z-score="3.7" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/UBER/UBER_logo.png" alt="UBER" class="company-logo">
+                <div>
+                    <div class="company-name">Uber Technologies, Inc.</div>
+                    <span class="ticker">UBER</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.70</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/UBER/UBER_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="005930.KS" data-z-score="3.65" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/005930.KS/005930.KS_logo.png" alt="005930.KS" class="company-logo">
+                <div>
+                    <div class="company-name">005930.KS</div>
+                    <span class="ticker">005930.KS</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.65</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/005930.KS/005930.KS_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="OKTA" data-z-score="3.5" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/OKTA/OKTA_logo.png" alt="OKTA" class="company-logo">
+                <div>
+                    <div class="company-name">Okta, Inc.</div>
+                    <span class="ticker">OKTA</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.50</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/OKTA/OKTA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="LIN" data-z-score="3.44" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/LIN/LIN_logo.png" alt="LIN" class="company-logo">
+                <div>
+                    <div class="company-name">Linde plc</div>
+                    <span class="ticker">LIN</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.44</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/LIN/LIN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+        <div class="company-card" data-ticker="JNJ" data-z-score="3.38" data-rec="buy">
+            
+            <div class="company-header">
+                <img src="output/JNJ/JNJ_logo.png" alt="JNJ" class="company-logo">
+                <div>
+                    <div class="company-name">Johnson & Johnson</div>
+                    <span class="ticker">JNJ</span>
+                </div>
+            </div>
+            <div class="label">Altman Z-Score:</div>
+            <div class="z-score">3.38</div>
+            <div class="label">Risk Category:</div>
+            <div class="risk-category">Safe</div>
+            <div class="label">Growth Investor:</div>
+            <div class="recommendation buy">BUY</div>
+            <a href="output/JNJ/JNJ_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        <p><strong>Disclaimer:</strong> This information is based on Altman Z-Score analysis as of the current date shown. 
+        These recommendations are tailored for growth-focused investors and are derived from financial health metrics. 
+        Growth stocks may be subject to higher volatility and risks. Always consult with a financial advisor before 
+        making investment decisions. This analysis is not financial advice.</p>
+    </div>
+
+    <script>
+        // Simple sorting and filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const companyContainer = document.getElementById('company-container');
+            const sortBySelect = document.getElementById('sort-by');
+            const searchInput = document.getElementById('search');
+            const companies = Array.from(document.querySelectorAll('.company-card'));
+            
+            // Sort function
+            function sortCompanies() {
+                const sortValue = sortBySelect.value;
+                const sortedCompanies = [...companies].sort((a, b) => {
+                    switch(sortValue) {
+                        case 'z-score-desc':
+                            return parseFloat(b.dataset.zScore) - parseFloat(a.dataset.zScore);
+                        case 'z-score-asc':
+                            return parseFloat(a.dataset.zScore) - parseFloat(b.dataset.zScore);
+                        case 'name-asc':
+                            return a.querySelector('.company-name').textContent.localeCompare(b.querySelector('.company-name').textContent);
+                        case 'name-desc':
+                            return b.querySelector('.company-name').textContent.localeCompare(a.querySelector('.company-name').textContent);
+                        case 'rec-strongbuy':
+                            if (a.dataset.rec === 'strongbuy' && b.dataset.rec !== 'strongbuy') return -1;
+                            if (a.dataset.rec !== 'strongbuy' && b.dataset.rec === 'strongbuy') return 1;
+                            return parseFloat(b.dataset.zScore) - parseFloat(a.dataset.zScore);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                companyContainer.innerHTML = '';
+                sortedCompanies.forEach(company => companyContainer.appendChild(company));
+            }
+            
+            // Filter function
+            function filterCompanies() {
+                const searchTerm = searchInput.value.toLowerCase();
+                companies.forEach(company => {
+                    const companyName = company.querySelector('.company-name').textContent.toLowerCase();
+                    const ticker = company.dataset.ticker.toLowerCase();
+                    
+                    if (companyName.includes(searchTerm) || ticker.includes(searchTerm)) {
+                        company.style.display = '';
+                    } else {
+                        company.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Event listeners
+            sortBySelect.addEventListener('change', sortCompanies);
+            searchInput.addEventListener('input', filterCompanies);
+            
+            // Initial sort
+            sortCompanies();
+        });
+    </script>
+</body>
+</html>
