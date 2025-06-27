@@ -1,4 +1,4 @@
-# Documentation Index - v4.3.0
+# Documentation Index - v4.3.1
 
 This directory contains essential documentation for the Altman Z-Score Analysis Pipeline.
 
@@ -10,7 +10,7 @@ Essential implementation guides and reference materials:
 - `QUICK_TEST_REFERENCE.md` - Quick testing and development reference
 - `QUICK_START_ENHANCED.md` - Enhanced quick start guide with modern features
 
-# Documentation Index - v4.3.0
+# Documentation Index - v4.3.1
 
 This directory contains essential documentation for the Altman Z-Score Analysis Pipeline.
 
@@ -34,7 +34,7 @@ Technical documentation and system architecture:
 
 Core project documentation is located in the root directory:
 - `README.md` - Main project documentation and user guide
-- `CHANGELOG.md` - Version history and feature releases (includes v4.3.0 updates)
+- `CHANGELOG.md` - Version history and feature releases (includes v4.3.1 updates)
 - `TODO.md` - Development roadmap and planned features
 
 ## 🚀 Quick Navigation
@@ -61,7 +61,7 @@ Core project documentation is located in the root directory:
 
 ## 🎯 Enhanced Structure
 
-This documentation has been enhanced as part of v4.3.0 to focus on:
+This documentation has been enhanced as part of v4.3.1 to focus on:
 - ✅ **Organized Structure** - Logical grouping by purpose (guides, technical)
 - ✅ **Modern Configuration** - Enhanced LLM and parallel processing documentation  
 - ✅ **User Experience** - Clear navigation and setup instructions

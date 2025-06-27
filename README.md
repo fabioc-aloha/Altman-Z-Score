@@ -2,11 +2,11 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.3.0 (2025-06-27) 🚀 Enhanced Configuration & Modern Defaults**
+**Version: 4.3.1 (2025-06-27) 🚀 Golden Release - Table Formatting & Git Management**
 
 Transform your investment decisions with **AI-powered financial health analysis**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis**.
 
-## 🎯 **NEW v4.3.0: Enhanced Configuration & Modern Defaults**
+## 🎯 **NEW v4.3.1: Golden Release - Table Formatting & Git Management**
 
 ### ⚡ **LLM Configuration Management**
 - **🔧 Environment-Driven Config:** All LLM temperature and token settings now configurable via `.env`
@@ -54,7 +54,7 @@ Transform your investment decisions with **AI-powered financial health analysis*
 pip install -r requirements.txt
 python main.py AAPL
 
-# High-performance portfolio analysis (NEW v4.3.0 defaults)
+# High-performance portfolio analysis (NEW v4.3.1 defaults)
 .\run_parallel_portfolio.ps1 -PortfolioFile "portfolios/tech_portfolio.txt"
 # ⚡ Now uses 8 parallel processes, 12 quarters, enhanced analysis by default
 

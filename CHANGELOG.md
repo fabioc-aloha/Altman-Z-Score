@@ -1,4 +1,26 @@
-# Changelog ## [4.3.0] - Enhanced Configuration & Modern Defaults (June 27, 2025)
+# Changelog
+
+## [4.3.1] - Golden Release - Table Formatting & Git Management (June 27, 2025)
+
+### 🎨 **TABLE FORMATTING IMPROVEMENTS**
+- **✅ MARKDOWN COMPATIBILITY:** Fixed table formatting in `generate_readme_table.py` for proper Markdown rendering
+- **✅ SINGLE-LINE ROWS:** Refactored table generation to use single-line format compatible with all Markdown parsers
+- **✅ TEXT SANITIZATION:** Added `sanitize_for_markdown_table()` function to handle special characters
+- **✅ SIMPLIFIED DISPLAY:** Cleaned up logo and company name formatting in tables
+- **✅ ERROR HANDLING:** Enhanced logging and error handling in table generation
+
+### 📁 **GIT REPOSITORY MANAGEMENT**
+- **✅ MINIMAL GITIGNORE:** Replaced bloated `.gitignore` with focused, project-specific version
+- **✅ OUTPUT TRACKING:** Ensured all analysis results in `output/` directory are tracked by git
+- **✅ SCRIPT TRACKING:** Added debug and exploration scripts to repository
+- **✅ CLEAN REPO:** All project-relevant files now properly versioned
+
+### 🏷️ **VERSION MANAGEMENT**
+- **✅ GOLDEN RELEASE:** Marked this as the stable, production-ready version
+- **✅ VERSION CONSISTENCY:** Updated all version references across the codebase
+- **✅ GIT TAGGING:** Created v4.3.1 tag for release management
+
+## [4.3.0] - Enhanced Configuration & Modern Defaults (June 27, 2025)
 
 ### 🚀 **LLM CONFIGURATION MANAGEMENT**
 - **✅ ENVIRONMENT-DRIVEN CONFIG:** Exposed all LLM temperature and token settings in `.env`
