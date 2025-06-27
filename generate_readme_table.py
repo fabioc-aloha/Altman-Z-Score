@@ -239,8 +239,8 @@ def format_investment_profiles_mini(profiles):
                 formatted_recs.append(f"{emoji} {rec[:15]}...")
     
     if formatted_recs:
-        # Show top 3 to keep compact, separated by line breaks
-        return "<br/>".join(formatted_recs[:3])
+        # Show top 3 to keep compact, separated by spaces instead of line breaks for table compatibility
+        return " | ".join(formatted_recs[:3])
     else:
         return "🔍 Profiles Available"
 
@@ -257,6 +257,8 @@ def has_required_files(ticker_dir, ticker):
 def generate_table():
     """Generate the table for README with new file structure."""
     rows = []
+    processed_count = 0
+    error_count = 0
     
     if not os.path.exists(OUTPUT_DIR):
         safe_print(f"Warning: Output directory '{OUTPUT_DIR}' not found")
@@ -268,43 +270,53 @@ def generate_table():
             continue
         if not has_required_files(ticker_dir, ticker):
             safe_print(f"Warning: Missing required files for {ticker}, skipping")
+            error_count += 1
             continue
         
-        # File paths for new structure
-        report_rel = f"output/{ticker}/{ticker}{REPORT_SUFFIX}"
-        dashboard_rel = f"output/{ticker}/{ticker}{DASHBOARD_SUFFIX}"
-        json_path = os.path.join(ticker_dir, f"{ticker}{JSON_SUFFIX}")
-        html_path = os.path.join(ticker_dir, f"{ticker}{REPORT_SUFFIX}")
-        
-        # Extract company information from HTML report
-        company_name, logo_url, ticker_code = get_company_info_from_html(html_path)
-        investment_rec = extract_investment_recommendation_from_json(json_path)
-        
-        # Extract AI investment profiles
-        ai_profiles = extract_ai_investment_profiles(html_path)
-        profile_summary = format_investment_profiles_mini(ai_profiles)
-        
-        # Create logo display (use logo_url if available, otherwise use a placeholder)
-        if logo_url:
-            logo_display = f'<img src="{logo_url}" alt="{ticker}" width="40" style="margin-right:8px; border-radius:4px;"/>'
-        else:
-            logo_display = f'<div style="width:40px;height:40px;background:#2c3e50;color:white;display:flex;align-items:center;justify-content:center;margin-right:8px;font-weight:bold;border-radius:4px;">{ticker}</div>'
-        
-        # Combine logo and company name in one column with line break
-        logo_and_name = f'<div style="display: flex; flex-direction: column; align-items: center; text-align: center;">{logo_display}<br/><span>{company_name}</span></div>'
-        
-        # Combine traditional recommendation with AI profiles in a more structured way
-        combined_recommendation = f"""
-<div style="margin-bottom: 8px;">{investment_rec}</div>
-<details style="font-size: 0.9em;">
-<summary style="cursor: pointer; font-weight: bold; color: #0366d6;">🎯 AI Investment Profiles</summary>
-<div style="margin-top: 4px; padding: 4px 0;">{profile_summary}</div>
-</details>"""
-        
-        row = f'| {logo_and_name} | [Full Report]({report_rel}) | {combined_recommendation} |'
-        rows.append(row)
-        
-    safe_print(f"Generated table with {len(rows)} companies")
+        try:
+            # File paths for new structure
+            report_rel = f"output/{ticker}/{ticker}{REPORT_SUFFIX}"
+            dashboard_rel = f"output/{ticker}/{ticker}{DASHBOARD_SUFFIX}"
+            json_path = os.path.join(ticker_dir, f"{ticker}{JSON_SUFFIX}")
+            html_path = os.path.join(ticker_dir, f"{ticker}{REPORT_SUFFIX}")
+            
+            # Extract company information from HTML report
+            company_name, logo_url, ticker_code = get_company_info_from_html(html_path)
+            company_name = sanitize_for_markdown_table(company_name)
+            investment_rec = extract_investment_recommendation_from_json(json_path)
+            
+            # Extract AI investment profiles (for future use when reports include them)
+            ai_profiles = extract_ai_investment_profiles(html_path)
+            profile_summary = format_investment_profiles_mini(ai_profiles)
+            
+            # Create logo display (use logo_url if available, otherwise use a placeholder)
+            if logo_url:
+                logo_display = f'<img src="{logo_url}" alt="{ticker}" width="32" height="32" style="border-radius:4px; vertical-align: middle;"/>'
+            else:
+                logo_display = f'<span style="display:inline-block;width:32px;height:32px;background:#2c3e50;color:white;text-align:center;line-height:32px;font-weight:bold;border-radius:4px;font-size:10px;">{ticker[:4]}</span>'
+            
+            # Combine logo and company name in a more compact format
+            logo_and_name = f'{logo_display} **{company_name}**'
+            
+            # Combine traditional recommendation, with optional AI profiles if available
+            if profile_summary and profile_summary not in ["🔍 Analysis Pending", "🔍 Profiles Available"]:
+                combined_recommendation = f'{investment_rec}<br/><small>🎯 {profile_summary}</small>'
+            else:
+                combined_recommendation = investment_rec
+            
+            # Sanitize the recommendation text for table compatibility
+            combined_recommendation = sanitize_for_markdown_table(combined_recommendation)
+            
+            row = f'| {logo_and_name} | [Full Report]({report_rel}) | {combined_recommendation} |'
+            rows.append(row)
+            processed_count += 1
+            
+        except Exception as e:
+            safe_print(f"Error processing {ticker}: {e}")
+            error_count += 1
+            continue
+            
+    safe_print(f"Generated table with {processed_count} companies ({error_count} errors)")
     return rows
 
 
@@ -314,7 +326,7 @@ def save_table_to_file(filename):
     
     with open(filename, "w", encoding="utf-8") as f:
         f.write("| Company | Report | Investment Recommendation |\n")
-        f.write("|---------|--------|----------------------------|\n")
+        f.write("|---------|--------|--------------------------|\n")
         for row in table_rows:
             f.write(f"{row}\n")
     safe_print(f"Table saved to {filename}")
@@ -364,6 +376,23 @@ def update_readme(readme_path="README.md", table_path="table.md"):
     except Exception as e:
         safe_print(f"Error updating README: {e}")
         return False
+
+
+def sanitize_for_markdown_table(text):
+    """Sanitize text content for Markdown table compatibility."""
+    if not text:
+        return ""
+    
+    # Remove problematic characters and normalize whitespace
+    text = re.sub(r'\s+', ' ', text.strip())
+    
+    # Escape pipe characters that could break table structure
+    text = text.replace('|', '&#124;')
+    
+    # Remove line breaks that could break table structure
+    text = text.replace('\n', ' ').replace('\r', ' ')
+    
+    return text
 
 
 def main():
