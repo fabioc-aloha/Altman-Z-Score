@@ -84,16 +84,16 @@ def get_zscore_and_recommendation(json_path):
         
         # Determine recommendation based on Z-Score
         if zscore == 'N/A':
-            recommendation = "⚖️ HOLD"
+            recommendation = "HOLD"
             risk_zone = "Unknown"
         elif zscore >= 3.0:
-            recommendation = "📈 STRONG BUY"
+            recommendation = "STRONG BUY"
             risk_zone = "Safe"
         elif zscore >= 1.8:
-            recommendation = "⚖️ HOLD"
+            recommendation = "HOLD"
             risk_zone = "Gray Zone"
         else:
-            recommendation = "📉 SELL"
+            recommendation = "SELL"
             risk_zone = "Distress"
         
         # Use risk_category from data if available
@@ -103,7 +103,7 @@ def get_zscore_and_recommendation(json_path):
         return zscore, recommendation, risk_zone
     except Exception as e:
         safe_print(f"Error processing Z-Score from {json_path}: {e}")
-        return 'N/A', "⚖️ HOLD", "Unknown"
+        return 'N/A', "HOLD", "Unknown", "⚖️"
 
 def generate_simple_table():
     """Generate a simple, clean table for README."""
@@ -136,11 +136,11 @@ def generate_simple_table():
         # Format company cell (simple format)
         company_cell = f"**{ticker}**<br/>{company_name}"
         
-        # Format recommendation cell
-        recommendation_cell = f"{recommendation}<br/>*Z-Score: {zscore} ({risk_zone})*"
+        # Format recommendation cell with better compatibility
+        recommendation_cell = f"**{recommendation}**<br/>*Z-Score: {zscore} ({risk_zone})*"
         
-        # Create the row
-        row = f"| {company_cell} | [📊 View Report]({report_rel}) | {recommendation_cell} |"
+        # Create the row with text-based indicators for maximum compatibility
+        row = f"| {company_cell} | [View Report]({report_rel}) | {recommendation_cell} |"
         rows.append(row)
     
     safe_print(f"Generated simple table with {len(rows)} companies")
