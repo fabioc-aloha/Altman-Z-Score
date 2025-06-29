@@ -196,7 +196,8 @@ class LLMClient:
             return ""
     
     def _make_llm_request(self, messages: List[Dict[str, str]], 
-                         temperature: float = 0.0, max_tokens: int = 8192) -> str:
+                         temperature: float = 0.0, max_tokens: int = 8192,
+                         force_json: bool = False) -> str:
         """
         Make rate-limited request to Azure OpenAI API.
         
@@ -204,6 +205,7 @@ class LLMClient:
             messages: List of message dictionaries for chat completion
             temperature: Sampling temperature (0.0 = deterministic)
             max_tokens: Maximum tokens in response
+            force_json: If True, forces response to be JSON format
             
         Returns:
             LLM response text
@@ -214,17 +216,30 @@ class LLMClient:
         # Basic rate limiting for LLM calls - 1 request per second
         time.sleep(1.0)
         
-        logger.debug(f"Making Azure OpenAI request with {len(messages)} messages")
+        logger.debug(f"Making Azure OpenAI request with {len(messages)} messages, force_json={force_json}")
         
         for attempt in range(self.config.max_retries):
             try:
-                response = self.client.chat.completions.create(
-                    model=self.config.deployment,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    timeout=self.config.timeout
-                )
+                # Prepare request parameters
+                request_params = {
+                    "model": self.config.deployment,
+                    "messages": messages,
+                    "temperature": temperature,
+                    "max_tokens": max_tokens,
+                    "timeout": self.config.timeout
+                }
+                
+                # Add JSON response format if requested
+                if force_json:
+                    request_params["response_format"] = {"type": "json_object"}
+                    # Ensure the system message includes JSON instruction
+                    if not any("JSON" in msg.get("content", "") for msg in messages):
+                        logger.debug("Adding JSON instruction to ensure structured response")
+                        # Modify the last user message to include JSON requirement
+                        if messages and messages[-1]["role"] == "user":
+                            messages[-1]["content"] += "\n\nIMPORTANT: Respond with valid JSON only. Do not include any text outside the JSON structure."
+                
+                response = self.client.chat.completions.create(**request_params)
                 
                 response_text = response.choices[0].message.content
                 
@@ -246,7 +261,8 @@ class LLMClient:
     
     def chat_completion(self, ticker: str, messages: List[Dict[str, str]], 
                        interaction_type: str = "general",
-                       temperature: Optional[float] = None, max_tokens: Optional[int] = None) -> str:
+                       temperature: Optional[float] = None, max_tokens: Optional[int] = None,
+                       force_json: bool = False) -> str:
         """
         Get chat completion from Azure OpenAI with logging.
         
@@ -256,6 +272,7 @@ class LLMClient:
             interaction_type: Type of interaction for logging
             temperature: Sampling temperature (uses config default if None)
             max_tokens: Maximum tokens in response (uses config default if None)
+            force_json: If True, forces response to be JSON format
             
         Returns:
             LLM response text
@@ -267,7 +284,7 @@ class LLMClient:
             max_tokens = self.config.default_max_tokens
         
         # Make LLM request (NOT cached - intentional)
-        response = self._make_llm_request(messages, temperature, max_tokens)
+        response = self._make_llm_request(messages, temperature, max_tokens, force_json)
         
         # Save complete messages and response for troubleshooting
         self._save_interaction(ticker, messages, response, interaction_type)

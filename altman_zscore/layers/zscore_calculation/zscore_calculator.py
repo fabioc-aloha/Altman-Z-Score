@@ -600,20 +600,41 @@ class ZScoreCalculator:
         # Validate input data
         warnings = self._validate_calculation_data(corrected_data)
         
-        # Select appropriate model
+        # Select appropriate model with enhanced analysis
+        model_selection_result = None
         try:
             if forced_model:
                 # Use forced model if provided
                 model_name = forced_model
                 self.logger.info(f"Using forced model '{model_name}' for {data.ticker}")
             else:
-                # Use automatic model selection
-                model_selection = self.model_selector.select_model(corrected_data)
-                model_name = model_selection.model_name
-                self.logger.info(f"Selected {model_name} model for {data.ticker}")
+                # Use enhanced automatic model selection
+                model_selection_result = self.model_selector.select_model(corrected_data)
+                model_name = model_selection_result.model_name
+                
+                # Log enhanced selection details
+                self.logger.info(f"Enhanced model selection for {data.ticker}: {model_name} (confidence: {model_selection_result.confidence:.2f})")
+                
+                # Add model selection warnings to overall warnings
+                if model_selection_result.warnings:
+                    warnings.extend(model_selection_result.warnings)
+                
+                # Add data quality issues if any
+                if model_selection_result.data_quality_issues:
+                    warnings.extend([f"Data quality: {issue}" for issue in model_selection_result.data_quality_issues])
+                
+                # Log detailed reasoning for low-confidence selections
+                if model_selection_result.confidence < 0.6:
+                    self.logger.warning(f"Low confidence model selection for {data.ticker}:")
+                    for reason in model_selection_result.detailed_reasoning[-3:]:
+                        self.logger.warning(f"  {reason}")
+                
+                # Log industry classification if available
+                if model_selection_result.industry_classification.sector:
+                    self.logger.info(f"Industry classification for {data.ticker}: {model_selection_result.industry_classification.sector}/{model_selection_result.industry_classification.industry}")
             
         except Exception as e:
-            self.logger.warning(f"Model selection failed for {data.ticker}: {e}")
+            self.logger.warning(f"Enhanced model selection failed for {data.ticker}: {e}")
             model_name = "original"  # Default fallback
             warnings.append(f"Using default model due to selection error: {e}")
         
@@ -658,8 +679,18 @@ class ZScoreCalculator:
             result_metadata.update({
                 "calculation_method": "direct_from_merged_data",
                 "components_calculated": len(components),
-                "model_selection_confidence": getattr(model_selection, 'confidence', 0.8) if 'model_selection' in locals() else 0.8
+                "model_selection_confidence": getattr(model_selection_result, 'confidence', 0.8) if model_selection_result else 0.8
             })
+            
+            # Add enhanced model selection metadata if available
+            if model_selection_result:
+                result_metadata.update({
+                    "model_selection_rationale": model_selection_result.selection_rationale,
+                    "company_type": model_selection_result.company_type.value,
+                    "industry_sector": model_selection_result.industry_classification.sector,
+                    "industry_classification": model_selection_result.industry_classification.industry,
+                    "selection_method": "enhanced_multi_layer"
+                })
             
             result = ZScoreCalculationResult(
                 ticker=corrected_data.ticker,

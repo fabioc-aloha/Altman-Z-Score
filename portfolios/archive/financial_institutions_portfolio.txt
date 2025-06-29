@@ -1,0 +1,79 @@
+# ===============================================================================
+# FINANCIAL INSTITUTIONS MODEL PORTFOLIO
+# Special Models for Banks, Insurance, and Financial Services
+# ===============================================================================
+
+# PORTFOLIO SUMMARY
+# ===============================================================================
+# Models: Modified ratios for financial institutions
+# Ratios: Capital adequacy, Asset quality, Management quality, Earnings, Liquidity
+# Note: Traditional Z-Score not applicable - use CAMELS or similar frameworks
+# Alternative: Return on Assets, Equity/Assets, Non-performing loans ratios
+# Total Stocks: ~55
+# ===============================================================================
+
+# ===== US BANKS =====
+JPM
+BAC
+WFC
+GS
+BK
+C
+MS
+COF
+SCHW
+PNC
+STT
+
+# ===== US INSURANCE & FINANCIAL SERVICES =====
+AIG
+ALL
+AFL
+PGR
+HIG
+AMP
+MET
+
+# ===== US INVESTMENT MANAGEMENT =====
+BX
+APO
+AJG
+SSNC
+
+# ===== US PAYMENT PROCESSORS =====
+MA
+V
+AXP
+
+# ===== INTERNATIONAL BANKS =====
+
+# Europe
+ING
+BCS
+DB
+LLOY
+AXAHY
+BNPQY
+UNI
+SAN
+
+# Asia
+HDB
+IBN
+SMFG
+MFG
+MUFG
+0941.HK
+0388.HK
+
+# Latin America
+ITUB
+
+# Note: These companies require specialized financial metrics
+# - Net Interest Margin
+# - Return on Assets (ROA)  
+# - Return on Equity (ROE)
+# - Tier 1 Capital Ratio
+# - Non-Performing Loan Ratio
+# - Efficiency Ratio
+# - Book Value per Share

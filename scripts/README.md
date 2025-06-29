@@ -19,7 +19,6 @@ Scripts used for API exploration, debugging, and proof-of-concept development:
 Production utility scripts for building, testing, and maintenance:
 
 - `build_field_database.py` - Build field mapping database
-- `generate_readme_table.py` - Generate portfolio analysis table
 - `analyze_fmp_tiers.py` - Analyze FMP subscription tiers
 - `verify_improvements.py` - Verify system improvements
 - `run_tests.py` - Legacy test runner (replaced by root `run_organized_tests.py`)
@@ -34,8 +33,8 @@ python scripts/exploration/fmp_api_explorer.py
 python scripts/exploration/api_caching_demo.py
 
 # Utility scripts  
-python scripts/utilities/generate_readme_table.py
 python scripts/utilities/build_field_database.py
+python scripts/utilities/analyze_fmp_tiers.py
 ```
 
 ## Path Configuration

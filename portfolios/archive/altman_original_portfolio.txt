@@ -1,0 +1,96 @@
+# ===============================================================================
+# ALTMAN Z-SCORE MODEL PORTFOLIO
+# Original Altman Z-Score (1968) - Best for Manufacturing & Industrial Companies
+# ===============================================================================
+
+# PORTFOLIO SUMMARY
+# ===============================================================================
+# Model: Original Altman Z-Score (1968)
+# Formula: Z = 1.2A + 1.4B + 3.3C + 0.6D + 1.0E
+# Best For: Manufacturing, Industrial, Capital-Intensive Companies
+# Limitations: Not suitable for service companies, financial institutions, utilities
+# Total Stocks: ~95
+# ===============================================================================
+
+# ===== US MANUFACTURING & INDUSTRIAL =====
+CAT
+MMM
+GE
+TDG
+PH
+URI
+ETN
+IR
+GWW
+LHX
+APH
+CMI
+PCAR
+MLM
+
+# ===== US AEROSPACE & DEFENSE =====
+BA
+RTX
+LMT
+NOC
+GD
+
+# ===== US AUTOMOTIVE =====
+GM
+F
+
+# ===== US MATERIALS & CHEMICALS =====
+LIN
+APD
+ECL
+SHW
+FCX
+NUE
+VMC
+
+# ===== US ENERGY - TRADITIONAL =====
+MPC
+LNG
+
+# ===== US TRANSPORTATION - LOGISTICS =====
+FDX
+UPS
+
+# ===== US HEALTHCARE - MEDICAL DEVICES =====
+BSX
+ISRG
+SYK
+PODD
+
+# ===== INTERNATIONAL MANUFACTURING =====
+
+# Europe
+SIEGY
+BMWYY
+DDAIF
+BASFY
+VOLVY
+ERICB
+BAE
+
+# Asia - Manufacturing
+TM
+SONY
+HMC
+005930.KS
+000660.KS
+TSM
+UMC
+
+# Latin America - Industrial
+VALE
+SQM
+
+# Canada/Australia - Industrial
+BHP
+CSL
+CNQ
+ABX
+
+# Global Manufacturing
+RACE

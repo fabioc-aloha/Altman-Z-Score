@@ -12,12 +12,15 @@ Key Features:
 """
 
 from .csv_json_generator import CSVJSONGenerator
+from .dashboard_generator import DashboardGenerator
+# Maintain backward compatibility
 from .chart_generator import ChartGenerator  
 from .report_generator import ReportGenerator
 from .file_manager import FileManager
 
 __all__ = [
     'CSVJSONGenerator',
+    'DashboardGenerator',
     'ChartGenerator', 
     'ReportGenerator',
     'FileManager'

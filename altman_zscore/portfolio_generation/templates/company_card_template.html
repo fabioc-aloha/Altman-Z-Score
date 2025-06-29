@@ -1,0 +1,29 @@
+<div class="company-card">
+    <div class="company-header">
+        $logo_html
+        <div class="company-info">
+            <div class="company-name">$name</div>
+            <div class="ticker">$ticker</div>
+        </div>
+        <div class="rank">#$rank</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value $risk_class">$z_score</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">$risk_category</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-$rec_class">$recommendation</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/$ticker/${ticker}_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>

@@ -44,15 +44,17 @@ class ReportGenerator:
         self, 
         zscore_result: ZScoreCalculationResult,
         ai_insights: Optional[str] = None,
-        market_analysis = None
+        market_analysis = None,
+        ai_analysis = None
     ) -> str:
         """
-        Generate comprehensive HTML report enhanced with market analysis.
+        Generate comprehensive HTML report enhanced with market analysis and AI analysis.
         
         Args:
             zscore_result: Z-Score calculation result
             ai_insights: Optional AI-generated insights
             market_analysis: Optional market analysis results for enhanced insights
+            ai_analysis: Optional comprehensive AI analysis results
             
         Returns:
             str: Path to generated HTML report
@@ -62,8 +64,8 @@ class ReportGenerator:
             ticker_dir.mkdir(exist_ok=True)
             
             report_path = ticker_dir / f"{zscore_result.ticker}_comprehensive_report.html"
-              # Generate report content
-            html_content = self._generate_html_report(zscore_result, ai_insights, market_analysis, ticker_dir)
+            # Generate report content
+            html_content = self._generate_html_report(zscore_result, ai_insights, market_analysis, ticker_dir, ai_analysis)
             
             # Write HTML file
             with open(report_path, 'w', encoding='utf-8') as report_file:
@@ -77,13 +79,14 @@ class ReportGenerator:
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def generate_summary_report(self, zscore_result: ZScoreCalculationResult, market_analysis=None) -> str:
+    def generate_summary_report(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None) -> str:
         """
-        Generate concise text summary report enhanced with market analysis.
+        Generate concise text summary report enhanced with market analysis and AI analysis.
         
         Args:
             zscore_result: Z-Score calculation result
             market_analysis: Optional market analysis results for enhanced insights
+            ai_analysis: Optional comprehensive AI analysis results
             
         Returns:
             str: Path to generated text report
@@ -93,8 +96,8 @@ class ReportGenerator:
             ticker_dir.mkdir(exist_ok=True)
             
             summary_path = ticker_dir / f"{zscore_result.ticker}_summary.txt"
-              # Generate summary content
-            summary_content = self._generate_summary_content(zscore_result, market_analysis)
+            # Generate summary content
+            summary_content = self._generate_summary_content(zscore_result, market_analysis, ai_analysis)
             
             # Write text file
             with open(summary_path, 'w', encoding='utf-8') as summary_file:
@@ -113,9 +116,10 @@ class ReportGenerator:
         zscore_result: ZScoreCalculationResult,
         ai_insights: Optional[str] = None,
         market_analysis = None,
-        output_dir: Path = None
+        output_dir: Path = None,
+        ai_analysis = None
     ) -> str:
-        """Generate HTML report content enhanced with market analysis."""
+        """Generate HTML report content enhanced with market analysis and AI analysis."""
         
         # Load template from external file
         template_path = Path(__file__).parent / "templates" / "report_template.html"
@@ -145,11 +149,99 @@ class ReportGenerator:
             'calculation_date': self._format_calculation_date(zscore_result.calculation_timestamp),
             'component_values': self._format_component_values(zscore_result.component_values),
             'warnings': zscore_result.warnings,
-            'ai_insights': format_ai_insights_for_html(ai_insights),  # Convert markdown to HTML
+            'ai_insights': format_ai_insights_for_html(ai_insights),  # Convert markdown to HTML (legacy)
+            'ai_analysis': ai_analysis,  # Comprehensive AI analysis from orchestrator
+            'ai_analysis_html': format_ai_insights_for_html(ai_analysis.llm_final_commentary if ai_analysis and hasattr(ai_analysis, 'llm_final_commentary') else None),  # HTML-formatted comprehensive analysis
             'risk_class': risk_class,
             'generation_date': datetime.now().strftime("%B %d, %Y at %I:%M %p"),
             'market_analysis': market_analysis
         }
+        
+        # Add comprehensive AI analysis data if available
+        if ai_analysis:
+            # Data Quality Analysis - Extract comprehensive details
+            if hasattr(ai_analysis, 'data_quality') and ai_analysis.data_quality:
+                dq = ai_analysis.data_quality
+                template_data.update({
+                    'ai_data_quality_score': getattr(dq, 'overall_quality_score', 0),
+                    'ai_data_reliability': getattr(dq, 'reliability_rating', 'unknown'),
+                    'ai_data_anomalies': len(getattr(dq, 'anomalies_detected', [])),
+                    'ai_data_recommendation': getattr(dq, 'recommendation', 'No specific recommendation available.'),
+                    'ai_anomalies_list': getattr(dq, 'anomalies_detected', []),
+                    'ai_quality_issues': getattr(dq, 'quality_issues', [])
+                })
+            else:
+                template_data.update({
+                    'ai_data_quality_score': None,
+                    'ai_data_reliability': 'unknown',
+                    'ai_data_anomalies': 0,
+                    'ai_data_recommendation': None
+                })
+            
+            # Peer Analysis - Extract with industry context
+            if hasattr(ai_analysis, 'peer_analysis') and ai_analysis.peer_analysis:
+                peer = ai_analysis.peer_analysis
+                template_data.update({
+                    'ai_company_zscore': getattr(peer, 'company_zscore', None),
+                    'ai_industry_avg_zscore': getattr(peer, 'industry_average_zscore', None),
+                    'ai_peer_rank': getattr(peer, 'industry_rank_percentile', None),
+                    'ai_peer_reasoning': getattr(peer, 'reasoning', 'Peer analysis completed using AI-powered company similarity matching.'),
+                    'ai_identified_peers': getattr(peer, 'identified_peers', [])
+                })
+            else:
+                template_data.update({
+                    'ai_company_zscore': None,
+                    'ai_industry_avg_zscore': None,
+                    'ai_peer_rank': None,
+                    'ai_peer_reasoning': None
+                })
+            
+            # Sentiment Analysis - Extract with detailed insights
+            if hasattr(ai_analysis, 'sentiment_analysis') and ai_analysis.sentiment_analysis:
+                sentiment = ai_analysis.sentiment_analysis
+                template_data.update({
+                    'ai_sentiment_score': getattr(sentiment, 'overall_sentiment_score', 0),
+                    'ai_sentiment_trend': getattr(sentiment, 'sentiment_trend', 'stable'),
+                    'ai_sentiment_confidence': getattr(sentiment, 'confidence', 0.5),
+                    'ai_sentiment_summary': getattr(sentiment, 'summary', 'Market sentiment analysis completed.'),
+                    'ai_sentiment_divergence': getattr(sentiment, 'fundamental_sentiment_divergence', None)
+                })
+            else:
+                template_data.update({
+                    'ai_sentiment_score': None,
+                    'ai_sentiment_trend': 'stable',
+                    'ai_sentiment_confidence': None,
+                    'ai_sentiment_summary': None
+                })
+            
+            # Risk Analysis - Extract with comprehensive risk factors
+            if hasattr(ai_analysis, 'risk_analysis') and ai_analysis.risk_analysis:
+                risk = ai_analysis.risk_analysis
+                template_data.update({
+                    'ai_risk_score': getattr(risk, 'overall_risk_score', 0.5),
+                    'ai_risk_level': getattr(risk, 'risk_level', 'moderate'),
+                    'ai_risk_factors': getattr(risk, 'key_risk_factors', []),
+                    'ai_risk_trajectory': getattr(risk, 'risk_trajectory', 'stable'),
+                    'ai_risk_mitigation': getattr(risk, 'risk_mitigation_suggestions', [])
+                })
+            else:
+                template_data.update({
+                    'ai_risk_score': 0.5,
+                    'ai_risk_level': 'moderate',
+                    'ai_risk_factors': [],
+                    'ai_risk_trajectory': 'stable'
+                })
+            
+            # Overall AI Metrics and Enhanced Insights
+            template_data.update({
+                'ai_overall_confidence': getattr(ai_analysis, 'overall_ai_confidence', 0),
+                'ai_recommendations': getattr(ai_analysis, 'ai_recommendations', []),
+                'ai_recommendations_count': len(getattr(ai_analysis, 'ai_recommendations', [])),
+                'ai_analysis_timestamp': getattr(ai_analysis, 'analysis_timestamp', None),
+                'ai_executive_summary': self._extract_executive_summary(ai_analysis),
+                'ai_key_insights': self._extract_key_insights(ai_analysis),
+                'ai_investment_thesis': self._extract_investment_thesis(ai_analysis)
+            })
         
         # Add market analysis data if available
         if market_analysis:
@@ -189,7 +281,7 @@ class ReportGenerator:
         # Render template
         return template.render(template_data)
     
-    def _generate_summary_content(self, zscore_result: ZScoreCalculationResult, market_analysis=None) -> str:
+    def _generate_summary_content(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None) -> str:
         """Generate text summary content."""
         content = []
         content.append(f"=== ALTMAN Z-SCORE ANALYSIS SUMMARY ===")
@@ -231,6 +323,18 @@ class ReportGenerator:
                 content.append(f"  Action: {self._format_investment_rating(rec.investment_rating)}")
                 content.append(f"  Confidence: {rec.confidence_level * 100:.1f}%")
                 content.append("")
+        
+        # AI Analysis Summary (if available)
+        if ai_analysis and hasattr(ai_analysis, 'llm_final_commentary') and ai_analysis.llm_final_commentary:
+            content.append("AI-POWERED ANALYSIS SUMMARY:")
+            # Extract first few lines of AI analysis for summary
+            ai_lines = ai_analysis.llm_final_commentary.split('\n')[:10]
+            for line in ai_lines:
+                if line.strip():
+                    content.append(f"  {line.strip()}")
+            if len(ai_analysis.llm_final_commentary.split('\n')) > 10:
+                content.append("  [Full analysis available in comprehensive report]")
+            content.append("")
         
         # Warnings
         if zscore_result.warnings:
@@ -445,3 +549,133 @@ class ReportGenerator:
         except Exception as e:
             logger.warning(f"Could not parse calculation date {calculation_timestamp}: {e}")
             return calculation_timestamp
+        
+    def _extract_executive_summary(self, ai_analysis) -> Optional[str]:
+        """Extract executive summary from AI analysis commentary."""
+        try:
+            if not ai_analysis or not hasattr(ai_analysis, 'llm_final_commentary'):
+                return None
+            
+            commentary = ai_analysis.llm_final_commentary
+            if not commentary:
+                return None
+            
+            # Look for executive summary section
+            lines = commentary.split('\n')
+            summary_lines = []
+            capture = False
+            
+            for line in lines:
+                line = line.strip()
+                if 'executive summary' in line.lower():
+                    capture = True
+                    continue
+                elif line.startswith('#') and capture:
+                    break
+                elif capture and line and not line.startswith('---'):
+                    summary_lines.append(line)
+                    if len(summary_lines) >= 5:  # Limit to first 5 paragraphs
+                        break
+            
+            if summary_lines:
+                return ' '.join(summary_lines)
+            
+            # Fallback: extract first meaningful paragraph
+            for line in lines:
+                line = line.strip()
+                if len(line) > 100 and not line.startswith('#') and not line.startswith('---'):
+                    return line[:500] + "..." if len(line) > 500 else line
+            
+            return None
+            
+        except Exception as e:
+            logger.warning(f"Failed to extract executive summary: {e}")
+            return None
+    
+    def _extract_key_insights(self, ai_analysis) -> List[str]:
+        """Extract key insights from AI analysis."""
+        try:
+            if not ai_analysis or not hasattr(ai_analysis, 'llm_final_commentary'):
+                return []
+            
+            commentary = ai_analysis.llm_final_commentary
+            if not commentary:
+                return []
+            
+            insights = []
+            
+            # Extract from AI recommendations
+            if hasattr(ai_analysis, 'ai_recommendations'):
+                recommendations = getattr(ai_analysis, 'ai_recommendations', [])
+                insights.extend(recommendations[:3])  # Top 3 recommendations
+            
+            # Extract key points from commentary
+            lines = commentary.split('\n')
+            for line in lines:
+                line = line.strip()
+                # Look for bullet points or numbered insights
+                if (line.startswith('- ') or line.startswith('• ') or 
+                    line.startswith('*') or line.startswith('Key')):
+                    clean_line = line.lstrip('- •*').strip()
+                    if len(clean_line) > 20 and len(clean_line) < 200:
+                        insights.append(clean_line)
+                        if len(insights) >= 5:
+                            break
+            
+            return insights[:5]  # Limit to top 5 insights
+            
+        except Exception as e:
+            logger.warning(f"Failed to extract key insights: {e}")
+            return []
+    
+    def _extract_investment_thesis(self, ai_analysis) -> Optional[str]:
+        """Extract investment thesis from AI analysis."""
+        try:
+            if not ai_analysis or not hasattr(ai_analysis, 'llm_final_commentary'):
+                return None
+            
+            commentary = ai_analysis.llm_final_commentary
+            if not commentary:
+                return None
+            
+            # Look for investment thesis section
+            lines = commentary.split('\n')
+            thesis_lines = []
+            capture = False
+            
+            for line in lines:
+                line = line.strip()
+                if any(keyword in line.lower() for keyword in ['investment thesis', 'recommendation', 'investment stance']):
+                    capture = True
+                    if ':' in line:
+                        thesis_lines.append(line.split(':', 1)[1].strip())
+                    continue
+                elif line.startswith('#') and capture:
+                    break
+                elif capture and line and not line.startswith('---'):
+                    thesis_lines.append(line)
+                    if len(thesis_lines) >= 3:  # Limit to 3 sentences
+                        break
+            
+            if thesis_lines:
+                return ' '.join(thesis_lines)
+            
+            # Fallback: look for conclusion or summary
+            for i, line in enumerate(lines):
+                line = line.strip()
+                if any(keyword in line.lower() for keyword in ['conclusion', 'overall', 'based on']):
+                    # Take this line and next few lines
+                    thesis_lines = [line]
+                    for j in range(i+1, min(i+3, len(lines))):
+                        next_line = lines[j].strip()
+                        if next_line and not next_line.startswith('#'):
+                            thesis_lines.append(next_line)
+                        else:
+                            break
+                    return ' '.join(thesis_lines)
+            
+            return None
+            
+        except Exception as e:
+            logger.warning(f"Failed to extract investment thesis: {e}")
+            return None

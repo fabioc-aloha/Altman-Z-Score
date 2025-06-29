@@ -1,0 +1,102 @@
+# ===============================================================================
+# ALTMAN Z'-SCORE MODEL PORTFOLIO
+# Modified Altman Z'-Score (1983) - Best for Private & Non-Manufacturing Companies
+# ===============================================================================
+
+# PORTFOLIO SUMMARY
+# ===============================================================================
+# Model: Altman Z'-Score (1983)
+# Formula: Z' = 0.717A + 0.847B + 3.107C + 0.420D + 0.998E
+# Best For: Private companies, Non-manufacturing, Service companies
+# Replaces: Market value of equity with book value (ratio D)
+# Total Stocks: ~85
+# ===============================================================================
+
+# ===== US TECHNOLOGY - SERVICES =====
+ORCL
+CRM
+NOW
+PANW
+INTU
+WDAY
+PLTR
+CRWD
+DELL
+OKTA
+HUBS
+NICE
+
+# ===== US HEALTHCARE - SERVICES & BIOTECH =====
+UNH
+TMO
+GILD
+VRTX
+
+# ===== US CONSUMER SERVICES =====
+SBUX
+DIS
+BKNG
+RCL
+
+# ===== US RETAIL =====
+HD
+TGT
+LOW
+TJX
+ORLY
+AZO
+
+# ===== US REAL ESTATE & SERVICES =====
+CBRE
+FAST
+CPAY
+CPRT
+COR
+EFX
+SPGI
+GRMN
+LENB
+
+# ===== US ENERGY - SERVICES =====
+CEG
+GEV
+
+# ===== INTERNATIONAL SERVICES =====
+
+# Europe - Services
+SAP
+LVMUY
+LRLCY
+DANOY
+LSEG
+ASML
+
+# Asia - Services
+BABA
+JD
+PDD
+BIDU
+BILI
+TCEHY
+NTES
+TME
+DIDI
+SE
+GRAB
+INFY
+WIT
+
+# Middle East - Services
+CHKP
+WIX
+MNDY
+ZIM
+
+# Latin America - Services
+AMX
+FMX
+
+# Global Services
+E
+SPOT
+ARM

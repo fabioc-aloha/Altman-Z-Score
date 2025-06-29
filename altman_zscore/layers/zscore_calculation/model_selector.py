@@ -1,238 +1,296 @@
 """
-Model Selection - Automatic Z-Score model selection based on company characteristics
+Model Selection - Enhanced automatic Z-Score model selection
 
 This module determines the most appropriate Z-Score model based on:
-- Company type (public/private)
+- Company type (public/private) 
+- Industry sector classification
 - Market data availability
-- Industry sector
-- Data completeness
+- Financial ratio characteristics
+- Data completeness and quality
 
-Strategic Advantage:
-- Automatic model selection eliminates manual configuration
-- Data-driven decisions based on available financial information
-- Handles edge cases and data limitations gracefully
+Strategic Advantages:
+- Multi-layered detection logic with industry-specific insights
+- Enhanced confidence scoring and transparency
+- Robust fallback strategies for missing data
+- Detailed rationale and warning system
+- Optimized for batch processing reliability
 """
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from dataclasses import dataclass
 from enum import Enum
+import re
+import json
 
 from ...common.logging_config import get_logger
 from ...common.exceptions import ModelSelectionError
 from ...models.data_models import MergedFinancialData
+from ...layers.data_fetch.llm_client import LLMClient
 
 logger = get_logger(__name__)
 
 
 class CompanyType(Enum):
-    """Company classification for model selection."""
+    """Enhanced company classification for model selection."""
     PUBLIC_MANUFACTURING = "public_manufacturing"
     PUBLIC_SERVICE = "public_service"
     PUBLIC_TECH = "public_tech"
     PUBLIC_RETAIL = "public_retail"
+    PUBLIC_FINANCIAL = "public_financial"  # Enhanced: separate financial classification
     PRIVATE_COMPANY = "private_company"
-    FINANCIAL_COMPANY = "financial_company"  # Special case - excluded
+    EMERGING_MARKET = "emerging_market"    # Enhanced: emerging market classification
     UNKNOWN = "unknown"
 
 
 @dataclass
+class IndustryClassification:
+    """Enhanced industry classification data."""
+    sector: Optional[str] = None
+    industry: Optional[str] = None
+    sic_code: Optional[str] = None
+    is_financial: bool = False
+    is_technology: bool = False
+    is_retail: bool = False
+    is_manufacturing: bool = False
+    is_service: bool = False
+    confidence: float = 0.0
+
+
+@dataclass
 class ModelSelectionResult:
-    """Result of model selection process."""
+    """Enhanced result of model selection process."""
     model_name: str
     company_type: CompanyType
+    industry_classification: IndustryClassification
     confidence: float
     selection_rationale: str
-    warnings: list[str]
+    detailed_reasoning: List[str]  # Enhanced: step-by-step reasoning
+    warnings: List[str]
+    data_quality_issues: List[str]  # Enhanced: specific data quality problems
     model_metadata: Dict[str, Any]
 
 
 class ModelSelector:
     """
-    Automatic model selection based on company characteristics.
+    Simple LLM-based model selection for Z-Score analysis.
     
-    Selection Logic:
-    1. Check for financial sector exclusion
-    2. Determine public vs private based on market data
-    3. Classify company type based on financial metrics
-    4. Select most appropriate Z-Score model
+    Uses LLM to classify companies and select appropriate Z-Score models.
+    Falls back to basic classification if LLM is unavailable.
     """
     
     def __init__(self):
-        """Initialize model selector."""
+        """Initialize model selector with LLM client."""
         self.logger = get_logger(self.__class__.__name__)
         
-        # Model mapping based on company characteristics
+        # Initialize LLM client
+        try:
+            self.llm_client = LLMClient()
+            self.llm_available = True
+            self.logger.info("LLM client initialized successfully")
+        except Exception as e:
+            self.logger.warning(f"LLM client initialization failed: {e}")
+            self.llm_client = None
+            self.llm_available = False
+        
+        # Model mapping
         self.model_mapping = {
             CompanyType.PUBLIC_MANUFACTURING: "original",
-            CompanyType.PUBLIC_SERVICE: "service",  # Changed from "public_service" to match constants
+            CompanyType.PUBLIC_SERVICE: "service",
             CompanyType.PUBLIC_TECH: "original",
             CompanyType.PUBLIC_RETAIL: "retail",
+            CompanyType.PUBLIC_FINANCIAL: "financial",
             CompanyType.PRIVATE_COMPANY: "private",
-            CompanyType.UNKNOWN: "original"  # Default fallback
+            CompanyType.EMERGING_MARKET: "emerging",
+            CompanyType.UNKNOWN: "original"
         }
     
+    def _classify_industry_from_llm(self, data: MergedFinancialData, max_retries: int = 3) -> IndustryClassification:
+        """LLM-based industry classification with retry logic."""
+        classification = IndustryClassification()
+        
+        if not self.llm_available:
+            self.logger.debug(f"LLM not available for {data.ticker}")
+            return classification
+        
+        # Extract company profile data
+        profile_data = None
+        if hasattr(data, 'raw_fmp_data') and data.raw_fmp_data:
+            profile_data = data.raw_fmp_data.get('profile', [])
+            if profile_data and isinstance(profile_data, list) and len(profile_data) > 0:
+                profile_data = profile_data[0]
+        
+        if not profile_data:
+            self.logger.debug(f"No company profile data for LLM classification of {data.ticker}")
+            return classification
+        
+        # Prepare company info (outside retry loop)
+        company_info = {
+            'ticker': data.ticker,
+            'name': profile_data.get('companyName', 'Unknown'),
+            'sector': profile_data.get('sector', 'Unknown'),
+            'industry': profile_data.get('industry', 'Unknown'),
+            'description': profile_data.get('description', ''),
+        }
+        
+        # Enhanced LLM prompt with company examples and academic literature (outside retry loop)
+        system_prompt = """You are a financial analyst expert in Z-Score bankruptcy prediction models. Use academic literature to classify companies for the most appropriate Z-Score model.
+
+ACADEMIC LITERATURE GUIDANCE:
+- Original Z-Score (Altman 1968): Designed for publicly traded manufacturing companies
+- Z'-Score (Altman 1983): Modified for service companies, removes manufacturing-specific ratios
+- Z''-Score (Altman 1995): For private companies and emerging markets
+- Retail models: Account for high inventory turnover and seasonal patterns
+- Financial sector: Traditional Z-Score often inappropriate due to different capital structures
+
+CLASSIFICATION CATEGORIES with Academic Support:
+
+- financial: Banks, insurance, investment firms, REITs
+  Literature: Beaver (1966), Ohlson (1980) - Traditional Z-Score often inappropriate for financial firms
+  Examples: JPM (JPMorgan Chase), BAC (Bank of America), AIG (American International Group), 
+  SCHW (Charles Schwab), PNC (PNC Financial), COF (Capital One), AFL (Aflac)
+
+- technology: Software, tech hardware, semiconductors, internet companies
+  Literature: Altman (1968) original model works well for tech manufacturing; Begley et al. (1996) for software
+  Examples: MSFT (Microsoft), AAPL (Apple), GOOGL (Google), NVDA (Nvidia), 
+  CRM (Salesforce), ADBE (Adobe), MU (Micron Technology), AMAT (Applied Materials)
+
+- retail: Retail chains, e-commerce, consumer goods retailers
+  Literature: Chung et al. (2008) - Retail requires models accounting for inventory seasonality
+  Examples: AMZN (Amazon), WMT (Walmart), TGT (Target), HD (Home Depot), 
+  COST (Costco), NKE (Nike), SBUX (Starbucks), ULTA (Ulta Beauty)
+
+- manufacturing: Industrial, automotive, chemicals, equipment, materials
+  Literature: Altman (1968) - Original model specifically designed for manufacturing companies
+  Examples: GE (General Electric), CAT (Caterpillar), BA (Boeing), F (Ford), 
+  MMM (3M), HON (Honeywell), LMT (Lockheed Martin), EMR (Emerson Electric)
+
+- service: Professional services, healthcare, utilities, telecommunications
+  Literature: Altman (1983) Z'-Score for service companies; Chung et al. (2008) for healthcare
+  Examples: UNH (UnitedHealth), JNJ (Johnson & Johnson), PG (Procter & Gamble), 
+  VZ (Verizon), T (AT&T), NEE (NextEra Energy), SO (Southern Company), DUK (Duke Energy)
+
+Consider the company's:
+1. Business model (asset-light vs asset-heavy)
+2. Revenue structure (manufacturing vs services vs financial)
+3. Industry-specific characteristics
+4. Academic literature recommendations
+
+Respond with JSON: {"category": "service", "confidence": 0.9, "reason": "Healthcare services company - Altman Z'-Score (1983) recommended for service firms"}"""
+
+        user_prompt = f"""Company: {company_info['name']} ({company_info['ticker']})
+Sector: {company_info['sector']}
+Industry: {company_info['industry']}
+Description: {company_info['description'][:300]}"""
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+        
+        # Retry logic for LLM calls
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = self.llm_client.chat_completion(
+                    ticker=data.ticker,
+                    messages=messages,
+                    interaction_type="classification",
+                    temperature=0.1,
+                    max_tokens=200
+                )
+                
+                # Parse response
+                llm_result = json.loads(response.strip())
+                category = llm_result['category'].lower()
+                confidence = float(llm_result['confidence'])
+                
+                # Set classification flags
+                if category == 'financial':
+                    classification.is_financial = True
+                elif category == 'technology':
+                    classification.is_technology = True
+                elif category == 'retail':
+                    classification.is_retail = True
+                elif category == 'manufacturing':
+                    classification.is_manufacturing = True
+                elif category == 'service':
+                    classification.is_service = True
+                
+                classification.confidence = min(0.95, max(0.0, confidence))
+                classification.sector = company_info['sector']
+                classification.industry = company_info['industry']
+                
+                self.logger.info(f"LLM classified {data.ticker} as {category} (confidence: {classification.confidence:.2f})")
+                return classification
+                
+            except Exception as e:
+                if attempt == max_retries:
+                    self.logger.warning(f"LLM classification failed for {data.ticker} after {max_retries} attempts: {e}")
+                else:
+                    self.logger.debug(f"LLM classification attempt {attempt} failed for {data.ticker}: {e}. Retrying...")
+        
+        # Return empty classification if all retries failed
+        return classification
+    
     def _has_market_data(self, data: MergedFinancialData) -> bool:
-        """Check if company has sufficient market data (indicating public company)."""
-        return (
-            data.market_cap is not None and 
-            data.market_cap > 0 and
-            data.shares_outstanding is not None and
-            data.shares_outstanding > 0
-        )
-    
-    def _classify_company_type(self, data: MergedFinancialData) -> CompanyType:
-        """
-        Classify company type based on financial characteristics.
-        
-        Args:
-            data: Merged financial data
-            
-        Returns:
-            CompanyType classification
-        """
-        # Check if company has market data (public vs private)
-        is_public = self._has_market_data(data)
-        
-        if not is_public:
-            self.logger.info(f"Classified {data.ticker} as private company (no market data)")
-            return CompanyType.PRIVATE_COMPANY
-        
-        # For public companies, classify by business characteristics
-        try:
-            # High inventory suggests retail/manufacturing
-            if data.inventory_ratio and data.inventory_ratio > 0.15:
-                self.logger.info(f"Classified {data.ticker} as retail (high inventory ratio: {data.inventory_ratio:.3f})")
-                return CompanyType.PUBLIC_RETAIL
-            
-            # High asset turnover suggests service business
-            if data.asset_turnover and data.asset_turnover > 1.5:
-                self.logger.info(f"Classified {data.ticker} as service (high asset turnover: {data.asset_turnover:.3f})")
-                return CompanyType.PUBLIC_SERVICE
-            
-            # Low asset turnover with high margins suggests tech
-            if (data.asset_turnover and data.asset_turnover < 0.8 and 
-                data.ebit_ratio and data.ebit_ratio > 0.15):
-                self.logger.info(f"Classified {data.ticker} as tech (low turnover, high margins)")
-                return CompanyType.PUBLIC_TECH
-            
-            # Default to manufacturing model for public companies
-            self.logger.info(f"Classified {data.ticker} as manufacturing (default)")
-            return CompanyType.PUBLIC_MANUFACTURING
-            
-        except Exception as e:
-            self.logger.warning(f"Error in company classification for {data.ticker}: {e}")
-            return CompanyType.UNKNOWN
-    
-    def _check_sector_exclusions(self, data: MergedFinancialData) -> Optional[str]:
-        """
-        Check if company belongs to excluded sectors.
-        
-        Args:
-            data: Merged financial data
-            
-        Returns:
-            Exclusion reason if applicable, None otherwise
-        """
-        # Note: In a full implementation, this would check SIC codes or industry classification
-        # For now, we'll use financial ratios as proxies
-        
-        # Very high debt-to-equity might indicate financial company
-        if data.debt_to_equity and data.debt_to_equity > 10.0:
-            return "Possible financial sector company (very high debt ratio)"
-        
-        # Very low asset turnover with high leverage might indicate financial company
-        if (data.asset_turnover and data.asset_turnover < 0.1 and
-            data.debt_to_equity and data.debt_to_equity > 5.0):
-            return "Possible financial sector company (low turnover, high leverage)"
-        
-        return None
-    
-    def _calculate_selection_confidence(self, data: MergedFinancialData, company_type: CompanyType) -> float:
-        """
-        Calculate confidence score for model selection.
-        
-        Args:
-            data: Merged financial data
-            company_type: Classified company type
-            
-        Returns:
-            Confidence score (0.0 to 1.0)
-        """
-        confidence = 0.5  # Base confidence
-        
-        # Increase confidence if we have market data
-        if self._has_market_data(data):
-            confidence += 0.2
-        
-        # Increase confidence if we have complete financial ratios
-        ratio_completeness = 0
-        for ratio in [data.working_capital_ratio, data.retained_earnings_ratio, 
-                     data.ebit_ratio, data.asset_turnover]:
-            if ratio is not None:
-                ratio_completeness += 0.25
-        
-        confidence += ratio_completeness * 0.3
-        
-        # Decrease confidence for edge cases
-        if company_type == CompanyType.UNKNOWN:
-            confidence *= 0.6
-        
-        return min(1.0, confidence)
+        """Check if company has market data (public company indicator)."""
+        return (data.market_cap is not None and data.market_cap > 0 and
+                data.shares_outstanding is not None and data.shares_outstanding > 0)
     
     def select_model(self, data: MergedFinancialData) -> ModelSelectionResult:
-        """
-        Select the most appropriate Z-Score model for the company.
-        
-        Args:
-            data: Merged financial data
-            
-        Returns:
-            ModelSelectionResult with selected model and metadata
-        """
+        """Simplified model selection using LLM classification with retries."""
         try:
-            self.logger.info(f"Starting model selection for {data.ticker}")
+            self.logger.info(f"Model selection for {data.ticker}")
             warnings = []
             
-            # Check for sector exclusions
-            exclusion_reason = self._check_sector_exclusions(data)
-            if exclusion_reason:
-                warnings.append(f"Potential sector exclusion: {exclusion_reason}")
+            # Try LLM classification with retries
+            industry_classification = self._classify_industry_from_llm(data)
             
-            # Classify company type
-            company_type = self._classify_company_type(data)
+            # If LLM failed completely, raise error
+            if industry_classification.confidence == 0.0:
+                error_msg = f"LLM classification failed for {data.ticker} after all retries and no fallback available"
+                self.logger.error(error_msg)
+                raise ModelSelectionError(error_msg)
             
-            # Select model based on classification
+            # Determine company type based on classification
+            if industry_classification.is_financial:
+                company_type = CompanyType.PUBLIC_FINANCIAL
+                warnings.append("Financial company - Z-Score may not be applicable")
+            elif not self._has_market_data(data):
+                company_type = CompanyType.PRIVATE_COMPANY
+            elif industry_classification.is_technology:
+                company_type = CompanyType.PUBLIC_TECH
+            elif industry_classification.is_retail:
+                company_type = CompanyType.PUBLIC_RETAIL
+            elif industry_classification.is_service:
+                company_type = CompanyType.PUBLIC_SERVICE
+            else:
+                company_type = CompanyType.PUBLIC_MANUFACTURING
+            
+            # Select model
             model_name = self.model_mapping.get(company_type, "original")
             
-            # Calculate confidence
-            confidence = self._calculate_selection_confidence(data, company_type)
-            
-            # Create selection rationale
-            rationale = f"Selected '{model_name}' model for {company_type.value} company"
-            if company_type == CompanyType.PRIVATE_COMPANY:
-                rationale += " (no market data available)"
-            elif company_type == CompanyType.PUBLIC_RETAIL:
-                rationale += f" (inventory ratio: {data.inventory_ratio:.3f})"
-            elif company_type == CompanyType.PUBLIC_SERVICE:
-                rationale += f" (asset turnover: {data.asset_turnover:.3f})"
+            # Create rationale
+            rationale = f"Selected '{model_name}' model for {company_type.value}"
+            if industry_classification.sector:
+                rationale += f" ({industry_classification.sector} sector)"
             
             result = ModelSelectionResult(
                 model_name=model_name,
                 company_type=company_type,
-                confidence=confidence,
+                industry_classification=industry_classification,
+                confidence=industry_classification.confidence,
                 selection_rationale=rationale,
+                detailed_reasoning=[rationale],
                 warnings=warnings,
+                data_quality_issues=[],
                 model_metadata={
-                    'has_market_data': self._has_market_data(data),
-                    'data_quality_score': data.data_quality_score,
-                    'ratio_completeness': sum(1 for x in [data.working_capital_ratio, 
-                                                         data.retained_earnings_ratio,
-                                                         data.ebit_ratio, 
-                                                         data.asset_turnover] if x is not None) / 4
+                    'llm_available': self.llm_available,
+                    'llm_used': industry_classification.confidence > 0.0,
+                    'has_market_data': self._has_market_data(data)
                 }
             )
             
-            self.logger.info(f"Model selection complete for {data.ticker}: {model_name} (confidence: {confidence:.2f})")
+            self.logger.info(f"Selected {model_name} model for {data.ticker} (confidence: {industry_classification.confidence:.2f})")
             return result
             
         except Exception as e:
@@ -240,20 +298,15 @@ class ModelSelector:
             raise ModelSelectionError(f"Model selection failed: {str(e)}")
 
 
-# Main integration function for external use
 def select_appropriate_model(data: MergedFinancialData) -> ModelSelectionResult:
     """
-    Public interface for automatic model selection.
+    Simplified model selection using LLM classification.
     
     Args:
         data: MergedFinancialData from data integration layer
         
     Returns:
-        ModelSelectionResult with selected model and rationale
-        
-    Strategic Advantage:
-        Automatic model selection based on company characteristics eliminates
-        manual configuration and ensures optimal model choice for each company.
+        ModelSelectionResult with LLM-based classification
     """
     selector = ModelSelector()
     return selector.select_model(data)

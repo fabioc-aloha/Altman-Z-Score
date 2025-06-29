@@ -217,7 +217,8 @@ class DataMerger:
                 raw_ratios={
                     'ratios': latest_ratios,
                     'income_statement': latest_income,
-                    'balance_sheet': latest_balance
+                    'balance_sheet': latest_balance,
+                    'profile': company_profile  # Include profile for enhanced model selection
                 }
             )
             
@@ -317,7 +318,8 @@ class DataMerger:
                         'income_statement': income_stmt,
                         'balance_sheet': balance_sheet,
                         'period_ending': period_date,
-                        'market_value_equity_to_total_liabilities': market_value_equity_ratio
+                        'market_value_equity_to_total_liabilities': market_value_equity_ratio,
+                        'profile': company_profile  # Include profile for enhanced model selection
                     }
                 )
                 

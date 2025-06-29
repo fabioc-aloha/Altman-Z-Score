@@ -16,7 +16,11 @@ logger = logging.getLogger(__name__)
 
 # Current directory where the script is running
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-HTML_OUTPUT = os.path.join(BASE_DIR, "index.html")
+WEB_DIR = os.path.join(BASE_DIR, "web")
+HTML_OUTPUT = os.path.join(WEB_DIR, "index.html")
+
+# Ensure web directory exists
+os.makedirs(WEB_DIR, exist_ok=True)
 
 def get_dashboard_stats():
     """
@@ -84,7 +88,7 @@ def get_dashboard_stats():
     available_dashboards = []
     
     for filename, info in dashboards.items():
-        filepath = os.path.join(BASE_DIR, filename)
+        filepath = os.path.join(WEB_DIR, filename)
         if os.path.exists(filepath):
             # Try to extract company count from the file
             company_count = 0
