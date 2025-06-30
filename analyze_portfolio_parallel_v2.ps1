@@ -56,24 +56,16 @@
     Display comprehensive help information and usage examples.
 
 .EXAMPLE
-    .\analyze_portfolio_parallel.ps1 -Tickers @("AAPL", "MSFT", "GOOGL")
+    .\analyze_portfolio_parallel_v2.ps1 -Tickers @("AAPL", "MSFT", "GOOGL")
     Analyzes specific tickers in parallel.
 
 .EXAMPLE
-    .\analyze_portfolio_parallel.ps1 -PortfolioFile "portfolios\technology_portfolio.txt" -MaxThreads 8
+    .\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios\technology_portfolio.txt" -MaxThreads 8
     Analyzes portfolio file using 8 parallel threads.
 
 .EXAMPLE
-    .\analyze_portfolio_parallel.ps1 -Sector technology -BatchSize 10 -Quarters 12
+    .\analyze_portfolio_parallel_v2.ps1 -Sector technology -BatchSize 10 -Quarters 12
     Analyzes technology sector with larger batches and extended history.
-
-.EXAMPLE
-    .\analyze_portfolio_parallel.ps1 -PortfolioFile "portfolios\comprehensive_model_portfolio_cleaned.txt" -MaxThreads 16 -DryRun
-    Shows what would be processed for the cleaned comprehensive portfolio.
-
-.EXAMPLE
-    .\analyze_portfolio_parallel.ps1 -Help
-    Displays comprehensive help information with detailed usage examples and troubleshooting tips.
 #>
 
 #Requires -Version 5.1
@@ -553,11 +545,11 @@ function Start-ParallelAnalysis {
                         if (-not $completed) {
                             $process.Kill()
                             [void]$results.Add(@{
-                                    Ticker   = $ticker
-                                    Success  = $false
-                                    Duration = $duration
-                                    Error    = "Timeout after $($Params.Timeout) minutes"
-                                })
+                                Ticker   = $ticker
+                                Success  = $false
+                                Duration = $duration
+                                Error    = "Timeout after $($Params.Timeout) minutes"
+                            })
                             continue
                         }
                         
@@ -567,19 +559,19 @@ function Start-ParallelAnalysis {
                         $exitCode = $process.ExitCode
                         
                         [void]$results.Add(@{
-                                Ticker   = $ticker
-                                Success  = ($exitCode -eq 0)
-                                Duration = $duration
-                                Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
-                            })
+                            Ticker   = $ticker
+                            Success  = ($exitCode -eq 0)
+                            Duration = $duration
+                            Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
+                        })
                     }
                     catch {
                         [void]$results.Add(@{
-                                Ticker   = $ticker
-                                Success  = $false
-                                Duration = 0
-                                Error    = $_.Exception.Message
-                            })
+                            Ticker   = $ticker
+                            Success  = $false
+                            Duration = 0
+                            Error    = $_.Exception.Message
+                        })
                     }
                 }
                 
@@ -634,7 +626,7 @@ OVERVIEW:
     supporting large-scale processing with multi-threading for optimal performance.
 
 BASIC USAGE:
-    .\analyze_portfolio_parallel.ps1 [PARAMETERS]
+    .\analyze_portfolio_parallel_v2.ps1 [PARAMETERS]
 
 PARAMETERS:
     -Tickers <string[]>         Individual ticker symbols to analyze
@@ -672,79 +664,19 @@ PARAMETERS:
 COMMON USAGE EXAMPLES:
 
     1. ANALYZE SPECIFIC TICKERS:
-       .\analyze_portfolio_parallel.ps1 -Tickers @("AAPL", "MSFT", "GOOGL", "AMZN")
+       .\analyze_portfolio_parallel_v2.ps1 -Tickers @("AAPL", "MSFT", "GOOGL", "AMZN")
 
     2. ANALYZE PORTFOLIO FILE:
-       .\analyze_portfolio_parallel.ps1 -PortfolioFile "portfolios\comprehensive_model_portfolio_cleaned.txt"
+       .\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios\comprehensive_model_portfolio_cleaned.txt"
 
     3. ANALYZE SECTOR WITH CUSTOM SETTINGS:
-       .\analyze_portfolio_parallel.ps1 -Sector technology -MaxThreads 16 -BatchSize 10 -Quarters 12
+       .\analyze_portfolio_parallel_v2.ps1 -Sector technology -MaxThreads 16 -BatchSize 10 -Quarters 12
 
     4. DRY RUN (PREVIEW ONLY):
-       .\analyze_portfolio_parallel.ps1 -PortfolioFile "portfolios\large_portfolio.txt" -DryRun
+       .\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios\large_portfolio.txt" -DryRun
 
     5. HIGH-PERFORMANCE ANALYSIS:
-       .\analyze_portfolio_parallel.ps1 -PortfolioFile "portfolios\comprehensive_model_portfolio_cleaned.txt" -MaxThreads 32 -BatchSize 15 -Timeout 20
-
-    6. DETAILED LOGGING AND DEBUGGING:
-       .\analyze_portfolio_parallel.ps1 -Tickers @("AAPL", "TSLA") -LogLevel DEBUG -Verbose
-
-    7. CLEAR CACHE AND FRESH ANALYSIS:
-       .\analyze_portfolio_parallel.ps1 -Sector financial -ClearCache -ShowProgress
-
-PORTFOLIO FILE FORMAT:
-    • One ticker symbol per line
-    • Lines starting with # are treated as comments
-    • Empty lines are ignored
-    • Supports both US (AAPL) and international formats (123456.HK)
-    
-    Example portfolio file:
-    # Technology Portfolio
-    AAPL
-    MSFT
-    GOOGL
-    # Cloud providers
-    AMZN
-    CRM
-
-PERFORMANCE TIPS:
-    • Use -MaxThreads based on your CPU cores (check with: Get-ComputerInfo)
-    • Increase -BatchSize for better throughput on fast systems
-    • Use -Timeout appropriately for slow networks or complex analyses
-    • Monitor system resources during large portfolio processing
-
-TROUBLESHOOTING:
-    • Ensure Python is installed and accessible from PATH
-    • Check that portfolio files exist and are readable
-    • Verify ticker symbols are valid before large batch runs
-    • Use -DryRun to preview processing before execution
-    • Check logs in the logs/ directory for detailed error information
-
-SUPPORTED ENVIRONMENTS:
-    • PowerShell 5.1+ (Windows PowerShell)
-    • PowerShell Core 6+ (Cross-platform)
-    • Automatic detection and optimization for PowerShell version
-
-PARALLEL PROCESSING:
-    • PowerShell 7+: Uses ForEach-Object -Parallel for optimal performance
-    • PowerShell 5.1: Uses PowerShell Jobs with batch processing
-    • Automatic throttling to prevent system overload
-    • Progress tracking and ETA calculation
-
-OUTPUT STRUCTURE:
-    Each analyzed ticker creates a directory under the output folder:
-    output/
-    ├── AAPL/
-    │   ├── dashboard.html
-    │   ├── report.html
-    │   └── data/
-    ├── MSFT/
-    └── ...
-
-GETTING HELP:
-    .\analyze_portfolio_parallel.ps1 -Help          # Show this help
-    Get-Help .\analyze_portfolio_parallel.ps1       # PowerShell built-in help
-    Get-Help .\analyze_portfolio_parallel.ps1 -Full # Detailed help with examples
+       .\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios\comprehensive_model_portfolio_cleaned.txt" -MaxThreads 32 -BatchSize 15 -Timeout 20
 
 ===============================================================================
                         Press any key to continue...
@@ -762,399 +694,9 @@ if ($Help) {
     exit 0
 }
 
-# Set error action preference
-$ErrorActionPreference = "Continue"
-
-# Set default values for switch parameters that should default to $true
-if (-not $PSBoundParameters.ContainsKey('ContinueOnError')) {
-    $ContinueOnError = $true
-}
-if (-not $PSBoundParameters.ContainsKey('ShowProgress')) {
-    $ShowProgress = $true
-}
-
-# Initialize Python command variable
-$script:PythonCommand = "python"
-
-# Auto-detect max threads if not specified
-if ($MaxThreads -eq 0) {
-    $MaxThreads = (Get-CimInstance -ClassName Win32_Processor | Measure-Object -Property NumberOfLogicalProcessors -Sum).Sum
-    if ($MaxThreads -eq 0) { $MaxThreads = 4 }  # Fallback
-}
-
-# Define colors for output
-$Colors = @{
-    Header   = "Cyan"
-    Success  = "Green"
-    Error    = "Red"
-    Warning  = "Yellow"
-    Info     = "White"
-    Emphasis = "Magenta"
-    Progress = "Blue"
-}
-
-# Global counters for thread-safe operations
-$script:CompletedCount = 0
-$script:SuccessCount = 0
-$script:ErrorCount = 0
-$script:TotalTickers = 0
-$script:StartTime = Get-Date
-
-function Write-ColorText {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [string]$Text,
-        [string]$Color = "White"
-    )
-    Write-Host $Text -ForegroundColor $Colors[$Color]
-}
-
-function Write-Header {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [string]$Title
-    )
-    
-    Write-Host ""
-    Write-Host ("=" * 80) -ForegroundColor $Colors.Header
-    Write-Host (" " * ((80 - $Title.Length) / 2)) + $Title -ForegroundColor $Colors.Header
-    Write-Host ("=" * 80) -ForegroundColor $Colors.Header
-    Write-Host ""
-}
-
-function Write-Section {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [string]$Title
-    )
-    
-    Write-Host ""
-    Write-Host ("-" * 80) -ForegroundColor $Colors.Info
-    Write-Host $Title -ForegroundColor $Colors.Emphasis
-    Write-Host ("-" * 80) -ForegroundColor $Colors.Info
-}
-
-function Test-PythonAvailable {
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param()
-    
-    $pythonCommands = @('python', 'python3', 'py')
-    
-    foreach ($cmd in $pythonCommands) {
-        try {
-            $result = & $cmd --version 2>&1
-            if ($LASTEXITCODE -eq 0) {
-                Write-ColorText "✅ Python detected ($cmd): $result" "Success"
-                $script:PythonCommand = $cmd
-                return $true
-            }
-        }
-        catch {
-            # Expected behavior when command not found - continue silently
-            Write-Verbose "Python command '$cmd' not found: $($_.Exception.Message)"
-            continue
-        }
-    }
-    
-    Write-ColorText "❌ Python not found. Tried: $($pythonCommands -join ', ')" "Error"
-    return $false
-}
-
-function Get-TickersFromFile {
-    [CmdletBinding()]
-    [OutputType([string[]])]
-    param(
-        [Parameter(Mandatory)]
-        [string]$FilePath
-    )
-    
-    if (-not (Test-Path $FilePath)) {
-        throw "Portfolio file not found: $FilePath"
-    }
-    
-    $tickerList = [System.Collections.ArrayList]::new()
-    
-    try {
-        $content = Get-Content $FilePath -ErrorAction Stop
-        
-        foreach ($line in $content) {
-            $line = $line.Trim()
-            # Skip empty lines and comments
-            if ($line -and -not $line.StartsWith('#')) {
-                # Extract ticker symbols (alphanumeric + dots for international)
-                if ($line -match '^[A-Z0-9]+(\.[A-Z]+)?$|^[0-9]{6}\.[A-Z]{2}$') {
-                    [void]$tickerList.Add($line)
-                }
-            }
-        }
-    }
-    catch {
-        throw "Error reading portfolio file '$FilePath': $($_.Exception.Message)"
-    }
-    
-    return $tickerList.ToArray()
-}
-
-function Get-SectorTickers {
-    [CmdletBinding()]
-    [OutputType([string[]])]
-    param(
-        [Parameter(Mandatory)]
-        [string]$SectorName
-    )
-    
-    $sectorFiles = @{
-        "technology" = "portfolios\technology_growth_portfolio.txt"
-        "healthcare" = "portfolios\altman_original_portfolio.txt"  # Contains some healthcare
-        "financial"  = "portfolios\financial_institutions_portfolio.txt"
-        "industrial" = "portfolios\altman_original_portfolio.txt"  # Contains industrials
-        "energy"     = "portfolios\altman_original_portfolio.txt"  # Contains some energy
-    }
-    
-    $filePath = $sectorFiles[$SectorName]
-    if (-not $filePath -or -not (Test-Path $filePath)) {
-        # Fallback to comprehensive portfolio and filter by sector
-        $filePath = "portfolios\comprehensive_model_portfolio_cleaned.txt"
-        if (-not (Test-Path $filePath)) {
-            throw "No portfolio file found for sector: $SectorName"
-        }
-    }
-    
-    return Get-TickersFromFile $filePath
-}
-
-function Invoke-TickerAnalysis {
-    [CmdletBinding()]
-    [OutputType([hashtable])]
-    param(
-        [Parameter(Mandatory)]
-        [string]$Ticker,
-        [Parameter(Mandatory)]
-        [int]$Quarters,
-        [Parameter(Mandatory)]
-        [string]$LogLevel,
-        [Parameter(Mandatory)]
-        [string]$OutputDir,
-        [Parameter(Mandatory)]
-        [int]$TimeoutMinutes
-    )
-    
-    try {
-        $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-        
-        # Create a process with timeout
-        $psi = New-Object System.Diagnostics.ProcessStartInfo
-        $psi.FileName = $script:PythonCommand
-        $psi.Arguments = "main.py $Ticker --quarters $Quarters --log-level $LogLevel --progress never"
-        $psi.RedirectStandardOutput = $true
-        $psi.RedirectStandardError = $true
-        $psi.UseShellExecute = $false
-        $psi.CreateNoWindow = $true
-        
-        $process = New-Object System.Diagnostics.Process
-        $process.StartInfo = $psi
-        $process.Start() | Out-Null
-        
-        # Wait for completion with timeout
-        $completed = $process.WaitForExit($TimeoutMinutes * 60 * 1000)
-        
-        $stopwatch.Stop()
-        $duration = $stopwatch.Elapsed.TotalSeconds
-        
-        if (-not $completed) {
-            $process.Kill()
-            return @{
-                Ticker   = $Ticker
-                Success  = $false
-                Duration = $duration
-                Error    = "Timeout after $TimeoutMinutes minutes"
-                Output   = ""
-            }
-        }
-        
-        $output = $process.StandardOutput.ReadToEnd()
-        $errorOutput = $process.StandardError.ReadToEnd()
-        $exitCode = $process.ExitCode
-        
-        return @{
-            Ticker   = $Ticker
-            Success  = ($exitCode -eq 0)
-            Duration = $duration
-            Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
-            Output   = $output
-        }
-    }
-    catch {
-        Write-Error "Failed to analyze ticker '$Ticker': $($_.Exception.Message)"
-        return @{
-            Ticker   = $Ticker
-            Success  = $false
-            Duration = 0
-            Error    = $_.Exception.Message
-            Output   = ""
-        }
-    }
-}
-
-function Update-Progress {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [string]$Ticker,
-        [Parameter(Mandatory)]
-        [bool]$Success,
-        [Parameter(Mandatory)]
-        [double]$Duration,
-        [string]$ErrorMessage = ""
-    )
-    
-    # Thread-safe counter updates
-    $script:CompletedCount++
-    if ($Success) {
-        $script:SuccessCount++
-    }
-    else {
-        $script:ErrorCount++
-    }
-    
-    $elapsed = (Get-Date) - $script:StartTime
-    $rate = if ($elapsed.TotalMinutes -gt 0) { $script:CompletedCount / $elapsed.TotalMinutes } else { 0 }
-    $eta = if ($rate -gt 0) { ($script:TotalTickers - $script:CompletedCount) / $rate } else { 0 }
-    
-    $percentage = [math]::Round(($script:CompletedCount / $script:TotalTickers) * 100, 1)
-    
-    if ($ShowProgress) {
-        $status = if ($Success) { "✅" } else { "❌" }
-        $durationText = "$([math]::Round($Duration, 1))s"
-        
-        $progressColor = if ($Success) { $Colors.Success } else { $Colors.Error }
-        Write-Host "[$script:CompletedCount/$script:TotalTickers] $status $Ticker ($durationText) - $percentage% | ETA: $([math]::Round($eta, 1))m" -ForegroundColor $progressColor
-        
-        if (-not $Success -and $ErrorMessage) {
-            Write-Host "    Error: $ErrorMessage" -ForegroundColor $Colors.Warning
-        }
-    }
-}
-
-function Start-ParallelAnalysis {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [string[]]$TickerList,
-        [Parameter(Mandatory)]
-        [int]$MaxThreads,
-        [Parameter(Mandatory)]
-        [int]$BatchSize,
-        [Parameter(Mandatory)]
-        [hashtable]$Parameters
-    )
-    
-    Write-ColorText "🚀 Starting parallel analysis with $MaxThreads threads..." "Info"
-    Write-ColorText "📊 Processing $($TickerList.Count) tickers in batches of $BatchSize" "Info"
-    Write-Host ""
-    
-    # Check PowerShell version for parallel support
-    $useModernParallel = $PSVersionTable.PSVersion.Major -ge 7
-    
-    if ($useModernParallel) {
-        Write-ColorText "🔄 Using PowerShell 7+ ForEach-Object -Parallel" "Info"
-        
-        $results = $TickerList | ForEach-Object -Parallel {
-            $ticker = $_
-            $params = $using:Parameters
-            $pythonCmd = $using:script:PythonCommand
-            
-            # Import the function into the parallel session
-            function Invoke-TickerAnalysis {
-                [CmdletBinding()]
-                [OutputType([hashtable])]
-                param(
-                    [Parameter(Mandatory)]
-                    [string]$Ticker,
-                    [Parameter(Mandatory)]
-                    [int]$Quarters,
-                    [Parameter(Mandatory)]
-                    [string]$LogLevel,
-                    [Parameter(Mandatory)]
-                    [string]$OutputDir,
-                    [Parameter(Mandatory)]
-                    [int]$TimeoutMinutes
-                )
-                
-                try {
-                    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-                    
-                    $psi = New-Object System.Diagnostics.ProcessStartInfo
-                    $psi.FileName = $pythonCmd
-                    $psi.Arguments = "main.py $Ticker --quarters $($params.Quarters) --log-level $($params.LogLevel) --progress never"
-                    $psi.RedirectStandardOutput = $true
-                    $psi.RedirectStandardError = $true
-                    $psi.UseShellExecute = $false
-                    $psi.CreateNoWindow = $true
-                    
-                    $process = New-Object System.Diagnostics.Process
-                    $process.StartInfo = $psi
-                    $process.Start() | Out-Null
-                    
-                    $completed = $process.WaitForExit($TimeoutMinutes * 60 * 1000)
-                    
-                    $stopwatch.Stop()
-                    $duration = $stopwatch.Elapsed.TotalSeconds
-                    
-                    if (-not $completed) {
-                        $process.Kill()
-                        return @{
-                            Ticker   = $Ticker
-                            Success  = $false
-                            Duration = $duration
-                            Error    = "Timeout after $TimeoutMinutes minutes"
-                        }
-                    }
-                    
-                    # We only need stderr for error reporting, stdout not used
-                    $process.StandardOutput.ReadToEnd() | Out-Null
-                    $errorOutput = $process.StandardError.ReadToEnd()
-                    $exitCode = $process.ExitCode
-                    
-                    return @{
-                        Ticker   = $Ticker
-                        Success  = ($exitCode -eq 0)
-                        Duration = $duration
-                        Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
-                    }
-                }
-                catch {
-                    return @{
-                        Ticker   = $Ticker
-                        Success  = $false
-                        Duration = 0
-                        Error    = $_.Exception.Message
-                    }
-                }
-            }
-            
-            $result = Invoke-TickerAnalysis -Ticker $ticker -Quarters $params.Quarters -LogLevel $params.LogLevel -OutputDir $params.OutputDir -TimeoutMinutes $params.Timeout
-            
-            # Return result for collection
-            $result
-            
-        } -ThrottleLimit $MaxThreads
-        
-        # Process all results at once
-        foreach ($result in $results) {
-            Update-Progress -Ticker $result.Ticker -Success $result.Success -Duration $result.Duration -ErrorMessage $result.Error
-        }
-        
-    }
-}
-
 # Main execution starts here
 Clear-Host
-Write-Header "Altman Z-Score Parallel Portfolio Analyzer"
+Write-Header "Altman Z-Score Parallel Portfolio Analyzer v2"
 
 Write-ColorText "🔧 Configuration:" "Info"
 Write-ColorText "   Max Threads: $MaxThreads" "Info"
