@@ -50,10 +50,14 @@ class InvestmentRecommendation(ChartBase):
         )
         
         # Add confidence level reference lines
-        fig.add_hline(y=50, line_dash="dash", line_color="gray", 
-                     annotation_text="Moderate Confidence", row=row, col=col)
-        fig.add_hline(y=75, line_dash="dash", line_color="green", 
-                     annotation_text="High Confidence", row=row, col=col)
+        try:
+            fig.add_hline(y=50, line_dash="dash", line_color="gray", 
+                         annotation_text="Moderate Confidence", row=row, col=col)
+            fig.add_hline(y=75, line_dash="dash", line_color="green", 
+                         annotation_text="High Confidence", row=row, col=col)
+        except Exception:
+            # Skip if subplot doesn't support horizontal lines
+            pass
 
 
 class TechnicalIndicators(ChartBase):

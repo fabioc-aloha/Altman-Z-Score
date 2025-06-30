@@ -22,10 +22,9 @@ from ..zscore_calculation import ZScoreCalculationResult
 
 # Import chart components
 from .charts import (
-    ZScoreGauge, ComponentBreakdown, RiskZoneChart, DataQualityChart,
+    ZScoreGauge, ComponentBreakdown, RiskZoneChart,
     InvestmentRecommendation, TechnicalIndicators, ValuationMetrics,
     PerformanceMetrics, RiskReturnAnalysis,
-    AIDataQuality, AIPeerAnalysis, AISentiment, AIRisk, AIConfidence,
     TrendChart, DashboardLayoutManager
 )
 from .charts.trend_analysis import AICommentaryAnnotation
@@ -58,7 +57,6 @@ class DashboardGenerator:
         self.zscore_gauge = ZScoreGauge()
         self.component_breakdown = ComponentBreakdown()
         self.risk_zone_chart = RiskZoneChart()
-        self.data_quality_chart = DataQualityChart()
         
         # Market analysis components
         self.investment_recommendation = InvestmentRecommendation()
@@ -66,13 +64,6 @@ class DashboardGenerator:
         self.valuation_metrics = ValuationMetrics()
         self.performance_metrics = PerformanceMetrics()
         self.risk_return_analysis = RiskReturnAnalysis()
-        
-        # AI analysis components
-        self.ai_data_quality = AIDataQuality()
-        self.ai_peer_analysis = AIPeerAnalysis()
-        self.ai_sentiment = AISentiment()
-        self.ai_risk = AIRisk()
-        self.ai_confidence = AIConfidence()
         
         # Trend analysis
         self.trend_chart = TrendChart()
@@ -104,9 +95,8 @@ class DashboardGenerator:
             
             chart_path = ticker_dir / f"{latest.ticker}_zscore_dashboard.html"
             
-            # Determine layout type and create dashboard
-            layout_type = self.layout_manager.determine_layout_type(market_analysis, comprehensive_ai_analysis)
-            fig, layout_config = self.layout_manager.create_dashboard_layout(layout_type)
+            # Create dashboard layout
+            fig, layout_config = self.layout_manager.create_dashboard_layout()
             
             # Add core components that are always present
             self._add_core_components(fig, layout_config, latest)
@@ -120,9 +110,9 @@ class DashboardGenerator:
             # Configure final layout
             self.layout_manager.configure_final_layout(fig, layout_config, latest.ticker)
             
-            # Add AI commentary if available
-            if comprehensive_ai_analysis:
-                self.ai_commentary.add_to_figure(fig, comprehensive_ai_analysis)
+            # Add AI commentary if available - DISABLED
+            # if comprehensive_ai_analysis:
+            #     self.ai_commentary.add_to_figure(fig, comprehensive_ai_analysis)
             
             # Save to HTML
             fig.write_html(str(chart_path))
@@ -150,11 +140,6 @@ class DashboardGenerator:
         if pos:
             self.component_breakdown.add_to_figure(fig, pos[0], pos[1], zscore_result=latest)
         
-        # Data quality chart
-        pos = self.layout_manager.get_component_position(layout_config, 'data_quality')
-        if pos:
-            self.data_quality_chart.add_to_figure(fig, pos[0], pos[1], zscore_result=latest)
-        
         # Risk zone chart (basic layout only)
         pos = self.layout_manager.get_component_position(layout_config, 'risk_zone_chart')
         if pos:
@@ -166,10 +151,6 @@ class DashboardGenerator:
         # Market analysis components
         if market_analysis:
             self._add_market_components(fig, layout_config, market_analysis)
-        
-        # AI analysis components
-        if comprehensive_ai_analysis:
-            self._add_ai_components(fig, layout_config, comprehensive_ai_analysis)
     
     def _add_market_components(self, fig: go.Figure, layout_config: dict, market_analysis: Any) -> None:
         """Add market analysis components."""
@@ -185,22 +166,7 @@ class DashboardGenerator:
             pos = self.layout_manager.get_component_position(layout_config, component_name)
             if pos:
                 component.add_to_figure(fig, pos[0], pos[1], market_analysis=market_analysis)
-    
-    def _add_ai_components(self, fig: go.Figure, layout_config: dict, comprehensive_ai_analysis: Any) -> None:
-        """Add AI analysis components."""
-        components = [
-            ('ai_data_quality', self.ai_data_quality),
-            ('ai_peer_analysis', self.ai_peer_analysis),
-            ('ai_sentiment', self.ai_sentiment),
-            ('ai_risk', self.ai_risk),
-            ('ai_confidence', self.ai_confidence)
-        ]
-        
-        for component_name, component in components:
-            pos = self.layout_manager.get_component_position(layout_config, component_name)
-            if pos:
-                component.add_to_figure(fig, pos[0], pos[1], comprehensive_ai_analysis=comprehensive_ai_analysis)
-    
+
     def _add_trend_component(self, fig: go.Figure, layout_config: dict, results: List[Any],
                            market_analysis: Any, start_date: Optional[str]) -> None:
         """Add trend chart component."""

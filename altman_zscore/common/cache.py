@@ -445,7 +445,8 @@ class UnifiedCache:
                  ttl_seconds: Optional[float] = None,
                  max_memory_entries: Optional[int] = 1000,
                  max_file_size_mb: Optional[float] = 100.0,
-                 cleanup_interval: float = 300.0):  # 5 minutes
+                 cleanup_interval: float = 300.0,  # 5 minutes
+                 serializer: str = "json"):  # Default serializer
         """
         Initialize unified cache.
         
@@ -456,6 +457,7 @@ class UnifiedCache:
             max_memory_entries: Maximum entries in memory cache
             max_file_size_mb: Maximum file cache size in MB
             cleanup_interval: Seconds between automatic cleanup
+            serializer: Serialization format for file cache ("json" or "pickle")
         """
         self.backend_type = backend
         self.default_ttl = ttl_seconds
@@ -476,14 +478,14 @@ class UnifiedCache:
         elif backend == CacheBackend.FILE:
             if cache_dir is None:
                 raise AltmanZScoreError("cache_dir required for FILE backend")
-            self._primary = FileCacheBackend(cache_dir, max_size_mb=max_file_size_mb)
+            self._primary = FileCacheBackend(cache_dir, serializer=serializer, max_size_mb=max_file_size_mb)
             self._secondary = None
         
         elif backend == CacheBackend.HYBRID:
             if cache_dir is None:
                 raise AltmanZScoreError("cache_dir required for HYBRID backend")
             self._primary = MemoryCacheBackend(max_size=max_memory_entries)
-            self._secondary = FileCacheBackend(cache_dir, max_size_mb=max_file_size_mb)
+            self._secondary = FileCacheBackend(cache_dir, serializer=serializer, max_size_mb=max_file_size_mb)
         
         else:
             raise AltmanZScoreError(f"Unsupported backend: {backend}")

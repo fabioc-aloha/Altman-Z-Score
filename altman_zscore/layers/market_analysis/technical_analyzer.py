@@ -11,7 +11,6 @@ Provides comprehensive technical analysis including:
 
 import numpy as np
 import pandas as pd
-import yfinance as yf
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime, timedelta
 from dataclasses import asdict
@@ -20,6 +19,7 @@ from ...common.logging_config import get_logger
 from ...common.exceptions import DataFetchError
 from ...common.api_rate_limiter import rate_limiter
 from ...models.market_models import TechnicalAnalysis, TechnicalIndicators, AnalysisParameters
+from ..data_fetch.yahoo_fetcher import YahooDataFetcher
 
 logger = get_logger(__name__)
 
@@ -35,6 +35,7 @@ class TechnicalAnalyzer:
             parameters: Analysis parameters, uses defaults if None
         """
         self.params = parameters or AnalysisParameters()
+        self.yahoo_fetcher = YahooDataFetcher()
     
     @rate_limiter.rate_limited("technical_analysis")
     def analyze_ticker(self, ticker: str, period: str = "1y") -> TechnicalAnalysis:
@@ -97,16 +98,17 @@ class TechnicalAnalyzer:
             raise DataFetchError(f"Technical analysis failed for {ticker}: {str(e)}")
     
     def _fetch_price_data(self, ticker: str, period: str) -> Optional[pd.DataFrame]:
-        """Fetch historical price data."""
+        """Fetch historical price data using cached Yahoo fetcher."""
         try:
-            stock = yf.Ticker(ticker)
-            data = stock.history(period=period)
+            data = self.yahoo_fetcher.get_historical_prices(ticker, period)
             
-            if data.empty:
+            if data is None or data.empty:
+                logger.warning(f"No price data returned for {ticker}")
                 return None
                 
-            # Reset index to get Date as column
-            data.reset_index(inplace=True)
+            # Reset index to get Date as column if needed
+            if 'Date' not in data.columns:
+                data.reset_index(inplace=True)
             return data
             
         except Exception as e:

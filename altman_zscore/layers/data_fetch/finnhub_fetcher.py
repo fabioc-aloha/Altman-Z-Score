@@ -44,7 +44,8 @@ class FinnhubDataFetcher:
         self.cache = UnifiedCache(
             backend=CacheBackend.FILE,
             cache_dir=".cache/finnhub",
-            ttl_seconds=CACHE_TTL_SECONDS
+            ttl_seconds=CACHE_TTL_SECONDS,
+            serializer="json"  # Finnhub returns JSON-compatible data
         )
         
         # Initialize logo cache directory

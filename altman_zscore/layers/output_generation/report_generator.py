@@ -43,7 +43,7 @@ class ReportGenerator:
     def generate_comprehensive_report(
         self, 
         zscore_result: ZScoreCalculationResult,
-        ai_insights: Optional[str] = None,
+        ai_insights: Optional[str] = None,  # Legacy parameter - now uses ai_analysis.llm_final_commentary
         market_analysis = None,
         ai_analysis = None
     ) -> str:
@@ -52,7 +52,7 @@ class ReportGenerator:
         
         Args:
             zscore_result: Z-Score calculation result
-            ai_insights: Optional AI-generated insights
+            ai_insights: Optional AI-generated insights (DEPRECATED - using ai_analysis.llm_final_commentary)
             market_analysis: Optional market analysis results for enhanced insights
             ai_analysis: Optional comprehensive AI analysis results
             
@@ -157,90 +157,66 @@ class ReportGenerator:
             'market_analysis': market_analysis
         }
         
-        # Add comprehensive AI analysis data if available
+        # Add simplified AI analysis data if available
         if ai_analysis:
-            # Data Quality Analysis - Extract comprehensive details
-            if hasattr(ai_analysis, 'data_quality') and ai_analysis.data_quality:
-                dq = ai_analysis.data_quality
-                template_data.update({
-                    'ai_data_quality_score': getattr(dq, 'overall_quality_score', 0),
-                    'ai_data_reliability': getattr(dq, 'reliability_rating', 'unknown'),
-                    'ai_data_anomalies': len(getattr(dq, 'anomalies_detected', [])),
-                    'ai_data_recommendation': getattr(dq, 'recommendation', 'No specific recommendation available.'),
-                    'ai_anomalies_list': getattr(dq, 'anomalies_detected', []),
-                    'ai_quality_issues': getattr(dq, 'quality_issues', [])
-                })
-            else:
-                template_data.update({
-                    'ai_data_quality_score': None,
-                    'ai_data_reliability': 'unknown',
-                    'ai_data_anomalies': 0,
-                    'ai_data_recommendation': None
-                })
-            
-            # Peer Analysis - Extract with industry context
-            if hasattr(ai_analysis, 'peer_analysis') and ai_analysis.peer_analysis:
-                peer = ai_analysis.peer_analysis
-                template_data.update({
-                    'ai_company_zscore': getattr(peer, 'company_zscore', None),
-                    'ai_industry_avg_zscore': getattr(peer, 'industry_average_zscore', None),
-                    'ai_peer_rank': getattr(peer, 'industry_rank_percentile', None),
-                    'ai_peer_reasoning': getattr(peer, 'reasoning', 'Peer analysis completed using AI-powered company similarity matching.'),
-                    'ai_identified_peers': getattr(peer, 'identified_peers', [])
-                })
-            else:
-                template_data.update({
-                    'ai_company_zscore': None,
-                    'ai_industry_avg_zscore': None,
-                    'ai_peer_rank': None,
-                    'ai_peer_reasoning': None
-                })
-            
-            # Sentiment Analysis - Extract with detailed insights
-            if hasattr(ai_analysis, 'sentiment_analysis') and ai_analysis.sentiment_analysis:
-                sentiment = ai_analysis.sentiment_analysis
-                template_data.update({
-                    'ai_sentiment_score': getattr(sentiment, 'overall_sentiment_score', 0),
-                    'ai_sentiment_trend': getattr(sentiment, 'sentiment_trend', 'stable'),
-                    'ai_sentiment_confidence': getattr(sentiment, 'confidence', 0.5),
-                    'ai_sentiment_summary': getattr(sentiment, 'summary', 'Market sentiment analysis completed.'),
-                    'ai_sentiment_divergence': getattr(sentiment, 'fundamental_sentiment_divergence', None)
-                })
-            else:
-                template_data.update({
-                    'ai_sentiment_score': None,
-                    'ai_sentiment_trend': 'stable',
-                    'ai_sentiment_confidence': None,
-                    'ai_sentiment_summary': None
-                })
-            
-            # Risk Analysis - Extract with comprehensive risk factors
-            if hasattr(ai_analysis, 'risk_analysis') and ai_analysis.risk_analysis:
-                risk = ai_analysis.risk_analysis
-                template_data.update({
-                    'ai_risk_score': getattr(risk, 'overall_risk_score', 0.5),
-                    'ai_risk_level': getattr(risk, 'risk_level', 'moderate'),
-                    'ai_risk_factors': getattr(risk, 'key_risk_factors', []),
-                    'ai_risk_trajectory': getattr(risk, 'risk_trajectory', 'stable'),
-                    'ai_risk_mitigation': getattr(risk, 'risk_mitigation_suggestions', [])
-                })
-            else:
-                template_data.update({
-                    'ai_risk_score': 0.5,
-                    'ai_risk_level': 'moderate',
-                    'ai_risk_factors': [],
-                    'ai_risk_trajectory': 'stable'
-                })
-            
-            # Overall AI Metrics and Enhanced Insights
+            # Only use the direct LLM commentary from the simplified pipeline
             template_data.update({
-                'ai_overall_confidence': getattr(ai_analysis, 'overall_ai_confidence', 0),
-                'ai_recommendations': getattr(ai_analysis, 'ai_recommendations', []),
+                'ai_overall_confidence': getattr(ai_analysis, 'overall_ai_confidence', 0.85),
+                'ai_recommendations': [format_ai_insights_for_html(rec) for rec in getattr(ai_analysis, 'ai_recommendations', [])],
                 'ai_recommendations_count': len(getattr(ai_analysis, 'ai_recommendations', [])),
                 'ai_analysis_timestamp': getattr(ai_analysis, 'analysis_timestamp', None),
-                'ai_executive_summary': self._extract_executive_summary(ai_analysis),
-                'ai_key_insights': self._extract_key_insights(ai_analysis),
-                'ai_investment_thesis': self._extract_investment_thesis(ai_analysis)
+                'ai_executive_summary': format_ai_insights_for_html(self._extract_executive_summary(ai_analysis)),
+                'ai_key_insights': [format_ai_insights_for_html(insight) for insight in self._extract_key_insights(ai_analysis)],
+                'ai_investment_thesis': format_ai_insights_for_html(self._extract_investment_thesis(ai_analysis)),
+                'llm_final_commentary': format_ai_insights_for_html(getattr(ai_analysis, 'llm_final_commentary', ''))
+            })
+            
+            # Set all legacy AI component fields to None/default values for template compatibility
+            template_data.update({
+                'ai_data_quality_score': 0.0,
+                'ai_data_reliability': 'unknown',
+                'ai_data_anomalies': 0,
+                'ai_data_recommendation': None,
+                'ai_company_zscore': 0.0,
+                'ai_industry_avg_zscore': 0.0,
+                'ai_peer_rank': 0.0,
+                'ai_peer_reasoning': None,
+                'ai_sentiment_score': 0.0,
+                'ai_sentiment_trend': 'stable',
+                'ai_sentiment_confidence': 0.0,
+                'ai_sentiment_summary': None,
+                'ai_risk_score': 0.5,
+                'ai_risk_level': 'moderate',
+                'ai_risk_factors': [],
+                'ai_risk_trajectory': 'stable'
+            })
+        else:
+            # Set default values when no AI analysis is available
+            template_data.update({
+                'ai_overall_confidence': 0,
+                'ai_recommendations': [],
+                'ai_recommendations_count': 0,
+                'ai_analysis_timestamp': None,
+                'ai_executive_summary': None,
+                'ai_key_insights': [],
+                'ai_investment_thesis': None,
+                'llm_final_commentary': None,
+                'ai_data_quality_score': 0.0,
+                'ai_data_reliability': 'unknown',
+                'ai_data_anomalies': 0,
+                'ai_data_recommendation': None,
+                'ai_company_zscore': 0.0,
+                'ai_industry_avg_zscore': 0.0,
+                'ai_peer_rank': 0.0,
+                'ai_peer_reasoning': None,
+                'ai_sentiment_score': 0.0,
+                'ai_sentiment_trend': 'stable',
+                'ai_sentiment_confidence': 0.0,
+                'ai_sentiment_summary': None,
+                'ai_risk_score': 0.5,
+                'ai_risk_level': 'moderate',
+                'ai_risk_factors': [],
+                'ai_risk_trajectory': 'stable'
             })
         
         # Add market analysis data if available
@@ -253,33 +229,40 @@ class ReportGenerator:
             
             template_data.update({
                 'recommendation_action': self._format_investment_rating(rec.investment_rating if rec else "HOLD"),
-                'recommendation_confidence': f"{rec.confidence_level * 100:.1f}" if rec else "N/A",
+                'recommendation_confidence': f"{rec.confidence_level * 100:.1f}" if rec and hasattr(rec, 'confidence_level') and rec.confidence_level is not None else "N/A",
                 'recommendation_class': self._get_recommendation_class(rec.investment_rating if rec else "hold"),
                 'key_risks': rec.key_risks if rec and rec.key_risks else [],
                 'key_opportunities': rec.key_opportunities if rec and rec.key_opportunities else [],
                 'current_price': self._format_currency(tech.current_price) if tech and tech.current_price else "N/A",
-                'market_cap': self._format_currency(val.market_cap / 1e9, "B") if val and hasattr(val, 'market_cap') and val.market_cap else "N/A",
-                'pe_ratio': f"{val.pe_ratio:.1f}" if val and hasattr(val, 'pe_ratio') and val.pe_ratio else "N/A",
-                'return_1y': f"{perf.return_1y * 100:.1f}" if perf and hasattr(perf, 'return_1y') and perf.return_1y else "N/A",                
-                'volatility': f"{risk.volatility_risk * 100:.1f}" if risk and hasattr(risk, 'volatility_risk') and risk.volatility_risk else "N/A",
-                'rsi': f"{tech.indicators.rsi:.1f}" if tech and tech.indicators and hasattr(tech.indicators, 'rsi') and tech.indicators.rsi else "N/A",
+                'market_cap': self._format_currency(val.market_cap / 1e9, "B") if val and hasattr(val, 'market_cap') and val.market_cap is not None else "N/A",
+                'pe_ratio': f"{val.pe_ratio:.1f}" if val and hasattr(val, 'pe_ratio') and val.pe_ratio is not None else "N/A",
+                'return_1y': f"{perf.return_1y * 100:.1f}" if perf and hasattr(perf, 'return_1y') and perf.return_1y is not None else "N/A",                
+                'volatility': f"{risk.volatility_risk * 100:.1f}" if risk and hasattr(risk, 'volatility_risk') and risk.volatility_risk is not None else "N/A",
+                'rsi': f"{tech.indicators.rsi:.1f}" if tech and tech.indicators and hasattr(tech.indicators, 'rsi') and tech.indicators.rsi is not None else "N/A",
                 'macd_signal': tech.overall_signal or "N/A" if tech else "N/A",
                 'bollinger_signal': "N/A",  # Simplified for now
-                'momentum_score': f"{tech.momentum_score * 10:.1f}" if tech and tech.momentum_score else "N/A",
+                'momentum_score': f"{tech.momentum_score * 10:.1f}" if tech and hasattr(tech, 'momentum_score') and tech.momentum_score is not None else "N/A",
                 'technical_trend': tech.price_trend or "N/A" if tech else "N/A",
-                'return_1d': f"{perf.return_1d * 100:.2f}" if perf.return_1d else "N/A",
-                'return_5d': f"{perf.return_1w * 100:.2f}" if perf.return_1w else "N/A",
-                'return_1m': f"{perf.return_1m * 100:.1f}" if perf.return_1m else "N/A",
-                'return_3m': f"{perf.return_3m * 100:.1f}" if perf.return_3m else "N/A",
-                'return_6m': f"{perf.return_6m * 100:.1f}" if perf.return_6m else "N/A",
-                'beta': f"{perf.beta:.2f}" if perf.beta else "N/A",
-                'sharpe_ratio': f"{perf.sharpe_ratio:.2f}" if perf.sharpe_ratio else "N/A",
-                'max_drawdown': f"{perf.max_drawdown * 100:.1f}" if perf.max_drawdown else "N/A",
-                'risk_score': f"{risk.overall_risk_score * 10:.1f}" if risk and risk.overall_risk_score else "N/A"
+                'return_1d': f"{perf.return_1d * 100:.2f}" if perf and hasattr(perf, 'return_1d') and perf.return_1d is not None else "N/A",
+                'return_5d': f"{perf.return_1w * 100:.2f}" if perf and hasattr(perf, 'return_1w') and perf.return_1w is not None else "N/A",
+                'return_1m': f"{perf.return_1m * 100:.1f}" if perf and hasattr(perf, 'return_1m') and perf.return_1m is not None else "N/A",
+                'return_3m': f"{perf.return_3m * 100:.1f}" if perf and hasattr(perf, 'return_3m') and perf.return_3m is not None else "N/A",
+                'return_6m': f"{perf.return_6m * 100:.1f}" if perf and hasattr(perf, 'return_6m') and perf.return_6m is not None else "N/A",
+                'beta': f"{perf.beta:.2f}" if perf and hasattr(perf, 'beta') and perf.beta is not None else "N/A",
+                'sharpe_ratio': f"{perf.sharpe_ratio:.2f}" if perf and hasattr(perf, 'sharpe_ratio') and perf.sharpe_ratio is not None else "N/A",
+                'max_drawdown': f"{perf.max_drawdown * 100:.1f}" if perf and hasattr(perf, 'max_drawdown') and perf.max_drawdown is not None else "N/A",
+                'risk_score': f"{risk.overall_risk_score * 10:.1f}" if risk and hasattr(risk, 'overall_risk_score') and risk.overall_risk_score is not None else "N/A"
             })
         
         # Render template
-        return template.render(template_data)
+        try:
+            return template.render(template_data)
+        except Exception as e:
+            logger.error(f"Template rendering failed for {zscore_result.ticker}: {str(e)}")
+            logger.error(f"Error type: {type(e).__name__}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            raise
     
     def _generate_summary_content(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None) -> str:
         """Generate text summary content."""
@@ -293,7 +276,7 @@ class ReportGenerator:
         content.append(f"Z-SCORE: {zscore_result.z_score:.2f}")
         content.append(f"Risk Category: {zscore_result.risk_category}")
         content.append(f"Model Used: {zscore_result.model_used}")
-        content.append(f"Data Quality: {zscore_result.data_quality_score * 100:.1f}%")
+        content.append(f"Data Quality: {zscore_result.data_quality_score * 100:.1f}%" if zscore_result.data_quality_score is not None else "Data Quality: N/A")
         content.append("")
         
         # Model-specific thresholds
@@ -321,7 +304,7 @@ class ReportGenerator:
             if rec:
                 content.append("INVESTMENT RECOMMENDATION:")
                 content.append(f"  Action: {self._format_investment_rating(rec.investment_rating)}")
-                content.append(f"  Confidence: {rec.confidence_level * 100:.1f}%")
+                content.append(f"  Confidence: {rec.confidence_level * 100:.1f}%" if rec.confidence_level is not None else "  Confidence: N/A")
                 content.append("")
         
         # AI Analysis Summary (if available)
@@ -414,6 +397,8 @@ class ReportGenerator:
     
     def _get_risk_class(self, z_score: float) -> str:
         """Get CSS risk class based on Z-Score."""
+        if z_score is None:
+            return "risk-unknown"
         if z_score > 2.99:
             return "risk-low"
         elif z_score > 1.8:

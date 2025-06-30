@@ -28,7 +28,6 @@ from .layers.output_generation.csv_json_generator import CSVJSONGenerator
 from .layers.output_generation.chart_generator import ChartGenerator
 from .layers.output_generation.report_generator import ReportGenerator
 from .layers.output_generation.file_manager import FileManager
-from .layers.ai_insights.ai_insights_generator import AIInsightsGenerator
 from .layers.ai_analysis.ai_orchestrator import AIAnalysisOrchestrator
 
 logger = get_logger(__name__)
@@ -36,8 +35,8 @@ logger = get_logger(__name__)
 
 class PipelineProgressBar:
     """
-    Advanced progress bar for pipeline operations with granular step tracking.
-    Shows detailed progress when logging is in quiet mode.
+    Progress bar for pipeline operations with granular step tracking.
+    Shows progress when logging is in quiet mode.
     """
     
     def __init__(self, ticker: str, total_steps: int):
@@ -55,8 +54,6 @@ class PipelineProgressBar:
         self.total_substeps = 0
         self.show_progress = should_show_progress_bars()
         self.last_line_length = 0  # Track last message length for proper clearing
-        self.step_start_time = datetime.now()
-        self.pipeline_start_time = datetime.now()
         self.current_step_name = ""
         self.step_history = []  # Track completed steps for summary
         
@@ -72,16 +69,13 @@ class PipelineProgressBar:
             substep_total: Optional total number of substeps for this step
             substep_current: Optional current substep number
         """
-        # Track step completion time
+        # Track step completion
         if step_number is not None and step_number != self.current_step:
             if self.current_step > 0 and self.current_step_name:
-                elapsed = (datetime.now() - self.step_start_time).total_seconds()
                 self.step_history.append({
                     'step': self.current_step,
-                    'name': self.current_step_name,
-                    'duration': elapsed
+                    'name': self.current_step_name
                 })
-            self.step_start_time = datetime.now()
             
         if step_number is not None:
             self.current_step = step_number
@@ -144,60 +138,27 @@ class PipelineProgressBar:
         return self.current_step
     
     def get_progress_summary(self) -> Dict[str, Any]:
-        """Get detailed progress summary."""
-        total_elapsed = (datetime.now() - self.pipeline_start_time).total_seconds()
-        avg_step_time = total_elapsed / max(self.current_step, 1)
-        estimated_remaining = avg_step_time * max(0, self.total_steps - self.current_step)
-        
+        """Get basic progress summary."""
         return {
             'current_step': self.current_step,
             'total_steps': self.total_steps,
             'progress_percent': min(100, int((self.current_step / self.total_steps) * 100)),
-            'total_elapsed': total_elapsed,
-            'estimated_remaining': estimated_remaining,
-            'avg_step_time': avg_step_time,
             'step_history': self.step_history
         }
     
     def _display_progress(self, step_name: str, force_newline: bool = False):
-        """Display the enhanced progress bar in terminal with timing information."""
+        """Display the progress bar in terminal without timing information."""
         try:
             bar_length = 35
             progress = min(1.0, self.current_step / self.total_steps)
             filled_length = int(bar_length * progress)
             bar = '■' * filled_length + '□' * (bar_length - filled_length)
             
-            # Calculate timing information
-            total_elapsed = (datetime.now() - self.pipeline_start_time).total_seconds()
-            
-            # Create enhanced progress message with timing
+            # Create progress message without timing
             percentage = int(progress * 100)
             
-            # Format timing display
-            if total_elapsed < 60:
-                timing_info = f"{total_elapsed:.1f}s"
-            else:
-                mins = int(total_elapsed // 60)
-                secs = int(total_elapsed % 60)
-                timing_info = f"{mins}m{secs:02d}s"
-            
-            # Estimate remaining time
-            if self.current_step > 0 and progress > 0.1:
-                avg_step_time = total_elapsed / self.current_step
-                remaining_steps = max(0, self.total_steps - self.current_step)
-                estimated_remaining = avg_step_time * remaining_steps
-                
-                if estimated_remaining < 60:
-                    eta_info = f"~{estimated_remaining:.0f}s left"
-                else:
-                    eta_mins = int(estimated_remaining // 60)
-                    eta_secs = int(estimated_remaining % 60)
-                    eta_info = f"~{eta_mins}m{eta_secs:02d}s left"
-            else:
-                eta_info = "calculating..."
-            
-            # Enhanced message format with step tracking and timing
-            msg = f"[{self.ticker}] |{bar}| {percentage:3d}% ({self.current_step}/{self.total_steps}) - {step_name} [{timing_info}, {eta_info}]"
+            # Simple message format without timing
+            msg = f"[{self.ticker}] |{bar}| {percentage:3d}% ({self.current_step}/{self.total_steps}) - {step_name}"
             
             # Handle terminal width constraints
             try:
@@ -208,7 +169,7 @@ class PipelineProgressBar:
                     max_step_name_length = terminal_width - len(msg) + len(step_name) - 10
                     if max_step_name_length > 20:
                         truncated_step_name = step_name[:max_step_name_length] + "..."
-                        msg = f"[{self.ticker}] |{bar}| {percentage:3d}% ({self.current_step}/{self.total_steps}) - {truncated_step_name} [{timing_info}, {eta_info}]"
+                        msg = f"[{self.ticker}] |{bar}| {percentage:3d}% ({self.current_step}/{self.total_steps}) - {truncated_step_name}"
             except:
                 pass  # Ignore terminal width detection errors
             
@@ -229,7 +190,7 @@ class PipelineProgressBar:
     
     def finish(self, success: bool = True):
         """
-        Finish the progress bar with comprehensive summary.
+        Finish the progress bar with summary.
         
         Args:
             success: Whether the operation completed successfully
@@ -237,37 +198,18 @@ class PipelineProgressBar:
         if self.show_progress:
             # Final step tracking
             if self.current_step_name:
-                elapsed = (datetime.now() - self.step_start_time).total_seconds()
                 self.step_history.append({
                     'step': self.current_step,
-                    'name': self.current_step_name,
-                    'duration': elapsed
+                    'name': self.current_step_name
                 })
             
             status = "✓ Complete" if success else "✗ Failed"
             if self.current_step < self.total_steps:
                 self.current_step = self.total_steps
                 
-            # Calculate final timing
-            total_elapsed = (datetime.now() - self.pipeline_start_time).total_seconds()
-            if total_elapsed < 60:
-                final_timing = f"[{total_elapsed:.1f}s total]"
-            else:
-                mins = int(total_elapsed // 60)
-                secs = int(total_elapsed % 60)
-                final_timing = f"[{mins}m{secs:02d}s total]"
-            
-            # Update to final status
-            self._display_progress(f"{status} {final_timing}", force_newline=False)
+            # Update to final status without timing
+            self._display_progress(status, force_newline=False)
             print()  # Single newline to end the progress line
-            
-            # Show step summary if there were multiple steps and logging is quiet
-            if success and len(self.step_history) > 5 and should_show_progress_bars():
-                print(f"Pipeline Summary for {self.ticker}:")
-                slowest_steps = sorted(self.step_history, key=lambda x: x['duration'], reverse=True)[:3]
-                for step_info in slowest_steps:
-                    print(f"  Step {step_info['step']}: {step_info['name']:<30} {step_info['duration']:.1f}s")
-                print()
 
 
 class AltmanZScorePipeline:
@@ -291,14 +233,12 @@ class AltmanZScorePipeline:
         self.chart_generator = ChartGenerator(output_base_path)
         self.report_generator = ReportGenerator(output_base_path)
         self.file_manager = FileManager(output_base_path)
-        self.ai_insights_generator = AIInsightsGenerator(output_base_path)
     
     async def analyze_ticker(
         self, 
         ticker: str,
         generate_charts: bool = True,
         generate_reports: bool = True,
-        include_ai_insights: bool = True,
         include_comprehensive_ai_analysis: bool = True,
         include_market_analysis: bool = True,
         forced_model: str = None,
@@ -313,8 +253,7 @@ class AltmanZScorePipeline:
             ticker: Stock ticker symbol
             generate_charts: Whether to generate visualization charts
             generate_reports: Whether to generate comprehensive reports
-            include_ai_insights: Whether to include AI-powered investment profile analysis (default: True)
-            include_comprehensive_ai_analysis: Whether to include comprehensive AI analysis (data quality, peer, sentiment, risk)
+            include_comprehensive_ai_analysis: Whether to include AI final commentary generation
             include_market_analysis: Whether to include market analysis
             forced_model: Optional model to force (overrides automatic selection)
             quarters: Number of quarters for historical analysis (enhanced accounts: 8-20)
@@ -340,9 +279,9 @@ class AltmanZScorePipeline:
             if include_market_analysis:
                 total_steps += 5  # Technical, valuation, performance, risk-return, consolidation
             
-            # Comprehensive AI analysis: 5 steps (if enabled)
+            # AI final commentary: 1 step (if enabled)
             if include_comprehensive_ai_analysis:
-                total_steps += 5  # Data quality, peer analysis, sentiment, risk analysis, final commentary
+                total_steps += 1  # Direct LLM commentary generation
             
             # Output generation: base 2 steps
             total_steps += 2  # CSV/JSON generation
@@ -352,8 +291,6 @@ class AltmanZScorePipeline:
                 total_steps += 3  # Chart data prep, visualization, finalization
             if generate_reports:
                 total_steps += 2  # Comprehensive report, summary report
-            if include_ai_insights:
-                total_steps += 2  # AI insights generation, formatting
             
             # Initialize progress bar (only shows in quiet logging mode)
             progress = PipelineProgressBar(ticker, total_steps)
@@ -423,10 +360,23 @@ class AltmanZScorePipeline:
             logger.info(f"Step {current_step}: Calculating Z-Score for {ticker}")
             progress.start_substeps(len(merged))
             
+            # OPTIMIZATION: Perform model selection once for all quarters
+            selected_model = forced_model
+            if not forced_model and merged:
+                logger.info(f"Performing single model selection for {ticker} (optimization)")
+                try:
+                    model_selection_result = self.zscore_calculator.model_selector.select_model(merged[0])
+                    selected_model = model_selection_result.model_name
+                    logger.info(f"Selected model '{selected_model}' for all {len(merged)} quarters of {ticker} "
+                               f"(confidence: {model_selection_result.confidence:.2f})")
+                except Exception as e:
+                    logger.warning(f"Model selection failed for {ticker}: {e}. Using default 'original' model.")
+                    selected_model = "original"
+            
             zscore_results = []
             for i, data in enumerate(merged, 1):
                 progress.update_substep(f"Quarter {i} calculation", i)
-                result = self.zscore_calculator.calculate_zscore(data, forced_model=forced_model)
+                result = self.zscore_calculator.calculate_zscore(data, forced_model=selected_model)
                 zscore_results.append(result)
             
             current_step += 1
@@ -449,21 +399,25 @@ class AltmanZScorePipeline:
                 current_step += 1
                 progress.update("Valuation Analysis", current_step)
                 logger.info(f"Step {current_step}: Running valuation analysis for {ticker}")
+                progress.start_substeps(1)
                 progress.update_substep("P/E, P/B, market cap metrics")
                 
                 current_step += 1
                 progress.update("Performance Analysis", current_step)
                 logger.info(f"Step {current_step}: Running performance analysis for {ticker}")
+                progress.start_substeps(1)
                 progress.update_substep("Returns and volatility")
                 
                 current_step += 1
                 progress.update("Risk-Return Analysis", current_step)
                 logger.info(f"Step {current_step}: Running risk-return analysis for {ticker}")
+                progress.start_substeps(1)
                 progress.update_substep("Beta and Sharpe ratio")
                 
                 current_step += 1
                 progress.update("Market Analysis Summary", current_step)
                 logger.info(f"Step {current_step}: Consolidating market analysis for {ticker}")
+                progress.start_substeps(1)
                 progress.update_substep("Investment recommendation")
                 
                 try:
@@ -481,32 +435,13 @@ class AltmanZScorePipeline:
                     logger.warning(f"Market analysis failed for {ticker}: {str(e)}. Continuing with Z-Score only.")
                     market_analysis = None
             
-            # STEP GROUP 4: Comprehensive AI Analysis (5 steps if enabled)
+            # STEP GROUP 4: AI Final Commentary (1 step if enabled)
             comprehensive_ai_analysis = None
             if include_comprehensive_ai_analysis:
                 current_step += 1
-                progress.update("AI Data Quality Check", current_step)
-                logger.info(f"Step {current_step}: Running AI data quality analysis for {ticker}")
-                progress.update_substep("Anomaly detection")
-                
-                current_step += 1
-                progress.update("AI Peer Analysis", current_step)
-                logger.info(f"Step {current_step}: Running AI peer analysis for {ticker}")
-                progress.update_substep("Industry similarity matching")
-                
-                current_step += 1
-                progress.update("AI Sentiment Analysis", current_step)
-                logger.info(f"Step {current_step}: Running AI sentiment analysis for {ticker}")
-                progress.update_substep("Market sentiment extraction")
-                
-                current_step += 1
-                progress.update("AI Risk Analysis", current_step)
-                logger.info(f"Step {current_step}: Running AI risk analysis for {ticker}")
-                progress.update_substep("Risk factor identification")
-                
-                current_step += 1
                 progress.update("AI Final Commentary", current_step)
                 logger.info(f"Step {current_step}: Generating AI final commentary for {ticker}")
+                progress.start_substeps(2)
                 
                 try:
                     financial_data_for_ai = merged[0] if merged else None
@@ -514,20 +449,16 @@ class AltmanZScorePipeline:
                         progress.update_substep("Preparing analysis data")
                         comprehensive_ai_analysis = await self.ai_orchestrator.perform_comprehensive_analysis(
                             financial_data_for_ai,
-                            include_data_quality=True,
-                            include_peer_analysis=True,
-                            include_sentiment=True,
-                            include_risk_analysis=True,
-                            generate_final_commentary=True
+                            zscore_results=zscore_results,  # Pass Z-Score calculations for trend analysis
+                            market_analysis=market_analysis  # Pass market analysis for technical/valuation data
                         )
                         progress.update_substep("Generating insights")
-                        logger.info(f"Comprehensive AI analysis complete for {ticker}: "
-                                  f"{comprehensive_ai_analysis.overall_ai_confidence:.1%} confidence, "
-                                  f"{len(comprehensive_ai_analysis.ai_recommendations)} insights")
+                        logger.info(f"Direct LLM analysis complete for {ticker}: "
+                                  f"commentary generated from comprehensive raw data")
                     else:
-                        logger.warning(f"No financial data available for comprehensive AI analysis of {ticker}")
+                        logger.warning(f"No financial data available for AI analysis of {ticker}")
                 except Exception as e:
-                    logger.warning(f"Comprehensive AI analysis failed for {ticker}: {str(e)}. Continuing with standard analysis.")
+                    logger.warning(f"AI analysis failed for {ticker}: {str(e)}. Continuing with standard analysis.")
                     comprehensive_ai_analysis = None
             
             # STEP GROUP 5: Output Generation
@@ -549,6 +480,7 @@ class AltmanZScorePipeline:
                 current_step += 1
                 progress.update("Preparing Chart Data", current_step)
                 logger.info(f"Step {current_step}: Preparing chart data for {ticker}")
+                progress.start_substeps(1)
                 progress.update_substep("Processing time series")
                 
                 current_step += 1
@@ -560,6 +492,9 @@ class AltmanZScorePipeline:
                 current_step += 1
                 progress.update("Finalizing Charts", current_step)
                 logger.info(f"Step {current_step}: Finalizing charts for {ticker}")
+                progress.start_substeps(1)
+                progress.update_substep("Rendering visualizations")
+                logger.info(f"Step {current_step}: Finalizing charts for {ticker}")
                 progress.update_substep("Rendering interactive plots")
                 
                 try:
@@ -570,24 +505,8 @@ class AltmanZScorePipeline:
                 except Exception as e:
                     logger.warning(f"Chart generation failed for {ticker}: {str(e)}. Continuing with other outputs.")
             
-            # STEP GROUP 7: AI Insights (2 steps if enabled)
-            ai_insights = None
-            if include_ai_insights:
-                current_step += 1
-                progress.update("AI Insights Generation", current_step)
-                logger.info(f"Step {current_step}: Generating AI insights for {ticker}")
-                progress.update_substep("Investment profile analysis")
-                
-                # Pass both basic and comprehensive AI data
-                financial_data_for_ai = merged[0] if merged else None
-                ai_insights = await self._generate_ai_insights(
-                    zscore_results, market_analysis, financial_data_for_ai, comprehensive_ai_analysis
-                )
-                
-                current_step += 1
-                progress.update("AI Insights Formatting", current_step)
-                logger.info(f"Step {current_step}: Formatting AI insights for {ticker}")
-                progress.update_substep("Converting to HTML format")
+            # Removed AI Insights Generation - now using comprehensive AI commentary directly
+            # This eliminates duplication while maintaining high-quality AI analysis
             
             # STEP GROUP 8: Reports (2 steps if enabled)
             if generate_reports:
@@ -596,7 +515,7 @@ class AltmanZScorePipeline:
                 logger.info(f"Step {current_step}: Generating comprehensive report for {ticker}")
                 progress.update_substep("Rendering HTML template")
                 report_path = self.report_generator.generate_comprehensive_report(
-                    latest_result, ai_insights, market_analysis, comprehensive_ai_analysis
+                    latest_result, None, market_analysis, comprehensive_ai_analysis  # ai_insights removed
                 )
                 
                 current_step += 1
@@ -663,56 +582,6 @@ class AltmanZScorePipeline:
         
         logger.info(f"Batch analysis complete. Processed {len(results)} tickers.")
         return results
-    
-    async def _generate_ai_insights(self, zscore_results, market_analysis=None, financial_data=None, comprehensive_ai_analysis=None) -> Optional[str]:
-        """
-        Generate AI-powered insights combining Z-Score, market analysis, and comprehensive AI analysis.
-        
-        Args:
-            zscore_results: List of Z-Score calculation results for trend analysis
-            market_analysis: Market analysis result (optional)
-            financial_data: Raw financial data for comprehensive analysis
-            comprehensive_ai_analysis: Results from comprehensive AI analysis (optional)
-            
-        Returns:
-            Optional[str]: AI-generated comprehensive insights with investment profiles
-        """
-        try:
-            # Get the latest result for primary analysis
-            latest_result = zscore_results[0] if zscore_results else None
-            if not latest_result:
-                logger.warning("No Z-Score results available for AI insights")
-                return None
-                
-            logger.info(f"Generating AI-powered insights for {latest_result.ticker}")
-            
-            # Priority 1: Use comprehensive AI analysis final commentary if available
-            if comprehensive_ai_analysis and comprehensive_ai_analysis.llm_final_commentary:
-                logger.info(f"Using comprehensive AI analysis final commentary for {latest_result.ticker}")
-                insights = comprehensive_ai_analysis.llm_final_commentary
-            # Priority 2: Generate comprehensive analysis with investment profiles if financial data available
-            elif financial_data:
-                logger.info(f"Generating comprehensive analysis with investment profiles for {latest_result.ticker}")
-                insights = await self.ai_insights_generator.generate_comprehensive_analysis(
-                    zscore_results, financial_data, market_analysis
-                )
-            # Priority 3: Fallback to basic narrative using latest result
-            else:
-                logger.info(f"Generating basic investment narrative for {latest_result.ticker}")
-                insights = await self.ai_insights_generator.generate_investment_narrative(
-                    latest_result, market_analysis
-                )
-            
-            if insights:
-                logger.info(f"AI insights generated for {latest_result.ticker}: {len(insights)} characters")
-                return insights
-            else:
-                logger.warning(f"No AI insights generated for {latest_result.ticker}")
-                return None
-                
-        except Exception as e:
-            logger.error(f"Failed to generate AI insights for {latest_result.ticker if latest_result else 'unknown'}: {str(e)}")
-            return None
     
     def get_pipeline_status(self) -> Dict[str, any]:
         """

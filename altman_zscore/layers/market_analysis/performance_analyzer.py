@@ -11,7 +11,6 @@ Provides comprehensive performance analysis including:
 
 import numpy as np
 import pandas as pd
-import yfinance as yf
 from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime, timedelta
 
@@ -19,6 +18,7 @@ from ...common.logging_config import get_logger
 from ...common.exceptions import DataFetchError
 from ...common.api_rate_limiter import rate_limiter
 from ...models.market_models import MarketPerformance, AnalysisParameters
+from ..data_fetch.yahoo_fetcher import YahooDataFetcher
 
 logger = get_logger(__name__)
 
@@ -34,6 +34,7 @@ class PerformanceAnalyzer:
             parameters: Analysis parameters, uses defaults if None
         """
         self.params = parameters or AnalysisParameters()
+        self.yahoo_fetcher = YahooDataFetcher()
     
     @rate_limiter.rate_limited("performance_analysis")
     def analyze_ticker(self, ticker: str, period: str = "1y") -> MarketPerformance:
@@ -55,10 +56,9 @@ class PerformanceAnalyzer:
             if stock_data is None or len(stock_data) < 30:
                 raise DataFetchError(f"Insufficient price data for {ticker}")
             
-            # Get stock info for sector
-            stock = yf.Ticker(ticker)
-            info = stock.info
-            sector = info.get('sector', 'Unknown')
+            # Get stock market data summary for sector info
+            market_summary = self.yahoo_fetcher.get_market_data_summary(ticker)
+            sector = market_summary.get('sector', 'Unknown')
             
             # Calculate returns
             returns_analysis = self._calculate_returns(stock_data)
@@ -86,12 +86,12 @@ class PerformanceAnalyzer:
             raise DataFetchError(f"Performance analysis failed for {ticker}: {str(e)}")
     
     def _fetch_price_data(self, ticker: str, period: str) -> Optional[pd.DataFrame]:
-        """Fetch historical price data."""
+        """Fetch historical price data using cached Yahoo fetcher."""
         try:
-            stock = yf.Ticker(ticker)
-            data = stock.history(period=period)
+            data = self.yahoo_fetcher.get_historical_prices(ticker, period)
             
-            if data.empty:
+            if data is None or data.empty:
+                logger.warning(f"No price data returned for {ticker}")
                 return None
                 
             return data
@@ -134,11 +134,10 @@ class PerformanceAnalyzer:
     def _analyze_vs_benchmark(self, stock_data: pd.DataFrame, ticker: str) -> Dict[str, Optional[float]]:
         """Analyze performance vs benchmark (S&P 500)."""
         try:
-            # Fetch benchmark data (SPY)
-            benchmark = yf.Ticker(self.params.benchmark_symbol)
-            benchmark_data = benchmark.history(period="1y")
+            # Fetch benchmark data (SPY) using cached fetcher
+            benchmark_data = self.yahoo_fetcher.get_historical_prices(self.params.benchmark_symbol, "1y")
             
-            if benchmark_data.empty:
+            if benchmark_data is None or benchmark_data.empty:
                 logger.warning("Could not fetch benchmark data")
                 return {
                     'benchmark_1m': None,
@@ -249,19 +248,35 @@ class PerformanceAnalyzer:
             try:
                 benchmark_returns = benchmark_data['Close'].pct_change().fillna(0)
                 
-                # Calculate beta using covariance
-                covariance = np.cov(returns, benchmark_returns)[0, 1]
-                benchmark_variance = np.var(benchmark_returns)
-                
-                if benchmark_variance > 0:
-                    beta = covariance / benchmark_variance
-                    risk_metrics['beta'] = float(beta)
-                else:
+                # Ensure both return series have the same length by aligning on common dates
+                common_dates = returns.index.intersection(benchmark_returns.index)
+                if len(common_dates) < 30:  # Need sufficient data
                     risk_metrics['beta'] = None
+                    risk_metrics['market_correlation'] = None
+                else:
+                    # Align the return series on common dates
+                    aligned_returns = returns.reindex(common_dates).fillna(0)
+                    aligned_benchmark_returns = benchmark_returns.reindex(common_dates).fillna(0)
                     
-                # Market correlation
-                correlation = np.corrcoef(returns, benchmark_returns)[0, 1]
-                risk_metrics['market_correlation'] = float(correlation) if not np.isnan(correlation) else None
+                    # Verify both series have the same length
+                    if len(aligned_returns) != len(aligned_benchmark_returns):
+                        logger.warning(f"Return series length mismatch after alignment: {len(aligned_returns)} vs {len(aligned_benchmark_returns)}")
+                        risk_metrics['beta'] = None
+                        risk_metrics['market_correlation'] = None
+                    else:
+                        # Calculate beta using covariance
+                        covariance = np.cov(aligned_returns, aligned_benchmark_returns)[0, 1]
+                        benchmark_variance = np.var(aligned_benchmark_returns)
+                        
+                        if benchmark_variance > 0:
+                            beta = covariance / benchmark_variance
+                            risk_metrics['beta'] = float(beta)
+                        else:
+                            risk_metrics['beta'] = None
+                            
+                        # Market correlation
+                        correlation = np.corrcoef(aligned_returns, aligned_benchmark_returns)[0, 1]
+                        risk_metrics['market_correlation'] = float(correlation) if not np.isnan(correlation) else None
                 
             except Exception as e:
                 logger.warning(f"Beta calculation failed: {e}")
@@ -305,9 +320,8 @@ class PerformanceAnalyzer:
         
         if sector_etf:
             try:
-                # Fetch sector ETF data
-                sector_ticker = yf.Ticker(sector_etf)
-                sector_data = sector_ticker.history(period="1y")
+                # Fetch sector ETF data using cached fetcher
+                sector_data = self.yahoo_fetcher.get_historical_prices(sector_etf, "1y")
                 
                 if not sector_data.empty:
                     # Align data

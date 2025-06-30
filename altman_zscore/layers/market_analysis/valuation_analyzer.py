@@ -11,7 +11,6 @@ Provides comprehensive valuation analysis including:
 
 import numpy as np
 import pandas as pd
-import yfinance as yf
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 
@@ -19,6 +18,7 @@ from ...common.logging_config import get_logger
 from ...common.exceptions import DataFetchError
 from ...common.api_rate_limiter import rate_limiter
 from ...models.market_models import ValuationMetrics, AnalysisParameters
+from ..data_fetch.yahoo_fetcher import YahooDataFetcher
 
 logger = get_logger(__name__)
 
@@ -34,6 +34,7 @@ class ValuationAnalyzer:
             parameters: Analysis parameters, uses defaults if None
         """
         self.params = parameters or AnalysisParameters()
+        self.yahoo_fetcher = YahooDataFetcher()
     
     @rate_limiter.rate_limited("valuation_analysis")
     def analyze_ticker(self, ticker: str) -> ValuationMetrics:
@@ -49,15 +50,14 @@ class ValuationAnalyzer:
         try:
             logger.info(f"Starting valuation analysis for {ticker}")
             
-            # Fetch stock info and financials
-            stock = yf.Ticker(ticker)
-            info = stock.info
+            # Get comprehensive Yahoo Finance info data
+            info = self.yahoo_fetcher._YahooDataFetcher__direct_yahoo_call_get_ticker_info(ticker)
             
             # Calculate core valuation ratios
             core_ratios = self._calculate_core_ratios(info)
             
             # Calculate dividend metrics
-            dividend_metrics = self._calculate_dividend_metrics(info, stock)
+            dividend_metrics = self._calculate_dividend_metrics(info, ticker)
             
             # Calculate market metrics
             market_metrics = self._calculate_market_metrics(info)
@@ -66,7 +66,7 @@ class ValuationAnalyzer:
             sector_comparison = self._get_sector_comparison(info)
             
             # Get analyst estimates
-            analyst_data = self._get_analyst_estimates(stock, info)
+            analyst_data = self._get_analyst_estimates(info)
             
             return ValuationMetrics(
                 ticker=ticker,
@@ -110,7 +110,7 @@ class ValuationAnalyzer:
         
         return ratios
     
-    def _calculate_dividend_metrics(self, info: Dict, stock: yf.Ticker) -> Dict[str, Optional[float]]:
+    def _calculate_dividend_metrics(self, info: Dict, ticker: str) -> Dict[str, Optional[float]]:
         """Calculate dividend-related metrics."""
         metrics = {}
         
@@ -122,27 +122,10 @@ class ValuationAnalyzer:
         payout_ratio = info.get('payoutRatio')
         metrics['dividend_payout_ratio'] = float(payout_ratio) if payout_ratio else None
         
-        # Dividend growth rate calculation
-        try:
-            dividends = stock.dividends
-            if len(dividends) >= 8:  # Need at least 2 years of quarterly data
-                # Calculate year-over-year growth rates
-                quarterly_divs = dividends.groupby(dividends.index.year).sum()
-                if len(quarterly_divs) >= 2:
-                    recent_year = quarterly_divs.iloc[-1]
-                    previous_year = quarterly_divs.iloc[-2]
-                    if previous_year > 0:
-                        growth_rate = (recent_year - previous_year) / previous_year
-                        metrics['dividend_growth_rate'] = float(growth_rate)
-                    else:
-                        metrics['dividend_growth_rate'] = None
-                else:
-                    metrics['dividend_growth_rate'] = None
-            else:
-                metrics['dividend_growth_rate'] = None
-        except Exception as e:
-            logger.warning(f"Could not calculate dividend growth rate: {e}")
-            metrics['dividend_growth_rate'] = None
+        # Dividend growth rate calculation - simplified for cached data
+        # Note: Historical dividend data would require additional API calls
+        # For now, we'll skip this calculation to avoid cache issues
+        metrics['dividend_growth_rate'] = None
         
         return metrics
     
@@ -238,7 +221,7 @@ class ValuationAnalyzer:
         
         return comparison
     
-    def _get_analyst_estimates(self, stock: yf.Ticker, info: Dict) -> Dict[str, Optional[float]]:
+    def _get_analyst_estimates(self, info: Dict) -> Dict[str, Optional[float]]:
         """Get analyst price targets and estimates."""
         estimates = {}
         

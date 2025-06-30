@@ -7,7 +7,11 @@ All API calls are cached to prevent redundant downloads within the TTL period.
 This fetcher handles:
 - Market cap and price data
 - Historical stock prices
-- Current stock quotes
+- Cur        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached all historical prices for {symbol}")
+            return cached_resultstock quotes
 - Basic company information
 
 Key Features:
@@ -67,7 +71,8 @@ class YahooDataFetcher:
             config: Optional Yahoo Finance configuration
         """
         self.config = config or YahooConfig.from_env()
-        self.cache = get_cache("yahoo_api", backend=CacheBackend.FILE, cache_dir=".cache/yahoo")
+        # Use pickle serialization for pandas DataFrames and complex objects
+        self.cache = get_cache("yahoo_api", backend=CacheBackend.FILE, cache_dir=".cache/yahoo", serializer="pickle")
         
         # Set user agent for responsible API usage
         if self.config.user_agent:
@@ -76,21 +81,13 @@ class YahooDataFetcher:
             logger.info(f"Yahoo Finance configured with user agent: {self.config.user_agent}")
         
         logger.info("Initialized Yahoo Finance data fetcher")
-      # @rate_limiter.rate_limited("finance.yahoo.com")
-    def _get_ticker_info(self, symbol: str) -> Dict[str, Any]:
-        """
-        Get ticker info from Yahoo Finance with rate limiting.
         
-        Args:
-            symbol: Stock ticker symbol
-            
-        Returns:
-            Ticker info dictionary
-            
-        Raises:
-            APIError: If request fails
+    def __direct_yahoo_call_get_ticker_info(self, symbol: str) -> Dict[str, Any]:
         """
-        logger.debug(f"Fetching ticker info for {symbol} from Yahoo Finance")
+        PRIVATE: Direct Yahoo Finance API call - only for internal use within this module.
+        External code should use the cached get_market_data_summary() method instead!
+        """
+        logger.debug(f"Making direct Yahoo API call for ticker info: {symbol}")
         
         # Basic rate limiting - 0.5 seconds between requests (2 requests per second)
         time.sleep(0.5)
@@ -111,12 +108,68 @@ class YahooDataFetcher:
                 return info
                 
             except Exception as e:
-                logger.warning(f"Yahoo Finance request failed (attempt {attempt + 1}/{self.config.max_retries}): {e}")
+                logger.warning(f"Yahoo API attempt {attempt + 1} failed for {symbol}: {e}")
                 if attempt == self.config.max_retries - 1:
-                    raise DataFetchError(f"Yahoo Finance request failed after {self.config.max_retries} attempts: {e}")
-                
-                # Exponential backoff
-                time.sleep(2 ** attempt)
+                    raise DataFetchError(f"Failed to fetch data for {symbol} after {self.config.max_retries} attempts: {e}")
+                time.sleep(2 ** attempt)  # Exponential backoff
+        
+        return {}
+        
+    def __direct_yahoo_call_get_history(self, symbol: str, period: str = "max") -> Optional[pd.DataFrame]:
+        """
+        PRIVATE: Direct Yahoo Finance API call - only for internal use within this module.
+        External code should use the cached get_historical_prices() method instead!
+        """
+        logger.debug(f"Making direct Yahoo API call for {symbol} history")
+        
+        # Basic rate limiting - 0.5 seconds between requests
+        time.sleep(0.5)
+        
+        try:
+            logger.info(f"Making direct API call for {symbol} with period {period}")
+            ticker = yf.Ticker(symbol)
+            history = ticker.history(period=period)
+            
+            if not history.empty:
+                logger.info(f"Successfully fetched {len(history)} historical records for {symbol}")
+                return history
+            else:
+                logger.warning(f"No historical data returned for {symbol} with period {period}")
+            
+        except Exception as e:
+            import traceback
+            logger.error(f"Failed to get historical prices for {symbol}: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+        
+        return None
+    
+    def __direct_yahoo_call_get_history_range(self, symbol: str, start_date: str, end_date: Optional[str] = None) -> Optional[pd.DataFrame]:
+        """
+        PRIVATE: Direct Yahoo Finance API call for date range - only for internal use within this module.
+        External code should use the cached get_historical_prices_range() method instead!
+        """
+        logger.debug(f"Making direct Yahoo API call for {symbol} history range")
+        
+        # Basic rate limiting - 0.5 seconds between requests
+        time.sleep(0.5)
+        
+        try:
+            logger.info(f"Making direct API call for {symbol} from {start_date} to {end_date}")
+            ticker = yf.Ticker(symbol)
+            history = ticker.history(start=start_date, end=end_date)
+            
+            if not history.empty:
+                logger.info(f"Successfully fetched {len(history)} historical records for {symbol} ({start_date} to {end_date})")
+                return history
+            else:
+                logger.warning(f"No historical data returned for {symbol} from {start_date} to {end_date}")
+            
+        except Exception as e:
+            import traceback
+            logger.error(f"Failed to get historical prices for {symbol} ({start_date} to {end_date}): {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+        
+        return None
     
     def get_current_price(self, symbol: str) -> Optional[float]:
         """
@@ -138,7 +191,7 @@ class YahooDataFetcher:
         
         # Fetch from API
         try:
-            info = self._get_ticker_info(symbol)
+            info = self.__direct_yahoo_call_get_ticker_info(symbol)
             price = info.get('regularMarketPrice') or info.get('currentPrice')
             
             if price is not None:
@@ -171,7 +224,7 @@ class YahooDataFetcher:
         
         # Fetch from API
         try:
-            info = self._get_ticker_info(symbol)
+            info = self.__direct_yahoo_call_get_ticker_info(symbol)
             market_cap = info.get('marketCap')
             
             if market_cap is not None:
@@ -204,7 +257,7 @@ class YahooDataFetcher:
         
         # Fetch from API
         try:
-            info = self._get_ticker_info(symbol)
+            info = self.__direct_yahoo_call_get_ticker_info(symbol)
             shares = info.get('sharesOutstanding') or info.get('impliedSharesOutstanding')
             
             if shares is not None:
@@ -241,10 +294,9 @@ class YahooDataFetcher:
         
         try:
             logger.info(f"Fetching historical data for {symbol} with period {period}")
-            ticker = yf.Ticker(symbol)
-            history = ticker.history(period=period)
+            history = self.__direct_yahoo_call_get_history(symbol, period)
             
-            if not history.empty:
+            if history is not None and not history.empty:
                 logger.info(f"Successfully fetched {len(history)} historical records for {symbol}")
                 # Cache result
                 self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)
@@ -285,10 +337,9 @@ class YahooDataFetcher:
         
         try:
             logger.info(f"Fetching historical data for {symbol} from {start_date} to {end_date}")
-            ticker = yf.Ticker(symbol)
-            history = ticker.history(start=start_date, end=end_date)
+            history = self.__direct_yahoo_call_get_history_range(symbol, start_date, end_date)
             
-            if not history.empty:
+            if history is not None and not history.empty:
                 logger.info(f"Successfully fetched {len(history)} historical records for {symbol} ({start_date} to {end_date})")
                 # Cache result
                 self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)
@@ -327,11 +378,9 @@ class YahooDataFetcher:
         
         try:
             logger.info(f"Fetching all available historical data for {symbol}")
-            ticker = yf.Ticker(symbol)
-            # Call history() without any parameters to get all available data
-            history = ticker.history(period="max")
+            history = self.__direct_yahoo_call_get_history(symbol, "max")
             
-            if not history.empty:
+            if history is not None and not history.empty:
                 logger.info(f"Successfully fetched all available data: {len(history)} historical records for {symbol}")
                 # Cache result
                 self.cache.set(cache_key, history, ttl=CACHE_TTL_SECONDS)

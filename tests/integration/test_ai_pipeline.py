@@ -48,7 +48,7 @@ async def test_comprehensive_ai_analysis(ticker: str = "AAPL"):
             ticker=ticker,
             generate_charts=True,
             generate_reports=True,
-            include_ai_insights=True,
+            # Removed: include_ai_insights (now using comprehensive AI commentary directly)
             include_comprehensive_ai_analysis=True,
             include_market_analysis=True,
             enhanced_analysis=False,  # Use basic mode for testing

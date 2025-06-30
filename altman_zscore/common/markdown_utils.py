@@ -10,7 +10,7 @@ from typing import Optional
 
 def markdown_to_html(markdown_text: Optional[str]) -> Optional[str]:
     """
-    Convert markdown text to HTML.
+    Convert markdown text to HTML with enhanced formatting.
     
     Args:
         markdown_text: The markdown text to convert
@@ -26,7 +26,8 @@ def markdown_to_html(markdown_text: Optional[str]) -> Optional[str]:
         'extra',      # Adds tables, footnotes, etc.
         'codehilite', # Syntax highlighting for code blocks
         'toc',        # Table of contents
-        'nl2br'       # Convert newlines to <br> tags
+        'nl2br',      # Convert newlines to <br> tags
+        'sane_lists'  # Better list handling
     ])
     
     # Convert markdown to HTML

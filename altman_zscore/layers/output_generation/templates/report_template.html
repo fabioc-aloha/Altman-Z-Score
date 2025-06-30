@@ -112,6 +112,97 @@
             color: #ffc107;
             font-weight: bold;
         }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -179,9 +270,9 @@
     {% if market_analysis %}
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div style="margin: 10px 0; height: 1400px; overflow: hidden;">
-            <iframe src="{{ ticker }}_zscore_dashboard.html" width="100%" height="100%" frameborder="0" scrolling="no"
-                style="border: 0px solid #ddd; border-radius: 8px; display: block;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="{{ ticker }}_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
                 <p>Your browser does not support iframes.
                     <a href="{{ ticker }}_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -270,58 +361,6 @@
     </div>
 
     <div class="section market-section">
-        <h2>Technical Analysis</h2>
-        <div class="metrics">
-            <div class="metric">
-                <h4>MACD Signal</h4>
-                <p>{{ macd_signal }}</p>
-            </div>
-            <div class="metric">
-                <h4>Bollinger Signal</h4>
-                <p>{{ bollinger_signal }}</p>
-            </div>
-            <div class="metric">
-                <h4>Momentum Score</h4>
-                <p>{{ momentum_score }}/10</p>
-            </div>
-            <div class="metric">
-                <h4>Technical Trend</h4>
-                <p>{{ technical_trend }}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section market-section">
-        <h2>Performance Analysis</h2>
-        <div class="metrics">
-            <div class="metric">
-                <h4>1 Day</h4>
-                <p>{{ return_1d }}%</p>
-            </div>
-            <div class="metric">
-                <h4>1 Week</h4>
-                <p>{{ return_5d }}%</p>
-            </div>
-            <div class="metric">
-                <h4>1 Month</h4>
-                <p>{{ return_1m }}%</p>
-            </div>
-            <div class="metric">
-                <h4>3 Months</h4>
-                <p>{{ return_3m }}%</p>
-            </div>
-            <div class="metric">
-                <h4>6 Months</h4>
-                <p>{{ return_6m }}%</p>
-            </div>
-            <div class="metric">
-                <h4>1 Year</h4>
-                <p>{{ return_1y }}%</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section market-section">
         <h2>Risk Assessment</h2>
         <div class="metrics">
             <div class="metric">
@@ -344,18 +383,6 @@
     </div>
     {% endif %}
 
-    <div class="section">
-        <h2>Component Analysis</h2>
-        <div class="metrics">
-            {% for component, value in component_values.items() %}
-            <div class="metric">
-                <h4>{{ component }}</h4>
-                <p>{{ value }}</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
     {% if warnings %}
     <div class="section warning">
         <h2>Warnings & Notes</h2>
@@ -368,313 +395,14 @@
     {% endif %}
 
     {% if ai_analysis_html %}
-    <div class="section">
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div>{{ ai_analysis_html|safe }}</div>
     </div>
     {% elif ai_insights %}
-    <div class="section">
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Analysis</h2>
         <div>{{ ai_insights|safe }}</div>
-    </div>
-    {% endif %}
-
-    {% if ai_analysis %}
-    <div class="section" style="background-color: #f0f8ff; border-left: 4px solid #4169e1;">
-        <h2>🤖 AI-Enhanced Comprehensive Analysis</h2>
-
-        <!-- AI Analysis Overview -->
-        <div class="metrics">
-            <div class="metric">
-                <h4>AI Confidence</h4>
-                <p
-                    style="font-size: 1.3em; font-weight: bold; color: {% if ai_overall_confidence >= 0.8 %}#28a745{% elif ai_overall_confidence >= 0.6 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ "%.1f" | format(ai_overall_confidence * 100) }}%
-                </p>
-            </div>
-            <div class="metric">
-                <h4>AI Insights Generated</h4>
-                <p style="font-size: 1.1em; font-weight: 600;">{{ ai_recommendations_count }} recommendations</p>
-            </div>
-            {% if ai_analysis_timestamp %}
-            <div class="metric">
-                <h4>Analysis Date</h4>
-                <p>{{ ai_analysis_timestamp.strftime('%B %d, %Y') if ai_analysis_timestamp else 'Recent' }}</p>
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- Executive Summary Section -->
-        {% if ai_executive_summary %}
-        <div
-            style="margin: 20px 0; padding: 15px; background-color: rgba(65,105,225,0.05); border-radius: 8px; border: 1px solid rgba(65,105,225,0.2);">
-            <h3 style="color: #4169e1; margin-bottom: 10px;">📊 Executive Summary</h3>
-            <p style="font-size: 1.05em; line-height: 1.6; color: #333;">{{ ai_executive_summary }}</p>
-        </div>
-        {% endif %}
-
-        <!-- Investment Thesis Section -->
-        {% if ai_investment_thesis %}
-        <div
-            style="margin: 20px 0; padding: 15px; background-color: rgba(40,167,69,0.05); border-radius: 8px; border: 1px solid rgba(40,167,69,0.2);">
-            <h3 style="color: #28a745; margin-bottom: 10px;">💼 AI Investment Thesis</h3>
-            <p style="font-size: 1.05em; line-height: 1.6; color: #333;">{{ ai_investment_thesis }}</p>
-        </div>
-        {% endif %}
-
-        <!-- Key Insights Section -->
-        {% if ai_key_insights %}
-        <div style="margin: 20px 0;">
-            <h3 style="color: #4169e1; margin-bottom: 15px;">🔍 Key AI Insights</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
-                {% for insight in ai_key_insights %}
-                <div
-                    style="padding: 12px 15px; background-color: rgba(255,255,255,0.8); border-left: 4px solid #4169e1; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                    <p style="margin: 0; line-height: 1.5; color: #333;">{{ insight }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- Data Quality Analysis -->
-        {% if ai_data_quality_score %}
-        <h3 style="color: #17a2b8; margin: 25px 0 15px 0;">🔍 Data Quality Analysis</h3>
-        <div class="metrics">
-            <div class="metric">
-                <h4>Quality Score</h4>
-                <p
-                    style="font-size: 1.2em; font-weight: bold; color: {% if ai_data_quality_score >= 80 %}#28a745{% elif ai_data_quality_score >= 60 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ "%.1f" | format(ai_data_quality_score) }}/100
-                </p>
-            </div>
-            <div class="metric">
-                <h4>Reliability Rating</h4>
-                <p style="text-transform: capitalize; font-weight: 600;">{{ ai_data_reliability }}</p>
-            </div>
-            {% if ai_data_anomalies is defined %}
-            <div class="metric">
-                <h4>Data Anomalies</h4>
-                <p
-                    style="color: {% if ai_data_anomalies == 0 %}#28a745{% elif ai_data_anomalies <= 3 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ ai_data_anomalies }} detected
-                </p>
-            </div>
-            {% endif %}
-        </div>
-
-        {% if ai_data_recommendation %}
-        <div
-            style="margin: 15px 0; padding: 12px 15px; background-color: rgba(23,162,184,0.1); border-left: 4px solid #17a2b8; border-radius: 5px;">
-            <strong>Data Quality Assessment:</strong> {{ ai_data_recommendation }}
-        </div>
-        {% endif %}
-
-        {% if ai_anomalies_list and ai_anomalies_list|length > 0 %}
-        <div style="margin: 15px 0;">
-            <h4 style="color: #dc3545; margin-bottom: 10px;">⚠️ Detected Anomalies:</h4>
-            <div style="margin-left: 15px;">
-                {% for anomaly in ai_anomalies_list[:5] %}
-                <div
-                    style="margin: 6px 0; padding: 8px 12px; background-color: rgba(220,53,69,0.05); border-left: 3px solid #dc3545; border-radius: 4px; font-size: 0.95em;">
-                    {{ anomaly }}
-                </div>
-                {% endfor %}
-                {% if ai_anomalies_list|length > 5 %}
-                <div style="margin: 10px 0; font-style: italic; color: #666;">
-                    ... and {{ ai_anomalies_list|length - 5 }} more anomalies detected
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-        {% endif %}
-
-        {% if ai_company_zscore and ai_industry_avg_zscore %}
-        <h3 style="color: #6f42c1; margin: 25px 0 15px 0;">🏢 AI-Powered Peer Analysis</h3>
-        <div class="metrics">
-            <div class="metric">
-                <h4>Company Z-Score</h4>
-                <p style="font-weight: bold; font-size: 1.2em; color: #2c3e50;">{{ "%.2f" | format(ai_company_zscore) }}
-                </p>
-            </div>
-            <div class="metric">
-                <h4>Industry Average</h4>
-                <p style="font-size: 1.1em; color: #666;">{{ "%.2f" | format(ai_industry_avg_zscore) }}</p>
-            </div>
-            {% if ai_peer_rank != 'N/A' %}
-            <div class="metric">
-                <h4>Industry Rank</h4>
-                <p
-                    style="font-weight: 600; color: {% if ai_peer_rank > 0.7 %}#28a745{% elif ai_peer_rank > 0.4 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ "%.0f" | format(ai_peer_rank * 100) }}th percentile
-                </p>
-            </div>
-            {% endif %}
-            <div class="metric">
-                <h4>Performance vs Peers</h4>
-                <p
-                    style="font-weight: 600; color: {% if ai_company_zscore > ai_industry_avg_zscore %}#28a745{% else %}#dc3545{% endif %};">
-                    {% if ai_company_zscore > ai_industry_avg_zscore %}
-                    {{ "%.1f" | format((ai_company_zscore - ai_industry_avg_zscore) / ai_industry_avg_zscore * 100) }}%
-                    above average
-                    {% else %}
-                    {{ "%.1f" | format((ai_industry_avg_zscore - ai_company_zscore) / ai_industry_avg_zscore * 100) }}%
-                    below average
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-
-        {% if ai_identified_peers and ai_identified_peers|length > 0 %}
-        <div style="margin: 15px 0;">
-            <h4 style="color: #6f42c1; margin-bottom: 10px;">🎯 AI-Identified Peer Companies:</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0;">
-                {% for peer in ai_identified_peers[:8] %}
-                <span
-                    style="padding: 6px 12px; background-color: rgba(111,66,193,0.1); border: 1px solid rgba(111,66,193,0.3); border-radius: 15px; font-size: 0.9em; color: #6f42c1; font-weight: 500;">
-                    {{ peer }}
-                </span>
-                {% endfor %}
-                {% if ai_identified_peers|length > 8 %}
-                <span style="padding: 6px 12px; color: #666; font-style: italic;">
-                    +{{ ai_identified_peers|length - 8 }} more
-                </span>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if ai_peer_reasoning %}
-        <div
-            style="margin: 15px 0; padding: 12px 15px; background-color: rgba(111,66,193,0.05); border-left: 4px solid #6f42c1; border-radius: 5px;">
-            <strong>🧠 AI Peer Selection Methodology:</strong> {{ ai_peer_reasoning }}
-        </div>
-        {% endif %}
-        {% endif %}
-
-        {% if ai_sentiment_score is defined %}
-        <h3 style="color: #fd7e14; margin: 25px 0 15px 0;">📊 AI Market Sentiment Analysis</h3>
-        <div class="metrics">
-            <div class="metric">
-                <h4>Sentiment Score</h4>
-                <p
-                    style="font-weight: bold; font-size: 1.2em; color: {% if ai_sentiment_score > 0.3 %}#28a745{% elif ai_sentiment_score < -0.3 %}#dc3545{% else %}#ffc107{% endif %};">
-                    {{ "%.2f" | format(ai_sentiment_score) }}
-                </p>
-                <p style="font-size: 0.8em; color: #666; margin-top: 4px;">
-                    {% if ai_sentiment_score > 0.5 %}Very Positive
-                    {% elif ai_sentiment_score > 0.1 %}Positive
-                    {% elif ai_sentiment_score > -0.1 %}Neutral
-                    {% elif ai_sentiment_score > -0.5 %}Negative
-                    {% else %}Very Negative{% endif %}
-                </p>
-            </div>
-            <div class="metric">
-                <h4>Market Trend</h4>
-                <p style="font-weight: 600; font-size: 1.1em;">
-                    {{ ai_sentiment_trend | title }}
-                    {% if ai_sentiment_trend == 'improving' %}<span style="color: #28a745;">↗️</span>
-                    {% elif ai_sentiment_trend == 'declining' %}<span style="color: #dc3545;">↘️</span>
-                    {% else %}<span style="color: #ffc107;">→</span>{% endif %}
-                </p>
-            </div>
-            <div class="metric">
-                <h4>Analysis Confidence</h4>
-                <p
-                    style="font-weight: 600; color: {% if ai_sentiment_confidence >= 0.8 %}#28a745{% elif ai_sentiment_confidence >= 0.6 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ "%.0f" | format(ai_sentiment_confidence * 100) }}%
-                </p>
-            </div>
-            {% if ai_sentiment_divergence %}
-            <div class="metric">
-                <h4>Sentiment-Fundamental Divergence</h4>
-                <p style="font-weight: 600; color: #e83e8c;">{{ ai_sentiment_divergence | title }}</p>
-            </div>
-            {% endif %}
-        </div>
-        {% if ai_sentiment_summary %}
-        <div
-            style="margin: 15px 0; padding: 12px 15px; background-color: rgba(253,126,20,0.05); border-left: 4px solid #fd7e14; border-radius: 5px;">
-            <strong>📈 Market Sentiment Summary:</strong> {{ ai_sentiment_summary }}
-        </div>
-        {% endif %}
-        {% endif %}
-
-        {% if ai_risk_score is defined %}
-        <h3>⚠️ AI Risk Assessment</h3>
-        <div class="metrics">
-            <div class="metric">
-                <h4>Risk Score</h4>
-                <p
-                    style="font-weight: bold; color: {% if ai_risk_score < 0.3 %}#28a745{% elif ai_risk_score < 0.7 %}#ffc107{% else %}#dc3545{% endif %};">
-                    {{ "%.2f" | format(ai_risk_score) }}/1.0
-                </p>
-            </div>
-            <div class="metric">
-                <h4>Risk Level</h4>
-                <p>{{ ai_risk_level | title }}</p>
-            </div>
-            <div class="metric">
-                <h4>Risk Factors</h4>
-                <p>{{ ai_risk_factors | length }} identified</p>
-            </div>
-            {% if ai_risk_trajectory %}
-            <div class="metric">
-                <h4>Trajectory</h4>
-                <p>{{ ai_risk_trajectory | title }}</p>
-            </div>
-            {% endif %}
-        </div>
-        {% if ai_risk_factors %}
-        <div style="margin: 20px 0;">
-            <h4 style="color: #dc3545; margin-bottom: 15px;">⚠️ Identified Risk Factors:</h4>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-left: 15px;">
-                {% for factor in ai_risk_factors %}
-                <div
-                    style="padding: 12px 15px; background-color: rgba(220,53,69,0.08); border-left: 4px solid #dc3545; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                    <p style="margin: 0; line-height: 1.4; color: #721c24; font-weight: 500;">{{ factor }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if ai_risk_mitigation and ai_risk_mitigation|length > 0 %}
-        <div style="margin: 20px 0;">
-            <h4 style="color: #28a745; margin-bottom: 15px;">✅ Risk Mitigation Suggestions:</h4>
-            <div style="margin-left: 15px;">
-                {% for suggestion in ai_risk_mitigation %}
-                <div
-                    style="margin: 8px 0; padding: 10px 15px; background-color: rgba(40,167,69,0.08); border-left: 4px solid #28a745; border-radius: 6px;">
-                    <p style="margin: 0; line-height: 1.4; color: #155724;">{{ suggestion }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-        {% endif %}
-
-        {% if ai_recommendations %}
-        <h3>💡 AI Recommendations</h3>
-        <div style="margin: 15px 0;">
-            {% for recommendation in ai_recommendations %}
-            <div
-                style="margin: 12px 0; padding: 12px 15px; background-color: rgba(65,105,225,0.1); border-left: 4px solid #4169e1; border-radius: 5px;">
-                {{ recommendation }}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% if ai_data_recommendation %}
-        <h3>📈 Data Quality Recommendation</h3>
-        <div
-            style="margin: 15px 0; padding: 12px 15px; background-color: rgba(255,255,255,0.8); border-left: 4px solid #17a2b8; border-radius: 5px;">
-            {{ ai_data_recommendation }}
-        </div>
-        {% endif %}
     </div>
     {% endif %}
 
@@ -684,6 +412,73 @@
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         {% endif %}
     </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
 </body>
 
 </html>

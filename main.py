@@ -708,7 +708,7 @@ def main():
                         ticker,
                         generate_charts=True,  # Always generate charts and dashboards
                         generate_reports=True,
-                        include_ai_insights=True,  # Enable AI-powered investment narratives
+                        # Removed: include_ai_insights (now using comprehensive AI commentary directly)
                         forced_model=args.model,  # Pass model override if specified
                         quarters=getattr(args, 'quarters', 4),  # Pass quarters argument
                         enhanced_analysis=getattr(args, 'enhanced_analysis', False),  # Pass enhanced analysis flag

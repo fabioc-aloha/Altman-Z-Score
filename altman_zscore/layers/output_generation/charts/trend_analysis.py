@@ -111,9 +111,35 @@ class TrendChart(ChartBase):
             # Add Z-Score risk zones
             self.add_risk_zone_lines(fig, row, col)
             
-            # Update y-axis labels
-            fig.update_yaxes(title_text="Z-Score", row=row, col=col, secondary_y=False)
-            fig.update_yaxes(title_text="Price ($)", row=row, col=col, secondary_y=True)
+            # Update y-axis labels and configure axes for better gridline clarity
+            # Primary y-axis (Z-Score) - main gridlines
+            fig.update_yaxes(
+                title_text="Z-Score", 
+                row=row, col=col, 
+                secondary_y=False, 
+                rangemode='tozero',
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='rgba(128,128,128,0.3)'
+            )
+            
+            # Secondary y-axis (Price) - minimal/hidden gridlines to reduce confusion
+            fig.update_yaxes(
+                title_text="Price ($)", 
+                row=row, col=col, 
+                secondary_y=True,
+                showgrid=False,  # Hide secondary axis gridlines to reduce visual confusion
+                side='right'
+            )
+            
+            # Configure x-axis gridlines for consistency
+            fig.update_xaxes(
+                title_text="Date",
+                row=row, col=col,
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='rgba(128,128,128,0.2)'
+            )
                          
         except Exception as e:
             self.logger.warning(f"Could not generate trend chart: {str(e)}")

@@ -51,11 +51,15 @@ class ChartBase(ABC):
         return [self.get_risk_color(score) for score in z_scores]
     
     def add_risk_zone_lines(self, fig: go.Figure, row: int, col: int) -> None:
-        """Add standard Z-Score risk zone reference lines."""
-        fig.add_hline(y=1.8, line_dash="dash", line_color="red", 
-                     annotation_text="Distress Zone", row=row, col=col)
-        fig.add_hline(y=2.99, line_dash="dash", line_color="orange", 
-                     annotation_text="Gray Zone", row=row, col=col)
+        """Add standard Z-Score risk zone reference lines (only to xy subplots)."""
+        try:
+            fig.add_hline(y=1.8, line_dash="dash", line_color="red", 
+                         annotation_text="Distress Zone", row=row, col=col)
+            fig.add_hline(y=2.99, line_dash="dash", line_color="orange", 
+                         annotation_text="Gray Zone", row=row, col=col)
+        except Exception as e:
+            # Silently skip if subplot doesn't support horizontal lines (e.g., indicator subplots)
+            self.logger.debug(f"Cannot add risk zone lines to subplot ({row}, {col}): {str(e)}")
     
     def create_no_data_bar(self, chart_name: str) -> go.Bar:
         """Create a standardized 'No Data' placeholder chart."""

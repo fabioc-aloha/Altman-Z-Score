@@ -78,7 +78,8 @@ class FMPDataFetcher:
             config: Optional FMP configuration (defaults to environment config)
         """
         self.config = config or FMPConfig.from_env()
-        self.cache = get_cache("fmp_api", backend=CacheBackend.FILE, cache_dir=".cache/fmp")
+        # Use JSON serialization for FMP API responses (already JSON-compatible data)
+        self.cache = get_cache("fmp_api", backend=CacheBackend.FILE, cache_dir=".cache/fmp", serializer="json")
         self.session = requests.Session()
         self.current_url = ""  # For error handling
         self.rate_limiter = APIRateLimiter.get_instance()

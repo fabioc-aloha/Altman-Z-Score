@@ -162,18 +162,22 @@ class RiskReturnAnalysis(ChartBase):
     
     def _add_quadrant_lines(self, fig: go.Figure, row: int, col: int) -> None:
         """Add quadrant reference lines and labels."""
-        # Add benchmark quadrants with labels
-        fig.add_hline(y=0, line_dash="dash", line_color="gray", row=row, col=col)
-        fig.add_vline(x=25, line_dash="dash", line_color="gray", row=row, col=col)
-        
-        # Add quadrant labels
-        fig.add_annotation(
-            x=10, y=15, text="Low Risk<br>High Return", 
-            showarrow=False, font=dict(size=10, color="green"),
-            row=row, col=col
-        )
-        fig.add_annotation(
-            x=40, y=-15, text="High Risk<br>Low Return", 
-            showarrow=False, font=dict(size=10, color="red"),
-            row=row, col=col
-        )
+        try:
+            # Add benchmark quadrants with labels
+            fig.add_hline(y=0, line_dash="dash", line_color="gray", row=row, col=col)
+            fig.add_vline(x=25, line_dash="dash", line_color="gray", row=row, col=col)
+            
+            # Add quadrant labels
+            fig.add_annotation(
+                x=10, y=15, text="Low Risk<br>High Return", 
+                showarrow=False, font=dict(size=10, color="green"),
+                row=row, col=col
+            )
+            fig.add_annotation(
+                x=40, y=-15, text="High Risk<br>Low Return", 
+                showarrow=False, font=dict(size=10, color="red"),
+                row=row, col=col
+            )
+        except Exception:
+            # Skip if subplot doesn't support axis operations
+            pass
