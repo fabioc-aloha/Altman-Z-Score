@@ -436,7 +436,7 @@ class ReportGenerator:
                 return {
                     'safe': f"{thresholds['safe']:.2f}",
                     'gray_zone_upper': f"{thresholds['grey_upper']:.2f}",
-                    'gray_zone_lower': f"{thresholds['grey_lower']:.2f}",
+                    'gray_zone_lower': f"{thresholds['gray_lower']:.2f}",
                     'distress': f"{thresholds['distress']:.2f}"
                 }
             else:

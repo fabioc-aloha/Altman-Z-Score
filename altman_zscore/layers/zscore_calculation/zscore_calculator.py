@@ -54,7 +54,7 @@ class ZScoreCalculator:
         self.risk_thresholds = {
             model_name: {
                 "safe": model_data["thresholds"]["safe"],
-                "gray": model_data["thresholds"]["grey_lower"]
+                "gray": model_data["thresholds"]["gray_lower"]
             }
             for model_name, model_data in ZSCORE_MODELS.items()
         }

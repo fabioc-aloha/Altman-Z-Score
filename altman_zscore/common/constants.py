@@ -50,8 +50,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 2.99,
-            "grey_upper": 2.99,
-            "grey_lower": 1.81,
+            "gray_upper": 2.99,
+            "gray_lower": 1.81,
             "distress": 1.81
         },
         "description": "Original Altman Z-Score (1968) for public manufacturing companies"
@@ -67,8 +67,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 2.9,
-            "grey_upper": 2.9,
-            "grey_lower": 1.23,
+            "gray_upper": 2.9,
+            "gray_lower": 1.23,
             "distress": 1.23
         },
         "description": "Modified Z'-Score for private manufacturing companies"
@@ -83,8 +83,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 2.60,
-            "grey_upper": 2.60,
-            "grey_lower": 0.50,
+            "gray_upper": 2.60,
+            "gray_lower": 0.50,
             "distress": 0.50
         },
         "description": "Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds"
@@ -100,8 +100,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 5.85,
-            "grey_upper": 5.85,
-            "grey_lower": 3.75,
+            "gray_upper": 5.85,
+            "gray_lower": 3.75,
             "distress": 3.75
         },
         "description": "Emerging Markets Z''-Score (with +3.25 constant) - Literature-based thresholds"
@@ -117,8 +117,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 2.6,
-            "grey_upper": 2.6,
-            "grey_lower": 1.1,
+            "gray_upper": 2.6,
+            "gray_lower": 1.1,
             "distress": 1.1
         },
         "description": "Modified Z-Score for financial institutions"
@@ -135,8 +135,8 @@ ZSCORE_MODELS = {
         },
         "thresholds": {
             "safe": 2.99,
-            "grey_upper": 2.99,
-            "grey_lower": 1.81,
+            "gray_upper": 2.99,
+            "gray_lower": 1.81,
             "distress": 1.81
         },
         "description": "Modified Z-Score for retail companies with inventory focus"
