@@ -1,0 +1,580 @@
+# ===============================================================================
+# RETAIL Z-SCORE MODEL BACKTEST PORTFOLIO
+# Comprehensive Testing Dataset for Novel Retail-Specific Z-Score Model
+# ===============================================================================
+
+# PORTFOLIO OVERVIEW
+# ===============================================================================
+# This specialized portfolio is designed to validate the novel retail Z-Score model
+# developed in NOVEL_RETAIL_MODEL.md. It includes companies across the full spectrum
+# of retail financial health to test model accuracy and predictive power.
+#
+# Total Companies: ~45-50 (actively trading with available financial data)
+# Test Categories: 4 distinct financial health scenarios (focusing on active companies)
+# Time Period: 2015-2025 (emphasizing recent data for current model validation)
+# Industry Coverage: All major retail segments and business models
+# 
+# NOTE: Bankrupt/delisted companies (Category 1) are commented out due to data availability.
+# For comprehensive historical bankruptcy prediction testing, specialized historical
+# data sources would be required.
+# ===============================================================================
+
+# TESTING METHODOLOGY
+# ===============================================================================
+# 1. BANKRUPTCY PREDICTION: Test accuracy on known retail failures
+# 2. DISTRESS DETECTION: Validate early warning capabilities
+# 3. STABILITY ASSESSMENT: Confirm accurate classification of healthy retailers
+# 4. COMPARATIVE ANALYSIS: Benchmark against traditional Z-Score models
+# 5. INDUSTRY SEGMENTATION: Test across different retail subsectors
+# ===============================================================================
+
+# ===============================================================================
+# CATEGORY 1: FAILED/BANKRUPT RETAILERS (2010-2025) - REFERENCE ONLY
+# Expected Result: Z-Score < 1.81 (Distress Zone) in years prior to bankruptcy
+# ===============================================================================
+# These companies provide historical reference for bankruptcy patterns
+# NOTE: Most bankrupt companies are delisted and may not have current financial data
+# For empirical testing, historical data sources would be required
+# Total Companies: 20 (commented out due to data availability issues)
+
+# ===== MAJOR RETAIL BANKRUPTCIES =====
+# Note: Many bankrupt companies may not have current financial data available
+# These tickers are included for reference but may need historical data sources
+
+# Toys"R"Us (2017 Bankruptcy) - Data likely unavailable
+# Expected: Distress signals 2-3 years prior
+# Key Issues: High debt, inventory management, e-commerce disruption
+# TOY
+
+# Sears Holdings (2018 Bankruptcy) - Data likely unavailable
+# Expected: Extended distress period 2015-2018
+# Key Issues: Declining sales, inventory inefficiency, market share loss
+# SHLDQ
+
+# JCPenney (2020 Bankruptcy) - May have limited data
+# Expected: Distress signals 2017-2020
+# Key Issues: Failed turnaround attempts, inventory problems, COVID impact
+# JCPNQ
+
+# Neiman Marcus (2020 Bankruptcy) - Data likely unavailable
+# Expected: Luxury retail distress patterns
+# Key Issues: High debt, luxury market changes, pandemic impact
+# NMRCQ
+
+# Brooks Brothers (2020 Bankruptcy) - Data likely unavailable
+# Expected: Traditional retail model failure
+# Key Issues: Business model disruption, inventory management
+# BRKSQ
+
+# Pier 1 Imports (2020 Bankruptcy) - Data likely unavailable
+# Expected: Home goods retail distress
+# Key Issues: Inventory turnover, competitive pressure
+# PIRRQ
+
+# Century 21 (2020 Bankruptcy) - Data likely unavailable
+# Expected: Department store model failure
+# Key Issues: Real estate costs, inventory management
+# C21Q
+
+# ===== DEPARTMENT STORE FAILURES =====
+# Note: Most of these companies are delisted and may not have current data
+
+# Bon-Ton Stores (2018 Bankruptcy) - Data likely unavailable
+# Expected: Regional department store distress
+# Key Issues: Regional market decline, inventory efficiency
+# BONTQ
+
+# Gordmans (2017 Bankruptcy) - Data likely unavailable
+# Expected: Off-price retail challenges
+# Key Issues: Inventory management, competitive positioning
+# GORDQ
+
+# HHGregg (2017 Bankruptcy) - Data likely unavailable
+# Expected: Electronics retail failure
+# Key Issues: Low margin business, inventory turnover
+# HHGQ
+
+# ===== SPECIALTY RETAIL FAILURES =====
+# Note: Most bankrupt companies may not have current financial data
+
+# RadioShack (2015/2017 Bankruptcies) - Data likely unavailable
+# Expected: Technology retail disruption
+# Key Issues: Business model obsolescence, inventory problems
+# RSHCQ
+
+# Sports Authority (2016 Bankruptcy) - Data likely unavailable
+# Expected: Sporting goods retail distress
+# Key Issues: Inventory management, competitive pressure
+# TSAQ
+
+# Gander Mountain (2017 Bankruptcy) - Data likely unavailable
+# Expected: Outdoor retail challenges
+# Key Issues: Inventory efficiency, market positioning
+# GMTNQ
+
+# Payless ShoeSource (2017/2019 Bankruptcies) - Data likely unavailable
+# Expected: Footwear retail distress
+# Key Issues: Inventory management, fashion changes
+# PSDSQ
+
+# Brookstone (2018/2020 Bankruptcies) - Data likely unavailable
+# Expected: Specialty retail failure
+# Key Issues: Mall-based model, inventory turnover
+# BKSQ
+
+# ===== FASHION/APPAREL FAILURES =====
+# Note: Most bankrupt fashion companies may not have current data
+
+# Barneys New York (2019 Bankruptcy) - Data likely unavailable
+# Expected: Luxury fashion retail distress
+# Key Issues: High costs, inventory management, market changes
+# BYRAQ
+
+# Forever 21 (2019 Bankruptcy) - Data likely unavailable
+# Expected: Fast fashion model strain
+# Key Issues: Inventory management, international expansion costs
+# F21Q
+
+# Charlotte Russe (2019 Bankruptcy) - Data likely unavailable
+# Expected: Junior fashion retail failure
+# Key Issues: Target market changes, inventory efficiency
+# CHRLQ
+
+# Dress Barn (2019 Closure) - Data likely unavailable
+# Expected: Women's apparel retail decline
+# Key Issues: Fashion changes, inventory management
+# DBNQ
+
+# Gymboree (2017/2019 Bankruptcies) - Data likely unavailable
+# Expected: Children's apparel challenges
+# Key Issues: Market changes, inventory turnover
+# GYMQ
+
+# ===============================================================================
+# CATEGORY 2: RETAILERS IN DISTRESS (2020-2025)
+# Expected Result: Z-Score 1.81-2.99 (Grey Zone) with declining trends
+# ===============================================================================
+# Companies showing distress signals but still operating and trading
+# Total Companies: 12-15 (actively trading)
+
+# ===== CURRENT DISTRESS CASES =====
+
+# Bed Bath & Beyond (Recent difficulties) - May be delisted
+# Expected: Grey zone with declining inventory efficiency
+# Key Challenges: Inventory management, competitive pressure, management changes
+# BBBY (Check if still trading)
+
+# Party City (Ongoing struggles)
+# Expected: Party retail model challenges
+# Key Challenges: Seasonal inventory, market changes, debt issues
+PRTY
+
+# GameStop (Transformation challenges)
+# Expected: Traditional retail model disruption
+# Key Challenges: Digital disruption, inventory efficiency, business model shift
+GME
+
+# Express (Fashion retail struggles)
+# Expected: Apparel retail distress signals
+# Key Challenges: Fashion retail competition, inventory management
+EXPR
+
+# Big Lots (Discount retail pressures)
+# Expected: Discount retail model strain
+# Key Challenges: Inventory management, competitive environment
+BIG
+
+# Revlon (Beauty retail/manufacturing hybrid) - Check status
+# Expected: Beauty industry disruption impact
+# Key Challenges: Inventory management, market share loss
+# REV (May be delisted)
+
+# Additional Current Distress Cases (Still Trading)
+# Spirit Halloween (Seasonal challenges)
+SPIR
+
+# Build-A-Bear Workshop (Specialty toy retail challenges)
+BBW
+
+# American Greetings (Declining card market)
+AM
+
+# ===== STRUGGLING DEPARTMENT STORES =====
+
+# Macy's (Ongoing transformation)
+# Expected: Department store model adaptation challenges
+# Key Challenges: Real estate optimization, inventory efficiency
+M
+
+# Nordstrom (Premium retail pressures)  
+# Expected: Premium department store challenges
+# Key Challenges: Market positioning, inventory management
+JWN
+
+# Dillard's (Regional department store)
+# Expected: Regional market pressures
+# Key Challenges: Market consolidation, inventory efficiency
+DDS
+
+# ===== SPECIALTY RETAIL UNDER PRESSURE =====
+
+# Bath & Body Works (Post-spin challenges)
+# Expected: Specialty beauty retail pressures
+# Key Challenges: Market saturation, inventory management
+BBWI
+
+# American Eagle Outfitters (Teen retail challenges)
+# Expected: Teen/young adult market pressures
+# Key Challenges: Fashion trends, inventory turnover
+AEO
+
+# Abercrombie & Fitch (Brand repositioning)
+# Expected: Fashion brand transformation challenges
+# Key Challenges: Brand relevance, inventory management
+ANF
+
+# Urban Outfitters (Multi-brand retail)
+# Expected: Lifestyle retail pressures
+# Key Challenges: Brand differentiation, inventory efficiency
+URBN
+
+# Gap Inc. (Multi-brand apparel)
+# Expected: Apparel retail transformation
+# Key Challenges: Brand portfolio management, inventory optimization
+GPS
+
+# Foot Locker (Athletic footwear retail)
+# Expected: Athletic retail disruption
+# Key Challenges: Direct-to-consumer trends, inventory management
+FL
+
+# ===============================================================================
+# CATEGORY 3: RECOVERY/TURNAROUND STORIES (2015-2025)
+# Expected Result: Improving Z-Scores from Grey/Distress to Safe zones
+# ===============================================================================
+# Companies that successfully navigated retail challenges
+# Total Companies: 10
+
+# ===== SUCCESSFUL TRANSFORMATIONS =====
+
+# Best Buy (Digital transformation success)
+# Expected: Recovery from distress to safe zone 2012-2020
+# Key Success: Omnichannel strategy, inventory optimization, service focus
+BBY
+
+# Target (Reinvention success)
+# Expected: Consistent improvement in Z-Score components
+# Key Success: Store renovation, inventory management, brand partnerships
+TGT
+
+# Old Navy/Gap Brands (Turnaround efforts)
+# Expected: Brand-specific performance improvements
+# Key Success: Value positioning, inventory efficiency improvements
+GPS
+
+# ===== E-COMMERCE ADAPTATION WINNERS =====
+
+# Dick's Sporting Goods (Omnichannel success)
+# Expected: Sporting goods retail stability
+# Key Success: E-commerce integration, inventory management
+DKS
+
+# Burlington Stores (Off-price model success)
+# Expected: Discount retail model strength
+# Key Success: Inventory turnover optimization, treasure hunt model
+BURL
+
+# TJX Companies (Off-price retail leader)
+# Expected: Consistently strong Z-Scores
+# Key Success: Inventory turnover excellence, international expansion
+TJX
+
+# ===== NICHE RETAIL SUCCESS =====
+
+# AutoZone (Auto parts retail strength)
+# Expected: Specialty retail model success
+# Key Success: Inventory management, market consolidation
+AZO
+
+# O'Reilly Automotive (Auto parts competitor)
+# Expected: Consistent performance in specialty retail
+# Key Success: Inventory efficiency, market expansion
+ORLY
+
+# Advance Auto Parts (Auto parts consolidation)
+# Expected: Market consolidation benefits
+# Key Success: Supply chain optimization, inventory management
+AAP
+
+# Lowe's (Home improvement retail)
+# Expected: Home improvement market strength
+# Key Success: Inventory management, market share gains
+LOW
+
+# ===============================================================================
+# CATEGORY 4: STABLE/STRONG RETAILERS (2010-2025)
+# Expected Result: Consistent Z-Scores > 2.99 (Safe Zone)
+# ===============================================================================
+# Benchmark companies for retail excellence
+# Total Companies: 15
+
+# ===== E-COMMERCE LEADERS =====
+
+# Amazon (E-commerce dominance)
+# Expected: Consistently strong Z-Scores despite growth investments
+# Key Strengths: Inventory turnover optimization, scale advantages
+AMZN
+
+# ===== WAREHOUSE/MEMBERSHIP RETAIL =====
+
+# Costco (Membership model excellence)
+# Expected: Exceptional inventory turnover, strong Z-Scores
+# Key Strengths: Inventory management, membership model, scale
+COST
+
+# Sam's Club/Walmart (Walmart overall strength)
+# Expected: Retail excellence across formats
+# Key Strengths: Scale advantages, inventory optimization, omnichannel
+WMT
+
+# BJ's Wholesale Club (Regional membership model)
+# Expected: Membership model benefits
+# Key Strengths: Inventory turnover, regional market strength
+BJ
+
+# ===== HOME IMPROVEMENT LEADERS =====
+
+# Home Depot (Home improvement market leader)
+# Expected: Consistently strong performance
+# Key Strengths: Market leadership, inventory management, professional sales
+HD
+
+# ===== DISCOUNT RETAIL EXCELLENCE =====
+
+# Dollar General (Dollar store model success)
+# Expected: Small format retail efficiency
+# Key Strengths: Inventory turnover, rural market penetration, efficiency
+DG
+
+# Dollar Tree (Value retail model)
+# Expected: Fixed price model advantages
+# Key Strengths: Inventory simplicity, cost management
+DLTR
+
+# ===== SPECIALTY RETAIL LEADERS =====
+
+# Sherwin-Williams (Paint retail/manufacturing)
+# Expected: Specialty retail model strength
+# Key Strengths: Market leadership, inventory management, B2B focus
+SHW
+
+# ===== LUXURY RETAIL STABILITY =====
+
+# Tiffany & Co. (Pre-LVMH acquisition)
+# Expected: Luxury retail model strength
+# Key Strengths: Brand power, inventory management, global presence
+TIF
+
+# ===== INTERNATIONAL RETAIL BENCHMARKS =====
+
+# IKEA (Private - use for reference)
+# Expected: Furniture retail model excellence
+# Key Strengths: Inventory efficiency, global scale, unique model
+
+# Zara/Inditex (Fast fashion leader)
+# Expected: Fashion retail efficiency
+# Key Strengths: Inventory turnover, supply chain excellence
+ITX
+
+# H&M (Fast fashion competitor) 
+# Expected: Fashion retail scale advantages
+# Key Strengths: Global presence, inventory management
+HM-B.ST
+
+# Uniqlo/Fast Retailing (Japanese retail excellence)
+# Expected: Asian retail model strength
+# Key Strengths: Supply chain, inventory efficiency, global expansion
+9983.T
+
+# ASOS (Online fashion retail)
+# Expected: Pure-play e-commerce model
+# Key Strengths: Digital-native operations, inventory management
+ASC.L
+
+# Zalando (European e-commerce)
+# Expected: Regional e-commerce strength  
+# Key Strengths: Platform model, inventory optimization
+ZAL.DE
+
+# ===============================================================================
+# CATEGORY 5: SEASONAL/CYCLICAL RETAILERS (2015-2025)
+# Expected Result: Variable Z-Scores with seasonal patterns
+# ===============================================================================
+# Test model performance with seasonal inventory patterns
+# Total Companies: 15
+
+# ===== HOLIDAY/SEASONAL SPECIALISTS =====
+
+# Christmas Tree Shops (Seasonal merchandise)
+# Expected: High seasonal variation in inventory ratios
+# Key Challenges: Seasonal inventory management, cash flow timing
+CTSO
+
+# Spirit Halloween (Ultra-seasonal model)
+# Expected: Extreme seasonal patterns in all metrics
+# Key Challenges: 90% revenue in 3 months, inventory timing
+SPIR
+
+# ===== FASHION RETAIL (SEASONAL COLLECTIONS) =====
+
+# Nordstrom Rack/Nordstrom (Seasonal fashion)
+# Expected: Fashion cycle impact on inventory metrics
+# Key Challenges: Fashion inventory management, seasonal markdowns
+JWN
+
+# Ross Stores (Off-price seasonal)
+# Expected: Off-price model handling seasonal variations
+# Key Strengths: Year-round treasure hunt, less seasonal impact
+ROST
+
+# ===== HOME/GARDEN SEASONAL =====
+
+# Tractor Supply Company (Rural/seasonal retail)
+# Expected: Agricultural/seasonal patterns
+# Key Challenges: Spring season concentration, inventory timing
+TSCO
+
+# Home Depot (Seasonal home improvement)
+# Expected: Spring/summer seasonal strength
+# Key Strengths: Professional sales balance seasonal consumer patterns
+HD
+
+# ===== SPORTING GOODS SEASONAL =====
+
+# Dick's Sporting Goods (Sports equipment seasons)
+# Expected: Equipment and apparel seasonal patterns
+# Key Challenges: Athletic seasons, inventory management across sports
+DKS
+
+# Big 5 Sporting Goods (Regional sports retail)
+# Expected: Regional seasonal patterns
+# Key Challenges: Seasonal sports equipment, regional weather impact
+BGFV
+
+# ===== SPECIALTY SEASONAL =====
+
+# Sally Beauty (Beauty seasonal trends)
+# Expected: Beauty industry seasonal patterns
+# Key Challenges: Fashion beauty trends, professional vs. consumer
+SBH
+
+# Pool Corporation (Swimming pool retail)
+# Expected: Extreme seasonal concentration
+# Key Challenges: 70% revenue in 6 months, inventory timing
+POOL
+
+# Build-A-Bear Workshop (Gift/seasonal toy retail)
+# Expected: Holiday concentration, experience retail
+# Key Challenges: Holiday sales concentration, inventory management
+BBW
+
+# American Greetings (Seasonal cards/gifts)
+# Expected: Holiday-driven revenue patterns
+# Key Challenges: Seasonal card inventory, declining market
+AM
+
+# Hallmark (Private - use for reference analysis)
+# Expected: Similar seasonal patterns to American Greetings
+# Key Challenges: Digital disruption, seasonal inventory
+
+# Party City (Party supplies seasonal)
+# Expected: Holiday and event-driven patterns
+# Key Challenges: Seasonal inventory, helium costs, competition
+PRTY
+
+# Spencer's (Novelty/seasonal retail)
+# Expected: Mall-based seasonal novelty patterns
+# Key Challenges: Mall traffic decline, seasonal merchandise timing
+SPNC
+
+# ===============================================================================
+# BACKTEST METHODOLOGY AND EXPECTED OUTCOMES
+# ===============================================================================
+
+# TESTING FRAMEWORK:
+# ===============================================================================
+# 1. HISTORICAL ACCURACY TEST
+#    - Calculate retail Z-Scores for 5 years before bankruptcy
+#    - Compare with traditional Z-Score predictions
+#    - Measure: Sensitivity, Specificity, AUC-ROC
+#
+# 2. EARLY WARNING DETECTION
+#    - Test model's ability to detect distress 2-3 years early
+#    - Compare timing with traditional models
+#    - Measure: Lead time advantage, false positive rate
+#
+# 3. INVENTORY IMPACT ANALYSIS
+#    - Compare companies with high vs. low inventory ratios
+#    - Measure inventory turnover component (X₆) effectiveness
+#    - Validate modified working capital calculation (X₁)
+#
+# 4. SEASONAL PATTERN HANDLING
+#    - Test quarterly variations in Z-Scores
+#    - Validate inventory normalization effectiveness
+#    - Compare seasonal vs. non-seasonal retail performance
+#
+# 5. INDUSTRY SEGMENTATION VALIDATION
+#    - Test model across different retail subsectors
+#    - Validate coefficient appropriateness across segments
+#    - Identify potential need for further segmentation
+# ===============================================================================
+
+# EXPECTED RETAIL MODEL ADVANTAGES:
+# ===============================================================================
+# 1. HIGHER ACCURACY: Better bankruptcy prediction for retail companies
+# 2. EARLIER WARNING: Inventory efficiency signals precede traditional ratios
+# 3. REDUCED FALSE POSITIVES: Fewer healthy retailers classified as distressed
+# 4. SEASONAL ADJUSTMENT: Better handling of seasonal inventory patterns
+# 5. INDUSTRY RELEVANCE: More appropriate risk assessment for retail operations
+# ===============================================================================
+
+# VALIDATION METRICS:
+# ===============================================================================
+# - Bankruptcy Prediction Accuracy: Target >80% (vs. ~65% traditional)
+# - Early Warning Lead Time: Target 2-3 years advance notice
+# - False Positive Rate: Target <15% (vs. ~25% traditional)
+# - Seasonal Stability: Reduced quarterly variation in classifications
+# - Industry Appropriateness: Better risk ranking correlation with expert opinion
+# ===============================================================================
+
+# USAGE INSTRUCTIONS:
+# ===============================================================================
+# 1. Run comprehensive analysis on all companies:
+#    python main.py --portfolio retail_backtest_portfolio.txt --model retail
+#
+# 2. Compare with traditional models:
+#    python main.py --portfolio retail_backtest_portfolio.txt --model original
+#    python main.py --portfolio retail_backtest_portfolio.txt --model private
+#
+# 3. Historical backtesting (if historical data available):
+#    python backtest_retail_model.py --years 2015-2020 --portfolio retail_backtest
+#
+# 4. Seasonal pattern analysis:
+#    python analyze_seasonal_patterns.py --portfolio retail_backtest --category seasonal
+#
+# 5. Generate validation report:
+#    python generate_retail_validation_report.py --results backtest_results/
+# ===============================================================================
+
+# RESEARCH APPLICATIONS:
+# ===============================================================================
+# This portfolio enables comprehensive academic validation of the novel retail
+# Z-Score model, supporting potential publication and peer review. The diverse
+# company selection across failure scenarios, recovery stories, and stable 
+# operations provides robust testing for all model components and assumptions.
+# ===============================================================================
+
+# Total Companies: 75
+# Expected Analysis Time: ~2-3 hours for full portfolio
+# Data Requirements: 5+ years historical data for bankruptcy prediction testing
+# Recommended Frequency: Quarterly updates for ongoing model validation

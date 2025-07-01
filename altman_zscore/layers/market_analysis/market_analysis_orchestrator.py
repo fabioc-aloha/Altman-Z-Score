@@ -13,6 +13,7 @@ from datetime import datetime
 
 from ...common.logging_config import get_logger
 from ...common.exceptions import DataFetchError
+from ..._version import __version__
 from ...models.market_models import (
     ComprehensiveMarketAnalysis, TechnicalAnalysis, ValuationMetrics,
     MarketPerformance, RiskReturnProfile, AnalysisParameters
@@ -165,7 +166,7 @@ class MarketAnalysisOrchestrator:
                 data_quality_score=data_quality_score,
                 analysis_completeness=analysis_completeness,
                 generated_at=datetime.now(),
-                generator_version="1.0.0"
+                generator_version=__version__
             )
             
         except Exception as e:

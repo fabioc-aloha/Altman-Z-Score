@@ -335,6 +335,106 @@ class ZScoreCalculator:
         components['z_score'] = z_score
         return components
     
+    def _calculate_retail_zscore(self, data: MergedFinancialData) -> Dict[str, float]:
+        """
+        Calculate Z-Score for retail companies with inventory adjustments.
+        
+        Based on retail industry adaptations that account for inventory turnover
+        and seasonal patterns common in retail businesses.
+        
+        Z = 1.2*X1 + 1.4*X2 + 3.3*X3 + 0.6*X4 + 1.0*X5 + 0.5*X6
+        
+        Where:
+        X1 = (Current Assets - Inventory) / Total Assets (Modified for retail)
+        X2 = Retained Earnings / Total Assets  
+        X3 = EBIT / Total Assets
+        X4 = Market Value of Equity / Total Liabilities (or Book Value if market not available)
+        X5 = Sales / Total Assets
+        X6 = Inventory Turnover adjustment
+        """
+        components = {}
+        warnings = []
+        
+        raw_data = data.raw_fmp_data or {}
+        balance_sheet = raw_data.get('balance_sheet', {})
+        income_statement = raw_data.get('income_statement', {})
+        
+        # Component X1: (Current Assets - Inventory) / Total Assets (Retail-specific)
+        current_assets = balance_sheet.get('totalCurrentAssets', 0)
+        inventory = balance_sheet.get('inventory', 0)
+        total_assets = balance_sheet.get('totalAssets', 0)
+        
+        if total_assets > 0:
+            components['working_capital_ratio'] = (current_assets - inventory) / total_assets
+        else:
+            components['working_capital_ratio'] = 0.0
+            warnings.append("Total assets missing - working capital ratio set to 0")
+        
+        # Component X2: Retained Earnings / Total Assets
+        if data.retained_earnings_ratio is not None:
+            components['retained_earnings_ratio'] = data.retained_earnings_ratio
+        else:
+            retained_earnings = balance_sheet.get('retainedEarnings', 0)
+            components['retained_earnings_ratio'] = retained_earnings / total_assets if total_assets > 0 else 0
+        
+        # Component X3: EBIT / Total Assets
+        if data.ebit_ratio is not None:
+            components['ebit_ratio'] = data.ebit_ratio
+        else:
+            ebit = income_statement.get('operatingIncome', 0)
+            components['ebit_ratio'] = ebit / total_assets if total_assets > 0 else 0
+        
+        # Component X4: Market Value or Book Value of Equity / Total Liabilities
+        if data.market_equity_ratio is not None and data.market_equity_ratio > 0:
+            # Use market value if available (preferred for retail)
+            components['market_equity_ratio'] = data.market_equity_ratio
+        else:
+            # Fall back to book value
+            book_value = balance_sheet.get('totalStockholdersEquity', 0)
+            total_liabilities = balance_sheet.get('totalLiabilities', 0)
+            if total_liabilities > 0:
+                components['market_equity_ratio'] = book_value / total_liabilities
+                warnings.append("Market value not available, using book value for equity ratio")
+            else:
+                components['market_equity_ratio'] = 0.0
+                warnings.append("Total liabilities missing - equity ratio set to 0")
+        
+        # Component X5: Sales / Total Assets (Asset Turnover)
+        if data.asset_turnover is not None:
+            components['asset_turnover'] = data.asset_turnover
+        else:
+            revenue = income_statement.get('revenue', 0)
+            components['asset_turnover'] = revenue / total_assets if total_assets > 0 else 0
+        
+        # Component X6: Inventory Turnover adjustment (Retail-specific)
+        cost_of_goods_sold = income_statement.get('costOfRevenue', 0)
+        if inventory > 0 and cost_of_goods_sold > 0:
+            inventory_turnover = cost_of_goods_sold / inventory
+            # Normalize inventory turnover (higher turnover = better for retail)
+            components['inventory_adjustment'] = min(inventory_turnover / 12.0, 1.0)  # Cap at 1.0
+        else:
+            components['inventory_adjustment'] = 0.0
+            warnings.append("Inventory turnover could not be calculated")
+        
+        # Calculate retail Z-Score using retail coefficients
+        coeffs = ZSCORE_MODELS["retail"]["coefficients"]
+        z_score = (
+            coeffs["X1"] * components.get('working_capital_ratio', 0) +
+            coeffs["X2"] * components.get('retained_earnings_ratio', 0) +
+            coeffs["X3"] * components.get('ebit_ratio', 0) +
+            coeffs["X4"] * components.get('market_equity_ratio', 0) +
+            coeffs["X5"] * components.get('asset_turnover', 0) +
+            coeffs.get("X6", 0) * components.get('inventory_adjustment', 0)
+        )
+        
+        components['z_score'] = z_score
+        
+        # Store warnings in metadata
+        if warnings:
+            components['_metadata'] = {'warnings': warnings}
+        
+        return components
+    
     def _categorize_risk(self, z_score: float, model: str) -> str:
         """Categorize bankruptcy risk based on Z-Score and model."""
         thresholds = self.risk_thresholds.get(model, self.risk_thresholds["original"])
@@ -651,11 +751,13 @@ class ZScoreCalculator:
             elif model_name == "emerging":
                 components = self._calculate_emerging_zscore(corrected_data)
             elif model_name == "retail":
-                # Retail model - documented as proprietary extension
-                self.logger.warning(f"Using proprietary retail model for {corrected_data.ticker}")
-                components = self._calculate_original_zscore(corrected_data)  # Fallback to original
-                warnings.append("Retail model not fully validated - using original model instead")
-                model_name = "original"
+                # Retail model - now fully implemented with inventory adjustments
+                self.logger.info(f"Using retail model for {corrected_data.ticker}")
+                components = self._calculate_retail_zscore(corrected_data)
+                # Extract any retail-specific warnings
+                if '_metadata' in components and 'warnings' in components['_metadata']:
+                    warnings.extend(components['_metadata']['warnings'])
+                    del components['_metadata']
             elif model_name == "financial":
                 # Financial institutions - typically excluded from Altman Z-Score
                 self.logger.warning(f"Financial company detected: {corrected_data.ticker} - Z-Score may not be applicable")

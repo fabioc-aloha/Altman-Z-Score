@@ -19,6 +19,7 @@ from pathlib import Path
 from string import Template
 
 from ..common.logging_config import get_logger
+from .._version import __version__
 
 logger = get_logger(__name__)
 
@@ -175,7 +176,8 @@ class HTMLPortfolioGenerator:
             'avg_zscore': f"{avg_zscore:.2f}",
             'summary_text': summary_text,
             'company_cards': company_cards,
-            'css_file': css_filename
+            'css_file': css_filename,
+            'version': __version__
         }
         
         # Generate final HTML

@@ -32,9 +32,9 @@ def check_version():
         sys.path.insert(0, str(Path.cwd()))
         from altman_zscore._version import __version__, RELEASE_NAME, RELEASE_DATE
         
-        expected_version = "4.3.0"
-        expected_date = "2025-06-27"
-        expected_name = "Enhanced Configuration & Modern Defaults"
+        expected_version = "4.5.0"
+        expected_date = "2025-06-30"
+        expected_name = "DIAMOND Release - Novel Retail Z-Score Model & Academic Excellence"
         
         version_ok = __version__ == expected_version
         date_ok = RELEASE_DATE == expected_date

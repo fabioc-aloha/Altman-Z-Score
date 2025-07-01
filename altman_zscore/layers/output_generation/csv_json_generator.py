@@ -21,6 +21,7 @@ from pathlib import Path
 from ...common.logging_config import get_logger
 from ...common.exceptions import OutputGenerationError
 from ..zscore_calculation import ZScoreCalculationResult
+from ..._version import __version__
 
 logger = get_logger(__name__)
 
@@ -182,7 +183,7 @@ class CSVJSONGenerator:
             'warnings': zscore_result.warnings,
             'metadata': {
                 'generated_at': datetime.now().isoformat(),
-                'generator_version': '3.8.0-dev'
+                'generator_version': __version__
             }
         }
         

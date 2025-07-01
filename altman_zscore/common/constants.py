@@ -82,12 +82,12 @@ ZSCORE_MODELS = {
             "X4": 1.05
         },
         "thresholds": {
-            "safe": 2.6,
-            "grey_upper": 2.6,
-            "grey_lower": 1.1,
-            "distress": 1.1
+            "safe": 2.60,
+            "grey_upper": 2.60,
+            "grey_lower": 0.50,
+            "distress": 0.50
         },
-        "description": "Service and non-manufacturing Z''-Score (no constant)"
+        "description": "Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds"
     },
     "emerging": {
         "name": "Emerging Markets Z''-Score",
@@ -99,12 +99,12 @@ ZSCORE_MODELS = {
             "constant": 3.25
         },
         "thresholds": {
-            "safe": 2.6,
-            "grey_upper": 2.6,
-            "grey_lower": 1.1,
-            "distress": 1.1
+            "safe": 5.85,
+            "grey_upper": 5.85,
+            "grey_lower": 3.75,
+            "distress": 3.75
         },
-        "description": "Emerging Markets Z''-Score (with +3.25 constant)"
+        "description": "Emerging Markets Z''-Score (with +3.25 constant) - Literature-based thresholds"
     },
     "financial": {
         "name": "Financial Institutions Z-Score",

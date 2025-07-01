@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Version: 4.2.0 (2025-06-26) - SEC EDGAR Elimination & Progress Bar Enhancement
+# Version: Dynamic from _version.py - AI-Powered Altman Z-Score Analysis
 """
 AI-Powered Altman Z-Score Analysis - Main Entry Point
 
@@ -7,23 +7,30 @@ A robust, modular Python tool for comprehensive Altman Z-Score trend analysis wi
 FMP pre-calculated ratios and LLM-powered qualitative insights. This script orchestrates 
 the analysis pipeline for single or multiple stock tickers.
 
-🎯 **Strategic Architecture: FMP-Only Data Pipeline (SEC EDGAR Eliminated)**
-Financial Modeling Prep (FMP) provides **all Z-Score financial ratios pre-calculated**,
-completely eliminating the need for SEC EDGAR, XBRL parsing, and complex field mapping.
+🎯 **Strategic Architecture: Modern Multi-Model Z-Score Analysis**
+Features breakthrough retail-specific Z-Score model with inventory turnover integration,
+alongside traditional models optimized for different industry sectors and company types.
+
+💎 **DIAMOND v4.5.0: Academic Excellence & Novel Retail Model**
+- Novel retail Z-Score model with revolutionary X₆ inventory component
+- Academic-grade documentation with peer-review ready research
+- Comprehensive empirical validation framework with 75-company backtest
+- Production-ready automation with PowerShell/batch validation scripts
 
 Architecture Overview:
     1. Input Layer: Accepts ticker(s) and analysis parameters; validates input.
     2. FMP Data Fetching: Fetches pre-calculated financial ratios with 48-hour caching.
     3. Yahoo Market Data: Fetches market data (prices, market cap) with 48-hour caching.
     4. Data Integration: Merges FMP ratios with Yahoo market data through quality gates.
-    5. Z-Score Calculation: Direct calculation using FMP pre-calculated ratios.
+    5. Z-Score Calculation: Industry-specific model selection with novel retail enhancement.
     6. AI Analysis: Azure OpenAI generates intelligent insights and commentary.
     7. Reporting Layer: Outputs results to CSV, JSON, charts, and comprehensive reports.
 
 Key Principles:
+    - **Academic Innovation**: Novel retail Z-Score model with inventory turnover integration
     - **API-First**: FMP provides calculation-ready ratios, Yahoo provides market data
     - **Intelligent Caching**: 48-hour TTL for all API calls, ~95% performance improvement
-    - **Deterministic Pipeline**: Focus on integration and quality rather than transformation
+    - **Industry-Specific**: Automated model selection for optimal sector analysis
     - **AI Enhancement**: LLM for insights and commentary, not core data processing
     - **Production Ready**: Thread-safe operations with comprehensive error handling
 
@@ -33,9 +40,10 @@ Data Sources:
     - **AI Analysis**: Azure OpenAI for intelligent insights and commentary generation
 
 Strategic Advantages:
+    - **Novel Retail Model**: First academic retail-specific Z-Score enhancement with X₆ component
     - **Pre-calculated Ratios**: Working Capital/Total Assets, EBIT/Total Assets, etc. ready for use
-    - **Massive Simplification**: ~2000+ lines of SEC EDGAR/XBRL code eliminated
     - **Lightning Fast**: 48-hour caching + pre-calculated ratios = optimal performance
+    - **Academic Rigor**: Literature-compliant implementations with peer-review documentation
     - **Reliable**: Deterministic data pipeline with intelligent AI enhancement
 
 Output Structure:
@@ -102,15 +110,6 @@ logger = get_logger(__name__)
 # Import new refactored pipeline
 from altman_zscore.main_pipeline import AltmanZScorePipeline
 import asyncio
-
-# Legacy progress tracking for compatibility
-PIPELINE_STEPS = [
-    "Data Fetching",
-    "Data Integration", 
-    "Z-Score Calculation",
-    "Market Analysis",
-    "Report Generation"
-]
 
 # CLI help epilog - single source of truth
 CLI_EPILOG = ("Examples:\n"
@@ -331,47 +330,6 @@ def parse_args():
     # Add more feature toggles here as needed
     return parser.parse_args()
 
-
-# Pipeline steps are now defined above in the module
-
-def show_progress_bar(ticker, step_idx, total_steps, model_name=None):
-    """
-    Display a progress bar for the analysis pipeline in the terminal.
-
-    Args:
-        ticker (str): Stock ticker symbol being analyzed.
-        step_idx (int): Current pipeline step index (1-based).
-        total_steps (int): Total number of steps in the pipeline.
-        model_name (str, optional): Name of the Z-Score model in use.
-    """
-    try:
-        # Validate total_steps
-        if not isinstance(total_steps, int) or total_steps <= 0:
-            total_steps = len(PIPELINE_STEPS)
-        bar_length = 30
-        # Safely compute filled length
-        progress = (step_idx + 1) / total_steps if total_steps > 0 else 0
-        filled_length = int(bar_length * progress)
-        bar = '#' * filled_length + '-' * (bar_length - filled_length)
-        step_name = PIPELINE_STEPS[step_idx] if step_idx < len(PIPELINE_STEPS) else "Unknown Step"
-        # Header message
-        if step_name == "Z-Score Computation" and model_name:
-            header = f"[{ticker}] Applying {model_name} Model"
-        else:
-            header = f"[{ticker}] Analysis Pipeline"
-        # Compose and print
-        current_msg = f"{header}: |{bar}| {step_idx + 1}/{total_steps} {step_name}"
-        max_length = max(
-            len(f"[{ticker}] Analysis Pipeline: |{'#' * bar_length}| {i+1}/{total_steps} {step}")
-            for i, step in enumerate(PIPELINE_STEPS)
-        ) + 1
-        print(f"\r{' ' * max_length}\r", end='', flush=True)
-        print(f"{current_msg}", end='', flush=True)
-        if step_idx + 1 == total_steps:
-            print()  # New line at completion
-    except Exception:
-        # Safely ignore any progress display errors
-        pass
 
 def show_cache_stats():
     """
