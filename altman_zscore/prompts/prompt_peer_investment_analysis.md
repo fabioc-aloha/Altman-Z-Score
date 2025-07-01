@@ -12,7 +12,7 @@ As a senior equity research analyst, provide investment implications for {ticker
 
 ### 1. Z-Score Interpretation:
 - **Above 3.0**: Safe Zone (low bankruptcy risk)
-- **1.8-3.0**: Grey Zone (moderate risk, requires monitoring)  
+- **1.8-3.0**: Gray Zone (moderate risk, requires monitoring)  
 - **Below 1.8**: Distress Zone (high bankruptcy risk)
 
 ### 2. Peer Comparison Context:
@@ -40,3 +40,4 @@ As a senior equity research analyst, provide investment implications for {ticker
 - **Specific mention** of risk level and investment time horizon
 - **Comparison to 2-3 specific peer metrics** where relevant
 - **Clear recommendation** with supporting rationale
+

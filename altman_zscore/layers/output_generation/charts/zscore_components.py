@@ -17,7 +17,7 @@ class ZScoreGauge(ChartBase):
     
     def add_to_figure(self, fig: go.Figure, row: int, col: int, zscore_result: ZScoreCalculationResult, **kwargs) -> None:
         """Add Z-Score gauge as bar chart to figure."""
-        risk_colors = {'Safe': 'green', 'Grey Zone': 'yellow', 'Distress': 'red'}
+        risk_colors = {'Safe': 'green', 'Gray Zone': 'yellow', 'Distress': 'red'}
         color = risk_colors.get(zscore_result.risk_category, 'blue')
         
         fig.add_trace(
@@ -93,7 +93,7 @@ class RiskZoneChart(ChartBase):
         # Risk zones
         risk_zones = [
             {'name': 'Distress Zone', 'min': 0, 'max': 1.8, 'color': 'red'},
-            {'name': 'Grey Zone', 'min': 1.8, 'max': 2.99, 'color': 'orange'},
+            {'name': 'Gray Zone', 'min': 1.8, 'max': 2.99, 'color': 'orange'},
             {'name': 'Safe Zone', 'min': 2.99, 'max': 10, 'color': 'green'}
         ]
         

@@ -160,7 +160,7 @@ The model implementation follows these steps:
 Based on the original Z-Score threshold methodology, we propose the following risk classifications for the retail model:
 
 - **Z > 2.99:** Safe Zone (Low bankruptcy probability)
-- **1.81 ≤ Z ≤ 2.99:** Grey Zone (Moderate bankruptcy probability)  
+- **1.81 ≤ Z ≤ 2.99:** Gray Zone (Moderate bankruptcy probability)  
 - **Z < 1.81:** Distress Zone (High bankruptcy probability)
 
 These thresholds maintain consistency with the original Z-Score model while requiring empirical validation through future research with retail-specific bankruptcy data.
@@ -824,7 +824,7 @@ python main.py TGT --model retail
 
 Model: Retail Z-Score (Novel)
 Score: 2.45
-Risk Level: Grey Zone (Moderate Risk)
+Risk Level: Gray Zone (Moderate Risk)
 
 Components:
   X1 (Modified Working Capital): 0.12 (Current Assets - Inventory / Total Assets)
@@ -970,3 +970,4 @@ print(classification_report(y_true, y_pred))
 ---
 
 *This appendix provides practical guidance for implementing and using the retail Z-Score model in both academic research and industry applications. For additional support, refer to the project documentation or contact the development team.*
+

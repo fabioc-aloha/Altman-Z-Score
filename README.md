@@ -125,19 +125,19 @@ Get tailored AI-powered recommendations for your investment style:
 
 | Profile | Focus | Risk Level | Sample AI Recommendations by Z-Score Zone |
 |---------|-------|------------|-------------------------------------------|
-| **📊 Conservative** | Capital preservation | Low | **Safe Zone (Z>3.0)**: "HOLD - Strong fundamentals support dividend stability"<br/>**Grey Zone (1.8-3.0)**: "HOLD - Monitor closely, reduce position size"<br/>**Distress (<1.8)**: "SELL - Capital preservation priority, exit position" |
-| **💰 Dividend** | Income generation | Low-Medium | **Safe Zone**: "BUY - Sustainable dividend growth supported by Z-Score strength"<br/>**Grey Zone**: "HOLD - Dividend at risk, evaluate payout ratio trends"<br/>**Distress**: "SELL - Dividend cut likely, seek income alternatives" |
-| **💎 Value** | Undervalued stocks | Medium | **Safe Zone**: "BUY - Value with quality, Z-Score confirms financial strength"<br/>**Grey Zone**: "BUY - Potential turnaround, favorable risk/reward"<br/>**Distress**: "HOLD - Deep value play, but high bankruptcy risk" |
-| **📈 Growth** | Capital appreciation | Medium-High | **Safe Zone**: "STRONG BUY - Growth supported by solid financials"<br/>**Grey Zone**: "HOLD - Growth story intact, but execution risk elevated"<br/>**Distress**: "SELL - Growth unsustainable with current financial health" |
-| **🚀 Aggressive** | Maximum returns | High | **Safe Zone**: "BUY - Momentum play with fundamental backing"<br/>**Grey Zone**: "BUY - Volatility opportunity, potential for strong recovery"<br/>**Distress**: "SPECULATIVE BUY - High risk/high reward contrarian play" |
+| **📊 Conservative** | Capital preservation | Low | **Safe Zone (Z>3.0)**: "HOLD - Strong fundamentals support dividend stability"<br/>**Gray Zone (1.8-3.0)**: "HOLD - Monitor closely, reduce position size"<br/>**Distress (<1.8)**: "SELL - Capital preservation priority, exit position" |
+| **💰 Dividend** | Income generation | Low-Medium | **Safe Zone**: "BUY - Sustainable dividend growth supported by Z-Score strength"<br/>**Gray Zone**: "HOLD - Dividend at risk, evaluate payout ratio trends"<br/>**Distress**: "SELL - Dividend cut likely, seek income alternatives" |
+| **💎 Value** | Undervalued stocks | Medium | **Safe Zone**: "BUY - Value with quality, Z-Score confirms financial strength"<br/>**Gray Zone**: "BUY - Potential turnaround, favorable risk/reward"<br/>**Distress**: "HOLD - Deep value play, but high bankruptcy risk" |
+| **📈 Growth** | Capital appreciation | Medium-High | **Safe Zone**: "STRONG BUY - Growth supported by solid financials"<br/>**Gray Zone**: "HOLD - Growth story intact, but execution risk elevated"<br/>**Distress**: "SELL - Growth unsustainable with current financial health" |
+| **🚀 Aggressive** | Maximum returns | High | **Safe Zone**: "BUY - Momentum play with fundamental backing"<br/>**Gray Zone**: "BUY - Volatility opportunity, potential for strong recovery"<br/>**Distress**: "SPECULATIVE BUY - High risk/high reward contrarian play" |
 | **🏪 Retail Focus** | Retail sector specialists | Medium | **Retail Safe (>2.6)**: "BUY - Strong inventory management and cash flow"<br/>**Retail Grey (1.1-2.6)**: "HOLD - Monitor seasonal patterns and inventory turnover"<br/>**Retail Distress (<1.1)**: "SELL - Inventory issues signal operational problems" |
 
 ### 💡 **Example: How AI Adapts Recommendations by Profile**
-**Sample Stock: Retail Company with Z-Score 2.1 (Grey Zone) and seasonal inventory patterns**
+**Sample Stock: Retail Company with Z-Score 2.1 (Gray Zone) and seasonal inventory patterns**
 
 | Profile | AI Recommendation | Rationale |
 |---------|------------------|-----------|
-| **📊 Conservative** | **SELL** | "Grey Zone Z-Score indicates elevated risk - prioritize capital preservation over potential upside" |
+| **📊 Conservative** | **SELL** | "Gray Zone Z-Score indicates elevated risk - prioritize capital preservation over potential upside" |
 | **💰 Dividend** | **HOLD** | "Monitor dividend coverage closely - Z-Score suggests payout may be sustainable but risky" |
 | **💎 Value** | **BUY** | "Attractive entry point with potential for Z-Score recovery - favorable risk/reward for patient capital" |
 | **📈 Growth** | **HOLD** | "Execution risk elevated but growth trajectory may drive Z-Score improvement" |
@@ -416,3 +416,4 @@ This addition specifically addresses the critical importance of inventory manage
 ---
 
 **🚀 Ready to transform your investment analysis with academic-grade innovation? Clone the repository and experience the DIAMOND release today!**
+

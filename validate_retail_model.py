@@ -184,8 +184,8 @@ class RetailModelValidator:
             if data.get('category') == 'failed' and not data.get('error'):
                 analysis['total_bankruptcies'] += 1
                 
-                retail_predicted = data.get('retail_risk') in ['Distress', 'Grey Zone', 'Distress Zone', 'Grey Zone']
-                traditional_predicted = data.get('traditional_risk') in ['Distress', 'Grey Zone', 'Distress Zone', 'Grey Zone']
+                retail_predicted = data.get('retail_risk') in ['Distress', 'Gray Zone', 'Distress Zone', 'Gray Zone']
+                traditional_predicted = data.get('traditional_risk') in ['Distress', 'Gray Zone', 'Distress Zone', 'Gray Zone']
                 
                 if retail_predicted:
                     analysis['retail_correct'] += 1
@@ -217,8 +217,8 @@ class RetailModelValidator:
                 'count': 0,
                 'retail_scores': [],
                 'traditional_scores': [],
-                'retail_risk_distribution': {'Safe': 0, 'Grey Zone': 0, 'Distress': 0},
-                'traditional_risk_distribution': {'Safe': 0, 'Grey Zone': 0, 'Distress': 0},
+                'retail_risk_distribution': {'Safe': 0, 'Gray Zone': 0, 'Distress': 0},
+                'traditional_risk_distribution': {'Safe': 0, 'Gray Zone': 0, 'Distress': 0},
                 'avg_retail_score': 0.0,
                 'avg_traditional_score': 0.0,
                 'companies': []
@@ -349,7 +349,7 @@ scenarios, from bankrupt retailers to industry leaders.
 ### {category.upper()} RETAILERS ({data['count']} companies)
 - Average Retail Z-Score: {data['avg_retail_score']:.2f}
 - Average Traditional Z-Score: {data['avg_traditional_score']:.2f}
-- Risk Distribution (Retail): Safe {data['retail_risk_distribution']['Safe']}, Grey {data['retail_risk_distribution']['Grey Zone']}, Distress {data['retail_risk_distribution']['Distress']}
+- Risk Distribution (Retail): Safe {data['retail_risk_distribution']['Safe']}, Gray {data['retail_risk_distribution']['Gray Zone']}, Distress {data['retail_risk_distribution']['Distress']}
 """
         
         report += f"""

@@ -468,7 +468,7 @@ def test_zscore_calculation(symbol: str, api_key: str, test_results: Dict):
         if z_score > 2.99:
             interpretation = "🟢 Safe Zone - Low bankruptcy risk"
         elif z_score > 1.81:
-            interpretation = "🟡 Grey Zone - Moderate bankruptcy risk"
+            interpretation = "🟡 Gray Zone - Moderate bankruptcy risk"
         else:
             interpretation = "🔴 Distress Zone - High bankruptcy risk"
         

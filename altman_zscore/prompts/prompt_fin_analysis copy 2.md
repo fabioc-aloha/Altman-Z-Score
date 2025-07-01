@@ -192,7 +192,7 @@ Every insight must demonstrate synthesis across multiple data streams. Single-me
 ### TONE AND LANGUAGE
 - **Risk-Appropriate Tone**:
   - Distress Zone (Z < 1.8): Urgent, data-driven caution
-  - Grey Zone (1.8-3.0): Balanced, evidence-based analysis
+  - Gray Zone (1.8-3.0): Balanced, evidence-based analysis
   - Safe Zone (Z > 3.0): Confident, growth-oriented guidance
 - **Plain Language**: Accessible to executives and investors
 - **Evidence-Based**: Every claim supported by specific data
@@ -292,7 +292,7 @@ Generate a structured diagnostic and strategic recommendations report with **exa
 10. **References and Data Sources**
 
 ## CRITICAL REQUIREMENTS
-- **Adapt tone to Z-Score risk level**: Distress Zone (urgent/cautionary), Grey Zone (balanced), Safe Zone (growth-focused)
+- **Adapt tone to Z-Score risk level**: Distress Zone (urgent/cautionary), Gray Zone (balanced), Safe Zone (growth-focused)
 - **Use ALL available data**: Z-Score, financials, market trends, peer context, management changes, news
 - **Include Z-Score vs Price Trend Analysis** for ALL recommendations
 - **Justify every recommendation** with specific data points and citations
@@ -300,7 +300,7 @@ Generate a structured diagnostic and strategic recommendations report with **exa
 
 ## Z-SCORE RISK CATEGORIES
 * **Distress Zone** (Z < 1.8): Use urgent, cautionary language
-* **Grey Zone** (1.8 ≤ Z ≤ 3.0): Use balanced, measured outlook  
+* **Gray Zone** (1.8 ≤ Z ≤ 3.0): Use balanced, measured outlook  
 * **Safe Zone** (Z > 3.0): Use growth-focused, optimistic messaging
 
 ---
@@ -310,7 +310,7 @@ Generate a structured diagnostic and strategic recommendations report with **exa
 You are an expert financial analyst. Using the **Altman Z-Score framework**, generate a structured, theory-informed **diagnostic and strategic recommendations report** tailored to the company’s **Z-Score-based risk level**. You will receive the company’s financial calculations, Altman Z-Score outputs, and any other available data (including market data, peer comparisons, management changes, and news) along with this prompt. You use plain language and reader friendly presentation skills. Your output must **adapt to the company's current risk category** and **leverage all available information** for the most accurate and actionable analysis possible.
 
 * *Distress Zone*
-* *Grey Zone*
+* *Gray Zone*
 * *Safe Zone*
 
 Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
@@ -386,7 +386,7 @@ Add a quote highly relevant to the conclusions of this report:
 
 **RISK-BASED APPROACH**:
 - **Distress Zone (Z < 1.8)**: Focus on urgent retrenchment, cash preservation, creditor negotiations
-- **Grey Zone (1.8 ≤ Z ≤ 3.0)**: Balance cost containment with strategic investments in core differentiators  
+- **Gray Zone (1.8 ≤ Z ≤ 3.0)**: Balance cost containment with strategic investments in core differentiators  
 - **Safe Zone (Z > 3.0)**: Emphasize innovation, repositioning, stakeholder alignment for growth
 
 **THEORETICAL FRAMEWORKS TO CITE**:
@@ -538,7 +538,7 @@ Create additional comparison tables for key executive roles:
 
 **RISK-ADAPTED TONE**:
 - **Distress**: Crisis communication and turnaround messaging
-- **Grey Zone**: Change management and strategic realignment  
+- **Gray Zone**: Change management and strategic realignment  
 - **Safe Zone**: Growth narrative and innovation focus
 
 **THEORETICAL FRAMEWORKS TO REFERENCE**:
@@ -828,3 +828,4 @@ The following data sections will be automatically injected after this prompt:
 - **Confidence Calibration**: Match your recommendation confidence to the underlying data quality and AI confidence scores
 
 ---
+

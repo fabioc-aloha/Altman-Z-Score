@@ -32,7 +32,7 @@ Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅
 
 **Interpretation:**
 - Z > 2.99: Safe Zone
-- 1.81 ≤ Z ≤ 2.99: Grey Zone
+- 1.81 ≤ Z ≤ 2.99: Gray Zone
 - Z < 1.81: Distress Zone
 
 **Best For:**
@@ -57,7 +57,7 @@ Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅
 
 **Interpretation:**
 - Z' > 2.9: Safe Zone
-- 1.23 ≤ Z' ≤ 2.9: Grey Zone
+- 1.23 ≤ Z' ≤ 2.9: Gray Zone
 - Z' < 1.23: Distress Zone
 
 **Best For:**
@@ -81,7 +81,7 @@ Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ (no constant term)
 
 **Interpretation:**
 - Z'' > 2.60: Safe Zone
-- 0.50 ≤ Z'' ≤ 2.60: Grey Zone  
+- 0.50 ≤ Z'' ≤ 2.60: Gray Zone  
 - Z'' < 0.50: Distress Zone
 
 ⚠️ **Academic Note:** This model uses the same coefficients as the emerging markets model but without the constant term. Thresholds adjusted accordingly. This variation should be used with caution as it may not have extensive academic validation.
@@ -108,7 +108,7 @@ Z'' = 3.25 + 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄
 
 **Interpretation (Literature-based):**
 - Z'' > 5.85: Safe Zone (low bankruptcy probability)
-- 3.75 ≤ Z'' ≤ 5.85: Grey Zone (moderate bankruptcy probability)
+- 3.75 ≤ Z'' ≤ 5.85: Gray Zone (moderate bankruptcy probability)
 - Z'' < 3.75: Distress Zone (high bankruptcy probability)
 
 ✅ **Implementation Note:** Thresholds updated to match literature-based values for emerging markets model.
@@ -137,7 +137,7 @@ Z'' = 3.25 + 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄
 
 **Interpretation:**
 - Z > 2.6: Safe Zone
-- 1.1 ≤ Z ≤ 2.6: Grey Zone
+- 1.1 ≤ Z ≤ 2.6: Gray Zone
 - Z < 1.1: Distress Zone
 
 **Best For:**
@@ -169,7 +169,7 @@ Z'' = 3.25 + 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄
 
 **Current Thresholds:**
 - Z > 2.99: Safe Zone
-- 1.81 ≤ Z ≤ 2.99: Grey Zone
+- 1.81 ≤ Z ≤ 2.99: Gray Zone
 - Z < 1.81: Distress Zone
 
 **Best For:**
@@ -386,3 +386,4 @@ python main.py AAPL
 ---
 
 *For implementation details, see [FLOW.md](FLOW.md). For API mapping, see [APIS.md](APIS.md).*
+

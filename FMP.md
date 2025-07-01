@@ -268,7 +268,7 @@ def interpret_z_score(z_score):
     if z_score > 2.99:
         return "Safe Zone - Low bankruptcy risk"
     elif z_score > 1.81:
-        return "Grey Zone - Moderate bankruptcy risk" 
+        return "Gray Zone - Moderate bankruptcy risk" 
     else:
         return "Distress Zone - High bankruptcy risk"
 ```

@@ -1,0 +1,272 @@
+{
+  "AMZN": {
+    "retail_score": 6.591893724655559,
+    "retail_risk": "Safe",
+    "traditional_score": 5.915668085546153,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2506873165688901,
+      "retained_earnings_ratio": 0.27663251687486196,
+      "ebit_ratio": 0.10976741655384753,
+      "market_equity_ratio": 6.872136161357709,
+      "asset_turnover": 1.020907545919788,
+      "inventory_adjustment": 0.794723407571949,
+      "z_score": 6.591893724655559
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Amazon.com, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMZN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AMZN.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "COST": {
+    "retail_score": 10.901161487494592,
+    "retail_risk": "Safe",
+    "traditional_score": 10.115314059458365,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2233821655138835,
+      "retained_earnings_ratio": 0.25230914636765905,
+      "ebit_ratio": 0.13296386991450787,
+      "market_equity_ratio": 9.500651479668463,
+      "asset_turnover": 3.6438401283097765,
+      "inventory_adjustment": 0.993716594268962,
+      "z_score": 10.901161487494592
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Costco Wholesale Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/COST.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\COST.png",
+      "period_date": "2024-09-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "HD": {
+    "retail_score": 6.440164088965738,
+    "retail_risk": "Safe",
+    "traditional_score": 6.186417742555843,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08564383732664718,
+      "retained_earnings_ratio": 0.9314807686305517,
+      "ebit_ratio": 0.22395156004536043,
+      "market_equity_ratio": 4.076715442953095,
+      "asset_turnover": 1.65954701983999,
+      "inventory_adjustment": 0.3774039486589058,
+      "z_score": 6.440164088965738
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The Home Depot, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/HD.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\HD.png",
+      "period_date": "2025-02-02",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "WMT": {
+    "retail_score": 6.863749818245262,
+    "retail_risk": "Safe",
+    "traditional_score": 6.301197802591231,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08827058963358293,
+      "retained_earnings_ratio": 0.37693378268020844,
+      "ebit_ratio": 0.11252075162083099,
+      "market_equity_ratio": 4.783428573306116,
+      "asset_turnover": 2.610908547175671,
+      "inventory_adjustment": 0.7556672868491775,
+      "z_score": 6.863749818245262
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Walmart Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/WMT.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\WMT.png",
+      "period_date": "2025-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "BBY": {
+    "retail_score": 4.55567662119977,
+    "retail_risk": "Safe",
+    "traditional_score": 4.054357729722404,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.21235286158841835,
+      "retained_earnings_ratio": 0.16817751319171967,
+      "ebit_ratio": 0.08537410363956163,
+      "market_equity_ratio": 1.1848775493569401,
+      "asset_turnover": 2.8093627384657016,
+      "inventory_adjustment": 0.526761717469682,
+      "z_score": 4.55567662119977
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Best Buy Co., Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBY.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "TGT": {
+    "retail_score": 3.372315153804666,
+    "retail_risk": "Safe",
+    "traditional_score": 2.954707716986821,
+    "traditional_risk": "Gray Zone",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.11622150288216863,
+      "retained_earnings_ratio": 0.14004050615381952,
+      "ebit_ratio": 0.09634925305959943,
+      "market_equity_ratio": 1.0399092391712874,
+      "asset_turnover": 1.8446917897142066,
+      "inventory_adjustment": 0.5004055468341183,
+      "z_score": 3.372315153804666
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Target Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TGT.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TGT.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "M": {
+    "retail_score": 2.575818594839498,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.443588140488505,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.12260699914644556,
+      "retained_earnings_ratio": 0.39623216680892576,
+      "ebit_ratio": 0.055420070723082554,
+      "market_equity_ratio": 0.2671861846413502,
+      "asset_turnover": 1.4026338251432753,
+      "inventory_adjustment": 0.2562667860340197,
+      "z_score": 2.575818594839498
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Macy's, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/M.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\M.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "JWN": {
+    "retail_score": 2.201437981580785,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 1.883666313114615,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.17677894267231764,
+      "retained_earnings_ratio": -0.2642203881329467,
+      "ebit_ratio": 0.05520856569261655,
+      "market_equity_ratio": 0.5269633733708152,
+      "asset_turnover": 1.6747713584653134,
+      "inventory_adjustment": 0.37214828897338403,
+      "z_score": 2.201437981580785
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Nordstrom, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JWN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\JWN.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "TSCO": {
+    "retail_score": 5.422955915739907,
+    "retail_risk": "Safe",
+    "traditional_score": 5.347540439955965,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.047905840455622545,
+      "retained_earnings_ratio": 0.7047797227776087,
+      "ebit_ratio": 0.14966439701860745,
+      "market_equity_ratio": 3.7131058740561405,
+      "asset_turnover": 1.5178475108574436,
+      "inventory_adjustment": 0.2783474997039504,
+      "z_score": 5.422955915739907
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Tractor Supply Company",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSCO.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TSCO.png",
+      "period_date": "2024-12-28",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "POOL": {
+    "retail_score": 5.867292592212145,
+    "retail_risk": "Safe",
+    "traditional_score": 5.9051509969826,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1305789707450662,
+      "retained_earnings_ratio": 0.1925298617890234,
+      "ebit_ratio": 0.18324533339033736,
+      "market_equity_ratio": 5.231369439051252,
+      "asset_turnover": 1.5768001391847952,
+      "inventory_adjustment": 0.2414492360195455,
+      "z_score": 5.867292592212145
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Pool Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/POOL.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\POOL.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  }
+}

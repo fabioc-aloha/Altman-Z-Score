@@ -138,7 +138,7 @@ Conclude with comprehensive forward-looking commentary including Z-Score momentu
 Generate analysis that demonstrates specificity through cited data points, actionability through concrete investment decisions, risk awareness through probability assessments, time sensitivity through optimal timing indicators, and measurability through success tracking metrics.
 
 ### Tone Guidelines
-Adapt language appropriately to Z-Score risk categories: **Distress Zone (Z < 1.8)** requires urgent, data-driven caution; **Grey Zone (1.8-3.0)** demands balanced, evidence-based analysis; **Safe Zone (Z > 3.0)** supports confident, growth-oriented guidance. Maintain plain language accessibility for executives and investors while ensuring evidence-based claims with specific data support.
+Adapt language appropriately to Z-Score risk categories: **Distress Zone (Z < 1.8)** requires urgent, data-driven caution; **Gray Zone (1.8-3.0)** demands balanced, evidence-based analysis; **Safe Zone (Z > 3.0)** supports confident, growth-oriented guidance. Maintain plain language accessibility for executives and investors while ensuring evidence-based claims with specific data support.
 
 ---
 
@@ -157,3 +157,4 @@ Every injected data element must be explicitly referenced, cross-validation betw
 The system will inject comprehensive data including Company ticker and analysis date, Financial Data Context with all ratios and market metrics, AI Data Quality Assessment with scores and anomalies, AI Peer Analysis with industry positioning, AI Sentiment Analysis with market perception metrics, AI Risk Analysis with comprehensive risk evaluation, and Additional Context with sector and industry information.
 
 ## ========== END OF PROMPT INSTRUCTIONS ==========
+

@@ -541,7 +541,7 @@ class RiskReturnAnalyzer:
                 estimated_correlation = 0.4  # Confirming signal
             else:
                 estimated_correlation = 0.0  # No clear pattern
-        else:  # Grey zone
+        else:  # Gray zone
             estimated_correlation = 0.0  # Neutral
         
         return estimated_correlation

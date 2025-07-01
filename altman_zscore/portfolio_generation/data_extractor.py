@@ -180,7 +180,7 @@ class CompanyDataExtractor:
                 if any(word in category.lower() for word in ['safe', 'low']):
                     return "Safe"
                 elif any(word in category.lower() for word in ['grey', 'gray', 'medium', 'moderate']):
-                    return "Grey Zone"
+                    return "Gray Zone"
                 elif any(word in category.lower() for word in ['distress', 'high', 'danger']):
                     return "Distress"
                 return category
