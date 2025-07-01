@@ -385,13 +385,13 @@ class ZScoreCalculator:
             components['ebit_ratio'] = ebit / total_assets if total_assets > 0 else 0
         
         # Component X4: Market Value or Book Value of Equity / Total Liabilities
-        if data.market_equity_ratio is not None and data.market_equity_ratio > 0:
+        total_liabilities = balance_sheet.get('totalLiabilities', 0)
+        if data.market_cap is not None and data.market_cap > 0 and total_liabilities > 0:
             # Use market value if available (preferred for retail)
-            components['market_equity_ratio'] = data.market_equity_ratio
+            components['market_equity_ratio'] = data.market_cap / total_liabilities
         else:
             # Fall back to book value
             book_value = balance_sheet.get('totalStockholdersEquity', 0)
-            total_liabilities = balance_sheet.get('totalLiabilities', 0)
             if total_liabilities > 0:
                 components['market_equity_ratio'] = book_value / total_liabilities
                 warnings.append("Market value not available, using book value for equity ratio")
