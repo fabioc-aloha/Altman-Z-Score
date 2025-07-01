@@ -370,8 +370,8 @@ scenarios, from bankrupt retailers to industry leaders.
         for detail in bankruptcy_analysis['details']:
             report += f"""
 **{detail['ticker']}** (Bankruptcy: {detail['bankruptcy_date']})
-- Retail Z-Score: {detail['retail_score']:.2f if detail['retail_score'] else 'N/A'}
-- Traditional Z-Score: {detail['traditional_score']:.2f if detail['traditional_score'] else 'N/A'}
+- Retail Z-Score: {detail['retail_score']:.2f if detail['retail_score'] is not None else 'N/A'}
+- Traditional Z-Score: {detail['traditional_score']:.2f if detail['traditional_score'] is not None else 'N/A'}
 - Predictions: Retail {'✅' if detail['retail_predicted'] else '❌'}, Traditional {'✅' if detail['traditional_predicted'] else '❌'}
 """
         

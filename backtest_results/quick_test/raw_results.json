@@ -1,0 +1,259 @@
+{
+  "TOY": {
+    "error": "Data merger failed for TOY: FMP ratios calculation failed: Invalid ticker symbol 'TOY' - not found in financial databases",
+    "category": "failed"
+  },
+  "SHLDQ": {
+    "retail_score": 1.0580215483046032,
+    "retail_risk": "Distress",
+    "traditional_score": 0.7153538969980722,
+    "traditional_risk": "Distress",
+    "category": "failed",
+    "bankruptcy_date": "2018-10-15",
+    "components": {
+      "working_capital_ratio": 0.1396309556595979,
+      "retained_earnings_ratio": -0.8117598457725145,
+      "ebit_ratio": -0.08055632057284495,
+      "market_equity_ratio": -0.338916704597178,
+      "asset_turnover": 2.2999173781327458,
+      "inventory_adjustment": 0.3923933762211103,
+      "z_score": 1.0580215483046032
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Sears Holdings Corporation",
+      "period_date": "2018-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "JCPNQ": {
+    "error": "Data merger failed for JCPNQ: FMP ratios calculation failed: Invalid ticker symbol 'JCPNQ' - not found in financial databases",
+    "category": "failed"
+  },
+  "BBBY": {
+    "retail_score": 0.8528345154042535,
+    "retail_risk": "Distress",
+    "traditional_score": 0.0715940962162338,
+    "traditional_risk": "Distress",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.12554101465160478,
+      "retained_earnings_ratio": 0.10113979894994511,
+      "ebit_ratio": -0.520437332628683,
+      "market_equity_ratio": -0.5571905735564079,
+      "asset_turnover": 2.401871368050846,
+      "inventory_adjustment": 0.42095150610011417,
+      "z_score": 0.8528345154042535
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Bed Bath & Beyond Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBBY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBBY.png",
+      "period_date": "2023-02-25",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "GME": {
+    "retail_score": 8.770168166017216,
+    "retail_risk": "Safe",
+    "traditional_score": 8.497275670286625,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.8296967015011744,
+      "retained_earnings_ratio": -0.01387139599006025,
+      "ebit_ratio": -0.004459270858154339,
+      "market_equity_ratio": 11.538202639593909,
+      "asset_turnover": 0.6506791026993907,
+      "inventory_adjustment": 0.47013397195612944,
+      "z_score": 8.770168166017216
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "GameStop Corp.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GME.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\GME.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "M": {
+    "retail_score": 2.575818594839498,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.443588140488505,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.12260699914644556,
+      "retained_earnings_ratio": 0.39623216680892576,
+      "ebit_ratio": 0.055420070723082554,
+      "market_equity_ratio": 0.2671861846413502,
+      "asset_turnover": 1.4026338251432753,
+      "inventory_adjustment": 0.2562667860340197,
+      "z_score": 2.575818594839498
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Macy's, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/M.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\M.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "AMZN": {
+    "retail_score": 6.591893724655559,
+    "retail_risk": "Safe",
+    "traditional_score": 5.915668085546153,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2506873165688901,
+      "retained_earnings_ratio": 0.27663251687486196,
+      "ebit_ratio": 0.10976741655384753,
+      "market_equity_ratio": 6.872136161357709,
+      "asset_turnover": 1.020907545919788,
+      "inventory_adjustment": 0.794723407571949,
+      "z_score": 6.591893724655559
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Amazon.com, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMZN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AMZN.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "COST": {
+    "retail_score": 10.901161487494592,
+    "retail_risk": "Safe",
+    "traditional_score": 10.115314059458365,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2233821655138835,
+      "retained_earnings_ratio": 0.25230914636765905,
+      "ebit_ratio": 0.13296386991450787,
+      "market_equity_ratio": 9.500651479668463,
+      "asset_turnover": 3.6438401283097765,
+      "inventory_adjustment": 0.993716594268962,
+      "z_score": 10.901161487494592
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Costco Wholesale Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/COST.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\COST.png",
+      "period_date": "2024-09-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "HD": {
+    "retail_score": 6.440164088965738,
+    "retail_risk": "Safe",
+    "traditional_score": 6.186417742555843,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08564383732664718,
+      "retained_earnings_ratio": 0.9314807686305517,
+      "ebit_ratio": 0.22395156004536043,
+      "market_equity_ratio": 4.076715442953095,
+      "asset_turnover": 1.65954701983999,
+      "inventory_adjustment": 0.3774039486589058,
+      "z_score": 6.440164088965738
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The Home Depot, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/HD.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\HD.png",
+      "period_date": "2025-02-02",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "SPIR": {
+    "retail_score": -2.840620898672773,
+    "retail_risk": "Distress",
+    "traditional_score": -3.780368283407372,
+    "traditional_risk": "Distress",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.476084205088467,
+      "retained_earnings_ratio": -2.779821774506005,
+      "ebit_ratio": -0.3550768436006716,
+      "market_equity_ratio": 1.8016617980921943,
+      "asset_turnover": 0.5705850445563735,
+      "inventory_adjustment": 0.0,
+      "z_score": -2.840620898672773
+    },
+    "warnings": [
+      "Inventory turnover could not be calculated"
+    ],
+    "metadata": {
+      "company_name": "Spire Global, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/SPIR.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\SPIR.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  },
+  "TSCO": {
+    "retail_score": 5.422955915739907,
+    "retail_risk": "Safe",
+    "traditional_score": 5.347540439955965,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.047905840455622545,
+      "retained_earnings_ratio": 0.7047797227776087,
+      "ebit_ratio": 0.14966439701860745,
+      "market_equity_ratio": 3.7131058740561405,
+      "asset_turnover": 1.5178475108574436,
+      "inventory_adjustment": 0.2783474997039504,
+      "z_score": 5.422955915739907
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Tractor Supply Company",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSCO.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TSCO.png",
+      "period_date": "2024-12-28",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    }
+  }
+}
