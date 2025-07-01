@@ -190,13 +190,13 @@ Z'' = 3.25 + 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄
 #### ✅ **Original Z-Score (1968)** - Fully Compliant
 - **Reference:** Altman, E.I. (1968). "Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy"
 - **Formula:** Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅
-- **Thresholds:** Z > 2.99 (Safe), 1.81-2.99 (Grey), Z < 1.81 (Distress)
+- **Thresholds:** Z > 2.99 (Safe), 1.81-2.99 (Gray), Z < 1.81 (Distress)
 - **Status:** ✅ Implementation matches original literature exactly
 
 #### ✅ **Private Company Z'-Score (1983)** - Fully Compliant  
 - **Reference:** Altman, E.I. (1983). "Corporate Financial Distress"
 - **Formula:** Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅
-- **Thresholds:** Z' > 2.9 (Safe), 1.23-2.9 (Grey), Z' < 1.23 (Distress)
+- **Thresholds:** Z' > 2.9 (Safe), 1.23-2.9 (Gray), Z' < 1.23 (Distress)
 - **Status:** ✅ Implementation matches literature exactly
 
 ### Models with Literature Compliance Improvements

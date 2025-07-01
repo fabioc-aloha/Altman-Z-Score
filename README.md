@@ -2,11 +2,17 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.5.0 DIAMOND (2025-06-30) 💎 Academic Excellence - Novel Retail Z-Score Model**
+**Version: 4.5.1 DIAMOND (2025-07-01) 💎 Academic Excellence - Investor Profile Fix**
 
 Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis** and **industry-specific Z-Score models**.
 
-## 💎 **NEW v4.5.0 DIAMOND: Academic Excellence - Novel Retail Z-Score Model**
+## 💎 **NEW v4.5.1 DIAMOND: Investor Profile Dashboard Fix & Workflow Optimization**
+
+🔧 **CRITICAL HOTFIX:** Fixed all investor profile dashboards (Conservative, Growth, Value, Dividend, Aggressive) - now generating successfully with proper company matching and enhanced data extraction from comprehensive reports.
+
+🚀 **WORKFLOW OPTIMIZATION:** Reordered dashboard generation sequence for optimal user experience: Assets → Templates → Dashboards → Navigation, ensuring accurate company counts and reliable dashboard generation.
+
+**Previous v4.5.0 Achievement:** Novel retail-specific Z-Score model with inventory turnover integration, complete academic paper, and empirical validation framework.
 
 ### 🏆 **Major Academic Achievement: Novel Retail Z-Score Model**
 - **📚 Academic Paper Published:** Complete academic paper documenting our novel retail-specific Z-Score model (NOVEL_RETAIL_MODEL.md)
@@ -51,7 +57,7 @@ Transform your investment decisions with **AI-powered financial health analysis*
 
 ## 🎯 **What You Get**
 
-### 💡 **Professional Investment Intelligence v4.5.0**
+### 💡 **Professional Investment Intelligence v4.5.1**
 - **🎯 Novel Retail Model:** Revolutionary retail-specific Z-Score with inventory turnover integration
 - **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
 - **💡 Investment Recommendations:** Clear BUY/HOLD/SELL guidance with historical context and confidence scoring
@@ -73,7 +79,7 @@ Transform your investment decisions with **AI-powered financial health analysis*
 pip install -r requirements.txt
 python main.py AAPL
 
-# High-performance portfolio analysis (NEW v4.5.0 defaults)
+# High-performance portfolio analysis (NEW v4.5.1 optimized workflow)
 .\run_parallel_portfolio.ps1 -PortfolioFile "portfolios/tech_portfolio.txt"
 # ⚡ Now uses 8 parallel processes, 12 quarters, enhanced analysis by default
 
@@ -130,7 +136,7 @@ Get tailored AI-powered recommendations for your investment style:
 | **💎 Value** | Undervalued stocks | Medium | **Safe Zone**: "BUY - Value with quality, Z-Score confirms financial strength"<br/>**Gray Zone**: "BUY - Potential turnaround, favorable risk/reward"<br/>**Distress**: "HOLD - Deep value play, but high bankruptcy risk" |
 | **📈 Growth** | Capital appreciation | Medium-High | **Safe Zone**: "STRONG BUY - Growth supported by solid financials"<br/>**Gray Zone**: "HOLD - Growth story intact, but execution risk elevated"<br/>**Distress**: "SELL - Growth unsustainable with current financial health" |
 | **🚀 Aggressive** | Maximum returns | High | **Safe Zone**: "BUY - Momentum play with fundamental backing"<br/>**Gray Zone**: "BUY - Volatility opportunity, potential for strong recovery"<br/>**Distress**: "SPECULATIVE BUY - High risk/high reward contrarian play" |
-| **🏪 Retail Focus** | Retail sector specialists | Medium | **Retail Safe (>2.6)**: "BUY - Strong inventory management and cash flow"<br/>**Retail Grey (1.1-2.6)**: "HOLD - Monitor seasonal patterns and inventory turnover"<br/>**Retail Distress (<1.1)**: "SELL - Inventory issues signal operational problems" |
+| **🏪 Retail Focus** | Retail sector specialists | Medium | **Retail Safe (>2.6)**: "BUY - Strong inventory management and cash flow"<br/>**Retail Gray (1.1-2.6)**: "HOLD - Monitor seasonal patterns and inventory turnover"<br/>**Retail Distress (<1.1)**: "SELL - Inventory issues signal operational problems" |
 
 ### 💡 **Example: How AI Adapts Recommendations by Profile**
 **Sample Stock: Retail Company with Z-Score 2.1 (Gray Zone) and seasonal inventory patterns**

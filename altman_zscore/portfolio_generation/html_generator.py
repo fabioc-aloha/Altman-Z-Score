@@ -2,7 +2,16 @@
 HTML Portfolio Generator - Template-based HTML generation for portfolio dashboards
 
 This module provides template-based HTML generation for various portfolio types,
-eliminating code duplication across the generate_*.py scripts.
+eliminating code duplicati            # Generate logo path and check existence
+            logo_path = f"output/{ticker}/logo.png"
+            default_logo_path = "assets/default_logo.png"
+            logo_exists = os.path.exists(os.path.join(self.base_dir, logo_path))
+            
+            # Build logo HTML with fallback to default logo if company logo doesn't exist
+            if logo_exists:
+                logo_html = f'<img src="{logo_path}" alt="{ticker}" class="company-logo" onerror="this.src=\'{default_logo_path}\'">'
+            else:
+                logo_html = f'<img src="{default_logo_path}" alt="{ticker}" class="company-logo">'the generate_*.py scripts.
 
 Key Features:
 - Reusable HTML templates with consistent styling
@@ -198,13 +207,22 @@ class HTMLPortfolioGenerator:
             risk_class = self._get_risk_class(z_score)
             
             # Generate logo path and check existence
-            logo_path = f"output/{ticker}/logo.png"
-            logo_exists = os.path.exists(os.path.join(self.base_dir, logo_path))
+            # Use the correct path structure for finding logos in output directory
+            logo_path = f"output/{ticker}/{ticker}_logo.png"  # Path in HTML references
+            default_logo_path = "assets/default_logo.png"  # Relative path to prevent duplication
             
-            # Build logo HTML
-            logo_html = ""
+            # Check if logo exists in the parent directory's output folder
+            parent_dir = os.path.dirname(self.base_dir)
+            logo_check_path = os.path.join(parent_dir, "output", f"{ticker}", f"{ticker}_logo.png")
+            logo_exists = os.path.exists(logo_check_path)
+            
+            self.logger.debug(f"Checking logo for {ticker}: {logo_check_path} - exists: {logo_exists}")
+            
+            # Build logo HTML with fallback to default logo if company logo doesn't exist
             if logo_exists:
-                logo_html = f'<img src="{logo_path}" alt="{ticker}" class="company-logo" onerror="this.style.display=\'none\'">'
+                logo_html = f'<img src="{logo_path}" alt="{ticker}" class="company-logo" onerror="this.src=\'{default_logo_path}\'">'
+            else:
+                logo_html = f'<img src="{default_logo_path}" alt="{ticker}" class="company-logo">'
             
             # Build recommendation class
             rec_class = recommendation.lower().replace(' ', '-')

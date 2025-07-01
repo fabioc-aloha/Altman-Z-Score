@@ -21,6 +21,9 @@
 
 .PARAMETER NoPause
     Skip the "Press any key to continue" prompt at the end.
+    
+.PARAMETER NoCopy
+    Skip copying files from output/ to web/output/ directory.
 
 .EXAMPLE
     .\generate_all_dashboards.ps1
@@ -33,6 +36,10 @@
 .EXAMPLE
     .\generate_all_dashboards.ps1 -OpenBrowser:$false
     Generates dashboards without opening browser.
+    
+.EXAMPLE
+    .\generate_all_dashboards.ps1 -NoCopy
+    Generates dashboards without copying output files to web/output/ directory.
 #>
 
 #Requires -Version 5.1
@@ -40,7 +47,8 @@
 param(
     [switch]$OpenBrowser,
     [switch]$Verbose,
-    [switch]$NoPause
+    [switch]$NoPause,
+    [switch]$NoCopy
 )
 
 # Set error action preference
@@ -81,9 +89,9 @@ function Write-Header {
     param([string]$Title)
     
     Write-Host ""
-    Write-Host "=" * 80 -ForegroundColor $Colors.Header
-    Write-Host (" " * ((80 - $Title.Length) / 2)) + $Title -ForegroundColor $Colors.Header
-    Write-Host "=" * 80 -ForegroundColor $Colors.Header
+    Write-Host ("=" * 80) -ForegroundColor $Colors.Header
+    Write-Host (" " * [math]::Floor((80 - $Title.Length) / 2)) + $Title -ForegroundColor $Colors.Header
+    Write-Host ("=" * 80) -ForegroundColor $Colors.Header
     Write-Host ""
 }
 
@@ -91,9 +99,9 @@ function Write-Section {
     param([string]$Title)
     
     Write-Host ""
-    Write-Host "-" * 80 -ForegroundColor $Colors.Info
+    Write-Host ("-" * 80) -ForegroundColor $Colors.Info
     Write-Host $Title -ForegroundColor $Colors.Emphasis
-    Write-Host "-" * 80 -ForegroundColor $Colors.Info
+    Write-Host ("-" * 80) -ForegroundColor $Colors.Info
 }
 
 function Invoke-PythonScript {
@@ -104,42 +112,68 @@ function Invoke-PythonScript {
         [int]$TotalSteps
     )
     
+    # Display a single line for the task that's starting
     Write-Host "[$StepNumber/$TotalSteps] " -NoNewline -ForegroundColor $Colors.Info
-    Write-Host "Running: " -NoNewline -ForegroundColor $Colors.Info
-    Write-Host $ScriptPath -ForegroundColor $Colors.Emphasis
+    Write-Host "Processing: " -NoNewline -ForegroundColor $Colors.Info
+    Write-Host $Description -NoNewline -ForegroundColor $Colors.Emphasis
+    Write-Host " ... " -NoNewline -ForegroundColor $Colors.Info
     
     if ($Verbose) {
+        Write-Host ""
+        Write-Host "    Command: $ScriptPath" -ForegroundColor $Colors.Info
         Write-Host "    Description: $Description" -ForegroundColor $Colors.Info
     }
     
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
     
     try {
-        $result = & $script:PythonCommand $ScriptPath 2>&1
+        # Split the ScriptPath into script name and arguments
+        $scriptParts = $ScriptPath -split ' ', 2
+        $scriptName = $scriptParts[0]
+        $scriptArgs = if ($scriptParts.Count -gt 1) { $scriptParts[1] } else { $null }
+        
+        # Capture script output but don't display it unless there's an error or verbose mode is on
+        if ($scriptArgs) {
+            $result = & $script:PythonCommand $scriptName $scriptArgs 2>&1
+        }
+        else {
+            $result = & $script:PythonCommand $scriptName 2>&1
+        }
+        
         $exitCode = $LASTEXITCODE
         
         $stopwatch.Stop()
         $duration = $stopwatch.Elapsed.TotalSeconds
         
         if ($exitCode -eq 0) {
-            Write-Host "    ✅ SUCCESS: " -NoNewline -ForegroundColor $Colors.Success
-            Write-Host "$Description generated successfully " -NoNewline -ForegroundColor $Colors.Success
+            # Complete the line that was started above
+            Write-Host "✅ " -NoNewline -ForegroundColor $Colors.Success
             Write-Host "($([math]::Round($duration, 2))s)" -ForegroundColor $Colors.Info
             return $true
         }
         else {
-            Write-Host "    ❌ ERROR: " -NoNewline -ForegroundColor $Colors.Error
-            Write-Host "Failed to generate $Description" -ForegroundColor $Colors.Error
-            if ($Verbose -and $result) {
-                Write-Host "    Output: $result" -ForegroundColor $Colors.Warning
+            # If there's an error, complete the line with an error indicator
+            Write-Host "❌ " -ForegroundColor $Colors.Error
+            
+            # Add detailed error information on the next lines
+            Write-Host "    ERROR: Failed to generate $Description" -ForegroundColor $Colors.Error
+            
+            if ($result) {
+                # Always show output on error, but limit it to avoid excessive output
+                $truncatedResult = if ($result.Length -gt 500) { $result.Substring(0, 500) + "..." } else { $result }
+                Write-Host "    Output: $truncatedResult" -ForegroundColor $Colors.Warning
             }
             return $false
         }
     }
     catch {
         $stopwatch.Stop()
-        Write-Host "    ❌ EXCEPTION: " -NoNewline -ForegroundColor $Colors.Error
-        Write-Host $_.Exception.Message -ForegroundColor $Colors.Error
+        
+        # If there's an exception, complete the line with an error indicator
+        Write-Host "❌ " -ForegroundColor $Colors.Error
+        
+        # Add detailed error information on the next lines
+        Write-Host "    EXCEPTION: $($_.Exception.Message)" -ForegroundColor $Colors.Error
         return $false
     }
 }
@@ -167,17 +201,48 @@ function Test-PythonAvailable {
 }
 
 function Get-DashboardFiles {
-    $dashboards = @(
-        @{ File = "index.html"; Name = "Main Navigation" },
-        @{ File = "strong_buys.html"; Name = "Strong Buys" },
-        @{ File = "conservative_picks.html"; Name = "Conservative Picks" },
-        @{ File = "dividend_picks.html"; Name = "Dividend Picks" },
-        @{ File = "value_picks.html"; Name = "Value Picks" },
-        @{ File = "growth_picks.html"; Name = "Growth Picks" },
-        @{ File = "aggressive_picks.html"; Name = "Aggressive Picks" },
-        @{ File = "sell_picks.html"; Name = "Sell Recommendations" },
-        @{ File = "strong_sell_picks.html"; Name = "Strong Sell Recommendations" }
-    )
+    $webDir = Join-Path $PSScriptRoot "web"
+    
+    # Define names for known dashboards
+    $knownDashboards = @{
+        "index.html" = "Main Navigation";
+        "strong_buys.html" = "Strong Buys";
+        "conservative_picks.html" = "Conservative Picks";
+        "dividend_picks.html" = "Dividend Picks";
+        "value_picks.html" = "Value Picks";
+        "growth_picks.html" = "Growth Picks";
+        "aggressive_picks.html" = "Aggressive Picks";
+        "sell_picks.html" = "Sell Recommendations";
+        "strong_sell_picks.html" = "Strong Sell Recommendations";
+        "manufacturing_&_industrial.html" = "Manufacturing & Industrial";
+        "private_&_service_companies.html" = "Private & Service Companies";
+        "emerging_markets.html" = "Emerging Markets";
+        "financial_institutions.html" = "Financial Institutions";
+        "regulated_utilities.html" = "Regulated Utilities";
+        "technology_&_growth.html" = "Technology & Growth";
+        "retail_&_consumer.html" = "Retail & Consumer";
+        "model_portfolios_index.html" = "Model Portfolios Index";
+    }
+    
+    $dashboards = @()
+    
+    # Dynamically find all HTML files in the web directory
+    Get-ChildItem -Path $webDir -Filter "*.html" -File | ForEach-Object {
+        $fileName = $_.Name
+        
+        # Use known name if available, otherwise format the filename
+        if ($knownDashboards.ContainsKey($fileName)) {
+            $displayName = $knownDashboards[$fileName]
+        } else {
+            $displayName = $fileName -replace "\.html$", "" -replace "_", " " -replace "-", " "
+            $displayName = (Get-Culture).TextInfo.ToTitleCase($displayName)
+        }
+        
+        $dashboards += @{ 
+            File = $_.FullName
+            Name = $displayName
+        }
+    }
     
     return $dashboards
 }
@@ -192,6 +257,7 @@ if (-not $PSBoundParameters.ContainsKey('OpenBrowser')) {
 }
 
 Write-ColorText "🚀 Starting dashboard generation process..." "Info"
+Write-ColorText "📋 Process Flow: Assets → Templates → Dashboards → Navigation" "Info"
 Write-Host ""
 
 # Check if Python is available
@@ -205,17 +271,19 @@ if (-not (Test-PythonAvailable)) {
 
 Write-Host ""
 
-# Define the scripts to run
+# Define the scripts to run - Reordered for optimal user experience
+$scriptsDir = Join-Path $PSScriptRoot "scripts\utilities"
 $scripts = @(
-    @{ Path = "generate_strong_buys.py"; Description = "Strong Buys Dashboard" },
-    @{ Path = "generate_conservative_picks.py"; Description = "Conservative Picks Dashboard" },
-    @{ Path = "generate_dividend_picks.py"; Description = "Dividend Picks Dashboard" },
-    @{ Path = "generate_value_picks.py"; Description = "Value Picks Dashboard" },
-    @{ Path = "generate_growth_picks.py"; Description = "Growth Picks Dashboard" },
-    @{ Path = "generate_aggressive_picks.py"; Description = "Aggressive Picks Dashboard" },
-    @{ Path = "generate_sell_picks.py"; Description = "Sell Recommendations Dashboard" },
-    @{ Path = "generate_strong_sell_picks.py"; Description = "Strong Sell Recommendations Dashboard" },
-    @{ Path = "generate_main_page.py"; Description = "Main Navigation Page" }
+    # First run the portfolio generation scripts - using the "all" option
+    @{ Path = "$(Join-Path $scriptsDir "generate_portfolio_modern.py") all"; Description = "Portfolio Dashboards" },
+    # Generate special dashboards using standardized templates and styles
+    @{ Path = "$(Join-Path $scriptsDir "generate_special_dashboards_standardized.py")"; Description = "Special Dashboards (Strong Buy/Sell)" },
+    # Use the standardized model portfolios generator for consistent styling across all dashboards
+    @{ Path = "$(Join-Path $scriptsDir "generate_model_portfolios_standardized.py")"; Description = "Model Portfolios" },
+    # Generate the main navigation page (after all other dashboards are created)
+    @{ Path = "$(Join-Path $scriptsDir "generate_main_page.py")"; Description = "Main Navigation Page" },
+    # Fix any HTML files that might still reference old CSS files
+    @{ Path = "$(Join-Path $scriptsDir "fix_html_css_references.py")"; Description = "Fix CSS References" }
 )
 
 # Initialize counters
@@ -223,14 +291,80 @@ $totalScripts = $scripts.Count
 $successCount = 0
 $failedScripts = @()
 
+# Ensure web directory exists
+$webDir = Join-Path $PSScriptRoot "web"
+if (-not (Test-Path $webDir)) {
+    Write-ColorText "Creating web directory for output..." "Info"
+    New-Item -Path $webDir -ItemType Directory -Force | Out-Null
+}
+
+# Define output and web output directories
+$outputDir = Join-Path $PSScriptRoot "output"
+$webOutputDir = Join-Path $webDir "output"
+
+# Just ensure the web/output directory exists, but don't copy yet - we'll do it once after all scripts run
+if (-not (Test-Path $webOutputDir)) {
+    Write-ColorText "Creating web/output directory for generated assets..." "Info"
+    New-Item -Path $webOutputDir -ItemType Directory -Force | Out-Null
+}
+
+if (-not (Test-Path $outputDir)) {
+    Write-ColorText "⚠️ Output directory not found: $outputDir" "Warning"
+}
+
+# Step 1: Copy assets from output/ to web/output/ FIRST (unless NoCopy is specified)
+# This ensures all company data and logos are available for dashboard generation
+if (-not $NoCopy) {
+    Write-Section "Preparing Assets"
+    Write-Host "📂 " -NoNewline -ForegroundColor $Colors.Info
+    Write-Host "Copying assets from output/ to web/output/..." -ForegroundColor $Colors.Info
+
+    if (Test-Path $outputDir) {
+        # Create web/output directory if it doesn't exist
+        if (-not (Test-Path $webOutputDir)) {
+            New-Item -Path $webOutputDir -ItemType Directory -Force | Out-Null
+        }
+        
+        # Copy only .html, .png, and .txt files from output/ to web/output/
+        $fileCount = 0
+        Get-ChildItem -Path $outputDir -Include "*.html", "*.png", "*.txt" -Recurse | ForEach-Object {
+            $destPath = $_.FullName.Replace($outputDir, $webOutputDir)
+            $destDir = Split-Path -Path $destPath -Parent
+            
+            if (-not (Test-Path $destDir)) {
+                New-Item -Path $destDir -ItemType Directory -Force | Out-Null
+            }
+            
+            Copy-Item -Path $_.FullName -Destination $destPath -Force
+            $fileCount++
+        }
+        
+        Write-ColorText "✅ Successfully copied $fileCount files (html, png, txt) to $webOutputDir" "Success"
+    }
+    else {
+        Write-ColorText "⚠️ Output directory not found: $outputDir" "Warning"
+    }
+}
+else {
+    Write-ColorText "📁 Skipping copy of output/ to web/output/ (NoCopy option enabled)" "Info"
+}
+
+Write-Host ""
+
+# Step 2: Generate all dashboards (now that assets are in place)
 # Run each script
 Write-Section "Generating Dashboards"
 $overallStopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+Write-Host ""  # Add some spacing for cleaner output
 
+# Now run all scripts
 for ($i = 0; $i -lt $scripts.Count; $i++) {
     $script = $scripts[$i]
     
-    if (Test-Path $script.Path) {
+    # Extract just the script name without arguments for path checking
+    $scriptName = ($script.Path -split ' ', 2)[0]
+    
+    if (Test-Path $scriptName) {
         $success = Invoke-PythonScript -ScriptPath $script.Path -Description $script.Description -StepNumber ($i + 1) -TotalSteps $totalScripts
         
         if ($success) {
@@ -241,17 +375,28 @@ for ($i = 0; $i -lt $scripts.Count; $i++) {
         }
     }
     else {
-        Write-Host "[$($i + 1)/$totalScripts] " -NoNewline -ForegroundColor $Colors.Warning
-        Write-Host "⚠️  SKIPPED: " -NoNewline -ForegroundColor $Colors.Warning
-        Write-Host "$($script.Path) not found" -ForegroundColor $Colors.Warning
+        Write-Host "[$($i + 1)/$totalScripts] " -NoNewline -ForegroundColor $Colors.Info
+        Write-Host "Processing: " -NoNewline -ForegroundColor $Colors.Info
+        Write-Host $script.Description -NoNewline -ForegroundColor $Colors.Emphasis
+        Write-Host " ... " -NoNewline -ForegroundColor $Colors.Info
+        Write-Host "⚠️  SKIPPED (script not found)" -ForegroundColor $Colors.Warning
         $failedScripts += $script
     }
-    
-    Write-Host ""
 }
 
 $overallStopwatch.Stop()
 $totalDuration = $overallStopwatch.Elapsed.TotalSeconds
+
+# Clean up any old-style CSS files that might have been generated
+Write-Host "🧹 " -NoNewline -ForegroundColor $Colors.Info
+Write-Host "Cleaning up old CSS files..." -NoNewline -ForegroundColor $Colors.Info
+Get-ChildItem -Path "$webDir\portfolio_*.css" -ErrorAction SilentlyContinue | ForEach-Object {
+    Remove-Item -Path $_.FullName -Force
+    Write-Host " ✓" -NoNewline -ForegroundColor $Colors.Success
+}
+Write-Host " done" -ForegroundColor $Colors.Success
+
+Write-Host ""
 
 # Generate summary
 Write-Section "Generation Summary"
@@ -302,27 +447,32 @@ else {
 
 Write-Host ""
 
+# Define the path to the main dashboard
+$webDir = Join-Path $PSScriptRoot "web"
+$indexPath = Join-Path $webDir "index.html"
+
 # Offer to open the main dashboard
-if (Test-Path "index.html") {
+if (Test-Path $indexPath) {
     if ($OpenBrowser) {
         Write-Section "Opening Dashboard"
         Write-ColorText "🌐 Opening main dashboard in default browser..." "Info"
         try {
-            Start-Process "index.html"
+            Start-Process $indexPath
             Write-ColorText "✅ Dashboard opened successfully!" "Success"
         }
         catch {
             Write-ColorText "❌ Failed to open browser: $($_.Exception.Message)" "Error"
-            Write-ColorText "💡 You can manually open: index.html" "Info"
+            Write-ColorText "💡 You can manually open: $indexPath" "Info"
         }
     }
     else {
-        Write-ColorText "💡 To open the dashboard, run: Start-Process 'index.html'" "Info"
+        Write-ColorText "💡 To open the dashboard, run: Start-Process '$indexPath'" "Info"
     }
 }
 else {
-    Write-ColorText "❌ Main dashboard (index.html) not found!" "Error"
+    Write-ColorText "❌ Main dashboard ($indexPath) not found!" "Error"
     Write-ColorText "💡 Please check if generate_main_page.py ran successfully." "Warning"
+    Write-ColorText "💡 Make sure the 'web' directory exists." "Warning"
 }
 
 Write-Host ""
@@ -340,10 +490,12 @@ if (-not $NoPause) {
     if ($Host.UI.RawUI) {
         try {
             $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-        } catch {
+        }
+        catch {
             Read-Host "Press Enter to exit"
         }
-    } else {
+    }
+    else {
         Read-Host "Press Enter to exit"
     }
 }
@@ -351,6 +503,7 @@ if (-not $NoPause) {
 # Return appropriate exit code
 if ($successCount -eq $totalScripts) {
     exit 0
-} else {
+}
+else {
     exit 1
 }

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - GGAL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Grupo Financiero Galicia S.A. (GGAL)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="GGAL_logo.png" alt="Grupo Financiero Galicia S.A. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low P/E ratio - potential value</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="GGAL_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="GGAL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.74</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$50.39</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$8.4B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>6.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>38.2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.38</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.39</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-37.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Grupo Financiero Galicia S.A. (Ticker: GGAL)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:14:05  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Grupo Financiero Galicia S.A. (GGAL) presents a complex financial profile characterized by a historically volatile Altman Z-Score trajectory, currently situated firmly in the <strong>Safe Zone</strong> with a Z-Score of <strong>4.11</strong> (latest quarter), indicating a low probability of financial distress. This is a significant improvement from prior quarters where the company oscillated between the <strong>Distress Zone</strong> (Z=0.74) and the <strong>Gray Zone</strong> (Z≈1.85-1.95). The AI Risk Analysis, while not explicitly quantified here, aligns with this improving risk trajectory, suggesting a <strong>moderate to low overall risk level</strong> with a positive risk trajectory.</p>
+<p>AI Peer Analysis positions GGAL favorably relative to its industry peers in the <strong>Banks - Regional</strong> sector, with an industry average Z-Score near the Gray Zone threshold (~3.0). GGAL’s current Z-Score of 4.11 exceeds this benchmark, indicating stronger financial health compared to peers. However, the company’s <strong>Working Capital Ratio of -0.427</strong> signals liquidity challenges that warrant caution.</p>
+<p>AI Sentiment Analysis metrics are limited due to zero volatility and volume data, but the exceptionally high <strong>Dividend Yield of 53.00%</strong> suggests market skepticism or a distressed dividend policy, which may reflect underlying operational or cash flow concerns despite the strong Z-Score.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>4.11</td>
+<td>Safe Zone, low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Historical Range</td>
+<td>0.74 (Distress) to 11.65 (Safe)</td>
+<td>High volatility, improving trend</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$8.21 billion</td>
+<td>Mid-cap regional bank scale</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$50.39</td>
+<td>Stable pricing, no volatility data</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.427</td>
+<td>Negative liquidity indicator</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.000</td>
+<td>No retained earnings accumulation</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.008</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.065</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>53.00%</td>
+<td>Potentially unsustainable dividend</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>6.41</td>
+<td>Low valuation multiple</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> The strong Z-Score and market cap support a hold stance for medium-term investors, but liquidity and profitability concerns temper enthusiasm.</li>
+<li><strong>Selective Buy for Value Investors:</strong> Low P/E and high dividend yield may attract value investors willing to accept operational risks.</li>
+<li><strong>Avoid Aggressive Growth Positions:</strong> Given low asset turnover and EBIT ratio, growth investors should be cautious.</li>
+<li><strong>Monitor Liquidity and Dividend Sustainability:</strong> Negative working capital ratio and zero retained earnings require close monitoring for potential distress signals.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Regional Banks)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.427)</td>
+<td>Typically &gt;1.0 (Positive)</td>
+<td><strong>Weak liquidity; negative working capital</strong></td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (No data)</td>
+<td>Industry avg ~1.0-1.5</td>
+<td>Unable to assess leverage directly</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.008; Asset Turnover: 0.065</td>
+<td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.1-0.2</td>
+<td><strong>Below industry average; low profitability and efficiency</strong></td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Positive retained earnings typical</td>
+<td><strong>No retained earnings accumulation; potential stability risk</strong></td>
+<td>Stable/Neutral</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity Position:</strong> The negative working capital ratio (-0.427) is a significant red flag, indicating current liabilities exceed current assets. This is below the industry norm for regional banks, which typically maintain positive liquidity buffers. This weak liquidity position may constrain operational flexibility and increase short-term risk.  </li>
+<li><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the historically volatile Z-Score suggests periods of financial stress possibly linked to leverage fluctuations.  </li>
+<li><strong>Operational Efficiency:</strong> EBIT ratio of 0.008 and asset turnover of 0.065 are both below typical industry benchmarks, indicating low profitability and inefficient asset utilization. This aligns with the business description of a regional bank facing operational challenges.  </li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at zero suggests the company has not accumulated earnings, possibly due to dividend payouts or losses, raising concerns about long-term capital sustainability.  </li>
+</ul>
+<p><strong>AI Data Quality Assessment:</strong> The absence of detailed component ratios for Z-Score calculation and anomalies in market data (zero volume, zero moving averages) reduce confidence in market timing signals but do not diminish the reliability of financial ratios, which are complete and consistent.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>4.11</td>
+<td>Safe</td>
+<td>Improved equity valuation, reduced debt risk</td>
+<td>Stabilization post prior distress periods</td>
+</tr>
+<tr>
+<td>Prior Quarter</td>
+<td>3.85</td>
+<td>Safe</td>
+<td>Consistent operating results</td>
+<td>Gradual recovery phase</td>
+</tr>
+<tr>
+<td>Earlier Quarters</td>
+<td>0.74 - 2.79</td>
+<td>Distress to Safe</td>
+<td>Volatile working capital, earnings fluctuations</td>
+<td>Economic volatility in Argentina impacting bank</td>
+</tr>
+<tr>
+<td>Peak Quarter</td>
+<td>11.65</td>
+<td>Safe</td>
+<td>Exceptional capital structure</td>
+<td>Possibly one-off event or accounting anomaly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<p>GGAL’s Z-Score trajectory shows significant volatility, with a low of 0.74 (Distress Zone) indicating near bankruptcy risk in an earlier quarter, followed by a spike to 11.65 (Safe Zone), likely reflecting a transient capital event or accounting adjustment. The recent quarters show stabilization in the safe zone around 3.85 to 4.11, suggesting improved financial health.</p>
+<p>The lack of detailed component data limits granular driver analysis, but the overall trend correlates with Argentina’s macroeconomic instability affecting regional banks. The current safe zone status indicates the company has navigated recent risks effectively.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Improving, Safe Zone (4.11)</td>
+<td>Static price ($50.39), zero volume/volatility</td>
+<td>Divergent</td>
+<td>Potential undervaluation or market inactivity</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral (No data)</td>
+<td>High Dividend Yield (53%)</td>
+<td>Divergent</td>
+<td>Market skepticism despite strong Z-Score</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Above industry avg</td>
+<td>Sector performance unknown</td>
+<td>Aligned</td>
+<td>Competitive positioning favorable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<p>The fundamental health indicated by the Z-Score suggests a financially stable company, yet market signals such as zero trading volume, zero volatility, and an unusually high dividend yield (53%) indicate market skepticism or structural issues (e.g., trading suspension, illiquidity). This divergence suggests a disconnect between fundamental strength and market perception.</p>
+<p>The low P/E ratio (6.41) supports a value opportunity, but the lack of market activity and dividend sustainability concerns advise caution. Peer comparison confirms GGAL’s relative strength in the regional banking sector.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential decline</td>
+<td>Improve asset utilization, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant drop</td>
+<td>Strengthen liquidity, manage dividends</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility impact</td>
+<td>Hedging currency and interest rate exposure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Low EBIT ratio and asset turnover highlight operational inefficiencies that could worsen Z-Score if not addressed. Probability medium with moderate severity.  </li>
+<li><strong>Financial Risks:</strong> Negative working capital ratio and zero retained earnings pose critical risks to solvency and Z-Score stability. Probability high with critical severity. Dividend yield at 53% may be unsustainable, risking cash flow stress.  </li>
+<li><strong>Market Risks:</strong> Given Argentina’s economic volatility, currency and interest rate fluctuations pose moderate risks to GGAL’s financials and Z-Score. Hedging strategies are recommended.</li>
+</ul>
+<p><strong>Scenario Analysis:</strong><br />
+- <strong>Best Case:</strong> Continued Z-Score improvement above 4.5 with liquidity restoration and operational efficiency gains.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 4.0 with ongoing liquidity challenges but manageable risk.<br />
+- <strong>Worst Case:</strong> Z-Score decline below 1.8 if liquidity worsens or dividend policy strains cash flows, triggering distress signals.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 4.11 indicates safety but liquidity risk persists</td>
+<td>Wait for liquidity improvement</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL/HOLD</td>
+<td>Dividend yield 53% unsustainable; Z-Score stable but cash flow risk</td>
+<td>Avoid until dividend policy clarified</td>
+<td>Immediate to 3 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY</td>
+<td>Low P/E (6.41) and Z-Score &gt;3.0 suggest undervaluation</td>
+<td>Entry on price stability</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT and asset turnover limit growth potential</td>
+<td>Monitor operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SELL</td>
+<td>High risk from liquidity and dividend concerns despite Z-Score</td>
+<td>Avoid due to volatility and market inactivity</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative investors should hold, monitoring liquidity and operational metrics closely.  </li>
+<li>Dividend investors face high risk due to unsustainable yield; a sell or cautious hold is advised.  </li>
+<li>Value investors may find opportunity given low valuation and safe Z-Score, but should time entry carefully.  </li>
+<li>Growth investors should wait for operational improvements before committing.  </li>
+<li>Aggressive investors should avoid due to liquidity risk and market inactivity.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Stabilize liquidity &amp; improve profitability</td>
+<td>Working Capital Ratio, EBIT Ratio, Z-Score</td>
+<td>Implement cost controls, improve asset utilization</td>
+<td>Positive liquidity trend, EBIT growth, Z-Score &gt;4.5</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital allocation &amp; risk management</td>
+<td>Dividend payout ratio, Retained Earnings Ratio</td>
+<td>Reassess dividend policy, strengthen reserves</td>
+<td>Reduced dividend yield, positive retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Enhance risk monitoring, enforce governance</td>
+<td>Stable or improving Z-Score, risk mitigation reports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership must prioritize liquidity restoration and operational efficiency to sustain the current safe Z-Score zone. The CFO should focus on capital preservation and dividend policy recalibration to avoid cash flow stress. The Board must ensure robust risk governance aligned with the improving but still fragile financial health.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable at 4.11</td>
+<td>Slight improvement</td>
+<td>Economic stabilization, operational efficiency</td>
+<td>Quarterly Z-Score updates, liquidity ratios</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Mid-cap regional bank</td>
+<td>Potential consolidation</td>
+<td>Regulatory changes, market recovery</td>
+<td>Market cap trends, peer performance</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Potential reduction</td>
+<td>Dividend policy adjustment, liquidity improvement</td>
+<td>Dividend yield, working capital ratio</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<p>The Z-Score momentum is stable with a slight upward bias, contingent on macroeconomic conditions and internal operational improvements. Key catalysts include Argentina’s economic outlook and management’s ability to improve liquidity and profitability. Monitoring should focus on quarterly Z-Score changes, liquidity ratios, and dividend sustainability to anticipate shifts in risk profile and investment thesis.</p>
+<hr />
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>GGAL currently exhibits a <strong>safe financial position</strong> per Altman Z-Score (4.11), outperforming industry peers, but underlying liquidity and profitability weaknesses introduce <strong>moderate risk</strong>. Market signals diverge from fundamentals, reflecting uncertainty or illiquidity. Investment recommendations favor <strong>hold or selective value buying</strong> with caution on dividend sustainability. Strategic focus on liquidity restoration and operational efficiency is critical to maintain financial health and investor confidence.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, market intelligence, and risk assessment for actionable investment decision-making.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:14 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

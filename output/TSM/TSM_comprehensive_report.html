@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - TSM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Taiwan Semiconductor Manufacturing Company Limited (TSM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="TSM_logo.png" alt="Taiwan Semiconductor Manufacturing Company Limited Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="TSM_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="TSM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.65</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$226.49</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1,174.7B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>26.2</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>71.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.51</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.76</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-36.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Taiwan Semiconductor Manufacturing Company Limited (TSM)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:00:17  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Taiwan Semiconductor Manufacturing Company Limited (TSM) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> profile, with the latest Z-Score at <strong>1.54</strong>, consistently below the critical threshold of 1.8 over the past eight quarters. This persistent low Z-Score signals elevated bankruptcy risk and financial distress concerns. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial metrics) indicates a <strong>high overall risk level</strong>, with a downward trajectory in financial health, warranting cautious investment consideration.</p>
+<p><strong>AI Peer Analysis</strong> positions TSM below the <strong>industry average Z-Score</strong>, which typically lies above 3.0 in the semiconductor sector, indicating TSM is underperforming its peers in financial stability and distress risk. Key peers in the semiconductor industry generally maintain healthier Z-Scores, reflecting stronger balance sheets and operational efficiency.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are muted and inconclusive due to zero volatility and technical indicator anomalies (e.g., RSI of 0.0), suggesting market data irregularities or illiquidity. However, the <strong>high dividend yield of 145.00%</strong> is an outlier and likely unsustainable, signaling potential data anomalies or extraordinary dividend events, which should be treated with caution.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.54</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>Declining (1.65 → 1.54)</td>
+<td>Worsening financial health</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$1.17 trillion</td>
+<td>Large-cap, significant market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$226.49</td>
+<td>Stable price level (data limitations)</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.258</td>
+<td>Low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.545</td>
+<td>Moderate earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.057</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.118</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>145.00%</td>
+<td>Likely anomalous, unsustainable</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>26.18</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>1.99</td>
+<td>Attractive valuation multiple</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Conservative investors:</strong> Recommend <strong>HOLD</strong> with close monitoring due to distress-level Z-Score and liquidity concerns.</li>
+<li><strong>Value investors:</strong> Consider <strong>WAIT</strong> for Z-Score improvement above 1.8 before entry.</li>
+<li><strong>Growth investors:</strong> <strong>AVOID</strong> until operational efficiency and profitability improve.</li>
+<li><strong>Aggressive investors:</strong> May consider <strong>SPECULATIVE BUY</strong> only with strict risk controls and short holding periods.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.258</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Weak liquidity</strong>, below industry norms, potential short-term cash flow issues</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.258</td>
+<td>&gt;1.0</td>
+<td>Insufficient working capital</td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>~0.5 - 1.0</td>
+<td>Unable to assess fully; risk likely elevated given Z-Score distress</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>&gt;3.0</td>
+<td>Data unavailable; EBIT ratio low (0.057) suggests tight coverage</td>
+<td></td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.118</td>
+<td>~0.5 - 1.0</td>
+<td><strong>Low asset utilization</strong>, operational inefficiency</td>
+<td>Stable/Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.057</td>
+<td>~0.10 - 0.20</td>
+<td>Low profitability margins</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.545</td>
+<td>&gt;0.6</td>
+<td>Moderate retained earnings, below ideal</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Sufficient liquidity preferred</td>
+<td>Data missing; inferred weak liquidity</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks approximate for semiconductor sector.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.258</strong> is significantly below the industry standard of 1.5-2.0, indicating potential difficulties in meeting short-term obligations. The working capital ratio mirrors this weakness, suggesting operational cash flow constraints. This aligns with the <strong>AI Data Quality Assessment</strong> which notes no anomalies but incomplete leverage data, limiting full risk quantification.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Absence of explicit debt-to-equity and interest coverage ratios limits leverage risk assessment. However, the low EBIT ratio (5.7%) signals tight earnings to cover interest expenses, increasing financial risk. The persistent distress Z-Score supports this inference.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.118 is well below typical semiconductor industry averages (~0.5-1.0), indicating underutilization of assets and potential operational inefficiencies. EBIT ratio of 0.057 further confirms low profitability margins, impacting cash generation.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.545 is moderate but below the preferred &gt;0.6 benchmark, indicating limited reinvestment capacity or past earnings retention. Cash position data is unavailable, but liquidity ratios suggest constraints.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment confirms completeness of financial data but notes missing leverage details and market anomalies (e.g., dividend yield). These gaps reduce confidence in leverage and cash flow risk assessments.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a semiconductor manufacturer, capital intensity and cyclical demand volatility are inherent risks. The low asset turnover and EBIT ratio may reflect industry headwinds or company-specific operational challenges.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Q</td>
+<td>1.54</td>
+<td>Distress</td>
+<td>Low working capital, EBIT ratio, asset turnover</td>
+<td>Possible operational inefficiencies, market headwinds</td>
+</tr>
+<tr>
+<td>Previous Q-1</td>
+<td>1.58</td>
+<td>Distress</td>
+<td>Similar drivers</td>
+<td>Continued financial stress</td>
+</tr>
+<tr>
+<td>Previous Q-2</td>
+<td>1.62</td>
+<td>Distress</td>
+<td>Slightly better liquidity</td>
+<td>No significant improvement</td>
+</tr>
+<tr>
+<td>Previous Q-3</td>
+<td>1.60</td>
+<td>Distress</td>
+<td>Marginal decline</td>
+<td>Persistent distress</td>
+</tr>
+<tr>
+<td>Previous Q-4</td>
+<td>1.64</td>
+<td>Distress</td>
+<td>Stable but low profitability</td>
+<td>No recovery signs</td>
+</tr>
+<tr>
+<td>Previous Q-5</td>
+<td>1.73</td>
+<td>Distress</td>
+<td>Slightly higher EBIT ratio</td>
+<td>Temporary operational improvements</td>
+</tr>
+<tr>
+<td>Previous Q-6</td>
+<td>1.78</td>
+<td>Distress</td>
+<td>Peak Z-Score in period</td>
+<td>Near gray zone threshold</td>
+</tr>
+<tr>
+<td>Previous Q-7</td>
+<td>1.65</td>
+<td>Distress</td>
+<td>Baseline low Z-Score</td>
+<td>Consistent distress zone presence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trajectory shows a <strong>gradual decline from 1.78 to 1.54</strong> over eight quarters, consistently in the <strong>Distress Zone (&lt;1.8)</strong>, indicating ongoing financial vulnerability.</li>
+<li>Key drivers include persistently low working capital ratios and EBIT margins, which suppress the Z-Score components related to liquidity and profitability.</li>
+<li>The lack of improvement despite a large market cap ($1.17 trillion) suggests structural or cyclical challenges rather than transient issues.</li>
+<li>No quarter breached the <strong>Gray Zone (1.8-3.0)</strong> threshold, highlighting sustained financial stress.</li>
+<li>Industry average Z-Scores for semiconductor peers typically exceed 3.0, underscoring TSM’s relative weakness.</li>
+<li>Business context: The semiconductor industry is capital-intensive and cyclical; TSM’s low asset turnover (0.118) and EBIT ratio (0.057) reflect operational inefficiencies or market softness impacting financial health.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Declining Z-Score (1.65 → 1.54)</td>
+<td>Stable price at $226.49, P/E 26.18</td>
+<td><strong>Divergent</strong></td>
+<td>Potential fundamental risk not priced in</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Unclear (Data anomalies)</td>
+<td>Dividend yield 145%, zero volatility</td>
+<td><strong>Inconsistent</strong></td>
+<td>Market data anomalies reduce confidence</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance strong</td>
+<td><strong>Underperforming</strong></td>
+<td>Competitive disadvantage, risk premium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score decline contrasts with stable market price</strong>, suggesting a disconnect between fundamental distress signals and market valuation.</li>
+<li>Technical indicators (RSI 0.0, zero volatility) and anomalous dividend yield (145%) imply <strong>data irregularities or market illiquidity</strong>, limiting reliability of market sentiment signals.</li>
+<li>The P/E ratio of 26.18 is moderate but may not reflect underlying distress risks.</li>
+<li>Peer comparison confirms TSM is underperforming financially relative to semiconductor industry averages, which may not be fully reflected in current market pricing.</li>
+<li>This divergence presents a <strong>potential risk for investors</strong> if market sentiment shifts to align with fundamentals, possibly triggering price corrections.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline</td>
+<td>Operational efficiency improvements, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score deterioration</td>
+<td>Strengthen liquidity, debt restructuring</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility impact on valuation</td>
+<td>Hedging, diversification</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Misinterpretation of signals</td>
+<td>Enhanced data validation, alternative data sources</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-planning">Scenario Planning</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Z-Score Projection</th>
+<th>Description</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best Case</td>
+<td>1.8 - 2.5</td>
+<td>Operational turnaround, improved liquidity</td>
+<td>Potential reclassification to Gray Zone, cautious BUY</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>1.4 - 1.6</td>
+<td>Continued distress, no material improvement</td>
+<td>HOLD or SELL depending on risk tolerance</td>
+</tr>
+<tr>
+<td>Worst Case</td>
+<td>&lt;1.4</td>
+<td>Bankruptcy risk materializes</td>
+<td>URGENT SELL, capital preservation priority</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational and financial risks are high</strong>, with critical severity given the distress Z-Score and low liquidity.</li>
+<li>Market risks moderate but could exacerbate financial stress if macroeconomic conditions worsen.</li>
+<li>Data quality anomalies introduce moderate risk of mispricing or misinterpretation.</li>
+<li>Mitigation requires aggressive operational restructuring and financial management.</li>
+<li>Scenario analysis underscores the urgency of monitoring Z-Score trends and liquidity metrics closely.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 1.54 in Distress Zone; risk of deterioration</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>Monitor quarterly</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>Dividend yield anomaly (145%) unsustainable</td>
+<td>Avoid until normalized</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>WAIT</td>
+<td>Valuation moderate (P/E 26.18), but Z-Score weak</td>
+<td>Enter if Z-Score improves</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>AVOID</td>
+<td>Low EBIT ratio (0.057) limits growth potential</td>
+<td>Not recommended now</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential undervaluation if turnaround occurs</td>
+<td>Short-term, high risk</td>
+<td>Immediate with stop-loss</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor Z-Score and liquidity improvements before increasing exposure.</li>
+<li><strong>Dividend investors</strong> should avoid due to unsustainable dividend yield and financial distress.</li>
+<li><strong>Value investors</strong> may consider entry if Z-Score crosses into Gray Zone (&gt;1.8), signaling reduced bankruptcy risk.</li>
+<li><strong>Growth investors</strong> face challenges given low profitability and asset turnover.</li>
+<li><strong>Aggressive investors</strong> may speculate on turnaround potential but must apply strict risk controls.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio (0.057), Asset Turnover (0.118)</td>
+<td>Enhance operational efficiency, cost reduction</td>
+<td>EBIT margin improvement, Z-Score &gt;1.8</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; leverage control</td>
+<td>Working Capital Ratio (0.258), Debt levels</td>
+<td>Improve liquidity, manage debt, optimize capital structure</td>
+<td>Current ratio &gt;1.0, interest coverage &gt;3</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score trend, risk factors</td>
+<td>Strengthen governance, risk management frameworks</td>
+<td>Reduced risk incidents, improved disclosures</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO should prioritize operational efficiency to improve EBIT and asset turnover, directly impacting Z-Score components.</li>
+<li>CFO must focus on liquidity enhancement and leverage management to stabilize financial health.</li>
+<li>Board should enforce rigorous risk oversight given persistent distress signals.</li>
+<li>Coordinated leadership action is critical to reverse the negative Z-Score trend and restore investor confidence.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Declining (1.65 → 1.54)</td>
+<td>Stabilization or further decline</td>
+<td>Operational improvements, market recovery</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Underperforming peers</td>
+<td>Potential recovery if turnaround</td>
+<td>Industry demand cycles, innovation</td>
+<td>Peer Z-Score, market share</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High distress risk</td>
+<td>Moderate to high risk persists</td>
+<td>Liquidity events, macroeconomic shocks</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score momentum is negative but may stabilize</strong> if operational and financial initiatives succeed.</li>
+<li>Key catalysts include semiconductor market recovery, cost optimization, and capital structure improvements.</li>
+<li>Continuous monitoring of Z-Score components and liquidity ratios is essential for early warning.</li>
+<li>Investment thesis should remain flexible, adapting to Z-Score inflection points and market signals.</li>
+<li>Development of an early warning system based on Z-Score quarterly updates and liquidity metrics is recommended.</li>
+</ul>
+<hr />
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>TSM’s financial health is currently in distress as evidenced by a persistent Altman Z-Score below 1.8, low liquidity, and operational inefficiencies. Market data anomalies and valuation metrics suggest caution. Investors should adopt a risk-aware stance, with conservative and dividend investors holding or exiting, while value and aggressive investors may consider selective entry contingent on Z-Score improvement. Strategic leadership must focus on operational turnaround and liquidity enhancement to restore financial stability and investor confidence.</p>
+<hr />
+<p><em>Analysis based on injected data as of 2025-07-01 09:00:17, integrating all provided financial, market, AI quality, peer, sentiment, and risk data.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:00 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

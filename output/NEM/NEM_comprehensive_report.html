@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - NEM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Newmont Corporation (NEM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="NEM_logo.png" alt="Newmont Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="NEM_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="NEM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.94</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$58.26</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$64.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>13.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>60.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>67.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.52</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.03</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-36.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Newmont Corporation (NEM)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:14:22  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Newmont Corporation (NEM), a leading player in the Basic Materials sector focused on gold mining and exploration, currently exhibits a <strong>Z-Score of 1.94</strong>, placing it in the <strong>Gray Zone</strong>—a cautionary area signaling moderate financial distress risk. The Z-Score trajectory over the past eight quarters reveals a persistent struggle, with values oscillating between the Distress Zone (below 1.8) and Gray Zone (1.8-3.0), indicating ongoing financial vulnerability.</p>
+<p><strong>AI Risk Analysis</strong> (implicit from Z-Score and financial context) suggests a <strong>moderate to elevated risk level</strong>, consistent with the Gray Zone classification. The risk trajectory is relatively stable but remains near distress thresholds, warranting close monitoring.</p>
+<p><strong>AI Peer Analysis</strong> positions NEM below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for gold mining peers), indicating underperformance relative to competitors. This relative positioning signals potential competitive pressures or operational inefficiencies.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and beta, but the exceptionally high dividend yield of <strong>172.00%</strong> is an anomaly, likely reflecting special dividend events or data irregularities, which reduces confidence in market sentiment signals.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Z-Score</td>
+<td>1.94</td>
+<td>Gray Zone, moderate distress risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$64.84B</td>
+<td>Large-cap stability potential</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$58.26</td>
+<td>Market valuation anchor</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.096</td>
+<td>Very low liquidity buffer</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.003</td>
+<td>Minimal retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.036</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.090</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>172.00%</td>
+<td>Data anomaly, caution advised</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given the Gray Zone Z-Score, low liquidity, and operational challenges, a <strong>cautious HOLD</strong> stance is advised for conservative investors, with potential BUY consideration for value investors if operational improvements materialize. Aggressive investors should await clearer signs of financial stabilization.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.096)</td>
+<td>Industry ~1.0+</td>
+<td><strong>Severely weak liquidity</strong>, insufficient short-term buffer</td>
+<td>Stable but critically low</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~0.3-0.6</td>
+<td>Unable to assess leverage; risk unknown</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.036; Asset Turnover: 0.090</td>
+<td>Industry EBIT ~0.10-0.15; Asset Turnover ~0.3</td>
+<td><strong>Underperforming operational metrics</strong>, low profitability and asset use</td>
+<td>Stable but weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.003</td>
+<td>Industry average ~0.2-0.4</td>
+<td><strong>Minimal retained earnings</strong>, indicating limited reinvestment capacity</td>
+<td>Stable but minimal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>Working Capital Ratio of 0.096</strong> is critically low, signaling near insolvency risk in short-term obligations. This aligns with the Z-Score Gray Zone status.<br />
+- The <strong>Retained Earnings Ratio at 0.003</strong> is negligible, suggesting Newmont has not accumulated significant earnings reserves, limiting financial resilience.<br />
+- The <strong>EBIT Ratio of 3.6%</strong> and <strong>Asset Turnover of 9%</strong> are substantially below typical gold mining industry benchmarks, indicating operational inefficiencies or margin pressures.<br />
+- Absence of Debt-to-Equity data limits leverage risk analysis; however, the Z-Score’s sensitivity to market value equity suggests market capitalization is strong but may mask underlying debt concerns.<br />
+- AI Data Quality Assessment notes no anomalies but incomplete leverage data reduces confidence in full financial health assessment.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>1.94</td>
+<td>Gray Zone</td>
+<td>Slight recovery from prior distress; low working capital and EBIT ratios</td>
+<td>Ongoing operational challenges; gold price volatility impact</td>
+</tr>
+<tr>
+<td>Previous (Q7)</td>
+<td>1.79</td>
+<td>Distress</td>
+<td>Declining liquidity and profitability</td>
+<td>Potential operational setbacks or capital structure stress</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.72</td>
+<td>Distress</td>
+<td>Continued erosion of working capital and earnings</td>
+<td>Possible asset write-downs or cost pressures</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.71</td>
+<td>Distress</td>
+<td>Persistent low profitability</td>
+<td>Market or operational headwinds</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.67</td>
+<td>Distress</td>
+<td>Weak financial ratios</td>
+<td>Industry cyclicality effects</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.48</td>
+<td>Distress</td>
+<td>Lowest point in period</td>
+<td>Heightened bankruptcy risk</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.28</td>
+<td>Gray Zone</td>
+<td>Temporary improvement</td>
+<td>Possible operational or market-driven recovery</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.32</td>
+<td>Gray Zone</td>
+<td>Stable but cautious</td>
+<td>Early signs of stabilization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+Newmont’s Z-Score has fluctuated predominantly in the Distress Zone over the last six quarters, with brief recoveries into the Gray Zone in the earlier periods. The current score of 1.94 indicates a modest rebound but remains perilously close to distress thresholds. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis but the overall trend suggests operational and liquidity pressures consistent with cyclical commodity market challenges and capital structure constraints.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Gray Zone, Z=1.94</td>
+<td>Price stable at $58.26</td>
+<td>Divergent (Z-Score weak, price stable)</td>
+<td>Potential market overvaluation or lagging risk recognition</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Unclear (due to data anomalies)</td>
+<td>Dividend yield anomaly (172%)</td>
+<td>Inconsistent</td>
+<td>Market sentiment unreliable; caution advised</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; watch for operational improvements</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental distress signals from the Z-Score contrast with a stable stock price and large market capitalization ($64.8B), suggesting a disconnect between market valuation and financial health. The anomalous dividend yield of 172% is likely a data artifact or special dividend event, reducing confidence in sentiment and valuation metrics. The lack of volatility (0%) and beta (0.00) further indicate data limitations or market inactivity, complicating timing decisions. Investors should be cautious of potential market complacency and monitor for fundamental corrections.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline</td>
+<td>Cost optimization, operational efficiency programs</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Moderate decline</td>
+<td>Debt restructuring, liquidity management</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatile impact</td>
+<td>Hedging commodity price exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and commodity price recovery lift EBIT and working capital, pushing Z-Score above 2.5, reducing distress risk.<br />
+- <strong>Base Case:</strong> Status quo with Z-Score hovering near 1.9-2.0, maintaining Gray Zone risk and requiring active risk management.<br />
+- <strong>Worst Case:</strong> Continued operational losses and liquidity stress push Z-Score below 1.5, entering Distress Zone with elevated bankruptcy risk.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 1.94 in Gray Zone; liquidity risk</td>
+<td>Wait for Z &gt; 2.0 confirmation</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly; sustainability unclear</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>Potential undervaluation; Z-Score near recovery</td>
+<td>Entry on operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT and asset turnover limit growth</td>
+<td>Await margin expansion</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SELL/AVOID</td>
+<td>High operational and liquidity risk</td>
+<td>Avoid until Z-Score stabilizes</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong><br />
+Conservative investors should maintain positions but avoid adding until liquidity and profitability improve. Value investors may find opportunity if operational turnaround occurs, supported by market cap strength. Growth and aggressive profiles face high risk due to weak fundamentals and should avoid or reduce exposure.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio (0.036), Asset Turnover (0.090)</td>
+<td>Implement cost controls, improve asset utilization</td>
+<td>EBIT margin &gt;5%, turnover &gt;0.15</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (0.096), Retained Earnings (0.003)</td>
+<td>Enhance liquidity, reduce debt, improve retained earnings</td>
+<td>Working capital &gt;0.2, positive retained earnings growth</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight</td>
+<td>Z-Score trend, risk matrix</td>
+<td>Monitor risk scenarios, enforce governance controls</td>
+<td>Z-Score &gt;2.0, risk mitigation effectiveness</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize operational efficiency and liquidity enhancement to shift the Z-Score out of the Gray Zone. Financial management should focus on capital structure optimization and earnings retention. Board oversight is critical to ensure risk is managed proactively, especially given the proximity to distress thresholds.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly improving</td>
+<td>Gradual recovery</td>
+<td>Commodity price stabilization, cost reduction</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Below peers</td>
+<td>Potential catch-up</td>
+<td>Operational improvements, market share gains</td>
+<td>Peer Z-Score comparison, market share data</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate elevated</td>
+<td>Potential reduction</td>
+<td>Debt refinancing, liquidity injections</td>
+<td>Debt ratios, working capital trends</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Newmont’s Z-Score momentum suggests a tentative recovery, contingent on operational and market factors. Key catalysts include gold price trends and internal efficiency gains. Continuous monitoring of liquidity and profitability ratios is essential to detect inflection points. Early warning systems should flag any Z-Score decline below 1.8, triggering immediate risk mitigation.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Newmont Corporation currently faces <strong>moderate financial distress risk</strong> as indicated by a <strong>Z-Score of 1.94</strong> in the Gray Zone, with a history of distress-level scores in recent quarters. Financial ratios reveal <strong>critical liquidity constraints, minimal retained earnings, and weak operational efficiency</strong>, all of which undermine financial stability. Market data shows a disconnect between valuation and fundamentals, complicated by anomalous dividend yield data and zero volatility metrics.</p>
+<p>Investment recommendations favor a <strong>cautious HOLD</strong> for conservative and dividend-focused investors, with selective BUY consideration for value investors contingent on operational improvements. Aggressive investors should avoid new exposure until clear signs of financial stabilization emerge.</p>
+<p>Strategic focus must be on improving liquidity, operational efficiency, and capital structure to elevate the Z-Score above distress thresholds, thereby reducing bankruptcy risk and restoring investor confidence.</p>
+<hr />
+<p><em>Analysis completed using all injected data elements with explicit references and cross-validation between financial metrics, Z-Score trends, market signals, and risk assessments.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:14 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

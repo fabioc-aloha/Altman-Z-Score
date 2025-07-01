@@ -53,7 +53,7 @@
 "emerging": {
     "thresholds": {
         "safe": 5.85,        # Was 2.6
-        "grey_lower": 3.75,  # Was 1.1
+        "gray_lower": 3.75,  # Was 1.1
     }
 }
 
@@ -61,7 +61,7 @@
 "service": {
     "thresholds": {
         "safe": 2.60,        # Unchanged  
-        "grey_lower": 0.50,  # Was 1.1 (adjusted for -3.25 constant)
+        "gray_lower": 0.50,  # Was 1.1 (adjusted for -3.25 constant)
     }
 }
 ```

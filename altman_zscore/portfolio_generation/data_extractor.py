@@ -97,8 +97,21 @@ class CompanyDataExtractor:
             z_score = self._extract_z_score(summary_content)
             risk_category = self._extract_risk_category(summary_content)
             
-            # Extract investment ratings
+            # Extract investment ratings from summary
             investment_ratings = self._extract_investment_ratings(summary_content)
+            
+            # Also try to extract from comprehensive report if available
+            if report_path.exists():
+                try:
+                    with open(report_path, 'r', encoding='utf-8') as f:
+                        html_content = f.read()
+                    
+                    # Extract narrative ratings and merge with existing ratings
+                    narrative_ratings = self._extract_narrative_investment_ratings(html_content)
+                    investment_ratings.update(narrative_ratings)
+                    
+                except Exception as e:
+                    self.logger.debug(f"Could not read comprehensive report for {ticker}: {str(e)}")
             
             # Extract key metrics
             key_metrics = self._extract_key_metrics(summary_content)
@@ -168,7 +181,7 @@ class CompanyDataExtractor:
         # Look for risk categories
         patterns = [
             r"Risk Category:\s*(.+?)(?:\n|$)",
-            r"Zone:\s*(Safe|Grey|Gray|Distress)",
+            r"Zone:\s*(Safe|Gray|Distress)",
             r"Risk Level:\s*(.+?)(?:\n|$)"
         ]
         
@@ -179,7 +192,7 @@ class CompanyDataExtractor:
                 # Normalize risk categories
                 if any(word in category.lower() for word in ['safe', 'low']):
                     return "Safe"
-                elif any(word in category.lower() for word in ['grey', 'gray', 'medium', 'moderate']):
+                elif any(word in category.lower() for word in ['gray', 'medium', 'moderate']):
                     return "Gray Zone"
                 elif any(word in category.lower() for word in ['distress', 'high', 'danger']):
                     return "Distress"
@@ -197,7 +210,7 @@ class CompanyDataExtractor:
             action = action_match.group(1).strip().upper().replace(' ', '_')
             ratings['overall_investment_rating'] = action
         
-        # Look for different investor profiles and their ratings
+        # Look for different investor profiles and their ratings in structured format
         profiles = [
             "Conservative Investor", "Growth Investor", "Value Investor", 
             "Dividend Investor", "Aggressive Investor", "Income Investor",
@@ -210,6 +223,65 @@ class CompanyDataExtractor:
             if match:
                 rating = match.group(1).upper().replace(' ', '_')
                 ratings[profile.lower().replace(' ', '_')] = rating
+        
+        return ratings
+    
+    def _extract_narrative_investment_ratings(self, html_content: str) -> Dict[str, str]:
+        """Extract investment ratings from narrative text in comprehensive reports."""
+        ratings = {}
+        
+        # Specific patterns found in the comprehensive reports
+        specific_patterns = [
+            # "Conservative and dividend investors benefit from Apple's strong financial safety and exceptional dividend yield, recommending immediate buy."
+            (r"conservative.*?investors.*?recommending\s+(immediate\s+buy|buy|hold|sell)", ['conservative_investor', 'dividend_investor']),
+            (r"dividend.*?investors.*?recommending\s+(immediate\s+buy|buy|hold|sell)", ['dividend_investor']),
+            
+            # "Value investors should hold and watch for valuation improvements or price corrections to enter."
+            (r"value\s+investors?\s+should\s+(hold|buy|sell|accumulate)", ['value_investor']),
+            
+            # "Growth investors should hold or accumulate, anticipating innovation-driven momentum."
+            (r"growth\s+investors?\s+should\s+(hold|buy|sell|accumulate)", ['growth_investor']),
+            
+            # "Aggressive investors should hold due to current low volatility and wait for clearer momentum signals."
+            (r"aggressive\s+investors?\s+should\s+(hold|buy|sell|accumulate)", ['aggressive_investor']),
+            
+            # "Investment stance: Favorable for conservative and dividend investors, with hold or accumulate recommendations for growth and value profiles."
+            (r"favorable\s+for\s+conservative.*?investors.*?with\s+(hold|accumulate|buy|sell)", ['conservative_investor']),
+            (r"favorable\s+for.*?dividend.*?investors.*?with\s+(hold|accumulate|buy|sell)", ['dividend_investor']),
+            (r"with\s+(hold|accumulate|buy|sell).*?recommendations\s+for\s+growth.*?profiles", ['growth_investor']),
+            (r"with\s+(hold|accumulate|buy|sell).*?recommendations\s+for.*?value.*?profiles", ['value_investor']),
+            
+            # "Buy/Hold for conservative and dividend-focused investors"
+            (r"(buy|hold|sell).*?for\s+conservative.*?investors", ['conservative_investor']),
+            (r"(buy|hold|sell).*?for.*?dividend.*?investors", ['dividend_investor']),
+            (r"(buy|hold|sell).*?for\s+growth.*?investors", ['growth_investor']),
+            (r"(buy|hold|sell).*?for.*?value.*?investors", ['value_investor']),
+            (r"(buy|hold|sell).*?for\s+aggressive.*?investors", ['aggressive_investor']),
+        ]
+        
+        for pattern, investor_types in specific_patterns:
+            matches = re.finditer(pattern, html_content, re.IGNORECASE | re.DOTALL)
+            for match in matches:
+                rating_text = match.group(1).strip().upper()
+                
+                # Map rating variations to standard format
+                if 'IMMEDIATE' in rating_text and 'BUY' in rating_text:
+                    standard_rating = 'STRONG_BUY'
+                elif 'BUY' in rating_text:
+                    standard_rating = 'BUY'
+                elif 'ACCUMULATE' in rating_text:
+                    standard_rating = 'BUY'  # Treat accumulate as buy
+                elif 'HOLD' in rating_text:
+                    standard_rating = 'HOLD'
+                elif 'SELL' in rating_text:
+                    standard_rating = 'SELL'
+                else:
+                    continue  # Skip unrecognized ratings
+                
+                # Apply rating to all specified investor types
+                for investor_type in investor_types:
+                    if investor_type not in ratings:  # Don't overwrite existing ratings
+                        ratings[investor_type] = standard_rating
         
         return ratings
     

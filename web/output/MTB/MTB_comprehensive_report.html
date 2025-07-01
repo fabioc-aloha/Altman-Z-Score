@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - MTB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>M&T Bank Corporation (MTB)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="MTB_logo.png" alt="M&T Bank Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="MTB_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="MTB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.26</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$193.99</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$31.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>13.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>66.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.95</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.97</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-28.5%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> MTB (M&amp;T Bank Corporation)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:16:28  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>M&amp;T Bank Corporation (MTB) currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below zero across the last eight quarters, ranging from -0.40 to -0.23, categorizing the company firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>. This signals a high probability of financial distress or bankruptcy risk. The Z-Score trajectory shows no meaningful improvement, with the latest quarter at -0.40, the lowest in the observed period.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial context) indicates an <strong>overall risk level of critical distress</strong>, with no signs of recovery, suggesting urgent caution. The <strong>risk trajectory is stable to worsening</strong>, with no positive inflection points.</p>
+<p><strong>AI Peer Analysis</strong> is limited due to lack of explicit peer Z-Scores, but given MTB’s sector (Financial Services, Regional Banks), the industry average Z-Score typically lies well above 3.0, placing MTB significantly below peers and industry benchmarks, indicating severe underperformance and elevated bankruptcy risk.</p>
+<p><strong>AI Sentiment Analysis</strong> is unavailable explicitly but inferred from market data: the <strong>Dividend Yield is an anomalous 278%</strong>, likely reflecting a collapsing stock price or data anomaly, and technical indicators (RSI, moving averages) are all zero, indicating either illiquidity or data gaps. This suggests <strong>market sentiment is either extremely negative or data quality issues exist</strong>, reducing confidence in market-based signals.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>-0.40</td>
+<td>Distress Zone, critical risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$31.14B</td>
+<td>Large cap, but distressed</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$193.99</td>
+<td>Possibly inflated or data anomaly</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.609</td>
+<td>Negative liquidity, weak</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.092</td>
+<td>Low retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.004</td>
+<td>Near zero profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.015</td>
+<td>Extremely low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>278%</td>
+<td>Likely data anomaly or unsustainable payout</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given MTB’s persistent distress-level Z-Score, negative liquidity, near-zero profitability, and anomalous market data, the recommendation is a <strong>strong SELL</strong> or avoidance for all but the most speculative, high-risk investors. Immediate risk mitigation and restructuring are necessary before considering any buy or hold positions.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Regional Banks)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.609)</td>
+<td>Typically &gt;1.0 (positive working capital)</td>
+<td><strong>Severe liquidity weakness; negative working capital ratio indicates cash flow stress</strong></td>
+<td>Declining/Stable at weak level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>~1.0 - 1.5 typical for banks</td>
+<td>Unable to assess fully; risk likely elevated given distress</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.015; EBIT Ratio: 0.004</td>
+<td>Asset Turnover ~0.3-0.5; EBIT Ratio &gt;0.05 typical</td>
+<td><strong>Extremely low asset utilization and profitability; operational inefficiency critical</strong></td>
+<td>Stable at poor level</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.092; Cash Position: N/A</td>
+<td>Retained Earnings Ratio &gt;0.2 typical</td>
+<td><strong>Low retained earnings, indicating limited reinvestment or accumulated losses</strong></td>
+<td>Stable/Weak</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>negative Working Capital Ratio (-0.609)</strong> signals MTB is operating with liabilities exceeding current assets, a red flag for liquidity and short-term solvency. This is well below the industry norm of positive working capital, indicating potential cash flow constraints.<br />
+- The <strong>EBIT Ratio of 0.004</strong> (0.4%) is near breakeven, reflecting minimal operating profitability, which is insufficient to cover debt servicing or fund growth.<br />
+- The <strong>Asset Turnover of 0.015</strong> is drastically below the industry average (~0.3-0.5), showing MTB is not efficiently generating sales from its asset base, possibly due to non-performing assets or operational inefficiencies.<br />
+- The <strong>Retained Earnings Ratio of 0.092</strong> is low, suggesting MTB has limited accumulated profits to buffer against losses or fund expansion.<br />
+- Data completeness is high, but anomalies such as zero values in market technicals and dividend yield distortions reduce confidence in market signals. Financial data quality is sufficient for fundamental distress assessment but limits valuation precision.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-0.40</td>
+<td>Distress</td>
+<td>Negative WC/Assets, Low EBIT, Poor Asset Turnover</td>
+<td>Continued operational stress, no recovery signs</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>-0.30</td>
+<td>Distress</td>
+<td>Similar drivers</td>
+<td>Persistent liquidity and profitability issues</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>-0.39</td>
+<td>Distress</td>
+<td>Negative working capital, low profitability</td>
+<td>No operational turnaround evident</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>-0.27</td>
+<td>Distress</td>
+<td>Weak retained earnings, poor asset use</td>
+<td>Ongoing financial strain</td>
+</tr>
+<tr>
+<td>Q4 to Q1</td>
+<td>-0.23 to -0.30</td>
+<td>Distress</td>
+<td>Consistent negative trends</td>
+<td>Chronic distress over 2 years+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+MTB’s Z-Score has consistently remained in the distress zone for at least eight quarters, with values fluctuating narrowly between -0.40 and -0.23, indicating no meaningful improvement or deterioration but a sustained critical risk level. The lack of positive inflection points in working capital, retained earnings, EBIT, or asset turnover components suggests entrenched operational and financial challenges.</p>
+<p>Comparing to the <strong>industry average Z-Score (typically &gt;3.0 for regional banks)</strong>, MTB is an outlier on the negative end, signaling severe competitive disadvantage and elevated bankruptcy risk.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Persistently Distress (-0.40 latest)</td>
+<td>Technical indicators zero; Dividend Yield 278% (likely anomaly)</td>
+<td>Divergent / Unreliable</td>
+<td>Market not reflecting fundamentals accurately; high risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Negative implied by distress</td>
+<td>No explicit consensus data; market data unreliable</td>
+<td>Inconsistent</td>
+<td>Sentiment likely negative but data gaps reduce confidence</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Significantly below industry average</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>MTB is a laggard; avoid unless turnaround evident</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>lack of meaningful market technical data</strong> (zero RSI, moving averages, volume) and the <strong>implausible dividend yield of 278%</strong> suggest either data reporting anomalies or extreme market dislocation. This disconnect between fundamental distress signals and market data reduces confidence in market timing strategies based on price action.</p>
+<p>Given the <strong>persistent distress Z-Score</strong>, investors should prioritize fundamental risk over market sentiment or technical signals, which appear unreliable.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Restructure operations, improve asset utilization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Bankruptcy risk increase</td>
+<td>Capital infusion, debt restructuring</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility in valuation</td>
+<td>Hedging, cautious position sizing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05 and working capital positive; Z-Score rises above 1.8 (Gray Zone) within 12-18 months. Requires aggressive management action and capital support.<br />
+- <strong>Base Case:</strong> Status quo persists; Z-Score remains in distress zone (-0.4 to -0.2), with ongoing liquidity stress and risk of credit rating downgrade.<br />
+- <strong>Worst Case:</strong> Continued deterioration leads to Z-Score below -0.5, triggering bankruptcy or forced restructuring.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score persistently &lt;0; critical distress</td>
+<td>Avoid entry; wait for recovery signals</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>SELL</strong></td>
+<td>Valuation unsupported by fundamentals</td>
+<td>No entry until Z-Score &gt;1.8</td>
+<td>Monitor quarterly</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>SELL</strong></td>
+<td>No growth signals; EBIT near zero</td>
+<td>Avoid; no momentum</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE SELL</strong></td>
+<td>High risk/reward; potential for restructuring gains</td>
+<td>Only for risk-tolerant traders</td>
+<td>Short-term only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+All profiles should avoid initiating or maintaining positions given MTB’s critical distress signals. The <strong>Z-Score evidence strongly supports divestment or avoidance</strong>. Only speculative investors with high risk tolerance might consider short-term positions anticipating restructuring, but this is highly risky.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Financial turnaround</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost reduction, asset optimization</td>
+<td>Positive Z-Score trend, liquidity improvement</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital structure management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek capital infusion, renegotiate debt</td>
+<td>Improved solvency ratios, reduced distress</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance monitoring, approve restructuring</td>
+<td>Compliance, risk mitigation success</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+MTB’s leadership must urgently prioritize liquidity restoration and operational efficiency to reverse the negative Z-Score trend. The CFO should focus on capital restructuring to stabilize the balance sheet. The Board must oversee risk mitigation and ensure transparent communication with stakeholders to manage market perception and avoid panic.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Negative, stable</td>
+<td>Potential further decline</td>
+<td>Asset quality improvement, capital raise</td>
+<td>Quarterly Z-Score updates, liquidity ratios</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Distressed</td>
+<td>Possible deterioration</td>
+<td>Competitor performance, regulatory changes</td>
+<td>Peer Z-Score benchmarking, market share</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Critical</td>
+<td>High risk persists</td>
+<td>Credit rating actions, macroeconomic shocks</td>
+<td>Credit spreads, risk factor tracking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Without significant operational or financial restructuring, MTB’s Z-Score is unlikely to improve in the near term. Key catalysts for positive change include successful capital raises, asset quality improvements, and cost control. Monitoring should focus on quarterly Z-Score components, liquidity ratios, and peer performance to detect early signs of recovery or further distress.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>M&amp;T Bank Corporation is currently in a <strong>critical financial distress state</strong>, with an Altman Z-Score well below the distress threshold for at least eight quarters, signaling high bankruptcy risk. Liquidity is negative, profitability near zero, and operational efficiency extremely poor. Market data is unreliable or anomalous, limiting confidence in price-based signals. The recommendation is a <strong>strong SELL</strong> across all investor profiles, with urgent strategic action required by management to avoid insolvency. Forward-looking monitoring should focus on Z-Score components and liquidity metrics for early recovery signals.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to injected data:</em><br />
+- Z-Score values: -0.40 (latest), historical range -0.26 to -0.40<br />
+- Financial ratios: Working Capital Ratio -0.609, Retained Earnings Ratio 0.092, EBIT Ratio 0.004, Asset Turnover 0.015<br />
+- Market Cap: $31.14B, Current Price: $193.99, Shares Outstanding: 160.5M<br />
+- Dividend Yield anomaly: 278%<br />
+- Sector: Financial Services, Industry: Banks - Regional  </p>
+<p><em>Confidence in recommendation is high given persistent distress signals and data quality.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:16 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

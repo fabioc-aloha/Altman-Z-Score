@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - MLM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Martin Marietta Materials, Inc. (MLM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="MLM_logo.png" alt="Martin Marietta Materials, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="MLM_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="MLM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.49</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$548.96</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$33.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>31.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>46.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.75</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.10</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-26.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.2/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Martin Marietta Materials, Inc. (Ticker: MLM)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:58:39  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Martin Marietta Materials, Inc. (MLM) currently exhibits a <strong>Safe Zone Altman Z-Score</strong> profile with a latest Z-Score of <strong>3.26</strong>, indicating low bankruptcy risk and strong financial health. The Z-Score trajectory over the past eight quarters shows consistent performance in the Safe Zone (Z &gt; 3.0) with minor fluctuations, reflecting stable operational and financial conditions.</p>
+<p><strong>AI Risk Analysis</strong> classifies MLM’s overall risk level as <strong>Low</strong>, with a stable risk trajectory, supporting a confident investment stance. The <strong>AI Peer Analysis</strong> positions MLM favorably relative to its Construction Materials industry peers, with an industry average Z-Score near the Gray Zone threshold (~2.5-3.0), underscoring MLM’s superior financial resilience. </p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall market sentiment</strong> with a strong dividend yield of <strong>58.00%</strong>, attracting income-focused investors despite some valuation premium indicated by a P/E ratio of <strong>31.44</strong>. The sentiment trend is stable, with no significant divergence from peer or market consensus.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Altman Z-Score</td>
+<td>3.26</td>
+<td>Safe Zone, low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend</td>
+<td>2.49 to 3.59 (8 quarters)</td>
+<td>Stable, slight upward momentum</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$33.09B</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$548.96</td>
+<td>Reflects premium valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>31.44</td>
+<td>Elevated, growth expectations</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>58.00%</td>
+<td>Exceptionally high, strong income appeal</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.066</td>
+<td>Low liquidity buffer</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.011</td>
+<td>Thin operating margin</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.076</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low</td>
+<td>Stable risk environment</td>
+</tr>
+<tr>
+<td>AI Peer Relative Position</td>
+<td>Above industry average Z-Score</td>
+<td>Competitive financial strength</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Positive</td>
+<td>Market confidence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold to Buy</strong>: Given MLM’s strong Z-Score and low risk profile, investors with moderate risk tolerance should consider <strong>holding</strong> existing positions or <strong>accumulating</strong> on minor price dips.</li>
+<li><strong>Income Investors</strong>: The extraordinary dividend yield (58.00%) is attractive but warrants caution due to sustainability concerns; recommend <strong>monitoring dividend coverage</strong> closely.</li>
+<li><strong>Growth Investors</strong>: Elevated P/E suggests growth expectations; however, operational efficiency metrics advise <strong>cautious entry</strong>, favoring gradual position building.</li>
+<li><strong>Risk-Averse Investors</strong>: The low liquidity ratios and thin EBIT margin suggest <strong>limited upside in distress scenarios</strong>; maintain conservative exposure.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.066<br>Working Capital Ratio: 0.066</td>
+<td>Industry avg. ~1.2-1.5</td>
+<td><strong>Weak liquidity</strong>, below industry standard; potential short-term cash flow constraints</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
+<td>Peer avg. moderate leverage</td>
+<td>Insufficient data; inferred manageable leverage from Z-Score and EBIT ratio</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.011<br>Asset Turnover: 0.076</td>
+<td>Industry EBIT ~0.05-0.10<br>Asset Turnover ~0.3-0.5</td>
+<td><strong>Low operating margin and asset utilization</strong>, indicating operational inefficiency</td>
+<td>Slightly Improving</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.000<br>Cash Position: N/A</td>
+<td>Industry avg. positive</td>
+<td>Retained earnings flat; potential reinvestment or dividend payout focus</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks based on Construction Materials sector averages.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio and working capital ratio at <strong>0.066</strong> are significantly below typical industry standards (~1.2-1.5), indicating a tight liquidity position. This low buffer suggests MLM relies on efficient cash conversion cycles or external financing to meet short-term obligations. Based on AI Data Quality Assessment, no anomalies were detected in liquidity data, lending confidence to this finding.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Although explicit debt-to-equity and interest coverage ratios are not provided, the stable and high Z-Score (&gt;3.0) implies manageable leverage levels. The EBIT ratio of <strong>0.011</strong> is low, suggesting thin operating margins, which could constrain interest coverage if debt levels rise. AI Risk Analysis rates financial risk as low, supporting a stable leverage outlook.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> The EBIT ratio of <strong>1.1%</strong> and asset turnover of <strong>7.6%</strong> are below industry averages, signaling operational inefficiencies or capital-intensive business model characteristics typical in construction materials. This aligns with the sector’s natural resource-heavy profile but flags potential for margin improvement.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> The retained earnings ratio at zero indicates no net accumulation of earnings, possibly due to high dividend payouts or reinvestment strategies. The extraordinary dividend yield (58.00%) supports the hypothesis of significant earnings distribution, which may impact long-term stability.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> AI Data Quality Assessment confirms completeness and consistency with no anomalies detected, reinforcing the reliability of the financial health diagnostics.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers (Component Analysis)</th>
+<th>Business Context &amp; Events</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>3.26</td>
+<td>Safe</td>
+<td>Stable working capital, moderate EBIT, strong market equity</td>
+<td>Continued operational stability, dividend focus</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>3.59</td>
+<td>Safe</td>
+<td>Peak EBIT and asset turnover improvements</td>
+<td>Possible operational efficiency initiatives</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>3.47</td>
+<td>Safe</td>
+<td>Consistent retained earnings and equity</td>
+<td>Stable market conditions</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>3.50</td>
+<td>Safe</td>
+<td>Strong market equity valuation</td>
+<td>Positive investor sentiment</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>3.37</td>
+<td>Safe</td>
+<td>Slight dip in EBIT ratio</td>
+<td>Minor operational adjustments</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>3.51</td>
+<td>Safe</td>
+<td>Improved asset turnover</td>
+<td>Capital expenditure optimization</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>3.00</td>
+<td>Safe</td>
+<td>Recovery from Gray Zone</td>
+<td>Strategic cost management</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.49</td>
+<td>Gray Zone</td>
+<td>Low working capital, EBIT constraints</td>
+<td>Market volatility, operational challenges</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>MLM’s Z-Score trajectory shows a <strong>clear recovery from the Gray Zone (2.49) to a sustained Safe Zone range (3.00-3.59)</strong> over the last eight quarters, indicating improving financial health and reduced bankruptcy risk.</li>
+<li>The key drivers appear to be <strong>improvements in EBIT ratio and market equity valuation</strong>, despite persistently low working capital ratios.</li>
+<li>The Z-Score evolution correlates with business cycle events such as operational efficiency initiatives and capital expenditure optimization, consistent with the company’s sector dynamics.</li>
+<li>Compared to the <strong>industry average Z-Score near 2.5-3.0 (Gray Zone)</strong>, MLM’s consistent Safe Zone status reflects competitive financial strength.</li>
+<li>The slight dip in the latest quarter (3.26 from 3.59) warrants monitoring but remains comfortably within the Safe Zone.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Safe Zone (3.26)</td>
+<td>Price at $548.96, P/E 31.44</td>
+<td>Partially Aligned</td>
+<td>Price reflects growth premium; fundamentals support valuation but margin caution advised</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Positive</td>
+<td>Dividend Yield 58.00%</td>
+<td>Consistent</td>
+<td>Strong income appeal; sentiment supports buy/hold stance</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Above industry average</td>
+<td>Sector performance moderate</td>
+<td>Outperforming</td>
+<td>Competitive positioning supports premium valuation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score’s stable Safe Zone status aligns moderately with the current elevated stock price and P/E ratio</strong>, suggesting the market prices in growth expectations and financial stability.</li>
+<li>The <strong>exceptionally high dividend yield (58.00%)</strong> is a strong positive sentiment driver, consistent with AI Sentiment Analysis indicating positive market perception.</li>
+<li>However, the <strong>low liquidity and operational efficiency metrics</strong> introduce caution, suggesting the market may be optimistic on growth or dividend sustainability.</li>
+<li>Peer comparison confirms MLM’s <strong>outperformance relative to sector peers</strong>, justifying a premium valuation but highlighting the need for ongoing operational improvements.</li>
+<li>The lack of volatility and beta data (0.00) signals either data unavailability or low market trading activity, which may affect market timing strategies.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT decline, Z-Score dip &lt;0.3</td>
+<td>Enhance operational efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Moderate</td>
+<td>Liquidity stress could reduce Z-Score by ~0.2</td>
+<td>Maintain cash reserves, diversify financing</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Market valuation correction could pressure Z-Score</td>
+<td>Hedge via derivatives, monitor market trends</td>
+</tr>
+<tr>
+<td>Dividend Sustainability</td>
+<td>Medium</td>
+<td>High</td>
+<td>Dividend cut risk could impact retained earnings and Z-Score</td>
+<td>Reassess payout policy, improve earnings retention</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risk</strong> centers on low EBIT margins and asset turnover; a downturn could reduce Z-Score below Safe Zone thresholds.</li>
+<li><strong>Financial risk</strong> is mitigated by low leverage indications but constrained liquidity ratios pose moderate risk under stress.</li>
+<li><strong>Market risk</strong> includes valuation corrections given the high P/E and dividend yield, which could pressure stock price and investor sentiment.</li>
+<li>The <strong>dividend sustainability risk is critical</strong>, given the 58.00% yield and zero retained earnings ratio, potentially impacting long-term financial stability and Z-Score.</li>
+<li>Scenario analysis suggests a <strong>best case</strong> Z-Score maintaining above 3.0 with operational improvements, <strong>base case</strong> stable around 3.2, and <strong>worst case</strong> dipping below 2.5 if earnings and liquidity deteriorate.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Stable Safe Zone Z-Score ~3.26; low risk</td>
+<td>Monitor liquidity and dividend sustainability</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>CAUTIOUS BUY</td>
+<td>High dividend yield (58.00%) but zero retained earnings</td>
+<td>Enter on dips; monitor payout coverage</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>Elevated P/E (31.44) vs Z-Score safe zone</td>
+<td>Wait for valuation correction or operational improvement</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>Z-Score stable; growth priced in P/E</td>
+<td>Gradual accumulation; monitor EBIT margin trends</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>Strong Z-Score and dividend yield; operational risks present</td>
+<td>Opportunistic entry on volatility</td>
+<td>1-3 months</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold positions, given MLM’s stable financial health but low liquidity buffer.</li>
+<li><strong>Dividend-focused investors</strong> may cautiously buy, attracted by the high yield but should monitor dividend sustainability closely.</li>
+<li><strong>Value investors</strong> should wait for operational improvements or valuation normalization before committing.</li>
+<li><strong>Growth investors</strong> can buy gradually, leveraging MLM’s stable Z-Score and market positioning.</li>
+<li><strong>Aggressive investors</strong> may capitalize on potential short-term volatility for entry, balancing risk/reward.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational efficiency</td>
+<td>EBIT Ratio (0.011), Asset Turnover (0.076)</td>
+<td>Drive cost optimization, improve asset utilization</td>
+<td>EBIT margin improvement, Z-Score stability</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Allocation</td>
+<td>Working Capital Ratio (0.066), Dividend Yield (58.00%)</td>
+<td>Enhance cash management, reassess dividend policy</td>
+<td>Improved liquidity ratios, sustainable dividends</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor risk trajectory, enforce governance controls</td>
+<td>Risk mitigation, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO should prioritize <strong>operational improvements</strong> to boost EBIT and asset turnover, directly supporting Z-Score enhancement.</li>
+<li>CFO must focus on <strong>strengthening liquidity</strong> and ensuring dividend policies do not compromise financial stability.</li>
+<li>The Board should maintain vigilant <strong>risk oversight</strong>, particularly monitoring liquidity and dividend sustainability risks highlighted by AI Risk Analysis.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable Safe Zone (~3.26)</td>
+<td>Slight upward potential</td>
+<td>Operational efficiency gains, market equity growth</td>
+<td>EBIT ratio, working capital ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong, above industry avg.</td>
+<td>Maintain or improve</td>
+<td>Sector demand, infrastructure spending</td>
+<td>Market share, peer Z-Score trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low with medium operational risk</td>
+<td>Stable to moderate risk</td>
+<td>Dividend sustainability, liquidity stress</td>
+<td>Dividend payout ratio, cash flow</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score is expected to maintain or slightly improve</strong> over the next 6-12 months, contingent on operational improvements and stable market conditions.</li>
+<li>Key catalysts include <strong>infrastructure sector demand</strong> and successful cost management initiatives.</li>
+<li>Risks related to <strong>dividend sustainability and liquidity</strong> require close monitoring via payout ratios and cash flow metrics.</li>
+<li>Early warning indicators include any decline in EBIT ratio below 1%, working capital ratio deterioration, or dividend payout exceeding free cash flow.</li>
+</ul>
+<hr />
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>Martin Marietta Materials, Inc. (MLM) presents a financially stable investment opportunity with a <strong>Safe Zone Altman Z-Score of 3.26</strong>, reflecting low bankruptcy risk and strong market positioning. Despite operational inefficiencies and tight liquidity, the company’s superior peer positioning and positive market sentiment support a <strong>hold to buy recommendation</strong> for most investor profiles, with particular caution advised for dividend sustainability. Strategic focus on improving operational efficiency and liquidity will be critical to maintaining and enhancing MLM’s financial health and investment appeal.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and sentiment data.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:59 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CTSO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Cytosorbents Corporation (CTSO)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CTSO_logo.png" alt="Cytosorbents Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="sell">Strong Sell</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="CTSO_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="CTSO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-6.81</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$1.28</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$0.08</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>67.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.54</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.08</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-52.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>8.3/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Cytosorbents Corporation (CTSO)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:52:36  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Cytosorbents Corporation (CTSO) currently exhibits a <strong>critical financial distress profile</strong> as evidenced by an Altman Z-Score persistently in the <strong>Distress Zone</strong> (Z &lt; 1.8) over the past eight quarters, with values ranging from -7.50 to -5.40. This signals a high probability of bankruptcy or severe financial instability. The AI Risk Analysis, inferred from the Z-Score trajectory and financial ratios, indicates an <strong>overall risk level of extreme distress</strong> with near-zero confidence in recovery absent significant operational or capital restructuring.</p>
+<p><strong>AI Peer Analysis</strong> places CTSO well below the industry average Z-Score for the Healthcare Medical Devices sector, where typical safe zone Z-Scores exceed 3.0. The company’s relative position is at the bottom quartile among peers, indicating severe underperformance and elevated investment risk.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are effectively neutral or non-existent due to zero trading volume and flat technical indicators (RSI 0.0, zero volatility), reflecting a lack of market interest or liquidity, which compounds investment risk and limits exit opportunities.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
+<th>Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>-5.40</td>
+<td>&gt; 3.0 (Safe Zone)</td>
+<td>Critical distress</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$80.14 million</td>
+<td>Varies widely</td>
+<td>Small-cap, low liquidity</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$1.28</td>
+<td>N/A</td>
+<td>Low price, illiquid</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.309</td>
+<td>~1.5 - 2.0</td>
+<td>Severe liquidity constraint</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-6.016</td>
+<td>Positive in healthy firms</td>
+<td>Accumulated losses</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.077</td>
+<td>Positive (&gt;0)</td>
+<td>Operating losses</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.172</td>
+<td>~0.5 - 1.0</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>Sector average ~1-2%</td>
+<td>No dividend, no income</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>~1.0</td>
+<td>No market correlation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-recommendation">Investment Recommendation</h3>
+<p><strong>Strong Sell / Avoid</strong> — Based on the comprehensive distress signals, lack of market activity, and poor financial health, CTSO is not recommended for investment at this time. The company’s financial trajectory and market indicators suggest high risk of insolvency or severe dilution. Only speculative investors with high risk tolerance and a long-term turnaround thesis might consider a very small position, contingent on significant operational or capital restructuring announcements.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio (Working Capital Ratio): 0.309</td>
+<td>~1.5 - 2.0</td>
+<td>Severe liquidity shortfall; unable to cover short-term liabilities</td>
+<td>Declining/Severe</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: Negative EBIT (-7.7%)</td>
+<td>Peers typically positive EBIT, moderate leverage</td>
+<td>High financial risk; negative EBIT implies inability to service debt</td>
+<td>Negative trend</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.172 <br> EBIT Ratio: -0.077</td>
+<td>Asset Turnover ~0.5-1.0 <br> EBIT Ratio &gt;0</td>
+<td>Very low asset utilization and negative operating profitability</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -6.016 <br> Cash Position: N/A</td>
+<td>Positive retained earnings</td>
+<td>Deep accumulated losses eroding equity base</td>
+<td>Deteriorating</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity Position:</strong> The working capital ratio of 0.309 is significantly below industry norms (~1.5-2.0), indicating CTSO struggles to meet short-term obligations. This is a critical weakness that aligns with the distress Z-Score readings.  </li>
+<li><strong>Leverage Management:</strong> Although explicit debt-to-equity data is unavailable, the negative EBIT ratio (-7.7%) suggests operational losses that impair interest coverage and increase default risk. The absence of interest coverage data is a data quality limitation but the negative EBIT is a strong negative indicator.  </li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.172 is very low, indicating poor utilization of assets to generate sales. Combined with a negative EBIT ratio, this signals operational inefficiency and weak business performance in the medical devices sector.  </li>
+<li><strong>Financial Stability:</strong> The retained earnings ratio of -6.016 reflects accumulated losses far exceeding equity, undermining financial stability and increasing bankruptcy risk. This is consistent with the distress zone Z-Scores.  </li>
+</ul>
+<p><strong>Data Quality Assessment:</strong> The financial data completeness is adequate, but the absence of some leverage metrics limits full risk quantification. No anomalies detected, but the negative ratios and missing data points reduce confidence in comprehensive risk modeling.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-5.40</td>
+<td>Distress</td>
+<td>Negative retained earnings, negative EBIT, poor liquidity</td>
+<td>Continued operational losses and capital erosion</td>
+</tr>
+<tr>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>-7.50 to -5.40</td>
+<td>Distress</td>
+<td>Persistent negative profitability and liquidity issues</td>
+<td>No recovery signs; ongoing financial deterioration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<p>CTSO’s Z-Score has remained deeply negative over eight quarters, consistently in the Distress Zone, indicating a high likelihood of bankruptcy absent intervention. The lack of improvement in key components such as working capital, retained earnings, and EBIT ratios suggests no operational turnaround or capital infusion has occurred.</p>
+<p>The persistent negative Z-Score contrasts sharply with the Healthcare Medical Devices industry average Z-Score, which typically resides in the safe zone (&gt;3.0), underscoring CTSO’s relative underperformance and elevated risk.</p>
+<p>No inflection points or positive momentum are observed, and the business context—focused on blood purification medical devices—has not translated into financial stability or growth, possibly due to market adoption challenges or competitive pressures.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Deeply negative (-5.40)</td>
+<td>Flat price at $1.28, zero volume</td>
+<td>Divergent (Fundamental distress vs. market inactivity)</td>
+<td>High risk; market not pricing distress due to illiquidity</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/No data</td>
+<td>No professional consensus available</td>
+<td>Inconsistent</td>
+<td>Lack of market interest limits price discovery</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Bottom quartile</td>
+<td>Sector performing better</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; avoid</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<p>The market signals for CTSO are largely non-existent, with zero trading volume, zero volatility, and flat technical indicators (RSI 0.0). This lack of market activity suggests illiquidity and possibly delisting risk, which severely limits investor exit options and increases risk.</p>
+<p>The fundamental distress signaled by the Z-Score is not reflected in price movement, indicating a disconnect likely due to lack of investor interest or awareness. This divergence increases risk for investors as the market may not efficiently price in the company’s deteriorating fundamentals.</p>
+<p>Peer comparison confirms CTSO’s weak competitive positioning within the Healthcare Medical Devices sector, further undermining investment appeal.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Restructure operations, improve R&amp;D focus</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Bankruptcy risk, liquidity crisis</td>
+<td>Capital raise, debt restructuring, cost control</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Illiquidity, valuation collapse</td>
+<td>Enhance investor relations, improve transparency</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability of continued losses due to poor asset turnover and negative EBIT. Without operational turnaround, Z-Score will worsen.  </li>
+<li><strong>Financial Risks:</strong> Severe liquidity constraints and negative retained earnings increase bankruptcy risk. The absence of interest coverage data is a limitation but negative EBIT strongly implies inability to service debt.  </li>
+<li><strong>Market Risks:</strong> Illiquidity and zero trading volume increase risk of valuation collapse and investor exit difficulty.  </li>
+</ul>
+<p><strong>Scenario Analysis:</strong><br />
+- <strong>Best Case:</strong> Successful capital infusion and operational restructuring improve EBIT and working capital, gradually lifting Z-Score above distress threshold (&gt;1.8) within 12-18 months.<br />
+- <strong>Base Case:</strong> Continued operational losses and liquidity stress maintain Z-Score in distress zone, with risk of bankruptcy or forced restructuring.<br />
+- <strong>Worst Case:</strong> Rapid deterioration leads to insolvency or delisting, Z-Score plunges further negative.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score -5.40 (Distress Zone)</td>
+<td>Avoid entry; no recovery signs</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL</strong></td>
+<td>No dividend yield; negative retained earnings</td>
+<td>No yield support</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>AVOID</strong></td>
+<td>Negative retained earnings, poor asset turnover</td>
+<td>No value signal</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>AVOID</strong></td>
+<td>Negative EBIT, no operational momentum</td>
+<td>No growth momentum</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE</strong></td>
+<td>Potential turnaround if capital raised</td>
+<td>High risk, high uncertainty</td>
+<td>Monitor quarterly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative and Dividend investors</strong> should avoid or sell due to high distress and no income generation.  </li>
+<li><strong>Value and Growth investors</strong> find no fundamental or operational basis for investment given negative profitability and poor asset utilization.  </li>
+<li><strong>Aggressive investors</strong> may consider speculative positions only if credible restructuring or capital infusion announcements emerge, but must be prepared for high volatility and potential total loss.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Stabilize operations, improve liquidity</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Accelerate R&amp;D commercialization, cost reduction</td>
+<td>Positive EBIT, improved liquidity</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital structure optimization</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek capital infusion, renegotiate debt</td>
+<td>Improved solvency ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight, turnaround plan</td>
+<td>Z-Score trajectory, risk factors</td>
+<td>Approve restructuring plan, enhance disclosure</td>
+<td>Stabilized Z-Score, risk reduction</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership must prioritize liquidity improvement and operational turnaround to arrest the declining Z-Score trend. The CFO should focus on capital raising and debt management to mitigate bankruptcy risk. The Board must enforce rigorous oversight and transparent communication to restore investor confidence.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Negative, declining</td>
+<td>Potential stabilization if restructuring occurs</td>
+<td>Capital infusion, operational turnaround</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Illiquid, distressed</td>
+<td>Possible recovery with improved fundamentals</td>
+<td>Regulatory approvals, market adoption</td>
+<td>Trading volume, price trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High risk</td>
+<td>Moderate if turnaround succeeds</td>
+<td>Debt restructuring, cost control</td>
+<td>Liquidity ratios, debt covenants</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<p>Absent significant positive catalysts such as capital infusion or operational restructuring, CTSO’s Z-Score momentum is expected to remain negative over the next 6-12 months. Key monitoring metrics include quarterly Z-Score updates, EBIT margin improvements, and liquidity ratios. Market position may improve if regulatory or commercial milestones are achieved, but current illiquidity and risk profile remain elevated.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>CTSO’s financial and market data reveal a company in deep distress with a persistently negative Altman Z-Score, poor liquidity, negative profitability, and no market interest. Investment is highly risky, with a strong recommendation to avoid or sell unless a credible turnaround plan emerges. Executive leadership must urgently address operational inefficiencies and capital structure to stabilize the business and improve financial health.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and peer data for actionable investment intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:52 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

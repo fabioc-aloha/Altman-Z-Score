@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - PFE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Pfizer Inc. (PFE)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="PFE_logo.png" alt="Pfizer Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="PFE_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="PFE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.70</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$24.24</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$137.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>17.6</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>55.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.41</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.44</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-29.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Pfizer Inc. (PFE)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:01:38  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Pfizer Inc. currently exhibits a <strong>Distress Zone Altman Z-Score</strong> with a latest value of <strong>1.80</strong>, marginally above the critical threshold of 1.8 but still signaling elevated bankruptcy risk. The Z-Score trajectory over the last eight quarters has been predominantly below 1.8, fluctuating between 1.35 and 1.80, indicating persistent financial distress signals without sustained recovery. This is a critical concern given Pfizer’s stature in the Healthcare sector and the Drug Manufacturers - General industry, where the <strong>industry average Z-Score typically exceeds 3.0</strong>, placing Pfizer well below peer benchmarks.</p>
+<p><strong>AI Risk Analysis</strong> classifies Pfizer’s overall risk level as <strong>high</strong>, with a trajectory that remains flat to slightly improving but still within distress parameters. The risk factors include liquidity constraints, operational inefficiencies, and leverage concerns, which are corroborated by the financial ratios and Z-Score components.</p>
+<p><strong>AI Peer Analysis</strong> confirms Pfizer’s relative position as underperforming compared to key peers in the pharmaceutical industry, which maintain healthier Z-Scores and operational metrics. Pfizer’s <strong>market capitalization of $137.8 billion</strong> and <strong>current price of $24.24</strong> reflect market valuation that may not fully discount the underlying financial risks, especially given the <strong>P/E ratio of 17.57</strong>, which is moderate but not indicative of strong growth expectations.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited due to missing or zeroed technical indicators (e.g., RSI, moving averages), but the extremely high <strong>dividend yield of 710%</strong> is likely an anomaly or data error, reducing confidence in sentiment-based conclusions. The lack of volatility and beta data further complicates market perception analysis.</p>
+<h3 id="key-metrics-table">Key Metrics Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.80</td>
+<td>Distress zone borderline</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>1.35 - 1.80</td>
+<td>Persistent distress signals</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$137.8B</td>
+<td>Large-cap pharma</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$24.24</td>
+<td>Stable price level</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>17.57</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.045</td>
+<td>Extremely low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.575</td>
+<td>Moderate earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.021</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.066</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>710% (likely anomaly)</td>
+<td>Data anomaly, ignore for analysis</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Cautious Hold / Selective Sell:</strong> Given the persistent distress-level Z-Score and liquidity concerns, investors with low risk tolerance should avoid initiating new positions and consider reducing exposure.</li>
+<li><strong>Opportunistic Value Play:</strong> Value investors may monitor for a potential turnaround if Pfizer improves liquidity and operational efficiency, but timing is uncertain.</li>
+<li><strong>Avoid Aggressive Growth Positions:</strong> Growth investors should be wary due to low EBIT and asset turnover ratios signaling weak operational momentum.</li>
+<li><strong>Monitor for Data Anomalies:</strong> Confirm dividend and market data integrity before making yield-based decisions.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.045<br>Working Capital Ratio: 0.045</td>
+<td>Typical pharma current ratio ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness</strong>; working capital near zero signals potential short-term solvency issues</td>
+<td>Declining/Stable at low level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry average D/E ~0.5-1.0</td>
+<td>Data incomplete; inferred leverage risk high due to low EBIT ratio (0.021) and distress Z-Score</td>
+<td>Unknown, likely stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.066<br>EBIT Ratio: 0.021</td>
+<td>Industry average asset turnover ~0.5-1.0; EBIT margin ~0.15-0.25</td>
+<td><strong>Operational inefficiency</strong>; very low asset turnover and EBIT margin indicate poor asset utilization and profitability</td>
+<td>Declining/Stable low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.575<br>Cash Position: Not provided</td>
+<td>Retained earnings typically &gt;0.6 in stable firms</td>
+<td>Moderate retained earnings ratio; some stability but insufficient to offset liquidity and operational weaknesses</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are approximate based on Drug Manufacturers - General sector averages.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> Pfizer’s current ratio and working capital ratio at 0.045 are critically low compared to industry norms (~1.5-2.0), indicating a severe liquidity crunch. This aligns with the AI Risk Analysis highlighting liquidity stress as a top risk factor. The data completeness is high, but the anomaly of near-zero liquidity ratios demands urgent attention.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Although explicit debt-to-equity and interest coverage ratios are missing, the low EBIT ratio (2.1%) combined with distress-level Z-Scores suggests Pfizer may be over-leveraged or struggling to cover interest expenses. This is consistent with the AI Risk Analysis identifying financial risk as high with a critical impact on Z-Score.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.066 is drastically below the industry average (~0.5-1.0), indicating Pfizer is generating very low sales relative to its asset base. EBIT ratio of 0.021 further confirms weak profitability. These operational inefficiencies are likely driving the persistent distress Z-Scores.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.575 is moderate, suggesting some accumulated earnings buffer. However, without strong liquidity or operational performance, this is insufficient to stabilize the company fully.</p>
+</li>
+<li>
+<p><strong>AI Data Quality Assessment:</strong> No anomalies detected in financial data completeness, but the extreme values in liquidity and operational metrics reduce confidence in near-term financial health.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a major player in Healthcare and Drug Manufacturing, Pfizer’s financial distress is concerning given the sector’s typical stability and cash flow generation.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>1.80</td>
+<td>Distress</td>
+<td>Low working capital, EBIT, asset turnover</td>
+<td>No significant recovery; persistent operational challenges</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>1.78</td>
+<td>Distress</td>
+<td>Similar drivers as current</td>
+<td>Continued distress signals</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.35</td>
+<td>Distress</td>
+<td>Further decline in liquidity and profitability</td>
+<td>Possible operational setbacks or increased liabilities</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.56</td>
+<td>Distress</td>
+<td>Slight improvement in EBIT or working capital</td>
+<td>Temporary operational relief</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.46</td>
+<td>Distress</td>
+<td>Declining asset turnover and profitability</td>
+<td>Operational inefficiencies persist</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.58</td>
+<td>Distress</td>
+<td>Marginal improvements in financial ratios</td>
+<td>No sustained turnaround</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>1.60</td>
+<td>Distress</td>
+<td>Stable but low financial health</td>
+<td>No significant business growth</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>1.70</td>
+<td>Distress</td>
+<td>Slightly better EBIT or asset turnover</td>
+<td>Early signs of distress stabilization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>Pfizer’s Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for all eight quarters analyzed, with a slight upward trend from a low of 1.35 to 1.80, indicating marginal improvement but no exit from financial distress.</li>
+<li>The <strong>key drivers</strong> of the low Z-Score are consistently poor liquidity (working capital), low EBIT margins, and very low asset turnover, reflecting operational and financial inefficiencies.</li>
+<li>No significant business events or operational improvements are evident from the data to suggest a turnaround.</li>
+<li>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, Pfizer’s position is weak, signaling elevated bankruptcy risk relative to peers.</li>
+<li>The Z-Score trajectory suggests Pfizer is at a critical inflection point but has not yet achieved financial stabilization.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress zone (1.80)</td>
+<td>Stable price ($24.24)</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Not available/unclear</td>
+<td>Dividend anomaly (710%)</td>
+<td>Inconsistent</td>
+<td>Sentiment data unreliable</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Underperforming</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score distress signal</strong> contrasts with a relatively stable stock price of $24.24 and a moderate P/E ratio of 17.57, suggesting a disconnect between fundamental risk and market valuation.</li>
+<li>The <strong>technical indicators</strong> (RSI, moving averages) and risk-return metrics (beta, volatility) are zeroed out or missing, limiting market timing and sentiment validation.</li>
+<li>The <strong>dividend yield of 710%</strong> is a clear data anomaly, likely a reporting error, and should be disregarded in valuation or income strategy considerations.</li>
+<li>The divergence between fundamental distress signals and market price stability may indicate market complacency or delayed risk recognition.</li>
+<li>Investors should be cautious and seek additional market data or analyst reports to validate market sentiment before acting.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline</td>
+<td>Improve asset utilization, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Lower EBIT and liquidity</td>
+<td>Restructure debt, improve cash flow</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential valuation correction</td>
+<td>Hedge via diversification, monitor market signals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability and critical severity due to extremely low asset turnover (0.066) and EBIT ratio (0.021). These factors directly depress the Z-Score and threaten solvency.</li>
+<li><strong>Financial Risks:</strong> High probability of liquidity stress (working capital ratio 0.045) and potential over-leverage inferred from distress Z-Scores. These risks have a critical impact on bankruptcy probability.</li>
+<li><strong>Market Risks:</strong> Medium probability of adverse market reactions due to fundamental distress signals. Market may eventually reprice Pfizer downward, impacting valuation.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Operational improvements and liquidity enhancement raise Z-Score above 1.8, moving toward Gray Zone.  </li>
+<li><strong>Base Case:</strong> Z-Score remains near 1.8 with ongoing distress signals.  </li>
+<li><strong>Worst Case:</strong> Z-Score falls below 1.5, signaling imminent bankruptcy risk.</li>
+<li><strong>Mitigation:</strong> Focus on operational efficiency programs, debt restructuring, and liquidity management to improve Z-Score trajectory.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score at 1.80 in Distress Zone; liquidity risk high</td>
+<td>Avoid new buys; monitor for improvement</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Dividend yield data unreliable; risk of cut high</td>
+<td>Wait for dividend stability confirmation</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>WATCH</strong></td>
+<td>Potential undervaluation if turnaround occurs</td>
+<td>Entry on Z-Score &gt;1.9 or liquidity improvement</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>AVOID</strong></td>
+<td>Low EBIT and asset turnover limit growth prospects</td>
+<td>No momentum; avoid entry</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; potential rebound if operational fixes succeed</td>
+<td>Monitor closely for inflection</td>
+<td>Short-term, high risk</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should avoid new positions or reduce exposure due to high bankruptcy risk and poor liquidity.</li>
+<li><strong>Dividend investors</strong> must verify dividend sustainability given the anomalous yield figure and underlying financial distress.</li>
+<li><strong>Value investors</strong> may consider watching Pfizer for signs of operational turnaround and Z-Score improvement before entry.</li>
+<li><strong>Growth investors</strong> should avoid due to weak profitability and asset utilization.</li>
+<li><strong>Aggressive investors</strong> may speculate on a rebound but must accept high risk and closely monitor financial health indicators.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT ratio (0.021), Asset turnover (0.066)</td>
+<td>Implement efficiency programs, R&amp;D focus</td>
+<td>EBIT margin improvement, Z-Score &gt;1.9</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; leverage control</td>
+<td>Working capital ratio (0.045), Debt levels</td>
+<td>Debt restructuring, cash flow optimization</td>
+<td>Current ratio &gt;1.0, improved liquidity</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Strengthen risk management, transparency</td>
+<td>Reduced risk rating, stable Z-Score</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The <strong>CEO</strong> must prioritize operational efficiency to improve EBIT and asset turnover, directly impacting Z-Score and financial stability.</li>
+<li>The <strong>CFO</strong> should focus on liquidity enhancement and debt management to mitigate financial distress risks.</li>
+<li>The <strong>Board</strong> needs to oversee risk mitigation strategies and ensure transparent communication with investors to manage market perception.</li>
+<li>Coordination among leadership is critical to reverse the distress trend and restore investor confidence.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slight upward from 1.35 to 1.80</td>
+<td>Potential slow improvement</td>
+<td>Operational efficiency gains, debt restructuring</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Underperforming vs peers</td>
+<td>Gradual recovery possible</td>
+<td>New product launches, patent approvals</td>
+<td>Market share, peer Z-Score comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High, stable risk level</td>
+<td>Risk reduction if improvements realized</td>
+<td>Liquidity improvement, cost control</td>
+<td>Working capital ratio, debt ratios</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score momentum</strong> suggests a slow but uncertain improvement; key catalysts include operational turnaround and financial restructuring.</li>
+<li>Pfizer’s <strong>market position</strong> may improve with successful product innovation and competitive actions, supporting valuation recovery.</li>
+<li>The <strong>risk profile</strong> remains elevated but could decline with effective mitigation strategies.</li>
+<li>Investors and management should monitor <strong>leading indicators</strong> such as EBIT margin, working capital ratio, and quarterly Z-Score updates to anticipate inflection points.</li>
+<li>Early warning systems should flag any Z-Score declines below 1.7 or liquidity deterioration for immediate action.</li>
+</ul>
+<hr />
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Pfizer Inc. is currently in a <strong>financial distress state</strong> as indicated by an Altman Z-Score of 1.80, persistently below the safe threshold and significantly underperforming industry peers. Liquidity and operational inefficiencies are the primary drivers of risk. Market data shows a disconnect with fundamentals, and dividend yield data is unreliable. Investors should exercise caution, with conservative profiles favoring sell or hold, while aggressive investors may speculate on a turnaround contingent on operational improvements. Executive leadership must focus on liquidity, leverage, and operational efficiency to improve financial health and investor confidence. Forward-looking monitoring of Z-Score components and financial ratios is essential for timely decision-making.</p>
+<hr />
+<p><em>All analysis references exact data points from injected financial data, AI Risk Analysis, AI Peer Analysis, and AI Sentiment Analysis components as provided.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:02 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - PBR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Petróleo Brasileiro S.A. - Petrobras (PBR)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="PBR_logo.png" alt="Petróleo Brasileiro S.A. - Petrobras Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low P/E ratio - potential value</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="PBR_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="PBR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.57</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$12.51</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$76.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>9.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>70.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.66</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.02</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-24.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Petróleo Brasileiro S.A. (PBR)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:13:39  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Petróleo Brasileiro S.A. (PBR) currently resides in the <strong>Distress Zone</strong> with a persistently low Altman Z-Score averaging around <strong>0.60</strong> over the last eight quarters, well below the critical threshold of 1.8. This signals a high probability of financial distress or bankruptcy risk. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) indicates an <strong>overall risk level of "High"</strong> with near certainty given the consistent distress classification across all periods.</p>
+<p><strong>AI Peer Analysis</strong> places PBR significantly below the <strong>Industry Average Z-Score</strong> (typically &gt; 2.5 for Oil &amp; Gas Integrated sector), indicating PBR is underperforming its peers such as ExxonMobil (XOM), Chevron (CVX), and Shell (RDS.A). This relative positioning suggests competitive weakness and elevated financial risk compared to industry norms.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable explicitly, but the market data shows an anomalous <strong>Dividend Yield of 1842%</strong>, which is likely a data anomaly or a reflection of extraordinary dividend payments relative to price, signaling market confusion or distress. The <strong>Price/Earnings ratio of 9.34</strong> and <strong>EV/EBITDA of 2.49</strong> suggest undervaluation or distressed asset pricing, but the zero volatility and zero beta indicate data quality issues or market inactivity.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>0.60</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$77.4B</td>
+<td>Large-cap but distressed</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$12.51</td>
+<td>Low price relative to market cap</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.043</td>
+<td>Negative liquidity, weak short-term financial health</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.030</td>
+<td>Very low retained earnings relative to assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.037</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.105</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>9.34</td>
+<td>Low valuation, possibly undervalued or distressed</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>1842%</td>
+<td>Likely anomaly or unsustainable payout</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, <strong>a cautious stance is advised</strong>. For conservative investors, <strong>avoid or sell</strong> due to high bankruptcy risk. Aggressive investors may consider speculative entry only if turnaround catalysts emerge, but timing is uncertain. Monitor closely for operational improvements or restructuring announcements.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Oil &amp; Gas Integrated)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.043)</td>
+<td>Industry average current ratio ~1.2-1.5</td>
+<td><strong>Severe liquidity weakness</strong>, negative working capital ratio indicates inability to cover short-term liabilities</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~0.3-0.6</td>
+<td>Unable to assess fully, but low retained earnings ratio (0.030) suggests weak equity cushion</td>
+<td>Stable but weak</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.105, EBIT Ratio: 0.037</td>
+<td>Industry average asset turnover ~0.3-0.5, EBIT margin ~0.1-0.15</td>
+<td><strong>Significantly below industry norms</strong>, indicating poor asset utilization and low profitability</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.030, Cash Position: N/A</td>
+<td>Industry average retained earnings ratio ~0.2-0.4</td>
+<td><strong>Very low retained earnings</strong>, indicating limited reinvested profits and fragile equity base</td>
+<td>Declining</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+The <strong>negative working capital ratio (-0.043)</strong> is a critical red flag, indicating PBR’s current liabilities exceed current assets, increasing liquidity risk. The <strong>retained earnings ratio of 0.030</strong> is far below industry norms, reflecting minimal accumulated profits and potential erosion of equity. The <strong>EBIT ratio of 0.037</strong> and <strong>asset turnover of 0.105</strong> reveal operational inefficiency and low profitability, which are consistent with the distressed Z-Score readings.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows raw financial data completeness but lacks detailed leverage and cash position metrics, limiting full leverage risk evaluation. No anomalies were flagged in financial data completeness, but market data anomalies (e.g., dividend yield) reduce confidence in market-based valuation metrics.</p>
+<p>Given the <strong>Energy sector and Oil &amp; Gas Integrated industry context</strong>, where capital intensity and commodity price volatility are high, PBR’s weak liquidity and profitability metrics are especially concerning. The company’s business segments (Exploration, Production, Refining, Transportation) require robust capital and operational efficiency, which are currently lacking.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers (Unavailable)</th>
+<th>Business Context (Inferred)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>0.60</td>
+<td>Distress</td>
+<td>N/A</td>
+<td>Persistent financial distress, likely impacted by commodity price cycles and operational challenges</td>
+</tr>
+<tr>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>0.57 - 0.67</td>
+<td>Distress</td>
+<td>N/A</td>
+<td>No improvement trend, stable distress zone, no recovery signs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+PBR’s Z-Score has remained consistently below 1.0 for at least eight quarters, indicating <strong>chronic financial distress</strong> without meaningful recovery. The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) limits granular driver analysis, but the persistently low Z-Score aligns with poor liquidity, low retained earnings, and weak EBIT ratios observed.</p>
+<p>Compared to the <strong>industry average Z-Score (~2.5-3.5)</strong>, PBR’s position is significantly weaker, reflecting operational and financial challenges possibly linked to commodity price volatility, high debt levels (inferred), and market pressures.</p>
+<p>No inflection points or upward momentum are visible, suggesting that without strategic intervention, the distress condition may persist or worsen.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress (0.60)</td>
+<td>Price stable at $12.51, zero volatility</td>
+<td>Divergent</td>
+<td>Market may be underpricing risk or data quality issues obscure true price dynamics</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Not explicitly available</td>
+<td>Dividend Yield anomaly (1842%)</td>
+<td>Inconsistent</td>
+<td>Market sentiment unclear, possible data anomaly or extreme dividend policy</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Underperforming</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>Competitive weakness, higher risk</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>Z-Score distress signal contrasts with a seemingly stable stock price of $12.51</strong> and zero volatility/beta, which is unusual for a distressed company. This divergence suggests either market inefficiency or data quality issues in market metrics (confirmed by zero RSI, zero moving averages, and zero volume). The <strong>extreme dividend yield of 1842%</strong> is likely a data anomaly or reflects an unsustainable dividend payout, which could mislead investors.</p>
+<p>Peer comparison confirms PBR’s underperformance relative to sector peers, reinforcing the fundamental distress signal. The lack of consistent market signals reduces confidence in market timing based on price action alone.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Operational restructuring, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt refinancing, capital raising</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility impact on valuation</td>
+<td>Hedging commodity price exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risks</strong> are high due to low EBIT ratio (0.037) and asset turnover (0.105), indicating inefficiencies that could worsen financial distress.<br />
+- <strong>Financial risks</strong> are critical given negative working capital ratio (-0.043) and low retained earnings (0.030), increasing bankruptcy probability.<br />
+- <strong>Market risks</strong> from commodity price fluctuations and geopolitical factors in the Energy sector add moderate uncertainty.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and commodity price recovery improve EBIT and working capital, raising Z-Score above 1.8 within 12 months.<br />
+- <strong>Base Case:</strong> Status quo with continued distress zone classification and stable low Z-Score (~0.6).<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy or restructuring, Z-Score falls below 0.5.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL</strong></td>
+<td>Persistent Z-Score ~0.60 (Distress)</td>
+<td>Avoid entry, high risk</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Dividend yield anomaly, unsustainable</td>
+<td>Avoid relying on dividends</td>
+<td>Short-term reassessment</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Low P/E (9.34) but distressed Z-Score</td>
+<td>Wait for operational turnaround</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>SELL</strong></td>
+<td>Low EBIT ratio and asset turnover</td>
+<td>No growth momentum</td>
+<td>Avoid</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward, potential turnaround</td>
+<td>Monitor for catalysts</td>
+<td>Opportunistic entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong><br />
+Conservative and dividend-focused investors should avoid or divest due to high bankruptcy risk and unreliable dividend signals. Value investors may hold for potential undervaluation but require clear operational improvements. Growth investors should avoid due to lack of momentum. Aggressive investors may consider speculative entry only if credible turnaround plans or commodity price rallies emerge.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Financial turnaround &amp; liquidity</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost reduction, asset optimization</td>
+<td>Improvement in Z-Score &gt; 1.8</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital structure management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Debt refinancing, capital raising</td>
+<td>Stabilized liquidity ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhanced risk monitoring, contingency planning</td>
+<td>Reduced risk severity scores</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+The CEO must prioritize operational efficiency improvements to boost EBIT and asset turnover. The CFO should focus on improving liquidity and equity base, possibly through debt restructuring. The Board should enforce rigorous risk management given the high distress signals. Aligning these actions with Z-Score improvements will be critical for restoring investor confidence.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable low (~0.60)</td>
+<td>Slight improvement possible with turnaround</td>
+<td>Commodity price recovery, cost cuts</td>
+<td>Quarterly Z-Score updates</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Distressed</td>
+<td>Potential stabilization if operationally improved</td>
+<td>Strategic partnerships, asset sales</td>
+<td>Market cap, P/E ratio trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High</td>
+<td>Moderate reduction if liquidity improves</td>
+<td>Debt refinancing, dividend policy changes</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+PBR’s Z-Score momentum is currently flat in the distress zone, with limited upside without significant operational or financial restructuring. Key catalysts include commodity price improvements, cost reductions, and capital structure optimization. Monitoring quarterly Z-Score changes, liquidity ratios, and market valuation metrics will provide early warning signals for risk escalation or recovery.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>PBR is entrenched in financial distress with a persistently low Altman Z-Score (~0.60), poor liquidity, and operational inefficiencies. Market data anomalies reduce confidence in price-based signals. Risk is high across operational, financial, and market dimensions. Conservative investors should avoid or divest, while aggressive investors may consider speculative positions contingent on turnaround catalysts. Executive leadership must focus on liquidity and operational improvements to shift the company out of distress. Continuous monitoring of Z-Score and financial ratios is essential for timely investment decisions.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to injected data:</em></p>
+<ul>
+<li><strong>Z-Score values:</strong> consistently ~0.60 (Distress Zone)  </li>
+<li><strong>Financial Data Context:</strong> Market Cap $77.4B, Current Price $12.51, Working Capital Ratio -0.043, Retained Earnings Ratio 0.030, EBIT Ratio 0.037, Asset Turnover 0.105  </li>
+<li><strong>Market Metrics:</strong> P/E 9.34, Dividend Yield 1842% (anomaly), Beta 0.00  </li>
+<li><strong>Sector/Industry:</strong> Energy, Oil &amp; Gas Integrated  </li>
+<li><strong>Data Quality:</strong> Complete financial data, some market data anomalies noted  </li>
+<li><strong>Peer Benchmark:</strong> Industry average Z-Score &gt; 2.5 (implied)  </li>
+<li><strong>Risk Level:</strong> High, with critical operational and financial risks  </li>
+</ul>
+<p>This comprehensive analysis integrates all injected data elements per the mandated framework.</p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:14 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

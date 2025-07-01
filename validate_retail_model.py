@@ -318,10 +318,22 @@ class RetailModelValidator:
         category_analysis = self.analyze_category_performance(results)
         inventory_analysis = self.analyze_inventory_impact(results)
         
+        # Get model information from constants
+        from altman_zscore.common.constants import ZSCORE_MODELS
+        retail_model = ZSCORE_MODELS.get("retail", {})
+        original_model = ZSCORE_MODELS.get("original", {})
+        
         # Generate report
         report = f"""
 # RETAIL Z-SCORE MODEL VALIDATION REPORT
 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+## MODEL INFORMATION & THRESHOLDS
+Model: {retail_model.get('description', 'Retail Industry Model')}
+
+| SAFE ZONE | GRAY ZONE | DISTRESS ZONE |
+|-----------|-----------|---------------|
+| > {retail_model.get('thresholds', {}).get('safe', 2.99)} | {retail_model.get('thresholds', {}).get('gray_lower', 1.81)} - {retail_model.get('thresholds', {}).get('gray_upper', 2.99)} | < {retail_model.get('thresholds', {}).get('distress', 1.81)} |
 
 ## EXECUTIVE SUMMARY
 This report validates the novel retail Z-Score model against a comprehensive

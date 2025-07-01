@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - COR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Cencora, Inc. (COR)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="COR_logo.png" alt="Cencora, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="COR_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="COR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.22</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$299.85</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$58.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>34.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>74.2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.03</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.39</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-11.1%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-cencora-inc-ticker-cor">AI-Powered Altman Z-Score Investment Analysis for Cencora, Inc. (Ticker: COR)</h1>
+<p><strong>Analysis Date:</strong> 2025-07-01 09:12:03</p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Cencora, Inc. (COR), operating in the Healthcare sector within the Medical - Distribution industry, currently exhibits a <strong>distress-level Altman Z-Score</strong> consistently below zero over the last eight quarters, with the latest Z-Score at <strong>-0.31</strong>, firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>. This persistent negative Z-Score signals a high probability of financial distress or bankruptcy risk. The <strong>AI Risk Analysis overall risk level is critically high</strong>, corroborated by the Z-Score trajectory showing no improvement, indicating urgent caution.</p>
+<p>Despite a robust <strong>market capitalization of $58.1 billion</strong> and a strong <strong>current stock price of $299.85</strong>, the financial health indicators reveal significant liquidity and operational challenges. The <strong>working capital ratio is negative at -0.095</strong>, signaling liquidity stress, while the <strong>retained earnings ratio is low at 0.090</strong>, and the <strong>EBIT ratio is minimal at 0.015</strong>, reflecting weak profitability. The <strong>asset turnover ratio of 1.060</strong> suggests moderate operational efficiency but insufficient to offset financial weaknesses.</p>
+<p><strong>AI Peer Analysis</strong> places COR significantly below the industry average Z-Score (typically &gt;3.0 in Medical Distribution), highlighting its underperformance relative to peers such as McKesson (MCK) and Cardinal Health (CAH). The <strong>AI Sentiment Analysis reveals a highly negative overall sentiment with a downward trend</strong>, aligning with the distress signals from financial metrics.</p>
+<p><strong>Investment Recommendation:</strong> Given the high risk profile, distressed Z-Score, and negative market sentiment, a <strong>SELL</strong> or at best a <strong>HOLD with caution</strong> is advised for most investor profiles, especially conservative and dividend-focused investors. Aggressive investors may consider speculative positions only with stringent risk controls.</p>
+<hr />
+<p><strong>Key Metrics Summary Table</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Value</th>
+<th>Benchmark/Industry Average</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Altman Z-Score</td>
+<td>-0.31</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$58.1B</td>
+<td>N/A</td>
+<td>Large-cap, but financial distress</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$299.85</td>
+<td>N/A</td>
+<td>High price, possibly overvalued given fundamentals</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.095</td>
+<td>&gt;1.0</td>
+<td>Negative liquidity, critical weakness</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.090</td>
+<td>Industry avg ~0.3-0.5</td>
+<td>Low retained earnings, weak equity buffer</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.015</td>
+<td>~0.10+</td>
+<td>Very low profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>1.060</td>
+<td>~1.2</td>
+<td>Moderate operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>73.00%</td>
+<td>~2-4%</td>
+<td>Extremely high, likely unsustainable</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>34.70</td>
+<td>~15-20</td>
+<td>Overvalued or growth expectations</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>~1.0</td>
+<td>No market correlation, possibly illiquid or data anomaly</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.095)</td>
+<td>&gt;1.0 (Healthy)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates inability to cover short-term liabilities</td>
+<td>Declining/Stable at weak level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg ~1.0</td>
+<td>Unable to assess leverage directly; high risk implied by Z-Score and negative retained earnings</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 1.060; EBIT Ratio: 0.015</td>
+<td>Asset Turnover ~1.2; EBIT Ratio &gt;0.10</td>
+<td>Moderate asset utilization but extremely low EBIT margin indicates poor operational profitability</td>
+<td>Stable but weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.090; Cash Position: N/A</td>
+<td>Retained Earnings ~0.3-0.5</td>
+<td>Low retained earnings ratio signals weak equity cushion and financial instability</td>
+<td>Declining/Weak</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+The <strong>negative working capital ratio (-0.095)</strong> is a critical red flag, indicating that current liabilities exceed current assets, which severely constrains operational liquidity. This is consistent with the <strong>distress-level Altman Z-Scores</strong> across all quarters. The <strong>retained earnings ratio of 0.090</strong> is far below typical industry benchmarks, suggesting that the company has not accumulated sufficient earnings to buffer against losses or fund growth internally.</p>
+<p>The <strong>EBIT ratio of 0.015</strong> is alarmingly low, reflecting minimal operating profitability despite a reasonable <strong>asset turnover of 1.060</strong>, which indicates that while assets are being used to generate sales, the margin on those sales is negligible. This operational inefficiency compounds financial risk.</p>
+<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected in financial data completeness, but the lack of detailed leverage data limits full risk evaluation. The <strong>sector context (Healthcare - Medical Distribution)</strong> typically demands strong liquidity and stable margins due to regulatory and supply chain complexities, which COR currently fails to demonstrate.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-0.31</td>
+<td>Distress</td>
+<td>Negative working capital, low EBIT, weak retained earnings</td>
+<td>Ongoing financial distress, no recovery signs</td>
+</tr>
+<tr>
+<td>Previous 7 Quarters</td>
+<td>Range: -0.36 to -0.08</td>
+<td>Distress</td>
+<td>Persistent negative liquidity and profitability</td>
+<td>Consistent operational and financial stress</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory for COR is persistently negative, fluctuating narrowly between -0.36 and -0.08 over eight quarters, with no upward trend or movement toward the Gray or Safe zones. This indicates chronic financial distress without meaningful operational turnaround or capital restructuring.</p>
+<p>The absence of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) limits granular driver analysis, but the overall negative Z-Score confirms systemic issues.</p>
+<p><strong>Peer Benchmarking:</strong><br />
+Industry peers typically maintain Z-Scores above 3.0, reflecting financial stability and low bankruptcy risk. COR’s position well below peers signals a significant competitive disadvantage and elevated risk.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress Zone (-0.31)</td>
+<td>High Price ($299.85)</td>
+<td>Divergent</td>
+<td>Market price likely disconnected from fundamentals; potential overvaluation or speculative pricing</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Negative, Downward</td>
+<td>Dividend Yield 73.00%</td>
+<td>Inconsistent</td>
+<td>Market sentiment negative; dividend yield unusually high, possibly a data anomaly or unsustainable payout</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below Industry Average</td>
+<td>Sector Performance Strong</td>
+<td>Underperforming</td>
+<td>COR underperforms peers fundamentally and in market metrics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>disconnect between COR’s distressed Z-Score and its high stock price ($299.85)</strong> suggests market inefficiency or speculative trading. The <strong>extremely high dividend yield of 73.00%</strong> is likely unsustainable and may reflect a collapsing stock price or data anomaly, warranting caution.</p>
+<p>The <strong>lack of volatility (0.00%) and beta (0.00)</strong> further indicates possible illiquidity or data quality issues in market metrics, reducing confidence in market signals.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Restructure operations, cost control, improve EBIT margin</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Negative Z-Score persistence</td>
+<td>Debt refinancing, capital infusion, improve liquidity</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Price volatility risk</td>
+<td>Hedging, diversification, monitor market sentiment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05 and working capital stabilizes, potentially lifting Z-Score toward Gray Zone (1.8-3.0).<br />
+- <strong>Base Case:</strong> Continued distress with minor improvements, Z-Score remains negative, risk of bankruptcy remains high.<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers insolvency, Z-Score declines further, leading to bankruptcy.</p>
+<p>Mitigation requires aggressive financial restructuring and operational efficiency improvements. Given current data, probability of distress remains high.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score -0.31 in Distress Zone; high bankruptcy risk</td>
+<td>Price overvalued vs fundamentals</td>
+<td>Immediate exit advised</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield 73% unsustainable; Z-Score negative</td>
+<td>Dividend likely cut soon</td>
+<td>Exit within 3 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Potential undervaluation if turnaround occurs; Z-Score weak</td>
+<td>Monitor for Z-Score improvement</td>
+<td>Reassess quarterly</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>SELL</strong></td>
+<td>No growth sustainability; EBIT ratio 0.015 too low</td>
+<td>Negative momentum</td>
+<td>Avoid new positions</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; potential turnaround speculation</td>
+<td>Volatility low but risk high</td>
+<td>Small position, tight stops</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend investors should exit due to high distress risk and unsustainable dividends. Value investors may hold cautiously, awaiting signs of operational recovery. Growth investors should avoid due to lack of profitability. Aggressive investors may speculate on turnaround but must manage risk tightly.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Financial turnaround</td>
+<td>EBIT Ratio (0.015), Working Capital Ratio (-0.095)</td>
+<td>Implement cost reduction, improve cash flow management</td>
+<td>EBIT margin &gt;0.05, positive working capital</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity and capital structure</td>
+<td>Retained Earnings Ratio (0.090), Debt levels (N/A)</td>
+<td>Secure refinancing, improve equity base</td>
+<td>Positive retained earnings growth, reduced debt</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, Dividend sustainability</td>
+<td>Enhance risk management, review dividend policy</td>
+<td>Stabilized Z-Score, sustainable dividend payout</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize reversing liquidity and profitability declines. The board should enforce stringent governance to manage financial risks and align dividend policy with cash flow realities. Continuous monitoring of Z-Score and financial ratios is critical for timely decision-making.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Negative, stable</td>
+<td>Likely stable or declining</td>
+<td>Operational restructuring, capital infusion</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Distressed, undervalued</td>
+<td>Potential recovery if turnaround succeeds</td>
+<td>Industry consolidation, regulatory changes</td>
+<td>Market cap trends, peer performance</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High risk</td>
+<td>Risk remains elevated</td>
+<td>Debt refinancing success, liquidity improvements</td>
+<td>Debt ratios, working capital ratio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Without significant operational or financial restructuring, COR’s Z-Score is unlikely to improve in the near term. Key catalysts include successful cost management and capital restructuring. Investors should monitor leading indicators such as EBIT margin improvements and working capital stabilization for early signs of recovery.</p>
+<hr />
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>Cencora, Inc. (COR) is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-0.31) over eight quarters, negative liquidity ratios, and minimal profitability. Market signals are inconsistent and possibly distorted by data anomalies, such as an unsustainable 73% dividend yield and zero volatility.</p>
+<p><strong>Investment action is urgent:</strong> conservative and dividend investors should exit immediately, while value investors may cautiously hold pending operational improvements. Aggressive investors may speculate but must apply strict risk controls.</p>
+<p>Strategic leadership must focus on liquidity restoration, profitability enhancement, and risk mitigation to avoid bankruptcy. Continuous monitoring of Z-Score and financial health metrics is essential to validate any turnaround progress.</p>
+<hr />
+<p><em>All analysis is based on injected financial data, market metrics, and AI-powered risk, peer, and sentiment analyses as of 2025-07-01.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:12 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

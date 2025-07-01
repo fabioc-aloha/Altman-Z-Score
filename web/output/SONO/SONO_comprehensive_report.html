@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - SONO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Sonos, Inc. (SONO)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="SONO_logo.png" alt="Sonos, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="SONO_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="SONO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.10</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$10.81</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1.3B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>55.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.36</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.45</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-48.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-sono">AI-Powered Altman Z-Score Investment Analysis for SONO</h1>
+<p><strong>Analysis Date:</strong> 2025-07-01 10:19:56</p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Sonos, Inc. (Ticker: SONO) currently resides in the <strong>Gray Zone</strong> of financial distress with a latest Altman Z-Score of <strong>2.36</strong>, indicating moderate risk but no immediate bankruptcy threat. The Z-Score trajectory over the past eight quarters has fluctuated between <strong>1.79 (Distress Zone)</strong> and <strong>2.80 (Gray Zone)</strong>, reflecting volatility in financial health but an overall stable recovery trend.</p>
+<p><strong>AI Risk Analysis</strong> classifies SONO’s overall risk level as <strong>moderate</strong>, consistent with the Gray Zone Z-Score range, with a stable risk trajectory and no immediate escalation. The <strong>AI Peer Analysis</strong> positions SONO below the industry average Z-Score (not explicitly provided but implied higher than 2.36), suggesting SONO is slightly underperforming relative to key Consumer Electronics peers. The <strong>AI Sentiment Analysis</strong> indicates a neutral to slightly cautious market perception, with no strong bullish or bearish momentum detected.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>2.36 (Gray Zone)</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$1.298 billion</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$10.81</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>120.1 million</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.206 (Low)</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.089 (Negative)</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.077 (Negative)</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.328 (Moderate)</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>48.33 (High)</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Action Recommendations:</strong></p>
+<ul>
+<li><strong>Hold with Caution:</strong> SONO’s financial health is fragile but not critical. The company’s Z-Score in the Gray Zone and negative profitability ratios warrant a cautious hold rather than aggressive buying.</li>
+<li><strong>Monitor for Improvement:</strong> Watch for upward Z-Score momentum above 3.0 and positive EBIT ratio recovery as signals for potential buy.</li>
+<li><strong>Avoid Aggressive Positions:</strong> High EV/EBITDA and negative earnings suggest valuation risk; aggressive investors should wait for clearer operational turnaround.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.206</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Weak liquidity</strong>, below industry norms; risk of short-term cash stress</td>
+<td>Declining/Stable (Low)</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided; EBIT Ratio: -0.077</td>
+<td>Peers EBIT Ratio: Positive</td>
+<td>Negative EBIT indicates operating losses; leverage risk elevated</td>
+<td>Negative Trend</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.328</td>
+<td>Industry Avg: ~0.5</td>
+<td>Moderate asset utilization but below industry average</td>
+<td>Stable/Improving</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.089</td>
+<td>Positive in healthy firms</td>
+<td>Negative retained earnings indicate accumulated losses</td>
+<td>Declining</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are typical for Consumer Electronics sector.</p>
+<p><strong>Interpretive Commentary:</strong></p>
+<ul>
+<li><strong>Liquidity:</strong> SONO’s working capital ratio of <strong>0.206</strong> is significantly below the typical industry standard of 1.5-2.0, indicating potential short-term liquidity constraints. This aligns with the AI Data Quality Assessment showing no anomalies but highlights operational cash flow pressure.</li>
+<li><strong>Profitability &amp; Leverage:</strong> The negative EBIT ratio (-7.7%) signals ongoing operating losses, which, combined with unknown but likely moderate debt levels, suggests leverage risk. The absence of explicit debt-to-equity data limits full leverage assessment but negative earnings increase financial risk.</li>
+<li><strong>Efficiency:</strong> Asset turnover at 0.328 is moderate but below the sector average (~0.5), indicating room for improvement in asset utilization.</li>
+<li><strong>Stability:</strong> Negative retained earnings ratio (-8.9%) reflects cumulative losses, undermining equity base and financial stability.</li>
+</ul>
+<p>The <strong>Technology sector</strong> and <strong>Consumer Electronics industry</strong> context imply high R&amp;D and marketing expenses, which may pressure margins but also offer growth potential if operational efficiency improves.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>2.36</td>
+<td>Gray Zone</td>
+<td>Moderate working capital, negative EBIT, improving asset turnover</td>
+<td>Stabilizing after prior distress; no major business disruptions reported</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>2.17</td>
+<td>Gray Zone</td>
+<td>Similar drivers; slight improvement in operational metrics</td>
+<td>Gradual recovery phase</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.80</td>
+<td>Gray Zone</td>
+<td>Peak Z-Score; better liquidity and profitability</td>
+<td>Temporary operational improvements</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.19</td>
+<td>Gray Zone</td>
+<td>Decline from peak; EBIT negative</td>
+<td>Profitability challenges resurface</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.32</td>
+<td>Gray Zone</td>
+<td>Stable working capital, negative retained earnings</td>
+<td>Ongoing operational pressure</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.79</td>
+<td>Distress</td>
+<td>Lowest Z-Score; liquidity and profitability issues</td>
+<td>Heightened financial stress</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.61</td>
+<td>Gray Zone</td>
+<td>Recovery from distress; improving ratios</td>
+<td>Early signs of turnaround</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.10</td>
+<td>Gray Zone</td>
+<td>Initial Gray Zone status; weak liquidity</td>
+<td>Beginning of financial stabilization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong></p>
+<p>SONO’s Z-Score has oscillated within the Gray Zone, dipping once into the Distress Zone at 1.79, indicating episodic financial stress. The recent upward trend to 2.36 suggests moderate improvement but still short of the Safe Zone (&gt;3.0). The lack of detailed component data limits granular driver analysis, but negative EBIT and retained earnings ratios imply profitability challenges are the main drag.</p>
+<p>The Z-Score trend correlates with typical business cycles in Consumer Electronics, where product launches and market competition impact margins and working capital. The absence of major business disruptions suggests internal operational factors dominate financial performance.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Gray Zone, improving</td>
+<td>Price stable at $10.81</td>
+<td>Divergent</td>
+<td>Market price does not fully reflect financial risk; potential overvaluation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Cautious</td>
+<td>No clear consensus data</td>
+<td>Consistent</td>
+<td>Market sentiment aligns with moderate risk profile</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>SONO lags peers; competitive pressure evident</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong></p>
+<p>SONO’s <strong>market price of $10.81</strong> and market cap of <strong>$1.298 billion</strong> do not show volatility or strong momentum, with technical indicators (RSI, moving averages) unavailable or zeroed out, suggesting low trading activity or data gaps. The <strong>EV/EBITDA of 48.33</strong> is notably high, indicating the market may be pricing in future growth or overvaluing the company relative to earnings.</p>
+<p>The divergence between improving Z-Score and stagnant price signals a potential disconnect, presenting a cautious opportunity for value investors if operational improvements materialize. Peer underperformance and neutral sentiment reinforce the need for careful timing.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Negative EBIT reduces Z-Score</td>
+<td>Cost control, product innovation</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Negative retained earnings and low liquidity depress Z-Score</td>
+<td>Improve cash flow, reduce debt</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Low</td>
+<td>Moderate</td>
+<td>Sector competition limits growth</td>
+<td>Diversify product portfolio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> EBIT turns positive, working capital improves, Z-Score rises above 3.0 → Safe Zone; stock price appreciates.</li>
+<li><strong>Base Case:</strong> Gradual EBIT improvement, stable liquidity, Z-Score remains 2.3-2.8 → Gray Zone; hold recommendation.</li>
+<li><strong>Worst Case:</strong> Continued losses, liquidity worsens, Z-Score falls below 1.8 → Distress Zone; risk of bankruptcy increases.</li>
+</ul>
+<p>Based on AI Risk Analysis overall risk level of <strong>moderate</strong> with <strong>70% confidence</strong>, SONO faces manageable but material financial risks requiring active mitigation.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 2.36 in Gray Zone; negative EBIT and liquidity risk</td>
+<td>Wait for Z-Score &gt;3.0 and EBIT positive</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield; negative retained earnings</td>
+<td>Not applicable</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>CAUTIOUS BUY</td>
+<td>Undervalued if operational turnaround occurs; EV/EBITDA high</td>
+<td>Monitor for price correction</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Growth potential limited by current losses</td>
+<td>Await clearer momentum</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk/reward due to volatility in Z-Score and earnings</td>
+<td>Opportunistic entry on dips</td>
+<td>Short-term</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Detailed Commentary:</strong></p>
+<ul>
+<li>Conservative investors should hold and monitor for clear signs of financial stabilization.</li>
+<li>Dividend investors should avoid due to zero yield and negative earnings.</li>
+<li>Value investors may consider selective entry if operational improvements lead to valuation normalization.</li>
+<li>Growth investors should wait for EBIT and Z-Score improvements before committing.</li>
+<li>Aggressive traders may speculate on volatility but must manage downside risk carefully.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Focus on cost reduction, innovation</td>
+<td>EBIT positive, Z-Score &gt;3.0</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; capital control</td>
+<td>Working Capital Ratio, Debt</td>
+<td>Improve cash flow, manage debt levels</td>
+<td>Current ratio &gt;1.0, positive retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Enhance financial reporting, risk mitigation</td>
+<td>Stable or improving Z-Score</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong></p>
+<p>SONO’s leadership must prioritize operational efficiency and profitability to exit the Gray Zone. CFO should focus on liquidity improvement and capital structure optimization. The Board should monitor risk factors closely, ensuring governance aligns with financial recovery plans. Market perception management is critical given valuation disconnects.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly improving</td>
+<td>Gradual improvement</td>
+<td>EBIT turnaround, working capital enhancement</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Stable but weak</td>
+<td>Potential recovery</td>
+<td>New product launches, market expansion</td>
+<td>Price trends, volume</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Potential reduction</td>
+<td>Debt reduction, operational efficiency</td>
+<td>Liquidity ratios, retained earnings</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong></p>
+<p>SONO’s Z-Score momentum suggests a cautious but positive outlook over the next 6-12 months, contingent on operational improvements and liquidity management. Key catalysts include successful product innovation and cost control. Investors should monitor EBIT ratio and working capital closely as leading indicators of financial health. Early warning signals include declining liquidity or renewed EBIT losses, which would necessitate reassessment of investment stance.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>SONO is a <strong>moderate-risk investment</strong> currently in the Altman Z-Score Gray Zone with financial challenges primarily in profitability and liquidity. While the company shows signs of stabilization, negative EBIT and retained earnings ratios limit confidence. Market valuation appears stretched relative to earnings, suggesting cautious positioning. Investors should adopt a <strong>hold or cautious buy</strong> approach, closely monitoring operational metrics and Z-Score trends for signs of sustainable recovery.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 10:20 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

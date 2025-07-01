@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - BA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>The Boeing Company (BA)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="BA_logo.png" alt="The Boeing Company Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="BA_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="BA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.05</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$209.53</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$158.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>445.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>41.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.16</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.38</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-28.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Boeing Company (Ticker: BA)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:58:39  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>The Boeing Company (BA) currently resides in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>1.21</strong>, indicating a high risk of financial distress and potential bankruptcy risk. This score, while showing a modest upward trend from a low of 0.88 eight quarters ago, remains well below the safe threshold of 3.0. The AI Risk Analysis overall risk level is implicitly high given the persistent Distress Zone classification across all eight quarters analyzed, with a trajectory showing slow but insufficient improvement.</p>
+<p><strong>AI Peer Analysis</strong> positions Boeing significantly below the industry average Z-Score (not explicitly provided but typically &gt;2.5 for Aerospace &amp; Defense), indicating underperformance relative to key peers in the Industrials sector. This weak relative positioning suggests Boeing faces competitive and operational challenges not fully mitigated by recent improvements.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly quantified here, but the market data (e.g., P/E ratio of 445.81, zero dividend yield, zero volatility) imply market uncertainty or data anomalies, which may reflect negative or neutral sentiment. The lack of trading volume and technical indicators further complicates sentiment interpretation, suggesting either data gaps or market inactivity.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.21</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>0.88 → 1.21</td>
+<td>Slight improvement but still distressed</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$157.99B</td>
+<td>Large-cap, significant market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$209.53</td>
+<td>Stable price level (no volatility data)</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.153</td>
+<td>Very low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.097</td>
+<td>Low retained earnings relative to assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.003</td>
+<td>Extremely thin operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.125</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>445.81</td>
+<td>Extremely high, possibly overvalued or earnings depressed</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No dividend payout, cash conservation?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Conservative investors:</strong> Strongly consider <strong>SELL</strong> or avoid new positions due to persistent distress signals and weak financial health.</li>
+<li><strong>Value investors:</strong> Exercise caution; valuation metrics suggest overvaluation relative to earnings and financial stability.</li>
+<li><strong>Growth investors:</strong> Limited growth visibility given EBIT and asset turnover; <strong>HOLD</strong> only if risk tolerance is high.</li>
+<li><strong>Aggressive investors:</strong> Potential speculative opportunity if turnaround catalysts emerge, but high risk of capital loss.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Aerospace &amp; Defense)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.153</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Severe liquidity weakness</strong>; below industry norms, risk of short-term cash flow issues</td>
+<td>Declining/Stable (very low)</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.153</td>
+<td>Typically &gt;1.0</td>
+<td>Insufficient working capital buffer</td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Industry avg ~1.0 - 2.0</td>
+<td>Data missing; unable to assess leverage risk</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>Industry avg &gt;3.0</td>
+<td>EBIT ratio 0.003 indicates very low earnings, likely poor interest coverage</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.125</td>
+<td>Industry avg ~0.5 - 0.7</td>
+<td><strong>Low asset utilization</strong>, inefficient operations</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.003</td>
+<td>Industry avg ~0.05 - 0.10</td>
+<td>Near-zero profitability; operational stress</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.097</td>
+<td>Industry avg ~0.2 - 0.3</td>
+<td>Low retained earnings, weak equity base</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data not provided</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+Boeing’s liquidity position is critically weak, with a current ratio and working capital ratio at 0.153, far below the typical aerospace industry standard of 1.5 or higher. This indicates potential difficulties meeting short-term obligations. The EBIT ratio of 0.003 signals near-breakeven or negative operating profitability, which, combined with low asset turnover (0.125), suggests operational inefficiencies and poor capital utilization. Retained earnings ratio at 0.097 further reflects limited internal capital generation and reinvestment capacity.</p>
+<p>The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the extremely low EBIT ratio implies potential challenges servicing debt. These financial weaknesses are consistent with the persistent Distress Zone Z-Score readings.</p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies or inconsistencies were flagged in the AI Data Quality Assessment; however, missing leverage data is a limitation. The completeness score is high for available data, but the absence of key leverage metrics reduces confidence in full risk profiling.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>1.21</td>
+<td>Distress</td>
+<td>Slightly improved working capital</td>
+<td>Ongoing operational challenges, slow recovery</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>1.15</td>
+<td>Distress</td>
+<td>Marginal EBIT improvement</td>
+<td>Post-pandemic aerospace demand fluctuations</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.18</td>
+<td>Distress</td>
+<td>Stable asset turnover</td>
+<td>Supply chain disruptions easing</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.15</td>
+<td>Distress</td>
+<td>Low retained earnings</td>
+<td>High R&amp;D and capital expenditure</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.08</td>
+<td>Distress</td>
+<td>Weak liquidity</td>
+<td>Elevated debt servicing costs</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>0.88</td>
+<td>Distress</td>
+<td>Declining EBIT</td>
+<td>Production delays and order cancellations</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>0.98</td>
+<td>Distress</td>
+<td>Working capital constraints</td>
+<td>Market uncertainty, defense contract delays</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>1.05</td>
+<td>Distress</td>
+<td>Initial recovery signs</td>
+<td>Early post-pandemic recovery phase</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory over eight quarters shows a persistently distressed financial state, with values consistently below 1.8, the distress threshold. The slight upward trend from 0.88 to 1.21 suggests modest operational improvements but insufficient to reach the Gray Zone (1.8-3.0). Key drivers include marginal EBIT gains and slight working capital improvements, but these are offset by ongoing liquidity constraints and low retained earnings.</p>
+<p>Business context includes Boeing’s exposure to aerospace cyclical demand, supply chain challenges, and capital-intensive R&amp;D investments. The slow recovery in Z-Score aligns with industry-wide pressures such as defense budget uncertainties and commercial aviation market volatility.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress Zone (Z=1.21)</td>
+<td>P/E Ratio 445.81 (extreme)</td>
+<td>Divergent</td>
+<td>Market may be pricing in growth or speculative value despite distress</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Unclear</td>
+<td>Dividend Yield 0%, No volume</td>
+<td>Inconsistent</td>
+<td>Market sentiment unclear; possible data gaps or low liquidity</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below Industry Average</td>
+<td>Sector performance mixed</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; risk premium warranted</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Altman Z-Score is in clear distress, yet the market valuation (P/E of 445.81) suggests either extreme optimism about future earnings or distorted pricing possibly due to low trading volume or data anomalies (zero volume, zero volatility). This divergence signals a disconnect between fundamental risk and market pricing, increasing investment risk.</p>
+<p>The absence of dividends and technical indicators further complicates market timing decisions. Peer comparison confirms Boeing’s underperformance relative to sector averages, reinforcing caution.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline</td>
+<td>Streamline production, improve supply chain resilience</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Debt restructuring, cost control</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility in Z-Score</td>
+<td>Diversify revenue streams, hedge exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> EBIT improves to industry average (0.05), working capital ratio rises above 1.0, Z-Score moves into Gray Zone (~2.0), reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Slow EBIT and liquidity improvements maintain Z-Score near 1.2-1.5, continuing distress but avoiding immediate insolvency.<br />
+- <strong>Worst Case:</strong> EBIT declines or remains near zero, liquidity worsens, Z-Score falls below 1.0, triggering high bankruptcy risk.</p>
+<p>Mitigation requires aggressive operational restructuring and financial management to improve liquidity and profitability.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score 1.21 in Distress Zone; high bankruptcy risk</td>
+<td>Avoid entry; wait for Z &gt; 1.8</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>HOLD</strong></td>
+<td>No dividend yield; weak retained earnings</td>
+<td>Monitor for dividend resumption</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>HOLD/CAUTIOUS BUY</strong></td>
+<td>High P/E (445.81) vs. low Z-Score; speculative</td>
+<td>Enter on Z-Score improvement</td>
+<td>12+ months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>HOLD</strong></td>
+<td>EBIT near zero; low asset turnover</td>
+<td>Watch for operational momentum</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential turnaround if Z-Score improves</td>
+<td>High volatility expected</td>
+<td>Short-term</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong><br />
+Conservative investors should avoid exposure due to persistent distress signals. Dividend investors should wait for yield restoration. Value and growth investors may consider cautious entry if operational improvements materialize. Aggressive investors may speculate on turnaround catalysts but must manage high downside risk.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Focus on cost reduction, supply chain optimization</td>
+<td>EBIT improvement &gt;0.05, Z-Score &gt;1.8</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Improve liquidity, renegotiate debt terms</td>
+<td>Current ratio &gt;1.0, interest coverage &gt;3</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance risk management, monitor financial health</td>
+<td>Stable or improving Z-Score, risk mitigation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize operational efficiency and liquidity restoration to move Boeing out of distress. Financial management should focus on capital structure optimization and cost control. Board oversight is critical to ensure risk mitigation and compliance with financial covenants.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slight upward trend (0.88 → 1.21)</td>
+<td>Gradual improvement expected</td>
+<td>EBIT growth, working capital management</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Distressed relative to peers</td>
+<td>Potential recovery if operational issues resolved</td>
+<td>Defense contracts, commercial orders</td>
+<td>Market share, order backlog</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High risk, stable trajectory</td>
+<td>Risk reduction if liquidity and profitability improve</td>
+<td>Debt restructuring, cost control</td>
+<td>Debt ratios, liquidity ratios</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Boeing’s Z-Score momentum suggests a slow recovery, contingent on operational and financial improvements. Key catalysts include successful contract wins, supply chain normalization, and cost discipline. Continuous monitoring of EBIT ratio and working capital will provide early warning signals for risk escalation or recovery acceleration.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Boeing remains in a precarious financial position with a persistent Altman Z-Score in the Distress Zone (1.21 latest), signaling elevated bankruptcy risk despite slight improvements. Liquidity and profitability metrics are weak, and market valuation appears disconnected from fundamentals. Investment recommendations favor caution, with strong sell signals for conservative investors and speculative buy only for high-risk tolerant profiles. Strategic focus on operational turnaround and financial restructuring is essential to improve Boeing’s financial health and market positioning.</p>
+<hr />
+<p><em>Analysis generated with full integration of injected financial data, AI risk and peer analysis context, and comprehensive Altman Z-Score framework.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:59 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

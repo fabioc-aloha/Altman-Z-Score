@@ -1,910 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STRONG SELL Recommendations | Altman Z-Score Analysis</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #fef2f2;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background-color: #7f0000;
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            border-bottom: 5px solid #560000;
-        }
-        .dashboard-title {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        .dashboard-subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-        .urgent-warning {
-            background-color: #fecaca;
-            border-left: 5px solid #991b1b;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 5px 5px 0;
-            font-weight: 500;
-        }
-        .urgent-title {
-            color: #991b1b;
-            font-size: 1.2em;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        .summary-stats {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .stat-card {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #991b1b;
-            margin: 10px 0;
-        }
-        .stat-label {
-            font-size: 0.9em;
-            color: #7b8a8b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .highest-risk-section {
-            margin: 30px 0;
-        }
-        .section-title {
-            font-size: 1.5em;
-            border-bottom: 2px solid #fecaca;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            color: #991b1b;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .company-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .company-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .card-header {
-            background-color: #991b1b;
-            color: white;
-            padding: 15px 20px;
-            font-weight: bold;
-        }
-        .danger-label {
-            background-color: #b91c1c;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            position: absolute;
-            top: -10px;
-            right: 10px;
-        }
-        .card-body {
-            padding: 20px;
-            position: relative;
-        }
-        .company-name {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .metric {
-            margin-bottom: 10px;
-        }
-        .metric-label {
-            font-size: 0.75em;
-            text-transform: uppercase;
-            color: #95a5a6;
-            letter-spacing: 0.5px;
-        }
-        .metric-value {
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-        .zscore {
-            font-size: 1.8em;
-            text-align: center;
-            padding: 10px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: #991b1b;
-        }
-        .warning-list {
-            background-color: #fef2f2;
-            border-radius: 5px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .warning-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 8px;
-        }
-        .warning-icon {
-            color: #991b1b;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        .profile-recs {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 0.9em;
-        }
-        .profile-rec {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        .view-link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #991b1b;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        .view-link:hover {
-            background-color: #7f0000;
-        }
-        .table-section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 30px 0;
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e1e1e1;
-        }
-        th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-            color: #2c3e50;
-            position: sticky;
-            top: 0;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-        }
-        tr:hover {
-            background-color: #fef2f2;
-        }
-        .search-filter {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .search-box {
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            flex-grow: 1;
-            min-width: 200px;
-            font-size: 16px;
-        }
-        .filter-dropdown {
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            background-color: white;
-            min-width: 150px;
-            font-size: 16px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #7f0000;
-            color: #ecf0f1;
-        }
-        .footer-text {
-            opacity: 0.7;
-            font-size: 0.9em;
-        }
-        .sortable {
-            cursor: pointer;
-        }
-        .sortable:after {
-            content: " ⇅";
-            font-size: 12px;
-            color: #7b8a8b;
-        }
-        .alert-icon {
-            font-size: 1.2em;
-            margin-right: 8px;
-        }
-        .critical {
-            color: #991b1b;
-            font-weight: bold;
-        }
-    </style>
+    <title>Strong Sell Portfolio</title>
+    <link rel="stylesheet" href="assets/dashboard_common.css">
 </head>
+
 <body>
-    <header>
-        <h1 class="dashboard-title">STRONG SELL Recommendations</h1>
-        <p class="dashboard-subtitle">Altman Z-Score Analysis | June 27, 2025</p>
-    </header>
-    
     <div class="container">
-        <div class="urgent-warning">
-            <h3 class="urgent-title"><span class="alert-icon">⚠️</span> URGENT FINANCIAL DISTRESS WARNING</h3>
-            <p>This dashboard identifies stocks showing <strong>severe financial distress</strong> indicators that warrant immediate attention. Companies listed here have extremely low Z-Scores, multiple STRONG SELL recommendations, or critical financial warning signs.</p>
-            <p>Always conduct thorough due diligence and consider consulting a financial advisor before making any investment decisions.</p>
-        </div>
-        
-        <section class="summary-stats">
-            <h2>Dashboard Summary</h2>
+        <header class="header-container">
+            <div>
+                <h1>Strong Sell Portfolio</h1>
+                <p class="subtitle">Companies exhibiting severe financial distress indicators</p>
+            </div>
+            <div class="date">Generated: July 01, 2025</div>
+        </header>
+
+        <div class="summary-section">
+            <h2>Portfolio Summary</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <p class="stat-label">Critical Alerts</p>
-                    <p class="stat-value">28</p>
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Companies</div>
                 </div>
                 <div class="stat-card">
-                    <p class="stat-label">Average Z-Score</p>
-                    <p class="stat-value">0.57</p>
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Safe Zone</div>
                 </div>
                 <div class="stat-card">
-                    <p class="stat-label">Lowest Z-Score</p>
-                    <p class="stat-value">0.01</p>
-                </div>
-                <div class="stat-card">
-                    <p class="stat-label">Strong Sell Signals</p>
-                    <p class="stat-value">21</p>
+                    <div class="stat-number">-1.33</div>
+                    <div class="stat-label">Avg Z-Score</div>
                 </div>
             </div>
-        </section>
+
+            <div class="summary-text">
+                
+        <p>This portfolio presents <strong>companies with concerning financial metrics</strong> based on comprehensive Altman Z-Score analysis. 
+        The selection emphasizes financial stability, market position, and investment potential.</p>
         
-        <section class="highest-risk-section">
-            <h2 class="section-title">Critical Financial Risk Companies</h2>
-            <div class="card-grid">
-                <div class="company-card">
-                    <div class="card-header">
-                        <h3>APO</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="danger-label">CRITICAL RISK</div>
-                        <p class="company-name">Apollo Global Management, Inc.</p>
-                        
-                        <div class="zscore">Z-Score: 0.01</div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric">
-                                <div class="metric-label">Risk Category</div>
-                                <div class="metric-value critical">Distress</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Recommendation</div>
-                                <div class="metric-value critical">Hold</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Strong Sell Signals</div>
-                                <div class="metric-value">1</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Total Sell Signals</div>
-                                <div class="metric-value">2</div>
-                            </div>
-                        </div>
-                        
-                        <div class="warning-list">
-                            <h4>Key Warning Signs:</h4>
-                            <div class="warning-item">
-                                <span class="warning-icon">⚠️</span>
-                                <span>Low Z-Score indicating financial distress</span>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-recs">
-                            <h4>Investor Profile Recommendations:</h4>
-                            <div class="profile-rec">
-                                <span>Conservative</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Dividend</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Value</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Growth</span>
-                                <strong class="critical">SELL</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Aggressive</span>
-                                <strong class="critical">STRONG SELL</strong>
-                            </div>
-                        </div>
-                        <a href="output/APO/APO_comprehensive_report.html" target="_blank" class="view-link">View Full Analysis »</a>
-                    </div>
-                </div>
-                <div class="company-card">
-                    <div class="card-header">
-                        <h3>MS</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="danger-label">CRITICAL RISK</div>
-                        <p class="company-name">Morgan Stanley</p>
-                        
-                        <div class="zscore">Z-Score: 0.03</div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric">
-                                <div class="metric-label">Risk Category</div>
-                                <div class="metric-value critical">Distress</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Recommendation</div>
-                                <div class="metric-value critical">Hold</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Strong Sell Signals</div>
-                                <div class="metric-value">1</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Total Sell Signals</div>
-                                <div class="metric-value">3</div>
-                            </div>
-                        </div>
-                        
-                        <div class="warning-list">
-                            <h4>Key Warning Signs:</h4>
-                            <div class="warning-item">
-                                <span class="warning-icon">⚠️</span>
-                                <span>Low Z-Score indicating financial distress</span>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-recs">
-                            <h4>Investor Profile Recommendations:</h4>
-                            <div class="profile-rec">
-                                <span>Conservative</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Dividend</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Value</span>
-                                <strong class="critical">SELL</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Growth</span>
-                                <strong class="critical">SELL</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Aggressive</span>
-                                <strong class="critical">STRONG SELL</strong>
-                            </div>
-                        </div>
-                        <a href="output/MS/MS_comprehensive_report.html" target="_blank" class="view-link">View Full Analysis »</a>
-                    </div>
-                </div>
-                <div class="company-card">
-                    <div class="card-header">
-                        <h3>STT</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="danger-label">CRITICAL RISK</div>
-                        <p class="company-name">State Street Corporation</p>
-                        
-                        <div class="zscore">Z-Score: 0.09</div>
-                        
-                        <div class="metrics-grid">
-                            <div class="metric">
-                                <div class="metric-label">Risk Category</div>
-                                <div class="metric-value critical">Distress</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Recommendation</div>
-                                <div class="metric-value critical">Hold</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Strong Sell Signals</div>
-                                <div class="metric-value">0</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">Total Sell Signals</div>
-                                <div class="metric-value">2</div>
-                            </div>
-                        </div>
-                        
-                        <div class="warning-list">
-                            <h4>Key Warning Signs:</h4>
-                            <div class="warning-item">
-                                <span class="warning-icon">⚠️</span>
-                                <span>Low Z-Score indicating financial distress</span>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-recs">
-                            <h4>Investor Profile Recommendations:</h4>
-                            <div class="profile-rec">
-                                <span>Conservative</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Dividend</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Value</span>
-                                <strong class="">HOLD</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Growth</span>
-                                <strong class="critical">SELL</strong>
-                            </div>
-                            <div class="profile-rec">
-                                <span>Aggressive</span>
-                                <strong class="critical">SELL</strong>
-                            </div>
-                        </div>
-                        <a href="output/STT/STT_comprehensive_report.html" target="_blank" class="view-link">View Full Analysis »</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <p><strong>Top Pick:</strong> ** SPIR (Spire Global, Inc.) (SPIR) leads with a Z-Score of 
+        -11.19, indicating distress risk levels.</p>
         
-        <section class="table-section">
-            <div class="search-filter">
-                <input type="text" id="searchBox" class="search-box" placeholder="Search companies...">
-                <select id="filterRisk" class="filter-dropdown">
-                    <option value="all">All Risk Levels</option>
-                    <option value="Safe">Safe</option>
-                    <option value="Grey">Grey</option>
-                    <option value="Distress">Distress</option>
-                </select>
-                <select id="filterSellSignals" class="filter-dropdown">
-                    <option value="all">All</option>
-                    <option value="high">3+ Strong Sell Signals</option>
-                    <option value="medium">1-2 Strong Sell Signals</option>
-                    <option value="low">No Strong Sell Signals</option>
-                </select>
-            </div>
+            <p><strong>Notable Mentions:</strong> ** Cytosorbents Corporation (CTSO) (CTSO) 
+            and ** YUM! Brands, Inc. (Ticker: YUM) (YUM) also demonstrate strong fundamentals 
+            with Z-Scores of -6.81 and -2.74 respectively.</p>
             
-            <table id="companyTable">
-                <thead>
-                    <tr>
-                        <th class="sortable" data-sort="ticker">Ticker</th>
-                        <th class="sortable" data-sort="name">Company Name</th>
-                        <th class="sortable" data-sort="zscore">Z-Score ↓</th>
-                        <th class="sortable" data-sort="risk">Risk Category</th>
-                        <th class="sortable" data-sort="recommendation">Recommendation</th>
-                        <th class="sortable" data-sort="strongSellCount">Strong Sell Signals</th>
-                        <th>Key Warning</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr data-ticker="APO" data-name="Apollo Global Management, Inc." data-zscore="0.01" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>APO</td>
-                        <td>Apollo Global Management, Inc.</td>
-                        <td class="critical">0.01</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/APO/APO_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="MS" data-name="Morgan Stanley" data-zscore="0.03" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>MS</td>
-                        <td>Morgan Stanley</td>
-                        <td class="critical">0.03</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/MS/MS_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="STT" data-name="State Street Corporation" data-zscore="0.09" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="0" data-sellsignals="low">
-                        <td>STT</td>
-                        <td>State Street Corporation</td>
-                        <td class="critical">0.09</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/STT/STT_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="YPF" data-name="YPF Sociedad Anónima" data-zscore="0.11" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="0" data-sellsignals="low">
-                        <td>YPF</td>
-                        <td>YPF Sociedad Anónima</td>
-                        <td class="critical">0.11</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/YPF/YPF_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="AMX" data-name="América Móvil, S.A.B. de C.V." data-zscore="0.13" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="0" data-sellsignals="low">
-                        <td>AMX</td>
-                        <td>América Móvil, S.A.B. de C.V.</td>
-                        <td class="critical">0.13</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/AMX/AMX_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="HDB" data-name="HDFC Bank Limited" data-zscore="0.13" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>HDB</td>
-                        <td>HDFC Bank Limited</td>
-                        <td class="critical">0.13</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/HDB/HDB_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="GS" data-name="The Goldman Sachs Group, Inc." data-zscore="0.15" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>GS</td>
-                        <td>The Goldman Sachs Group, Inc.</td>
-                        <td class="critical">0.15</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/GS/GS_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="SONY" data-name="Sony Group Corporation" data-zscore="0.25" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>SONY</td>
-                        <td>Sony Group Corporation</td>
-                        <td class="critical">0.25</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/SONY/SONY_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="BK" data-name="The Bank of New York Mellon Corporation" data-zscore="0.26" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>BK</td>
-                        <td>The Bank of New York Mellon Corporation</td>
-                        <td class="critical">0.26</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/BK/BK_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="AXP" data-name="American Express Company" data-zscore="0.28" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="0" data-sellsignals="low">
-                        <td>AXP</td>
-                        <td>American Express Company</td>
-                        <td class="critical">0.28</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/AXP/AXP_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="UAL" data-name="United Airlines Holdings, Inc." data-zscore="0.35" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>UAL</td>
-                        <td>United Airlines Holdings, Inc.</td>
-                        <td class="critical">0.35</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/UAL/UAL_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="AMP" data-name="Ameriprise Financial, Inc." data-zscore="0.46" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>AMP</td>
-                        <td>Ameriprise Financial, Inc.</td>
-                        <td class="critical">0.46</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/AMP/AMP_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="BIDU" data-name="Baidu, Inc." data-zscore="0.47" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="0" data-sellsignals="low">
-                        <td>BIDU</td>
-                        <td>Baidu, Inc.</td>
-                        <td class="critical">0.47</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/BIDU/BIDU_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="BP" data-name="BP p.l.c." data-zscore="0.52" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>BP</td>
-                        <td>BP p.l.c.</td>
-                        <td class="critical">0.52</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/BP/BP_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="T" data-name="AT&T Inc." data-zscore="0.54" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>T</td>
-                        <td>AT&T Inc.</td>
-                        <td class="critical">0.54</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/T/T_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="PBR" data-name="Petróleo Brasileiro S.A. - Petrobras" data-zscore="0.57" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>PBR</td>
-                        <td>Petróleo Brasileiro S.A. - Petrobras</td>
-                        <td class="critical">0.57</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/PBR/PBR_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="GM" data-name="General Motors Company" data-zscore="0.68" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>GM</td>
-                        <td>General Motors Company</td>
-                        <td class="critical">0.68</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/GM/GM_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="MET" data-name="MetLife, Inc." data-zscore="0.71" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>MET</td>
-                        <td>MetLife, Inc.</td>
-                        <td class="critical">0.71</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/MET/MET_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="VALE" data-name="Vale S.A." data-zscore="0.73" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>VALE</td>
-                        <td>Vale S.A.</td>
-                        <td class="critical">0.73</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/VALE/VALE_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="ETR" data-name="Entergy Corporation" data-zscore="0.74" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>ETR</td>
-                        <td>Entergy Corporation</td>
-                        <td class="critical">0.74</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/ETR/ETR_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="ZIM" data-name="ZIM Integrated Shipping Services Ltd." data-zscore="0.75" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>ZIM</td>
-                        <td>ZIM Integrated Shipping Services Ltd.</td>
-                        <td class="critical">0.75</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/ZIM/ZIM_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="ABEV" data-name="Ambev S.A." data-zscore="0.77" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>ABEV</td>
-                        <td>Ambev S.A.</td>
-                        <td class="critical">0.77</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/ABEV/ABEV_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="DELL" data-name="Dell Technologies Inc." data-zscore="0.77" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>DELL</td>
-                        <td>Dell Technologies Inc.</td>
-                        <td class="critical">0.77</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/DELL/DELL_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="LI" data-name="Li Auto Inc." data-zscore="0.79" data-risk="Distress" data-recommendation="Strong Sell" data-strongsellcount="0" data-sellsignals="low">
-                        <td>LI</td>
-                        <td>Li Auto Inc.</td>
-                        <td class="critical">0.79</td>
-                        <td>Distress</td>
-                        <td>Strong Sell</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/LI/LI_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="TM" data-name="Toyota Motor Corporation" data-zscore="0.81" data-risk="Distress" data-recommendation="Hold" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>TM</td>
-                        <td>Toyota Motor Corporation</td>
-                        <td class="critical">0.81</td>
-                        <td>Distress</td>
-                        <td>Hold</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/TM/TM_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="LNG" data-name="Cheniere Energy, Inc." data-zscore="1.43" data-risk="Distress" data-recommendation="Strong Sell" data-strongsellcount="0" data-sellsignals="low">
-                        <td>LNG</td>
-                        <td>Cheniere Energy, Inc.</td>
-                        <td class="critical">1.43</td>
-                        <td>Distress</td>
-                        <td>Strong Sell</td>
-                        <td>0</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/LNG/LNG_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="RTX" data-name="RTX Corporation" data-zscore="1.75" data-risk="Distress" data-recommendation="Strong Sell" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>RTX</td>
-                        <td>RTX Corporation</td>
-                        <td class="critical">1.75</td>
-                        <td>Distress</td>
-                        <td>Strong Sell</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/RTX/RTX_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                    <tr data-ticker="CBRE" data-name="CBRE Group, Inc." data-zscore="1.77" data-risk="Distress" data-recommendation="Strong Sell" data-strongsellcount="1" data-sellsignals="medium">
-                        <td>CBRE</td>
-                        <td>CBRE Group, Inc.</td>
-                        <td class="critical">1.77</td>
-                        <td>Distress</td>
-                        <td>Strong Sell</td>
-                        <td>1</td>
-                        <td>Low Z-Score indicating financial distress</td>
-                        <td><a href="output/CBRE/CBRE_comprehensive_report.html" target="_blank">View</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            </div>
+        </div>
+
+        <div class="companies-section">
+            <h2>Company Analysis</h2>
+            <div class="company-grid">
+                <div class="company-card">
+    <div class="company-header">
+        <img src="output/SPIR/SPIR_logo.png" alt="SPIR" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** SPIR (Spire Global, Inc.)</div>
+            <div class="ticker">SPIR</div>
+        </div>
+        <div class="rank">#1</div>
     </div>
-    
-    <footer>
-        <p>Altman Z-Score Strong Sell Recommendations Dashboard</p>
-        <p class="footer-text">Generated on June 27, 2025</p>
-    </footer>
-    
-    <script>
-        // Search and filter functionality
-        document.getElementById('searchBox').addEventListener('input', filterTable);
-        document.getElementById('filterRisk').addEventListener('change', filterTable);
-        document.getElementById('filterSellSignals').addEventListener('change', filterTable);
-        
-        function filterTable() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            const riskFilter = document.getElementById('filterRisk').value;
-            const sellSignalsFilter = document.getElementById('filterSellSignals').value;
-            
-            const rows = document.querySelectorAll('#companyTable tbody tr');
-            
-            rows.forEach(row => {
-                const ticker = row.getAttribute('data-ticker').toLowerCase();
-                const name = row.getAttribute('data-name').toLowerCase();
-                const risk = row.getAttribute('data-risk');
-                const sellSignals = row.getAttribute('data-sellsignals');
-                
-                const matchesSearch = ticker.includes(searchTerm) || name.includes(searchTerm);
-                const matchesRisk = riskFilter === 'all' || risk === riskFilter;
-                const matchesSellSignals = sellSignalsFilter === 'all' || sellSignals === sellSignalsFilter;
-                
-                if (matchesSearch && matchesRisk && matchesSellSignals) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-        
-        // Sorting functionality
-        document.querySelectorAll('.sortable').forEach(header => {
-            header.addEventListener('click', function() {
-                const sortBy = this.getAttribute('data-sort');
-                const tbody = document.querySelector('#companyTable tbody');
-                const rows = Array.from(tbody.querySelectorAll('tr'));
-                
-                // Determine sort order
-                const currentOrder = this.classList.contains('asc') ? 'desc' : 'asc';
-                
-                // Reset all headers
-                document.querySelectorAll('.sortable').forEach(h => {
-                    h.classList.remove('asc', 'desc');
-                });
-                
-                this.classList.add(currentOrder);
-                
-                // Sort rows
-                rows.sort((a, b) => {
-                    let valueA = a.getAttribute(`data-${sortBy.toLowerCase()}`);
-                    let valueB = b.getAttribute(`data-${sortBy.toLowerCase()}`);
-                    
-                    if (sortBy === 'zscore') {
-                        valueA = parseFloat(valueA);
-                        valueB = parseFloat(valueB);
-                    } else if (sortBy === 'strongSellCount') {
-                        valueA = parseInt(valueA);
-                        valueB = parseInt(valueB);
-                    }
-                    
-                    if (valueA < valueB) return currentOrder === 'asc' ? -1 : 1;
-                    if (valueA > valueB) return currentOrder === 'asc' ? 1 : -1;
-                    return 0;
-                });
-                
-                // Reappend in sorted order
-                rows.forEach(row => tbody.appendChild(row));
-            });
-        });
-        
-        // Initial sort by Z-Score ascending (lowest first)
-        document.querySelector('th[data-sort="zscore"]').click();
-    </script>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-11.19</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/SPIR/SPIR_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/CTSO/CTSO_logo.png" alt="CTSO" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Cytosorbents Corporation (CTSO)</div>
+            <div class="ticker">CTSO</div>
+        </div>
+        <div class="rank">#2</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-6.81</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/CTSO/CTSO_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/YUM/YUM_logo.png" alt="YUM" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** YUM! Brands, Inc. (Ticker: YUM)</div>
+            <div class="ticker">YUM</div>
+        </div>
+        <div class="rank">#3</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-2.74</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/YUM/YUM_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ZION/ZION_logo.png" alt="ZION" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ZION (Zions Bancorporation, National Association)</div>
+            <div class="ticker">ZION</div>
+        </div>
+        <div class="rank">#4</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-1.37</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ZION/ZION_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/KEY/KEY_logo.png" alt="KEY" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** KEY (KeyCorp)</div>
+            <div class="ticker">KEY</div>
+        </div>
+        <div class="rank">#5</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.89</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/KEY/KEY_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="assets/default_logo.png" alt="SPNC" class="company-logo">
+        <div class="company-info">
+            <div class="company-name">** SPNC</div>
+            <div class="ticker">SPNC</div>
+        </div>
+        <div class="rank">#6</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.78</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-sell">SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/SPNC/SPNC_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/RCL/RCL_logo.png" alt="RCL" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Royal Caribbean Cruises Ltd. (RCL)</div>
+            <div class="ticker">RCL</div>
+        </div>
+        <div class="rank">#7</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.76</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/RCL/RCL_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/CM/CM_logo.png" alt="CM" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Canadian Imperial Bank of Commerce (CM)</div>
+            <div class="ticker">CM</div>
+        </div>
+        <div class="rank">#8</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.70</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/CM/CM_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/PNC/PNC_logo.png" alt="PNC" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** PNC Financial Services Group, Inc. (PNC)</div>
+            <div class="ticker">PNC</div>
+        </div>
+        <div class="rank">#9</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.60</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/PNC/PNC_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/TD/TD_logo.png" alt="TD" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Toronto-Dominion Bank (TD)</div>
+            <div class="ticker">TD</div>
+        </div>
+        <div class="rank">#10</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.60</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/TD/TD_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ING/ING_logo.png" alt="ING" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ING Groep N.V. (Ticker: ING)</div>
+            <div class="ticker">ING</div>
+        </div>
+        <div class="rank">#11</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.54</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ING/ING_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/BGFV/BGFV_logo.png" alt="BGFV" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** BGFV</div>
+            <div class="ticker">BGFV</div>
+        </div>
+        <div class="rank">#12</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">0.47</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/BGFV/BGFV_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/GEV/GEV_logo.png" alt="GEV" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** GE Vernova LLC (Ticker: GEV)</div>
+            <div class="ticker">GEV</div>
+        </div>
+        <div class="rank">#13</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">0.50</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/GEV/GEV_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/LTM/LTM_logo.png" alt="LTM" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** LATAM Airlines Group S.A. (Ticker: LTM)</div>
+            <div class="ticker">LTM</div>
+        </div>
+        <div class="rank">#14</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.47</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-sell">SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/LTM/LTM_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/BMO/BMO_logo.png" alt="BMO" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Bank of Montreal (BMO)</div>
+            <div class="ticker">BMO</div>
+        </div>
+        <div class="rank">#15</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.44</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/BMO/BMO_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/TEO/TEO_logo.png" alt="TEO" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** TEO (Telecom Argentina S.A.)</div>
+            <div class="ticker">TEO</div>
+        </div>
+        <div class="rank">#16</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">0.61</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Gray Zone</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/TEO/TEO_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/BNS/BNS_logo.png" alt="BNS" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** BNS (Bank of Nova Scotia)</div>
+            <div class="ticker">BNS</div>
+        </div>
+        <div class="rank">#17</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.36</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/BNS/BNS_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ET/ET_logo.png" alt="ET" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ET (Energy Transfer LP)</div>
+            <div class="ticker">ET</div>
+        </div>
+        <div class="rank">#18</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">0.68</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Gray Zone</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_sell">STRONG_SELL</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ET/ET_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/COF/COF_logo.png" alt="COF" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** COF (Capital One Financial Corporation)</div>
+            <div class="ticker">COF</div>
+        </div>
+        <div class="rank">#19</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.30</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/COF/COF_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/MTB/MTB_logo.png" alt="MTB" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** MTB (M&T Bank Corporation)</div>
+            <div class="ticker">MTB</div>
+        </div>
+        <div class="rank">#20</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-high">-0.26</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Distress</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/MTB/MTB_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Generated by Altman Z-Score Analysis System v4.5.0 | Data as of July 01, 2025</p>
+            <p><em>This analysis is for informational purposes only and should not be considered as investment
+                    advice.</em></p>
+        </footer>
+    </div>
 </body>
+
 </html>

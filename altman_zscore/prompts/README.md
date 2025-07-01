@@ -17,7 +17,7 @@ The prompts are used by the LLM client (`altman_zscore.layers.data_fetch.llm_cli
 
 **Features**:
 - 11-section structured report format
-- Tone adaptation based on Z-Score risk level (Distress/Grey/Safe zones)
+- Tone adaptation based on Z-Score risk level (Distress/Gray/Safe zones)
 - Executive summary and strategic recommendations
 - Investor recommendations with risk-aware analysis
 

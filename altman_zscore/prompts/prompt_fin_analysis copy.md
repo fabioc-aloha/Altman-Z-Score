@@ -254,7 +254,7 @@ You are an expert financial analyst. Using the **Altman Z-Score framework**, gen
 * *Gray Zone*
 * *Safe Zone*
 
-Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for grey-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
+Your recommendations and tone should reflect the Z-Score status, using cautionary language for distressed firms, balanced outlooks for Gray-zone firms, and growth-focused messaging for financially healthy firms. **You must justify your decisions and recommendations using all available data: Z-Score, financials, market trends, peer/industry context, management/executive changes, and any relevant news or events.** Follow these structured sections:
 
 ---
 ### 1. Executive Summary
@@ -298,7 +298,7 @@ Add a quote highly relevant to to the conclusions of this report:
 
 **DATA SOURCES**: Pre-calculated Z-Score files, financial statement data, dividend history, stock splits, weekly price data
 
-**TONE**: Adapt language to risk level (urgent for Distress, balanced for Grey, growth-focused for Safe)
+**TONE**: Adapt language to risk level (urgent for Distress, balanced for Gray, growth-focused for Safe)
 * Assess Z-Score trajectory and risk status based on Altman (1968) and Altman & Hotchkiss (2006), and adapt the diagnostic language to the company’s risk profile.
 * In your ratio analysis, use both the **Altman Z-Score components (X1, X2, X3, X4, X5 as available)** and the **latest key financial ratios** (Current Ratio, Quick Ratio, Debt/Equity, Gross Margin, Net Margin, ROA, ROE) provided at the top of the context. Compare and cross-reference these metrics for a comprehensive assessment.
 * Independently calculate the Altman Z-Score for each quarter using the injected financial data. Compare your results with the provided Z-Score values and comment on any discrepancies or confirm their accuracy.
@@ -371,7 +371,7 @@ Create additional comparison tables for key executive roles:
 - Both declining → CRISIS management mode
 - Both rising → EXECUTION focus
 
-**TONE**: Adapt to risk level (urgent for Distress, balanced for Grey, growth-focused for Safe)
+**TONE**: Adapt to risk level (urgent for Distress, balanced for Gray, growth-focused for Safe)
 
 * For executives, map specific individuals and their roles with **enhanced Z-Score/price trend analysis**:
   - **CEO & Executive Leadership**: Strategic vision, operational execution
@@ -410,7 +410,7 @@ Create additional comparison tables for key executive roles:
 
 * Tailor actions and tone to company risk level and any recent developments:
   * **Distress**: Emphasize urgency, transparency, short-term wins, focus on Z-Score stabilization
-  * **Grey**: Encourage disciplined change with measured optimism, target Z-Score improvement
+  * **Gray**: Encourage disciplined change with measured optimism, target Z-Score improvement
   * **Safe**: Focus on strategic enablement, leadership development, maintain Z-Score strength
 
 **THEORETICAL FRAMEWORKS FOR EXECUTIVE ANALYSIS**:
@@ -556,7 +556,7 @@ Create additional comparison tables for key executive roles:
 - Scenario analysis (what could change the recommendation)
 
 **DELIVERABLE**: Comprehensive investment recommendations table with detailed trend analysis
-  - Z-Score trend and risk zone (Distress, Grey, Safe) trajectory
+  - Z-Score trend and risk zone (Distress, Gray, Safe) trajectory
   - Recent financial performance and outlook
   - Industry/peer context and macroeconomic factors (use sector/industry/company profile data if available)
   - Ownership and insider/institutional sentiment (from institutional and major holders data)
@@ -656,7 +656,7 @@ All computations, including the Altman Z-Score, follow the methodology described
 
 Before submitting your analysis, ensure you have:
 
-✅ **Used appropriate tone for Z-Score risk level** (Distress/Grey/Safe)
+✅ **Used appropriate tone for Z-Score risk level** (Distress/Gray/Safe)
 ✅ **Included Z-Score vs Price trend analysis** in ALL recommendations  
 ✅ **Provided explicit Buy/Hold/Sell** for each investor profile
 ✅ **Used ONLY actual injected data** (no fabrication)

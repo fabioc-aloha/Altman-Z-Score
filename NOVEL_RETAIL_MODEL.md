@@ -285,7 +285,7 @@ Shumway, T. (2001). Forecasting bankruptcy more accurately: A simple hazard mode
 | Zone | Range | Interpretation |
 |------|-------|----------------|
 | Safe | Z > 2.99 | Low bankruptcy probability |
-| Grey | 1.81 ≤ Z ≤ 2.99 | Moderate bankruptcy probability |
+| Gray | 1.81 ≤ Z ≤ 2.99 | Moderate bankruptcy probability |
 | Distress | Z < 1.81 | High bankruptcy probability |
 
 ---

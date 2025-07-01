@@ -63,7 +63,7 @@ Follow with detailed narrative commentary interpreting each dimension, referenci
 **Z-Score Evolution Table:**
 | Period | Z-Score Value | Risk Category | Key Drivers | Business Context |
 |--------|---------------|---------------|-------------|------------------|
-| [Current] | [Value] | [Distress/Grey/Safe] | [Component Analysis] | [Business Events] |
+| [Current] | [Value] | [Distress/Gray/Safe] | [Component Analysis] | [Business Events] |
 | [Previous Quarters] | [Historical Values] | [Category Changes] | [Trend Drivers] | [Operational Changes] |
 
 Provide comprehensive commentary on Z-Score trajectory, component contribution analysis, and correlation with business cycle dynamics. Reference AI Peer Analysis industry average Z-Score for benchmarking context and analyze inflection points using enhanced financial indicators.

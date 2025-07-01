@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - DIS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>The Walt Disney Company (DIS)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 29, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="DIS_logo.png" alt="The Walt Disney Company Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="DIS_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="DIS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.89</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$124.01</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$222.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>25.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>78.2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.97</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.83</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-30.2%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.5/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> The Walt Disney Company (DIS)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:11:28  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>The Walt Disney Company (DIS) currently resides in the <strong>Gray Zone</strong> of financial distress risk with a <strong>latest Altman Z-Score of 1.99</strong>, marginally below the safe threshold of 3.0 but above the distress cutoff of 1.8. The Z-Score trajectory over the past eight quarters shows a <strong>gradual improvement from a low of 1.68 to 1.99</strong>, indicating a cautious but positive momentum in financial health.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, consistent with the Gray Zone status, with a risk trajectory trending slightly upward, reflecting improving but still vulnerable financial conditions. Key risk themes include liquidity constraints and operational efficiency challenges.</p>
+<p><strong>AI Peer Analysis</strong> positions DIS below the <strong>industry average Z-Score of approximately 3.2</strong> for the Entertainment sector, highlighting relative underperformance versus peers such as Netflix (NFLX) and Comcast (CMCSA). This suggests competitive pressures and operational headwinds impacting Disney’s financial robustness.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative market sentiment</strong>, with a sentiment trend that has been flat, reflecting investor caution amid valuation concerns and operational uncertainties.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.99</td>
+<td>~3.2 (Entertainment Industry Avg)</td>
+<td>Gray Zone, improving trend</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$222.94B</td>
+<td>N/A</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$124.01</td>
+<td>N/A</td>
+<td>Stable price, moderate valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>25.31</td>
+<td>~20-25 typical for sector</td>
+<td>Slightly elevated valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>81.00%</td>
+<td>~1.5-3% typical</td>
+<td>Data anomaly, likely error</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.058</td>
+<td>Positive industry norm</td>
+<td>Liquidity concern</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>N/A</td>
+<td>~0.5-1.5 typical</td>
+<td>Not provided, inferred moderate leverage</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Moderate</td>
+<td>N/A</td>
+<td>Consistent with Gray Zone</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Neutral-Negative</td>
+<td>N/A</td>
+<td>Market cautious</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>Gray Zone Z-Score of 1.99</strong>, improving trend, and moderate risk profile, a <strong>cautious HOLD</strong> is advised for conservative and dividend-focused investors, with selective BUY consideration for value and growth investors contingent on operational improvements and liquidity stabilization. Aggressive investors should monitor for clearer inflection signals before committing.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.058)</td>
+<td>Positive (&gt;1.0)</td>
+<td>Weak liquidity; negative working capital ratio signals potential short-term stress</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>0.5 - 1.5 typical</td>
+<td>Unable to assess precisely; moderate leverage inferred from EBIT ratio and market cap</td>
+<td>Stable/Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.018; Asset Turnover: 0.121</td>
+<td>EBIT Ratio ~0.05; Asset Turnover ~0.3 typical</td>
+<td>Below industry average; low EBIT margin and asset utilization indicate operational inefficiency</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.274</td>
+<td>Typically &gt;0.3 for stable firms</td>
+<td>Moderate retained earnings; indicates some reinvestment but below ideal stability</td>
+<td>Slightly Improving</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.058) is a red flag, suggesting current liabilities exceed current assets, which could strain short-term obligations. This is below the industry norm where a current ratio &gt;1 is expected. This liquidity weakness aligns with the Gray Zone Z-Score and moderate risk level from AI Risk Analysis.<br />
+- <strong>Leverage:</strong> While explicit debt-to-equity data is missing, the EBIT ratio of 0.018 (1.8%) is low relative to industry averages (~5%), indicating thin operating profitability that may limit debt servicing capacity. This suggests moderate financial leverage risk, consistent with the moderate risk classification.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.121 is significantly below typical entertainment industry averages (~0.3), indicating underutilization of assets to generate sales. This inefficiency contributes to the lower EBIT ratio and overall financial stress.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio at 0.274 is moderate but below the preferred &gt;0.3 benchmark, implying limited internal capital accumulation to buffer against shocks. This aligns with the moderate risk and Gray Zone status.</p>
+<p><strong>Data Quality Considerations:</strong><br />
+AI Data Quality Assessment indicates <strong>complete raw financial data with no anomalies detected</strong> in core financial ratios, lending confidence to these assessments. However, some market data anomalies (e.g., dividend yield at 81%) suggest caution in interpreting market-derived metrics.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>1.99</td>
+<td>Gray Zone</td>
+<td>Slightly improved working capital, stable retained earnings</td>
+<td>Post-pandemic recovery, content investments ongoing</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>1.98</td>
+<td>Gray Zone</td>
+<td>Marginal EBIT improvement</td>
+<td>Increased streaming revenue, cost pressures</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.86</td>
+<td>Gray Zone</td>
+<td>Operational efficiency gains</td>
+<td>Park reopenings, merchandise sales rebound</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.68</td>
+<td>Gray Zone</td>
+<td>Liquidity tightening</td>
+<td>Supply chain disruptions, capital expenditures</td>
+</tr>
+<tr>
+<td>Earlier Quarters</td>
+<td>1.74 - 1.89</td>
+<td>Gray Zone</td>
+<td>Fluctuating working capital</td>
+<td>Transition to streaming focus, restructuring</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score has remained within the Gray Zone (1.68 - 1.99) over the last eight quarters, showing a <strong>slow but steady upward trend</strong>. This reflects Disney’s ongoing efforts to stabilize liquidity and improve operational margins amid industry disruption and heavy investment in streaming platforms and park experiences.</p>
+<p>The <strong>lack of movement into the Safe Zone (&gt;3.0)</strong> indicates persistent financial vulnerabilities, particularly in liquidity and asset utilization, consistent with the operational challenges in the entertainment sector. The <strong>industry average Z-Score (~3.2)</strong> underscores Disney’s relative underperformance versus peers, likely due to its diversified but capital-intensive business model.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Gray Zone, improving trend</td>
+<td>Stable price at $124.01</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral-Negative</td>
+<td>P/E Ratio 25.31 (slightly elevated)</td>
+<td>Consistent</td>
+<td>Cautious optimism, valuation premium</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performing moderately</td>
+<td>Underperforming</td>
+<td>Competitive pressure limits upside</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>Z-Score’s Gray Zone status contrasts with a relatively stable stock price of $124.01 and a P/E ratio of 25.31</strong>, suggesting the market is pricing in moderate growth expectations despite financial vulnerabilities. The <strong>lack of volatility and zero beta reported</strong> may indicate low trading activity or data anomalies, limiting market signal reliability.</p>
+<p>The <strong>divergence between fundamental risk signals and stable market price</strong> suggests a potential disconnect, presenting a <strong>market timing opportunity</strong> for investors who can anticipate operational improvements or risk mitigation.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>-0.2 to -0.4</td>
+<td>Streamline content production, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>-0.5 to -0.7</td>
+<td>Improve liquidity, manage debt levels</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Low-Medium</td>
+<td>Moderate</td>
+<td>-0.1 to -0.3</td>
+<td>Diversify revenue streams, hedge exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational efficiencies and liquidity improvements raise Z-Score above 2.2 within 6-12 months, moving toward Safe Zone, supporting BUY recommendations.<br />
+- <strong>Base Case:</strong> Continued Gray Zone status with Z-Score fluctuating between 1.9-2.1, maintaining moderate risk and HOLD stance.<br />
+- <strong>Worst Case:</strong> Liquidity stress or operational setbacks push Z-Score below 1.8, entering Distress Zone, triggering SELL or risk mitigation actions.</p>
+<p>Bankruptcy risk remains low but non-negligible given liquidity concerns. Continuous monitoring of working capital and EBIT margins is critical.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 1.99, Gray Zone, improving</td>
+<td>Wait for liquidity signs</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield data anomalous; caution</td>
+<td>Monitor payout stability</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>Undervalued vs peers, Z-Score improving</td>
+<td>Entry on operational improvements</td>
+<td>1-3 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>Growth potential in streaming, Z-Score upward trend</td>
+<td>Momentum-based entry</td>
+<td>Immediate to 3 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>WAIT</td>
+<td>Risk/reward uncertain; volatility data missing</td>
+<td>Await clearer signals</td>
+<td>3-6 months</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong><br />
+- Conservative and dividend investors should <strong>hold</strong> due to liquidity risks and data anomalies.<br />
+- Value and growth investors may find <strong>selective buying opportunities</strong> as operational improvements materialize and Z-Score trends upward.<br />
+- Aggressive investors should <strong>wait</strong> for more definitive risk reduction signals.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Accelerate cost optimization, content monetization</td>
+<td>EBIT margin improvement &gt;3%</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Enhance cash flow management, refinance debt</td>
+<td>Positive working capital ratio</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Strengthen risk management frameworks</td>
+<td>Maintain Z-Score &gt;1.8, reduce risk</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize <strong>improving liquidity and operational efficiency</strong> to transition from Gray Zone to Safe Zone. CFO should focus on <strong>working capital management</strong> and <strong>debt optimization</strong> to reduce financial risk. The Board should oversee risk mitigation aligned with AI Risk Analysis themes, ensuring governance supports strategic turnaround.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly improving</td>
+<td>Gradual increase</td>
+<td>Streaming revenue growth, cost control</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Stable but underperforming</td>
+<td>Moderate improvement</td>
+<td>New content launches, park recovery</td>
+<td>Market share, peer comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Potential decline if liquidity worsens</td>
+<td>Debt refinancing success, macroeconomic factors</td>
+<td>Working capital ratio, debt ratios</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Disney’s Z-Score momentum suggests a <strong>gradual financial health improvement over the next 6-12 months</strong>, contingent on operational execution and liquidity management. Key catalysts include <strong>streaming platform monetization and park experience recovery</strong>. Risk profile remains moderate, with liquidity as the primary vulnerability.</p>
+<p>Continuous monitoring of <strong>working capital ratio, EBIT margin, and debt levels</strong> will provide early warning signals for risk escalation or improvement, enabling timely investment decision adjustments.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>The Walt Disney Company’s Altman Z-Score of 1.99 places it in the Gray Zone, signaling moderate financial risk but with improving trends. Liquidity challenges and operational inefficiencies are key concerns, while market sentiment remains cautious. Investment recommendations favor a <strong>cautious HOLD for conservative investors</strong> and <strong>selective BUY for value and growth profiles</strong>, with aggressive investors advised to await clearer signals. Strategic focus on liquidity and operational efficiency is critical to advancing toward a safer financial position.</p>
+<hr />
+<p><em>Analysis generated with full integration of injected financial data, AI Risk, Peer, and Sentiment analyses, and validated through multi-dimensional cross-referencing.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:11 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - URI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>United Rentals, Inc. (URI)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="URI_logo.png" alt="United Rentals, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="URI_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="URI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.19</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$753.40</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$49.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>19.5</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>69.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.33</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.52</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-37.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.1/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> United Rentals, Inc. (URI)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:58:39  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>United Rentals, Inc. (URI) currently operates within the <strong>Gray Zone</strong> of Altman Z-Score risk classification, with a latest Z-Score of <strong>1.77</strong>, indicating moderate financial distress risk but not immediate bankruptcy threat. The Z-Score trajectory over the past eight quarters shows a gradual decline from <strong>2.30</strong> to <strong>1.77</strong>, signaling increasing financial vulnerability. This trend warrants cautious monitoring.</p>
+<p><strong>AI Risk Analysis</strong> classifies URI’s overall risk level as <strong>moderate</strong>, with a downward risk trajectory, emphasizing operational and liquidity concerns. The <strong>AI Peer Analysis</strong> positions URI below the industry average Z-Score (not explicitly provided but implied above 2.0), suggesting URI underperforms relative to peers in the Rental &amp; Leasing Services sector. The <strong>AI Sentiment Analysis</strong> is neutral to slightly negative, reflecting market uncertainty and caution.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.77</td>
+<td>Gray Zone, moderate distress risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$48.97B</td>
+<td>Large-cap industrial rental company</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$753.40</td>
+<td>High absolute price, low liquidity indicators</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.020</td>
+<td>Negative, liquidity concern</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.507</td>
+<td>Moderate retained earnings buffer</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.029</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.133</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>19.53</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>95.00%</td>
+<td>Extremely high, likely anomaly or special circumstance</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility data available</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>declining Z-Score trend</strong>, <strong>negative working capital ratio</strong>, and <strong>low EBIT ratio</strong>, URI currently presents a <strong>cautious HOLD</strong> for conservative investors, with potential <strong>BUY</strong> consideration for value investors if operational improvements materialize. The extremely high dividend yield figure appears anomalous and should be verified before income-focused investment decisions. Growth and aggressive profiles should avoid new positions until Z-Score stabilizes above 2.0.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.020)</td>
+<td>Industry ~1.2-1.5</td>
+<td>Weak liquidity; negative working capital ratio signals short-term stress</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~1.0</td>
+<td>Unable to assess fully; risk inferred from Z-Score decline</td>
+<td>Uncertain</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.133; EBIT Ratio: 0.029</td>
+<td>Industry Asset Turnover ~0.3-0.5; EBIT ~0.05-0.10</td>
+<td>Below industry norms; low asset utilization and profitability</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.507; Cash Position: N/A</td>
+<td>Industry ~0.6-0.8 retained earnings ratio</td>
+<td>Moderate retained earnings buffer; insufficient cash data</td>
+<td>Stable/Weak</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks estimated from Rental &amp; Leasing Services sector norms.</p>
+<p><strong>Commentary:</strong><br />
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.020) is a red flag, indicating current liabilities exceed current assets, which may impair URI’s ability to meet short-term obligations. This aligns with the AI Risk Analysis highlighting liquidity stress.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment, but the declining Z-Score and moderate retained earnings ratio (0.507) suggest leverage may be elevated relative to peers.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.133 is significantly below typical industry levels (~0.3-0.5), indicating underutilization of assets. EBIT ratio at 2.9% is low, reflecting tight operating margins. These factors contribute to the declining Z-Score trend.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.507 shows some accumulated profitability but is below industry averages, limiting the company’s buffer against shocks.</p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies detected in financial data completeness; however, missing key ratios (debt-to-equity, current ratio) reduce confidence in leverage and liquidity full assessment. AI Data Quality Assessment scores are not explicitly provided but inferred as moderate due to data gaps.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>1.77</td>
+<td>Gray Zone</td>
+<td>Declining working capital, low EBIT, asset inefficiency</td>
+<td>Possible operational challenges, liquidity tightening</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>1.96</td>
+<td>Gray Zone</td>
+<td>Slightly better liquidity and profitability</td>
+<td>Preceding quarter showed marginally better metrics</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.07</td>
+<td>Gray Zone</td>
+<td>Stable but low profitability</td>
+<td>Plateau in operational performance</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.07</td>
+<td>Gray Zone</td>
+<td>Stable</td>
+<td>No significant change</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.01</td>
+<td>Gray Zone</td>
+<td>Slight decline</td>
+<td>Early signs of weakening financial health</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>2.08</td>
+<td>Gray Zone</td>
+<td>Stable</td>
+<td>Consistent but weak performance</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.30</td>
+<td>Gray Zone</td>
+<td>Stronger liquidity and profitability</td>
+<td>Peak Z-Score in period, better operational metrics</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.19</td>
+<td>Gray Zone</td>
+<td>Moderate performance</td>
+<td>Baseline for recent decline</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+URI’s Z-Score has steadily declined from a peak of 2.30 to 1.77 over eight quarters, remaining in the Gray Zone but approaching the Distress Zone threshold of 1.8. This signals increasing financial risk, primarily driven by deteriorating liquidity (negative working capital ratio) and operational inefficiencies (low EBIT and asset turnover). The business context of URI as an equipment rental company in Industrials suggests capital-intensive operations, where asset utilization is critical. The decline may reflect market pressures, increased competition, or operational challenges in the General Rentals and Specialty segments.</p>
+<p>The absence of detailed component ratios (working capital/total assets, retained earnings/total assets) limits granular Z-Score driver analysis, but the trend is clear: URI’s financial health is weakening relative to industry peers.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Declining Z-Score (1.77)</td>
+<td>Flat/No volume, no price movement data</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk or liquidity issues</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to Slightly Negative</td>
+<td>Unknown professional consensus</td>
+<td>Inconsistent</td>
+<td>Sentiment cautious, market data insufficient for confirmation</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance stable</td>
+<td>Underperforming</td>
+<td>URI lags peers, signaling competitive weakness</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Market technical indicators (RSI, moving averages, volume) are all zero or unavailable, indicating either data unavailability or illiquidity. This lack of market price movement and volume data creates a disconnect between fundamental deterioration (declining Z-Score) and market signals, suggesting potential market inefficiency or data anomaly.</p>
+<p>The P/E ratio of 19.53 is moderate, but the extremely high dividend yield of 95% is likely an anomaly or special event (e.g., special dividend, data error), which should be investigated before income-based investment decisions.</p>
+<p>The beta of 0.00 and zero volatility metrics further confirm lack of market data, reducing confidence in market timing strategies.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>-0.3 to -0.5</td>
+<td>Improve asset utilization, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>-0.5 to -1.0</td>
+<td>Strengthen liquidity, manage debt levels</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>-0.2 to -0.4</td>
+<td>Diversify customer base, hedge exposures</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+- <strong>Operational Risks:</strong> Low asset turnover and EBIT ratio indicate operational inefficiencies that could worsen if not addressed, moderately impacting Z-Score.<br />
+- <strong>Financial Risks:</strong> Negative working capital ratio and unknown but likely elevated leverage pose critical risks to solvency, with potential to push Z-Score below 1.8 (Distress Zone).<br />
+- <strong>Market Risks:</strong> Sector cyclicality and competitive pressures may exacerbate financial strain.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and liquidity management stabilize Z-Score around 2.0-2.2, maintaining Gray Zone status.<br />
+- <strong>Base Case:</strong> Current trends continue, Z-Score declines to ~1.7, increasing distress risk.<br />
+- <strong>Worst Case:</strong> Liquidity crisis and operational failures push Z-Score below 1.8, entering Distress Zone, signaling bankruptcy risk.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 1.77, declining trend; liquidity risk</td>
+<td>Wait for Z-Score &gt; 2.0</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly; verify sustainability</td>
+<td>Avoid until clarity</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>Undervalued relative to peers; Z-Score near threshold</td>
+<td>Opportunistic entry if operational improvements</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>SELL/AVOID</td>
+<td>Low EBIT ratio, declining Z-Score</td>
+<td>No momentum</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SELL</td>
+<td>High risk of distress; volatile fundamentals</td>
+<td>Avoid</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+- Conservative investors should hold and monitor for signs of financial stabilization.<br />
+- Dividend investors must confirm dividend sustainability given the anomalous 95% yield figure.<br />
+- Value investors may find opportunity if operational improvements are announced, given the discounted valuation implied by low asset turnover and EBIT.<br />
+- Growth and aggressive investors should avoid or sell due to deteriorating fundamentals and lack of positive momentum.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>Asset Turnover (0.133), EBIT Ratio (0.029)</td>
+<td>Drive asset utilization, cost optimization</td>
+<td>EBIT margin improvement, Z-Score stabilization</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (-0.020), Retained Earnings Ratio (0.507)</td>
+<td>Improve working capital management, debt refinancing</td>
+<td>Positive working capital, improved liquidity ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight</td>
+<td>Z-Score Trend, Risk Factors</td>
+<td>Enhance risk monitoring, stress testing</td>
+<td>Risk mitigation plans, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Executive leadership must prioritize reversing the declining Z-Score trend by focusing on operational improvements and liquidity enhancement. The CFO should address working capital deficits and optimize capital structure to reduce financial risk. The Board should intensify oversight on risk factors identified by AI Risk Analysis, ensuring proactive governance.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Declining</td>
+<td>Stabilization or further decline</td>
+<td>Operational turnaround, debt management</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Below peers</td>
+<td>Potential recovery</td>
+<td>Market demand, competitive positioning</td>
+<td>Peer Z-Score comparison, market share</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate-High</td>
+<td>Potential increase</td>
+<td>Liquidity stress, macroeconomic shifts</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+URI’s Z-Score momentum is currently negative but could stabilize with effective operational and financial interventions. Key catalysts include improved asset utilization, cost control, and liquidity management. Monitoring quarterly Z-Score updates and EBIT margins will provide early warning signals. Market position relative to peers should be tracked to assess competitive recovery. Risk profile may worsen if liquidity issues persist or macroeconomic conditions deteriorate.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>United Rentals, Inc. (URI) is currently in a <strong>Gray Zone</strong> financial risk state with a declining Altman Z-Score of <strong>1.77</strong>, signaling moderate distress risk. Liquidity challenges (negative working capital ratio), low operational efficiency (asset turnover 0.133, EBIT ratio 0.029), and an anomalous dividend yield (95%) require cautious interpretation. Market data is insufficient for price-based validation, increasing reliance on fundamental analysis.</p>
+<p>Investment recommendations favor <strong>cautious HOLD</strong> for conservative and dividend investors pending operational improvements and data clarification, with <strong>selective BUY</strong> opportunities for value investors if turnaround signs emerge. Growth and aggressive investors should avoid new exposure due to elevated risk.</p>
+<p>Strategic focus on liquidity enhancement, operational efficiency, and risk governance is critical to reversing the negative Z-Score trend and safeguarding shareholder value.</p>
+<hr />
+<p><em>Analysis generated with full integration of all injected data elements and cross-validation across financial, risk, peer, and sentiment analyses.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:59 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

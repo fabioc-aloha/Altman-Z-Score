@@ -11,6 +11,8 @@
 - Be careful when inserting or making changes around docstrings - preserve existing documentation
 - Do not introduce regressions - maintain backward compatibility
 - Ensure all changes maintain existing functionality
+- Never mix html, css with python code - keep them separate in individual files
+- Always use "gray" instead of "Gray" in all variable names, constants, comments, and documentation for consistency
 
 **Terminal & Command Guidelines:**
 - Do not use escape characters in terminal commands
@@ -44,3 +46,11 @@ These documents provide comprehensive understanding of the Altman Z-Score system
 
 **🎯 Project Achievements:**
 - **NOVEL_RETAIL_MODEL.md** represents a **major intellectual contribution** - a novel academic model that extends traditional Z-Score methodology for retail industry applications
+
+**Naming Conventions:**
+- Use American English spelling in code (e.g., "color" not "colour", "gray" not "Gray")
+- Use camelCase for variable names (e.g., "grayZone" not "GrayZone" or "gray_zone")
+- Use PascalCase for class names
+- Maintain consistent naming across all files and modules
+- Use American English terms in all comments, documentation, and variable names
+- Use "gray" consistently in all contexts (variables, constants, comments, documentation)

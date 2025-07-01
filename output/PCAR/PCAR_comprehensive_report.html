@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - PCAR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>PACCAR Inc (PCAR)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="PCAR_logo.png" alt="PACCAR Inc Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="PCAR_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="PCAR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.65</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$95.06</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$49.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>14.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>53.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.86</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.09</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-24.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.8/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> PACCAR Inc (Ticker: PCAR)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:58:39  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>PACCAR Inc (PCAR) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with its Altman Z-Score consistently ranging between 2.14 and 2.71 over the last eight quarters, most recently at <strong>2.45</strong>. This indicates moderate financial health with some caution warranted. The AI Risk Analysis, implicitly reflected by this Z-Score range, suggests a <strong>medium overall risk level</strong> with a stable risk trajectory, signaling no immediate distress but highlighting the need for vigilant monitoring.</p>
+<p><strong>Peer Analysis</strong> positions PCAR moderately within its industry, with an industry average Z-Score near the Gray Zone threshold, indicating PCAR is roughly in line with peers in the Agricultural Machinery sector. The company’s <strong>market capitalization of $49.9 billion</strong> and a current share price of <strong>$95.06</strong> reflect strong market presence, though valuation metrics such as P/E ratio at <strong>14.42</strong> and EV/EBITDA at <strong>11.93</strong> suggest moderate valuation relative to earnings.</p>
+<p><strong>Sentiment Analysis</strong> is limited due to missing technical indicators (RSI, moving averages, volume all zero), but the reported <strong>dividend yield of 139.00%</strong> is anomalous and likely a data anomaly, reducing confidence in sentiment-derived signals. The beta of <strong>0.00</strong> and zero volatility metrics further confirm data quality issues in market sentiment inputs.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>2.45</td>
+<td>Gray Zone, moderate risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$49.9B</td>
+<td>Large-cap industrial</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$95.06</td>
+<td>Stable price level</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>14.42</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>139.00%</td>
+<td>Data anomaly, unreliable</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>Data anomaly, unreliable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given the stable Gray Zone Z-Score, moderate valuation, and sector positioning, a <strong>Hold</strong> stance is recommended for conservative investors, with selective <strong>Buy</strong> consideration for value investors if price dips align with Z-Score stability. Aggressive investors should await clearer market signals due to data anomalies and moderate risk profile.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Agricultural Machinery)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.501<br>Working Capital Ratio: 0.501</td>
+<td>Industry avg. ~1.0+ (healthy &gt;1.2)</td>
+<td><strong>Weak liquidity</strong>, below industry standard, potential short-term stress</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry avg. Debt/Equity ~0.5-1.0</td>
+<td>Insufficient data; leverage unknown, caution advised</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.174<br>EBIT Ratio: 0.021</td>
+<td>Industry avg. Asset Turnover ~0.3-0.5<br>EBIT margin ~5-10%</td>
+<td><strong>Below average efficiency and profitability</strong>, indicating operational challenges</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.423<br>Cash Position: Not provided</td>
+<td>Industry avg. Retained Earnings Ratio ~0.4-0.6</td>
+<td>Moderate retained earnings, stable equity base</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+PACCAR’s liquidity position, with a current ratio of <strong>0.501</strong>, is significantly below the typical industry benchmark of around 1.0 or higher, indicating potential short-term liquidity constraints. The working capital ratio mirrors this, suggesting limited buffer for operational cash flow needs. Operational efficiency metrics are subdued, with an asset turnover of <strong>0.174</strong> and EBIT ratio of <strong>0.021</strong>, both below industry averages, signaling less effective asset utilization and thin operating margins. The retained earnings ratio at <strong>0.423</strong> is moderate, reflecting a reasonable accumulation of earnings reinvested in the business, supporting financial stability.</p>
+<p>The <strong>AI Data Quality Assessment</strong> reveals no explicit anomalies in financial ratios but highlights missing leverage and interest coverage data, limiting full leverage risk evaluation. The sector context—Industrials, Agricultural Machinery—typically demands strong capital efficiency and liquidity due to cyclical demand and capital-intensive operations, suggesting PCAR’s current liquidity and operational efficiency warrant close monitoring.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers (Qualitative)</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>2.45</td>
+<td>Gray Zone</td>
+<td>Stable working capital, moderate EBIT, retained earnings</td>
+<td>Steady truck manufacturing demand, moderate profitability</td>
+</tr>
+<tr>
+<td>Previous Q7</td>
+<td>2.46</td>
+<td>Gray Zone</td>
+<td>Similar financial ratios, slight EBIT improvement</td>
+<td>Stable market conditions, no major disruptions</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.22</td>
+<td>Gray Zone</td>
+<td>Slight dip in EBIT ratio, liquidity pressure</td>
+<td>Possible operational inefficiencies emerging</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.35</td>
+<td>Gray Zone</td>
+<td>Recovery in EBIT and working capital</td>
+<td>Incremental operational improvements</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.42</td>
+<td>Gray Zone</td>
+<td>Stable retained earnings, moderate asset turnover</td>
+<td>Consistent demand in commercial truck segment</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>2.71</td>
+<td>Gray Zone</td>
+<td>Peak EBIT ratio, improved asset turnover</td>
+<td>Favorable market conditions, strong sales growth</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.14</td>
+<td>Gray Zone</td>
+<td>Lowest Z-Score, liquidity tightening</td>
+<td>Temporary operational challenges or market softness</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.65</td>
+<td>Gray Zone</td>
+<td>Recovery phase, improving margins</td>
+<td>Resumption of growth post-challenges</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory over eight quarters shows <strong>moderate volatility within the Gray Zone</strong>, fluctuating between 2.14 and 2.71 but never breaching the Safe Zone (&gt;3.0) or Distress Zone (&lt;1.8). This pattern reflects a business maintaining financial stability but facing operational and liquidity pressures typical of cyclical industrial sectors.</p>
+<p>Key drivers include fluctuating EBIT ratios and working capital levels, which correlate with industry demand cycles and capital expenditure patterns. The lack of significant inflection points suggests no imminent distress but highlights the need for operational efficiency improvements to push the Z-Score toward the Safe Zone.</p>
+<p>Benchmarking against the AI Peer Analysis industry average Z-Score (not explicitly provided but inferred near Gray Zone), PCAR remains competitive but not leading, underscoring the importance of strategic initiatives to enhance profitability and liquidity.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Gray Zone (~2.45)</td>
+<td>Price stable at $95.06</td>
+<td>Aligned</td>
+<td>Moderate risk, steady valuation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Unavailable/Anomalous</td>
+<td>Dividend yield 139% (anomaly)</td>
+<td>Divergent</td>
+<td>Sentiment data unreliable</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Moderate relative position</td>
+<td>Sector performance moderate</td>
+<td>Aligned</td>
+<td>Competitive but not outperforming</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Z-Score aligns well with the stable stock price around $95.06, suggesting market recognition of PCAR’s moderate risk and steady earnings profile. However, the <strong>market sentiment data is unreliable</strong> due to anomalous dividend yield (139%) and zero volatility/beta metrics, likely reflecting data quality issues rather than true market signals.</p>
+<p>Peer comparison confirms PCAR’s position as a stable but not dominant player in its sector. The lack of divergence between fundamental and market signals supports a <strong>neutral market timing stance</strong>, with no clear buy or sell triggers from price or sentiment data.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential Z-Score decline of 0.2-0.3</td>
+<td>Enhance operational efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Liquidity constraints could reduce Z-Score by 0.3</td>
+<td>Improve working capital management, debt restructuring</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium-Low</td>
+<td>Moderate</td>
+<td>Demand fluctuations may impact EBIT ratio</td>
+<td>Diversify markets, hedge commodity exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and stable demand push Z-Score above 3.0, entering Safe Zone, improving investment appeal.<br />
+- <strong>Base Case:</strong> Z-Score remains in Gray Zone (2.2-2.7), reflecting steady but cautious financial health.<br />
+- <strong>Worst Case:</strong> Liquidity stress or operational setbacks reduce Z-Score below 1.8, signaling distress risk and potential credit issues.</p>
+<p>Mitigation focuses on operational efficiency, liquidity enhancement, and market diversification. Based on AI Risk Analysis, the overall risk level is medium with moderate confidence, emphasizing proactive risk management.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable in Gray Zone (2.45)</td>
+<td>Price stable, no strong buy signals</td>
+<td>Monitor quarterly, reassess if Z &lt; 2.2</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable; moderate retained earnings</td>
+<td>Wait for dividend yield confirmation</td>
+<td>Review semi-annually</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>P/E 14.42 reasonable; Z-Score stable</td>
+<td>Look for price dips near $90-$92</td>
+<td>Entry within 3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>EBIT ratio low (0.021), growth limited</td>
+<td>Await operational improvements</td>
+<td>Monitor next 2 quarters</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>WAIT</td>
+<td>Moderate risk, data anomalies in market metrics</td>
+<td>Avoid until clearer signals</td>
+<td>Reassess in 6 months</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong><br />
+Conservative investors should maintain positions given moderate risk and stable Z-Score. Dividend investors should be cautious due to unreliable yield data. Value investors may find opportunities if price dips while Z-Score remains stable. Growth and aggressive profiles should await clearer operational improvements and market data clarity.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio (0.021), Asset Turnover (0.174)</td>
+<td>Drive cost optimization, improve asset utilization</td>
+<td>EBIT margin improvement, Z-Score &gt; 2.7</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Current Ratio (0.501), Retained Earnings (0.423)</td>
+<td>Enhance working capital, optimize debt levels</td>
+<td>Current ratio &gt; 1.0, stable debt ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor risk factors, enforce governance policies</td>
+<td>Risk mitigation, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership should prioritize operational improvements to boost EBIT margins and asset turnover, directly impacting Z-Score positively. CFO focus on liquidity enhancement is critical given current ratio below industry norms. The Board must maintain vigilant risk oversight, especially given the medium risk level and Gray Zone status, ensuring proactive governance and compliance.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable in Gray Zone (2.45)</td>
+<td>Slight upward potential</td>
+<td>Operational efficiency gains, market demand recovery</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Moderate relative standing</td>
+<td>Potential improvement</td>
+<td>Product innovation, geographic expansion</td>
+<td>Market share, sales growth rates</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Medium risk level</td>
+<td>Stable to moderate risk</td>
+<td>Economic cycles, supply chain stability</td>
+<td>Liquidity ratios, debt levels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+PACCAR’s Z-Score momentum suggests a stable financial outlook with potential for modest improvement if operational and liquidity initiatives succeed. Key catalysts include enhanced asset utilization and market expansion. Risk profile remains medium; early warning indicators such as declining current ratio or EBIT margin should be closely monitored. Investment thesis may evolve toward Buy if Z-Score breaches 2.7+ with stable market conditions.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>PACCAR Inc exhibits <strong>moderate financial health within the Gray Zone</strong>, with stable but suboptimal liquidity and operational efficiency metrics. The Altman Z-Score trend is steady, reflecting resilience but highlighting areas for improvement. Market data anomalies limit sentiment confidence, reinforcing a cautious investment stance. Risk stratification underscores the importance of operational and liquidity risk mitigation. Investment recommendations favor <strong>Hold</strong> for conservative and growth investors, with <strong>selective Buy</strong> opportunities for value investors on price weakness. Strategic focus on operational efficiency and liquidity enhancement is critical to transition toward a safer financial zone and improved market positioning.</p>
+<hr />
+<p><em>Analysis completed with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context to provide actionable investment intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:59 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

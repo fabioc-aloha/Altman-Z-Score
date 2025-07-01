@@ -529,7 +529,7 @@ Generate market context analysis that helps with investment timing decisions."""
         """Get appropriate tone based on risk category."""
         if risk_category == "Distress":
             return "cautious and risk-focused"
-        elif risk_category == "Grey":
+        elif risk_category == "Gray":
             return "balanced and measured"
         else:  # Safe
             return "optimistic but prudent"

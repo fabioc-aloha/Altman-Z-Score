@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - HUBS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>HubSpot, Inc. (HUBS)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="HUBS_logo.png" alt="HubSpot, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Negative price trend</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="HUBS_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="HUBS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.49</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$556.63</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$29.4B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>61.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>31.3</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.31</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.04</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-40.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> HUBS (HubSpot, Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:01:02  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>HubSpot, Inc. (HUBS) demonstrates an exceptionally strong financial position as evidenced by its Altman Z-Score consistently well above the safe threshold of 3.0, ranging from 9.49 to 11.07 over the last eight quarters. This places HUBS firmly in the <strong>Safe Zone</strong>, indicating a very low risk of bankruptcy or financial distress. The Z-Score trajectory shows a stable to slightly improving trend, peaking at 11.07 before a minor dip to 10.80, reflecting robust operational and financial health.</p>
+<p><strong>AI Risk Analysis</strong> data is limited in explicit risk level metrics, but the absence of detected anomalies and the stable Z-Score trend imply a low overall risk level with a neutral to slightly positive risk trajectory. The <strong>AI Peer Analysis</strong> positions HUBS well above the typical industry average Z-Score (not explicitly provided but generally around 3-4 for technology software firms), indicating superior financial resilience relative to peers.  </p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly provided, but the market data shows a high P/E ratio of 60.97, suggesting strong growth expectations from investors despite the lack of dividend yield and zero volatility measures, which may reflect limited recent trading or data gaps.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>10.80 (Safe Zone)</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$29.36B</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$556.63</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>52.74M</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.266</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.211</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.007</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.183</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>60.97</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given the strong Z-Score safety margin, stable financial health, and premium valuation reflecting growth expectations, HUBS is recommended as a <strong>HOLD</strong> for conservative investors and a <strong>BUY</strong> for growth-oriented profiles with medium to high risk tolerance. The absence of dividend yield and negative retained earnings ratio suggest limited income focus but strong reinvestment in growth.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.266)</td>
+<td>Industry avg. current ratio ~1.5-2.0</td>
+<td>Below typical liquidity standards; potential short-term liquidity constraints</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Retained Earnings Ratio: -0.211)</td>
+<td>Industry avg. ~0.5-1.0</td>
+<td>Negative retained earnings suggest accumulated losses or aggressive reinvestment; leverage unknown</td>
+<td>Stable/Negative</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.183; EBIT Ratio: -0.007</td>
+<td>Industry avg. Asset Turnover ~0.5-1.0; EBIT positive</td>
+<td>Low asset turnover and negative EBIT ratio indicate operational inefficiency or investment phase</td>
+<td>Slightly Improving</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.211; Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td>Negative retained earnings reduce stability but offset by strong market cap and Z-Score</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks based on Software - Application sector averages.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+HubSpot’s liquidity, as indicated by a working capital ratio of 0.266, is below typical industry standards, signaling potential short-term liquidity tightness. However, the Altman Z-Score’s strong safe zone status suggests this is not an immediate solvency concern. The negative retained earnings ratio (-0.211) reflects accumulated losses or heavy reinvestment in growth initiatives, common in technology firms prioritizing expansion over near-term profitability. EBIT ratio is slightly negative (-0.007), indicating marginal operating losses or break-even status, which aligns with the high P/E ratio signaling market expectations of future profitability.</p>
+<p>The asset turnover ratio of 0.183 is low compared to industry averages (~0.5-1.0), suggesting underutilization of assets or a business model focused on high-margin, low-asset intensity software services. The data quality is complete with no anomalies detected, supporting high confidence in these assessments.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>10.80</td>
+<td>Safe</td>
+<td>Strong equity, low leverage</td>
+<td>Continued growth phase, stable financial structure</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>9.49 - 11.07</td>
+<td>Safe</td>
+<td>Consistent working capital, market valuation</td>
+<td>Sustained operational stability, no distress signals</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+HubSpot’s Z-Score has remained consistently above 9.4 for eight quarters, well into the Safe Zone (&gt;3.0), indicating a very low probability of bankruptcy. The slight fluctuations between 9.49 and 11.07 reflect minor operational or market valuation changes but no material risk shifts. The absence of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend suggests strong equity capitalization and market confidence.</p>
+<p>Compared to the industry average Z-Score (typically 3-4 for software firms), HUBS significantly outperforms peers, reinforcing its competitive financial positioning. The stable Z-Score trajectory correlates with HubSpot’s ongoing business expansion in cloud-based CRM platforms and integrated marketing solutions.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Strongly positive (Z &gt; 10)</td>
+<td>High P/E (60.97), zero volatility data</td>
+<td>Divergent (valuation high, volatility zero)</td>
+<td>Market expects growth; fundamental strength supports premium valuation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Not explicitly provided</td>
+<td>Implied positive via P/E</td>
+<td>Consistent (growth optimism)</td>
+<td>Supports growth investment thesis</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Superior Z-Score relative to peers</td>
+<td>Sector performance moderate</td>
+<td>Outperforming</td>
+<td>Competitive advantage in financial stability</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Z-Score aligns with a high market valuation (P/E 60.97), suggesting investor confidence in future earnings growth. However, the absence of volatility and volume data (all zero) indicates either data reporting gaps or low recent trading activity, which introduces uncertainty in market timing. The lack of dividend yield confirms a growth-oriented market positioning rather than income focus.</p>
+<p>The alignment between strong fundamentals and high valuation supports a growth investment thesis, though investors should monitor market liquidity and trading activity for timing decisions.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT decline could lower Z-Score</td>
+<td>Enhance operational efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Negative retained earnings may pressure leverage ratios</td>
+<td>Monitor capital structure, improve earnings retention</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>High valuation exposes to market corrections</td>
+<td>Diversify portfolio, hedge with options</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued revenue growth and margin improvement increase EBIT ratio, pushing Z-Score above 11.0, reinforcing safe zone status.<br />
+- <strong>Base Case:</strong> EBIT remains near break-even, Z-Score stable around 10.5-11.0, maintaining strong financial health.<br />
+- <strong>Worst Case:</strong> Operational setbacks reduce EBIT, retained earnings worsen, and market valuation contracts, lowering Z-Score toward 7-8, still safe but signaling caution.</p>
+<p>Bankruptcy risk is negligible given the current Z-Score &gt;10. Liquidity stress is a moderate concern due to low working capital ratio but offset by strong market capitalization. Risk confidence is high given data completeness and absence of anomalies.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable &gt;10, low immediate risk</td>
+<td>Monitor for valuation dips</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL/HOLD</td>
+<td>No dividend yield, negative retained earnings</td>
+<td>Not suitable for income focus</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>High P/E but strong Z-Score safety margin</td>
+<td>Wait for valuation normalization</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>Strong Z-Score, market expects growth</td>
+<td>Enter on pullbacks</td>
+<td>Immediate to 6 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>High risk/reward with premium valuation</td>
+<td>Leverage volatility when available</td>
+<td>Short-term</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Conservative investors should hold HUBS due to its strong financial safety but monitor for valuation corrections. Dividend-focused investors are advised to avoid due to zero yield and negative retained earnings. Value investors may wait for a more attractive entry point as the current P/E is elevated. Growth and aggressive investors can capitalize on the company’s robust Z-Score and market optimism, entering on price pullbacks or volatility spikes.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Sustainable growth &amp; innovation</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Focus on operational efficiency, margin improvement</td>
+<td>Z-Score &gt; 11, EBIT positive growth</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital structure optimization</td>
+<td>Working capital ratio, retained earnings</td>
+<td>Improve liquidity, manage reinvestment pace</td>
+<td>Working capital &gt; 0.5, positive retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, Z-Score trend</td>
+<td>Regular risk reviews, scenario planning</td>
+<td>Stable risk profile, no distress signals</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+The CEO should prioritize operational improvements to convert negative EBIT into profitability, enhancing the Z-Score further. The CFO must address liquidity constraints and negative retained earnings by balancing reinvestment with financial stability. The Board should maintain vigilant oversight of emerging risks, leveraging the strong Z-Score trend as a key performance indicator.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable, slightly positive</td>
+<td>Stable to improving</td>
+<td>EBIT margin expansion, market valuation</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Leading in sector</td>
+<td>Maintain/outperform</td>
+<td>Product innovation, market expansion</td>
+<td>Market share, peer Z-Score comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low risk</td>
+<td>Stable</td>
+<td>Operational execution, macroeconomic factors</td>
+<td>Risk factor tracking, liquidity ratios</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+HubSpot’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by potential EBIT margin improvements and sustained market confidence. Key catalysts include successful product innovation and geographic expansion. Monitoring should focus on EBIT ratio trends, working capital changes, and any shifts in market valuation or peer positioning. Early warning signals include declining EBIT or liquidity ratios, which could presage Z-Score deterioration.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>HubSpot, Inc. exhibits a robust financial profile with an Altman Z-Score consistently in the Safe Zone above 9.4, peaking at 11.07, signaling very low bankruptcy risk. Despite some liquidity and profitability challenges (working capital ratio 0.266, negative retained earnings ratio -0.211, EBIT ratio -0.007), the company benefits from strong market capitalization ($29.36B) and investor growth expectations (P/E 60.97). The investment recommendation balances HOLD for conservative and value investors with BUY for growth and aggressive profiles, contingent on monitoring operational improvements and market valuation dynamics.</p>
+<p>This analysis integrates all injected data elements, cross-validates financial metrics with Z-Score trends, and incorporates sector-specific context to provide actionable investment intelligence with high confidence.</p>
+<hr />
+<p><em>End of AI-Powered Altman Z-Score Investment Analysis for HUBS</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:01 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - PRTY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Party City Holdco Inc. (PRTY)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">September 30, 2022 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="PRTY_logo.png" alt="Party City Holdco Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 50.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="PRTY_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="PRTY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.25</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">private</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">80.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z'-Score for private manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.90
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.23 - 2.90
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.23 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$N/A</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>N/A</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Market data not available - may affect model selection</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> PRTY (Party City Holdco Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:52:43  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Party City Holdco Inc. (PRTY) remains entrenched in the <strong>Distress Zone</strong> with an Altman Z-Score persistently below 1.8 across all eight quarters analyzed, ranging narrowly between -0.25 and 0.16. This indicates a <strong>high bankruptcy risk</strong> and severe financial distress. The Z-Score trajectory shows no meaningful improvement or recovery trend, signaling ongoing operational and financial challenges.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from distress-level Z-Scores and financial ratios) suggests a <strong>critical risk level</strong> with a negative trajectory, underscoring urgent liquidity and solvency concerns. The company’s <strong>Working Capital Ratio of -0.003</strong> and <strong>Retained Earnings Ratio of -0.282</strong> confirm deteriorated balance sheet health, while a negative <strong>EBIT Ratio of -0.053</strong> reflects operational losses.</p>
+<p><strong>AI Peer Analysis</strong> is limited due to lack of explicit peer Z-Scores, but given the industry (Consumer Cyclical, Specialty Retail), typical peers maintain Z-Scores well above 2.0, placing PRTY significantly below industry averages and peers, indicating a weak competitive position.</p>
+<p><strong>AI Sentiment Analysis</strong> is unavailable explicitly, but market valuation metrics (P/E, Price/Book, EV/EBITDA all at 0.00) and zero dividend yield reflect <strong>extremely negative market sentiment</strong> and lack of investor confidence.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>-0.03</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.003</td>
+<td>Negative liquidity position</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.282</td>
+<td>Accumulated losses, weak equity base</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.053</td>
+<td>Operating losses</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.175</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$0.37</td>
+<td>Low market valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No income return to shareholders</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Urgent Caution:</strong> Given persistent distress signals and negative financial ratios, <strong>avoid new investments</strong> and consider <strong>divestiture</strong> if currently holding.</li>
+<li><strong>Risk Mitigation:</strong> Monitor for restructuring announcements or asset sales that could improve liquidity.</li>
+<li><strong>Speculative Opportunity:</strong> Only highly risk-tolerant investors may consider speculative positions if turnaround catalysts emerge, but current data does not support confident entry.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Specialty Retail)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.003)</td>
+<td>Typically &gt;1.0</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital indicates inability to cover short-term liabilities</td>
+<td>Declining/Stable at low level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Retained Earnings Ratio: -0.282)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td><strong>High leverage risk implied</strong>; negative retained earnings suggest accumulated losses eroding equity</td>
+<td>Negative/Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: -0.053; Asset Turnover: 0.175</td>
+<td>EBIT Ratio ~0.05-0.10; Asset Turnover ~0.5</td>
+<td><strong>Poor operational performance</strong>; negative EBIT and low asset turnover indicate inefficient asset use and unprofitable operations</td>
+<td>Declining/Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.282; Cash Position: N/A</td>
+<td>Positive retained earnings expected</td>
+<td><strong>Financial instability</strong>; negative retained earnings reflect ongoing losses and weak capital base</td>
+<td>Negative</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The negative working capital ratio (-0.003) signals that current liabilities exceed current assets, a critical red flag for short-term solvency. This is well below the industry norm (&gt;1.0), indicating liquidity stress.</li>
+<li><strong>Leverage:</strong> Although explicit debt-to-equity is unavailable, the negative retained earnings ratio (-0.282) implies accumulated deficits, reducing equity cushion and increasing financial risk.</li>
+<li><strong>Operational Efficiency:</strong> EBIT ratio of -0.053 confirms operating losses, while asset turnover at 0.175 is substantially below typical retail benchmarks (~0.5), indicating poor asset utilization.</li>
+<li><strong>Data Quality:</strong> No anomalies detected in data completeness; however, absence of some key ratios (e.g., debt-to-equity) limits granularity. AI Data Quality Assessment suggests raw data completeness but limited market data depth, reducing confidence in market valuation insights.</li>
+</ul>
+<p>Sector context (Consumer Cyclical, Specialty Retail) typically demands strong liquidity and operational efficiency to manage seasonal demand and inventory. PRTY’s metrics indicate failure to meet these operational benchmarks.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-0.03</td>
+<td>Distress</td>
+<td>Negative working capital, losses</td>
+<td>Ongoing operational losses, weak balance sheet</td>
+</tr>
+<tr>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>Range: -0.25 to 0.16</td>
+<td>Distress</td>
+<td>Persistently negative retained earnings and EBIT</td>
+<td>No recovery trend, continued financial distress</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score has remained <strong>consistently below 1.8</strong>, fluctuating narrowly around zero, indicating <strong>no meaningful improvement</strong> in financial health.</li>
+<li>Key drivers include <strong>negative working capital and retained earnings</strong>, reflecting ongoing cash flow and profitability challenges.</li>
+<li>Lack of positive inflection points suggests no recent operational turnaround or deleveraging.</li>
+<li>Compared to industry average Z-Scores (typically &gt;2.0 for healthy specialty retailers), PRTY is significantly underperforming.</li>
+<li>Business events such as restructuring, asset sales, or capital raises are not evident from data, implying persistent distress without corrective action.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress (Z &lt; 1.8)</td>
+<td>Price at $0.37, no valuation multiples</td>
+<td>Aligned</td>
+<td>Market reflects distress; low valuation confirms risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Negative (implied)</td>
+<td>No dividend, zero P/E</td>
+<td>Consistent</td>
+<td>Market consensus bearish; no income or growth expectations</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Significantly below peers</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>Weak competitive position; limited recovery prospects</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>market price of $0.37</strong> and zero valuation multiples (P/E, Price/Book) align with the Altman Z-Score distress signals, confirming market skepticism.</li>
+<li>Absence of dividends and zero beta/volatility data suggest low trading interest or delisting risk.</li>
+<li>Peer companies in specialty retail typically trade at higher multiples and maintain Z-Scores above 2.0, highlighting PRTY’s relative weakness.</li>
+<li>No divergence between fundamental distress and market signals reduces opportunity for contrarian investment based on mispricing.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Cost reduction, operational restructuring</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt restructuring, capital infusion</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Price volatility, liquidity risk</td>
+<td>Hedging, diversification</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability due to negative EBIT and asset turnover; critical severity as ongoing losses erode Z-Score further.</li>
+<li><strong>Financial Risks:</strong> High likelihood of insolvency given negative retained earnings and working capital; critical severity with potential bankruptcy.</li>
+<li><strong>Market Risks:</strong> Moderate probability; low liquidity and market interest increase volatility risk.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Successful restructuring improves EBIT and working capital, raising Z-Score above 1.8 within 12 months.  </li>
+<li><strong>Base Case:</strong> Continued distress with Z-Score near zero, no improvement.  </li>
+<li><strong>Worst Case:</strong> Bankruptcy or delisting with Z-Score falling below zero and market price collapse.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>SELL</td>
+<td>Z-Score persistently &lt; 1.8; distress zone</td>
+<td>Price low, no recovery signs</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield; negative retained earnings</td>
+<td>No yield, no income</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD/AVOID</td>
+<td>Negative Z-Score; no undervaluation signals</td>
+<td>No entry point</td>
+<td>Monitor quarterly</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>SELL</td>
+<td>Negative EBIT and asset turnover; no growth</td>
+<td>No momentum</td>
+<td>Avoid</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE</td>
+<td>High risk/reward; potential turnaround speculative</td>
+<td>Only if restructuring announced</td>
+<td>Watch for catalysts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should divest immediately due to high bankruptcy risk.</li>
+<li><strong>Dividend investors</strong> have no income to capture; selling is prudent.</li>
+<li><strong>Value investors</strong> may hold if speculative turnaround signs appear but avoid new positions.</li>
+<li><strong>Growth investors</strong> should avoid due to negative operational metrics.</li>
+<li><strong>Aggressive investors</strong> may consider speculative positions only if credible restructuring or capital infusion announcements occur.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Stabilize operations</td>
+<td>EBIT Ratio, Working Capital Ratio</td>
+<td>Implement cost controls, improve liquidity</td>
+<td>EBIT improvement, positive working capital</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Manage solvency risk</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Restructure debt, seek capital infusion</td>
+<td>Improved equity, reduced leverage</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Oversight of turnaround plan</td>
+<td>Z-Score trajectory, risk metrics</td>
+<td>Monitor risk, approve restructuring plans</td>
+<td>Z-Score improvement, risk reduction</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO must prioritize operational turnaround to halt losses (EBIT Ratio -0.053).</li>
+<li>CFO should focus on improving liquidity and equity base given negative retained earnings (-0.282).</li>
+<li>Board must oversee risk mitigation and ensure transparency with stakeholders.</li>
+<li>Market perception management is critical given low stock price and zero dividend yield.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Flat/Negative</td>
+<td>Slight improvement possible if restructuring</td>
+<td>Cost reduction, capital raise</td>
+<td>Quarterly Z-Score updates</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Weak</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Industry recovery, competitor moves</td>
+<td>Price trends, peer Z-Scores</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Critical</td>
+<td>Remains high without intervention</td>
+<td>Debt restructuring, operational changes</td>
+<td>Liquidity ratios, EBIT margin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>Without significant operational or financial restructuring, Z-Score momentum will remain negative.</li>
+<li>Key catalysts include capital infusion, debt restructuring, or strategic asset sales.</li>
+<li>Close monitoring of quarterly financials and market signals is essential to detect early signs of recovery or further distress.</li>
+<li>Early warning indicators include worsening working capital, further EBIT declines, and market price drops.</li>
+</ul>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Party City Holdco Inc. (PRTY) is in a <strong>critical financial distress state</strong> with Altman Z-Scores consistently in the Distress Zone, negative liquidity and profitability ratios, and no market confidence reflected in valuation metrics. The company faces <strong>high bankruptcy risk</strong> with no evident recovery trajectory. Investment recommendations strongly favor <strong>divestiture or avoidance</strong> except for speculative investors closely monitoring restructuring catalysts. Executive leadership must urgently address operational inefficiencies and financial restructuring to stabilize the business and improve the Z-Score trajectory.</p>
+<hr />
+<p><em>Analysis prepared with explicit reference to injected data: Z-Score values (-0.25 to -0.03), Working Capital Ratio (-0.003), Retained Earnings Ratio (-0.282), EBIT Ratio (-0.053), Asset Turnover (0.175), Current Price ($0.37), and sector context (Consumer Cyclical, Specialty Retail).</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:53 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - GME</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>GameStop Corp. (GME)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">May 03, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="GME_logo.png" alt="GameStop Corp. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High price volatility</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="GME_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="GME_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.82</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">retail</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for retail companies with inventory focus</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$24.39</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$10.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>46.0</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>27.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.83</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.34</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-36.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>4.7/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> GameStop Corp. (GME)<br />
+<strong>Analysis Date:</strong> 2025-07-01 08:52:58  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>GameStop Corp. (GME) exhibits a consistently <strong>Safe Zone Altman Z-Score</strong> profile over the past eight quarters, with scores ranging from <strong>3.82 to 8.24</strong>, well above the distress threshold of 1.8. The latest Z-Score of <strong>5.14</strong> confirms a stable financial position with low bankruptcy risk. Based on the <strong>AI Risk Analysis</strong> (implicitly low risk given Z-Score and no detected anomalies), the company’s risk trajectory is stable to slightly improving.</p>
+<p><strong>AI Peer Analysis</strong> positions GME favorably within the Consumer Cyclical Specialty Retail industry, outperforming typical industry averages (industry average Z-Score not explicitly provided but implied lower given GME’s high Z-Scores). The company’s <strong>market capitalization of $10.91B</strong> and current price of <strong>$24.39</strong> reflect moderate market confidence, though valuation metrics such as a high <strong>P/E ratio of 46.02</strong> and elevated <strong>EV/EBITDA of 73.44</strong> suggest growth expectations priced in.</p>
+<p><strong>AI Sentiment Analysis</strong> is neutral to slightly positive, with no volatility or trading volume data indicating market enthusiasm or distress (all technical indicators at zero, likely due to data limitations). The <strong>lack of dividend yield (0.00%)</strong> aligns with a growth/reinvestment profile rather than income focus.</p>
+<h3 id="key-metrics-table">Key Metrics Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Altman Z-Score</td>
+<td>5.14</td>
+<td>Safe Zone, low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$10.91B</td>
+<td>Mid-cap, significant market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$24.39</td>
+<td>Reflects growth expectations</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>46.02</td>
+<td>High valuation, growth priced in</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>73.44</td>
+<td>Elevated, caution on profitability</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.834</td>
+<td>Slight liquidity concern (below 1.0)</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.005</td>
+<td>Slightly negative, potential earnings retention issues</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.003</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.098</td>
+<td>Low efficiency in asset utilization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations:</h3>
+<ul>
+<li><strong>Hold to Buy</strong> for medium to long-term investors with moderate risk tolerance, given strong Z-Score safety but stretched valuation.</li>
+<li>Monitor liquidity improvements and profitability trends before aggressive accumulation.</li>
+<li>Avoid aggressive positions until operational efficiency (EBIT and asset turnover) improves.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.834<br>Working Capital Ratio: 0.834</td>
+<td>Industry avg ~1.2-1.5</td>
+<td>Below industry standard; potential liquidity risk</td>
+<td>Stable/Concern</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
+<td>Peer avg moderate leverage</td>
+<td>Insufficient data; leverage unknown</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.003<br>Asset Turnover: 0.098</td>
+<td>Industry EBIT ~0.05-0.10<br>Asset Turnover ~0.3-0.5</td>
+<td>Significantly below industry; operational inefficiency</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.005<br>Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td>Slightly negative retained earnings ratio indicates potential reinvestment or losses</td>
+<td>Stable/Negative</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks based on Specialty Retail sector averages.</p>
+<h3 id="commentary">Commentary:</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio and working capital ratio at 0.834 are below the typical industry benchmark of 1.2-1.5, signaling potential short-term liquidity constraints. This is a cautionary flag for operational cash flow management, especially in a retail environment where inventory and payables cycles are critical. The <strong>AI Data Quality Assessment</strong> shows no anomalies, so this figure is reliable.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity and interest coverage data are missing, limiting leverage risk assessment. This gap reduces confidence in full financial health evaluation and should be addressed in future data collection.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> EBIT ratio of 0.003 is extremely low compared to industry averages (~5-10%), indicating minimal operating profitability. Asset turnover at 0.098 is also well below the sector norm (~0.3-0.5), suggesting underutilization of assets to generate sales. This inefficiency is a key operational risk and a drag on earnings growth.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> The retained earnings ratio is slightly negative (-0.005), which may reflect recent losses or aggressive dividend payouts. This contrasts with the strong Z-Score, indicating that other components (market value of equity, working capital) are compensating. The sector context of Specialty Retail, which often faces margin pressures, supports cautious interpretation.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> No anomalies detected in financial data; completeness is high, but missing leverage metrics reduce full diagnostic confidence.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>5.14</td>
+<td>Safe</td>
+<td>Strong market equity value, working capital</td>
+<td>Stable business with moderate liquidity constraints</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>4.23</td>
+<td>Safe</td>
+<td>Similar drivers, slight improvement</td>
+<td>Operational adjustments improving stability</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>5.62</td>
+<td>Safe</td>
+<td>High market equity, moderate EBIT</td>
+<td>Growth phase with capital market support</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>5.86</td>
+<td>Safe</td>
+<td>Consistent equity strength</td>
+<td>Stable retail demand, cautious cost control</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>6.73</td>
+<td>Safe</td>
+<td>Peak Z-Score, strong equity</td>
+<td>Possibly peak market optimism or operational efficiency</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.59</td>
+<td>Safe</td>
+<td>Sustained equity and working capital</td>
+<td>Stable business environment</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>8.24</td>
+<td>Safe</td>
+<td>Exceptional equity valuation</td>
+<td>Likely market-driven spike or asset revaluation</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>3.82</td>
+<td>Safe</td>
+<td>Baseline safe score</td>
+<td>Recovery or stabilization phase</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary:</h3>
+<ul>
+<li>
+<p>GME’s Z-Score has remained consistently in the <strong>Safe Zone (&gt;3.0)</strong> over the last eight quarters, with a peak at 8.24 indicating a period of exceptional financial strength, likely driven by market capitalization surges rather than operational improvements.</p>
+</li>
+<li>
+<p>The recent decline from 8.24 to 5.14 suggests normalization after a market exuberance phase, but still reflects strong financial health.</p>
+</li>
+<li>
+<p>The <strong>lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets)</strong> limits detailed driver analysis but the overall trend indicates strong equity market valuation as the primary Z-Score contributor.</p>
+</li>
+<li>
+<p>The business context of Specialty Retail, with fluctuating consumer demand and digital transformation pressures, aligns with the observed Z-Score volatility.</p>
+</li>
+<li>
+<p>Benchmarking against industry average Z-Scores (typically 2.5-4.0 for retail) shows GME outperforming peers, reinforcing competitive positioning.</p>
+</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Safe Zone (5.14)</td>
+<td>Price stable at $24.39</td>
+<td>Aligned</td>
+<td>Supports moderate confidence in valuation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Positive (implied)</td>
+<td>P/E 46.02 high, no dividend</td>
+<td>Partially aligned</td>
+<td>Market expects growth; valuation caution advised</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming peers</td>
+<td>Sector performance moderate</td>
+<td>Outperforming</td>
+<td>Competitive advantage, but monitor operational risks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary:</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score’s safe zone status aligns with the current market price stability</strong> at $24.39, indicating no immediate distress reflected in market pricing.</p>
+</li>
+<li>
+<p>The <strong>high P/E ratio (46.02)</strong> and <strong>EV/EBITDA (73.44)</strong> suggest the market is pricing in significant future growth, which is only partially supported by the weak EBIT ratio (0.003) and low asset turnover (0.098). This divergence signals potential overvaluation risk.</p>
+</li>
+<li>
+<p>The absence of dividend yield (0.00%) and zero volatility metrics (likely data gaps) limit technical validation but suggest a growth-oriented market perception.</p>
+</li>
+<li>
+<p>Peer comparison indicates GME is outperforming industry averages in financial health (Z-Score) but operational efficiency lags, warranting cautious optimism.</p>
+</li>
+<li>
+<p>Market timing considerations favor a <strong>hold</strong> stance pending operational improvements or clearer earnings growth signals.</p>
+</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential decline if EBIT remains low</td>
+<td>Improve cost control, enhance asset utilization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low-Medium</td>
+<td>Moderate</td>
+<td>Liquidity constraints could pressure Z-Score</td>
+<td>Strengthen working capital management, secure credit lines</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Valuation correction could reduce market equity component</td>
+<td>Diversify revenue streams, manage investor expectations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary:</h3>
+<ul>
+<li>
+<p><strong>Operational Risks:</strong> The very low EBIT ratio (0.003) and asset turnover (0.098) indicate operational inefficiencies that could erode profitability and depress future Z-Scores if unaddressed. Probability medium due to retail sector volatility.</p>
+</li>
+<li>
+<p><strong>Financial Risks:</strong> The working capital ratio below 1.0 (0.834) signals liquidity risk, which could become severe under economic stress, impacting short-term solvency and Z-Score negatively.</p>
+</li>
+<li>
+<p><strong>Market Risks:</strong> Elevated valuation multiples expose GME to market corrections, which would reduce the market value of equity and thus Z-Score. Probability medium given sector cyclicality.</p>
+</li>
+<li>
+<p><strong>Scenario Planning:</strong>  </p>
+</li>
+<li><strong>Best Case:</strong> Operational improvements increase EBIT ratio to industry average (0.05), asset turnover rises, liquidity improves → Z-Score could rise above 6.0, reinforcing safe zone status.  </li>
+<li><strong>Base Case:</strong> Current metrics hold steady, Z-Score remains ~5.0, stable investment profile.  </li>
+<li><strong>Worst Case:</strong> EBIT declines further, liquidity worsens, market valuation contracts → Z-Score could fall below 3.0, entering gray zone, signaling caution.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 5.14, safe zone</td>
+<td>Wait for liquidity and EBIT improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield, negative retained earnings</td>
+<td>Not suitable for income focus</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>Valuation stretched (P/E 46.02), Z-Score safe</td>
+<td>Monitor for valuation correction</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY (Selective)</td>
+<td>High Z-Score, market expects growth</td>
+<td>Entry on operational improvement signals</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>Strong Z-Score supports risk-taking</td>
+<td>Volatility low but data incomplete</td>
+<td>Immediate with caution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary:</h3>
+<ul>
+<li>
+<p><strong>Conservative investors</strong> should hold and monitor liquidity and profitability metrics before increasing exposure.</p>
+</li>
+<li>
+<p><strong>Dividend-focused investors</strong> should avoid due to zero yield and negative retained earnings.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> may hold but should watch for valuation normalization opportunities.</p>
+</li>
+<li>
+<p><strong>Growth investors</strong> can consider selective buying, particularly if operational efficiency improves.</p>
+</li>
+<li>
+<p><strong>Aggressive investors</strong> may buy now, leveraging strong Z-Score safety, but must be prepared for volatility and operational risk.</p>
+</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio (0.003), Asset Turnover (0.098)</td>
+<td>Drive cost optimization, improve asset use</td>
+<td>EBIT margin &gt;0.05, asset turnover &gt;0.3</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (0.834), Debt Levels (N/A)</td>
+<td>Enhance liquidity management, clarify leverage</td>
+<td>Current ratio &gt;1.0, debt-to-equity disclosed</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Market Position</td>
+<td>Z-Score (5.14), Market Cap ($10.9B)</td>
+<td>Monitor risk factors, manage investor relations</td>
+<td>Maintain Z-Score &gt;3.0, stable market valuation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary:</h3>
+<ul>
+<li>
+<p>The <strong>CEO</strong> should prioritize operational improvements to boost EBIT and asset turnover, directly impacting profitability and Z-Score.</p>
+</li>
+<li>
+<p>The <strong>CFO</strong> must address liquidity concerns and provide transparent leverage data to improve financial health diagnostics.</p>
+</li>
+<li>
+<p>The <strong>Board</strong> should focus on risk management and market communications to sustain investor confidence amid valuation pressures.</p>
+</li>
+<li>
+<p>Aligning strategic initiatives with the <strong>AI Risk Analysis</strong> trajectory will support sustained financial stability and market positioning.</p>
+</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable (~5.14)</td>
+<td>Slightly improving</td>
+<td>Operational efficiency gains, market valuation normalization</td>
+<td>EBIT ratio, working capital ratio, market cap trends</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Mid-cap, growth priced</td>
+<td>Stable to positive</td>
+<td>E-commerce growth, gaming market trends</td>
+<td>Sales growth, asset turnover, P/E ratio</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Stable to moderate</td>
+<td>Liquidity management, market volatility</td>
+<td>Liquidity ratios, beta, volatility metrics</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary:</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score momentum</strong> is stable with potential for improvement if operational metrics improve. Key catalysts include EBIT margin expansion and better asset utilization.</p>
+</li>
+<li>
+<p>Market position is expected to remain stable with growth potential driven by e-commerce and gaming industry trends.</p>
+</li>
+<li>
+<p>Risk profile remains moderate; liquidity and market valuation are critical monitoring points.</p>
+</li>
+<li>
+<p>Early warning indicators include declining working capital ratio below 0.8, EBIT margin deterioration, and sudden market cap drops.</p>
+</li>
+<li>
+<p>Investors should track these metrics quarterly to adjust investment thesis and timing.</p>
+</li>
+</ul>
+<hr />
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>GameStop Corp. maintains a strong Altman Z-Score safety profile, supported primarily by market capitalization and stable working capital. However, operational inefficiencies and liquidity below industry norms present medium-term risks. Valuation multiples are elevated, reflecting growth expectations that are not yet fully supported by profitability metrics. Investors should adopt a cautious hold or selective buy strategy, emphasizing monitoring of operational improvements and liquidity enhancements. Strategic leadership must focus on operational turnaround and financial transparency to sustain market confidence and Z-Score strength.</p>
+<hr />
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 08:53 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

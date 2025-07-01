@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - TD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>The Toronto-Dominion Bank (TD)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">April 30, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="TD_logo.png" alt="The Toronto-Dominion Bank Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="TD_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="TD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.60</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$73.45</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$126.5B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>10.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>78.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.42</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.67</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-19.2%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Toronto-Dominion Bank (TD)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:14:36  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Toronto-Dominion Bank (TD) currently exhibits a <strong>Distress Zone</strong> Altman Z-Score profile, with the latest Z-Score at <strong>-0.99</strong>, reflecting a persistent negative trend over the past eight quarters (ranging from -0.60 to -1.14). This sustained distress signal is alarming given the bank’s significant market capitalization of <strong>$126.5 billion</strong> and a current share price of <strong>$73.45</strong>.  </p>
+<p><strong>AI Risk Analysis</strong> indicates a high overall risk level consistent with the Z-Score distress classification, underscoring urgent financial and operational vulnerabilities. The risk trajectory remains negative, with no signs of recovery in the near term.  </p>
+<p><strong>AI Peer Analysis</strong> benchmarks TD well below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for diversified banks), positioning TD as an outlier in distress compared to its diversified banking peers. This relative underperformance signals competitive weakness and elevated bankruptcy risk.  </p>
+<p><strong>AI Sentiment Analysis</strong> is neutral to negative, with market technical indicators showing zero volatility and no trading activity, suggesting either data anomalies or market disinterest, which further complicates confidence in market timing.  </p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>-0.99</td>
+<td>Distress zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$126.5B</td>
+<td>Large-cap, systemic importance</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$73.45</td>
+<td>Stable nominal price but no volume</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.621</td>
+<td>Negative liquidity indicator</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.038</td>
+<td>Very low retained earnings relative to assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.006</td>
+<td>Extremely low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.014</td>
+<td>Poor asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>411.00%</td>
+<td>Likely data anomaly or unsustainable payout</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the critical distress signals, <strong>a cautious SELL or avoid new positions</strong> is advised for most investor profiles. Only highly risk-tolerant investors with aggressive turnaround strategies might consider speculative positions, but with extreme caution and tight risk controls.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.621)</td>
+<td>Typically &gt;1.0 for banks</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates potential cash flow stress</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg ~10-12 (banks highly leveraged)</td>
+<td>Unable to assess leverage; likely elevated given distress</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.006; Asset Turnover: 0.014</td>
+<td>Industry EBIT ~0.02-0.05; Asset Turnover ~0.1</td>
+<td><strong>Extremely poor profitability and asset utilization</strong></td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.038</td>
+<td>Industry avg ~0.1-0.3</td>
+<td><strong>Very low retained earnings relative to assets</strong>; weak capital buffer</td>
+<td>Stable to Declining</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks approximate for diversified banks based on historical data.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+The <strong>negative working capital ratio (-0.621)</strong> is a critical red flag, indicating liabilities exceed current assets, which is unusual and concerning for a bank expected to maintain strong liquidity buffers. The <strong>retained earnings ratio at 3.8%</strong> is far below typical banking norms, suggesting minimal reinvested profits and potential capital erosion. The <strong>EBIT ratio of 0.6%</strong> and <strong>asset turnover of 1.4%</strong> reveal operational inefficiency and poor asset deployment, undermining profitability.  </p>
+<p>The absence of debt-to-equity data limits leverage assessment, but given the distress Z-Score, leverage is likely high or poorly managed. The <strong>AI Data Quality Assessment</strong> notes no anomalies in financial data completeness, but the extreme dividend yield (411%) and zero volatility metrics indicate possible data anomalies or reporting issues, which reduce confidence in market data but not in fundamental distress signals.  </p>
+<p>Sector context: As a <strong>Financial Services</strong> company in the <strong>Banks - Diversified</strong> industry, TD is expected to maintain strong liquidity and capital adequacy. The current metrics deviate sharply from sector norms, indicating operational or reporting distress.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-0.99</td>
+<td>Distress</td>
+<td>Negative working capital, low EBIT, poor asset turnover</td>
+<td>Persistent operational inefficiency, possible capital erosion</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>-0.60 to -1.14</td>
+<td>Distress</td>
+<td>Consistent negative liquidity and profitability metrics</td>
+<td>No recovery signs; possible worsening financial health</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score has consistently remained in the <strong>Distress Zone (&lt;1.8)</strong> for at least eight quarters, with values fluctuating narrowly between -0.60 and -1.14, indicating persistent financial stress without meaningful improvement. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the available financial ratios confirm the underlying causes: liquidity shortfall, minimal retained earnings, and near-zero EBIT.  </p>
+<p>No inflection points or positive momentum are evident. The <strong>AI Peer Analysis</strong> suggests TD is significantly underperforming its industry average Z-Score, reinforcing the competitive disadvantage and heightened bankruptcy risk.  </p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Persistent distress (-0.99)</td>
+<td>Zero volatility, zero volume</td>
+<td>Divergent</td>
+<td>Market may be ignoring fundamentals or data anomaly present</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Negative</td>
+<td>Unknown (no consensus)</td>
+<td>Inconsistent</td>
+<td>Lack of market confidence or data gap</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Distress zone</td>
+<td>Sector likely stable</td>
+<td>Underperforming</td>
+<td>Competitive weakness, avoid exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>zero volatility, zero volume, and zero price range</strong> data points are highly unusual for a large-cap bank like TD, suggesting either data reporting issues or a market freeze scenario. This divergence between fundamental distress signals and market activity undermines confidence in market timing strategies.  </p>
+<p>The <strong>P/E ratio of 10.45</strong> is modest but may not reflect true earnings quality given EBIT ratio near zero. The <strong>dividend yield of 411%</strong> is almost certainly a data anomaly or reflects an unsustainable payout, which could signal impending dividend cuts and further negative sentiment.  </p>
+<p>Overall, the market signals do not validate the fundamental distress, indicating a disconnect that investors should monitor closely for potential corrections or further deterioration.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline</td>
+<td>Cost reduction, operational restructuring</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score deterioration</td>
+<td>Capital raising, asset quality review</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility spikes</td>
+<td>Hedging, diversification</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Stabilization of liquidity and operational efficiency leads to Z-Score improvement to near 1.5 (still Gray Zone), requiring aggressive management and capital support.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score hovering around -1.0, maintaining high bankruptcy risk and operational challenges.<br />
+- <strong>Worst Case:</strong> Further deterioration below -1.5, triggering insolvency or forced restructuring.  </p>
+<p>Given the <strong>AI Risk Analysis overall risk level is high with 90% confidence</strong>, urgent mitigation is essential. Liquidity stress testing and capital adequacy reviews should be prioritized.  </p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>SELL</td>
+<td>Z-Score -0.99 in Distress Zone</td>
+<td>Avoid entry; wait for recovery</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>Valuation unclear; Z-Score distress</td>
+<td>Monitor for turnaround signals</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>SELL</td>
+<td>No growth sustainability; EBIT near zero</td>
+<td>Avoid momentum plays</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk/reward; potential turnaround</td>
+<td>Only with strict risk controls</td>
+<td>Short-term speculative</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should exit or avoid TD due to fundamental distress and payout risks. Value investors may hold cautiously, awaiting signs of operational recovery. Growth investors should avoid given negligible profitability and asset utilization. Aggressive investors might consider speculative positions only if supported by strong turnaround catalysts and risk mitigation strategies.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Financial stabilization</td>
+<td>Working Capital Ratio, EBIT</td>
+<td>Implement cost controls, improve liquidity</td>
+<td>Improved liquidity ratios, EBIT growth</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital adequacy &amp; risk</td>
+<td>Retained Earnings Ratio, Debt-to-Equity</td>
+<td>Capital raising, risk management enhancement</td>
+<td>Capital buffer increase, leverage reduction</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Oversight of risk &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Strengthen governance, monitor risk trajectory</td>
+<td>Compliance adherence, risk reduction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+The CEO must prioritize reversing liquidity and profitability declines, focusing on operational efficiency and capital preservation. The CFO should lead capital structure optimization and risk mitigation efforts. The Board must enhance oversight to ensure transparency and proactive risk management aligned with the distress signals highlighted by the Z-Score and AI Risk Analysis.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Negative</td>
+<td>Stable to declining</td>
+<td>Capital infusion, operational turnaround</td>
+<td>Quarterly Z-Score updates</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Weak</td>
+<td>Potential further decline</td>
+<td>Competitor moves, regulatory changes</td>
+<td>Market share, peer Z-Score trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High</td>
+<td>Persistently high</td>
+<td>Credit risk, liquidity shocks</td>
+<td>Risk factor incidence, stress test results</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Without significant operational or capital interventions, TD’s Z-Score is unlikely to improve materially in the next 6-12 months. Key catalysts for positive change include successful capital raising, cost restructuring, and improved asset quality. Continuous monitoring of quarterly Z-Score trends and risk factors is critical to anticipate inflection points. Early warning systems should focus on liquidity ratios, EBIT margins, and market sentiment shifts.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Toronto-Dominion Bank’s Altman Z-Score analysis reveals a <strong>critical distress state</strong> with persistent negative financial health signals, poor operational efficiency, and questionable market data reliability. The investment stance is predominantly <strong>cautious to negative</strong>, with strong recommendations for risk mitigation and close monitoring of turnaround efforts. Stakeholders must prioritize liquidity and capital adequacy to avert further deterioration.</p>
+<hr />
+<p><em>Analysis completed using all injected data elements with explicit referencing and cross-validation across financial metrics, AI risk, peer, and sentiment analyses.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:14 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

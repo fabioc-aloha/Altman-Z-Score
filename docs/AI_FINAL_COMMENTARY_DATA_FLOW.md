@@ -253,7 +253,7 @@ All four AI component results are comprehensively integrated:
 - **Data Integration Mandate:** Must utilize ALL injected data sources
 - **Quantitative Evidence:** Every insight backed by specific data points
 - **Investment Profile Table:** Structured recommendations for different investor types
-- **Professional Tone:** Risk-appropriate language (distress/grey/safe zone)
+- **Professional Tone:** Risk-appropriate language (distress/gray/safe zone)
 
 #### **4.2 Data Injection Format**
 **Assembly Process:**

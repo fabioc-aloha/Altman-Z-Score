@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - SPGI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>S&P Global Inc. (SPGI)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="SPGI_logo.png" alt="S&P Global Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="sell">Sell</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="SPGI_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="SPGI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.69</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$527.29</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$161.7B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>41.5</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>59.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.78</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.70</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-19.2%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>7.2/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> S&amp;P Global Inc. (SPGI)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:12:09  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>S&amp;P Global Inc. (SPGI) presents a nuanced financial and risk profile as of mid-2025. The <strong>Altman Z-Score</strong> trajectory over the past eight quarters reveals a company oscillating primarily within the <strong>Safe Zone</strong> (Z &gt; 3.0) and <strong>Gray Zone</strong> (1.8 &lt; Z &lt; 3.0), with the latest available Z-Score at <strong>2.67</strong>, categorizing SPGI in the <strong>Gray Zone</strong>—indicating moderate financial risk and a cautionary stance for investors.</p>
+<p><strong>AI Risk Analysis</strong> (implicitly reflected by Z-Score and financial ratios) suggests a <strong>moderate overall risk level</strong>, with no explicit severe anomalies detected but with caution warranted due to working capital and retained earnings ratios near zero or negative. The risk trajectory appears stable but with a slight downward drift from previous peaks near 2.9, signaling potential emerging pressures.</p>
+<p><strong>AI Peer Analysis</strong> positions SPGI relatively well within the <strong>Financial - Data &amp; Stock Exchanges</strong> industry, with historical Z-Scores mostly above 2.7, indicating competitive operational and financial strength compared to peers. However, the recent dip to 2.67 suggests a need for vigilance.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited by market data anomalies (zero volatility, zero RSI, zero volume), but the <strong>high dividend yield of 73.00%</strong> and elevated P/E ratio of <strong>41.49</strong> imply market expectations of strong income generation but possibly overvaluation or data irregularities. The zero beta and volatility metrics indicate either data gaps or an unusual market environment, reducing confidence in sentiment-derived timing signals.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>2.67</td>
+<td>Gray Zone: Moderate financial risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$161.7B</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$527.29</td>
+<td>High absolute price level</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.010</td>
+<td>Slightly negative liquidity indicator</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.000</td>
+<td>Neutral, no retained earnings growth</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.026</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.063</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>73.00%</td>
+<td>Exceptionally high, likely data anomaly or special dividend event</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>41.49</td>
+<td>High valuation multiple</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation (data anomaly)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> The Z-Score in the Gray Zone combined with negative working capital ratio suggests moderate financial risk; investors should monitor liquidity and profitability trends closely.</li>
+<li><strong>Dividend Investors:</strong> The reported 73% dividend yield is unusually high and likely unsustainable; verify dividend sustainability before investment.</li>
+<li><strong>Growth/Value Investors:</strong> High P/E ratio and low asset turnover indicate expensive valuation with limited operational leverage; consider waiting for clearer signs of operational improvement or valuation normalization.</li>
+<li><strong>Risk-Averse Investors:</strong> Given the moderate risk and data anomalies, a conservative stance is advised until liquidity and profitability metrics improve.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A<br>Working Capital Ratio: -0.010</td>
+<td>Industry Avg Current Ratio ~1.5-2.0<br>Working Capital Ratio ~0.10</td>
+<td>Slightly negative working capital ratio indicates liquidity pressure; below industry norms</td>
+<td>Declining/Stable</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data Missing)<br>Interest Coverage: N/A</td>
+<td>Industry Avg Debt-to-Equity ~0.5-1.0</td>
+<td>Data unavailable; leverage risk cannot be fully assessed</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.063<br>EBIT Ratio: 0.026</td>
+<td>Industry Avg Asset Turnover ~0.2-0.3<br>EBIT Margin ~0.10</td>
+<td>Low asset turnover and EBIT ratio indicate operational inefficiency relative to peers</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.000<br>Cash Position: N/A</td>
+<td>Industry Avg Retained Earnings Ratio &gt;0.1</td>
+<td>No retained earnings growth; potential stagnation in equity base</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are approximate for Financial - Data &amp; Stock Exchanges sector.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The working capital ratio of <strong>-0.010</strong> is a red flag, indicating current liabilities slightly exceed current assets, which may constrain short-term operational flexibility. This is below typical industry standards (~0.10), suggesting a need for improved cash management.</li>
+<li><strong>Leverage:</strong> Absence of explicit debt-to-equity and interest coverage data limits leverage risk assessment. Given SPGI’s large market cap ($161.7B), it likely maintains moderate leverage, but confirmation is needed.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.063</strong> and EBIT ratio at <strong>0.026</strong> are significantly below industry averages, implying underutilization of assets and low operating profitability. This could reflect the capital-intensive nature of SPGI’s business or inefficiencies.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at zero signals no net accumulation of earnings in equity, possibly due to high dividend payouts or reinvestment strategies. This aligns with the extraordinarily high dividend yield reported, which may be unsustainable.</li>
+</ul>
+<p><strong>Data Quality Considerations:</strong> The AI Data Quality Assessment indicates no explicit anomalies detected, but the zero or missing values in key ratios and market metrics (e.g., zero beta, zero volatility) reduce confidence in some operational and market signals. This necessitates cautious interpretation.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers (Unavailable)</th>
+<th>Business Context (Sector/Industry)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>2.67</td>
+<td>Gray Zone</td>
+<td>N/A</td>
+<td>Financial Services - Data &amp; Stock Exchanges; moderate risk signals</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>1.69 - 2.92</td>
+<td>Gray to Safe</td>
+<td>N/A</td>
+<td>Fluctuating financial health; mostly stable with occasional dips</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score has fluctuated between <strong>1.69 (Gray Zone)</strong> and <strong>2.92 (Safe Zone)</strong> over the last eight quarters, with a recent decline from a peak of 2.92 to 2.67.</li>
+<li>This oscillation suggests SPGI’s financial health has been mostly stable but with emerging signs of pressure, possibly linked to liquidity or profitability challenges.</li>
+<li>The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) limits precise driver analysis.</li>
+<li>The industry average Z-Score for Financial - Data &amp; Stock Exchanges typically exceeds 3.0, indicating SPGI is slightly below peer average, warranting monitoring.</li>
+<li>Business context: SPGI operates in a competitive, data-driven financial services sector, where operational efficiency and capital structure optimization are critical for maintaining competitive advantage.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Z-Score stable ~2.7</td>
+<td>Price stable at $527.29</td>
+<td>Divergent</td>
+<td>Potential disconnect; caution advised</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>N/A (Limited data)</td>
+<td>P/E 41.49, Dividend Yield 73%</td>
+<td>Inconsistent</td>
+<td>Market may be pricing in high income or data anomaly</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Slightly below avg</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>Competitive positioning needs improvement</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score trend</strong> suggests moderate financial risk, but the <strong>market price</strong> remains high and stable, indicating a possible disconnect between fundamentals and market valuation.</li>
+<li>The <strong>high P/E ratio (41.49)</strong> and <strong>exceptional dividend yield (73%)</strong> are inconsistent with typical market behavior, suggesting either a special dividend event, data anomaly, or market mispricing.</li>
+<li>Technical indicators (RSI, beta, volatility) are all zero, indicating missing or unreliable market data, which reduces confidence in market timing signals.</li>
+<li>Peer comparison suggests SPGI is slightly underperforming relative to industry Z-Score averages, which may not be fully reflected in current price levels.</li>
+<li>Investors should be cautious about market timing based solely on price or sentiment data due to these inconsistencies.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential decline</td>
+<td>Improve asset utilization; cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Lower liquidity</td>
+<td>Enhance working capital management; reduce liabilities</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited</td>
+<td>Monitor market conditions; hedge selectively</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Low asset turnover and EBIT ratio indicate operational inefficiencies that could worsen Z-Score if not addressed. Probability medium due to sector competition.</li>
+<li><strong>Financial Risks:</strong> Negative working capital ratio signals liquidity risk, which could materially impact Z-Score if cash flow tightens. Probability medium; severity moderate.</li>
+<li><strong>Market Risks:</strong> Given zero beta and volatility, market risk appears low but data anomalies limit assessment accuracy.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Operational improvements and liquidity management raise Z-Score above 3.0, entering Safe Zone.  </li>
+<li><strong>Base Case:</strong> Z-Score remains in Gray Zone (~2.5-2.7), moderate risk persists.  </li>
+<li><strong>Worst Case:</strong> Liquidity stress and operational inefficiencies push Z-Score below 1.8, entering Distress Zone, triggering urgent risk mitigation.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 2.67 in Gray Zone; liquidity concerns</td>
+<td>Wait for liquidity improvement</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>CAUTION/HOLD</td>
+<td>Dividend yield 73% likely unsustainable</td>
+<td>Verify dividend sustainability</td>
+<td>Immediate review</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>High P/E (41.49) vs. moderate Z-Score</td>
+<td>Await valuation normalization</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT and asset turnover limit growth prospects</td>
+<td>Monitor operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SELL/AVOID</td>
+<td>Moderate risk, operational inefficiencies</td>
+<td>Avoid until risk profile improves</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold positions but monitor liquidity and profitability metrics closely.</li>
+<li><strong>Dividend investors</strong> must exercise caution due to the unusually high dividend yield, which may not be sustainable.</li>
+<li><strong>Value and growth investors</strong> should wait for clearer signs of operational efficiency and valuation normalization before initiating new positions.</li>
+<li><strong>Aggressive investors</strong> are advised to avoid or sell due to moderate financial risk and operational inefficiencies.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Enhance operational efficiency</td>
+<td>EBIT Ratio (0.026), Asset Turnover (0.063)</td>
+<td>Implement cost optimization and asset utilization programs</td>
+<td>EBIT margin improvement, Z-Score &gt; 3.0</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Improve liquidity and capital structure</td>
+<td>Working Capital Ratio (-0.010), Retained Earnings Ratio (0.000)</td>
+<td>Strengthen cash management, optimize dividend policy</td>
+<td>Positive working capital, stable retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Monitor financial risk trends, enforce governance controls</td>
+<td>Risk mitigation, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The <strong>CEO</strong> should prioritize operational improvements to boost EBIT and asset turnover, directly influencing Z-Score and market confidence.</li>
+<li>The <strong>CFO</strong> must address liquidity constraints and review dividend policies to ensure financial stability.</li>
+<li>The <strong>Board</strong> should maintain vigilant oversight of emerging risks, especially liquidity and operational risks highlighted by the Z-Score trend and financial ratios.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly declining</td>
+<td>Stabilization or modest improvement</td>
+<td>Operational efficiency initiatives, liquidity management</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Stable price, moderate risk</td>
+<td>Potential valuation adjustment</td>
+<td>Market sentiment normalization, peer performance</td>
+<td>Price-to-earnings ratio, dividend sustainability</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Potential risk reduction with mitigation</td>
+<td>Improved working capital, cost controls</td>
+<td>Working capital ratio, cash flow metrics</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score momentum</strong> is currently slightly declining but may stabilize or improve if operational and liquidity initiatives succeed.</li>
+<li>Market valuation appears disconnected from fundamentals; normalization could lead to price adjustments.</li>
+<li>Risk profile may improve with proactive management of liquidity and operational risks.</li>
+<li>Key metrics for ongoing monitoring include quarterly Z-Score updates, EBIT margin trends, working capital ratio, and dividend payout sustainability.</li>
+<li>Early warning systems should focus on liquidity deterioration and EBIT margin contraction to preempt distress signals.</li>
+</ul>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>S&amp;P Global Inc. currently resides in the <strong>Gray Zone</strong> of Altman Z-Score risk classification, reflecting moderate financial risk primarily driven by liquidity constraints and low operational efficiency. Market data anomalies limit confidence in sentiment and timing signals, while valuation metrics suggest a potentially overvalued stock with unsustainable dividend yield. Investors are advised to adopt a <strong>cautious hold</strong> stance, emphasizing monitoring of liquidity, profitability, and dividend sustainability. Strategic initiatives led by executive management should focus on operational improvements and financial stability to restore the company firmly into the Safe Zone. Forward-looking monitoring and scenario planning are critical to timely risk mitigation and investment decision-making.</p>
+<hr />
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework based on injected financial and market data as of 2025-07-01.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:12 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

@@ -148,7 +148,7 @@ class RiskReturnAnalyzer:
         # Base risk from Z-Score
         if z_score_category.lower() == 'safe':
             base_risk = 0.2
-        elif z_score_category.lower() == 'grey':
+        elif z_score_category.lower() == 'gray':
             base_risk = 0.5
         elif z_score_category.lower() == 'distress':
             base_risk = 0.8

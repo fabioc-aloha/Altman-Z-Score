@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CPAY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Corpay, Inc. (CPAY)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CPAY_logo.png" alt="Corpay, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High price volatility</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="CPAY_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="CPAY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.83</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$331.82</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$23.4B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>23.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>80.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>43.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.31</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.68</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-27.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.8/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-cpay">AI-Powered Altman Z-Score Investment Analysis for CPAY</h1>
+<p><strong>Analysis Date:</strong> 2025-07-01 09:11:54</p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Corpay, Inc. (CPAY) currently operates in the <strong>Technology sector</strong>, specifically within the <strong>Software - Infrastructure industry</strong>, focusing on payments solutions for vehicle-related and corporate expenses globally. The company’s <strong>Altman Z-Score</strong> has consistently hovered in the <strong>Gray Zone (1.8 - 3.0)</strong> over the past eight quarters, with the latest value at <strong>2.08</strong>, indicating moderate financial distress risk but no immediate bankruptcy threat.</p>
+<p><strong>AI Risk Analysis</strong> classifies CPAY’s overall risk level as <strong>Moderate</strong>, with a stable risk trajectory, reflecting ongoing operational and financial challenges but no acute deterioration. The <strong>AI Peer Analysis</strong> positions CPAY below the industry average Z-Score (industry average not explicitly provided but implied higher than 2.08), suggesting CPAY is somewhat weaker than key peers in financial health. The <strong>AI Sentiment Analysis</strong> indicates a neutral to slightly cautious market perception, supported by a P/E ratio of <strong>23.30</strong>, which is moderate for the sector, but with zero dividend yield and minimal trading volume data, indicating limited market enthusiasm or liquidity.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Market Cap</td>
+<td>$23.39B</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$331.82</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>70.49M</td>
+</tr>
+<tr>
+<td>Latest Z-Score</td>
+<td>2.08 (Gray Zone)</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>23.30</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.045</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.509</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.023</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.054</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given CPAY’s persistent Gray Zone Z-Score, moderate valuation, and stable but low liquidity metrics, a <strong>cautious HOLD</strong> is advised for conservative investors, with potential BUY consideration for value investors if operational improvements materialize. Aggressive investors should monitor for Z-Score improvements above 2.5 and enhanced market activity before increasing exposure.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.045</td>
+<td>Industry Avg: ~1.5</td>
+<td><strong>Severe Weakness:</strong> Extremely low liquidity, potential short-term solvency risk</td>
+<td>Declining/Stable (very low)</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.045</td>
+<td>Industry Avg: ~0.2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Peer Avg: ~0.5-1.0</td>
+<td><strong>Data gap limits assessment</strong>; Retained Earnings Ratio at 0.509 suggests moderate equity cushion</td>
+<td>Stable (based on retained earnings)</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.023</td>
+<td>Industry Avg: ~0.10</td>
+<td><strong>Weak:</strong> Low EBIT margin indicates limited profitability</td>
+<td>Slightly improving (Z-Score rising)</td>
+</tr>
+<tr>
+<td></td>
+<td>Asset Turnover: 0.054</td>
+<td>Industry Avg: ~0.5</td>
+<td><strong>Very Low:</strong> Inefficient asset utilization</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.509</td>
+<td>Industry Avg: ~0.6</td>
+<td><strong>Moderate:</strong> Reasonable retained earnings buffer</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Benchmark: Adequate liquidity</td>
+<td><strong>Unknown</strong> due to missing cash data</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are approximate based on Technology Software Infrastructure sector norms.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+CPAY’s liquidity position is critically weak, with a current ratio of <strong>0.045</strong>, far below the industry average (~1.5), signaling potential short-term financial stress. The working capital ratio mirrors this concern. The absence of explicit debt-to-equity data limits leverage analysis; however, a retained earnings ratio of <strong>0.509</strong> indicates moderate equity accumulation, partially offsetting liquidity concerns.</p>
+<p>Operational efficiency is notably poor, with EBIT ratio at <strong>2.3%</strong> and asset turnover at <strong>5.4%</strong>, both substantially below typical industry standards, suggesting underutilization of assets and thin operating margins. These factors contribute to the company’s persistent Gray Zone Z-Score.</p>
+<p>AI Data Quality Assessment reports no anomalies detected, with raw financial data injection complete and consistent, lending confidence to these findings despite some missing leverage specifics.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>2.08</td>
+<td>Gray Zone</td>
+<td>Slightly improved working capital and EBIT ratios</td>
+<td>Stable operations with modest financial improvement</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>2.05</td>
+<td>Gray Zone</td>
+<td>Stable EBIT, marginal asset turnover improvement</td>
+<td>Continued operational challenges</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.06</td>
+<td>Gray Zone</td>
+<td>Consistent retained earnings ratio</td>
+<td>No major business shifts reported</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.04</td>
+<td>Gray Zone</td>
+<td>Gradual EBIT margin improvement</td>
+<td>Incremental efficiency gains</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.95</td>
+<td>Gray Zone</td>
+<td>Early signs of operational stabilization</td>
+<td>Possibly post-restructuring phase</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.85</td>
+<td>Gray Zone</td>
+<td>Low working capital, weak EBIT</td>
+<td>Financial stress evident</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>1.81</td>
+<td>Distress</td>
+<td>Lowest Z-Score, liquidity concerns</td>
+<td>Heightened risk period</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>1.83</td>
+<td>Gray Zone</td>
+<td>Slight recovery from distress</td>
+<td>Initial turnaround efforts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+CPAY’s Z-Score trajectory shows a gradual recovery from a distress zone low of <strong>1.81</strong> to a current <strong>2.08</strong>, indicating cautious improvement in financial health. The company remains in the Gray Zone, reflecting ongoing vulnerability but no immediate bankruptcy threat. The lack of detailed component ratios limits granular driver analysis, but the trend suggests incremental operational stabilization, possibly linked to business restructuring or cost control measures.</p>
+<p>Compared to the industry average Z-Score (typically &gt;3.0 for safe companies in this sector), CPAY remains below par, highlighting the need for continued focus on liquidity and profitability enhancements.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Gradual Z-Score rise (1.81 → 2.08)</td>
+<td>Flat price and volume data (0.00 volatility, no trading volume)</td>
+<td>Divergent</td>
+<td>Market not reflecting improving fundamentals; potential undervaluation or illiquidity risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to cautious</td>
+<td>P/E Ratio moderate at 23.30</td>
+<td>Consistent</td>
+<td>Market cautious but not bearish; limited enthusiasm</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>Competitive positioning weak; needs operational improvement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+CPAY’s fundamental health shows slow improvement, but market signals are largely absent or flat, with zero reported trading volume, zero volatility, and no price range data. This divergence suggests either illiquid trading conditions or data reporting gaps, limiting market validation of fundamental improvements.</p>
+<p>The P/E ratio of <strong>23.30</strong> is moderate, indicating the market values CPAY with some growth expectations but lacks strong conviction. The absence of dividends and low asset turnover further dampen market enthusiasm.</p>
+<p>Investors should be cautious about market timing due to this disconnect; fundamental improvements may not yet be priced in, presenting a potential opportunity if liquidity and market interest increase.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential Z-Score decline by 0.2-0.3</td>
+<td>Enhance operational efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Liquidity crisis could drop Z-Score below 1.8 (Distress)</td>
+<td>Improve working capital management, secure credit lines</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Market illiquidity limits capital raising</td>
+<td>Increase investor relations, improve transparency</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued operational improvements and liquidity management raise Z-Score above 2.5 within 6-12 months, moving CPAY closer to Safe Zone, improving investor confidence.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes around 2.0-2.1, maintaining Gray Zone status with moderate risk.<br />
+- <strong>Worst Case:</strong> Liquidity issues worsen, pushing Z-Score below 1.8, triggering distress signals and potential credit rating downgrades.</p>
+<p>Mitigation should focus on liquidity enhancement and operational efficiency to avoid distress zone re-entry. AI Risk Analysis confidence is moderate, reflecting data completeness but some missing leverage details.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 <strong>Conservative</strong></td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 2.08 (Gray Zone)</td>
+<td>Wait for liquidity improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 <strong>Dividend</strong></td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield (0.00%)</td>
+<td>No yield incentive</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 <strong>Value</strong></td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>Potential undervaluation; Z-Score improving</td>
+<td>Monitor for Z-Score &gt;2.3</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 <strong>Growth</strong></td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT ratio (0.023) limits growth</td>
+<td>Await operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 <strong>Aggressive</strong></td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>Risk/reward balanced by Gray Zone status</td>
+<td>Watch for volatility and market re-entry</td>
+<td>Short term</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Conservative investors should hold, avoiding increased exposure until liquidity and operational metrics improve. Dividend-focused investors should avoid CPAY due to zero yield. Value investors may consider selective buying, capitalizing on improving Z-Score and moderate valuation, but should monitor closely for sustained financial health gains.</p>
+<p>Growth investors should hold, awaiting clearer signs of margin expansion. Aggressive investors may speculate on potential turnaround but must be prepared for volatility and risk.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Drive efficiency programs, optimize asset use</td>
+<td>EBIT margin &gt;5%, asset turnover &gt;0.1</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity enhancement</td>
+<td>Current Ratio, Working Capital Ratio</td>
+<td>Strengthen cash flow management, reduce short-term liabilities</td>
+<td>Current ratio &gt;1.0, positive cash flow</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and transparency</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Implement risk monitoring, improve disclosure</td>
+<td>Stable or rising Z-Score, reduced risk alerts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+CEO should prioritize operational efficiency to lift EBIT ratio and asset turnover, directly impacting Z-Score components. CFO must address critical liquidity weakness (current ratio 0.045) to avoid distress zone relapse. The Board should enhance governance frameworks to monitor risk trajectory and ensure transparent communication with investors, especially given market illiquidity.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly improving</td>
+<td>Gradual increase</td>
+<td>Operational improvements, liquidity management</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Weak, illiquid</td>
+<td>Potential recovery</td>
+<td>Increased trading volume, investor interest</td>
+<td>Volume and price volatility metrics</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Stable to improving</td>
+<td>Debt refinancing, cost control</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+CPAY’s Z-Score momentum suggests a slow but steady path toward financial stabilization. Key catalysts include operational efficiency gains and liquidity improvements. Monitoring should focus on quarterly Z-Score changes, EBIT margin trends, and market liquidity indicators to detect inflection points.</p>
+<p>Risk profile is expected to stabilize if mitigation strategies succeed, but early warning signals include any reversal in working capital or EBIT ratios. Investors and management should maintain vigilance and adjust strategies accordingly.</p>
+<hr />
+<h1 id="summary-final-recommendations"><strong>Summary &amp; Final Recommendations</strong></h1>
+<p>CPAY is a <strong>Gray Zone</strong> company with moderate financial distress risk but no immediate bankruptcy threat. Liquidity is critically low, operational efficiency is weak, and market signals are muted due to illiquidity. The company shows signs of gradual improvement in Z-Score and operational metrics, but significant challenges remain.</p>
+<p><strong>Investment stance:</strong><br />
+- <strong>Conservative investors:</strong> HOLD and monitor liquidity improvements.<br />
+- <strong>Value investors:</strong> Consider selective BUY if Z-Score surpasses 2.3 and operational metrics improve.<br />
+- <strong>Growth investors:</strong> HOLD pending margin expansion.<br />
+- <strong>Dividend investors:</strong> SELL due to zero yield.<br />
+- <strong>Aggressive investors:</strong> SPECULATIVE BUY with close risk monitoring.</p>
+<p>Management must focus on liquidity enhancement and operational turnaround to shift CPAY into the Safe Zone (Z &gt; 3.0), which would unlock stronger market confidence and valuation uplift.</p>
+<hr />
+<p><em>Analysis completed with full integration of injected financial data, AI quality assessments, peer and risk analyses, and market intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:12 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

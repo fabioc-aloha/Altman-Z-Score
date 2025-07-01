@@ -195,7 +195,7 @@ Transform the financial analysis landscape with the industry's most comprehensiv
 ```json
 {
   "z_score": 2.8,                    // ✅ Fundamental analysis
-  "risk_category": "grey",           // ✅ Risk assessment  
+  "risk_category": "gray",           // ✅ Risk assessment  
   "investment_rating": "BUY",        // ✅ NEW: Clear recommendation
   "confidence_level": 0.60,          // ✅ NEW: Confidence score
   "price_target": 228.85,            // ✅ NEW: Price target

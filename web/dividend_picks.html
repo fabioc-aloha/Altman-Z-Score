@@ -1,1591 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dividend Investor Stock Picks - Altman Z-Score</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-        }
-        h1, h2 {
-            color: #1a5276;
-            margin-top: 30px;
-        }
-        h1 {
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .date {
-            text-align: right;
-            font-size: 1.1em;
-            color: #666;
-        }
-        .company-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .company-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-        .company-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .company-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 4px;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        .company-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .company-name {
-            font-weight: 600;
-            font-size: 1.2em;
-            color: #2c3e50;
-            flex: 1;
-        }
-        .ticker {
-            background-color: #eef2f5;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-weight: 500;
-            color: #34495e;
-            display: inline-block;
-            margin-top: 3px;
-            margin-left: auto;
-        }
-        .z-score {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 15px 0;
-        }
-        .recommendation {
-            background-color: #27ae60;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            font-weight: 600;
-        }
-        .recommendation.buy {
-            background-color: #27ae60;
-        }
-        .recommendation.hold {
-            background-color: #f39c12;
-        }
-        .label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 3px;
-        }
-        .view-report {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 8px 15px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .view-report:hover {
-            background-color: #2980b9;
-        }
-        .filters {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .filter-group {
-            display: flex;
-            align-items: center;
-        }
-        select, input {
-            padding: 8px 12px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            margin-left: 10px;
-        }
-        .total-count {
-            background-color: #eef2f5;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        .summary {
-            background-color: #e8f4fd;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .highest-z-score {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        .disclaimer {
-            margin-top: 40px;
-            padding: 15px;
-            background-color: #efefef;
-            border-radius: 6px;
-            font-size: 0.9em;
-            color: #666;
-            text-align: center;
-        }
-        .category-label {
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background-color: #2e86c1;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            font-weight: 500;
-        }
-        .risk-category {
-            color: #27ae60;
-            font-weight: 500;
-        }
-        .profile-icon {
-            font-size: 24px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        .profile-description {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2e86c1;
-        }
-    </style>
+    <title>Dividend Income Portfolio</title>
+    <link rel="stylesheet" href="assets/dashboard_common.css">
 </head>
+
 <body>
-    <div class="header-container">
-        <h1><span class="profile-icon">💰</span> Dividend Investor Stock Picks</h1>
-        <div class="date">June 27, 2025</div>
-    </div>
+    <div class="container">
+        <header class="header-container">
+            <div>
+                <h1>Dividend Income Portfolio</h1>
+                <p class="subtitle">Reliable dividend-paying companies for income-focused investors</p>
+            </div>
+            <div class="date">Generated: July 01, 2025</div>
+        </header>
 
-    <div class="profile-description">
-        <p><strong>Dividend Investor Profile:</strong> Focused on income generation with low to medium risk tolerance. 
-        These investors prioritize companies with sustainable dividend payments, stable cash flows, and solid financial health. 
-        All stocks in this list have been identified as suitable for dividend-focused investors based on their financial stability and income potential.</p>
-    </div>
+        <div class="summary-section">
+            <h2>Portfolio Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Safe Zone</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">31.12</div>
+                    <div class="stat-label">Avg Z-Score</div>
+                </div>
+            </div>
 
-    <div class="summary">
-        <h2>Investment Summary</h2>
-        <p>Based on the Altman Z-Score analysis and dividend investor criteria, we have identified <strong>76</strong> companies that meet the requirements for income-focused investors. These companies demonstrate solid financial health with sufficient Z-Scores to support sustainable dividend payments.</p>
-        <p>The highest Z-Score belongs to <span class="highest-z-score">Palantir Technologies Inc. (PLTR)</span> with Z-Score of 167.83 (if available), followed by <span class="highest-z-score">Intuitive Surgical, Inc. (ISRG)</span> and <span class="highest-z-score">NVIDIA Corporation (NVDA)</span>.</p>
-        <p>These recommendations are particularly suitable for investors focused on income generation and dividend sustainability.</p>
-    </div>
-
-    <div class="filters">
-        <div class="filter-group">
-            <label for="sort-by">Sort by:</label>
-            <select id="sort-by">
-                <option value="z-score-desc">Z-Score (Highest First)</option>
-                <option value="z-score-asc">Z-Score (Lowest First)</option>
-                <option value="name-asc">Company Name (A-Z)</option>
-                <option value="name-desc">Company Name (Z-A)</option>
-                <option value="rec-buy">Buy Recommendations First</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label for="search">Search:</label>
-            <input type="text" id="search" placeholder="Company or ticker...">
-        </div>
-        <div class="total-count">76 Companies</div>
-    </div>
-
-    <div class="company-grid" id="company-container">
-        <div class="company-card" data-ticker="PLTR" data-z-score="167.83" data-rec="hold">
-            <span class="category-label">Top Dividend Pick</span>
-            <div class="company-header">
-                <img src="output/PLTR/PLTR_logo.png" alt="PLTR" class="company-logo">
-                <div>
-                    <div class="company-name">Palantir Technologies Inc.</div>
-                    <span class="ticker">PLTR</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">167.83</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/PLTR/PLTR_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ISRG" data-z-score="58.2" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ISRG/ISRG_logo.png" alt="ISRG" class="company-logo">
-                <div>
-                    <div class="company-name">Intuitive Surgical, Inc.</div>
-                    <span class="ticker">ISRG</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">58.20</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ISRG/ISRG_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="NVDA" data-z-score="57.11" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/NVDA/NVDA_logo.png" alt="NVDA" class="company-logo">
-                <div>
-                    <div class="company-name">NVIDIA Corporation</div>
-                    <span class="ticker">NVDA</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">57.11</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/NVDA/NVDA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MPWR" data-z-score="40.9" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/MPWR/MPWR_logo.png" alt="MPWR" class="company-logo">
-                <div>
-                    <div class="company-name">Monolithic Power Systems, Inc.</div>
-                    <span class="ticker">MPWR</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">40.90</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/MPWR/MPWR_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="CPRT" data-z-score="34.16" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/CPRT/CPRT_logo.png" alt="CPRT" class="company-logo">
-                <div>
-                    <div class="company-name">Copart, Inc.</div>
-                    <span class="ticker">CPRT</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">34.16</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/CPRT/CPRT_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="FAST" data-z-score="26.44" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/FAST/FAST_logo.png" alt="FAST" class="company-logo">
-                <div>
-                    <div class="company-name">Fastenal Company</div>
-                    <span class="ticker">FAST</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">26.44</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/FAST/FAST_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ANET" data-z-score="19.24" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ANET/ANET_logo.png" alt="ANET" class="company-logo">
-                <div>
-                    <div class="company-name">Arista Networks, Inc.</div>
-                    <span class="ticker">ANET</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">19.24</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ANET/ANET_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GRMN" data-z-score="16.42" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/GRMN/GRMN_logo.png" alt="GRMN" class="company-logo">
-                <div>
-                    <div class="company-name">Garmin Ltd.</div>
-                    <span class="ticker">GRMN</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">16.42</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/GRMN/GRMN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MNDY" data-z-score="14.66" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/MNDY/MNDY_logo.png" alt="MNDY" class="company-logo">
-                <div>
-                    <div class="company-name">monday.com Ltd.</div>
-                    <span class="ticker">MNDY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">14.66</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/MNDY/MNDY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="TSLA" data-z-score="13.52" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/TSLA/TSLA_logo.png" alt="TSLA" class="company-logo">
-                <div>
-                    <div class="company-name">Tesla, Inc.</div>
-                    <span class="ticker">TSLA</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">13.52</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/TSLA/TSLA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="NFLX" data-z-score="13.27" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/NFLX/NFLX_logo.png" alt="NFLX" class="company-logo">
-                <div>
-                    <div class="company-name">Netflix, Inc.</div>
-                    <span class="ticker">NFLX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">13.27</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/NFLX/NFLX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="META" data-z-score="12.61" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/META/META_logo.png" alt="META" class="company-logo">
-                <div>
-                    <div class="company-name">Meta Platforms, Inc.</div>
-                    <span class="ticker">META</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">12.61</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/META/META_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="NOW" data-z-score="12.14" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/NOW/NOW_logo.png" alt="NOW" class="company-logo">
-                <div>
-                    <div class="company-name">ServiceNow, Inc.</div>
-                    <span class="ticker">NOW</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">12.14</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/NOW/NOW_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="VRTX" data-z-score="11.86" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/VRTX/VRTX_logo.png" alt="VRTX" class="company-logo">
-                <div>
-                    <div class="company-name">Vertex Pharmaceuticals Incorporated</div>
-                    <span class="ticker">VRTX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">11.86</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/VRTX/VRTX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="DASH" data-z-score="11.8" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/DASH/DASH_logo.png" alt="DASH" class="company-logo">
-                <div>
-                    <div class="company-name">DoorDash, Inc.</div>
-                    <span class="ticker">DASH</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">11.80</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/DASH/DASH_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ANSS" data-z-score="11.49" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ANSS/ANSS_logo.png" alt="ANSS" class="company-logo">
-                <div>
-                    <div class="company-name">ANSYS, Inc.</div>
-                    <span class="ticker">ANSS</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">11.49</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ANSS/ANSS_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GOOG" data-z-score="11.09" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/GOOG/GOOG_logo.png" alt="GOOG" class="company-logo">
-                <div>
-                    <div class="company-name">Alphabet Inc.</div>
-                    <span class="ticker">GOOG</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">11.09</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/GOOG/GOOG_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GOOGL" data-z-score="11.09" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/GOOGL/GOOGL_logo.png" alt="GOOGL" class="company-logo">
-                <div>
-                    <div class="company-name">Alphabet Inc.</div>
-                    <span class="ticker">GOOGL</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">11.09</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/GOOGL/GOOGL_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="AMD" data-z-score="10.66" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/AMD/AMD_logo.png" alt="AMD" class="company-logo">
-                <div>
-                    <div class="company-name">Advanced Micro Devices, Inc.</div>
-                    <span class="ticker">AMD</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">10.66</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/AMD/AMD_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MSFT" data-z-score="10.16" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/MSFT/MSFT_logo.png" alt="MSFT" class="company-logo">
-                <div>
-                    <div class="company-name">Microsoft Corporation</div>
-                    <span class="ticker">MSFT</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">10.16</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/MSFT/MSFT_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MA" data-z-score="9.78" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/MA/MA_logo.png" alt="MA" class="company-logo">
-                <div>
-                    <div class="company-name">Mastercard Incorporated</div>
-                    <span class="ticker">MA</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">9.78</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/MA/MA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="HUBS" data-z-score="9.35" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/HUBS/HUBS_logo.png" alt="HUBS" class="company-logo">
-                <div>
-                    <div class="company-name">HubSpot, Inc.</div>
-                    <span class="ticker">HUBS</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">9.35</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/HUBS/HUBS_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="INTU" data-z-score="9.29" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/INTU/INTU_logo.png" alt="INTU" class="company-logo">
-                <div>
-                    <div class="company-name">Intuit Inc.</div>
-                    <span class="ticker">INTU</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">9.29</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/INTU/INTU_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="INFY" data-z-score="9.22" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/INFY/INFY_logo.png" alt="INFY" class="company-logo">
-                <div>
-                    <div class="company-name">Infosys Limited</div>
-                    <span class="ticker">INFY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">9.22</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/INFY/INFY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="CHKP" data-z-score="8.87" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/CHKP/CHKP_logo.png" alt="CHKP" class="company-logo">
-                <div>
-                    <div class="company-name">Check Point Software Technologies Ltd.</div>
-                    <span class="ticker">CHKP</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">8.87</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/CHKP/CHKP_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ADBE" data-z-score="8.43" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ADBE/ADBE_logo.png" alt="ADBE" class="company-logo">
-                <div>
-                    <div class="company-name">Adobe Inc.</div>
-                    <span class="ticker">ADBE</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">8.43</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ADBE/ADBE_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="AVGO" data-z-score="8.26" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/AVGO/AVGO_logo.png" alt="AVGO" class="company-logo">
-                <div>
-                    <div class="company-name">Broadcom Inc.</div>
-                    <span class="ticker">AVGO</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">8.26</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/AVGO/AVGO_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="SAP" data-z-score="8.16" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/SAP/SAP_logo.png" alt="SAP" class="company-logo">
-                <div>
-                    <div class="company-name">Sap Se</div>
-                    <span class="ticker">SAP</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">8.16</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/SAP/SAP_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="V" data-z-score="7.98" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/V/V_logo.png" alt="V" class="company-logo">
-                <div>
-                    <div class="company-name">Visa Inc.</div>
-                    <span class="ticker">V</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">7.98</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/V/V_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ASML" data-z-score="7.46" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ASML/ASML_logo.png" alt="ASML" class="company-logo">
-                <div>
-                    <div class="company-name">ASML Holding N.V.</div>
-                    <span class="ticker">ASML</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">7.46</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ASML/ASML_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GWW" data-z-score="7.32" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/GWW/GWW_logo.png" alt="GWW" class="company-logo">
-                <div>
-                    <div class="company-name">W.W. Grainger, Inc.</div>
-                    <span class="ticker">GWW</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">7.32</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/GWW/GWW_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="AAPL" data-z-score="7.27" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/AAPL/AAPL_logo.png" alt="AAPL" class="company-logo">
-                <div>
-                    <div class="company-name">Apple Inc.</div>
-                    <span class="ticker">AAPL</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">7.27</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/AAPL/AAPL_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="PODD" data-z-score="6.84" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/PODD/PODD_logo.png" alt="PODD" class="company-logo">
-                <div>
-                    <div class="company-name">Insulet Corporation</div>
-                    <span class="ticker">PODD</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.84</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/PODD/PODD_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="COST" data-z-score="6.75" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/COST/COST_logo.png" alt="COST" class="company-logo">
-                <div>
-                    <div class="company-name">Costco Wholesale Corporation</div>
-                    <span class="ticker">COST</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.75</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/COST/COST_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="APH" data-z-score="6.67" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/APH/APH_logo.png" alt="APH" class="company-logo">
-                <div>
-                    <div class="company-name">Amphenol Corporation</div>
-                    <span class="ticker">APH</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.67</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/APH/APH_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="LLY" data-z-score="6.55" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/LLY/LLY_logo.png" alt="LLY" class="company-logo">
-                <div>
-                    <div class="company-name">Eli Lilly and Company</div>
-                    <span class="ticker">LLY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.55</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/LLY/LLY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ADI" data-z-score="6.21" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ADI/ADI_logo.png" alt="ADI" class="company-logo">
-                <div>
-                    <div class="company-name">Analog Devices, Inc.</div>
-                    <span class="ticker">ADI</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.21</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ADI/ADI_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="COIN" data-z-score="6.1" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/COIN/COIN_logo.png" alt="COIN" class="company-logo">
-                <div>
-                    <div class="company-name">Coinbase Global, Inc.</div>
-                    <span class="ticker">COIN</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">6.10</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/COIN/COIN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="PANW" data-z-score="5.72" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/PANW/PANW_logo.png" alt="PANW" class="company-logo">
-                <div>
-                    <div class="company-name">Palo Alto Networks, Inc.</div>
-                    <span class="ticker">PANW</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">5.72</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/PANW/PANW_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="BKNG" data-z-score="5.63" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/BKNG/BKNG_logo.png" alt="BKNG" class="company-logo">
-                <div>
-                    <div class="company-name">Booking Holdings Inc.</div>
-                    <span class="ticker">BKNG</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">5.63</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/BKNG/BKNG_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="BSX" data-z-score="5.62" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/BSX/BSX_logo.png" alt="BSX" class="company-logo">
-                <div>
-                    <div class="company-name">Boston Scientific Corporation</div>
-                    <span class="ticker">BSX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">5.62</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/BSX/BSX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="WDAY" data-z-score="4.96" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/WDAY/WDAY_logo.png" alt="WDAY" class="company-logo">
-                <div>
-                    <div class="company-name">Workday, Inc.</div>
-                    <span class="ticker">WDAY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.96</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/WDAY/WDAY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="AMZN" data-z-score="4.86" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/AMZN/AMZN_logo.png" alt="AMZN" class="company-logo">
-                <div>
-                    <div class="company-name">Amazon.com, Inc.</div>
-                    <span class="ticker">AMZN</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.86</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/AMZN/AMZN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ETN" data-z-score="4.73" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ETN/ETN_logo.png" alt="ETN" class="company-logo">
-                <div>
-                    <div class="company-name">Eaton Corporation plc</div>
-                    <span class="ticker">ETN</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.73</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ETN/ETN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="BX" data-z-score="4.65" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/BX/BX_logo.png" alt="BX" class="company-logo">
-                <div>
-                    <div class="company-name">Blackstone Inc.</div>
-                    <span class="ticker">BX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.65</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/BX/BX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="CRM" data-z-score="4.53" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/CRM/CRM_logo.png" alt="CRM" class="company-logo">
-                <div>
-                    <div class="company-name">Salesforce, Inc.</div>
-                    <span class="ticker">CRM</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.53</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/CRM/CRM_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="SYK" data-z-score="4.46" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/SYK/SYK_logo.png" alt="SYK" class="company-logo">
-                <div>
-                    <div class="company-name">Stryker Corporation</div>
-                    <span class="ticker">SYK</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.46</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/SYK/SYK_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="SPGI" data-z-score="4.41" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/SPGI/SPGI_logo.png" alt="SPGI" class="company-logo">
-                <div>
-                    <div class="company-name">S&P Global Inc.</div>
-                    <span class="ticker">SPGI</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.41</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/SPGI/SPGI_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MU" data-z-score="4.36" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/MU/MU_logo.png" alt="MU" class="company-logo">
-                <div>
-                    <div class="company-name">Micron Technology, Inc.</div>
-                    <span class="ticker">MU</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.36</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/MU/MU_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="HD" data-z-score="4.28" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/HD/HD_logo.png" alt="HD" class="company-logo">
-                <div>
-                    <div class="company-name">The Home Depot, Inc.</div>
-                    <span class="ticker">HD</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.28</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/HD/HD_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="TJX" data-z-score="4.12" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/TJX/TJX_logo.png" alt="TJX" class="company-logo">
-                <div>
-                    <div class="company-name">The TJX Companies, Inc.</div>
-                    <span class="ticker">TJX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.12</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/TJX/TJX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="NICE" data-z-score="4.07" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/NICE/NICE_logo.png" alt="NICE" class="company-logo">
-                <div>
-                    <div class="company-name">NICE Ltd.</div>
-                    <span class="ticker">NICE</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">4.07</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/NICE/NICE_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="RHHBY" data-z-score="3.8" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/RHHBY/RHHBY_logo.png" alt="RHHBY" class="company-logo">
-                <div>
-                    <div class="company-name">Roche Holding AG</div>
-                    <span class="ticker">RHHBY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.80</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/RHHBY/RHHBY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="WMT" data-z-score="3.78" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/WMT/WMT_logo.png" alt="WMT" class="company-logo">
-                <div>
-                    <div class="company-name">Walmart Inc.</div>
-                    <span class="ticker">WMT</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.78</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/WMT/WMT_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="PH" data-z-score="3.76" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/PH/PH_logo.png" alt="PH" class="company-logo">
-                <div>
-                    <div class="company-name">Parker-Hannifin Corporation</div>
-                    <span class="ticker">PH</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.76</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/PH/PH_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="EFX" data-z-score="3.72" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/EFX/EFX_logo.png" alt="EFX" class="company-logo">
-                <div>
-                    <div class="company-name">Equifax Inc.</div>
-                    <span class="ticker">EFX</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.72</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/EFX/EFX_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="UBER" data-z-score="3.7" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/UBER/UBER_logo.png" alt="UBER" class="company-logo">
-                <div>
-                    <div class="company-name">Uber Technologies, Inc.</div>
-                    <span class="ticker">UBER</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.70</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/UBER/UBER_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="005930.KS" data-z-score="3.65" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/005930.KS/005930.KS_logo.png" alt="005930.KS" class="company-logo">
-                <div>
-                    <div class="company-name">005930.KS</div>
-                    <span class="ticker">005930.KS</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.65</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/005930.KS/005930.KS_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="OKTA" data-z-score="3.5" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/OKTA/OKTA_logo.png" alt="OKTA" class="company-logo">
-                <div>
-                    <div class="company-name">Okta, Inc.</div>
-                    <span class="ticker">OKTA</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.50</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/OKTA/OKTA_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="NKE" data-z-score="3.48" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/NKE/NKE_logo.png" alt="NKE" class="company-logo">
-                <div>
-                    <div class="company-name">NIKE, Inc.</div>
-                    <span class="ticker">NKE</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.48</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/NKE/NKE_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="LIN" data-z-score="3.44" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/LIN/LIN_logo.png" alt="LIN" class="company-logo">
-                <div>
-                    <div class="company-name">Linde plc</div>
-                    <span class="ticker">LIN</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.44</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/LIN/LIN_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="JNJ" data-z-score="3.38" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/JNJ/JNJ_logo.png" alt="JNJ" class="company-logo">
-                <div>
-                    <div class="company-name">Johnson & Johnson</div>
-                    <span class="ticker">JNJ</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.38</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/JNJ/JNJ_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="IR" data-z-score="3.14" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/IR/IR_logo.png" alt="IR" class="company-logo">
-                <div>
-                    <div class="company-name">Ingersoll Rand Inc.</div>
-                    <span class="ticker">IR</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.14</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/IR/IR_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="MMM" data-z-score="3.14" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/MMM/MMM_logo.png" alt="MMM" class="company-logo">
-                <div>
-                    <div class="company-name">3M Company</div>
-                    <span class="ticker">MMM</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.14</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/MMM/MMM_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="CAT" data-z-score="3.04" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/CAT/CAT_logo.png" alt="CAT" class="company-logo">
-                <div>
-                    <div class="company-name">Caterpillar Inc.</div>
-                    <span class="ticker">CAT</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">3.04</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Safe</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/CAT/CAT_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="IBM" data-z-score="2.96" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/IBM/IBM_logo.png" alt="IBM" class="company-logo">
-                <div>
-                    <div class="company-name">International Business Machines Corporation</div>
-                    <span class="ticker">IBM</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.96</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/IBM/IBM_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="UL" data-z-score="2.87" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/UL/UL_logo.png" alt="UL" class="company-logo">
-                <div>
-                    <div class="company-name">Unilever PLC</div>
-                    <span class="ticker">UL</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.87</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/UL/UL_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GILD" data-z-score="2.77" data-rec="buy">
-            
-            <div class="company-header">
-                <img src="output/GILD/GILD_logo.png" alt="GILD" class="company-logo">
-                <div>
-                    <div class="company-name">Gilead Sciences, Inc.</div>
-                    <span class="ticker">GILD</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.77</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation buy">BUY</div>
-            <a href="output/GILD/GILD_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="CMI" data-z-score="2.74" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/CMI/CMI_logo.png" alt="CMI" class="company-logo">
-                <div>
-                    <div class="company-name">Cummins Inc.</div>
-                    <span class="ticker">CMI</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.74</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/CMI/CMI_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ORLY" data-z-score="2.7" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ORLY/ORLY_logo.png" alt="ORLY" class="company-logo">
-                <div>
-                    <div class="company-name">O'Reilly Automotive, Inc.</div>
-                    <span class="ticker">ORLY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.70</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ORLY/ORLY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ADDYY" data-z-score="2.67" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ADDYY/ADDYY_logo.png" alt="ADDYY" class="company-logo">
-                <div>
-                    <div class="company-name">adidas AG</div>
-                    <span class="ticker">ADDYY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.67</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ADDYY/ADDYY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="PCAR" data-z-score="2.65" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/PCAR/PCAR_logo.png" alt="PCAR" class="company-logo">
-                <div>
-                    <div class="company-name">PACCAR Inc</div>
-                    <span class="ticker">PCAR</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.65</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/PCAR/PCAR_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="GE" data-z-score="2.62" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/GE/GE_logo.png" alt="GE" class="company-logo">
-                <div>
-                    <div class="company-name">General Electric Company</div>
-                    <span class="ticker">GE</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.62</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/GE/GE_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="ORCL" data-z-score="2.57" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/ORCL/ORCL_logo.png" alt="ORCL" class="company-logo">
-                <div>
-                    <div class="company-name">Oracle Corporation</div>
-                    <span class="ticker">ORCL</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.57</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/ORCL/ORCL_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="K" data-z-score="2.52" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/K/K_logo.png" alt="K" class="company-logo">
-                <div>
-                    <div class="company-name">Kellanova</div>
-                    <span class="ticker">K</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.52</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/K/K_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-        <div class="company-card" data-ticker="LVMUY" data-z-score="2.51" data-rec="hold">
-            
-            <div class="company-header">
-                <img src="output/LVMUY/LVMUY_logo.png" alt="LVMUY" class="company-logo">
-                <div>
-                    <div class="company-name">LVMH Moët Hennessy - Louis Vuitton, Société Européenne</div>
-                    <span class="ticker">LVMUY</span>
-                </div>
-            </div>
-            <div class="label">Altman Z-Score:</div>
-            <div class="z-score">2.51</div>
-            <div class="label">Risk Category:</div>
-            <div class="risk-category">Gray</div>
-            <div class="label">Dividend Investor:</div>
-            <div class="recommendation hold">HOLD</div>
-            <a href="output/LVMUY/LVMUY_comprehensive_report.html" class="view-report" target="_blank">View Full Report</a>
-        </div>
-    </div>
-
-    <div class="disclaimer">
-        <p><strong>Disclaimer:</strong> This information is based on Altman Z-Score analysis as of the current date shown. 
-        These recommendations are tailored for dividend-focused investors and are derived from financial health metrics. 
-        They do not guarantee future performance or dividend sustainability. Always consult with a financial advisor before 
-        making investment decisions. This analysis is not financial advice.</p>
-    </div>
-
-    <script>
-        // Simple sorting and filtering functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const companyContainer = document.getElementById('company-container');
-            const sortBySelect = document.getElementById('sort-by');
-            const searchInput = document.getElementById('search');
-            const companies = Array.from(document.querySelectorAll('.company-card'));
-            
-            // Sort function
-            function sortCompanies() {
-                const sortValue = sortBySelect.value;
-                const sortedCompanies = [...companies].sort((a, b) => {
-                    switch(sortValue) {
-                        case 'z-score-desc':
-                            return parseFloat(b.dataset.zScore) - parseFloat(a.dataset.zScore);
-                        case 'z-score-asc':
-                            return parseFloat(a.dataset.zScore) - parseFloat(b.dataset.zScore);
-                        case 'name-asc':
-                            return a.querySelector('.company-name').textContent.localeCompare(b.querySelector('.company-name').textContent);
-                        case 'name-desc':
-                            return b.querySelector('.company-name').textContent.localeCompare(a.querySelector('.company-name').textContent);
-                        case 'rec-buy':
-                            if (a.dataset.rec === 'buy' && b.dataset.rec !== 'buy') return -1;
-                            if (a.dataset.rec !== 'buy' && b.dataset.rec === 'buy') return 1;
-                            return parseFloat(b.dataset.zScore) - parseFloat(a.dataset.zScore);
-                        default:
-                            return 0;
-                    }
-                });
+            <div class="summary-text">
                 
-                companyContainer.innerHTML = '';
-                sortedCompanies.forEach(company => companyContainer.appendChild(company));
-            }
+        <p>This portfolio presents <strong>reliable dividend-paying companies</strong> based on comprehensive Altman Z-Score analysis. 
+        The selection emphasizes financial stability, market position, and investment potential.</p>
+        
+        <p><strong>Top Pick:</strong> ** Palantir Technologies Inc. (PLTR) (PLTR) leads with a Z-Score of 
+        158.61, indicating safe risk levels.</p>
+        
+            <p><strong>Notable Mentions:</strong> ** Intuitive Surgical, Inc. (ISRG) (ISRG) 
+            and ** NVIDIA Corporation (NVDA) (NVDA) also demonstrate strong fundamentals 
+            with Z-Scores of 59.18 and 58.16 respectively.</p>
             
-            // Filter function
-            function filterCompanies() {
-                const searchTerm = searchInput.value.toLowerCase();
-                companies.forEach(company => {
-                    const companyName = company.querySelector('.company-name').textContent.toLowerCase();
-                    const ticker = company.dataset.ticker.toLowerCase();
-                    
-                    if (companyName.includes(searchTerm) || ticker.includes(searchTerm)) {
-                        company.style.display = '';
-                    } else {
-                        company.style.display = 'none';
-                    }
-                });
-            }
-            
-            // Event listeners
-            sortBySelect.addEventListener('change', sortCompanies);
-            searchInput.addEventListener('input', filterCompanies);
-            
-            // Initial sort
-            sortCompanies();
-        });
-    </script>
+            </div>
+        </div>
+
+        <div class="companies-section">
+            <h2>Company Analysis</h2>
+            <div class="company-grid">
+                <div class="company-card">
+    <div class="company-header">
+        <img src="output/PLTR/PLTR_logo.png" alt="PLTR" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Palantir Technologies Inc. (PLTR)</div>
+            <div class="ticker">PLTR</div>
+        </div>
+        <div class="rank">#1</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">158.61</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/PLTR/PLTR_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ISRG/ISRG_logo.png" alt="ISRG" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Intuitive Surgical, Inc. (ISRG)</div>
+            <div class="ticker">ISRG</div>
+        </div>
+        <div class="rank">#2</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">59.18</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ISRG/ISRG_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/NVDA/NVDA_logo.png" alt="NVDA" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** NVIDIA Corporation (NVDA)</div>
+            <div class="ticker">NVDA</div>
+        </div>
+        <div class="rank">#3</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">58.16</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/NVDA/NVDA_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ARM/ARM_logo.png" alt="ARM" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ARM Holdings plc (Ticker: ARM)</div>
+            <div class="ticker">ARM</div>
+        </div>
+        <div class="rank">#4</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">50.48</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ARM/ARM_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/MPWR/MPWR_logo.png" alt="MPWR" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Monolithic Power Systems, Inc. (MPWR)</div>
+            <div class="ticker">MPWR</div>
+        </div>
+        <div class="rank">#5</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">40.94</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/MPWR/MPWR_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/SHOP/SHOP_logo.png" alt="SHOP" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Shopify Inc. (SHOP)</div>
+            <div class="ticker">SHOP</div>
+        </div>
+        <div class="rank">#6</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">39.20</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/SHOP/SHOP_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/FAST/FAST_logo.png" alt="FAST" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** FAST (Fastenal Company)</div>
+            <div class="ticker">FAST</div>
+        </div>
+        <div class="rank">#7</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">26.84</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/FAST/FAST_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ANET/ANET_logo.png" alt="ANET" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Arista Networks, Inc. (Ticker: ANET)</div>
+            <div class="ticker">ANET</div>
+        </div>
+        <div class="rank">#8</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">19.36</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ANET/ANET_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/NET/NET_logo.png" alt="NET" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** NET (Cloudflare, Inc.)</div>
+            <div class="ticker">NET</div>
+        </div>
+        <div class="rank">#9</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">17.82</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/NET/NET_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/CPRT/CPRT_logo.png" alt="CPRT" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Copart, Inc. (CPRT)</div>
+            <div class="ticker">CPRT</div>
+        </div>
+        <div class="rank">#10</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">16.70</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/CPRT/CPRT_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/GRMN/GRMN_logo.png" alt="GRMN" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Garmin Ltd. (Ticker: GRMN)</div>
+            <div class="ticker">GRMN</div>
+        </div>
+        <div class="rank">#11</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">16.67</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/GRMN/GRMN_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/MNDY/MNDY_logo.png" alt="MNDY" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** monday.com Ltd. (Ticker: MNDY)</div>
+            <div class="ticker">MNDY</div>
+        </div>
+        <div class="rank">#12</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">15.21</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/MNDY/MNDY_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/SPOT/SPOT_logo.png" alt="SPOT" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Spotify Technology S.A. (Ticker: SPOT)</div>
+            <div class="ticker">SPOT</div>
+        </div>
+        <div class="rank">#13</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">15.19</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/SPOT/SPOT_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/CRWD/CRWD_logo.png" alt="CRWD" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** CrowdStrike Holdings, Inc. (CRWD)</div>
+            <div class="ticker">CRWD</div>
+        </div>
+        <div class="rank">#14</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">14.84</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/CRWD/CRWD_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/TSLA/TSLA_logo.png" alt="TSLA" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Tesla, Inc. (TSLA)</div>
+            <div class="ticker">TSLA</div>
+        </div>
+        <div class="rank">#15</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">13.20</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/TSLA/TSLA_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/META/META_logo.png" alt="META" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Meta Platforms, Inc. (META)</div>
+            <div class="ticker">META</div>
+        </div>
+        <div class="rank">#16</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">12.80</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/META/META_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/NOW/NOW_logo.png" alt="NOW" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ServiceNow, Inc. (Ticker: NOW)</div>
+            <div class="ticker">NOW</div>
+        </div>
+        <div class="rank">#17</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">12.34</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/NOW/NOW_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/TROW/TROW_logo.png" alt="TROW" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** T. Rowe Price Group, Inc. (Ticker: TROW)</div>
+            <div class="ticker">TROW</div>
+        </div>
+        <div class="rank">#18</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">11.82</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/TROW/TROW_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/ANSS/ANSS_logo.png" alt="ANSS" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** ANSS (ANSYS, Inc.)</div>
+            <div class="ticker">ANSS</div>
+        </div>
+        <div class="rank">#19</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">11.72</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-buy">BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/ANSS/ANSS_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+<div class="company-card">
+    <div class="company-header">
+        <img src="output/GOOG/GOOG_logo.png" alt="GOOG" class="company-logo" onerror="this.src='assets/default_logo.png'">
+        <div class="company-info">
+            <div class="company-name">** Alphabet Inc. (GOOG)</div>
+            <div class="ticker">GOOG</div>
+        </div>
+        <div class="rank">#20</div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric z-score-metric">
+            <div class="metric-label">Z-Score</div>
+            <div class="metric-value risk-safe">11.29</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Category</div>
+            <div class="metric-value">Safe</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Recommendation</div>
+            <div class="metric-value recommendation-strong_buy">STRONG_BUY</div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="output/GOOG/GOOG_comprehensive_report.html" class="view-report">View Full Report</a>
+    </div>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Generated by Altman Z-Score Analysis System v4.5.0 | Data as of July 01, 2025</p>
+            <p><em>This analysis is for informational purposes only and should not be considered as investment
+                    advice.</em></p>
+        </footer>
+    </div>
 </body>
+
 </html>

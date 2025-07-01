@@ -165,7 +165,7 @@ class ZScoreResult:
     components: Dict[str, ZScoreComponent]
     valid: bool
     model_key: str
-    zone: str  # "safe", "grey", "distress"
+    zone: str  # "safe", "gray", "distress"
     diagnostics: str = ""
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)

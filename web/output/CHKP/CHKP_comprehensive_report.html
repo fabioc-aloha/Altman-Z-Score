@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CHKP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Check Point Software Technologies Ltd. (CHKP)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CHKP_logo.png" alt="Check Point Software Technologies Ltd. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="CHKP_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="CHKP_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.97</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$221.25</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$24.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>29.2</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>40.7</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.55</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.02</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-18.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Check Point Software Technologies Ltd. (Ticker: CHKP)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:13:09  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Check Point Software Technologies Ltd. (CHKP) demonstrates a <strong>consistently strong financial position</strong> with an Altman Z-Score firmly in the <strong>Safe Zone</strong> over the past eight quarters, ranging narrowly between 8.51 and 9.15. This robust Z-Score trajectory signals an extremely low risk of bankruptcy or financial distress, supported by a stable risk trajectory and a positive outlook.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong>, consistent with the Z-Score safety margin, with no significant risk trajectory concerns. The company operates in the <strong>Technology sector</strong>, specifically within the <strong>Software - Infrastructure industry</strong>, a space characterized by rapid innovation but also intense competition.</p>
+<p><strong>AI Peer Analysis</strong> positions CHKP well above the industry average Z-Score (not explicitly provided but typically in the 3.0-4.5 range for tech peers), confirming its superior financial health relative to competitors. Key peers include other cybersecurity and infrastructure software firms, where CHKP’s Z-Score near 9.0 is a significant outlier on the positive side.</p>
+<p><strong>AI Sentiment Analysis</strong> shows a neutral to slightly positive market sentiment, with no dividend yield and a P/E ratio of 29.23 indicating moderate growth expectations. However, technical indicators are unavailable or zeroed out, limiting short-term market timing insights.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>8.94</td>
+<td>Very strong financial health</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$23.98 billion</td>
+<td>Large-cap technology firm</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$221.25</td>
+<td>Stable pricing, no volatility data</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.031</td>
+<td>Low liquidity buffer</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>2.556</td>
+<td>Strong earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.035</td>
+<td>Moderate operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.115</td>
+<td>Low asset efficiency typical for software</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>29.23</td>
+<td>Growth-oriented valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No dividend payout</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility data available</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold/Buy</strong> for conservative and growth investors given the strong Z-Score safety margin and stable financial health.</li>
+<li>Monitor liquidity ratios and operational efficiency for potential improvement.</li>
+<li>Given the lack of dividend yield, income-focused investors may find limited appeal.</li>
+<li>Absence of volatility data suggests cautious entry timing; wait for clearer market signals.</li>
+<li>Maintain position with a medium-term horizon, leveraging CHKP’s strong balance sheet and industry positioning.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 1.031 (Working Capital Ratio 0.031)</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Weak liquidity buffer</strong>; working capital ratio very low, below typical tech sector norms</td>
+<td>Stable but low</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided; Interest Coverage: Not provided</td>
+<td>Industry avg. moderate leverage</td>
+<td>Unable to assess leverage fully; Z-Score implies low financial distress risk</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.115; EBIT Ratio: 0.035</td>
+<td>Industry avg. Asset Turnover ~0.3-0.5; EBIT Ratio ~0.1-0.15</td>
+<td><strong>Below average asset utilization and profitability</strong>, typical for software firms with intangible assets</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 2.556; Cash Position: Not provided</td>
+<td>Industry avg. Retained Earnings Ratio ~1.5-2.0</td>
+<td><strong>Strong retained earnings</strong>, indicating reinvestment and stability</td>
+<td>Positive</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks based on typical Software - Infrastructure sector data.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity Position:</strong> The working capital ratio of 0.031 (equivalent to a current ratio of ~1.031) is on the low side, indicating limited short-term liquidity cushion. This is a potential area of concern but is somewhat mitigated by the company’s strong retained earnings and low financial distress risk per the Z-Score.</li>
+<li><strong>Leverage Management:</strong> Lack of explicit debt-to-equity and interest coverage data limits leverage assessment. However, the Altman Z-Score’s high value strongly suggests manageable leverage and good debt servicing capacity.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.115 is low, reflecting the nature of software infrastructure businesses with high intangible assets and capital-light models. EBIT ratio at 3.5% is modest but consistent with stable profitability.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of 2.556 is robust, indicating strong cumulative profitability and reinvestment, supporting long-term stability.</li>
+</ul>
+<p><strong>AI Data Quality Assessment:</strong> No anomalies detected; data completeness is high, lending confidence to these assessments.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>8.94</td>
+<td>Safe</td>
+<td>Strong retained earnings, stable EBIT, low leverage</td>
+<td>Continued product innovation and market leadership in cybersecurity</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>8.51 - 9.15</td>
+<td>Safe</td>
+<td>Consistent working capital, profitability, equity strength</td>
+<td>Stable revenue streams, expanding customer base, and R&amp;D investment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score has remained <strong>consistently above 8.5</strong> for eight quarters, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0.</li>
+<li>Key drivers include <strong>high retained earnings ratio (2.556)</strong> and stable EBIT ratio (0.035), indicating operational profitability and strong equity base.</li>
+<li>The business context of cybersecurity and software infrastructure supports steady cash flows and low bankruptcy risk.</li>
+<li>No significant inflection points or volatility in Z-Score suggest stable business operations and financial management.</li>
+<li>Compared to the industry average Z-Score (typically 3.0-4.5), CHKP’s score is exceptional, reinforcing its competitive advantage and financial resilience.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable, very high</td>
+<td>Price stable at $221.25</td>
+<td>Aligned</td>
+<td>Supports confidence in valuation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to positive</td>
+<td>P/E 29.23, no dividend</td>
+<td>Consistent</td>
+<td>Growth-oriented market perception</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming</td>
+<td>Sector performance unknown</td>
+<td>Outperforming</td>
+<td>Strong competitive positioning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score’s strong fundamental signal aligns with the stable stock price</strong> around $221.25, indicating market recognition of financial strength.</li>
+<li>The P/E ratio of 29.23 reflects moderate growth expectations, consistent with the company’s strong but mature market position.</li>
+<li>Absence of dividend yield suggests reinvestment focus rather than income distribution, typical for growth-oriented tech firms.</li>
+<li>Lack of volatility and technical indicator data limits short-term market timing insights.</li>
+<li>Peer comparison confirms CHKP’s superior financial health, supporting a positive investment stance.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT ratio decline</td>
+<td>Continued R&amp;D investment, product diversification</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Minimal due to strong equity</td>
+<td>Maintain conservative leverage, liquidity monitoring</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Price volatility could affect market cap</td>
+<td>Hedging strategies, diversification</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risks</strong> include potential competitive pressures and technology obsolescence, which could reduce EBIT margins and asset turnover, impacting Z-Score moderately.</li>
+<li><strong>Financial risks</strong> are low given the strong retained earnings and low leverage implied by the Z-Score.</li>
+<li><strong>Market risks</strong> include sector cyclicality and macroeconomic factors affecting valuation multiples.</li>
+<li>Scenario analysis suggests the Z-Score would remain in the safe zone under base and best-case scenarios but could decline toward the gray zone if EBIT or working capital deteriorate significantly.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score consistently &gt;8.5, low risk</td>
+<td>Stable price, low volatility data</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL/HOLD</td>
+<td>No dividend yield, growth focus</td>
+<td>Not suitable for income investors</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY</td>
+<td>Strong balance sheet, P/E justified</td>
+<td>Monitor for dips, entry on pullbacks</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>High retained earnings, growth potential</td>
+<td>Positive sentiment, moderate P/E</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>HOLD</td>
+<td>Low volatility data limits timing</td>
+<td>Await clearer market signals</td>
+<td>Short term</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative investors should <strong>hold</strong> given the low risk and stable fundamentals.</li>
+<li>Dividend investors may find CHKP unattractive due to zero yield.</li>
+<li>Value and growth investors have a <strong>buy</strong> opportunity, supported by strong Z-Score and growth metrics.</li>
+<li>Aggressive investors should <strong>hold</strong> until volatility and technical indicators provide clearer entry signals.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Innovation &amp; Market Leadership</td>
+<td>Retained Earnings Ratio, EBIT Ratio</td>
+<td>Continue R&amp;D investment, expand product portfolio</td>
+<td>Revenue growth, Z-Score stability</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Financial Stability &amp; Liquidity</td>
+<td>Working Capital Ratio, Debt Management</td>
+<td>Improve liquidity buffer, optimize capital structure</td>
+<td>Improved current ratio, stable Z-Score</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Monitor risk trajectory, enforce governance policies</td>
+<td>Risk mitigation, compliance audits</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO should leverage strong retained earnings to fuel innovation and maintain market leadership.</li>
+<li>CFO focus on improving liquidity (working capital ratio currently low at 0.031) to enhance operational flexibility.</li>
+<li>Board to maintain oversight on risk factors identified, ensuring governance aligns with low-risk profile.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable near 9.0</td>
+<td>Stable to slightly positive</td>
+<td>Continued profitability, low leverage</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong</td>
+<td>Maintain leadership</td>
+<td>Cybersecurity demand, product innovation</td>
+<td>Market share, peer Z-Score trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low</td>
+<td>Stable</td>
+<td>Macroeconomic stability, tech sector growth</td>
+<td>Risk factor incidence, liquidity ratios</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The Z-Score is expected to remain stable or improve slightly over the next 6-12 months, supported by ongoing operational strength.</li>
+<li>Key catalysts include sustained cybersecurity demand and successful product innovation.</li>
+<li>Monitoring should focus on EBIT ratio changes, liquidity improvements, and any emerging risk factors.</li>
+<li>Early warning signals include any decline in retained earnings ratio or working capital ratio below critical thresholds.</li>
+</ul>
+<hr />
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>Check Point Software Technologies Ltd. (CHKP) exhibits <strong>exceptional financial health</strong> with an Altman Z-Score consistently near 9.0, placing it securely in the Safe Zone. Despite a low liquidity buffer, the company’s strong retained earnings and stable EBIT ratio underpin a low bankruptcy risk profile. Market valuation reflects growth expectations, though lack of dividend yield limits appeal for income investors.</p>
+<p>Investment recommendations favor <strong>hold or buy</strong> positions for conservative, value, and growth investors, with caution advised for aggressive investors pending clearer market signals. Strategic focus should remain on liquidity enhancement and innovation leadership to sustain this strong financial position.</p>
+<p><strong>Confidence in this analysis is high</strong>, supported by complete financial data, consistent multi-quarter Z-Score trends, and corroborating AI Risk and Peer Analysis metrics.</p>
+<hr />
+<p><em>End of AI-Powered Altman Z-Score Investment Analysis for CHKP</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:13 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

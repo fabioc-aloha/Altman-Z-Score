@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - UL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Unilever PLC (UL)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">December 31, 2024 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="UL_logo.png" alt="Unilever PLC Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="UL_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="UL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.17</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">retail</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for retail companies with inventory focus</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$61.17</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$150.0B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>22.7</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>38.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.11</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.62</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-15.9%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>2.1/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Inventory turnover could not be calculated</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> UL (Unilever PLC)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:29:11  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Unilever PLC (UL) demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile over the past eight quarters, with scores ranging from <strong>3.03 to 3.62</strong>, well above the distress threshold of 1.8. This stability reflects strong financial health and low bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level (implicit from Z-Score and financials)</strong>, the company is positioned with <strong>low financial distress risk</strong> and a stable risk trajectory.</p>
+<p><strong>AI Peer Analysis</strong> places UL comfortably above the industry average Z-Score (typically around 2.5-3.0 for Consumer Defensive sector peers), indicating superior solvency and operational efficiency relative to competitors in Household &amp; Personal Products. The company’s <strong>relative position is strong</strong>, supported by a market capitalization of <strong>$150 billion</strong> and a current share price of <strong>$61.17</strong>.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and zero RSI reported, but the <strong>extremely high dividend yield of 340%</strong> (likely an anomaly or data error) suggests caution in interpreting market sentiment. The P/E ratio of <strong>22.74</strong> and EV/EBITDA of <strong>14.55</strong> are within reasonable bounds for a mature consumer defensive company, supporting a balanced market perception.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>3.44</td>
+<td>Safe Zone, low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$150.03B</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$61.17</td>
+<td>Reflects market valuation</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.076</td>
+<td>Slightly negative liquidity indicator</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.623</td>
+<td>Strong retained earnings base</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.043</td>
+<td>Moderate operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.372</td>
+<td>Average asset utilization</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>22.74</td>
+<td>Fair valuation for sector</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>340.00% (likely anomaly)</td>
+<td>Requires verification</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00 (likely anomaly)</td>
+<td>Implies no market risk exposure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold/Accumulate</strong> for conservative and dividend-focused investors due to strong Z-Score safety and stable fundamentals.</li>
+<li><strong>Monitor liquidity ratios</strong> closely given the negative working capital ratio, which may indicate short-term operational funding challenges.</li>
+<li><strong>Validate dividend yield data</strong> before making yield-based investment decisions.</li>
+<li><strong>Watch for market signals</strong> as current technical indicators are unavailable or anomalous.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A, Working Capital Ratio: -0.076</td>
+<td>Industry avg. ~1.0+ (positive)</td>
+<td>Weak liquidity; negative working capital signals potential short-term stress</td>
+<td>Stable/Concern</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A, Interest Coverage: N/A</td>
+<td>Industry avg. moderate leverage</td>
+<td>Insufficient data; inferred low leverage from Z-Score and retained earnings ratio</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.372, EBIT Ratio: 0.043</td>
+<td>Industry avg. Asset Turnover ~0.4, EBIT Ratio ~0.05</td>
+<td>Slightly below average asset utilization and EBIT margin</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.623, Cash Position: N/A</td>
+<td>Industry avg. ~0.5+ retained earnings</td>
+<td>Strong retained earnings indicate solid equity base and reinvestment capacity</td>
+<td>Improving</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The negative working capital ratio (-0.076) is a concern, indicating current liabilities slightly exceed current assets. This is below typical industry standards where positive working capital is preferred. However, the stable Z-Score suggests this is not yet a critical risk, possibly due to strong cash flows or credit lines. The absence of a current ratio figure limits full liquidity assessment.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity and interest coverage ratios are not provided, but the retained earnings ratio of 0.623 and a consistently safe Z-Score above 3.0 imply manageable leverage and good financial stability. The company likely maintains a conservative capital structure consistent with Consumer Defensive sector norms.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.372 is slightly below the industry average (~0.4), indicating moderate efficiency in asset use to generate sales. EBIT ratio of 0.043 (4.3%) is modest but typical for a mature FMCG company with stable margins.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.623 is robust, reflecting accumulated profits reinvested in the business, supporting long-term solvency and growth potential.</p>
+</li>
+<li>
+<p><strong>Data Quality Considerations:</strong> The AI Data Quality Assessment notes no anomalies in financial data completeness, but market data anomalies (zero volatility, zero beta) reduce confidence in market timing analysis.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>3.44</td>
+<td>Safe</td>
+<td>Strong retained earnings, moderate EBIT, stable leverage</td>
+<td>Continued operational stability in Consumer Defensive sector</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>3.03 - 3.62</td>
+<td>Safe</td>
+<td>Consistent profitability, asset management, equity strength</td>
+<td>Steady performance despite market fluctuations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>
+<p>UL’s Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)</strong> for all eight quarters analyzed, with a slight upward trend from 3.03 to a peak of 3.62 before settling at 3.44. This stability reflects resilience in its business model and financial management.</p>
+</li>
+<li>
+<p>The <strong>key drivers</strong> of the Z-Score include a strong retained earnings ratio (0.623), moderate EBIT ratio (0.043), and stable asset turnover (0.372). These components indicate efficient operations and solid equity backing.</p>
+</li>
+<li>
+<p>No significant inflection points or distress signals are observed, consistent with the company’s sector—Consumer Defensive—which typically exhibits lower volatility and steady cash flows.</p>
+</li>
+<li>
+<p>Compared to the <strong>industry average Z-Score (~2.5-3.0)</strong>, UL’s position is favorable, reinforcing its competitive advantage and lower bankruptcy risk.</p>
+</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable, Safe Zone (3.44)</td>
+<td>Price stable at $61.17, no volatility data</td>
+<td>Divergent (due to missing market data)</td>
+<td>Fundamental strength not fully reflected in market signals</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral (based on P/E 22.74)</td>
+<td>Dividend yield anomaly (340%) and zero beta</td>
+<td>Inconsistent</td>
+<td>Market data anomalies reduce confidence in sentiment alignment</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming (above industry avg.)</td>
+<td>Sector performance unknown</td>
+<td>Aligned</td>
+<td>Strong competitive positioning confirmed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score indicates strong fundamental health</strong>, but the <strong>market technical indicators are anomalous or missing</strong> (zero RSI, zero beta, zero volatility), which limits the ability to validate market timing or sentiment alignment.</p>
+</li>
+<li>
+<p>The <strong>P/E ratio of 22.74</strong> is consistent with a mature consumer goods company, suggesting moderate growth expectations.</p>
+</li>
+<li>
+<p>The <strong>dividend yield of 340% is likely a data anomaly</strong> and should be verified before making yield-based investment decisions.</p>
+</li>
+<li>
+<p>The <strong>lack of volatility and beta data</strong> suggests either data reporting issues or extremely stable stock price behavior, which is unusual and warrants caution.</p>
+</li>
+<li>
+<p>Overall, the <strong>fundamental strength is clear</strong>, but market signals are inconclusive, suggesting a hold or accumulate stance until market data normalizes.</p>
+</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT ratio decline could lower Z-Score by ~0.2</td>
+<td>Enhance supply chain resilience, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Negative working capital may pressure liquidity, minor Z-Score impact</td>
+<td>Improve short-term asset management, optimize payables</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Low</td>
+<td>Moderate</td>
+<td>Market perception anomalies could affect stock price, no direct Z-Score impact</td>
+<td>Increase investor communications, validate dividend policy</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Anomalies in market data reduce confidence in timing decisions</td>
+<td>Cross-verify data sources, monitor for corrections</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>
+<p><strong>Operational risks</strong> center on maintaining EBIT margins and asset turnover; any deterioration could reduce the Z-Score below the safe threshold.</p>
+</li>
+<li>
+<p><strong>Financial risks</strong> are limited but include the negative working capital ratio, which could stress liquidity if not managed.</p>
+</li>
+<li>
+<p><strong>Market risks</strong> are currently muted but complicated by anomalous market data, which may affect investor sentiment and stock price volatility.</p>
+</li>
+<li>
+<p><strong>Data quality risks</strong> are moderate due to anomalies in dividend yield and market technicals, impacting confidence in market timing and sentiment analysis.</p>
+</li>
+<li>
+<p><strong>Scenario Planning:</strong>  </p>
+</li>
+<li><strong>Best Case:</strong> EBIT and asset turnover improve, Z-Score rises above 3.5, reinforcing buy signals.  </li>
+<li><strong>Base Case:</strong> Metrics remain stable, Z-Score holds around 3.4, supporting hold/accumulate.  </li>
+<li><strong>Worst Case:</strong> Liquidity worsens, EBIT declines, Z-Score dips below 3.0, triggering caution and potential sell signals.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Stable Z-Score ~3.44, low distress risk</td>
+<td>Await market data normalization</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Strong retained earnings, verify dividend yield anomaly</td>
+<td>Confirm dividend sustainability</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>ACCUMULATE</td>
+<td>Z-Score above industry average, P/E reasonable</td>
+<td>Entry on price dips or market clarity</td>
+<td>3-9 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Moderate EBIT ratio, stable asset turnover</td>
+<td>Monitor for margin expansion</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>WAIT</td>
+<td>Low volatility data limits risk/reward clarity</td>
+<td>Await clearer market signals</td>
+<td>Indeterminate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>
+<p><strong>Conservative investors</strong> should hold given the company’s strong financial health but monitor liquidity.</p>
+</li>
+<li>
+<p><strong>Dividend investors</strong> must verify the unusually high dividend yield before committing.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> may consider accumulating on price weakness, supported by solid Z-Score and valuation metrics.</p>
+</li>
+<li>
+<p><strong>Growth investors</strong> should hold and watch for operational improvements that could enhance margins.</p>
+</li>
+<li>
+<p><strong>Aggressive investors</strong> should wait for clearer market signals due to data anomalies and low volatility.</p>
+</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational efficiency</td>
+<td>EBIT Ratio (0.043), Asset Turnover (0.372)</td>
+<td>Drive margin improvement, optimize asset use</td>
+<td>EBIT margin growth, asset turnover increase</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (-0.076), Retained Earnings Ratio (0.623)</td>
+<td>Improve working capital management, maintain leverage discipline</td>
+<td>Positive working capital, stable debt ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor risk trajectory, ensure transparency</td>
+<td>Stable or improving Z-Score, risk mitigation effectiveness</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>CEO should focus on operational initiatives</strong> to improve EBIT margins and asset utilization, which directly influence the Z-Score and financial stability.</p>
+</li>
+<li>
+<p>The <strong>CFO must address liquidity concerns</strong> by improving working capital management and maintaining a conservative capital structure, leveraging the strong retained earnings base.</p>
+</li>
+<li>
+<p>The <strong>Board should oversee risk management</strong>, ensuring that the company remains in the safe Z-Score zone and that emerging risks are proactively mitigated.</p>
+</li>
+<li>
+<p><strong>Market perception management</strong> is critical given data anomalies; enhanced investor relations and transparent communication are recommended.</p>
+</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable (~3.44)</td>
+<td>Slightly positive</td>
+<td>EBIT margin improvement, asset efficiency</td>
+<td>Quarterly EBIT ratio, asset turnover</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong relative</td>
+<td>Maintain/Improve</td>
+<td>Innovation in product segments, market share growth</td>
+<td>Market share data, peer Z-Score trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low</td>
+<td>Stable/Moderate</td>
+<td>Liquidity management, macroeconomic factors</td>
+<td>Working capital ratio, interest rates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score is expected to maintain or slightly improve</strong> over the next 6-12 months, contingent on operational efficiency gains and stable financial management.</p>
+</li>
+<li>
+<p><strong>Market position remains strong</strong>, supported by Unilever’s diversified portfolio in Consumer Defensive sectors, with potential catalysts including new product launches and geographic expansion.</p>
+</li>
+<li>
+<p><strong>Risk profile is stable but requires monitoring</strong> of liquidity metrics and macroeconomic conditions that could impact working capital and EBIT margins.</p>
+</li>
+<li>
+<p><strong>Leading indicators to watch:</strong> quarterly EBIT ratio, working capital ratio, asset turnover, and peer Z-Score movements.</p>
+</li>
+<li>
+<p><strong>Early warning system:</strong> A decline in Z-Score below 3.0 or a sustained negative working capital trend should trigger reassessment of investment stance.</p>
+</li>
+</ul>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Unilever PLC exhibits a <strong>robust financial profile with a consistently safe Altman Z-Score</strong>, supported by strong retained earnings and moderate profitability. While liquidity metrics warrant attention, the overall risk of financial distress is low. Market data anomalies limit confidence in timing decisions, suggesting a cautious hold or accumulate approach for most investor profiles. Strategic focus on operational efficiency and liquidity management will support continued financial stability and shareholder value creation.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context for actionable investment intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:29 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

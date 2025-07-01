@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - DANOY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Danone S.A. (DANOY)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">December 31, 2024 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="DANOY_logo.png" alt="Danone S.A. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Good risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="DANOY_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="DANOY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.08</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$16.36</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$52.6B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>22.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>20.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>36.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>-0.05</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>1.36</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-10.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.9/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Danone S.A. (Ticker: DANOY)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:12:34  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Danone S.A. currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with an Altman Z-Score fluctuating narrowly between <strong>2.01 and 2.16</strong> over the last eight quarters, most recently at <strong>2.02</strong>. This positioning signals moderate financial risk, necessitating cautious but not alarmist investment consideration.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Moderate</strong>, with a stable risk trajectory over recent quarters, reflecting neither significant deterioration nor improvement in financial health. The risk factors are balanced, with no acute distress signals but persistent operational and leverage concerns.</p>
+<p><strong>AI Peer Analysis</strong> places Danone below the industry average Z-Score benchmark of approximately <strong>2.8</strong> for the Packaged Foods sector, indicating relative underperformance versus peers such as Nestlé (NESN) and Unilever (ULVR). This suggests Danone faces competitive pressures impacting its financial stability.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a mixed market perception: despite a high dividend yield of <strong>297.00%</strong> (likely an anomaly or special dividend event), technical indicators such as RSI and moving averages are non-informative (all zero), indicating low trading activity or data gaps. Sentiment trend is neutral to slightly cautious, reflecting uncertainty.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Benchmark/Peer Average</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Altman Z-Score</td>
+<td>2.02</td>
+<td>2.8 (Industry Avg.)</td>
+<td>Gray Zone, moderate risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$52.62B</td>
+<td>N/A</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$16.36</td>
+<td>N/A</td>
+<td>Stable pricing</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.021</td>
+<td>Positive (&gt;0)</td>
+<td>Liquidity concern</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.387</td>
+<td>Industry ~0.45</td>
+<td>Moderate earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.035</td>
+<td>Industry ~0.05</td>
+<td>Below-average profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.301</td>
+<td>Industry ~0.4</td>
+<td>Operational efficiency lagging</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>297.00%</td>
+<td>~2-4% typical</td>
+<td>Likely anomaly, caution advised</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>~1.0 typical</td>
+<td>Data anomaly or low volatility</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold</strong> for conservative and dividend-focused investors due to moderate risk and uncertain dividend sustainability.</li>
+<li><strong>Monitor</strong> for value and growth investors, awaiting clearer operational improvements or Z-Score trajectory shifts.</li>
+<li><strong>Avoid aggressive positions</strong> until liquidity and profitability metrics improve and market signals normalize.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.021)</td>
+<td>Positive (&gt;0)</td>
+<td>Weak liquidity; negative working capital ratio signals potential short-term stress</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
+<td>Industry average moderate leverage</td>
+<td>Insufficient data; leverage risk unclear but Z-Score suggests moderate leverage</td>
+<td>Stable/Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.301 <br> EBIT Ratio: 0.035</td>
+<td>Asset Turnover ~0.4 <br> EBIT ~0.05</td>
+<td>Below industry average efficiency and profitability; operational improvements needed</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.387</td>
+<td>Industry ~0.45</td>
+<td>Moderate retained earnings; some reinvestment capacity</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The negative working capital ratio (-0.021) is a red flag, indicating current liabilities slightly exceed current assets, which could constrain operational flexibility. This aligns with the AI Risk Analysis moderate risk level and suggests cautious liquidity management is necessary.</li>
+<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the Gray Zone Z-Score and moderate EBIT ratio imply leverage is manageable but not conservative.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.301 and EBIT ratio at 3.5% are below typical Packaged Foods industry benchmarks (~0.4 and 5%, respectively), indicating Danone is less efficient in generating sales and earnings from assets. This may reflect competitive pressures or operational inefficiencies.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of 0.387 suggests moderate reinvestment of profits, supporting some growth potential but less robust than peers.</li>
+</ul>
+<p><strong>Data Quality Note:</strong> AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but some key ratios (e.g., debt-to-equity) are missing, reducing confidence in leverage analysis.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Q</td>
+<td>2.02</td>
+<td>Gray Zone</td>
+<td>Stable working capital, moderate EBIT</td>
+<td>Ongoing operational challenges; no major restructuring reported</td>
+</tr>
+<tr>
+<td>Previous Qs</td>
+<td>2.01 - 2.16</td>
+<td>Gray Zone</td>
+<td>Fluctuating EBIT, stable retained earnings</td>
+<td>Consistent moderate risk; no significant improvement or deterioration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<p>Danone’s Z-Score has remained consistently within the Gray Zone (1.8-3.0) for eight quarters, oscillating narrowly around 2.0-2.1. This stability suggests no acute distress but persistent moderate financial risk. The lack of significant upward momentum in Z-Score indicates limited progress in improving liquidity or profitability.</p>
+<p>The absence of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the stable Z-Score aligns with the company’s steady but unspectacular operational performance.</p>
+<p>Compared to the industry average Z-Score of ~2.8, Danone lags behind peers, reflecting competitive pressures in the Consumer Defensive sector, particularly in Packaged Foods, where efficiency and scale are critical.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Gray Zone (~2.02)</td>
+<td>Price stable at $16.36; no volume or volatility data</td>
+<td>Divergent (market data incomplete)</td>
+<td>Market may be underpricing risk or data gaps exist</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to cautious</td>
+<td>Dividend yield anomaly (297%); RSI and moving averages zero</td>
+<td>Inconsistent</td>
+<td>Sentiment unclear; caution advised</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average</td>
+<td>Sector performance stable</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; watch for operational improvements</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<p>The market data for Danone shows anomalies: zero trading volume, zero RSI, and zero moving averages, which are inconsistent with a large-cap company with a $52.6B market cap. This likely reflects data reporting issues or market inactivity in the dataset rather than true market signals.</p>
+<p>The extremely high dividend yield of 297% is likely a data anomaly or a one-time special dividend event, not sustainable in normal operations. This distorts typical valuation metrics and investor sentiment interpretation.</p>
+<p>Given these inconsistencies, the fundamental Z-Score signal and market price appear misaligned, reducing confidence in market timing based on current data. Investors should rely more heavily on fundamental and risk analysis rather than technical signals until data normalizes.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential decline by 0.2-0.3 points</td>
+<td>Enhance operational efficiency; cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Z-Score impact ~0.1-0.2 points</td>
+<td>Improve liquidity; manage working capital</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited direct impact</td>
+<td>Monitor market conditions; diversify exposure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Given below-average asset turnover and EBIT ratios, operational inefficiencies pose a moderate risk to financial health. Failure to improve could depress Z-Score further into distress territory.</li>
+<li><strong>Financial Risks:</strong> Negative working capital ratio signals liquidity risk, which could worsen under adverse market conditions, impacting short-term solvency and Z-Score.</li>
+<li><strong>Market Risks:</strong> Low beta and zero volatility suggest minimal market-driven risk, but data anomalies limit confidence. Market risk is currently assessed as minor.</li>
+</ul>
+<p><strong>Scenario Outlook:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational improvements and liquidity stabilization raise Z-Score above 2.5, reducing risk and improving investment appeal.</li>
+<li><strong>Base Case:</strong> Status quo maintained, Z-Score remains ~2.0-2.1, moderate risk persists.</li>
+<li><strong>Worst Case:</strong> Liquidity stress or operational setbacks push Z-Score below 1.8, entering Distress Zone, triggering urgent risk mitigation.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 2.02 (Gray Zone); moderate risk</td>
+<td>Wait for liquidity improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly; sustainability unclear</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>MONITOR</td>
+<td>Valuation reasonable; Z-Score below peers</td>
+<td>Look for Z-Score uptick &gt;2.5</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>WAIT</td>
+<td>EBIT and asset turnover below industry; growth limited</td>
+<td>Await operational efficiency gains</td>
+<td>12+ months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>AVOID</td>
+<td>Moderate risk, liquidity concerns</td>
+<td>High risk without clear catalysts</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative investors should <strong>hold</strong> positions, given moderate risk and lack of distress signals.</li>
+<li>Dividend investors should be cautious due to unsustainable dividend yield data; <strong>hold</strong> and monitor.</li>
+<li>Value investors may <strong>monitor</strong> for entry points if Z-Score improves toward industry average.</li>
+<li>Growth investors should <strong>wait</strong> for operational improvements before committing.</li>
+<li>Aggressive investors should <strong>avoid</strong> new positions until clearer positive signals emerge.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio (0.035), Asset Turnover (0.301)</td>
+<td>Drive cost optimization and innovation in product lines</td>
+<td>EBIT margin improvement, Z-Score &gt;2.5</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (-0.021), Retained Earnings Ratio (0.387)</td>
+<td>Improve working capital management; optimize debt levels</td>
+<td>Positive working capital, stable debt ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Risk Analysis</td>
+<td>Enhance risk monitoring frameworks; ensure transparency</td>
+<td>Risk mitigation effectiveness, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should prioritize operational efficiency improvements to lift EBIT and asset turnover closer to industry norms. CFO focus on liquidity management is critical to avoid slipping into distress. The board must maintain vigilant oversight of risk factors highlighted by AI Risk Analysis, ensuring proactive governance.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable near 2.02</td>
+<td>Slight improvement possible</td>
+<td>Operational efficiency gains, working capital improvement</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Below industry avg</td>
+<td>Gradual convergence</td>
+<td>Product innovation, market expansion</td>
+<td>Market share, peer Z-Score comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Stable to slight decline</td>
+<td>Economic conditions, supply chain risks</td>
+<td>Liquidity ratios, risk event tracking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<p>Danone’s Z-Score momentum suggests a stable but cautious outlook. Key catalysts for improvement include operational restructuring and better liquidity management. Close monitoring of EBIT margins and working capital ratios will provide early warning signals for risk escalation or improvement.</p>
+<p>Investment thesis should evolve dynamically with quarterly Z-Score and financial ratio updates, emphasizing early detection of distress signals and readiness to adjust investment posture accordingly.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Danone S.A. presents a <strong>moderate risk profile</strong> with a stable but suboptimal Altman Z-Score in the Gray Zone. Financial health diagnostics reveal liquidity and operational efficiency challenges relative to industry peers. Market data anomalies limit confidence in technical signals, emphasizing reliance on fundamental analysis.</p>
+<p>Investment recommendations favor <strong>holding</strong> for conservative and dividend investors, <strong>monitoring</strong> for value investors, and <strong>waiting</strong> for growth investors until operational improvements materialize. Aggressive investment is not advised given current risk factors.</p>
+<p>Strategic focus on operational efficiency, liquidity management, and risk governance is essential to improve financial stability and investor confidence. Forward-looking monitoring of Z-Score components and market position will guide timely investment decisions.</p>
+<hr />
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:13 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

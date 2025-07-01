@@ -32,7 +32,7 @@ def demonstrate_market_analysis_transformation():
         {
             "ticker": "AAPL",
             "z_score": 2.8,
-            "category": "grey",
+            "category": "gray",
             "description": "Large cap tech with moderate Z-Score"
         },
         {

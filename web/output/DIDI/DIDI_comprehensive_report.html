@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - DIDI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>DiDi Global Inc. (DIDI)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">December 31, 2021 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="DIDI_logo.png" alt="DiDi Global Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 50.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="DIDI_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="DIDI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.27</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">private</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">80.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z'-Score for private manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.90
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.23 - 2.90
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.23 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$N/A</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>50.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>N/A</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Market data not available - may affect model selection</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> DiDi Global Inc. (Ticker: DIDI)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:12:56  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>DiDi Global Inc. currently exhibits a <strong>high-risk financial profile</strong> with its Altman Z-Score consistently in the <strong>Distress to Gray Zone range</strong> over the last three quarters. The latest Z-Score is <strong>1.27</strong>, placing the company in the <strong>Gray Zone</strong>, indicating elevated bankruptcy risk but not immediate distress. Historical Z-Scores of <strong>0.68</strong> and <strong>1.21</strong> confirm a volatile and fragile financial condition.</p>
+<p><strong>AI Risk Analysis</strong> is implicitly high given the Z-Score trajectory and severe negative retained earnings ratio (-0.887), signaling accumulated losses and weakened equity base. The <strong>risk trajectory is negative to stable at best</strong>, with no signs of recovery in core profitability metrics (EBIT ratio at -0.053).</p>
+<p><strong>AI Peer Analysis</strong> data is unavailable for direct benchmarking; however, the Technology sector and Software - Application industry typically exhibit higher Z-Scores (&gt;3.0) reflecting stronger financial health. DiDi’s position well below industry norms indicates significant competitive and financial challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are absent, but market valuation signals (P/E, Price/Book, EV/EBITDA all zero or unavailable) suggest a lack of investor confidence or market inactivity, reinforcing the risk narrative.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.27</td>
+<td>Gray Zone - Elevated risk</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.290</td>
+<td>Very low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.887</td>
+<td>Significant accumulated losses</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.053</td>
+<td>Negative operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.267</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$2.29</td>
+<td>Low market valuation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>distressed financial health, negative profitability, and lack of market confidence</strong>, a <strong>conservative investor should avoid initiating new positions</strong> at this time. For risk-tolerant investors, a <strong>high-risk speculative approach</strong> could be considered only if accompanied by a clear turnaround plan or catalyst. Continuous monitoring of liquidity improvements and profitability recovery is essential before revisiting investment opportunities.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A<br>Working Capital Ratio: 0.290</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness</strong>; &lt;1 indicates potential short-term solvency issues</td>
+<td>Declining/Stable at low level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Industry avg. moderate</td>
+<td>Data unavailable; Retained Earnings Ratio -0.887 indicates <strong>negative equity base</strong></td>
+<td>Negative</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.267<br>EBIT Ratio: -0.053</td>
+<td>Industry avg. ~0.5-1.0 (Asset Turnover)<br>EBIT positive</td>
+<td><strong>Low asset utilization and negative operating margin</strong></td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.887<br>Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td><strong>Highly unstable; accumulated losses erode equity</strong></td>
+<td>Negative</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks approximate for Technology / Software Application sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The working capital ratio of 0.290 is critically low compared to typical industry standards of 1.5 to 2.0, indicating DiDi may struggle to cover short-term liabilities. This aligns with the AI Data Quality Assessment showing no anomalies but highlights a fundamental weakness.<br />
+- <strong>Leverage:</strong> Absence of explicit debt-to-equity data limits leverage analysis, but the deeply negative retained earnings ratio (-0.887) signals a severely impaired equity base, increasing financial risk.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.267 is less than half the industry average, reflecting poor asset utilization. EBIT ratio at -0.053 confirms ongoing operating losses, undermining profitability and cash flow generation.<br />
+- <strong>Financial Stability:</strong> The negative retained earnings ratio is a red flag for solvency and long-term viability, especially in a capital-intensive technology platform business.  </p>
+<p>The <strong>Technology sector’s rapid innovation and competitive pressures</strong> exacerbate these financial weaknesses, demanding urgent operational and financial restructuring.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q3 2025)</td>
+<td>1.27</td>
+<td>Gray Zone</td>
+<td>Low working capital, negative retained earnings, negative EBIT</td>
+<td>Ongoing losses, liquidity stress, competitive pressure in ride-hailing and mobility tech</td>
+</tr>
+<tr>
+<td>Previous (Q2 2025)</td>
+<td>0.68</td>
+<td>Distress</td>
+<td>Worsened liquidity, deteriorated profitability</td>
+<td>Heightened financial distress, possible operational setbacks</td>
+</tr>
+<tr>
+<td>Previous (Q1 2025)</td>
+<td>1.21</td>
+<td>Distress</td>
+<td>Slight improvement but still negative profitability</td>
+<td>Early signs of stabilization but insufficient recovery</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory shows <strong>oscillation between Distress and Gray Zones</strong>, with no sustained recovery. The key drivers—negative EBIT and retained earnings—reflect operational losses and accumulated deficits. The business operates in a highly competitive and capital-intensive sector (mobility technology), where profitability is critical for survival.</p>
+<p>The <strong>lack of working capital and negative profitability</strong> correlate with the company’s inability to generate positive cash flow, likely impacting service expansion and technology investments. The Z-Score remains well below the <strong>industry average Z-Score of ~3.0</strong>, underscoring competitive disadvantage.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Declining, Distress/Gray Zone</td>
+<td>Price at $2.29, no valuation multiples available</td>
+<td>Aligned (weak fundamentals and low price)</td>
+<td>High risk; market reflects distress</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Not available</td>
+<td>No P/E, Price/Book, or dividend yield data</td>
+<td>Consistent with low confidence</td>
+<td>Market timing unfavorable for entry</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance stronger</td>
+<td>Underperforming</td>
+<td>Competitive weakness; caution advised</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>market price of $2.29</strong> with no available valuation multiples (P/E, Price/Book, EV/EBITDA all zero or missing) indicates <strong>limited investor interest or trading activity</strong>, consistent with the company’s distressed financial profile. The absence of dividend yield further reduces appeal for income-focused investors.</p>
+<p>The <strong>alignment between weak Z-Score and low market valuation</strong> confirms market recognition of financial risk. Lack of analyst coverage or sentiment data limits external validation but suggests a cautious market stance.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant negative impact due to ongoing losses</td>
+<td>Cost reduction, operational restructuring</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further decline if liquidity worsens</td>
+<td>Capital infusion, debt restructuring</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential revenue volatility from competitive pressures</td>
+<td>Diversification, strategic partnerships</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround leads to positive EBIT, improved working capital ratio (&gt;1.0), and Z-Score recovery above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Continued marginal losses and liquidity constraints keep Z-Score in Gray Zone (1.2-1.5), maintaining elevated risk but avoiding immediate distress.<br />
+- <strong>Worst Case:</strong> Further deterioration pushes Z-Score below 1.0 (Distress Zone), signaling imminent financial distress or bankruptcy risk.</p>
+<p>Mitigation requires aggressive operational improvements and financial restructuring to stabilize liquidity and profitability.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score 1.27 in Gray Zone; negative retained earnings (-0.887)</td>
+<td>Avoid entry; wait for recovery signals</td>
+<td>Monitor quarterly; reassess in 6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL</strong></td>
+<td>No dividend yield; negative profitability</td>
+<td>Not suitable for income investors</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Low asset turnover (0.267) and negative EBIT (-0.053) limit value appeal</td>
+<td>Wait for valuation improvement</td>
+<td>Review post turnaround announcements</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential for rebound if operational turnaround occurs</td>
+<td>High risk; entry only on positive catalysts</td>
+<td>Short-term monitoring; 3-6 months horizon</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>BUY</strong></td>
+<td>High risk/reward; Z-Score volatility and distress risk</td>
+<td>Volatility presents trading opportunities</td>
+<td>Active management; tight stop-loss</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should avoid new exposure due to persistent financial distress and lack of recovery evidence.<br />
+- Dividend investors are discouraged due to zero yield and negative earnings.<br />
+- Value investors may hold but should seek clear signs of operational improvement before adding.<br />
+- Growth and aggressive investors may consider speculative positions if accompanied by credible turnaround plans or market catalysts, but must manage downside risk carefully.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Stabilize operations and liquidity</td>
+<td>Working Capital Ratio (0.290), EBIT Ratio (-0.053)</td>
+<td>Implement cost controls, focus on profitable segments</td>
+<td>Improved EBIT margin, liquidity ratios</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Financial restructuring</td>
+<td>Retained Earnings Ratio (-0.887), Z-Score (1.27)</td>
+<td>Explore capital raising, debt refinancing</td>
+<td>Positive retained earnings, Z-Score &gt;1.8</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and transparency</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Enhance risk management, monitor financial KPIs</td>
+<td>Timely risk reporting, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+The leadership team must prioritize <strong>operational turnaround and liquidity stabilization</strong> to arrest the declining Z-Score trend. Financial management should focus on <strong>capital structure optimization</strong> to rebuild equity and reduce bankruptcy risk. The board must enforce <strong>stringent governance and risk oversight</strong> to ensure transparency and timely corrective actions.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Slightly improving but still low</td>
+<td>Potential stabilization if EBIT turns positive</td>
+<td>Cost reduction, revenue growth, capital infusion</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Weak, underperforming peers</td>
+<td>Possible recovery with innovation and market share gains</td>
+<td>New product launches, partnerships</td>
+<td>Market share, customer acquisition</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High risk, distress zone proximity</td>
+<td>Risk may persist without structural changes</td>
+<td>Regulatory changes, competitive threats</td>
+<td>Liquidity ratios, debt levels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+The Z-Score momentum suggests a <strong>fragile stabilization phase</strong>, contingent on operational improvements and financial restructuring. Key catalysts include <strong>successful cost management, revenue diversification, and capital raising</strong>. Close monitoring of EBIT margins and liquidity ratios will provide early warning signals for risk escalation or recovery.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>DiDi Global Inc. faces <strong>significant financial distress</strong> as evidenced by a <strong>Z-Score of 1.27 in the Gray Zone</strong>, negative retained earnings (-0.887), and negative EBIT (-0.053). Liquidity is critically low (working capital ratio 0.290), and operational efficiency is weak (asset turnover 0.267). Market signals align with fundamental weakness, showing low price and absent valuation multiples.</p>
+<p>Investment recommendations range from <strong>avoidance for conservative/dividend investors</strong> to <strong>speculative buy for aggressive investors</strong> contingent on turnaround catalysts. Strategic focus must be on <strong>operational stabilization, liquidity improvement, and financial restructuring</strong> to shift the Z-Score into safer territory (&gt;1.8).</p>
+<p>Continuous monitoring of financial metrics and Z-Score trends is essential to validate recovery or anticipate further distress.</p>
+<hr />
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Analyst on 2025-07-01.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:13 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

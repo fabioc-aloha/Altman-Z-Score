@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - IVZ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Invesco Ltd. (IVZ)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="IVZ_logo.png" alt="Invesco Ltd. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive PEG ratio - growth at reasonable price</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="IVZ_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="IVZ_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.76</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$15.77</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$7.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>12.6</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>40.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>69.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.46</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.36</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-36.5%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>2.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Invesco Ltd. (Ticker: IVZ)<br />
+<strong>Analysis Date:</strong> 2025-07-01 09:16:07  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Invesco Ltd. (IVZ) demonstrates a consistently <strong>strong financial health profile</strong> as evidenced by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> with values ranging from <strong>5.11 to 5.76</strong> over the last eight quarters. This places IVZ well above the distress threshold of 1.8 and the gray zone upper bound of 3.0, indicating a very low risk of bankruptcy or financial distress.</p>
+<p><strong>AI Risk Analysis</strong> is implicitly low given the stable Z-Score and absence of reported anomalies, supported by a <strong>risk level of "Safe"</strong> across all quarters. The risk trajectory is stable, with no downward inflection points, suggesting a resilient operational and financial structure.</p>
+<p><strong>AI Peer Analysis</strong> data is limited, but IVZ’s Z-Score well exceeds typical industry averages for Asset Management firms, which often hover near the gray zone due to market volatility and leverage. This relative positioning signals a competitive advantage in financial stability.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are constrained by the lack of volatility and market movement data (zero RSI, zero beta, zero volatility), but the <strong>P/E ratio of 12.62</strong> and an anomalously high <strong>dividend yield of 533%</strong> (likely a data anomaly) suggest market undervaluation or data irregularities. The lack of price movement and volume (all zeroes in technical indicators) limits confidence in market sentiment interpretation.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>5.49</td>
+<td>Very low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$7.06B</td>
+<td>Mid-large cap size</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$15.77</td>
+<td>Stable price (no volatility data)</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>12.62</td>
+<td>Reasonable valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>533% (likely anomaly)</td>
+<td>Data anomaly, caution advised</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.057</td>
+<td>Low liquidity buffer</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.251</td>
+<td>Moderate retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.010</td>
+<td>Low EBIT margin</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.054</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation (data anomaly)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-recommendation">Investment Recommendation</h3>
+<p><strong>Hold with Confidence</strong>: IVZ’s strong Altman Z-Score and stable risk profile support a <strong>hold</strong> recommendation for conservative and value investors. However, the lack of market volatility and anomalous dividend yield data suggest caution in timing new entries until market signals normalize. Growth investors should monitor operational efficiency improvements before committing.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Asset Mgmt)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.057</td>
+<td>~1.0 - 1.5</td>
+<td><strong>Weak liquidity</strong>, below industry norms</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.057</td>
+<td>~0.1 - 0.3</td>
+<td>Insufficient working capital buffer</td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>~0.5 - 1.0</td>
+<td>Data unavailable; Z-Score implies low risk</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.010</td>
+<td>~0.05 - 0.10</td>
+<td><strong>Very low EBIT margin</strong>, potential risk</td>
+<td>Slightly Weak</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.054</td>
+<td>~0.1 - 0.3</td>
+<td><strong>Low asset utilization</strong>, below average</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.010</td>
+<td>~0.05 - 0.10</td>
+<td>Low profitability</td>
+<td></td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.251</td>
+<td>~0.3 - 0.5</td>
+<td>Moderate retained earnings, stable equity</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data unavailable</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity</strong> is a concern with a current ratio of 0.057, significantly below the typical industry benchmark of 1.0 or higher. This suggests limited short-term asset coverage for liabilities, which could constrain operational flexibility. However, the strong Z-Score indicates this is not currently a distress factor, possibly due to the nature of asset management firms holding liquid assets off-balance sheet or through client funds.</p>
+</li>
+<li>
+<p><strong>Leverage data is missing</strong>, but the Altman Z-Score’s high values imply conservative leverage or strong equity buffers. The EBIT ratio of 0.010 is low, indicating thin operating margins, which is typical in asset management but warrants monitoring for margin pressure.</p>
+</li>
+<li>
+<p><strong>Operational efficiency</strong> is low, with asset turnover at 0.054, suggesting underutilization of assets to generate sales. This may reflect the business model's asset-light nature or inefficiencies.</p>
+</li>
+<li>
+<p><strong>Financial stability</strong> is moderate, with retained earnings ratio at 0.251, indicating a reasonable accumulation of profits retained in the business to support growth and absorb shocks.</p>
+</li>
+<li>
+<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected, lending confidence to the financial data integrity, though some market data anomalies (dividend yield, zero volatility) reduce confidence in market timing signals.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>5.49</td>
+<td>Safe</td>
+<td>Strong equity, low debt</td>
+<td>Stable asset management operations</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>5.44 - 5.76</td>
+<td>Safe</td>
+<td>Consistent profitability</td>
+<td>No major operational disruptions noted</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<p>IVZ’s Z-Score has remained consistently above 5.1 for eight quarters, well within the <strong>Safe Zone</strong>, indicating robust financial health and minimal bankruptcy risk. The lack of significant fluctuation suggests stable business operations without major shocks or restructuring.</p>
+<p>The <strong>key drivers</strong> of this strong Z-Score are likely a combination of solid equity base and controlled liabilities, despite low EBIT margins and asset turnover. The business context of asset management, which typically involves managing client assets rather than heavy fixed assets, aligns with these financial characteristics.</p>
+<p>No significant inflection points or downward trends are observed, reinforcing confidence in IVZ’s financial resilience.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable, high Z-Score (5.49)</td>
+<td>Price stable at $15.77, zero volatility</td>
+<td>Divergent (market data anomalies)</td>
+<td>Market may undervalue or data incomplete</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to Positive (implied)</td>
+<td>P/E 12.62 reasonable, dividend yield anomalous</td>
+<td>Inconsistent</td>
+<td>Caution in market timing recommended</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Strong relative position</td>
+<td>Sector performance unknown</td>
+<td>Outperforming</td>
+<td>Competitive advantage in stability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<p>There is a <strong>disconnect between fundamental health and market signals</strong>. The Altman Z-Score indicates very low risk and financial strength, but market technical indicators show zero volatility, zero volume, and zero moving averages, which is unusual and suggests data anomalies or illiquidity.</p>
+<p>The <strong>P/E ratio of 12.62</strong> is reasonable for the financial services sector, implying fair valuation, but the <strong>dividend yield of 533%</strong> is almost certainly a data error, undermining confidence in dividend-based investment decisions.</p>
+<p>Peer comparison suggests IVZ is outperforming typical asset management firms in financial stability, but without sector performance data, this remains a qualitative assessment.</p>
+<p>Investors should <strong>prioritize fundamental analysis over market timing</strong> until market data normalizes.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT margin pressure</td>
+<td>Cost control, operational efficiency improvements</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Low</td>
+<td>Minimal (high Z-Score buffer)</td>
+<td>Maintain conservative leverage</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Possible valuation volatility</td>
+<td>Diversify holdings, monitor market signals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>
+<p><strong>Operational risks</strong> center on low EBIT margins (0.010) and asset turnover (0.054), which could pressure profitability if market conditions worsen. Probability is medium due to sector cyclicality.</p>
+</li>
+<li>
+<p><strong>Financial risks</strong> are low given the strong Z-Score (&gt;5.0) and implied conservative leverage, suggesting low bankruptcy risk.</p>
+</li>
+<li>
+<p><strong>Market risks</strong> are moderate, primarily due to anomalous market data and potential illiquidity, which could impact share price volatility and investor sentiment.</p>
+</li>
+</ul>
+<p><strong>Scenario Analysis:</strong><br />
+- <strong>Best Case:</strong> Continued stable operations with margin improvement lead to Z-Score increase &gt;5.7 and potential market re-rating.<br />
+- <strong>Base Case:</strong> Stable Z-Score ~5.4-5.5 with flat market price.<br />
+- <strong>Worst Case:</strong> Margin compression reduces EBIT ratio, lowering Z-Score toward 3.5-4.0 but still in Safe Zone; market volatility increases.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 5.49, low risk</td>
+<td>Wait for market signal normalization</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY</td>
+<td>P/E 12.62 reasonable, Z-Score strong</td>
+<td>Enter on price dips or confirmation of market data</td>
+<td>Immediate to 3 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT margin limits growth potential</td>
+<td>Await operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>HOLD</td>
+<td>Low volatility, stable Z-Score</td>
+<td>Monitor for volatility spikes</td>
+<td>3-6 months</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold, leveraging IVZ’s strong financial health but awaiting clearer market signals.  </li>
+<li><strong>Dividend investors</strong> should be cautious due to unreliable yield data; hold and monitor.  </li>
+<li><strong>Value investors</strong> may consider buying on dips given strong Z-Score and reasonable valuation.  </li>
+<li><strong>Growth investors</strong> should hold until EBIT margins improve to support sustainable growth.  </li>
+<li><strong>Aggressive investors</strong> should hold and watch for volatility to exploit potential price movements.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Margin improvement, growth</td>
+<td>EBIT Ratio (0.010), Asset Turnover (0.054)</td>
+<td>Focus on operational efficiency, client acquisition</td>
+<td>EBIT margin increase, asset turnover growth</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Current Ratio (0.057), Retained Earnings (0.251)</td>
+<td>Improve liquidity buffers, optimize capital allocation</td>
+<td>Current ratio &gt;0.1, stable retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score (5.49), Risk factors</td>
+<td>Monitor risk trends, ensure governance on operational risks</td>
+<td>Maintain Z-Score &gt;3.0, risk mitigation effectiveness</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li><strong>CEO</strong> should prioritize operational efficiency to improve EBIT margins and asset utilization, driving sustainable growth.  </li>
+<li><strong>CFO</strong> must address liquidity concerns despite strong Z-Score, ensuring sufficient working capital for operational flexibility.  </li>
+<li><strong>Board</strong> should maintain oversight on risk factors, leveraging the strong Z-Score as a baseline but remaining vigilant to margin pressures and market risks.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable (~5.49)</td>
+<td>Stable to slight improvement</td>
+<td>Margin expansion, asset growth</td>
+<td>EBIT ratio, retained earnings</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Stable, undervalued</td>
+<td>Potential re-rating</td>
+<td>Market normalization, volume increase</td>
+<td>Price volatility, volume</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low risk</td>
+<td>Stable</td>
+<td>Operational efficiency, macroeconomic factors</td>
+<td>Risk factor incidence, liquidity</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<p>IVZ’s Z-Score momentum is stable with potential for slight improvement if operational efficiencies and margins improve. Market position may evolve positively if current data anomalies resolve and trading volume normalizes, allowing valuation to better reflect fundamentals.</p>
+<p>Risk profile remains low but should be monitored for margin pressures and liquidity constraints. Early warning indicators include declining EBIT ratio, worsening working capital ratio, and increased market volatility.</p>
+<hr />
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Invesco Ltd. (IVZ) exhibits <strong>robust financial health</strong> with a consistently high Altman Z-Score firmly in the Safe Zone, indicating minimal bankruptcy risk. Despite some liquidity and operational efficiency concerns, the company’s strong equity base and stable risk profile support a <strong>hold recommendation</strong> for most investors, with value investors potentially initiating positions on price dips.</p>
+<p>Market data anomalies limit confidence in timing and sentiment analysis, necessitating caution until normal trading activity resumes. Strategic focus on improving EBIT margins and liquidity will be critical for sustaining long-term growth and maintaining the strong Z-Score trajectory.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, risk assessments, and market signals to provide actionable investment intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 01, 2025 at 09:16 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

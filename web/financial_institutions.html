@@ -1,369 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Institutions - Financial Analysis Dashboard</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .header h1 {
-            color: #2c3e50;
-            margin: 0 0 10px 0;
-            font-size: 2.5em;
-            font-weight: 300;
-        }
-        
-        .model-info {
-            background: rgba(52, 152, 219, 0.1);
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #3498db;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .stock-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .stock-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            padding: 15px 10px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
-        }
-        
-        .stock-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .stock-symbol {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1em;
-        }
-        
-        .footer {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: center;
-            color: #7f8c8d;
-        }
-        
-        .back-nav {
-            margin-bottom: 20px;
-        }
-        
-        .back-nav a {
-            color: white;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 25px;
-            display: inline-block;
-            transition: background 0.3s ease;
-        }
-        
-        .back-nav a:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+    <title>Financial Institutions - Altman Z-Score</title>
+    <link rel="stylesheet" href="assets/dashboard_common.css">
+    
 </head>
-<body>
-    <div class="container">
-        <div class="back-nav">
-            <a href="index.html">← Back to Main Dashboard</a>
-        </div>
-        
-        <div class="header">
-            <h1>Financial Institutions</h1>
-            <p><strong>Model:</strong> CAMELS Framework</p>
-            
-            <div class="model-info">
-                <h3>Model Description</h3>
-                <p>Banks and financial institutions requiring specialized regulatory ratios.</p>
-            </div>
-        </div>
-        
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">66</div>
-                <div class="stat-label">Total Stocks</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">CAMELS Framework</div>
-                <div class="stat-label">Analysis Model</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2025-06-29</div>
-                <div class="stat-label">Last Updated</div>
-            </div>
-        </div>
-        
-        <div class="stock-grid">
 
-            <div class="stock-card">
-                <div class="stock-symbol">0388.HK</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">0941.HK</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AFL</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AIG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AJG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">ALL</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AMG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AMP</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">APO</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AXAHY</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">AXP</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BAC</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BCS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BK</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BLK</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BMO</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BNP</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BNPQY</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BNS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BRK.A</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BRK.B</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">BX</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">C</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">CB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">CM</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">CMA</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">COF</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">CS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">DB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">FITB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">GS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">HDB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">HIG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">IBN</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">ING</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">ITUB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">IVZ</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">JPM</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">KEY</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">LLOY</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MA</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MET</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MFG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MTB</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">MUFG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">NTRS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">PGR</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">PNC</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">PRU</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">RF</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">RY</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">SAN</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">SCHW</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">SMFG</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">SSNC</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">STT</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">TD</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">TROW</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">TRV</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">UBS</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">UNI</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">UNM</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">V</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">WFC</div>
-            </div>
-            <div class="stock-card">
-                <div class="stock-symbol">ZION</div>
+<body>
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <div class="header-container">
+        <div>
+            <h1>Financial Institutions</h1>
+            <p class="subtitle">Industry-specific financial analysis using CAMELS Framework</p>
+        </div>
+        <div class="date">Generated: July 01, 2025</div>
+    </div>
+
+    <div class="summary-section">
+        <h2>Portfolio Summary</h2>
+        <div class="stats-grid">
+            
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Safe Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Gray Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Distress Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.11</div>
+                <div class="stat-label">Avg Z-Score</div>
             </div>
         </div>
-        
-        <div class="footer">
-            <p>Generated on 2025-06-29 08:54:30</p>
-            <p>Financial analysis based on CAMELS Framework methodology</p>
+        <div class="summary-text">
+            
+    <p>This portfolio presents <strong>Financial Institutions</strong> companies analyzed using the <strong>CAMELS Framework</strong>.</p>
+    <p>Among the 15 companies analyzed:</p>
+    <ul>
+        <li>0 companies are in the <strong>Safe Zone</strong> (Z-Score > 2.99)</li>
+        <li>10 companies are in the <strong>gray Zone</strong> (1.81 ≤ Z-Score ≤ 2.99)</li>
+        <li>5 companies are in the <strong>Distress Zone</strong> (Z-Score < 1.81)</li>
+    </ul>
+    <p>The average Z-Score across all companies is <strong>2.11</strong>.</p>
+    
         </div>
     </div>
+
+    
+        <div class="model-info">
+            
+    <h3>Model: CAMELS Framework</h3>
+    <p>Specialized framework for banks and financial institutions that evaluates Capital adequacy, Asset quality, Management, Earnings, Liquidity, and Sensitivity to market risk.</p>
+    <p>This dashboard applies the CAMELS Framework specifically designed for Financial Institutions companies.</p>
+    
+        </div>
+
+    <h2>Companies</h2>
+    <div class="company-grid">
+        
+    <div class="company-card" data-ticker="JPM">
+        <div class="company-header">
+            <img src="output/JPM/JPM_logo.png" alt="JPMorgan Chase & Co. logo" class="company-logo">
+            <div class="company-name">
+                <h3>JPMorgan Chase & Co.</h3>
+                <span class="company-ticker">JPM</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$56,595.17M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.17</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">11.27%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.06 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="BAC">
+        <div class="company-header">
+            <img src="output/BAC/BAC_logo.png" alt="Bank of America Corporation logo" class="company-logo">
+            <div class="company-name">
+                <h3>Bank of America Corporation</h3>
+                <span class="company-ticker">BAC</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$45,015.17M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">14.46</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">23.18%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.89 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="C">
+        <div class="company-header">
+            <img src="output/C/C_logo.png" alt="C Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>C Inc.</h3>
+                <span class="company-ticker">C</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$32,254.54M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">30.15</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">10.96%</span>
+        </div>
+            <div class="z-score distress">
+                Z-Score: 1.73 (Distress Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="WFC">
+        <div class="company-header">
+            <img src="output/WFC/WFC_logo.png" alt="WFC Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>WFC Inc.</h3>
+                <span class="company-ticker">WFC</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$9,502.57M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.28</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">6.11%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.96 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="GS">
+        <div class="company-header">
+            <img src="output/GS/GS_logo.png" alt="GS Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>GS Inc.</h3>
+                <span class="company-ticker">GS</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$28,384.56M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">13.61</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">11.69%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.82 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="MS">
+        <div class="company-header">
+            <img src="output/MS/MS_logo.png" alt="MS Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>MS Inc.</h3>
+                <span class="company-ticker">MS</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$77,033.27M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">30.13</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">8.52%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.1 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="AXP">
+        <div class="company-header">
+            <img src="output/AXP/AXP_logo.png" alt="AXP Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>AXP Inc.</h3>
+                <span class="company-ticker">AXP</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$12,279.44M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">23.16</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">7.92%</span>
+        </div>
+            <div class="z-score distress">
+                Z-Score: 1.79 (Distress Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="V">
+        <div class="company-header">
+            <img src="output/V/V_logo.png" alt="V Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>V Inc.</h3>
+                <span class="company-ticker">V</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$42,091.93M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">10.13</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">15.73%</span>
+        </div>
+            <div class="z-score distress">
+                Z-Score: 1.58 (Distress Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="MA">
+        <div class="company-header">
+            <img src="output/MA/MA_logo.png" alt="MA Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>MA Inc.</h3>
+                <span class="company-ticker">MA</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$28,594.62M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">21.23</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">12.89%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.3 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="BLK">
+        <div class="company-header">
+            <img src="output/BLK/BLK_logo.png" alt="BLK Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>BLK Inc.</h3>
+                <span class="company-ticker">BLK</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$45,140.55M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">19.17</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">14.18%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.72 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="SCHW">
+        <div class="company-header">
+            <img src="output/SCHW/SCHW_logo.png" alt="SCHW Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>SCHW Inc.</h3>
+                <span class="company-ticker">SCHW</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$21,635.91M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.64</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">19.69%</span>
+        </div>
+            <div class="z-score distress">
+                Z-Score: 1.61 (Distress Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="COF">
+        <div class="company-header">
+            <img src="output/COF/COF_logo.png" alt="COF Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>COF Inc.</h3>
+                <span class="company-ticker">COF</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$78,609.48M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">21.38</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">14.02%</span>
+        </div>
+            <div class="z-score distress">
+                Z-Score: 1.53 (Distress Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="USB">
+        <div class="company-header">
+            <img src="output/USB/USB_logo.png" alt="USB Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>USB Inc.</h3>
+                <span class="company-ticker">USB</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$31,329.50M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.04</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">11.32%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.85 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="PNC">
+        <div class="company-header">
+            <img src="output/PNC/PNC_logo.png" alt="PNC Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>PNC Inc.</h3>
+                <span class="company-ticker">PNC</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$6,079.36M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">26.97</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">9.15%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.46 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="TFC">
+        <div class="company-header">
+            <img src="output/TFC/TFC_logo.png" alt="TFC Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>TFC Inc.</h3>
+                <span class="company-ticker">TFC</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Financial</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$76,893.12M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">11.09</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">22.01%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.29 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <script>
+        // Add interactive elements, sorting, filtering
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add hover effects to company cards
+            const companyCards = document.querySelectorAll('.company-card');
+            companyCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+            });
+
+            
+        });
+    </script>
 </body>
+
 </html>
