@@ -146,7 +146,7 @@ class ReportGenerator:
             'model_description': model_description,
             'model_thresholds': model_thresholds,
             'data_quality_score': f"{zscore_result.data_quality_score * 100:.1f}",
-            'calculation_date': self._format_calculation_date(zscore_result.calculation_timestamp),
+            'calculation_date': datetime.now().strftime("%B %d, %Y at %I:%M %p"),  # Use report generation time instead of Z-Score calculation time
             'component_values': self._format_component_values(zscore_result.component_values),
             'warnings': zscore_result.warnings,
             'ai_insights': format_ai_insights_for_html(ai_insights),  # Convert markdown to HTML (legacy)

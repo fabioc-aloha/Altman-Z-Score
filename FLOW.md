@@ -1,23 +1,27 @@
 # Investment Recommendation System Flow - Technical Analysis
 
-*Version: 4.5.0 DIAMOND (2025-06-30) - Novel Retail Z-Score Model & Academic Excellence*
+*Version: 4.6.0 DIAMOND+ (2025-07-02) - Enhanced Glossary & Improved Report Visuals*
 
 ---
 
-## 📊 Current Data Source Architecture (v4.5.0 DIAMOND)
+## 📊 Current Data Source Architecture (v4.6.0 DIAMOND+)
 
-### 💎 **DIAMOND v4.5.0: Academic Excellence & Novel Retail Model**
+### 💎 **DIAMOND+ v4.6.0: Enhanced Glossary & Improved Report Visuals**
 
-**BREAKTHROUGH ACADEMIC ACHIEVEMENT:**
+**CURRENT IMPLEMENTATION FEATURES:**
+- **📚 Comprehensive Model Glossary**: Detailed definitions of all Z-Score models with formulas and thresholds
+- **🎯 Model Selection Clarity**: Clear explanation of automated model selection with industry-specific logic
+- **📊 Color-Coordinated Charts**: Enhanced trend analysis charts with axis colors matching their respective lines
+- **⏰ Real-Time Report Timestamp**: Reports display current timestamp at generation time for better audit trails
+- **🌐 Model-Specific Dashboards**: Dedicated dashboards for each Z-Score model type
+- **🧭 Enhanced Navigation**: New navigation hub pages for easy access to all analysis types
 - **🏆 Novel Retail Z-Score Model**: Revolutionary X₆ component integrating inventory turnover
-- **📚 Academic Paper**: Complete peer-review ready documentation (`NOVEL_RETAIL_MODEL.md`)
+- **📚 Academic Documentation**: Complete peer-review ready documentation (`NOVEL_RETAIL_MODEL.md`)
 - **🔬 Empirical Validation**: 75-company retail backtest portfolio with automated validation framework
-- **📊 Industry Innovation**: First retail-specific Z-Score model with inventory optimization
-- **🎯 Production Ready**: PowerShell/batch automation with comprehensive reporting
 
 ### Data Sources
 
-**CURRENT ARCHITECTURE (2025-06-30 DIAMOND):**
+**CURRENT ARCHITECTURE (2025-07-02 DIAMOND+):**
 - **🎯 Primary**: FMP (Financial Modeling Prep) - Standardized financial metrics
 - **📈 Secondary**: Yahoo Finance - Market data and pricing
 - **💎 Novel Enhancement**: Retail-specific inventory turnover integration
@@ -100,7 +104,7 @@ The Altman Z-Score Investment Analysis Platform provides sophisticated investmen
 
 The system generates **three types of investment guidance**: quantitative ratings (Buy/Hold/Sell), AI-powered narratives, and investor profile-specific recommendations.
 
-## 💎 **DIAMOND v4.5.0: Academic Excellence & Novel Model Features**
+## 💎 **DIAMOND+ v4.6.0: Enhanced Reporting & Academic Excellence**
 
 ### 🏆 **Major Academic Achievement: Novel Retail Z-Score Model**
 - **📚 Academic Paper**: Complete peer-review ready documentation with mathematical proofs
@@ -121,7 +125,7 @@ The system generates **three types of investment guidance**: quantitative rating
 - **📈 Statistical Validation**: Performance comparison vs traditional Z-Score methodology
 - **🔧 One-Click Validation**: Easy retail model testing with detailed reporting
 
-## �🆕 Architecture Features (v4.5.0 DIAMOND)
+## 🆕 Architecture Features (v4.6.0 DIAMOND+)
 
 ### Modern Pipeline Design
 - **✅ Clean Architecture**: Streamlined codebase with improved maintainability
@@ -409,20 +413,21 @@ altman_zscore/portfolio_generation/
 ### **Interactive Web Interface**
 - **📱 Responsive Design**: Modern HTML5/CSS3 dashboards optimized for all devices
 - **🎨 Professional Styling**: Custom CSS with portfolio-specific theming
-- **📊 Data Visualization**: Interactive charts and risk zone visualizations
-- **🔗 Cross-Portfolio Navigation**: Seamless navigation between different portfolio views
+- **📊 Data Visualization**: Interactive charts and risk zone visualizations with color-coordinated axes
+- **🔗 Enhanced Navigation**: Comprehensive navigation system with model-specific access points
 
 ### **Web Dashboard Features**:
-- **🏠 Main Index**: Central hub for all portfolio access (`index.html`)
-- **📋 Portfolio Index**: Organized view of all model portfolios (`model_portfolios_index.html`)
-- **📈 Individual Dashboards**: Dedicated pages for each portfolio strategy
+- **🏠 Main Index**: Central hub for all portfolio access (`index.html`) with organized sections
+- **📋 Model Portfolios Index**: Dedicated navigator for model-specific dashboards (`model_portfolios_index.html`)
+- **📈 Individual Dashboards**: Dedicated pages for each portfolio strategy and Z-Score model
 - **🎯 Risk-Based Views**: Portfolios organized by risk tolerance and investment style
+- **🏭 Model-Specific Dashboards**: Specialized views for each Z-Score model type (Original, Private, Service, Emerging, Financial, Retail)
 
 ### **Generated Web Assets**:
 ```
 web/
-├── index.html                           # Main dashboard hub
-├── model_portfolios_index.html          # Portfolio navigation
+├── index.html                           # Main dashboard hub with organized sections
+├── model_portfolios_index.html          # Model-specific dashboard navigator
 ├── portfolio_strong_buy_styles.css      # Custom styling
 ├── strong_buys.html                     # High-conviction picks
 ├── conservative_picks.html              # Low-risk investments
@@ -430,7 +435,13 @@ web/
 ├── value_picks.html                     # Undervalued opportunities
 ├── dividend_picks.html                  # Income-focused selections
 ├── growth_picks.html                    # Growth-oriented stocks
-└── [sector-specific].html               # Industry-focused portfolios
+├── manufacturing_&_industrial.html      # Original Altman Z-Score (1968)
+├── private_&_service_companies.html     # Altman Z'-Score (1983)
+├── emerging_markets.html                # Altman Z"-Score (2012)
+├── financial_institutions.html          # CAMELS Framework
+├── regulated_utilities.html             # Utility-Specific Ratios
+├── technology_&_growth.html             # Growth-Adjusted Ratios
+└── retail_&_consumer.html               # Novel Retail-Specific Model
 ```
 
 ---
@@ -458,6 +469,7 @@ web/
 | **`monitor_azure_costs.ps1`** | Azure cost monitoring | Cost tracking and optimization |
 | **💎 `run_retail_validation.ps1`** | **Novel retail model validation** | **Automated retail Z-Score backtesting** |
 | **💎 `run_retail_validation.bat`** | **Cross-platform retail validation** | **Batch retail model testing** |
+| **📊 `generate_model_portfolios.py`** | **Model-specific dashboards** | **Z-Score model-specific portfolio generation** |
 
 ### **PowerShell Script Features**:
 - **📊 Progress Tracking**: Real-time progress indicators and status updates
@@ -647,11 +659,13 @@ def get_risk_appropriate_tone(risk_category):
 ## 🎯 Output Formats & Professional Reports
 
 ### **1. Professional HTML Reports**
-- **Interactive dashboards** with risk zone visualization
+- **Interactive dashboards** with risk zone visualization and color-coordinated axes
 - **AI-generated investment narratives** integrated seamlessly
-- **Technical analysis summaries** with charts
+- **Technical analysis summaries** with enhanced charts
 - **Actionable recommendations section** with clear guidance
 - **Risk assessment** with monitoring points
+- **Comprehensive model glossary** with all Z-Score models, formulas, and thresholds
+- **Real-time timestamp** for better audit trails and versioning
 
 ### **2. Summary Files (Quick Decision Making)**
 ```
@@ -764,9 +778,16 @@ flowchart TD
 
 ---
 
-## 🚀 Key Technical Advantages (v4.5.0 DIAMOND)
+## 🚀 Key Technical Advantages (v4.6.0 DIAMOND+)
 
-### **1. Academic Excellence & Innovation**
+### **1. Enhanced Reporting & Documentation**
+- **📚 Comprehensive Glossary**: Detailed definitions of all Z-Score models with formulas and thresholds
+- **🎯 Model Selection Clarity**: Clear explanation of automated model selection with industry-specific logic
+- **📊 Improved Visualizations**: Enhanced charts with color-coordinated axes matching their respective lines
+- **⏰ Real-Time Reporting**: Reports include generation timestamp for better audit trails
+- **🌐 Enhanced Navigation**: Improved web interface with model-specific dashboards and navigation hubs
+
+### **2. Academic Excellence & Innovation**
 - **💎 Novel Retail Model**: First retail-specific Z-Score enhancement with inventory integration
 - **📚 Academic Paper**: Peer-review ready documentation with mathematical proofs and citations
 - **🔬 Empirical Validation**: 75-company backtest portfolio with statistical performance analysis
@@ -848,10 +869,10 @@ The Altman Z-Score Investment Analysis Platform represents a **strategic advance
 
 ---
 
-## 💎 **DIAMOND v4.5.0: A New Standard in Financial Analysis**
+## 💎 **DIAMOND+ v4.6.0: A New Standard in Financial Analysis**
 
-This release establishes the platform as both a **production-ready investment tool** and a **significant academic contribution** to the field of financial risk assessment. The novel retail Z-Score model with inventory integration represents a breakthrough in industry-specific financial analysis methodology.
+This release enhances the platform with **comprehensive documentation** and **improved visualizations** while building on our **significant academic contribution** to the field of financial risk assessment. The novel retail Z-Score model with inventory integration, enhanced model glossary, and improved reporting establish a new standard in industry-specific financial analysis methodology.
 
 ---
 
-*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v4.5.0 DIAMOND, including the groundbreaking novel retail Z-Score model.*
+*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v4.6.0 DIAMOND+, including the comprehensive model glossary, enhanced visualizations, improved navigation, and the groundbreaking novel retail Z-Score model.*

@@ -18,13 +18,33 @@ def get_common_paths():
     web_dir = project_root / "web"
     assets_dir = web_dir / "assets"
     template_path = assets_dir / "dashboard_template.html"
+    css_path = assets_dir / "dashboard_common.css"
     
     return {
         "project_root": project_root,
         "web_dir": web_dir,
         "assets_dir": assets_dir,
-        "template_path": template_path
+        "template_path": template_path,
+        "css_path": css_path
     }
+
+def load_embedded_css():
+    """Load the CSS content to be embedded in HTML."""
+    paths = get_common_paths()
+    
+    try:
+        with open(paths["css_path"], 'r', encoding='utf-8') as f:
+            css_content = f.read()
+        return css_content
+    except Exception as e:
+        print(f"Warning: Could not load CSS file: {str(e)}")
+        # Return minimal CSS as fallback
+        return """
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { color: #1a5276; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .company-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .company-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background: white; }
+        """
 
 def load_dashboard_template():
     """Load the common dashboard HTML template."""
@@ -33,20 +53,31 @@ def load_dashboard_template():
     try:
         with open(paths["template_path"], 'r', encoding='utf-8') as f:
             template = f.read()
+        
+        # Replace the CSS link with embedded CSS
+        css_content = load_embedded_css()
+        embedded_css = f"<style>\n{css_content}\n</style>"
+        
+        # Replace the CSS link with embedded CSS
+        template = template.replace('<link rel="stylesheet" href="assets/dashboard_common.css">', embedded_css)
+        
         return template
     except Exception as e:
         print(f"Error loading template: {str(e)}")
-        # Return a minimal template as fallback
-        return """<!DOCTYPE html>
+        # Return a minimal template with embedded CSS as fallback
+        css_content = load_embedded_css()
+        return f"""<!DOCTYPE html>
 <html>
 <head>
-    <title>{{DASHBOARD_TITLE}}</title>
-    <link rel="stylesheet" href="assets/dashboard_common.css">
+    <title>{{{{DASHBOARD_TITLE}}}}</title>
+    <style>
+{css_content}
+    </style>
 </head>
 <body>
-    <h1>{{DASHBOARD_TITLE}}</h1>
-    <div class="date">Generated: {{GENERATION_DATE}}</div>
-    <div>{{COMPANY_GRID}}</div>
+    <h1>{{{{DASHBOARD_TITLE}}}}</h1>
+    <div class="date">Generated: {{{{GENERATION_DATE}}}}</div>
+    <div>{{{{COMPANY_GRID}}}}</div>
 </body>
 </html>"""
 

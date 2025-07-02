@@ -1,70 +1,45 @@
-![AI-Powered Altman Z-Score Analysis](banner.png)
+![Altman Z-Score Analysis](banner.png)
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.5.1 DIAMOND (2025-07-01) 💎 Academic Excellence - Investor Profile Fix**
+**Version: 4.6.0 DIAMOND+ (2025-07-02) 💎 Enhanced Glossary & Reports**
 
 Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis** and **industry-specific Z-Score models**.
 
-## 💎 **NEW v4.5.1 DIAMOND: Investor Profile Dashboard Fix & Workflow Optimization**
+## 💎 **NEW v4.6.0 DIAMOND+: Enhanced Glossary & Improved Report Visuals**
 
-🔧 **CRITICAL HOTFIX:** Fixed all investor profile dashboards (Conservative, Growth, Value, Dividend, Aggressive) - now generating successfully with proper company matching and enhanced data extraction from comprehensive reports.
+📚 **COMPREHENSIVE MODEL GLOSSARY:** Added detailed definitions of all Z-Score models to reports, including Original, Private, Service, Emerging, Financial, and Retail models with formulas and thresholds.
 
-🚀 **WORKFLOW OPTIMIZATION:** Reordered dashboard generation sequence for optimal user experience: Assets → Templates → Dashboards → Navigation, ensuring accurate company counts and reliable dashboard generation.
+🎯 **MODEL SELECTION CLARITY:** Added new glossary section explaining how the system automatically selects the most appropriate Z-Score model with industry-specific logic.
 
-**Previous v4.5.0 Achievement:** Novel retail-specific Z-Score model with inventory turnover integration, complete academic paper, and empirical validation framework.
+📊 **IMPROVED CHART VISUALS:** Enhanced trend analysis charts with color-coordinated axes - Z-Score axis now matches Z-Score line color (blue) and Price axis matches price line color (green).
 
-### 🏆 **Major Academic Achievement: Novel Retail Z-Score Model**
-- **📚 Academic Paper Published:** Complete academic paper documenting our novel retail-specific Z-Score model (NOVEL_RETAIL_MODEL.md)
-- **📊 Inventory Integration:** Revolutionary X₆ component incorporating inventory turnover into Z-Score calculations  
-- **🏪 Retail-Optimized:** Industry-specific thresholds and logic for retail sector financial analysis
-- **📈 Empirical Validation:** Comprehensive backtest framework with 75 retail companies across 5 risk categories
-- **🎯 Academic Rigor:** APA-compliant citations, mathematical proofs, and literature compliance verification
+⏰ **REAL-TIME REPORT TIMESTAMP:** Updated report generation to display the current timestamp at generation time for better audit trails and versioning.
 
-### ⚡ **Enhanced Model Selection & Literature Compliance**
-- **📚 100% Literature Compliant:** All Z-Score formulas verified against original academic papers (Altman 1968, 1983, 2012)
-- **🎯 Perfect Model Selection:** Automated industry-specific model selection with 100% accuracy validation
-- **🔬 Rigorous Testing:** Comprehensive test suite ensuring mathematical precision and academic standards
-- **📋 Complete Documentation:** Technical flow documentation updated with novel model integration
+🌐 **MODEL-SPECIFIC DASHBOARDS:** Enhanced web interface with dedicated model-specific dashboards for each Z-Score model type (Original, Private, Service, Emerging, Financial, and Retail).
 
-### 🚀 **Production-Ready Validation Framework**
-- **⚡ Automated Backtesting:** PowerShell and batch scripts for retail model validation
-- **📊 Comprehensive Analysis:** 5-category retail portfolio (Failed, Distressed, Recovery, Stable, Seasonal)
-- **🎯 Empirical Results:** Statistical validation of retail model performance vs traditional Z-Score
-- **🔧 Easy Validation:** One-click validation runs with detailed reporting and analysis
+🧭 **IMPROVED NAVIGATION:** Added new navigation hub pages for easy access to all analysis types, including a central Model Portfolios Index for quick access to model-specific dashboards.
 
-### ⚡ **LLM Configuration Management**
-- **🔧 Environment-Driven Config:** All LLM temperature and token settings now configurable via `.env`
-- **🎯 Dynamic Configuration:** Temperature settings for insights (0.7), narrative (0.8), and analysis (0.5)
-- **🔧 Token Control:** Configurable max tokens for different LLM response types
-- **✅ Validation Tools:** Built-in configuration validation and testing scripts
-
-### 🚀 **Modern High-Performance Defaults**
-- **⚡ Parallel Processing:** Default 8 parallel processes (up from 4) for modern systems
-- **📈 Extended Analysis:** Default 12 quarters (up from 4) for better trend analysis
-- **🎯 Enhanced by Default:** Advanced analysis features now enabled out-of-the-box
-- **🔧 Smart Scaling:** Optimized for both older systems and high-performance setups
-
-### 📋 **Enhanced User Experience**
-- **📖 Comprehensive Help:** Detailed help system for all PowerShell and batch scripts
-- **🎯 Error Handling:** Robust error handling and user guidance
-- **📁 Organized Structure:** Documentation moved to logical directories (`docs/technical/`, `docs/guides/`)
-- **🧹 Clean Workspace:** Test scripts organized, temporary files removed
-
-**📖 See [docs/guides/QUICK_START_ENHANCED.md](docs/guides/QUICK_START_ENHANCED.md) for complete features guide**
+**For previous releases and detailed change history, see [CHANGELOG.md](CHANGELOG.md)**
 
 ---
 
 ## 🎯 **What You Get**
 
-### 💡 **Professional Investment Intelligence v4.5.1**
-- **🎯 Novel Retail Model:** Revolutionary retail-specific Z-Score with inventory turnover integration
+### 💡 **Professional Investment Intelligence v4.6.0**
+- **📚 Comprehensive Model Glossary:** Detailed definitions of all Z-Score models with formulas and thresholds
+- **🎯 Model Selection Clarity:** Clear explanation of automated model selection with industry-specific logic
+- **📊 Enhanced Chart Visuals:** Color-coordinated axes matching their respective lines for better readability
+- **🏆 Novel Retail Model:** Revolutionary retail-specific Z-Score with inventory turnover integration
 - **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
 - **💡 Investment Recommendations:** Clear BUY/HOLD/SELL guidance with historical context and confidence scoring
 - **🤖 AI-Powered Insights:** Comprehensive reports integrating multi-quarter trends and market intelligence
 - **⚡ Enhanced Performance:** Literature-compliant algorithms with academic validation framework
 
 ### 💡 **Smart Investment Decisions with Historical Context**
+- **🧭 Improved Navigation:** Easy access to all analysis types through new navigation hub pages
+- **🌐 Model-Specific Dashboards:** Dedicated dashboards for each Z-Score model type for specialized analysis
+- **⏰ Real-Time Reporting:** Reports include generation timestamp for better audit trails and versioning
 - **🎯 Risk-Adjusted Recommendations:** Tailored advice with multi-quarter trend analysis for all investor profiles
 - **📱 Enhanced Interactive Dashboards:** Professional charts with risk zone markers and multi-quarter visualizations
 - **🔍 Trend Pattern Recognition:** AI identifies seasonal patterns, trends, and turning points in financial health
@@ -79,7 +54,7 @@ Transform your investment decisions with **AI-powered financial health analysis*
 pip install -r requirements.txt
 python main.py AAPL
 
-# High-performance portfolio analysis (NEW v4.5.1 optimized workflow)
+# High-performance portfolio analysis (NEW v4.6.0 optimized workflow)
 .\run_parallel_portfolio.ps1 -PortfolioFile "portfolios/tech_portfolio.txt"
 # ⚡ Now uses 8 parallel processes, 12 quarters, enhanced analysis by default
 
@@ -202,10 +177,10 @@ Access comprehensive portfolio analysis through professional HTML dashboards in 
 - **[Retail & Consumer](web/retail_&_consumer.html)** - 🏆 **Novel Retail-Specific Model** with Inventory Turnover
 
 ### 🏠 **Navigation Dashboards**
-- **[Main Portfolio Index](web/index.html)** - Central navigation hub
-- **[Model Portfolios Index](web/model_portfolios_index.html)** - Model-specific dashboard navigator
+- **[Main Portfolio Index](web/index.html)** - Central navigation hub with organized sections for buy recommendations, investor profiles, sell recommendations, and industry-specific models
+- **[Model Portfolios Index](web/model_portfolios_index.html)** - Model-specific dashboard navigator providing direct access to all industry-tailored Z-Score models
 
-**💡 Pro Tip:** Each dashboard includes interactive charts, AI-powered insights, risk analysis, and detailed company breakdowns with Z-Score trends and investment recommendations. The retail dashboard features our groundbreaking inventory turnover integration.
+**💡 Pro Tip:** Each dashboard includes interactive charts, AI-powered insights, risk analysis, and detailed company breakdowns with Z-Score trends and investment recommendations. The retail dashboard features our groundbreaking inventory turnover integration model as documented in our academic paper [NOVEL_RETAIL_MODEL.md](NOVEL_RETAIL_MODEL.md).
 
 ---
 
@@ -239,16 +214,16 @@ LOG_STRUCTURED="false"              # Enable structured JSON logging
 
 ### **Step 3: Generate Portfolio Dashboards**
 ```bash
-# Generate investment style portfolios
+# Generate investment style portfolios and main navigation hub (NEW v4.6.0)
 python generate_main_page.py
 
-# Generate model-specific industry portfolios
+# Generate model-specific industry portfolios and model index (NEW v4.6.0)
 python generate_model_portfolios.py
 
-# Analyze individual companies
+# Analyze individual companies with enhanced glossary (NEW v4.6.0)
 python main.py AAPL MSFT GOOGL TSLA NVDA --log-level DEBUG
 
-# Test the novel retail model
+# Test the novel retail model with industry-specific thresholds
 .\run_retail_validation.ps1
 
 # Advanced batch analysis
@@ -350,7 +325,7 @@ python main.py AAPL --log-structured                    # JSON formatted logs
 **📌 Important:** GitHub displays HTML files as raw code, not rendered pages. To view the actual interactive portfolio dashboards:
 
 ### 🖥️ **Option 1: Clone Repository (Recommended for Full Experience)**
-```bash
+```powershell
 # Clone the repository
 git clone https://github.com/your-username/Altman-Z-Score-1.git
 cd Altman-Z-Score-1
@@ -359,6 +334,34 @@ cd Altman-Z-Score-1
 start web/index.html                                     # Windows
 open web/index.html                                      # macOS  
 xdg-open web/index.html                                  # Linux
+```
+
+### 📊 **Navigation & Dashboard Structure**
+
+The web version features a comprehensive dashboard navigation system:
+
+#### 🧭 **Main Navigation Pages**
+- `web/index.html` - **Central Navigation Hub** - Access to all dashboard categories
+- `web/model_portfolios_index.html` - **Model-Specific Dashboard Navigator**
+
+#### 📈 **Investment Style Dashboards**
+- `web/conservative_picks.html` - Capital preservation focused
+- `web/dividend_picks.html` - Income generation portfolio  
+- `web/value_picks.html` - Undervalued opportunities
+- `web/growth_picks.html` - Capital appreciation focused
+- `web/aggressive_picks.html` - High-risk, high-reward
+- `web/strong_buys.html` - Top recommendations
+- `web/sell_picks.html` - Exit positions
+- `web/strong_sell_picks.html` - Urgent exit recommendations
+
+#### 🏭 **Industry-Specific Model Portfolios**
+- `web/manufacturing__and__industrial.html` - Original Altman Z-Score (1968)
+- `web/private__and__service_companies.html` - Altman Z'-Score (1983)
+- `web/emerging_markets.html` - Altman Z"-Score (2012)
+- `web/financial_institutions.html` - CAMELS Framework
+- `web/regulated_utilities.html` - Utility-Specific Ratios
+- `web/technology__and__growth.html` - Growth-Adjusted Ratios
+- `web/retail__and__consumer.html` - Retail-Specific Metrics with inventory turnover integration
 
 # Or open specific portfolio dashboards
 start web/conservative_picks.html                        # Windows
@@ -396,7 +399,7 @@ pwsh.exe -File run_batch_examples.ps1
 
 ## 🏆 **Academic Achievement: Novel Retail Z-Score Model**
 
-**DIAMOND v4.5.0 represents a major academic milestone** with the introduction of the first literature-documented retail-specific extension of the Altman Z-Score methodology.
+**DIAMOND+ v4.6.0 builds on our major academic milestone** with the introduction of the first literature-documented retail-specific extension of the Altman Z-Score methodology.
 
 ### 📚 **Key Innovation: Inventory Turnover Integration (X₆)**
 Our novel retail model introduces a sixth component (X₆) that captures inventory efficiency:

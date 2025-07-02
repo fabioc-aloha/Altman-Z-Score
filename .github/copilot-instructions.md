@@ -40,7 +40,7 @@ The following key documents are located in the project root directory and should
 These documents provide comprehensive understanding of the Altman Z-Score system architecture, data sources, and implementation details.
 
 **Temporal Organization**: 
-- **FLOW.md** represents the **present** - current system state and architecture
+- **FLOW.md** and **README.MD** represent the **present** - current system state and architecture
 - **TODO.md** represents the **future** - planned development and enhancements
 - **CHANGELOG.md** represents the **past** - completed work and version history
 

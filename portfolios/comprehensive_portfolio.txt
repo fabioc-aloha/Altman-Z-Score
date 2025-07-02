@@ -10,10 +10,20 @@
 # The model selection procedure automatically assigns companies to the optimal
 # analytical framework based on industry, size, and business model.
 #
-# Total Companies: 309 (cleaned - duplicates removed)
-# Models Included: 7 specialized analytical frameworks
-# Coverage: Global markets, multiple industries, various business models
+# Total Companies: 364 (cleaned - duplicates removed + micro caps + day trader favorites)
+# Models Included: 9 specialized analytical frameworks
+# Coverage: Global markets, multiple industries, various business models, micro cap opportunities, day trading stocks
 # ===============================================================================
+#
+# MODEL ASSIGNMENT PRIORITY RULES:
+# 1. Primary business activity (manufacturing vs. services vs. financial)
+# 2. Revenue source composition (>50% rule)
+# 3. Capital intensity and asset structure
+# 4. Geographic/accounting standards considerations
+# 5. Growth stage and R&D intensity
+# 6. Regulatory environment
+# 7. Industry-specific risk factors
+#
 
 # ===============================================================================
 # MODEL 1: ORIGINAL ALTMAN Z-SCORE (1968)
@@ -131,7 +141,6 @@ SONO
 # ===== US HEALTHCARE - SERVICES & BIOTECH =====
 UNH
 CVS
-ANTM
 HUM
 CNC
 TMO
@@ -255,7 +264,6 @@ LI
 BYD
 
 # India - Manufacturing
-TTM
 VEDL
 
 # Latin America - Manufacturing & Industrial
@@ -356,7 +364,6 @@ MTB
 # ===== INTERNATIONAL FINANCIAL =====
 # Europe - Banking
 UBS
-CS
 DB
 BNP
 ING
@@ -505,54 +512,108 @@ UL
 0700.HK
 
 # ===============================================================================
-# CLEANED PORTFOLIO SUMMARY
+# MODEL 8: MICRO CAP STOCKS (SMALL COMPANY FRAMEWORK)
+# Best for: Companies with market cap under $300M
+# =============================================================================
+# Focus: Limited liquidity, higher volatility, growth potential, specialized niches
+# Note: Traditional Z-Score with size-adjusted thresholds and liquidity considerations
+# Total Stocks: 25
+
+# ===== US MICRO CAP TECHNOLOGY =====
+HIMX
+SPNS
+HEAR
+SIMO
+PCTI
+CEVA
+
+# ===== US MICRO CAP HEALTHCARE & BIOTECH =====
+LBPH
+ACTG
+RGEN
+ADMA
+SMCI
+INZY
+
+# ===== US MICRO CAP INDUSTRIAL & MATERIALS =====
+MVIS
+BCDA
+VLCN
+WKHS
+RIDE
+
+# ===== US MICRO CAP CONSUMER & RETAIL =====
+BBBY
+EXPR
+APRN
+TELL
+
+# ===== US MICRO CAP ENERGY & RESOURCES =====
+USWS
+NOG
+GPRE
+REI
+
+# ===== INTERNATIONAL MICRO CAP =====
+# Canada
+JWEL.TO
+PYR.TO
+
+# Europe
+NANO.L
 # ===============================================================================
-# 
-# DUPLICATE RESOLUTION DECISIONS:
-# 
-# Technology Companies (assigned based on primary focus):
-# - NVDA, AMD, INTC, QCOM, MU, AMAT, AVGO → Technology Growth (Model 6) - chip design/R&D focus
-# - TSM, UMC, 005930.KS, 000660.KS → Original Altman (Model 1) - manufacturing focus
-# - NOW, PANW, PLTR, CRWD, OKTA → Z'-Score (Model 2) - service/software focus
-# 
-# Financial Services:
-# - MA, V → Z'-Score (Model 2) - payment services focus
-# - Financial institutions → CAMELS Framework (Model 4)
-# 
-# International Companies:
-# - TSM, ASML → Original Altman (Model 1) - manufacturing/capital intensive
-# - SAP → Z'-Score (Model 2) - software services
-# - RY, TD → Z''-Score (Model 3) - emerging markets/non-US accounting
-# 
-# Consumer Companies:
-# - HD, TGT, LOW, ORLY, AZO, TJX → Z'-Score (Model 2) - retail services focus
-# - DIS → Z'-Score (Model 2) - entertainment services focus
-# - SBUX → Z'-Score (Model 2) - consumer services focus
-# - DANOY → Z'-Score (Model 2) - consumer services focus
-# 
-# Healthcare/Pharma:
-# - JNJ, PFE, LLY → Z'-Score (Model 2) - diversified healthcare services
-# - ABBV → Technology Growth (Model 6) - R&D intensive biotech
-# 
-# Others:
-# - VALE, SQM → Original Altman (Model 1) - mining/industrial operations
-# - PBR → Z''-Score (Model 3) - emerging markets focus
-# - EC → Z''-Score (Model 3) - emerging markets focus
-# - SPOT → Z'-Score (Model 2) - streaming services focus
-# 
-# MODEL ASSIGNMENT PRIORITY RULES:
-# 1. Primary business activity (manufacturing vs. services vs. financial)
-# 2. Revenue source composition (>50% rule)
-# 3. Capital intensity and asset structure
-# 4. Geographic/accounting standards considerations
-# 5. Growth stage and R&D intensity
-# 6. Regulatory environment
-# 7. Industry-specific risk factors
-#
-# Total Companies: 309 (46 duplicates removed)
-# Original entries: 355
-# Duplicates removed: 46
-# Efficiency gain: ~13% reduction in portfolio size
-# Improved model accuracy: Each company assigned to optimal analytical framework
-#
-# ===============================================================================
+# MODEL 9: DAY TRADER FAVORITES (HIGH VOLATILITY & VOLUME)
+# Best for: Active trading, high liquidity, frequent price movements
+# =============================================================================
+# Focus: High volume, volatility, news sensitivity, technical patterns
+# Note: Z-Score less relevant for short-term trading - focus on momentum & liquidity
+# Total Stocks: 30
+
+# ===== MEME STOCKS & RETAIL FAVORITES =====
+GME
+AMC
+BBIG
+SNDL
+CLOV
+WISH
+
+# ===== HIGH BETA TECHNOLOGY =====
+ROKU
+SNAP
+TWTR
+SQ
+HOOD
+SOFI
+
+# ===== ELECTRIC VEHICLE & BATTERY =====
+RIVN
+LCID
+FSR
+NKLA
+QS
+CHPT
+
+# ===== BIOTECH & PHARMACEUTICALS =====
+MRNA
+BNTX
+NVAX
+OCGN
+ATOS
+SENS
+
+# ===== SPACs & FORMER SPACs =====
+DWAC
+IPOF
+CCIV
+
+# ===== PENNY STOCKS & HIGH VOLATILITY =====
+PROG
+GNUS
+XELA
+NAKD
+
+# ===== CRYPTOCURRENCY-ADJACENT =====
+MARA
+RIOT
+COIN
+MSTR

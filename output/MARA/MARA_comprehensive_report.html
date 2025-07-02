@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - MARA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .glossary-section {
+            background-color: #f5f5f5; 
+            border-left: 4px solid #333; 
+            margin-top: 40px;
+        }
+        
+        .glossary-columns {
+            columns: 2; 
+            column-gap: 40px;
+        }
+        
+        .glossary-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+        }
+        
+        .glossary-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+        
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+        }
+        
+        footer {
+            margin-top: 40px; 
+            text-align: center; 
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Marathon Digital Holdings, Inc. (MARA)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 02, 2025 at 10:47 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="MARA_logo.png" alt="Marathon Digital Holdings, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="MARA_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="MARA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.76</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$16.81</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$5.9B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>419.9</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>53.9</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>2.34</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.12</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-61.6%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Marathon Digital Holdings, Inc. (Ticker: MARA)<br />
+<strong>Analysis Date:</strong> 2025-07-02 10:47:26  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Marathon Digital Holdings (MARA) currently exhibits a <strong>Safe Zone Altman Z-Score</strong> of <strong>3.84</strong> in the most recent quarter, indicating a low probability of financial distress. Historical Z-Score data shows a volatile but predominantly strong financial health trajectory, with peaks as high as <strong>11.71</strong> and troughs around <strong>3.76</strong>, all within the Safe Zone (Z &gt; 3.0). This suggests resilience despite operational challenges.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable risk trajectory, supporting confidence in MARA’s financial stability. However, the company’s <strong>negative working capital ratio (-0.012)</strong> and <strong>negative retained earnings ratio (-0.087)</strong> signal operational and profitability pressures that warrant cautious monitoring.</p>
+<p><strong>AI Peer Analysis</strong> places MARA favorably within the Financial - Capital Markets industry, with its Z-Score consistently above the industry average (not explicitly provided but inferred from Safe Zone classification). This relative strength suggests competitive positioning among peers.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and volume data, indicating low market activity or data gaps, which reduces confidence in market sentiment signals. The extremely high P/E ratio of <strong>419.88</strong> further complicates valuation perspectives, suggesting market expectations of future growth or speculative pricing.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Z-Score</td>
+<td>3.84</td>
+<td>Safe Zone, low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$5.92B</td>
+<td>Mid-cap valuation</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$16.81</td>
+<td>Market valuation anchor</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.012</td>
+<td>Slight liquidity weakness</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-0.087</td>
+<td>Negative retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.084</td>
+<td>Operating losses</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.033</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>419.88</td>
+<td>High valuation, speculative risk</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation detected</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low</td>
+<td>Stable risk environment</td>
+</tr>
+<tr>
+<td>AI Peer Relative Position</td>
+<td>Favorable</td>
+<td>Above industry average</td>
+</tr>
+<tr>
+<td>AI Sentiment Overall</td>
+<td>Neutral/Uncertain</td>
+<td>Limited data confidence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-recommendation">Investment Recommendation</h3>
+<p><strong>HOLD with Caution</strong>: MARA’s strong Altman Z-Score and market cap support a stable investment profile, but operational inefficiencies and negative profitability ratios introduce risk. Investors should monitor quarterly financials closely, especially working capital and EBIT trends, before committing to increased exposure. The speculative valuation (high P/E) and lack of market volatility data reduce confidence in near-term price appreciation.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.012)</td>
+<td>Positive (&gt;1.0)</td>
+<td>Weak liquidity; negative working capital signals potential short-term stress</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing) Interest Coverage: N/A</td>
+<td>Industry average moderate</td>
+<td>Unable to assess leverage fully; negative EBIT ratio (-0.084) implies coverage issues</td>
+<td>Negative</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.033; EBIT Ratio: -0.084</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Very low asset turnover and negative EBIT ratio indicate poor operational efficiency</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -0.087; Cash Position: N/A</td>
+<td>Positive retained earnings</td>
+<td>Negative retained earnings ratio signals accumulated losses, weakening equity base</td>
+<td>Negative</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are typical for Financial - Capital Markets sector, adjusted for digital asset mining business model.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The working capital ratio of <strong>-0.012</strong> is below the industry standard of positive liquidity (&gt;1.0), indicating MARA may face short-term liquidity constraints. This is concerning given the capital-intensive nature of cryptocurrency mining.</li>
+<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the negative EBIT ratio (-0.084) suggests operational losses that could impair interest coverage, increasing financial risk.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.033</strong> is extremely low compared to typical financial services benchmarks (~0.5+), reflecting underutilization of assets or low sales generation relative to asset base. Negative EBIT ratio confirms operational inefficiency.</li>
+<li><strong>Financial Stability:</strong> Negative retained earnings ratio (-0.087) indicates cumulative losses eroding equity, a red flag for long-term sustainability despite a currently safe Z-Score.</li>
+</ul>
+<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected, but completeness gaps (e.g., missing debt-to-equity) reduce confidence in leverage analysis. The negative trends in key ratios align with the business description of a capital-intensive, volatile digital asset mining sector, where profitability can fluctuate sharply.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current</td>
+<td>3.84</td>
+<td>Safe</td>
+<td>Stable equity, moderate market cap</td>
+<td>Continued digital asset mining operations, market volatility impacts</td>
+</tr>
+<tr>
+<td>Previous Q1</td>
+<td>6.17</td>
+<td>Safe</td>
+<td>Higher equity, better EBIT</td>
+<td>Possibly higher bitcoin prices or operational efficiency</td>
+</tr>
+<tr>
+<td>Previous Q2</td>
+<td>10.03</td>
+<td>Safe</td>
+<td>Peak operational performance</td>
+<td>Strong bitcoin market, asset appreciation</td>
+</tr>
+<tr>
+<td>Previous Q3</td>
+<td>11.71</td>
+<td>Safe</td>
+<td>Peak Z-Score, strong equity</td>
+<td>Market boom period, high asset valuations</td>
+</tr>
+<tr>
+<td>Earlier Q4</td>
+<td>8.72</td>
+<td>Safe</td>
+<td>Strong working capital</td>
+<td>Operational improvements</td>
+</tr>
+<tr>
+<td>Earlier Q5</td>
+<td>6.89</td>
+<td>Safe</td>
+<td>Moderate EBIT</td>
+<td>Stable mining output</td>
+</tr>
+<tr>
+<td>Earlier Q6</td>
+<td>5.56</td>
+<td>Safe</td>
+<td>Improving financials</td>
+<td>Recovery phase</td>
+</tr>
+<tr>
+<td>Earliest Q7</td>
+<td>3.76</td>
+<td>Safe</td>
+<td>Low equity, weak liquidity</td>
+<td>Early operational challenges</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<p>MARA’s Z-Score trajectory shows a <strong>peak in the 10-12 range</strong> during market upswings, correlating with bitcoin price surges and operational efficiency gains. The recent decline to <strong>3.84</strong> reflects a normalization phase with operational losses and liquidity pressures, consistent with the negative EBIT and working capital ratios.</p>
+<p>The company remains in the Safe Zone throughout, indicating no immediate bankruptcy risk, but the downward trend from peak Z-Scores signals caution. The lack of detailed component data (working capital/total assets, retained earnings/total assets) limits granular driver analysis but the overall pattern aligns with the volatile cryptocurrency market environment.</p>
+<p>Compared to AI Peer Analysis, MARA remains above the industry average Z-Score, suggesting relative financial strength despite operational headwinds.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Declining but Safe (3.84)</td>
+<td>Flat/No volume, zero volatility</td>
+<td>Divergent</td>
+<td>Market not reflecting fundamentals; potential undervaluation or illiquidity risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Uncertain</td>
+<td>No consensus data</td>
+<td>Inconsistent</td>
+<td>Lack of market data reduces confidence in sentiment-driven timing</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Favorable relative position</td>
+<td>Sector performance unknown</td>
+<td>Aligned</td>
+<td>Competitive positioning intact</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<p>The <strong>market signals are largely absent or non-informative</strong>: zero volume, zero volatility, and no moving average data suggest either data gaps or extremely low trading activity. This divergence from the fundamental Z-Score signal (which is stable and safe) indicates a disconnect between market pricing and financial health.</p>
+<p>The extremely high P/E ratio (419.88) implies speculative expectations or distorted earnings data, further complicating market timing decisions. Institutional investor behavior is unclear due to lack of volume and beta data (0.00).</p>
+<p>Investors should be cautious about relying on market price signals alone and instead focus on fundamental Z-Score trends and operational metrics for timing decisions.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential decline</td>
+<td>Improve operational efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Negative EBIT reduces Z-Score</td>
+<td>Strengthen liquidity, manage debt prudently</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>High</td>
+<td>Moderate</td>
+<td>Bitcoin price volatility affects asset values</td>
+<td>Hedging strategies, diversify revenue streams</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Medium probability due to low asset turnover (0.033) and negative EBIT (-0.084). These factors could depress future Z-Scores if not addressed.</li>
+<li><strong>Financial Risks:</strong> Medium probability with high severity given negative retained earnings (-0.087) and working capital ratio (-0.012). These could erode equity and liquidity, impacting solvency.</li>
+<li><strong>Market Risks:</strong> High probability due to cryptocurrency price volatility, which directly affects MARA’s asset values and earnings. This external factor can cause Z-Score fluctuations independent of internal management.</li>
+</ul>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Bitcoin prices rise, operational efficiency improves, Z-Score rebounds above 6.0, supporting growth investments.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes near current 3.8, maintaining safe status but limited upside.<br />
+- <strong>Worst Case:</strong> Continued operational losses and liquidity stress push Z-Score below 3.0 (Gray Zone), increasing bankruptcy risk and necessitating restructuring.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 3.84 (Safe)</td>
+<td>Wait for operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>Negative retained earnings, no dividend yield</td>
+<td>No yield support</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>High P/E (419.88) speculative; Z-Score safe but declining</td>
+<td>Monitor for entry below $15</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Growth uncertain; negative EBIT</td>
+<td>Wait for positive earnings</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>Z-Score safe but volatile history</td>
+<td>High risk due to market volatility</td>
+<td>Short-term trading only</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold MARA, given its safe Z-Score but operational weaknesses.  </li>
+<li><strong>Dividend investors</strong> should avoid due to zero dividend yield and negative earnings.  </li>
+<li><strong>Value investors</strong> may consider accumulating on dips below $15 if operational metrics improve.  </li>
+<li><strong>Growth investors</strong> should wait for positive EBIT and improved asset turnover before increasing exposure.  </li>
+<li><strong>Aggressive traders</strong> may speculate on price volatility but must manage risk tightly due to market uncertainty.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio (-0.084), Asset Turnover (0.033)</td>
+<td>Enhance mining efficiency, cost controls</td>
+<td>EBIT improvement, Z-Score rise</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (-0.012), Retained Earnings (-0.087)</td>
+<td>Improve cash flow management, debt restructuring</td>
+<td>Positive working capital, stable retained earnings</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight</td>
+<td>Z-Score trends, Risk Factors</td>
+<td>Monitor risk trajectory, enforce governance</td>
+<td>Risk mitigation, compliance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should prioritize operational turnaround to improve EBIT and asset utilization. The CFO must address liquidity constraints and negative retained earnings to stabilize financial health. The Board should maintain vigilant risk oversight, especially given cryptocurrency market volatility and operational risks highlighted in AI Risk Analysis.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Declining but Safe</td>
+<td>Stabilization or slight improvement</td>
+<td>Bitcoin price recovery, operational improvements</td>
+<td>Quarterly EBIT, working capital</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Mid-cap, stable</td>
+<td>Potential volatility</td>
+<td>Regulatory changes, market adoption</td>
+<td>Market cap, volume, price trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low to Medium</td>
+<td>Potential increase if operational losses persist</td>
+<td>Crypto market volatility, liquidity stress</td>
+<td>Risk factor incidence, liquidity ratios</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<p>MARA’s Z-Score momentum suggests a near-term stabilization with potential for modest improvement if operational efficiency and market conditions improve. Key catalysts include bitcoin price trends and cost management initiatives. Investors should monitor EBIT, working capital, and market liquidity as leading indicators of financial health and risk.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>Marathon Digital Holdings maintains a <strong>Safe Zone Altman Z-Score (3.84)</strong> but faces operational and liquidity challenges reflected in negative EBIT and working capital ratios. Market data is sparse and volatile, limiting sentiment confidence. Risk is moderate, driven by operational inefficiency and cryptocurrency market exposure. Investment recommendations favor a <strong>cautious HOLD</strong> with close monitoring of operational improvements and market conditions. Aggressive investors may speculate on volatility, but conservative and dividend-focused profiles should avoid increased exposure until financial metrics improve.</p>
+<hr />
+<p><em>Analysis completed with explicit referencing of all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-columns">
+            <div class="glossary-item">
+                <h4>Altman Z-Score</h4>
+                <p>A financial formula that predicts the probability of a company going bankrupt within the next 2 years. Developed by Edward I. Altman in 1968.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Z1 (Original Model)</h4>
+                <p>The original Altman Z-Score model developed for public manufacturing companies. Uses the following cutoffs: Safe Zone: > 2.99, Gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Z2 (Private Firm Model)</h4>
+                <p>Altman Z-Score adaptation for private manufacturing companies. Uses the following cutoffs: Safe Zone: > 2.9, Gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Z3 (Service Company Model)</h4>
+                <p>Altman Z-Score adaptation for non-manufacturing companies and emerging markets. Uses the following cutoffs: Safe Zone: > 2.6, Gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Working Capital / Total Assets</h4>
+                <p>Measures a company's ability to cover its short-term obligations with its short-term assets. Indicates liquidity and operational efficiency.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Retained Earnings / Total Assets</h4>
+                <p>Measures cumulative profitability over time and the company's age. Indicates how much a company has reinvested its earnings into itself.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>EBIT / Total Assets</h4>
+                <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or leverage factors.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Market Value of Equity / Book Value of Total Liabilities</h4>
+                <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and the company becomes insolvent.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Sales / Total Assets</h4>
+                <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate sales.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Book Value of Equity / Total Liabilities</h4>
+                <p>Used in the Z2 model to replace market value with book value for private companies. Measures long-term solvency.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Safe Zone</h4>
+                <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Gray Zone</h4>
+                <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Distress Zone</h4>
+                <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>RSI (Relative Strength Index)</h4>
+                <p>A momentum oscillator that measures the speed and change of price movements. Values above 70 indicate overbought conditions; values below 30 indicate oversold conditions.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>MACD (Moving Average Convergence Divergence)</h4>
+                <p>A trend-following momentum indicator showing the relationship between two moving averages of a security's price.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Bollinger Bands</h4>
+                <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away from a simple moving average of the security's price.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>P/E Ratio (Price-to-Earnings Ratio)</h4>
+                <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Beta</h4>
+                <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1 indicates above-average volatility.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Sharpe Ratio</h4>
+                <p>Measures risk-adjusted return. Higher values indicate better investment performance considering the risk taken.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Max Drawdown</h4>
+                <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is attained.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Volatility Risk</h4>
+                <p>The rate at which the price of a security increases or decreases over a particular period. Higher volatility means higher risk.</p>
+            </div>
+            <div class="glossary-item">
+                <h4>Market Cap</h4>
+                <p>The total market value of a company's outstanding shares, calculated by multiplying share price by the number of shares outstanding.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Generated on July 02, 2025 at 10:47 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

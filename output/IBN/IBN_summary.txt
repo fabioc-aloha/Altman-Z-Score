@@ -8,9 +8,9 @@ Model Used: financial
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > N/A
-  Gray Zone: N/A - N/A
-  Distress Zone: < N/A
+  Safe Zone: > 2.60
+  Gray Zone: 1.10 - 2.60
+  Distress Zone: < 1.10
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: -0.5446
@@ -26,10 +26,10 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** ICICI Bank Limited (Ticker: IBN)
-  **Analysis Date:** 2025-07-01 00:31:33
+  **Analysis Date:** 2025-07-02 10:28:45
   ---
   ## 1. Executive Intelligence Summary
-  ICICI Bank Limited (IBN) currently resides deeply in the **Distress Zone** with an Altman Z-Score fluctuating narrowly around zero and negative values over the last eight quarters (latest: 0.09, prior quarters ranging from -0.27 to 0.09). This persistent distress signal is alarming given the bank’s significant market capitalization of **$120.96 billion** and a current share price of **$33.64**. The AI Risk Analysis, implicitly reflected by the Z-Score trend and financial ratios, suggests a **high overall risk level** with a **negative risk trajectory**, indicating ongoing financial stress.
+  ICICI Bank Limited (IBN) currently exhibits a **Distress Zone Altman Z-Score** profile with values persistently below 1.8 over the past eight quarters, ranging from -0.27 to 0.09, indicating a high risk of financial distress. The **Z-Score trajectory is flat to slightly negative**, signaling no meaningful recovery or improvement in financial health. This is compounded by a **working capital ratio of -0.545**, reflecting liquidity challenges, and an **EBIT ratio of 0.008**, indicating minimal operating profitability.
   [Full analysis available in comprehensive report]
 
 WARNINGS:

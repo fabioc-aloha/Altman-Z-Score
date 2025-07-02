@@ -1,5 +1,42 @@
 # Changelog
 
+## [4.6.0] - DIAMOND+ Release v4.6.0 - Enhanced Glossary & Improved Report Visuals (July 2, 2025)
+
+### 📚 **COMPREHENSIVE MODEL GLOSSARY**
+- **✅ COMPLETE Z-SCORE MODELS:** Added detailed definitions for all six supported Z-Score models to report glossary
+- **✅ FORMULA INCLUSION:** Added formulas and thresholds for each model (Original, Private, Service, Emerging, Financial, Retail)
+- **✅ COMPONENT DETAILS:** Enhanced Z-Score component descriptions with details about which models use each component
+- **✅ CONTEXTUAL ORGANIZATION:** Reorganized glossary into logical categories for better user understanding
+
+### 🎯 **MODEL SELECTION CLARITY**
+- **✅ SELECTION LOGIC:** Added new glossary section explaining the model selection process
+- **✅ INDUSTRY CLASSIFICATION:** Documented how the system uses industry data to select the appropriate model
+- **✅ CONFIDENCE SCORING:** Explained the confidence score system used in model selection
+- **✅ AI-ENHANCED SELECTION:** Detailed the AI-powered industry classification system
+
+### 📊 **IMPROVED CHART VISUALS**
+- **✅ COLOR-COORDINATED AXES:** Enhanced trend analysis charts with color-coordinated y-axes 
+- **✅ Z-SCORE AXIS:** Z-Score axis now matches Z-Score line color (blue)
+- **✅ PRICE AXIS:** Price axis now matches price line color (green)
+- **✅ IMPROVED READABILITY:** Better visual separation between Z-Score and price data
+
+### 🌐 **MODEL-SPECIFIC DASHBOARDS**
+- **✅ DEDICATED DASHBOARDS:** Enhanced web interface with model-specific dashboards for each Z-Score model type
+- **✅ INDUSTRY TAILORING:** Added specialized views for Original, Private, Service, Emerging, Financial, and Retail models
+- **✅ CONSISTENT DESIGN:** Standardized layout and styling across all dashboard types
+- **✅ RETAIL MODEL SHOWCASE:** Special dashboard highlighting our novel retail-specific Z-Score model
+
+### 🧭 **IMPROVED NAVIGATION**
+- **✅ NAVIGATION HUB:** Enhanced central navigation page (index.html) with clear categorization of all dashboard types
+- **✅ MODEL INDEX:** Added dedicated Model Portfolios Index page for quick access to model-specific dashboards
+- **✅ INTUITIVE STRUCTURE:** Reorganized navigation with consistent back-links and breadcrumb navigation
+- **✅ RESPONSIVE DESIGN:** Ensured navigation works seamlessly across desktop and mobile devices
+
+### ⏰ **REAL-TIME REPORT TIMESTAMP**
+- **✅ DYNAMIC TIMESTAMP:** Updated report generation to display the current timestamp
+- **✅ AUDIT TRAIL:** Better version tracking and report identification
+- **✅ CONSISTENT VERSIONING:** Updated version number across all project files to 4.6.0
+
 ## [4.5.1] - DIAMOND Release v4.5.1 - Investor Profile Dashboard Fix & Workflow Optimization (July 1, 2025)
 
 ### 🔧 **CRITICAL HOTFIX: INVESTOR PROFILE DASHBOARDS**

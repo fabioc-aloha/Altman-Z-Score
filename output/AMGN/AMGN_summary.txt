@@ -2,24 +2,24 @@
 Ticker: AMGN
 Analysis Date: 2025-03-31
 
-Z-SCORE: 0.85
+Z-SCORE: 0.91
 Risk Category: Distress
 Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > N/A
-  Gray Zone: N/A - N/A
-  Distress Zone: < N/A
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.0439
   Retained Earnings Ratio: -0.3037
   Ebit Ratio: 0.0132
-  Market Equity Ratio: 1.805
+  Market Equity Ratio: 1.911
   Book Equity Ratio: 0.0746
   Asset Turnover: 0.0912
-  Z Score: 0.8454
+  Z Score: 0.9086
 
 INVESTMENT RECOMMENDATION:
   Action: Hold
@@ -27,11 +27,11 @@ INVESTMENT RECOMMENDATION:
 
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
-  **Company:** AMGN (Amgen Inc.)
-  **Analysis Date:** 2025-07-01 00:09:26
+  **Company:** Amgen Inc. (Ticker: AMGN)
+  **Analysis Date:** 2025-07-02 10:02:32
   ---
   ## 1. Executive Intelligence Summary
-  Amgen Inc. currently exhibits a **Distress Zone Altman Z-Score** trajectory, with the latest Z-Score at **1.26**, well below the safe threshold of 3.0 and even below the gray zone lower bound of 1.8. This sustained low Z-Score over eight quarters signals significant financial distress risk. The AI Risk Analysis, while not explicitly scored here, is implicitly high given the persistent distress classification and negative retained earnings ratio (-0.304), indicating accumulated losses or dividend distributions exceeding earnings.
+  Amgen Inc. currently exhibits a **Distress Zone Altman Z-Score** consistently below 1.8, with the latest two quarters showing scores of **1.33 and 1.32**, indicating a high risk of financial distress. The **AI Risk Analysis** (inferred from Z-Score and financial ratios) suggests a **high overall risk level** with a negative trajectory, signaling urgent caution for investors.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

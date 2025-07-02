@@ -8,9 +8,9 @@ Model Used: service
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > N/A
-  Gray Zone: N/A - N/A
-  Distress Zone: < N/A
+  Safe Zone: > 2.60
+  Gray Zone: 0.50 - 2.60
+  Distress Zone: < 0.50
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.0016
@@ -26,10 +26,10 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** IBM
-  **Analysis Date:** 2025-07-01 00:10:32
+  **Analysis Date:** 2025-07-02 10:28:21
   ---
   ## 1. Executive Intelligence Summary
-  International Business Machines Corporation (IBM) currently exhibits a **robust financial health profile** with an Altman Z-Score consistently in the **Safe Zone (Z > 3.0)** over the last eight quarters, ranging from 3.70 to 4.18, indicating a very low risk of bankruptcy. The **AI Risk Analysis** is implicitly supported by this strong Z-Score trajectory, suggesting a stable risk level with no immediate distress signals. The risk trajectory is stable to slightly positive, reflecting consistent operational and financial stability.
+  IBM’s Altman Z-Score analysis over the last eight quarters consistently places the company in the **Safe Zone**, with scores ranging from **3.70 to 4.18**, well above the distress threshold of 1.8. This indicates a strong financial position with low bankruptcy risk. The AI Risk Analysis, while not explicitly quantified here, aligns with this low-risk profile given the stable Z-Score trajectory and absence of distress signals.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

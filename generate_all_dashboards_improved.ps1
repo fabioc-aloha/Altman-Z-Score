@@ -205,23 +205,23 @@ function Get-DashboardFiles {
     
     # Define names for known dashboards
     $knownDashboards = @{
-        "index.html" = "Main Navigation";
-        "strong_buys.html" = "Strong Buys";
-        "conservative_picks.html" = "Conservative Picks";
-        "dividend_picks.html" = "Dividend Picks";
-        "value_picks.html" = "Value Picks";
-        "growth_picks.html" = "Growth Picks";
-        "aggressive_picks.html" = "Aggressive Picks";
-        "sell_picks.html" = "Sell Recommendations";
-        "strong_sell_picks.html" = "Strong Sell Recommendations";
-        "manufacturing_&_industrial.html" = "Manufacturing & Industrial";
+        "index.html"                       = "Main Navigation";
+        "strong_buys.html"                 = "Strong Buys";
+        "conservative_picks.html"          = "Conservative Picks";
+        "dividend_picks.html"              = "Dividend Picks";
+        "value_picks.html"                 = "Value Picks";
+        "growth_picks.html"                = "Growth Picks";
+        "aggressive_picks.html"            = "Aggressive Picks";
+        "sell_picks.html"                  = "Sell Recommendations";
+        "strong_sell_picks.html"           = "Strong Sell Recommendations";
+        "manufacturing_&_industrial.html"  = "Manufacturing & Industrial";
         "private_&_service_companies.html" = "Private & Service Companies";
-        "emerging_markets.html" = "Emerging Markets";
-        "financial_institutions.html" = "Financial Institutions";
-        "regulated_utilities.html" = "Regulated Utilities";
-        "technology_&_growth.html" = "Technology & Growth";
-        "retail_&_consumer.html" = "Retail & Consumer";
-        "model_portfolios_index.html" = "Model Portfolios Index";
+        "emerging_markets.html"            = "Emerging Markets";
+        "financial_institutions.html"      = "Financial Institutions";
+        "regulated_utilities.html"         = "Regulated Utilities";
+        "technology_&_growth.html"         = "Technology & Growth";
+        "retail_&_consumer.html"           = "Retail & Consumer";
+        "model_portfolios_index.html"      = "Model Portfolios Index";
     }
     
     $dashboards = @()
@@ -233,7 +233,8 @@ function Get-DashboardFiles {
         # Use known name if available, otherwise format the filename
         if ($knownDashboards.ContainsKey($fileName)) {
             $displayName = $knownDashboards[$fileName]
-        } else {
+        }
+        else {
             $displayName = $fileName -replace "\.html$", "" -replace "_", " " -replace "-", " "
             $displayName = (Get-Culture).TextInfo.ToTitleCase($displayName)
         }
@@ -271,19 +272,24 @@ if (-not (Test-PythonAvailable)) {
 
 Write-Host ""
 
-# Define the scripts to run - Reordered for optimal user experience
+# Define the scripts to run - Enhanced with modern styling and better logo handling
 $scriptsDir = Join-Path $PSScriptRoot "scripts\utilities"
 $scripts = @(
-    # First run the portfolio generation scripts - using the "all" option
-    @{ Path = "$(Join-Path $scriptsDir "generate_portfolio_modern.py") all"; Description = "Portfolio Dashboards" },
+    # First run the enhanced portfolio generation scripts - using the "all" option for modern styling
+    @{ Path = "$(Join-Path $scriptsDir "generate_portfolio_enhanced.py") all"; Description = "Enhanced Portfolio Dashboards with Modern Styling & Logo Handling" },
     # Generate special dashboards using standardized templates and styles
-    @{ Path = "$(Join-Path $scriptsDir "generate_special_dashboards_standardized.py")"; Description = "Special Dashboards (Strong Buy/Sell)" },
+    @{ Path = "$(Join-Path $scriptsDir "generate_special_dashboards_standardized.py")"; Description = "Enhanced Special Dashboards (Strong Buy/Sell)" },
     # Use the standardized model portfolios generator for consistent styling across all dashboards
-    @{ Path = "$(Join-Path $scriptsDir "generate_model_portfolios_standardized.py")"; Description = "Model Portfolios" },
-    # Generate the main navigation page (after all other dashboards are created)
-    @{ Path = "$(Join-Path $scriptsDir "generate_main_page.py")"; Description = "Main Navigation Page" },
+    @{ Path = "$(Join-Path $scriptsDir "generate_model_portfolios_standardized.py")"; Description = "Enhanced Model Portfolios" },
+    # Generate the enhanced main navigation page (after all other dashboards are created)
+    @{ Path = "$(Join-Path $scriptsDir "generate_main_page_enhanced.py")"; Description = "Enhanced Main Navigation Page" },
     # Fix any HTML files that might still reference old CSS files
     @{ Path = "$(Join-Path $scriptsDir "fix_html_css_references.py")"; Description = "Fix CSS References" }
+)
+
+# PowerShell scripts to run after Python scripts (currently none needed since CSS is embedded during generation)
+$powershellScripts = @(
+    # CSS is now embedded directly during HTML generation, so no post-processing needed
 )
 
 # Initialize counters
@@ -387,7 +393,67 @@ for ($i = 0; $i -lt $scripts.Count; $i++) {
 $overallStopwatch.Stop()
 $totalDuration = $overallStopwatch.Elapsed.TotalSeconds
 
+# Step 3: Run PowerShell scripts for post-processing
+if ($powershellScripts.Count -gt 0) {
+    Write-Host ""
+    Write-Section "Post-Processing with PowerShell Scripts"
+    Write-Host ""
+    
+    for ($i = 0; $i -lt $powershellScripts.Count; $i++) {
+        $psScript = $powershellScripts[$i]
+        $stepNumber = $scripts.Count + $i + 1
+        $totalWithPS = $scripts.Count + $powershellScripts.Count
+        
+        Write-Host "[$stepNumber/$totalWithPS] " -NoNewline -ForegroundColor $Colors.Info
+        Write-Host "Processing: " -NoNewline -ForegroundColor $Colors.Info
+        Write-Host $psScript.Description -NoNewline -ForegroundColor $Colors.Emphasis
+        Write-Host " ... " -NoNewline -ForegroundColor $Colors.Info
+        
+        if (Test-Path $psScript.Path) {
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+            
+            try {
+                # Execute PowerShell script
+                $result = & PowerShell -ExecutionPolicy Bypass -File $psScript.Path 2>&1
+                $exitCode = $LASTEXITCODE
+                
+                $stopwatch.Stop()
+                $duration = $stopwatch.Elapsed.TotalSeconds
+                
+                if ($exitCode -eq 0) {
+                    Write-Host "✅ " -NoNewline -ForegroundColor $Colors.Success
+                    Write-Host "($([math]::Round($duration, 2))s)" -ForegroundColor $Colors.Info
+                    $successCount++
+                }
+                else {
+                    Write-Host "❌ " -ForegroundColor $Colors.Error
+                    Write-Host "    ERROR: $($psScript.Description) failed" -ForegroundColor $Colors.Error
+                    if ($result) {
+                        $truncatedResult = if ($result.Length -gt 500) { $result.Substring(0, 500) + "..." } else { $result }
+                        Write-Host "    Output: $truncatedResult" -ForegroundColor $Colors.Warning
+                    }
+                    $failedScripts += $psScript
+                }
+            }
+            catch {
+                $stopwatch.Stop()
+                Write-Host "❌ " -ForegroundColor $Colors.Error
+                Write-Host "    EXCEPTION: $($_.Exception.Message)" -ForegroundColor $Colors.Error
+                $failedScripts += $psScript
+            }
+        }
+        else {
+            Write-Host "⚠️  SKIPPED (script not found)" -ForegroundColor $Colors.Warning
+            $failedScripts += $psScript
+        }
+    }
+    
+    # Update total scripts count for final summary
+    $totalScripts = $scripts.Count + $powershellScripts.Count
+}
+
 # Clean up any old-style CSS files that might have been generated
+Write-Host ""
 Write-Host "🧹 " -NoNewline -ForegroundColor $Colors.Info
 Write-Host "Cleaning up old CSS files..." -NoNewline -ForegroundColor $Colors.Info
 Get-ChildItem -Path "$webDir\portfolio_*.css" -ErrorAction SilentlyContinue | ForEach-Object {
@@ -395,6 +461,23 @@ Get-ChildItem -Path "$webDir\portfolio_*.css" -ErrorAction SilentlyContinue | Fo
     Write-Host " ✓" -NoNewline -ForegroundColor $Colors.Success
 }
 Write-Host " done" -ForegroundColor $Colors.Success
+
+# Final step: Ensure CSS files are accessible and properly formatted
+Write-Host "🎨 " -NoNewline -ForegroundColor $Colors.Info
+Write-Host "Verifying CSS accessibility..." -NoNewline -ForegroundColor $Colors.Info
+$cssPath = Join-Path $webDir "assets\dashboard_common.css"
+if (Test-Path $cssPath) {
+    $cssContent = Get-Content $cssPath -Raw
+    if ($cssContent -and $cssContent.Length -gt 100) {
+        Write-Host " ✅" -ForegroundColor $Colors.Success
+    }
+    else {
+        Write-Host " ⚠️ CSS file seems incomplete" -ForegroundColor $Colors.Warning
+    }
+}
+else {
+    Write-Host " ❌ CSS file not found" -ForegroundColor $Colors.Error
+}
 
 Write-Host ""
 
@@ -436,6 +519,12 @@ if ($successCount -eq $totalScripts) {
             Write-Host "($size KB)" -ForegroundColor $Colors.Info
         }
     }
+    
+    Write-Host ""
+    Write-ColorText "💡 CSS Information:" "Info"
+    Write-Host "   • CSS is now embedded directly in HTML files for maximum compatibility" -ForegroundColor $Colors.Info
+    Write-Host "   • No external CSS files needed - dashboards should display properly in any browser" -ForegroundColor $Colors.Info
+    Write-Host "   • If styling issues persist, try refreshing (Ctrl+F5) or using a different browser" -ForegroundColor $Colors.Info
 }
 else {
     Write-ColorText "⚠️  Some dashboards failed to generate:" "Warning"
@@ -456,9 +545,13 @@ if (Test-Path $indexPath) {
     if ($OpenBrowser) {
         Write-Section "Opening Dashboard"
         Write-ColorText "🌐 Opening main dashboard in default browser..." "Info"
+        Write-ColorText "💡 CSS is embedded directly in HTML files for maximum compatibility." "Info"
         try {
-            Start-Process $indexPath
+            # Convert to absolute path and open with default browser
+            $absolutePath = Resolve-Path $indexPath
+            Start-Process $absolutePath.Path
             Write-ColorText "✅ Dashboard opened successfully!" "Success"
+            Write-ColorText "📍 Dashboard location: $($absolutePath.Path)" "Info"
         }
         catch {
             Write-ColorText "❌ Failed to open browser: $($_.Exception.Message)" "Error"

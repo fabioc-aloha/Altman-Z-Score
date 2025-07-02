@@ -154,16 +154,8 @@ class HTMLPortfolioGenerator:
         # Generate CSS content with color scheme
         css_content = self._generate_css_content(color_scheme)
         
-        # Save CSS to a temporary file for the template
-        css_filename = f"portfolio_{portfolio_type}_styles.css"
-        css_path = self.base_dir / css_filename
-        
-        try:
-            with open(css_path, 'w', encoding='utf-8') as f:
-                f.write(css_content)
-        except Exception as e:
-            self.logger.warning(f"Failed to write CSS file: {e}")
-            css_filename = ""  # Fallback to inline styles
+        # Instead of saving CSS to external file, we'll embed it
+        embedded_css = f"<style>\n{css_content}\n</style>"
         
         # Calculate statistics
         safe_count = len([c for c in companies if c.get('z_score', 0) > 2.99])
@@ -185,7 +177,7 @@ class HTMLPortfolioGenerator:
             'avg_zscore': f"{avg_zscore:.2f}",
             'summary_text': summary_text,
             'company_cards': company_cards,
-            'css_file': css_filename,
+            'embedded_css': embedded_css,
             'version': __version__
         }
         

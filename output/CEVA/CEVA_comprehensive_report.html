@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - CEVA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>CEVA, Inc. (CEVA)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="CEVA_logo.png" alt="CEVA, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Negative price trend</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="CEVA_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="CEVA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">29.38</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$21.85</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$0.52</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>242.8</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>53.4</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.95</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.49</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-51.2%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.0/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> CEVA, Inc.<br />
+<strong>Analysis Date:</strong> 2025-07-02 10:15:11  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>CEVA, Inc. demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0), ranging from 8.23 to a peak of 29.38 historically. This indicates a very low risk of financial distress. The latest Z-Score stands at <strong>8.23</strong>, well above the distress threshold of 1.8, signaling robust financial health and operational stability.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, with a stable risk trajectory and no significant emerging threats detected. This low risk is corroborated by the Z-Score trend and the company’s liquidity and leverage ratios.</p>
+<p><strong>AI Peer Analysis</strong> places CEVA comfortably above the <strong>industry average Z-Score</strong>, which typically hovers near 3.0 for the semiconductor sector, confirming CEVA’s superior financial resilience relative to peers such as Qualcomm (QCOM) and Broadcom (AVGO). CEVA’s relative position is strong, suggesting competitive advantage in financial stability.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, though market technical indicators are currently unavailable or inactive (all zeros), limiting real-time market momentum insights. The high P/E ratio of <strong>242.78</strong> suggests market expectations of growth but also signals valuation caution.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>8.23</td>
+<td>Strong financial health (Safe Zone)</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$522.57 million</td>
+<td>Mid-cap valuation</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$21.85</td>
+<td>Stable pricing</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>2.020</td>
+<td>Strong liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.079</td>
+<td>Moderate retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.046</td>
+<td>Slight operational losses</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.261</td>
+<td>Moderate asset efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>242.78</td>
+<td>High valuation, growth expectations</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low</td>
+<td>Low financial and operational risk</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Neutral to Slightly Positive</td>
+<td>Market cautiously optimistic</td>
+</tr>
+<tr>
+<td>AI Peer Z-Score Avg.</td>
+<td>~3.0</td>
+<td>CEVA outperforms industry average</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold / Selective Buy:</strong> Given CEVA’s strong Z-Score and low risk profile, investors with a medium risk tolerance may consider accumulating shares selectively, especially if operational EBIT improves from current slight losses.</li>
+<li><strong>Monitor Valuation:</strong> The elevated P/E ratio warrants caution; investors should watch for earnings improvement or valuation normalization.</li>
+<li><strong>Liquidity Advantage:</strong> Strong working capital ratio (2.020) supports operational flexibility, reducing short-term risk.</li>
+<li><strong>Risk-Aware Growth Play:</strong> Growth-oriented investors may hold with a focus on monitoring EBIT recovery and market sentiment shifts.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Semiconductors)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 2.020</td>
+<td>~1.5 - 2.0</td>
+<td>Strong liquidity, above average</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 2.020</td>
+<td>~1.5 - 2.0</td>
+<td>Healthy short-term financial buffer</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0</td>
+<td>Data unavailable; Z-Score implies low risk</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: Not provided</td>
+<td>Industry avg ~5-10</td>
+<td>EBIT Ratio negative (-0.046) indicates weak coverage</td>
+<td>Slightly Declining</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.261</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Below average asset utilization</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: -0.046</td>
+<td>Industry avg ~0.1 - 0.2</td>
+<td>Negative EBIT ratio signals operational challenges</td>
+<td>Slightly Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.079</td>
+<td>Industry avg ~0.1 - 0.3</td>
+<td>Moderate retained earnings accumulation</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>Industry avg varies</td>
+<td>Data unavailable</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> CEVA’s current ratio and working capital ratio of <strong>2.020</strong> exceed typical semiconductor industry benchmarks (~1.5-2.0), indicating strong short-term liquidity and a solid buffer against operational shocks. This supports the low-risk assessment from AI Risk Analysis.</li>
+<li><strong>Leverage:</strong> Although explicit debt-to-equity and interest coverage ratios are missing, the consistently high Z-Score (above 8) strongly suggests prudent leverage management and low financial distress risk. However, the negative EBIT ratio (-0.046) signals operational profitability challenges that could pressure interest coverage if debt levels rise.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.261</strong> is below industry norms (~0.5-1.0), indicating room for improvement in asset utilization. The negative EBIT ratio further highlights operational inefficiencies or investment in growth initiatives impacting short-term profitability.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.079</strong> is moderate, reflecting some reinvestment of earnings but below industry averages, possibly due to recent losses or dividend policies. This aligns with the AI Data Quality Assessment indicating no anomalies but incomplete data on cash positions.</li>
+<li><strong>Data Quality:</strong> The AI Data Quality Assessment confirms completeness of financial data but notes absence of some leverage and cash metrics, slightly reducing confidence in leverage and liquidity risk granularity.</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>8.23</td>
+<td>Safe</td>
+<td>Strong working capital, moderate retained earnings, negative EBIT</td>
+<td>Stable licensing revenue, investment in R&amp;D</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>8.70</td>
+<td>Safe</td>
+<td>Similar drivers as current</td>
+<td>Consistent operational performance</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>8.73</td>
+<td>Safe</td>
+<td>Stable financial ratios</td>
+<td>Ongoing product development and licensing deals</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>8.82</td>
+<td>Safe</td>
+<td>Slightly higher EBIT</td>
+<td>Incremental operational improvements</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>9.45</td>
+<td>Safe</td>
+<td>Peak EBIT and asset turnover</td>
+<td>Temporary operational efficiency spike</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>8.86</td>
+<td>Safe</td>
+<td>Stable financials</td>
+<td>Market expansion efforts</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>8.26</td>
+<td>Safe</td>
+<td>Slight EBIT decline</td>
+<td>Increased R&amp;D expenses impacting EBIT</td>
+</tr>
+<tr>
+<td>Q1 (Earliest)</td>
+<td>29.38</td>
+<td>Safe</td>
+<td>Outlier or data anomaly?</td>
+<td>Possibly pre-split or pre-adjustment data</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>CEVA’s Z-Score has remained consistently in the <strong>Safe Zone</strong> over the last eight quarters, fluctuating narrowly between 8.23 and 9.45, except for an anomalous early quarter reading of 29.38 which likely reflects a data anomaly or structural change (e.g., accounting adjustment or corporate action).</li>
+<li>The stable Z-Score trend correlates with CEVA’s business model as a licensor in the semiconductor sector, where steady cash flows and low capital intensity support financial stability.</li>
+<li>The slight decline in EBIT ratio (-0.046 currently) corresponds with a mild downward drift in Z-Score from 9.45 to 8.23, indicating operational profitability pressures but no immediate distress.</li>
+<li>Industry average Z-Score for semiconductors is approximately 3.0, positioning CEVA well above peers and reinforcing its competitive financial resilience.</li>
+<li>The lack of detailed component ratios (working capital/total assets, retained earnings/total assets) in the Z-Score data limits granular driver analysis but overall trend supports a stable risk profile.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Safe Zone (8.23)</td>
+<td>Price stable at $21.85</td>
+<td>Aligned</td>
+<td>Supports cautious accumulation</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to Slightly Positive</td>
+<td>P/E Ratio very high (242.78)</td>
+<td>Divergent</td>
+<td>Valuation risk; market expects growth</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming (Z &gt; 8 vs 3)</td>
+<td>Sector performance moderate</td>
+<td>Aligned</td>
+<td>Competitive advantage in financials</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>CEVA’s <strong>Z-Score trend aligns well with stable stock price</strong> around $21.85, indicating market recognition of its financial health.</li>
+<li>However, the <strong>extremely high P/E ratio of 242.78</strong> signals market expectations for significant future earnings growth, which contrasts with the current negative EBIT ratio (-0.046). This divergence suggests potential valuation risk if earnings do not improve.</li>
+<li>The absence of technical indicators (RSI, moving averages, volume) limits short-term market momentum analysis.</li>
+<li>Peer comparison confirms CEVA’s superior financial health relative to industry averages, supporting a positive long-term investment thesis.</li>
+<li>Investors should monitor earnings reports closely to validate growth assumptions embedded in the high valuation.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT decline lowers Z-Score</td>
+<td>Enhance R&amp;D efficiency, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Low leverage risk; negative EBIT may pressure interest coverage</td>
+<td>Maintain conservative debt levels</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>High valuation may lead to price correction</td>
+<td>Monitor market sentiment, hedge if needed</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Missing leverage and cash data limits full risk assessment</td>
+<td>Improve financial disclosures</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-planning-commentary">Scenario Planning Commentary</h3>
+<ul>
+<li><strong>Best Case:</strong> EBIT returns to positive territory (&gt;0.05 EBIT ratio), asset turnover improves, pushing Z-Score above 9.5, reinforcing a strong buy signal.</li>
+<li><strong>Base Case:</strong> EBIT remains slightly negative but stable, Z-Score holds above 8.0, supporting hold/accumulate stance.</li>
+<li><strong>Worst Case:</strong> EBIT deteriorates further, asset turnover declines, Z-Score drops toward 3.0 (Gray Zone), triggering caution and potential sell signals.</li>
+</ul>
+<p>Bankruptcy risk is negligible given current Z-Score &gt; 8.0 and strong liquidity (working capital ratio 2.020). However, operational inefficiencies and high valuation pose moderate risk factors.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 8.23, low risk</td>
+<td>Wait for EBIT improvement</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield 0%, no income focus</td>
+<td>Not applicable</td>
+<td>Monitor quarterly</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD/CAUTIOUS BUY</td>
+<td>Z-Score strong but P/E high</td>
+<td>Entry on valuation dip</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>High Z-Score supports growth thesis</td>
+<td>Monitor earnings reports</td>
+<td>Immediate to 6 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>Strong financials, high volatility risk</td>
+<td>Speculative entry</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and await operational profitability improvements before increasing exposure.</li>
+<li><strong>Growth and aggressive investors</strong> may capitalize on CEVA’s strong financial foundation and market position, accepting valuation risk for potential upside.</li>
+<li><strong>Value investors</strong> should be cautious given the stretched P/E but may consider accumulation on price corrections.</li>
+<li>Dividend investors have limited appeal due to zero dividend yield.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational profitability</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Focus on cost optimization, R&amp;D efficiency</td>
+<td>EBIT improvement, Z-Score rise</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity and capital structure</td>
+<td>Working Capital Ratio, Debt</td>
+<td>Maintain strong liquidity, optimize capital</td>
+<td>Stable current ratio &gt;2.0</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and valuation</td>
+<td>Z-Score, Market Valuation</td>
+<td>Monitor valuation risk, ensure transparency</td>
+<td>Risk mitigation, investor confidence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>CEO should prioritize improving EBIT margin and asset utilization to sustain Z-Score and justify valuation.</li>
+<li>CFO must ensure liquidity remains robust and manage any debt prudently given negative EBIT.</li>
+<li>Board should oversee risk related to high market valuation and ensure clear communication to investors.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable (~8.23)</td>
+<td>Slight upward if EBIT improves</td>
+<td>EBIT recovery, asset turnover gains</td>
+<td>Quarterly EBIT, asset turnover</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong relative to peers</td>
+<td>Maintain or improve</td>
+<td>Licensing deals, AI processor adoption</td>
+<td>Market share, peer Z-Scores</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low</td>
+<td>Stable to moderate if EBIT worsens</td>
+<td>Operational efficiency, macroeconomic factors</td>
+<td>EBIT ratio, liquidity ratios</td>
+</tr>
+</tbody>
+</table>
+<h3 id="forward-looking-commentary">Forward-Looking Commentary</h3>
+<p>CEVA’s Z-Score momentum is stable with potential for improvement contingent on operational profitability recovery. Key catalysts include successful product launches and licensing expansions in AI and wireless technologies. Monitoring EBIT ratio and asset turnover will provide early signals of financial trajectory shifts. Market valuation remains a critical watchpoint; any earnings disappointment could trigger valuation contraction and risk reclassification.</p>
+<hr />
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>CEVA, Inc. exhibits a <strong>robust financial position</strong> with a consistently high Altman Z-Score (&gt;8), strong liquidity (working capital ratio 2.020), and low financial distress risk. Operational profitability challenges (negative EBIT ratio -0.046) and a very high P/E ratio (242.78) introduce valuation and earnings risk, warranting cautious optimism. Investors with medium to high risk tolerance may consider accumulation, while conservative profiles should await EBIT improvement. Continuous monitoring of operational metrics and market valuation is essential to validate the investment thesis.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial and AI-driven insights for actionable investment intelligence.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 02, 2025 at 10:15 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

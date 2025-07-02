@@ -2,22 +2,24 @@
 Ticker: ABT
 Analysis Date: 2025-03-31
 
-Z-SCORE: 4.45
+Z-SCORE: 5.55
 Risk Category: Safe
-Model Used: service
+Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > N/A
-  Gray Zone: N/A - N/A
-  Distress Zone: < N/A
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.1246
   Retained Earnings Ratio: 0.5858
   Ebit Ratio: 0.0208
+  Market Equity Ratio: 7.301
   Book Equity Ratio: 1.507
-  Z Score: 4.450
+  Asset Turnover: 0.1272
+  Z Score: 5.546
 
 INVESTMENT RECOMMENDATION:
   Action: Strong Buy
@@ -26,10 +28,10 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** Abbott Laboratories (Ticker: ABT)
-  **Analysis Date:** 2025-07-01 00:10:18
+  **Analysis Date:** 2025-07-02 10:01:13
   ---
   ## 1. Executive Intelligence Summary
-  Abbott Laboratories (ABT) demonstrates a consistently **strong financial health profile**, supported by a stable Altman Z-Score trajectory firmly in the **Safe Zone** (Z > 3.0) over the past eight quarters. The latest Z-Score of **3.67** confirms low bankruptcy risk and robust operational stability. Based on the **AI Risk Analysis overall risk level of Low** (inferred from stable Z-Scores and absence of distress signals) with high confidence, the company presents a low-risk investment profile.
+  Abbott Laboratories (ABT) demonstrates a **consistently strong financial position** as reflected by its Altman Z-Score, which remains firmly in the **Safe Zone** across the last eight quarters, ranging from 5.00 to 5.55. This robust Z-Score trajectory indicates a very low risk of bankruptcy and strong operational resilience. Based on the **AI Risk Analysis overall risk level of Low with high confidence**, the company’s risk trajectory is stable and favorable.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

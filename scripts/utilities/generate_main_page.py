@@ -30,6 +30,22 @@ TEMPLATE_FILE = os.path.join(WEB_ASSETS_DIR, "index_template.html")
 os.makedirs(WEB_DIR, exist_ok=True)
 logger.info(f"Using web directory: {WEB_DIR}")
 
+def load_and_embed_css():
+    """Load CSS content for embedding."""
+    try:
+        with open(CSS_FILE, 'r', encoding='utf-8') as f:
+            css_content = f.read()
+        return css_content
+    except Exception as e:
+        logger.warning(f"Could not load CSS file {CSS_FILE}: {str(e)}")
+        # Return minimal CSS as fallback
+        return """
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { color: #1a5276; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .dashboard-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; background: white; }
+        """
+
 def get_dashboard_stats():
     """
     Check which dashboard files exist and get basic stats from each.
@@ -214,183 +230,100 @@ def get_dashboard_stats():
     
     return available_dashboards
 
-def generate_main_page(dashboards):
-    """
-    Generate the main navigation page HTML using the external template.
-    """
-    # Ensure the assets directory exists
-    os.makedirs(WEB_ASSETS_DIR, exist_ok=True)
-    
-    current_date = datetime.now().strftime("%B %d, %Y")
-    total_companies = sum(d.get("company_count", 0) for d in dashboards)
-    
-    # Separate dashboards by category
+def generate_dashboard_sections(dashboards):
+    """Generate HTML for all dashboard sections."""
     buy_dashboards = [d for d in dashboards if d["category"] == "buy"]
     profile_dashboards = [d for d in dashboards if d["category"] == "profile"]
     sell_dashboards = [d for d in dashboards if d["category"] == "sell"]
     industry_dashboards = [d for d in dashboards if d["category"] == "industry"]
+
+    def create_dashboard_card(dashboard):
+        return f"""
+        <div class="dashboard-card">
+            <h3 class="dashboard-title">{dashboard['title']}</h3>
+            <p class="dashboard-description">{dashboard['description']}</p>
+            <div class="company-count">{dashboard['company_count']} Companies</div>
+            <a href="{dashboard['filename']}" class="view-dashboard">View Dashboard</a>
+        </div>
+        """
+
+    sections = {
+        "{{BUY_DASHBOARDS}}": "\n".join(create_dashboard_card(d) for d in buy_dashboards),
+        "{{PROFILE_DASHBOARDS}}": "\n".join(create_dashboard_card(d) for d in profile_dashboards),
+        "{{SELL_DASHBOARDS}}": "\n".join(create_dashboard_card(d) for d in sell_dashboards),
+        "{{INDUSTRY_DASHBOARDS}}": "\n".join(create_dashboard_card(d) for d in industry_dashboards)
+    }
+
+    return sections
+
+def generate_overview_stats(dashboards):
+    """Generate overview statistics section."""
+    stats = {
+        'total_companies': sum(d.get('company_count', 0) for d in dashboards),
+        'buy_signals': sum(d.get('company_count', 0) for d in dashboards if d['category'] == 'buy'),
+        'sell_signals': sum(d.get('company_count', 0) for d in dashboards if d['category'] == 'sell'),
+        'industries': len([d for d in dashboards if d['category'] == 'industry'])
+    }
+
+    return f"""
+    <div class="dashboard-card">
+        <p class="stat-number">{stats['total_companies']:,}</p>
+        <p class="stat-label">Companies Analyzed</p>
+    </div>
+    <div class="dashboard-card">
+        <p class="stat-number">{stats['buy_signals']}</p>
+        <p class="stat-label">Strong Buy Signals</p>
+    </div>
+    <div class="dashboard-card">
+        <p class="stat-number">{stats['sell_signals']}</p>
+        <p class="stat-label">Strong Sell Signals</p>
+    </div>
+    <div class="dashboard-card">
+        <p class="stat-number">{stats['industries']}</p>
+        <p class="stat-label">Industries Monitored</p>
+    </div>
+    """
+
+def generate_main_page(dashboards):
+    """Generate the main navigation page."""
+    # Ensure the assets directory exists
+    os.makedirs(WEB_ASSETS_DIR, exist_ok=True)
     
-    # Load template file
+    current_date = datetime.now().strftime("%B %d, %Y")
+    
+    # Load template and embed CSS
+    css_content = load_and_embed_css()
+    embedded_css = f"<style>\n{css_content}\n</style>"
+    
     try:
         with open(TEMPLATE_FILE, 'r', encoding='utf-8') as f:
             template_content = f.read()
-        logger.info(f"Successfully loaded template from {TEMPLATE_FILE}")
-    except Exception as e:
-        logger.error(f"Error loading template file: {str(e)}")
-        # Fallback - create an empty template with placeholders
-        template_content = """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Altman Z-Score Stock Analysis Dashboard</title>
-            <link rel="stylesheet" href="assets/dashboard_styles.css">
-        </head>
-        <body>
-            <div class="container">
-                <header>
-                    <h1 class="main-title">Altman Z-Score Analysis</h1>
-                    <p class="subtitle">Comprehensive Stock Analysis Dashboard</p>
-                    <p class="date">{{date}}</p>
-                </header>
-                
-                <section class="overview-stats">
-                    {{overview_stats}}
-                </section>
-
-                {{content}}
-
-                <footer class="footer">
-                    <p class="footer-text">Altman Z-Score Analysis Dashboard Suite</p>
-                    <p class="footer-text">Last Updated: {{date}}</p>
-                    <p class="disclaimer">
-                        This analysis is for informational purposes only and should not be considered financial advice. 
-                        Always consult with a qualified financial advisor before making investment decisions.
-                    </p>
-                </footer>
-            </div>
-        </body>
-        </html>
-        """
-        logger.warning("Using fallback template")
-    
-    # Generate the overview stats HTML
-    overview_stats_html = f"""
-            <div class="stat-card">
-                <div class="stat-number">{len(dashboards)}</div>
-                <div class="stat-label">Available Dashboards</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{total_companies}</div>
-                <div class="stat-label">Total Companies Analyzed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{len(profile_dashboards)}</div>
-                <div class="stat-label">Investor Profiles</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{len(buy_dashboards)}</div>
-                <div class="stat-label">Buy Recommendations</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{len(sell_dashboards)}</div>
-                <div class="stat-label">Sell Recommendations</div>
-            </div>
-    """
-    
-    # We no longer need to build the content_html variable here
-    # The HTML for each dashboard category will be generated 
-    # directly for the specific template placeholders
-
-    # Generate HTML for each dashboard category
-    buy_html = ""
-    if buy_dashboards:
-        for dashboard in buy_dashboards:
-            buy_html += f"""<a href="{dashboard['filename']}" class="dashboard-card buy-category">
-                <div class="card-header">
-                    <span class="card-icon">{dashboard['icon']}</span>
-                    <h3 class="card-title">{dashboard['title']}</h3>
-                    <p class="card-count">{dashboard['company_count']} Companies</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-description">{dashboard['description']}</p>
-                    <button class="card-button">View Dashboard</button>
-                </div>
-            </a>"""
-    else:
-        buy_html = '<div class="empty-section">No buy recommendation dashboards available at this time.</div>'
-    
-    profile_html = ""
-    if profile_dashboards:
-        for dashboard in profile_dashboards:
-            profile_html += f"""<a href="{dashboard['filename']}" class="dashboard-card profile-category">
-                <div class="card-header">
-                    <span class="card-icon">{dashboard['icon']}</span>
-                    <h3 class="card-title">{dashboard['title']}</h3>
-                    <p class="card-count">{dashboard['company_count']} Companies</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-description">{dashboard['description']}</p>
-                    <button class="card-button">View Dashboard</button>
-                </div>
-            </a>"""
-    else:
-        profile_html = '<div class="empty-section">Investor profile dashboards will be available soon. Run the portfolio generation scripts to create them.</div>'
-    
-    sell_html = ""
-    if sell_dashboards:
-        for dashboard in sell_dashboards:
-            sell_html += f"""<a href="{dashboard['filename']}" class="dashboard-card sell-category">
-                <div class="card-header">
-                    <span class="card-icon">{dashboard['icon']}</span>
-                    <h3 class="card-title">{dashboard['title']}</h3>
-                    <p class="card-count">{dashboard['company_count']} Companies</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-description">{dashboard['description']}</p>
-                    <button class="card-button">View Dashboard</button>
-                </div>
-            </a>"""
-    else:
-        sell_html = '<div class="empty-section">No sell recommendation dashboards available at this time.</div>'
-    
-    industry_html = ""
-    if industry_dashboards:
-        for dashboard in industry_dashboards:
-            # Display "New Model" for industry dashboards with 0 companies (likely templates or newly created)
-            company_text = "New Model" if dashboard['company_count'] == 0 else f"{dashboard['company_count']} Companies"
-            industry_html += f"""<a href="{dashboard['filename']}" class="dashboard-card industry-category">
-                <div class="card-header">
-                    <span class="card-icon">{dashboard['icon']}</span>
-                    <h3 class="card-title">{dashboard['title']}</h3>
-                    <p class="card-count">{company_text}</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-description">{dashboard['description']}</p>
-                    <button class="card-button">View Dashboard</button>
-                </div>
-            </a>"""
-    else:
-        industry_html = '<div class="empty-section">Industry-specific model portfolios will be available soon. Run the model portfolio generation scripts to create them.</div>'
-    
-    # Replace placeholders in the template with actual content
-    html_output = template_content.replace("{{GENERATION_DATE}}", current_date)
-    html_output = html_output.replace("{{OVERVIEW_STATS}}", overview_stats_html)
-    html_output = html_output.replace("{{BUY_DASHBOARDS}}", buy_html)
-    html_output = html_output.replace("{{PROFILE_DASHBOARDS}}", profile_html)
-    html_output = html_output.replace("{{SELL_DASHBOARDS}}", sell_html)
-    html_output = html_output.replace("{{INDUSTRY_DASHBOARDS}}", industry_html)
-    html_output = html_output.replace("{{VERSION}}", "4.0.0")  # You may want to make this dynamic
-    
-    try:
-        with open(HTML_OUTPUT, 'w', encoding='utf-8') as f:
-            f.write(html_output)
-        logger.info(f"Successfully generated main navigation page at {HTML_OUTPUT}")
-        return True
+            
+        # Replace CSS link with embedded CSS
+        template_content = template_content.replace(
+            '<link rel="stylesheet" href="assets/dashboard_styles.css">',
+            embedded_css
+        )
+        
+        # Generate all sections
+        sections = generate_dashboard_sections(dashboards)
+        
+        # Add overview stats
+        sections["{{OVERVIEW_STATS}}"] = generate_overview_stats(dashboards)
+        
+        # Add date and version
+        sections["{{GENERATION_DATE}}"] = current_date
+        sections["{{VERSION}}"] = "v4.5.1"  # TODO: Get from version file
+        
+        # Replace all placeholders
+        for placeholder, content in sections.items():
+            template_content = template_content.replace(placeholder, content)
+            
+        return template_content
+        
     except Exception as e:
         logger.error(f"Error generating main page: {str(e)}")
-        return False
+        return None
 
 def main():
     """

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - AMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>AMC Entertainment Holdings, Inc. (AMC)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">March 31, 2025 at 12:00 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="AMC_logo.png" alt="AMC Entertainment Holdings, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 80.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Oversold conditions - potential bounce</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High price volatility</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="AMC_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="AMC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-4.48</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$2.82</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$1.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>21.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.92</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>-0.94</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-51.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>7.4/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> AMC Entertainment Holdings, Inc. (AMC)<br />
+<strong>Analysis Date:</strong> 2025-07-02 10:02:29  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>AMC remains entrenched in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score, signaling severe financial distress and elevated bankruptcy risk. The latest Z-Score stands at <strong>-3.76</strong>, consistent with the prior seven quarters all below zero, confirming a chronic insolvency risk. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, AMC faces critical operational and financial challenges.</p>
+<p><strong>AI Peer Analysis</strong> positions AMC significantly below the industry average Z-Score (not explicitly provided but implied safe zone &gt;3.0 for peers), indicating AMC’s competitive disadvantage within the <strong>Communication Services - Entertainment</strong> sector. The company’s peers, likely including major theatrical exhibitors and entertainment firms, maintain healthier financial profiles, underscoring AMC’s relative vulnerability.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are notably absent or neutral (RSI 0.0, zero volatility), reflecting either data gaps or market inactivity, which further complicates confidence in market perception. The lack of positive sentiment and zero dividend yield reinforce a cautious investment stance.</p>
+<table>
+<thead>
+<tr>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>-3.76</td>
+<td>Distress zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$1.22B</td>
+<td>Small-cap, distressed valuation</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$2.83</td>
+<td>Low price, reflecting distress</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.109</td>
+<td>Negative liquidity position</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>-1.062</td>
+<td>Accumulated losses exceeding assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.018</td>
+<td>Operating losses</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.107</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>34.16</td>
+<td>High valuation multiple despite losses</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the entrenched distress signals, negative financial ratios, and lack of positive market momentum, AMC is a <strong>SELL</strong> or <strong>avoid</strong> candidate for all but the most speculative, high-risk investors. The company’s financial health and operational outlook do not support near-term recovery without significant restructuring or capital infusion.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Estimated)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.109)</td>
+<td>&gt;1.0 (Positive)</td>
+<td>Severe liquidity weakness; negative working capital</td>
+<td>Declining/Stable at weak level</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Retained Earnings Ratio: -1.062)</td>
+<td>&lt;1.0 (Positive)</td>
+<td>Excessive leverage, accumulated losses exceed equity</td>
+<td>Persistently negative</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: -0.018; Asset Turnover: 0.107</td>
+<td>EBIT Ratio &gt;0; Asset Turnover ~0.5+</td>
+<td>Operating losses and low asset utilization</td>
+<td>Negative/Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: -1.062; Cash Position: N/A</td>
+<td>Positive retained earnings; positive cash</td>
+<td>Financially unstable, negative equity base</td>
+<td>Deteriorating</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+AMC’s liquidity is critically impaired, as evidenced by a <strong>working capital ratio of -0.109</strong>, indicating current liabilities exceed current assets. This is well below the industry norm (&gt;1.0), signaling inability to meet short-term obligations. The <strong>retained earnings ratio of -1.062</strong> reveals accumulated losses surpassing total assets, a severe red flag for solvency.</p>
+<p>Operationally, AMC’s <strong>EBIT ratio of -0.018</strong> confirms ongoing operating losses, while an <strong>asset turnover of 0.107</strong> is extremely low compared to typical entertainment sector benchmarks (~0.5 or higher), indicating inefficient asset use.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, but the absence of detailed component ratios limits granularity. Nonetheless, the data completeness is sufficient to confirm a distressed financial profile.</p>
+<p>Given AMC’s sector—Communication Services, Entertainment—where capital intensity and consumer demand are critical, these financial weaknesses suggest structural challenges exacerbated by market shifts (e.g., streaming competition, pandemic impacts).</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>-3.76</td>
+<td>Distress</td>
+<td>Negative working capital, retained earnings, EBIT</td>
+<td>Ongoing operational losses, liquidity stress</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>-3.44</td>
+<td>Distress</td>
+<td>Similar drivers</td>
+<td>No recovery signs, persistent distress</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>-3.42</td>
+<td>Distress</td>
+<td>Consistent negative ratios</td>
+<td>Continued financial deterioration</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>-3.86</td>
+<td>Distress</td>
+<td>Worsening liquidity</td>
+<td>Possibly pandemic or market disruption impact</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>-3.76</td>
+<td>Distress</td>
+<td>Negative profitability</td>
+<td>Operational inefficiencies persist</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>-3.96</td>
+<td>Distress</td>
+<td>Declining retained earnings</td>
+<td>Accumulated losses deepen</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>-4.11</td>
+<td>Distress</td>
+<td>Severe liquidity issues</td>
+<td>High risk of insolvency</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>-4.48</td>
+<td>Distress</td>
+<td>Extreme distress</td>
+<td>Near bankruptcy risk</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+AMC’s Z-Score has remained deeply negative for at least eight quarters, fluctuating between -4.48 and -3.42, all within the <strong>Distress Zone (Z &lt; 1.8)</strong>. This trend indicates no meaningful recovery or inflection point. The key drivers—negative working capital, retained earnings, and EBIT ratios—have consistently undermined financial stability.</p>
+<p>The lack of positive movement in Z-Score components correlates with AMC’s operational challenges, including declining theater attendance, high fixed costs, and competitive pressures from digital entertainment.</p>
+<p>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for healthy peers)</strong>, AMC’s position is severely disadvantaged, highlighting a critical need for restructuring or strategic pivot.</p>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Persistently Distress (-3.76 latest)</td>
+<td>Price at $2.83, no volume, no volatility</td>
+<td>Aligned (negative fundamentals reflected in price)</td>
+<td>High risk, low confidence investment</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Unavailable (RSI 0.0)</td>
+<td>No dividend, zero volatility</td>
+<td>Consistent lack of positive sentiment</td>
+<td>Market skepticism confirmed</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Significantly underperforming</td>
+<td>Sector peers healthier</td>
+<td>Divergent</td>
+<td>Competitive disadvantage, avoid</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+AMC’s stock price of <strong>$2.83</strong> and market cap of <strong>$1.22B</strong> reflect the distressed financial reality. The absence of trading volume, volatility, and technical indicators (all zeroed) suggests either illiquidity or data reporting gaps, but also indicates low market interest or confidence.</p>
+<p>The <strong>EV/EBITDA ratio of 34.16</strong> is anomalously high given negative EBIT, suggesting market pricing may be distorted or speculative. The zero dividend yield further signals no income return for investors.</p>
+<p>Overall, the fundamental distress aligns with market signals, reinforcing a cautious or negative investment stance.</p>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Further Z-Score decline</td>
+<td>Cost restructuring, operational pivot</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Bankruptcy risk elevated</td>
+<td>Debt refinancing, capital raise</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility spikes possible</td>
+<td>Hedging, diversification</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, AMC faces imminent operational and financial risks. The probability of bankruptcy remains high given negative retained earnings and liquidity deficits.</p>
+<p>Operational risks include declining theater attendance and fixed cost burdens. Financial risks stem from leverage and negative cash flows. Market risks include potential volatility if restructuring announcements occur.</p>
+<p>Scenario analysis suggests:<br />
+- <strong>Best case:</strong> Successful restructuring improves Z-Score to Gray Zone (1.8-3.0) over 12-18 months.<br />
+- <strong>Base case:</strong> Continued distress with Z-Score stable near -3.5 to -4.0.<br />
+- <strong>Worst case:</strong> Bankruptcy or liquidation, Z-Score falls below -5.0.</p>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>SELL</td>
+<td>Z-Score -3.76, persistent distress</td>
+<td>Price weak, no recovery signals</td>
+<td>Immediate exit</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield, negative earnings</td>
+<td>No yield support</td>
+<td>Avoid</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD/AVOID</td>
+<td>Negative retained earnings, undervalued</td>
+<td>Wait for restructuring signs</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>SELL</td>
+<td>Negative EBIT, no growth momentum</td>
+<td>No positive trend</td>
+<td>Avoid</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround if restructuring succeeds</td>
+<td>High risk, high reward</td>
+<td>Short-term speculative</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Detailed Commentary:</strong><br />
+Conservative and dividend investors should <strong>exit</strong> due to high bankruptcy risk and no income. Value investors may consider a <strong>hold or avoid</strong> stance, awaiting credible restructuring or operational turnaround signals. Growth investors should <strong>avoid</strong> given negative profitability and no growth indicators.</p>
+<p>Aggressive investors might speculate on a turnaround, but this carries high risk given the entrenched distress and lack of positive market signals.</p>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Stabilize operations</td>
+<td>Working Capital, EBIT Ratio</td>
+<td>Implement cost controls, explore new revenue streams</td>
+<td>Improved liquidity, EBIT margin</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Manage solvency risk</td>
+<td>Retained Earnings, Debt Levels</td>
+<td>Negotiate debt restructuring, secure capital</td>
+<td>Positive retained earnings trend</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Oversight of turnaround plan</td>
+<td>Z-Score trajectory, Risk Levels</td>
+<td>Approve restructuring, monitor risk mitigation</td>
+<td>Z-Score improvement, risk reduction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+AMC’s leadership must prioritize liquidity stabilization and operational efficiency to arrest the downward Z-Score trend. The CFO should aggressively pursue debt restructuring and capital raises to improve solvency metrics. The Board must ensure rigorous oversight of turnaround initiatives, with clear performance metrics tied to Z-Score improvements.</p>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Negative, stable</td>
+<td>Potential gradual improvement if restructuring</td>
+<td>Debt refinancing, revenue recovery</td>
+<td>Quarterly Z-Score updates</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Distressed</td>
+<td>Possible stabilization or further decline</td>
+<td>Industry recovery, consumer trends</td>
+<td>Market cap, price trends</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>High</td>
+<td>Remains elevated unless mitigated</td>
+<td>Capital infusion, operational turnaround</td>
+<td>Liquidity ratios, EBIT margin</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+AMC’s Z-Score momentum is currently negative but may improve over 6-12 months if restructuring efforts succeed. Key catalysts include successful debt refinancing and stabilization of theater attendance. Continuous monitoring of liquidity ratios and EBIT margins will provide early signals of recovery or further distress.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>AMC is in a <strong>critical financial distress state</strong> with a deeply negative Altman Z-Score of <strong>-3.76</strong>, reflecting severe liquidity, leverage, and operational challenges. Market signals align with this distress, showing low price, zero dividend, and lack of volatility. Risk remains high with bankruptcy a tangible threat absent significant restructuring.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>SELL</strong> or <strong>avoid</strong> for most profiles, with speculative interest only for high-risk investors betting on a turnaround. Executive leadership must focus on urgent financial stabilization and operational restructuring to shift AMC out of distress.</p>
+<hr />
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across financial, market, risk, and peer dimensions.</em></p></div></div>
+    </div>
+    
+
+    <footer style="margin-top: 40px; text-align: center; color: #666;">
+        <p>Generated on July 02, 2025 at 10:02 AM by Enhanced Altman Z-Score Analysis v4.0.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

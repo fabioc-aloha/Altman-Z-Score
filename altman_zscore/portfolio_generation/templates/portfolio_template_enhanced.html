@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$title</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        $embedded_css
+    </style>
+</head>
+
+<body>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+        <button class="hamburger-toggle" onclick="toggleMenu()" title="Navigation Menu"
+            aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <div class="nav-stats">
+            <h4>Dashboard Overview</h4>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Dashboards</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">255</span>
+                    <span class="stat-label">Companies</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h3>Buy Recommendations</h3>
+            <ul class="nav-links">
+                <li><a href="strong_buys.html">Strong Buy Recommendations</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>Investor Profiles</h3>
+            <ul class="nav-links">
+                <li><a href="dividend_picks.html">Dividend Income Portfolio</a></li>
+                <li><a href="value_picks.html">Value Investor Picks</a></li>
+                <li><a href="growth_picks.html">Growth Investor Portfolio</a></li>
+                <li><a href="conservative_picks.html">Conservative Investor Picks</a></li>
+                <li><a href="aggressive_picks.html">Aggressive Growth Portfolio</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>Z-Score Categories</h3>
+            <ul class="nav-links">
+                <li><a href="manufacturing_&_industrial.html">Manufacturing & Industrial</a></li>
+                <li><a href="private_&_service_companies.html">Private & Service Companies</a></li>
+                <li><a href="emerging_markets.html">Emerging Markets</a></li>
+                <li><a href="financial_institutions.html">Financial Institutions</a></li>
+                <li><a href="regulated_utilities.html">Regulated Utilities</a></li>
+                <li><a href="technology_&_growth.html">Technology & Growth</a></li>
+                <li><a href="retail_&_consumer.html">Retail & Consumer</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>Market Analysis</h3>
+            <ul class="nav-links">
+                <li><a href="sell_picks.html">Sell Recommendations</a></li>
+                <li><a href="strong_sell_picks.html">Strong Sell Recommendations</a></li>
+                <li><a href="model_portfolios_index.html">Model Portfolios Index</a></li>
+                <li><a href="index.html">Main Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile -->
+    <div class="nav-overlay" id="navOverlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <!-- Enhanced Header -->
+        <header class="header-container">
+            <div>
+                <h1>$title</h1>
+                <p class="subtitle">$description</p>
+                <div class="breadcrumb">
+                    <a href="index.html" class="back-link">Dashboard Home</a>
+                </div>
+            </div>
+            <div class="date">Generated: $current_date</div>
+        </header>
+
+        <!-- Enhanced Summary Section -->
+        <div class="summary-section">
+            <h2>Portfolio Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$company_count</div>
+                    <div class="stat-label">Total Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$safe_count</div>
+                    <div class="stat-label">Safe Zone (Z>2.6)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$gray_count</div>
+                    <div class="stat-label">Gray Zone (1.1-2.6)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$distress_count</div>
+                    <div class="stat-label">Distress Zone (<1.1)< /div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$avg_zscore</div>
+                        <div class="stat-label">Average Z-Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$median_zscore</div>
+                        <div class="stat-label">Median Z-Score</div>
+                    </div>
+                </div>
+
+                <div class="summary-text">
+                    $summary_text
+                </div>
+
+                <!-- Risk Distribution Chart -->
+                <div class="risk-distribution">
+                    <h3>Risk Distribution</h3>
+                    <div class="risk-bars">
+                        <div class="risk-bar">
+                            <div class="risk-label">Safe Zone</div>
+                            <div class="risk-bar-fill safe" style="width: $safe_percentage%"></div>
+                            <div class="risk-percentage">$safe_percentage%</div>
+                        </div>
+                        <div class="risk-bar">
+                            <div class="risk-label">Gray Zone</div>
+                            <div class="risk-bar-fill gray" style="width: $gray_percentage%"></div>
+                            <div class="risk-percentage">$gray_percentage%</div>
+                        </div>
+                        <div class="risk-bar">
+                            <div class="risk-label">Distress Zone</div>
+                            <div class="risk-bar-fill distress" style="width: $distress_percentage%"></div>
+                            <div class="risk-percentage">$distress_percentage%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Information -->
+            <div class="model-info">
+                <h3>📊 Analysis Methodology</h3>
+                <p><strong>Model Used:</strong> $model_type</p>
+                <p><strong>Selection Criteria:</strong> $selection_criteria</p>
+                <p><strong>Risk Assessment:</strong> Companies are categorized based on Altman Z-Score thresholds to
+                    predict bankruptcy probability</p>
+                <div class="score-legend">
+                    <div class="legend-item safe">
+                        <span class="legend-dot"></span>
+                        <span>Safe Zone (Z > 2.6): Low bankruptcy risk</span>
+                    </div>
+                    <div class="legend-item gray">
+                        <span class="legend-dot"></span>
+                        <span>Gray Zone (1.1 ≤ Z ≤ 2.6): Moderate risk</span>
+                    </div>
+                    <div class="legend-item distress">
+                        <span class="legend-dot"></span>
+                        <span>Distress Zone (Z < 1.1): High bankruptcy risk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Companies Section -->
+            <div class="companies-section">
+                <div class="companies-header">
+                    <h2>Company Analysis</h2>
+                    <div class="view-controls">
+                        <button class="view-toggle active" data-view="grid">Grid View</button>
+                        <button class="view-toggle" data-view="list">List View</button>
+                    </div>
+                </div>
+
+                <div class="company-grid" id="company-container">
+                    $company_cards
+                </div>
+            </div>
+
+            <!-- Enhanced Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>About This Analysis</h4>
+                        <p>Generated by Altman Z-Score Analysis System v$version</p>
+                        <p>Data as of $current_date</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Disclaimer</h4>
+                        <p>This analysis is for informational purposes only and should not be considered as investment
+                            advice.</p>
+                        <p>Please consult with a qualified financial advisor before making investment decisions.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Learn More</h4>
+                        <p>📚 <a href="#" class="footer-link">Altman Z-Score Methodology</a></p>
+                        <p>📊 <a href="index.html" class="footer-link">All Dashboards</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Enhanced JavaScript for Interactivity -->
+        <script>
+            // View toggle functionality
+            document.addEventListener('DOMContentLoaded', function () {
+                const viewToggles = document.querySelectorAll('.view-toggle');
+                const container = document.getElementById('company-container');
+
+                viewToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function () {
+                        // Remove active class from all toggles
+                        viewToggles.forEach(t => t.classList.remove('active'));
+                        // Add active class to clicked toggle
+                        this.classList.add('active');
+
+                        // Toggle view
+                        if (this.dataset.view === 'list') {
+                            container.classList.add('list-view');
+                        } else {
+                            container.classList.remove('list-view');
+                        }
+                    });
+                });
+
+                // Add smooth scrolling for back link
+                const backLink = document.querySelector('.back-link');
+                if (backLink) {
+                    backLink.addEventListener('click', function (e) {
+                        // Allow normal navigation but add a nice transition effect
+                        this.style.transform = 'translateX(-8px)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateX(-4px)';
+                        }, 150);
+                    });
+                }
+
+                // Add hover effects for company cards
+                const companyCards = document.querySelectorAll('.company-card');
+                companyCards.forEach(card => {
+                    card.addEventListener('mouseenter', function () {
+                        this.style.transform = 'translateY(-8px) scale(1.02)';
+                    });
+
+                    card.addEventListener('mouseleave', function () {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+                });
+
+                // Animate stats on load
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalValue = stat.textContent;
+                    if (!isNaN(parseFloat(finalValue))) {
+                        const numValue = parseFloat(finalValue);
+                        let currentValue = 0;
+                        const increment = numValue / 50;
+                        const timer = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= numValue) {
+                                stat.textContent = finalValue;
+                                clearInterval(timer);
+                            } else {
+                                stat.textContent = Math.floor(currentValue).toString();
+                            }
+                        }, 20);
+                    }
+                });
+            });
+
+            // Add keyboard navigation support
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const navMenu = document.getElementById('navMenu');
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        toggleMenu();
+                    } else {
+                        // Go back to main dashboard if menu is not open
+                        window.location.href = 'index.html';
+                    }
+                }
+            });
+
+            // Hamburger menu functionality
+            function toggleMenu() {
+                const hamburgerToggle = document.querySelector('.hamburger-toggle');
+                const navMenu = document.getElementById('navMenu');
+                const navOverlay = document.getElementById('navOverlay');
+
+                hamburgerToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+
+                // Prevent body scroll when menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // Close menu when clicking on a link (for mobile)
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function () {
+                    const navMenu = document.getElementById('navMenu');
+                    if (navMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>

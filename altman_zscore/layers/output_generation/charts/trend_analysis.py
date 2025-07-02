@@ -112,7 +112,7 @@ class TrendChart(ChartBase):
             self.add_risk_zone_lines(fig, row, col)
             
             # Update y-axis labels and configure axes for better gridline clarity
-            # Primary y-axis (Z-Score) - main gridlines
+            # Primary y-axis (Z-Score) - main gridlines - color matching the Z-Score line (blue)
             fig.update_yaxes(
                 title_text="Z-Score", 
                 row=row, col=col, 
@@ -120,16 +120,20 @@ class TrendChart(ChartBase):
                 rangemode='tozero',
                 showgrid=True,
                 gridwidth=1,
-                gridcolor='rgba(128,128,128,0.3)'
+                gridcolor='rgba(128,128,128,0.3)',
+                title_font=dict(color='blue'),  # Match Z-Score line color
+                tickfont=dict(color='blue')     # Match Z-Score line color for tick labels
             )
             
-            # Secondary y-axis (Price) - minimal/hidden gridlines to reduce confusion
+            # Secondary y-axis (Price) - minimal/hidden gridlines - color matching the Price line (green)
             fig.update_yaxes(
                 title_text="Price ($)", 
                 row=row, col=col, 
                 secondary_y=True,
                 showgrid=False,  # Hide secondary axis gridlines to reduce visual confusion
-                side='right'
+                side='right',
+                title_font=dict(color='green'),  # Match Price line color
+                tickfont=dict(color='green')     # Match Price line color for tick labels
             )
             
             # Configure x-axis gridlines for consistency
