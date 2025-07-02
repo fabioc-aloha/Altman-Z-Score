@@ -57,83 +57,67 @@ Write-Host "- PowerShell standardization"
 
 Write-Host "`nTo view the full hotfix details, see: docs\HOTFIX_v4.6.2_DOCUMENTATION_ENHANCEMENT.md" -ForegroundColor Cyan
 
-# Git operations - commit and push
-Write-Host "`n=== Git Operations ===" -ForegroundColor Yellow
-Write-Host "Would you like to commit and push these changes? (Y/N)" -ForegroundColor Cyan
-$response = Read-Host
+# Git operations
+$commitChanges = $true
+$pushChanges = $true
 
-if ($response -eq "Y" -or $response -eq "y") {
-    Write-Host "`nPerforming Git operations..." -ForegroundColor Cyan
-    
-    # Check if git is available
-    try {
-        $gitVersion = git --version
-        Write-Host "[OK] Git detected: $gitVersion" -ForegroundColor Green
+# Prompt for Git operations
+$response = Read-Host "`nWould you like to commit these changes? (y/n) [Default: y]"
+if ($response -eq "n") {
+    $commitChanges = $false
+    $pushChanges = $false
+}
+
+if ($commitChanges) {
+    Write-Host "`nStaging changes..." -ForegroundColor Cyan
+    git add $flowMd $readmeMd $changelogMd $versionPy $copilotInstructions $docsHotfix
+
+    # Check if there are other modified files
+    $otherChanges = git status --porcelain | Where-Object { $_ -match '^\s*[MA]\s+' }
+    if ($otherChanges) {
+        Write-Host "`nAdditional modified files detected:" -ForegroundColor Yellow
+        $otherChanges | ForEach-Object { Write-Host "   - $($_.Substring(3))" }
+        
+        $stageAll = Read-Host "Would you like to stage all changes? (y/n) [Default: n]"
+        if ($stageAll -eq "y") {
+            Write-Host "Staging all changes..." -ForegroundColor Cyan
+            git add -A
+        }
     }
-    catch {
-        Write-Host "[X] Git not found. Please install Git or add it to your PATH." -ForegroundColor Red
-        exit 1
-    }
-    
-    # Check if we're in a git repository
-    try {
-        $gitStatus = git status --porcelain
-        Write-Host "[OK] Git repository detected" -ForegroundColor Green
-    }
-    catch {
-        Write-Host "[X] Not a git repository. Please run this script from the root of the git repository." -ForegroundColor Red
-        exit 1
-    }
-    
-    # Stage all changes
-    try {
-        Write-Host "Staging changes..." -ForegroundColor Cyan
-        git add .
-        Write-Host "[OK] Changes staged successfully" -ForegroundColor Green
-    }
-    catch {
-        Write-Host "[X] Failed to stage changes: $_" -ForegroundColor Red
-        exit 1
-    }
-    
+
     # Commit changes
-    try {
-        Write-Host "Committing changes..." -ForegroundColor Cyan
-        git commit -m "HOTFIX v4.6.2: Enhanced Documentation & Environment Updates"
-        Write-Host "[OK] Changes committed successfully" -ForegroundColor Green
-    }
-    catch {
-        Write-Host "[X] Failed to commit changes: $_" -ForegroundColor Red
-        exit 1
-    }
-    
-    # Prompt for push
-    Write-Host "Push changes to remote repository? (Y/N)" -ForegroundColor Cyan
-    $pushResponse = Read-Host
-    
-    if ($pushResponse -eq "Y" -or $pushResponse -eq "y") {
-        try {
-            Write-Host "Pushing changes to remote repository..." -ForegroundColor Cyan
+    $commitMessage = "HOTFIX v4.6.2: Enhanced Documentation & Environment Updates"
+    Write-Host "`nCommitting changes with message: '$commitMessage'..." -ForegroundColor Cyan
+    git commit -m $commitMessage
+
+    # Push changes if requested
+    if ($pushChanges) {
+        $response = Read-Host "`nWould you like to push these changes? (y/n) [Default: y]"
+        if ($response -ne "n") {
+            Write-Host "`nPushing changes to remote repository..." -ForegroundColor Cyan
             git push
-            Write-Host "[OK] Changes pushed successfully" -ForegroundColor Green
+            
+            $pushResult = $?
+            if ($pushResult) {
+                Write-Host "`n[OK] Successfully pushed HOTFIX v4.6.2 to remote repository." -ForegroundColor Green
+            }
+            else {
+                Write-Host "`n[X] Failed to push changes to remote repository." -ForegroundColor Red
+                Write-Host "Please push manually when ready." -ForegroundColor Yellow
+            }
         }
-        catch {
-            Write-Host "[X] Failed to push changes: $_" -ForegroundColor Red
-            Write-Host "You may need to push manually using 'git push'" -ForegroundColor Yellow
-            exit 1
+        else {
+            Write-Host "`nChanges have been committed locally but not pushed." -ForegroundColor Yellow
+            Write-Host "Use 'git push' to push changes when ready." -ForegroundColor Cyan
         }
     }
-    else {
-        Write-Host "Changes have been committed locally but not pushed." -ForegroundColor Yellow
-        Write-Host "Use 'git push' to push the changes when ready." -ForegroundColor Cyan
-    }
-    
-    Write-Host "`nHOTFIX v4.6.2 has been successfully applied and versioned in Git." -ForegroundColor Green
 }
 else {
-    Write-Host "`nChanges have been applied but not committed to Git." -ForegroundColor Yellow
-    Write-Host "To manually commit the changes, use:" -ForegroundColor Cyan
-    Write-Host "git add ." -ForegroundColor Gray
-    Write-Host "git commit -m 'HOTFIX v4.6.2: Enhanced Documentation & Environment Updates'" -ForegroundColor Gray
-    Write-Host "git push" -ForegroundColor Gray
+    Write-Host "`nChanges have not been committed." -ForegroundColor Yellow
+    Write-Host "Use the following commands to commit and push when ready:" -ForegroundColor Cyan
+    Write-Host "   git add -A" -ForegroundColor DarkGray
+    Write-Host "   git commit -m `"HOTFIX v4.6.2: Enhanced Documentation & Environment Updates`"" -ForegroundColor DarkGray
+    Write-Host "   git push" -ForegroundColor DarkGray
 }
+
+Write-Host "`nHOTFIX v4.6.2 process complete!" -ForegroundColor Green
