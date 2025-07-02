@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology & Growth - Altman Z-Score</title>
+    <style>
+/* 
+ * Altman Z-Score Dashboard Common Styles
+ * Standardized styles for all dashboard types
+ */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+h1,
+h2 {
+    color: #1a5276;
+    margin-top: 30px;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date {
+    text-align: right;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #555;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+/* Stats section styling */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #2980b9;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+/* Summary section styling */
+.summary-section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-text {
+    margin-top: 25px;
+    line-height: 1.8;
+}
+
+.summary-text p {
+    margin-bottom: 15px;
+}
+
+.summary-text strong {
+    color: #2c3e50;
+}
+
+/* Company grid styling */
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.company-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.company-name {
+    flex-grow: 1;
+}
+
+.company-name h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+    color: #2c3e50;
+}
+
+.company-ticker {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    font-weight: normal;
+}
+
+.company-metrics {
+    margin: 15px 0;
+    flex-grow: 1;
+}
+
+.metric {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric-name {
+    color: #7f8c8d;
+}
+
+.metric-value {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.z-score {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: auto;
+}
+
+.safe {
+    background-color: #d5f5e3;
+    color: #27ae60;
+}
+
+.gray {
+    background-color: #f8f9fa;
+    color: #7f8c8d;
+}
+
+.distress {
+    background-color: #fadbd8;
+    color: #c0392b;
+}
+
+.model-info {
+    background: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid #3498db;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 20px 0;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .company-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .date {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+</style>
+    
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <div class="header-container">
+        <div>
+            <h1>Technology & Growth</h1>
+            <p class="subtitle">Industry-specific financial analysis using Growth-Adjusted Z-Score</p>
+        </div>
+        <div class="date">Generated: July 02, 2025</div>
+    </div>
+
+    <div class="summary-section">
+        <h2>Portfolio Summary</h2>
+        <div class="stats-grid">
+            
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Safe Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Gray Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Distress Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3.33</div>
+                <div class="stat-label">Avg Z-Score</div>
+            </div>
+        </div>
+        <div class="summary-text">
+            
+    <p>This portfolio presents <strong>Technology & Growth</strong> companies analyzed using the <strong>Growth-Adjusted Z-Score</strong>.</p>
+    <p>Among the 15 companies analyzed:</p>
+    <ul>
+        <li>9 companies are in the <strong>Safe Zone</strong> (Z-Score > 2.99)</li>
+        <li>6 companies are in the <strong>gray Zone</strong> (1.81 ≤ Z-Score ≤ 2.99)</li>
+        <li>0 companies are in the <strong>Distress Zone</strong> (Z-Score < 1.81)</li>
+    </ul>
+    <p>The average Z-Score across all companies is <strong>3.33</strong>.</p>
+    
+        </div>
+    </div>
+
+    
+        <div class="model-info">
+            
+    <h3>Model: Growth-Adjusted Z-Score</h3>
+    <p>Enhanced model for high-growth technology companies that incorporates R&D spending, intellectual property value, and growth trajectory metrics.</p>
+    <p>This dashboard applies the Growth-Adjusted Z-Score specifically designed for Technology & Growth companies.</p>
+    
+        </div>
+
+    <h2>Companies</h2>
+    <div class="company-grid">
+        
+    <div class="company-card" data-ticker="AAPL">
+        <div class="company-header">
+            <img src="output/AAPL/AAPL_logo.png" alt="Apple Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>Apple Inc.</h3>
+                <span class="company-ticker">AAPL</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$57,601.43M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">33.62</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">21.51%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.97 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="MSFT">
+        <div class="company-header">
+            <img src="output/MSFT/MSFT_logo.png" alt="Microsoft Corporation logo" class="company-logo">
+            <div class="company-name">
+                <h3>Microsoft Corporation</h3>
+                <span class="company-ticker">MSFT</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$54,999.83M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">11.72</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">12.57%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 4.3 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="GOOGL">
+        <div class="company-header">
+            <img src="output/GOOGL/GOOGL_logo.png" alt="Alphabet Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>Alphabet Inc.</h3>
+                <span class="company-ticker">GOOGL</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$24,000.18M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.03</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">10.23%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 4.07 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="AMZN">
+        <div class="company-header">
+            <img src="output/AMZN/AMZN_logo.png" alt="Amazon.com, Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>Amazon.com, Inc.</h3>
+                <span class="company-ticker">AMZN</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$33,026.05M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.55</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">5.54%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.97 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="FB">
+        <div class="company-header">
+            <img src="output/FB/FB_logo.png" alt="Meta Platforms, Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>Meta Platforms, Inc.</h3>
+                <span class="company-ticker">FB</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$14,547.45M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.08</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">13.59%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.2 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="TSLA">
+        <div class="company-header">
+            <img src="output/TSLA/TSLA_logo.png" alt="Tesla, Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>Tesla, Inc.</h3>
+                <span class="company-ticker">TSLA</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$38,390.82M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">30.48</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">22.91%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.48 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="NVDA">
+        <div class="company-header">
+            <img src="output/NVDA/NVDA_logo.png" alt="NVIDIA Corporation logo" class="company-logo">
+            <div class="company-name">
+                <h3>NVIDIA Corporation</h3>
+                <span class="company-ticker">NVDA</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$83,180.73M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.24</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">8.74%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.81 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="INTC">
+        <div class="company-header">
+            <img src="output/INTC/INTC_logo.png" alt="INTC Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>INTC Inc.</h3>
+                <span class="company-ticker">INTC</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$17,544.81M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">22.61</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">20.07%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.94 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="CSCO">
+        <div class="company-header">
+            <img src="output/CSCO/CSCO_logo.png" alt="CSCO Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>CSCO Inc.</h3>
+                <span class="company-ticker">CSCO</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$86,974.59M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">24.25</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">16.60%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.42 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="ADBE">
+        <div class="company-header">
+            <img src="output/ADBE/ADBE_logo.png" alt="ADBE Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>ADBE Inc.</h3>
+                <span class="company-ticker">ADBE</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$11,644.83M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">16.68</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">8.91%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.7 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="CRM">
+        <div class="company-header">
+            <img src="output/CRM/CRM_logo.png" alt="CRM Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>CRM Inc.</h3>
+                <span class="company-ticker">CRM</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$87,315.42M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">21.36</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">8.43%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 4.48 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="AMD">
+        <div class="company-header">
+            <img src="output/AMD/AMD_logo.png" alt="AMD Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>AMD Inc.</h3>
+                <span class="company-ticker">AMD</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$34,544.58M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.12</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">9.52%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.07 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="QCOM">
+        <div class="company-header">
+            <img src="output/QCOM/QCOM_logo.png" alt="QCOM Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>QCOM Inc.</h3>
+                <span class="company-ticker">QCOM</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$90,814.75M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">23.4</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">10.91%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.25 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="TXN">
+        <div class="company-header">
+            <img src="output/TXN/TXN_logo.png" alt="TXN Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>TXN Inc.</h3>
+                <span class="company-ticker">TXN</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$87,468.90M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">22.47</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">5.14%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.01 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="IBM">
+        <div class="company-header">
+            <img src="output/IBM/IBM_logo.png" alt="IBM Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>IBM Inc.</h3>
+                <span class="company-ticker">IBM</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Technology</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$42,324.33M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">11.14</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">10.78%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 4.29 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <script>
+        // Add interactive elements, sorting, filtering
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add hover effects to company cards
+            const companyCards = document.querySelectorAll('.company-card');
+            companyCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+            });
+
+            
+        });
+    </script>
+</body>
+
+</html>

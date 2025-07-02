@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Dashboard Navigator</title>
+    <link rel="stylesheet" href="assets/dashboard_styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Altman Z-Score Dashboard Navigator</h1>
+        <p class="subtitle">Stock Picks Based on Financial Health Analysis</p>
+        <p class="date">Generated: {{GENERATION_DATE}}</p>
+    </div>
+
+    <!-- Buy Recommendations Section -->
+    <h2 class="section-title">Buy Recommendations</h2>
+    <div class="dashboard-grid buy-section">
+        {{BUY_DASHBOARDS}}
+    </div>
+
+    <!-- Investor Profile Dashboards Section -->
+    <h2 class="section-title">Investor Profile Dashboards</h2>
+    <div class="dashboard-grid profile-section">
+        {{PROFILE_DASHBOARDS}}
+    </div>
+
+    <!-- Sell Recommendations Section -->
+    <h2 class="section-title">Sell Recommendations</h2>
+    <div class="dashboard-grid sell-section">
+        {{SELL_DASHBOARDS}}
+    </div>
+
+    <!-- Industry Specific Dashboards Section -->
+    <h2 class="section-title">Industry-Specific Dashboards</h2>
+    <div class="dashboard-grid industry-section">
+        {{INDUSTRY_DASHBOARDS}}
+    </div>
+
+    <div class="footer">
+        <p>Altman Z-Score Analysis &copy; 2025 | Version {{VERSION}}</p>
+    </div>
+</body>
+
+</html>

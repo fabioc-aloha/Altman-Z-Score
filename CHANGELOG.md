@@ -1,5 +1,69 @@
 # Changelog
 
+## [4.6.2] - HOTFIX v4.6.2 - Enhanced Documentation & Environment Updates (July 2, 2025)
+
+### 📚 **AI LEARNING DOCUMENTATION**
+- **✅ UPDATED INSTRUCTIONS:** Enhanced copilot instructions with new learnings from environment and architecture 
+- **✅ NEW RULES ADDED:** Added rules for centralization, fallback data sources, and cache management
+- **✅ ARCHITECTURE KNOWLEDGE:** Added Architecture & Data Flow Knowledge section with comprehensive details
+- **✅ LEARNING REINFORCEMENT:** Formalized knowledge transfer process for AI learning from mistakes
+
+### ✅ **SEC EDGAR INTEGRATION GUIDE**
+- **✅ FALLBACK DOCUMENTATION:** Added explicit documentation for SEC EDGAR fallback mechanisms
+- **✅ HYBRID ARCHITECTURE:** Clarified the hybrid FMP+SEC EDGAR approach for comprehensive coverage
+- **✅ DELISTED COMPANIES:** Improved handling guidance for delisted/bankrupt companies data retrieval
+- **✅ ARCHITECTURAL DIAGRAMS:** Updated data flow diagrams to reflect current implementation
+
+### 🔧 **IMPROVED ERROR MESSAGES**
+- **✅ CACHE MANAGEMENT:** Enhanced diagnostics for cache handling and TTL configuration
+- **✅ SYSTEM COMPATIBILITY:** Improved Windows terminal compatibility messaging
+- **✅ ASCII STANDARDIZATION:** Ensured consistent ASCII output formats across all scripts
+- **✅ USER GUIDANCE:** Added clearer error messages with actionable resolution steps
+
+### 📂 **DOCUMENTATION VERSIONING**
+- **✅ VERSION STRATEGY:** Implemented formal versioning for key intellectual contribution documents
+- **✅ ACADEMIC PRESERVATION:** Created guidelines for maintaining versioned academic documentation
+- **✅ REDIRECTION MECHANISM:** Established standard redirection process for moved documentation
+- **✅ TEMPORAL ORGANIZATION:** Enhanced organization of past, present, and future documentation
+
+### 🛠️ **POWERSHELL STANDARDIZATION**
+- **✅ CONSISTENT FORMATTING:** Standardized PowerShell script formatting and structure
+- **✅ ERROR HANDLING:** Improved error capturing and reporting in PowerShell scripts
+- **✅ PARAMETER DOCUMENTATION:** Enhanced help documentation for script parameters
+- **✅ DIAGNOSTIC OUTPUT:** Improved output formatting for better readability in Windows environments
+
+## [4.6.1] - HOTFIX v4.6.1 - Windows Terminal Compatibility & Retail Validation Framework (July 2, 2025)
+
+### ✅ **WINDOWS TERMINAL COMPATIBILITY**
+- **✅ ASCII OUTPUT:** Replaced Unicode characters with ASCII alternatives for Windows compatibility
+- **✅ ENCODING FIXES:** Resolved cp1252 encoding issues in PowerShell and CMD environments
+- **✅ CONSISTENT STATUS INDICATORS:** Standardized [OK]/[X] format across all scripts
+- **✅ OUTPUT FORMATTING:** Improved output readability with consistent spacing and formatting
+
+### 📂 **CENTRALIZED RETAIL VALIDATION**
+- **✅ DIRECTORY STRUCTURE:** Created unified retail validation framework in dedicated directory structure
+- **✅ SCRIPT CONSOLIDATION:** Centralized all retail validation scripts in retail_validation/scripts/
+- **✅ DOCUMENTATION ORGANIZATION:** Moved all retail documentation to retail_validation/docs/
+- **✅ DATA MANAGEMENT:** Organized retail validation data in retail_validation/data/
+
+### 🔄 **SEC EDGAR INTEGRATION**
+- **✅ FALLBACK MECHANISM:** Added SEC EDGAR fallback for delisted companies in retail validation
+- **✅ CIK MAPPING:** Implemented mapping system for ticker-to-CIK resolution
+- **✅ FILING PARSER:** Created specialized parser for SEC EDGAR financial data extraction
+- **✅ CACHE MANAGEMENT:** Added dedicated cache for SEC EDGAR data with configurable TTL
+
+### 📚 **CONSOLIDATED DOCUMENTATION**
+- **✅ VERSIONED DOCUMENTS:** Created versioned copies of NOVEL_RETAIL_MODEL.md
+- **✅ REDIRECTION FILES:** Added redirection stubs for moved documentation files
+- **✅ PROCESS DOCUMENTATION:** Added detailed validation process documentation
+- **✅ USAGE GUIDES:** Created comprehensive guides for retail validation framework
+
+### 🧹 **PYTHON CACHE MANAGEMENT**
+- **✅ CACHE CLEARING:** Added PowerShell function to clear Python cache files
+- **✅ TTL CONFIGURATION:** Made cache TTL values configurable via environment variables
+- **✅ DIAGNOSTIC TOOLS:** Added cache diagnostics and statistics reporting
+- **✅ SELECTIVE CLEARING:** Implemented targeted cache clearing by data source
+
 ## [4.6.0] - DIAMOND+ Release v4.6.0 - Enhanced Glossary & Improved Report Visuals (July 2, 2025)
 
 ### 📚 **COMPREHENSIVE MODEL GLOSSARY**

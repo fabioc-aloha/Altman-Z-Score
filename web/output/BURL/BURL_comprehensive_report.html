@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - BURL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Burlington Stores, Inc. (BURL)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 02, 2025 at 12:35 PM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="BURL_logo.png" alt="Burlington Stores, Inc. Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Negative price trend</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="BURL_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="BURL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-medium">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.02</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">retail</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for retail companies with inventory focus</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$240.34</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$15.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>29.4</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>80.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>51.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.12</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.13</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-27.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Burlington Stores, Inc. (Ticker: BURL)<br />
+<strong>Analysis Date:</strong> 2025-07-02 12:34:47  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Burlington Stores (BURL) currently operates within the <strong>Gray Zone</strong> of Altman Z-Score risk classification, with a latest Z-Score of <strong>2.15</strong>, reflecting moderate financial distress risk but no immediate bankruptcy threat. The Z-Score has fluctuated between <strong>2.02 and 2.34</strong> over the past eight quarters, indicating a stable yet cautious financial health trajectory. Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the company faces balanced risk-reward dynamics.</p>
+<p><strong>AI Peer Analysis</strong> positions BURL slightly below the industry average Z-Score (industry average not explicitly provided but implied higher than 2.15), suggesting competitive pressures in the <strong>Consumer Cyclical - Apparel Retail</strong> sector. The company’s <strong>market capitalization of $15.16 billion</strong> and current price of <strong>$240.34</strong> reflect strong market valuation despite moderate operational ratios.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and volume data, but the <strong>P/E ratio of 29.37</strong> indicates market expectations of growth, albeit at a premium valuation. The absence of dividends (0.00% yield) aligns with a growth-focused profile rather than income generation.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>2.15</td>
+<td>Gray Zone - moderate distress risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$15.16B</td>
+<td>Large-cap retail player</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$240.34</td>
+<td>Premium valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>29.37</td>
+<td>Growth expectations</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.013</td>
+<td>Very low liquidity buffer</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.186</td>
+<td>Moderate earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.016</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.293</td>
+<td>Moderate asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No dividend payout</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and moderate financial ratios, investors should maintain exposure but monitor liquidity and profitability trends closely.</li>
+<li><strong>Selective Accumulation:</strong> Growth-oriented investors may consider selective accumulation on dips, leveraging the premium valuation supported by market confidence.</li>
+<li><strong>Avoid Aggressive Positions:</strong> The low working capital ratio and EBIT margin suggest operational vulnerabilities; aggressive buying is not recommended without improvement in fundamentals.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.013</td>
+<td>&gt;1.0 (Retail avg ~1.2)</td>
+<td><strong>Severe liquidity weakness</strong>; risk of short-term cash flow issues</td>
+<td>Declining/Stable (very low)</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.013</td>
+<td>~0.1-0.2</td>
+<td>Insufficient working capital buffer</td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>Retail avg ~1.0-1.5</td>
+<td>Data missing; unable to assess leverage risk fully</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT ratio): 0.016</td>
+<td>Industry avg ~0.05-0.10</td>
+<td><strong>Very low EBIT margin</strong>, indicating weak ability to cover interest</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.293</td>
+<td>Retail avg ~0.5-0.7</td>
+<td>Below average asset utilization; potential inefficiency</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.016</td>
+<td>Retail avg ~0.05</td>
+<td>Low profitability; margin pressure evident</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.186</td>
+<td>Retail avg ~0.2-0.3</td>
+<td>Moderate retained earnings; some reinvestment capacity</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>Data unavailable; liquidity concerns remain</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks are approximated from Apparel Retail sector norms.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.013</strong> is critically low compared to typical retail industry standards (&gt;1.0), signaling potential short-term liquidity stress. The working capital ratio mirrors this weakness, suggesting Burlington may struggle to meet immediate obligations without external financing or asset sales. This liquidity risk is a key concern given the company's operating environment in the consumer cyclical sector, which is sensitive to economic cycles.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Absence of explicit debt-to-equity and interest coverage data limits leverage risk assessment. However, the very low EBIT ratio of <strong>0.016</strong> (1.6%) implies limited operating profitability to service debt, increasing financial risk if leverage is high.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.293</strong> is below industry averages, indicating less efficient use of assets to generate sales. Combined with a low EBIT margin, this suggests operational challenges in cost control or sales productivity.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.186</strong> shows moderate reinvestment of earnings, supporting some stability. However, without cash position data, the overall financial stability assessment remains incomplete.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment indicates no anomalies detected, with complete financial data injection, lending confidence to these diagnostics despite some missing leverage specifics.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>2.15</td>
+<td>Gray Zone</td>
+<td>Moderate retained earnings, low EBIT, weak liquidity</td>
+<td>Stable retail operations, moderate growth expectations</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>2.04</td>
+<td>Gray Zone</td>
+<td>Slight dip in profitability and liquidity</td>
+<td>Possible operational headwinds</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.34</td>
+<td>Gray Zone</td>
+<td>Peak Z-Score in period; improved earnings or asset management</td>
+<td>Temporary operational improvements</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.14</td>
+<td>Gray Zone</td>
+<td>Stable performance metrics</td>
+<td>Consistent retail demand</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.12</td>
+<td>Gray Zone</td>
+<td>Stable with minor fluctuations</td>
+<td>Seasonal retail effects</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>2.02</td>
+<td>Gray Zone</td>
+<td>Lower end of range; liquidity pressure</td>
+<td>Economic softness impacting sales</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.22</td>
+<td>Gray Zone</td>
+<td>Recovery in operational metrics</td>
+<td>Strategic initiatives possibly effective</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.02</td>
+<td>Gray Zone</td>
+<td>Baseline risk level</td>
+<td>Ongoing sector challenges</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>Burlington’s Z-Score has remained consistently in the <strong>Gray Zone (1.8-3.0)</strong> over the last eight quarters, fluctuating narrowly between <strong>2.02 and 2.34</strong>, indicating persistent moderate financial risk without crossing into distress or safe zones.</li>
+<li>The highest Z-Score quarter (<strong>2.34</strong>) suggests transient improvements, likely driven by better retained earnings or asset management, but these gains have not been sustained.</li>
+<li>The low liquidity and EBIT ratios are consistent with the Z-Score’s moderate risk classification, reflecting operational challenges in the apparel retail sector, which is highly competitive and sensitive to consumer spending trends.</li>
+<li>The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.) limits precise driver attribution, but the overall trend aligns with a company managing risk but not yet fully stabilizing.</li>
+<li>Compared to the <strong>AI Peer Analysis</strong> industry average Z-Score (implied &gt;2.15), Burlington is slightly below peers, indicating room for operational and financial improvement.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable Gray Zone (2.15)</td>
+<td>Price at $240.34, P/E 29.37</td>
+<td>Divergent</td>
+<td>Market values growth despite moderate fundamentals</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral/Moderate Risk</td>
+<td>No volatility, zero volume</td>
+<td>Inconsistent</td>
+<td>Market data insufficient for sentiment validation</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Slightly below industry Z-Score</td>
+<td>Market Cap $15.16B, sector performance mixed</td>
+<td>Underperforming</td>
+<td>Competitive pressure evident</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score’s Gray Zone</strong> status signals moderate financial risk, yet the market price of <strong>$240.34</strong> and a relatively high <strong>P/E ratio of 29.37</strong> suggest investor optimism about future growth or strategic positioning.</li>
+<li>The lack of trading volume, volatility, and moving average data (all zero) indicates either data unavailability or illiquid trading conditions, limiting market signal reliability.</li>
+<li>The divergence between fundamental health (moderate risk) and market valuation (premium pricing) suggests a potential disconnect, warranting cautious market timing strategies.</li>
+<li>Peer comparison indicates Burlington is slightly lagging in financial health relative to industry averages, reinforcing the need for operational improvements to justify valuation premiums.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential Z-Score decline by 0.2-0.3</td>
+<td>Enhance inventory management, cost control</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Significant Z-Score drop if liquidity worsens</td>
+<td>Improve working capital, secure credit lines</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Volatility could pressure valuation</td>
+<td>Diversify product mix, strengthen brand loyalty</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Moderate probability due to low asset turnover and EBIT margins. Inefficiencies could erode profitability further, reducing Z-Score by an estimated 0.2-0.3 points.</li>
+<li><strong>Financial Risks:</strong> Liquidity is critically low (working capital ratio 0.013), posing a high severity risk. Failure to address short-term obligations could precipitate a sharp Z-Score decline into distress territory (&lt;1.8).</li>
+<li><strong>Market Risks:</strong> Consumer cyclical sector exposure implies sensitivity to economic downturns and competitive pressures, with moderate impact on valuation and Z-Score.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><em>Best Case:</em> Operational improvements and liquidity management raise Z-Score above 2.5, moving closer to safe zone.  </li>
+<li><em>Base Case:</em> Status quo maintained, Z-Score remains in Gray Zone (~2.1-2.2).  </li>
+<li><em>Worst Case:</em> Liquidity crisis or profit erosion drops Z-Score below 1.8, signaling distress and potential bankruptcy risk.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score stable at 2.15 (Gray Zone); liquidity risk present</td>
+<td>Monitor for liquidity improvements</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>SELL</td>
+<td>No dividend yield; low EBIT ratio</td>
+<td>Not suitable for income investors</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>Moderate retained earnings; undervalued if liquidity improves</td>
+<td>Accumulate selectively on dips</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY (Selective)</td>
+<td>Market P/E 29.37 supports growth narrative despite risks</td>
+<td>Entry on operational improvements</td>
+<td>3-9 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SELL</td>
+<td>High risk from liquidity and operational inefficiencies</td>
+<td>Avoid until fundamentals improve</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity and profitability trends before increasing exposure.</li>
+<li><strong>Dividend-focused investors</strong> should avoid Burlington due to zero dividend yield and low operating margins.</li>
+<li><strong>Value investors</strong> may find opportunity if liquidity and operational metrics improve, warranting accumulation on price weakness.</li>
+<li><strong>Growth investors</strong> can consider selective buying given market optimism, but must watch for operational turnaround signals.</li>
+<li><strong>Aggressive investors</strong> should avoid due to liquidity risks and moderate financial distress signals.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Enhance operational efficiency</td>
+<td>Asset Turnover (0.293), EBIT Ratio (0.016)</td>
+<td>Implement cost controls, optimize inventory</td>
+<td>EBIT margin improvement, Z-Score increase</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Improve liquidity management</td>
+<td>Working Capital Ratio (0.013)</td>
+<td>Strengthen cash reserves, renegotiate debt</td>
+<td>Current ratio &gt;1.0, stable cash flow</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, risk factors</td>
+<td>Regular risk reviews, contingency planning</td>
+<td>Avoidance of distress zone (&lt;1.8)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The <strong>CEO</strong> should prioritize operational efficiency improvements to boost asset turnover and EBIT margins, directly impacting Z-Score components.</li>
+<li>The <strong>CFO</strong> must address liquidity constraints by improving working capital management and securing financing to mitigate short-term risks.</li>
+<li>The <strong>Board</strong> should maintain vigilant oversight on risk trajectory, ensuring proactive governance to prevent financial distress.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable Gray Zone (2.15)</td>
+<td>Slight upward potential</td>
+<td>Operational improvements, liquidity enhancement</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Premium valuation</td>
+<td>Potential correction or growth</td>
+<td>Consumer spending trends, competitive dynamics</td>
+<td>Price/Earnings ratio, volume data</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Moderate risk</td>
+<td>Risk reduction possible</td>
+<td>Debt refinancing, cost control</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score momentum</strong> suggests a stable but cautious outlook with potential for gradual improvement if operational and liquidity issues are addressed.</li>
+<li>Market valuation may adjust depending on consumer cyclical sector dynamics and Burlington’s ability to sustain growth.</li>
+<li>Risk profile monitoring should focus on liquidity ratios and profitability metrics as early warning indicators.</li>
+<li>Investors and management should track these leading indicators closely to adapt strategy and investment positioning dynamically.</li>
+</ul>
+<hr />
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Burlington Stores operates in a <strong>Gray Zone</strong> financial risk environment with moderate operational and liquidity challenges. While market valuation reflects growth optimism, fundamental liquidity and profitability metrics warrant caution. Strategic focus on improving working capital and operational efficiency is critical to elevating the Altman Z-Score toward a safer zone and justifying premium valuation. Investors should adopt a <strong>hold or selective buy</strong> stance aligned with risk tolerance and monitor key financial and market indicators closely for timely decision-making.</p>
+<hr />
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and risk intelligence.</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Generated on July 02, 2025 at 12:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

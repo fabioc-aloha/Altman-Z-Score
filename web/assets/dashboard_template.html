@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{DASHBOARD_TITLE}} - Altman Z-Score</title>
+    <link rel="stylesheet" href="assets/dashboard_common.css">
+    {{ADDITIONAL_CSS}}
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <div class="header-container">
+        <div>
+            <h1>{{DASHBOARD_TITLE}}</h1>
+            {{SUBTITLE_PLACEHOLDER}}
+        </div>
+        <div class="date">Generated: {{GENERATION_DATE}}</div>
+    </div>
+
+    <div class="summary-section">
+        <h2>Portfolio Summary</h2>
+        <div class="stats-grid">
+            {{STATS_GRID}}
+        </div>
+        <div class="summary-text">
+            {{SUMMARY_TEXT}}
+        </div>
+    </div>
+
+    {{MODEL_INFO_PLACEHOLDER}}
+
+    <h2>Companies</h2>
+    <div class="company-grid">
+        {{COMPANY_GRID}}
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <script>
+        // Add interactive elements, sorting, filtering
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add hover effects to company cards
+            const companyCards = document.querySelectorAll('.company-card');
+            companyCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+            });
+
+            {{ADDITIONAL_SCRIPTS}}
+        });
+    </script>
+</body>
+
+</html>

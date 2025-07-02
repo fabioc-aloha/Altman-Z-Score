@@ -1,10 +1,31 @@
 # Investment Recommendation System Flow - Technical Analysis
 
-*Version: 4.6.0 DIAMOND+ (2025-07-02) - Enhanced Glossary & Improved Report Visuals*
+*Version: 4.6.2 HOTFIX (2025-07-02) - Enhanced Documentation & Environment Updates*
+*Previous: 4.6.1 HOTFIX (2025-07-02) - Windows Terminal Compatibility & Retail Validation Framework*
+*Previous: 4.6.0 DIAMOND+ (2025-07-02) - Enhanced Glossary & Improved Report Visuals*
 
 ---
 
-## 📊 Current Data Source Architecture (v4.6.0 DIAMOND+)
+## 📊 Current Data Source Architecture (v4.6.2 HOTFIX)
+
+### 🛠️ **HOTFIX v4.6.2: Enhanced Documentation & Environment Updates**
+
+**KEY HOTFIX IMPROVEMENTS:**
+- **📚 AI Learning Documentation**: Updated copilot instructions with new learnings from environment & architecture 
+- **✅ SEC EDGAR Integration Guide**: Added explicit documentation for SEC EDGAR fallback mechanisms
+- **🔧 Improved Error Messages**: Enhanced cache management and system compatibility messaging
+- **📂 Documentation Versioning**: Implemented versioning for key intellectual contributions
+- **🛠️ PowerShell Standardization**: Enhanced PowerShell scripts with consistent formatting and error handling
+
+### 🛠️ **HOTFIX v4.6.1: Windows Terminal Compatibility & Retail Validation Framework**
+
+**KEY HOTFIX IMPROVEMENTS:**
+- **✅ Windows Terminal Compatibility**: Replaced Unicode characters with ASCII alternatives for Windows compatibility
+- **📂 Centralized Retail Validation**: Unified retail validation framework in dedicated directory structure
+- **🔄 SEC EDGAR Integration**: Added SEC EDGAR fallback for delisted companies in retail validation
+- **📚 Consolidated Documentation**: Moved all retail validation documentation to centralized location
+- **🧹 Python Cache Management**: Added PowerShell function to clear Python cache files
+- **📊 Enhanced Diagnostic Outputs**: Improved error reporting and environment details in scripts
 
 ### 💎 **DIAMOND+ v4.6.0: Enhanced Glossary & Improved Report Visuals**
 
@@ -21,9 +42,10 @@
 
 ### Data Sources
 
-**CURRENT ARCHITECTURE (2025-07-02 DIAMOND+):**
+**CURRENT ARCHITECTURE (2025-07-02 HOTFIX v4.6.1):**
 - **🎯 Primary**: FMP (Financial Modeling Prep) - Standardized financial metrics
 - **📈 Secondary**: Yahoo Finance - Market data and pricing
+- **📂 Fallback**: SEC EDGAR - Financial data for delisted/bankrupt companies
 - **💎 Novel Enhancement**: Retail-specific inventory turnover integration
 
 **DESIGN PRINCIPLES**: 
@@ -31,6 +53,7 @@
 - 🚀 **Performance Optimized**: Smart caching with 48-hour TTL
 - 🔧 **Simplified Integration**: No complex field mapping required
 - 🛡️ **Reliable Sources**: Professional-grade financial data APIs
+- 📈 **Comprehensive Coverage**: SEC EDGAR fallback for delisted companies
 
 ### Smart Caching System
 
@@ -467,8 +490,8 @@ web/
 | **`setup_azure_hosting.ps1`** | Azure deployment setup | Cloud hosting configuration |
 | **`deploy_to_azure_storage.ps1`** | Azure deployment execution | Automated cloud deployment |
 | **`monitor_azure_costs.ps1`** | Azure cost monitoring | Cost tracking and optimization |
-| **💎 `run_retail_validation.ps1`** | **Novel retail model validation** | **Automated retail Z-Score backtesting** |
-| **💎 `run_retail_validation.bat`** | **Cross-platform retail validation** | **Batch retail model testing** |
+| **�️ `retail_validation/scripts/run_retail_validation.ps1`** | **Centralized retail model validation** | **Enhanced framework with SEC EDGAR fallback** |
+| **� `Clear-PythonCache`** | **Python cache management** | **Function to clear __pycache__ and .pyc files** |
 | **📊 `generate_model_portfolios.py`** | **Model-specific dashboards** | **Z-Score model-specific portfolio generation** |
 
 ### **PowerShell Script Features**:
@@ -476,6 +499,8 @@ web/
 - **🛡️ Error Handling**: Comprehensive error recovery and logging
 - **⚡ Performance Optimization**: Configurable batch sizes and parallel processing
 - **📋 Flexible Configuration**: Command-line parameters for customization
+- **🖥️ Windows Compatibility**: ASCII output formats for cross-platform compatibility
+- **🧹 Cache Management**: Built-in functions to clear Python cache files
 
 ```powershell
 # Example: Parallel portfolio analysis
@@ -483,6 +508,12 @@ web/
 
 # Example: Generate all dashboards with improved performance
 .\generate_all_dashboards_improved.ps1 -output_dir "web" -theme "professional"
+
+# Example: Run retail model validation with SEC EDGAR fallback
+.\retail_validation\scripts\run_retail_validation.ps1 -FullValidation -UseSECEDGAR
+
+# Example: Clear Python cache files before running
+.\retail_validation\scripts\run_retail_validation.ps1 -ClearCache -QuickTest
 ```
 
 ---

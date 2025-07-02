@@ -458,7 +458,7 @@ Write-Host "🧹 " -NoNewline -ForegroundColor $Colors.Info
 Write-Host "Cleaning up old CSS files..." -NoNewline -ForegroundColor $Colors.Info
 Get-ChildItem -Path "$webDir\portfolio_*.css" -ErrorAction SilentlyContinue | ForEach-Object {
     Remove-Item -Path $_.FullName -Force
-    Write-Host " ✓" -NoNewline -ForegroundColor $Colors.Success
+    Write-Host " [OK]" -NoNewline -ForegroundColor $Colors.Success
 }
 Write-Host " done" -ForegroundColor $Colors.Success
 

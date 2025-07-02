@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private & Service Companies - Altman Z-Score</title>
+    <style>
+/* 
+ * Altman Z-Score Dashboard Common Styles
+ * Standardized styles for all dashboard types
+ */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+h1,
+h2 {
+    color: #1a5276;
+    margin-top: 30px;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date {
+    text-align: right;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #555;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+/* Stats section styling */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #2980b9;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+/* Summary section styling */
+.summary-section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-text {
+    margin-top: 25px;
+    line-height: 1.8;
+}
+
+.summary-text p {
+    margin-bottom: 15px;
+}
+
+.summary-text strong {
+    color: #2c3e50;
+}
+
+/* Company grid styling */
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.company-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.company-name {
+    flex-grow: 1;
+}
+
+.company-name h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+    color: #2c3e50;
+}
+
+.company-ticker {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    font-weight: normal;
+}
+
+.company-metrics {
+    margin: 15px 0;
+    flex-grow: 1;
+}
+
+.metric {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric-name {
+    color: #7f8c8d;
+}
+
+.metric-value {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.z-score {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: auto;
+}
+
+.safe {
+    background-color: #d5f5e3;
+    color: #27ae60;
+}
+
+.gray {
+    background-color: #f8f9fa;
+    color: #7f8c8d;
+}
+
+.distress {
+    background-color: #fadbd8;
+    color: #c0392b;
+}
+
+.model-info {
+    background: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid #3498db;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 20px 0;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .company-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .date {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+</style>
+    
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <div class="header-container">
+        <div>
+            <h1>Private & Service Companies</h1>
+            <p class="subtitle">Industry-specific financial analysis using Z'-Score</p>
+        </div>
+        <div class="date">Generated: July 02, 2025</div>
+    </div>
+
+    <div class="summary-section">
+        <h2>Portfolio Summary</h2>
+        <div class="stats-grid">
+            
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Safe Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Gray Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Distress Zone</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.5</div>
+                <div class="stat-label">Avg Z-Score</div>
+            </div>
+        </div>
+        <div class="summary-text">
+            
+    <p>This portfolio presents <strong>Private & Service Companies</strong> companies analyzed using the <strong>Z'-Score</strong>.</p>
+    <p>Among the 15 companies analyzed:</p>
+    <ul>
+        <li>4 companies are in the <strong>Safe Zone</strong> (Z-Score > 2.99)</li>
+        <li>11 companies are in the <strong>gray Zone</strong> (1.81 ≤ Z-Score ≤ 2.99)</li>
+        <li>0 companies are in the <strong>Distress Zone</strong> (Z-Score < 1.81)</li>
+    </ul>
+    <p>The average Z-Score across all companies is <strong>2.5</strong>.</p>
+    
+        </div>
+    </div>
+
+    
+        <div class="model-info">
+            
+    <h3>Model: Z'-Score</h3>
+    <p>An adaptation of the Z-Score that eliminates the market value/book value ratio, making it suitable for private firms and non-manufacturing sectors.</p>
+    <p>This dashboard applies the Z'-Score specifically designed for Private & Service Companies companies.</p>
+    
+        </div>
+
+    <h2>Companies</h2>
+    <div class="company-grid">
+        
+    <div class="company-card" data-ticker="BF-B">
+        <div class="company-header">
+            <img src="output/BF-B/BF-B_logo.png" alt="BF-B Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>BF-B Inc.</h3>
+                <span class="company-ticker">BF-B</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$32,697.45M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">18.89</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">15.32%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.98 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="CHTR">
+        <div class="company-header">
+            <img src="output/CHTR/CHTR_logo.png" alt="CHTR Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>CHTR Inc.</h3>
+                <span class="company-ticker">CHTR</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$22,736.99M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">24.5</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">10.22%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.86 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="DELL">
+        <div class="company-header">
+            <img src="output/DELL/DELL_logo.png" alt="DELL Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>DELL Inc.</h3>
+                <span class="company-ticker">DELL</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$75,029.35M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.59</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">5.90%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.54 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="KKR">
+        <div class="company-header">
+            <img src="output/KKR/KKR_logo.png" alt="KKR Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>KKR Inc.</h3>
+                <span class="company-ticker">KKR</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$89,228.29M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">30.46</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">11.42%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.38 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="BX">
+        <div class="company-header">
+            <img src="output/BX/BX_logo.png" alt="BX Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>BX Inc.</h3>
+                <span class="company-ticker">BX</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$79,211.38M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">32.46</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">24.61%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.96 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="APO">
+        <div class="company-header">
+            <img src="output/APO/APO_logo.png" alt="APO Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>APO Inc.</h3>
+                <span class="company-ticker">APO</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$41,436.28M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">24.66</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">20.08%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.96 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="CG">
+        <div class="company-header">
+            <img src="output/CG/CG_logo.png" alt="CG Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>CG Inc.</h3>
+                <span class="company-ticker">CG</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$52,641.64M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">20.63</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">20.10%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.48 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="CBRE">
+        <div class="company-header">
+            <img src="output/CBRE/CBRE_logo.png" alt="CBRE Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>CBRE Inc.</h3>
+                <span class="company-ticker">CBRE</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$20,695.08M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">23.08</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">16.73%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.47 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="JLL">
+        <div class="company-header">
+            <img src="output/JLL/JLL_logo.png" alt="JLL Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>JLL Inc.</h3>
+                <span class="company-ticker">JLL</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$45,609.09M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">25.62</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">24.84%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.94 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="SPGI">
+        <div class="company-header">
+            <img src="output/SPGI/SPGI_logo.png" alt="SPGI Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>SPGI Inc.</h3>
+                <span class="company-ticker">SPGI</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$61,686.29M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">11.75</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">14.29%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.47 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="MCO">
+        <div class="company-header">
+            <img src="output/MCO/MCO_logo.png" alt="MCO Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>MCO Inc.</h3>
+                <span class="company-ticker">MCO</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$55,613.15M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">21.41</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">7.72%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.95 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="INFO">
+        <div class="company-header">
+            <img src="output/INFO/INFO_logo.png" alt="INFO Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>INFO Inc.</h3>
+                <span class="company-ticker">INFO</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$3,656.91M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">29.37</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">12.65%</span>
+        </div>
+            <div class="z-score safe">
+                Z-Score: 3.36 (Safe Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="FAF">
+        <div class="company-header">
+            <img src="output/FAF/FAF_logo.png" alt="FAF Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>FAF Inc.</h3>
+                <span class="company-ticker">FAF</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$14,841.12M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">19.39</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">19.55%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.01 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="MTG">
+        <div class="company-header">
+            <img src="output/MTG/MTG_logo.png" alt="MTG Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>MTG Inc.</h3>
+                <span class="company-ticker">MTG</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$95,163.99M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">22.78</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">6.12%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 2.36 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    <div class="company-card" data-ticker="RDN">
+        <div class="company-header">
+            <img src="output/RDN/RDN_logo.png" alt="RDN Inc. logo" class="company-logo">
+            <div class="company-name">
+                <h3>RDN Inc.</h3>
+                <span class="company-ticker">RDN</span>
+            </div>
+        </div>
+        <div class="company-metrics">
+            
+        <div class="metric">
+            <span class="metric-name">Industry</span>
+            <span class="metric-value">Private</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">Market Cap</span>
+            <span class="metric-value">$52,179.83M</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">P/E Ratio</span>
+            <span class="metric-value">32.21</span>
+        </div>
+        <div class="metric">
+            <span class="metric-name">ROE</span>
+            <span class="metric-value">8.76%</span>
+        </div>
+            <div class="z-score gray">
+                Z-Score: 1.85 (Gray Zone)
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Dashboard Home</a>
+
+    <script>
+        // Add interactive elements, sorting, filtering
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add hover effects to company cards
+            const companyCards = document.querySelectorAll('.company-card');
+            companyCards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+                });
+            });
+
+            
+        });
+    </script>
+</body>
+
+</html>

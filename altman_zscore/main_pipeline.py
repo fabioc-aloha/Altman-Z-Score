@@ -203,7 +203,7 @@ class PipelineProgressBar:
                     'name': self.current_step_name
                 })
             
-            status = "✓ Complete" if success else "✗ Failed"
+            status = "[OK] Complete" if success else "[X] Failed"
             if self.current_step < self.total_steps:
                 self.current_step = self.total_steps
                 
