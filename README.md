@@ -2,11 +2,23 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.6.2 HOTFIX (2025-07-02) �️ Enhanced Documentation & Environment Updates**
+**Version: 4.7.0 (2025-07-03) 📊 Dashboard Generator Modernization & Enhanced Features**
 
 Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis** and **industry-specific Z-Score models**.
 
-## �️ **NEW v4.6.2 HOTFIX: Enhanced Documentation & Environment Updates**
+## 📊 **NEW v4.7.0: Dashboard Generator Modernization & Enhanced Features**
+
+🔄 **DASHBOARD SYSTEM OVERHAUL:** Completely modernized dashboard generation with hybrid Python/PowerShell architecture for better maintainability and performance.
+
+🌐 **UNICODE SUPPORT:** Full international character support for company names (e.g., "Itaú Unibanco Holding S.A.") with proper UTF-8 encoding throughout the system.
+
+💡 **EXECUTIVE SUMMARIES:** AI-generated executive summaries now displayed directly in dashboard below company names for at-a-glance insights.
+
+🎯 **ENHANCED UX:** Improved dashboard layout with ticker symbols below logos, better column sorting (including confidence and quality), and more intuitive navigation.
+
+🧹 **LEGACY CLEANUP:** Removed deprecated dashboard generators and streamlined the codebase for better maintainability.
+
+## 🛠️ **PREVIOUS v4.6.2 HOTFIX: Enhanced Documentation & Environment Updates**
 
 📚 **AI LEARNING DOCUMENTATION:** Updated copilot instructions with new learnings from environment setup and architectural decisions, including rules for centralization, fallback data sources, and cache management.
 
@@ -34,23 +46,22 @@ Transform your investment decisions with **AI-powered financial health analysis*
 
 ## 🎯 **What You Get**
 
-### 💡 **Professional Investment Intelligence v4.6.0**
+### 💡 **Professional Investment Intelligence v4.7.0**
+- **� Modern Interactive Dashboard:** Self-contained HTML dashboard with advanced filtering, sorting, and real-time search
+- **🌐 International Support:** Full Unicode support for global company names and special characters
+- **💡 Executive Summary Integration:** AI-generated executive summaries displayed directly in dashboard for instant insights
+- **🎯 Enhanced User Experience:** Ticker symbols below logos, clickable rows, improved column layouts and sorting
 - **📚 Comprehensive Model Glossary:** Detailed definitions of all Z-Score models with formulas and thresholds
-- **🎯 Model Selection Clarity:** Clear explanation of automated model selection with industry-specific logic
-- **📊 Enhanced Chart Visuals:** Color-coordinated axes matching their respective lines for better readability
 - **🏆 Novel Retail Model:** Revolutionary retail-specific Z-Score with inventory turnover integration
 - **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
-- **💡 Investment Recommendations:** Clear BUY/HOLD/SELL guidance with historical context and confidence scoring
 - **🤖 AI-Powered Insights:** Comprehensive reports integrating multi-quarter trends and market intelligence
-- **⚡ Enhanced Performance:** Literature-compliant algorithms with academic validation framework
 
-### 💡 **Smart Investment Decisions with Historical Context**
-- **🧭 Improved Navigation:** Easy access to all analysis types through new navigation hub pages
-- **🌐 Model-Specific Dashboards:** Dedicated dashboards for each Z-Score model type for specialized analysis
-- **⏰ Real-Time Reporting:** Reports include generation timestamp for better audit trails and versioning
+### 💡 **Smart Investment Decisions with Modern Tools**
+- **📱 Enhanced Interactive Dashboard:** Professional dashboard with real-time filtering, sorting, and search capabilities
+- **🌐 Model-Specific Views:** Dedicated views for each Z-Score model type for specialized analysis
+- **⏰ Current Analysis Timestamps:** Reports include generation timestamp for better audit trails and versioning
 - **🎯 Risk-Adjusted Recommendations:** Tailored advice with multi-quarter trend analysis for all investor profiles
-- **📱 Enhanced Interactive Dashboards:** Professional charts with risk zone markers and multi-quarter visualizations
-- **🔍 Trend Pattern Recognition:** AI identifies seasonal patterns, trends, and turning points in financial health
+- **� Executive Insight Integration:** AI-generated summaries provide immediate understanding of financial health
 - **📊 Intelligent Portfolio Optimization:** Analyze multiple stocks with account-optimized batch processing
 
 ---
@@ -72,7 +83,32 @@ python main.py AAPL
 
 # Legacy batch processing (still available)
 pwsh.exe -File run_batch_examples.ps1    # Interactive menu for sector analysis
+
+# Generate modern interactive dashboard (NEW v4.7.0)
+.\generate_web.ps1
+# 📊 Creates self-contained HTML dashboard with advanced features
 ```
+
+### 📊 **NEW: Modern Interactive Dashboard**
+```powershell
+# Generate dashboard from existing analysis
+.\generate_web.ps1
+
+# Skip data copy for faster iterations during development
+.\generate_web.ps1 -SkipDataCopy
+
+# Verbose output for debugging
+.\generate_web.ps1 -Verbose
+```
+
+**Dashboard Features:**
+- **🌐 Self-Contained:** Single HTML file with embedded CSS and JavaScript
+- **🔍 Advanced Filtering:** Filter by model, risk category, and investment recommendation
+- **🔄 Real-Time Search:** Search across company names and ticker symbols
+- **📊 Sortable Columns:** Click any column header to sort (supports all data types)
+- **💡 Executive Summaries:** AI-generated insights displayed below company names
+- **🌍 International Support:** Full Unicode support for global company names
+- **📱 Responsive Design:** Works perfectly on mobile and desktop
 
 ### 🚀 **NEW: Retail Model Validation**
 ```powershell

@@ -1,16 +1,26 @@
-# Altman Z-Score Platform - Future Roadmap & Planned Features v4.5.0
+# Altman Z-Score Platform - Future Roadmap & Planned Features v4.7.0
 
 **Purpose**: Documents FUTURE development plans, priorities, and actionable tasks.
 
 For **PAST** accomplishments → see [`CHANGELOG.md`](CHANGELOG.md)  
-For **PRESENT** system architecture → see [`docs/technical/FLOW.md`](docs/technical/FLOW.md)
+For **PRESENT** system architecture → see [`FLOW.md`](FLOW.md)
 
 ## Vision
 Transform the financial analysis landscape with the industry's most comprehensive Altman Z-Score platform, combining fundamental analysis with advanced market intelligence to deliver actionable investment insights.
 
-## 🎯 **STRATEGIC STATUS: v4.5.0 DIAMOND ACADEMIC EXCELLENCE COMPLETE**
+## 🎯 **STRATEGIC STATUS: v4.7.0 DASHBOARD MODERNIZATION COMPLETE**
 
-**✅ ACADEMIC ACHIEVEMENT UNLOCKED**: Successfully developed and validated a novel retail-specific Z-Score model with comprehensive empirical validation framework, representing a major intellectual contribution to financial risk assessment methodology.
+**✅ DASHBOARD EXCELLENCE ACHIEVED**: Successfully modernized the entire dashboard generation system with hybrid Python/PowerShell architecture, Unicode support, and advanced interactive features.
+
+## 📊 **v4.7.0 DASHBOARD MODERNIZATION ACCOMPLISHMENTS (Completed July 3, 2025)**
+
+**Dashboard System Overhaul:**
+- ✅ **Hybrid Architecture**: Replaced legacy dashboard system with Python/PowerShell hybrid approach
+- ✅ **Unicode Support**: Full international character support with UTF-8 encoding throughout
+- ✅ **Executive Summary Integration**: AI-generated summaries displayed directly in dashboard
+- ✅ **Enhanced UX**: Ticker symbols below logos, improved sorting, and better navigation
+- ✅ **Modern Templates**: Jinja2-based templating with self-contained HTML output
+- ✅ **Legacy Cleanup**: Removed deprecated dashboard generators and streamlined codebase
 
 ## 💎 **v4.5.0 DIAMOND RELEASE ACCOMPLISHMENTS (Completed June 30, 2025)**
 

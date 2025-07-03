@@ -1,12 +1,23 @@
 # Investment Recommendation System Flow - Technical Analysis
 
-*Version: 4.6.2 HOTFIX (2025-07-02) - Enhanced Documentation & Environment Updates*
+*Version: 4.7.0 (2025-07-03) - Dashboard Generator Modernization & Enhanced Features*
+*Previous: 4.6.2 HOTFIX (2025-07-02) - Enhanced Documentation & Environment Updates*
 *Previous: 4.6.1 HOTFIX (2025-07-02) - Windows Terminal Compatibility & Retail Validation Framework*
 *Previous: 4.6.0 DIAMOND+ (2025-07-02) - Enhanced Glossary & Improved Report Visuals*
 
 ---
 
-## 📊 Current Data Source Architecture (v4.6.2 HOTFIX)
+## 📊 Current Data Source Architecture (v4.7.0)
+
+### 📊 **NEW v4.7.0: Dashboard Generator Modernization & Enhanced Features**
+
+**KEY NEW FEATURES:**
+- **🔄 Dashboard System Overhaul**: Hybrid Python/PowerShell architecture with better separation of concerns
+- **🌐 Unicode Support**: Full international character support with UTF-8 encoding throughout
+- **💡 Executive Summary Integration**: AI-generated summaries displayed in dashboard for instant insights
+- **🎯 Enhanced UX**: Improved layout with ticker symbols below logos and better sorting capabilities
+- **🧹 Legacy Cleanup**: Removed deprecated dashboard generators and streamlined codebase
+- **📊 Modern Template System**: Jinja2-based templating for better maintainability and features
 
 ### 🛠️ **HOTFIX v4.6.2: Enhanced Documentation & Environment Updates**
 
@@ -113,6 +124,53 @@ altman_zscore/
 ├── models/                             # Z-Score model definitions
 ├── portfolio_generation/               # Portfolio generation system
 └── scripts/                            # Utility scripts
+```
+
+### Modern Dashboard Architecture (v4.7.0)
+
+**NEW HYBRID DASHBOARD SYSTEM**: `generate_web.ps1` + `scripts/generate_dashboard.py`
+
+**PowerShell Layer (`generate_web.ps1`):**
+- **📁 File Operations**: Asset copying, directory management, and file organization
+- **🔧 Environment Setup**: Prepares web directories and required assets
+- **⚡ Workflow Orchestration**: Calls Python generator and handles browser launching
+- **🛠️ Error Handling**: Comprehensive error reporting and verbose logging
+
+**Python Layer (`scripts/generate_dashboard.py`):**
+- **📊 Data Processing**: Extracts data from summary files with UTF-8 encoding
+- **🎨 Template Rendering**: Jinja2-based HTML generation with embedded assets
+- **🌐 Unicode Support**: Full international character support for company names
+- **💡 AI Integration**: Executive summary extraction and formatting
+- **🔍 Advanced Features**: Search, filtering, and sorting capabilities
+
+**Template System (`scripts/dashboard.template.html`):**
+- **📱 Responsive Design**: Mobile-first CSS with professional styling
+- **🔄 Interactive Features**: Real-time search, filtering, and column sorting
+- **💡 Executive Summaries**: AI-generated insights displayed below company names
+- **🎯 Enhanced UX**: Ticker symbols below logos, clickable rows, improved navigation
+- **📊 Self-Contained**: Single HTML file with embedded CSS and JavaScript
+
+**Dashboard Features:**
+```javascript
+// Advanced filtering and search capabilities
+- Real-time search across symbols and company names
+- Multi-criteria filtering (model, risk, recommendation)
+- Column sorting with proper data type handling
+- Executive summary integration with markdown processing
+- Unicode support for international companies
+- Responsive design for all screen sizes
+```
+
+**File Structure:**
+```
+web/
+├── dashboard.html                      # Generated self-contained dashboard
+├── output/                            # Copied analysis data
+│   └── [TICKER]/
+│       ├── [TICKER]_summary.txt       # Parsed by dashboard generator
+│       ├── [TICKER]_comprehensive_report.html
+│       └── [TICKER]_logo.png
+└── default_logo.png                   # Fallback logo for missing images
 ```
 
 ## 🎯 Executive Summary

@@ -268,8 +268,15 @@ class ReportGenerator:
         """Generate text summary content."""
         content = []
         content.append(f"=== ALTMAN Z-SCORE ANALYSIS SUMMARY ===")
+        
+        # Add ticker and company name as separate lines
         content.append(f"Ticker: {zscore_result.ticker}")
-        content.append(f"Analysis Date: {zscore_result.calculation_timestamp}")
+        
+        # Get company name for display
+        company_name = self._get_company_name(zscore_result)
+        content.append(f"Company Name: {company_name}")
+        
+        content.append(f"Analysis Date: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}")
         content.append("")
         
         # Z-Score Summary

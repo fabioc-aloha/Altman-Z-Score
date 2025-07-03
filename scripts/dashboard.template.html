@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Stock Analysis Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .filters {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .table-container {
+            padding: 0 30px 30px;
+            overflow-x: auto;
+        }
+
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin-top: 20px;
+            table-layout: auto;
+        }
+
+        .stock-table th,
+        .stock-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .stock-table th {
+            font-weight: 600;
+            color: #495057;
+            background: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            user-select: none;
+            font-size: 0.85rem;
+        }
+
+        .stock-table th:hover {
+            background: #e9ecef;
+            color: #2c3e50;
+        }
+
+        .stock-table th[data-sort]:after {
+            content: " ⇅";
+            color: #adb5bd;
+            font-size: 0.8em;
+        }
+
+        /* Logo column styles */
+        .stock-table td:first-child {
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Company name column - flexible width */
+        .stock-table td:nth-child(2),
+        .stock-table th:nth-child(2) {
+            width: 360px;
+        }
+
+        /* Z-Score */
+        .stock-table td:nth-child(3),
+        .stock-table th:nth-child(3) {
+            width: 90px;
+        }
+
+        /* Risk */
+        .stock-table td:nth-child(4),
+        .stock-table th:nth-child(4) {
+            width: 100px;
+        }
+
+        /* Recommendation */
+        .stock-table td:nth-child(5),
+        .stock-table th:nth-child(5) {
+            width: 120px;
+        }
+
+        /* Confidence */
+        .stock-table td:nth-child(6),
+        .stock-table th:nth-child(6) {
+            width: 90px;
+        }
+
+        /* Model */
+        .stock-table td:nth-child(7),
+        .stock-table th:nth-child(7) {
+            width: 90px;
+        }
+
+        /* Quality */
+        .stock-table td:nth-child(8),
+        .stock-table th:nth-child(8) {
+            width: 80px;
+        }
+
+        /* Analysis Date */
+        .stock-table td:nth-child(9),
+        .stock-table th:nth-child(9) {
+            width: 120px;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid #e9ecef;
+            padding: 3px;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .stock-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.9rem;
+        }
+
+        .stock-table tr:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .stock-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .stock-table tbody tr:hover {
+            background: #e3f2fd !important;
+        }
+
+        .stock-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .symbol {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .company-name {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .z-score {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .z-score.excellent {
+            color: #27ae60;
+        }
+
+        .z-score.good {
+            color: #2ecc71;
+        }
+
+        .z-score.fair {
+            color: #f39c12;
+        }
+
+        .z-score.poor {
+            color: #e74c3c;
+        }
+
+        .z-score.distress {
+            color: #c0392b;
+        }
+
+        .recommendation {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-align: center;
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .recommendation.strong-buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .recommendation.buy {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .recommendation.hold {
+            background: #f39c12;
+            color: white;
+        }
+
+        .recommendation.sell {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .company-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Altman Z-Score Stock Analysis Dashboard</h1>
+            <p>AI-Driven financial health analysis for your portfolio</p>
+        </div>
+
+        <div class="filters">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="search">Search</label>
+                    <input type="text" id="search" placeholder="Search by symbol or company name...">
+                </div>
+                <div class="filter-group">
+                    <label for="model">Model</label>
+                    <select id="model">
+                        <option value="">All Models</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="risk">Risk Category</label>
+                    <select id="risk">
+                        <option value="">All Risk Levels</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="recommendation">Recommendation</label>
+                    <select id="recommendation">
+                        <option value="">All Recommendations</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th data-sort="symbol">Logo/Symbol</th>
+                        <th data-sort="name">Company</th>
+                        <th data-sort="zscore">Z-Score</th>
+                        <th data-sort="risk">Risk</th>
+                        <th data-sort="recommendation">Recommendation</th>
+                        <th data-sort="confidence">Confidence</th>
+                        <th data-sort="model">Model</th>
+                        <th data-sort="quality">Quality</th>
+                        <th data-sort="analysisdate">Analysis Date</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody">
+                    <!-- Table rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Stock data injected by Jinja2 template - must be defined before dashboard.js
+        const stockData = {{ stock_data_json| safe }};
+
+        // Helper function to get Z-Score color class
+        function getZScoreClass(score) {
+            if (score >= 8) return 'excellent';
+            if (score >= 5) return 'good';
+            if (score >= 3) return 'fair';
+            if (score >= 1.8) return 'poor';
+            return 'distress';
+        }
+
+        // Open company comprehensive report
+        function openCompanyReport(symbol) {
+            const reportPath = `output/${symbol}/${symbol}_comprehensive_report.html`;
+
+            // Check if the file exists by trying to open it
+            // If it doesn't exist, it will show a 404 error which is better than silent failure
+            window.open(reportPath, '_blank');
+        }
+
+        // Build table row HTML
+        function buildTableRow(stock) {
+            // Always ensure we have a valid logo path
+            const logoPath = stock.Logo && stock.Logo !== 'default_logo.png'
+                ? stock.Logo
+                : 'default_logo.png';
+
+            return `
+                <tr onclick="openCompanyReport('${stock.Symbol}')" style="cursor: pointer;" title="Click to view detailed report for ${stock.Name}">
+                    <td>
+                        <img class="company-logo" src="${logoPath}" alt="${stock.Symbol}" 
+                             onerror="this.src='default_logo.png'" loading="lazy" 
+                             title="${stock.Name}">
+                        <div class="symbol" style="font-weight: 700; color: #2c3e50; font-size: 0.85rem; margin-top: 4px; text-align: center;">${stock.Symbol}</div>
+                    </td>
+                    <td>
+                        <div class="company-name" style="font-weight: bold;">${stock.Name}</div>
+                        ${stock.ExecutiveSummary ? `<div class="executive-summary" style="font-size: 0.75em; color: #666; margin-top: 4px; line-height: 1.3;">${stock.ExecutiveSummary}</div>` : ''}
+                    </td>
+                    <td>
+                        <div class="z-score ${getZScoreClass(stock.ZScore)}">${stock.ZScore.toFixed(2)}</div>
+                    </td>
+                    <td>
+                        <div class="risk-category">${stock.Risk || 'N/A'}</div>
+                    </td>
+                    <td>
+                        <div class="recommendation ${stock.Recommendation.toLowerCase().replace(' ', '-')}">${stock.Recommendation}</div>
+                    </td>
+                    <td>
+                        <div class="confidence">${stock.Confidence || 'N/A'}</div>
+                    </td>
+                    <td>
+                        <div class="model-type">${stock.Model || 'N/A'}</div>
+                    </td>
+                    <td>
+                        <div class="data-quality">${stock.Quality || 'N/A'}</div>
+                    </td>
+                    <td>
+                        <div class="analysis-date">${stock.AnalysisDate || 'N/A'}</div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Update table with filtered data
+        function updateTable(data = stockData) {
+            // Don't update if no data is available yet
+            if (!data || data.length === 0) return;
+
+            const tbody = document.getElementById('stockTableBody');
+            if (!tbody) return; // Don't update if table body doesn't exist yet
+
+            const rows = data.map(buildTableRow).join('');
+
+            // Only update DOM if content has changed
+            if (tbody.innerHTML !== rows) {
+                tbody.innerHTML = rows;
+            }
+        }
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            // Don't populate if no data is available yet
+            if (!stockData || stockData.length === 0) return;
+
+            const models = [...new Set(stockData.map(s => s.Model).filter(Boolean))].sort();
+            const risks = [...new Set(stockData.map(s => s.Risk).filter(Boolean))].sort();
+            const recommendations = [...new Set(stockData.map(s => s.Recommendation))].sort();
+
+            const modelSelect = document.getElementById('model');
+            // Clear existing options except the first one
+            while (modelSelect.options.length > 1) {
+                modelSelect.remove(1);
+            }
+            models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                modelSelect.appendChild(option);
+            });
+
+            const riskSelect = document.getElementById('risk');
+            // Clear existing options except the first one
+            while (riskSelect.options.length > 1) {
+                riskSelect.remove(1);
+            }
+            risks.forEach(risk => {
+                const option = document.createElement('option');
+                option.value = risk;
+                option.textContent = risk;
+                riskSelect.appendChild(option);
+            });
+
+            const recommendationSelect = document.getElementById('recommendation');
+            // Clear existing options except the first one
+            while (recommendationSelect.options.length > 1) {
+                recommendationSelect.remove(1);
+            }
+            recommendations.forEach(rec => {
+                const option = document.createElement('option');
+                option.value = rec;
+                option.textContent = rec;
+                recommendationSelect.appendChild(option);
+            });
+        }
+
+        // Filter data based on current filter values
+        function filterData() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const model = document.getElementById('model').value;
+            const risk = document.getElementById('risk').value;
+            const recommendation = document.getElementById('recommendation').value;
+
+            const filtered = stockData.filter(stock => {
+                const matchesSearch = searchTerm === '' ||
+                    stock.Symbol.toLowerCase().includes(searchTerm) ||
+                    stock.Name.toLowerCase().includes(searchTerm);
+
+                const matchesModel = model === '' || stock.Model === model;
+                const matchesRisk = risk === '' || stock.Risk === risk;
+                const matchesRecommendation = recommendation === '' || stock.Recommendation === recommendation;
+
+                return matchesSearch && matchesModel && matchesRisk && matchesRecommendation;
+            });
+
+            updateTable(filtered);
+        }
+
+        // Handle sort clicks
+        let currentSort = { column: 'symbol', ascending: true };
+
+        function sortData(column) {
+            if (currentSort.column === column) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort = { column, ascending: true };
+            }
+
+            const sortedData = [...stockData].sort((a, b) => {
+                let valueA, valueB;
+
+                switch (column) {
+                    case 'symbol':
+                        valueA = a.Symbol;
+                        valueB = b.Symbol;
+                        break;
+                    case 'name':
+                        valueA = a.Name;
+                        valueB = b.Name;
+                        break;
+                    case 'zscore':
+                        valueA = a.ZScore;
+                        valueB = b.ZScore;
+                        break;
+                    case 'recommendation':
+                        valueA = a.Recommendation;
+                        valueB = b.Recommendation;
+                        break;
+                    case 'risk':
+                        valueA = a.Risk || '';
+                        valueB = b.Risk || '';
+                        break;
+                    case 'confidence':
+                        // Convert confidence percentage to number for proper sorting
+                        valueA = parseFloat(a.Confidence) || 0;
+                        valueB = parseFloat(b.Confidence) || 0;
+                        break;
+                    case 'quality':
+                        // Convert quality percentage to number for proper sorting
+                        valueA = parseFloat(a.Quality) || 0;
+                        valueB = parseFloat(b.Quality) || 0;
+                        break;
+                    case 'model':
+                        valueA = a.Model || '';
+                        valueB = b.Model || '';
+                        break;
+                    case 'analysisdate':
+                        valueA = a.AnalysisDate || '';
+                        valueB = b.AnalysisDate || '';
+                        break;
+                }
+
+                if (typeof valueA === 'number' && typeof valueB === 'number') {
+                    return currentSort.ascending ? valueA - valueB : valueB - valueA;
+                }
+
+                return currentSort.ascending ?
+                    valueA.toString().localeCompare(valueB.toString()) :
+                    valueB.toString().localeCompare(valueA.toString());
+            });
+
+            updateTable(sortedData);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded');
+
+            // Debug: Log initial stock data
+            console.log('Initial stock data:', stockData);
+
+            // Ensure stock data is available and valid
+            if (!Array.isArray(stockData)) {
+                console.error('Stock data is not an array:', stockData);
+                return;
+            }
+
+            if (stockData.length === 0) {
+                console.warn('Stock data array is empty');
+            }
+
+            // Add event listeners
+            const searchInput = document.getElementById('search');
+            const modelSelect = document.getElementById('model');
+            const riskSelect = document.getElementById('risk');
+            const recommendationSelect = document.getElementById('recommendation');
+            const tbody = document.getElementById('stockTableBody');
+
+            if (!searchInput || !modelSelect || !riskSelect || !recommendationSelect || !tbody) {
+                console.error('Required elements not found');
+                return;
+            }
+
+            // Attach event listeners
+            searchInput.addEventListener('input', filterData);
+            modelSelect.addEventListener('change', filterData);
+            riskSelect.addEventListener('change', filterData);
+            recommendationSelect.addEventListener('change', filterData);
+
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+                th.addEventListener('click', () => sortData(th.dataset.sort));
+            });
+
+            // Initialize the table and filters
+            try {
+                console.log('Populating filters...');
+                populateFilters();
+                console.log('Updating table...');
+                updateTable(stockData);
+                console.log('Initial table update complete');
+            } catch (error) {
+                console.error('Error during initialization:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

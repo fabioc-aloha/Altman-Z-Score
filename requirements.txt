@@ -10,6 +10,7 @@ aiohttp>=3.9.3  # Required for SEC EDGAR API calls
 pydantic>=2.6.1
 requests>=2.31.0
 yfinance>=0.2.35
+jinja2>=3.1.2  # Required for dashboard generation
 matplotlib>=3.8.2
 scipy>=1.12.0
 python-dotenv>=1.0.1

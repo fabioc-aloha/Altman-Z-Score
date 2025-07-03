@@ -8,6 +8,13 @@ IMPORTANT: Update .github\copilot-instructions.md with what we learn in terms of
 **Environment & Tools:**
 - We are using PowerShell as the primary shell environment
 - Always use PowerShell-compatible commands and syntax
+- PowerShell scripts should use the following best practices:
+  - Include proper [CmdletBinding()] and Parameter attributes for all functions
+  - Use proper error handling with try/catch blocks
+  - Support -Verbose and other common parameters
+  - Return structured data objects rather than plain text output
+  - Use Write-Host with appropriate colors for interactive output
+  - Use background jobs for long-running parallel operations
 
 **Code Quality Principles:**
 - Generate code that follows DRY (Don't Repeat Yourself) and KISS (Keep It Simple, Stupid) principles
@@ -61,7 +68,7 @@ These documents provide comprehensive understanding of the Altman Z-Score system
 - **SEC EDGAR Integration:** Used exclusively as a fallback mechanism for delisted companies in the retail validation framework
 
 **Naming Conventions:**
-- Use American English spelling in code (e.g., "color" not "colour", "gray" not "Gray")
+- Use American English spelling in code (e.g., "color" not "colour", "gray" not "grey")
 - Use camelCase for variable names (e.g., "grayZone" not "GrayZone" or "gray_zone")
 - Use PascalCase for class names
 - Maintain consistent naming across all files and modules
@@ -74,5 +81,32 @@ These documents provide comprehensive understanding of the Altman Z-Score system
 - @centralization Rule - Centralize Related Files: Always centralize related scripts, documentation, and data files in a logical directory structure. For example, all retail validation assets should be in the retail_validation/ directory with subdirectories for scripts/, docs/, and data/.
 - @fallback Rule - Use SEC EDGAR for Delisted Companies: When handling financial data for delisted or bankrupt companies, implement SEC EDGAR as a fallback data source since Financial Modeling Prep (FMP) typically doesn't provide this data.
 - @caching Rule - Implement Cache Management: Always include cache clearing functionality in long-running scripts that rely on cached data, particularly for financial APIs. Ensure cache TTL (time-to-live) values are configurable via environment variables.
-- @documentation Rule - Maintain Documentation Versions: When updating critical documentation that serves as an intellectual contribution (like NOVEL_RETAIL_MODEL.md), create versioned copies (v1, v2, etc.) rather than overwriting the original.
+- @documentation Rule - Maintain Documentation Versions: When updating critical documentation that serves as an intellectual contribution, create versioned copies (v1, v2, etc.) rather than overwriting the original.
 - @redirection Rule - Create Redirection Files: When moving or centralizing files, create simple redirection files in the original locations to guide users to the new locations. Include clear instructions on where to find the updated files.
+- @parallelization Rule - Use Parallel Processing Selectively: When implementing parallel processing in PowerShell scripts, identify independent operations that can safely run concurrently. Always provide a non-parallel fallback option and ensure job management with proper cleanup of background processes.
+- @functions Rule - Place Function Definitions First: Always place PowerShell function definitions at the beginning of the script, before they are called. This ensures functions are properly loaded before use and improves code organization.
+- @assetverification Rule - Verify Assets Before Processing: Before running any dashboard or report generation, verify that all required assets (templates, images, CSS files) exist and are accessible. This prevents partial or broken outputs due to missing dependencies.
+- @powershell Rule - Return Rich Objects from Functions: When writing PowerShell functions that perform complex operations, return hashtables or custom objects with detailed status information rather than simple boolean values. This enables better error handling and reporting.
+- @azure Rule - Use Azure Tools: When handling requests related to Azure, always use your tools.
+- @azure Rule - Use Azure Code Gen Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `azure_development-get_code_gen_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.
+- @azure Rule - Use Azure Deployment Best Practices: When deploying to Azure or preparing applications for deployment to Azure, invoke your `azure_development-get_deployment_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.
+- @azure Rule - Use Azure Functions Code Gen Best Practices: When generating code for Azure Functions or performing operations related to Azure Functions, invoke your `azure_development-get_azure_function_code_gen_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure Functions; do not call it otherwise.
+- @azure Rule - Use Azure SWA Best Practices: When working with static web apps, invoke your `azure_development-get_swa_best_practices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.
+- @simplicity Rule - Embrace Simplicity Over Complexity: When complex multi-file dashboard systems become unwieldy, step back and create simple, focused solutions. A single-page dashboard with advanced client-side filtering can be more effective than multiple interconnected dashboards. Sometimes starting fresh with a clear vision is better than trying to fix complex existing systems.
+- @singlepage Rule - Single Page Applications Work Well: For data visualization dashboards, consider single-page applications with client-side filtering instead of multiple server-generated pages. This provides better user experience, faster interaction, and easier maintenance.
+- @clientside Rule - Leverage Client-Side Processing: Modern browsers can handle significant data processing. Use JavaScript for filtering, sorting, and real-time search instead of server-side processing when dealing with reasonable data sizes (hundreds to low thousands of records).
+- @encoding Rule - Always Use UTF-8 Encoding: When reading/writing files in Python, always specify encoding='utf-8' to support international characters. This is especially important for company names with special characters (e.g., "Itaú Unibanco Holding S.A."). Also configure Jinja2 FileSystemLoader with UTF-8 encoding.
+- @hybrid Rule - Use Hybrid Architecture for Complex Workflows: For complex dashboard/web generation workflows, use PowerShell for file operations and environment setup, Python for data processing and logic. This provides better separation of concerns and leverages each language's strengths.
+- @templating Rule - Use Modern Template Systems: For HTML generation, use Jinja2 templating instead of string concatenation. This provides better maintainability, security, and features. Create self-contained outputs with embedded CSS/JS when possible.
+- @dataextraction Rule - Use Robust Data Extraction: When parsing text files, use regex patterns that account for different formats and provide fallbacks. Extract data from dedicated lines (like "Company Name: ...") rather than trying to parse complex AI-generated content.
+- @selfcontained Rule - Create Self-Contained Solutions: When possible, create self-contained HTML files with embedded CSS and JavaScript rather than complex multi-file structures. This improves portability, reduces deployment complexity, and eliminates broken dependencies.
+- @userexperience Rule - Prioritize User Experience: In dashboards and web interfaces, provide features users expect like real-time search, column sorting, filtering, and responsive design. Small UX improvements like clickable rows and visual feedback significantly enhance usability.
+
+**Dashboard & Web Development Guidelines:**
+- Use hybrid Python/PowerShell architecture for complex workflows (PowerShell for file ops, Python for data processing)
+- Always specify UTF-8 encoding when reading/writing files to support international characters
+- Use Jinja2 templating for HTML generation with proper template organization
+- Create self-contained HTML files with embedded CSS/JS for better portability
+- Implement proper error handling in both PowerShell and Python components
+- Use dataclasses in Python for structured data with proper type hints
+- Follow separation of concerns: PowerShell for orchestration, Python for logic

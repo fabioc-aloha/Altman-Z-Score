@@ -1,5 +1,53 @@
 # Changelog
 
+## [4.7.0] - Dashboard Generator Modernization (July 3, 2025)
+
+### 🔄 **DASHBOARD GENERATION SYSTEM OVERHAUL**
+- **✅ SIMPLIFIED ARCHITECTURE:** Replaced complex PowerShell-based dashboard generator with hybrid Python/PowerShell solution
+  - PowerShell handles file operations and environment setup
+  - Python handles data processing and HTML generation
+  - Better separation of concerns and maintainability
+
+### 🧹 **LEGACY CLEANUP**
+- **✅ REMOVED:** Deprecated `generate_all_dashboards_improved.ps1` 
+- **✅ REMOVED:** Legacy Python dashboard generators from `scripts/utilities/`
+- **✅ CLEANED:** Removed unused dashboard-related scripts and templates
+
+### 🏗️ **NEW FEATURES & IMPROVEMENTS**
+- **✅ NEW:** Modern Python-based dashboard generator with proper type hints and error handling
+- **✅ NEW:** Jinja2 templating for better HTML generation
+- **✅ IMPROVED:** Streamlined asset management and file operations
+- **✅ IMPROVED:** Better error handling and verbose logging
+- **✅ IMPROVED:** Consistent color scheme and output formatting
+- **✅ IMPROVED:** ASCII-safe status indicators for better Windows compatibility
+
+### 🔧 **TECHNICAL IMPROVEMENTS**
+- **✅ ADDED:** Type safety with Python dataclasses
+- **✅ ADDED:** Proper argument parsing in Python script
+- **✅ ADDED:** Better error handling and status reporting
+- **✅ FIXED:** Windows terminal encoding issues with Unicode characters
+- **✅ OPTIMIZED:** Reduced code duplication and complexity
+
+### 📚 **DOCUMENTATION**
+- **✅ UPDATED:** Added type hints and docstrings to Python code
+- **✅ UPDATED:** Improved PowerShell help documentation
+- **✅ UPDATED:** Added examples and usage instructions
+
+### 📊 **ENHANCED DATA EXTRACTION & DISPLAY** (July 3, 2025)
+- **✅ FIXED:** Unicode character support for international company names (e.g., "Itaú Unibanco Holding S.A.")
+  - Added UTF-8 encoding to all file read/write operations
+  - Fixed encoding issues in Jinja2 template loading
+  - Properly handles accented characters and special symbols
+- **✅ NEW:** Executive summary extraction and display
+  - Extracts AI-generated executive summaries from analysis reports
+  - Displays summaries in smaller font below company names in dashboard
+  - Automatically truncates long summaries and removes markdown formatting
+  - Enhances dashboard with actionable insights at a glance
+- **✅ IMPROVED:** Better parsing of analysis reports with current date/time stamps
+  - Updated to extract data from new "Company Name:" line format
+  - Uses report generation time instead of calculation timestamp
+  - More robust data extraction with proper fallbacks
+
 ## [4.6.2] - HOTFIX v4.6.2 - Enhanced Documentation & Environment Updates (July 2, 2025)
 
 ### 📚 **AI LEARNING DOCUMENTATION**
@@ -136,7 +184,7 @@
 
 ## [4.5.0] - DIAMOND Release - Novel Retail Z-Score Model & Academic Excellence (June 30, 2025)
 
-### 💎 **ACADEMIC ACHIEVEMENT: NOVEL RETAIL Z-SCORE MODEL**
+### 💎 **ACADEMIC ACHIEVEMENT: NOVEL RETAIL Z-Score MODEL**
 - **✅ ACADEMIC PAPER:** Complete academic paper documenting novel retail-specific Z-Score model (`NOVEL_RETAIL_MODEL.md`)
 - **✅ INVENTORY INTEGRATION:** Revolutionary X₆ component incorporating inventory turnover into Z-Score calculations
 - **✅ RETAIL OPTIMIZATION:** Industry-specific thresholds and logic for retail sector financial analysis
@@ -857,70 +905,30 @@ This Golden Release represents the culmination of platform development, deliveri
 - **Quality Gates:** Data validation, API rate limiting compliance, comprehensive testing
 - **Dependencies:** SEC EDGAR API integration, Yahoo Finance API integration
 
-## [3.6.0-dev] - Strategic Architecture Pivot (June 22, 2025)
+### Optimized
+- **Streamlined Asset Management**: Removed unnecessary CSS and JS file copying since dashboard is now self-contained
+  - No longer copies `dashboard.css` and `dashboard.js` to web directory
+  - Only copies essential assets (default logo for fallback)
+  - Reduces web directory clutter and improves build performance
+  - Maintains full functionality with embedded styles and scripts
 
-### 🎯 **MAJOR STRATEGIC CHANGE**: FMP API First Approach
-- **Strategic Decision**: Pivoted from SEC EDGAR + field mapping to FMP API direct approach
-- **Rationale**: F-Score data validation confirmed 100% calculation capability with FMP API
-- **Impact**: Significantly simplified architecture, reduced complexity, improved data quality
+### Added
+- **Clickable Company Rows**: Dashboard rows now link to detailed company reports
+  - Click any company row to open its comprehensive report in a new tab
+  - Links to `output/{SYMBOL}/{SYMBOL}_comprehensive_report.html`
+  - Added visual feedback with hover effects and cursor pointer
+  - Tooltip shows "Click to view detailed report for [Company Name]"
+  - Enhanced user experience with smooth transitions and highlighting
 
-### 🏗️ **Infrastructure Migration to FMP Strategy**
-- **Cache Layer Redesign**: Migrated from SEC field mapping cache to FMP financial data cache
-  - Replaced `store_field_mappings()` / `load_field_mappings()` with `store_financial_data()` / `load_financial_data()`
-  - Updated cache structure for FMP API data (income_statement, balance_sheet, cash_flow, ratios)
-  - Added per-symbol cache directories with statement-specific files
-  - Enhanced data validation for FMP financial statement structures
-- **Validation Framework Update**: Added `validate_financial_data()` for FMP data integrity checking
-  - Cross-statement consistency validation (symbol, date alignment)
-  - Business logic validation (balance sheet equation, ratio ranges)
-  - Statement-specific field requirements validation
-- **Documentation Updates**: 
-  - Added comprehensive FMP API documentation to `APIS.md`
-  - Updated `REFACTORING_PLAN.md` with FMP-first architecture
-  - Updated `TODO.md` with new implementation priorities
+### Adjusted
+- **Logo Size Optimization**: Reduced company logo size from 100x100px to 80x80px
+  - Better balance between visibility and table layout
+  - Improved dashboard readability and spacing
+  - Adjusted logo column width from 120px to 100px for better proportions
 
-### 📊 **Data Strategy Validation**
-- **F-Score Multi-Company Validation**: Completed comprehensive testing across sectors
-  - Technology: AAPL (Apple) - F-Score: 7/9
-  - Consumer Electronics: SONO (Sonos) - F-Score: 6/9  
-  - Financial Services US: JPM (JPMorgan) - F-Score: 3/9
-  - International Banking: BBD (Banco Bradesco) - F-Score: 5/9
-  - International Banking: ITUB (Itaú Unibanco) - F-Score: 5/9
-- **Multi-Currency Support**: Validated USD and BRL reporting currencies
-- **ADR Support**: Confirmed international ADR companies fully supported
-- **Banking Sector Insights**: Documented industry-specific patterns (negative OCF normal for banks)
-
-### ✅ **Benefits Achieved**
-1. **Simplified Data Pipeline**: No field mapping complexity or AI disambiguation
-2. **Professional Data Quality**: Normalized financial data from FMP professional service
-3. **Faster Implementation**: Direct access to financial metrics without preprocessing
-4. **International Support**: Multi-currency and cross-border company support
-5. **Proven Viability**: 100% data coverage confirmed for both Z-Score and F-Score calculations
-
-### 🔄 **Architecture Impact**
-- **Layer 0**: ~~SEC Field Mapping Cache~~ → **FMP Financial Data Cache** ✅
-- **Layer 1**: ~~SEC + Yahoo Data Fetch~~ → **FMP API + Yahoo Market Data** (next)
-- **Layer 2**: ~~Complex Field Mapping~~ → **Simple Data Normalization** (simplified)
-- **Layers 3-6**: Remain unchanged but benefit from cleaner data input
-
-## [3.10.1] - Pipeline Interface Standardization (June 24, 2025)
-
-### 🎯 **STRATEGIC MILESTONE: COMPLETE INTERFACE HARMONIZATION**
-- **✅ INTERFACE CONSISTENCY:** Standardized all pipeline layers to use consistent data interfaces
-- **✅ LIST-BASED RESULTS:** Updated DataMerger to return List[MergedFinancialData] for future multi-period support
-- **✅ PARAMETER STANDARDIZATION:** Added start_date parameter support throughout data layer
-- **✅ FULL PIPELINE INTEGRATION:** Main pipeline now works end-to-end with all output generation
-- **✅ TEST INFRASTRUCTURE:** All integration tests updated and passing with new interface
-
-### 🔧 **TECHNICAL IMPROVEMENTS**
-- **✅ DATA MERGER INTERFACE:** Updated merge_financial_data to accept start_date and return List
-- **✅ PIPELINE COMPATIBILITY:** Main pipeline handles both single and multi-period data structures
-- **✅ BACKWARD COMPATIBILITY:** Maintained API compatibility while enabling future enhancements
-- **✅ ERROR HANDLING:** Robust error handling for interface mismatches
-- **✅ INDENTATION FIXES:** Corrected code formatting issues in DataMerger class
-
-### 🧪 **TESTING & VALIDATION**
-- **✅ COMPLETE PIPELINE TESTS:** All 6 integration tests passing (end-to-end, data integration, complete pipeline)
-- **✅ MULTI-TICKER VALIDATION:** Successfully tested with MSFT and AAPL
-- **✅ OUTPUT GENERATION:** All output types (CSV, JSON, Charts, Reports) working correctly
-- **✅ INTERFACE COMPATIBILITY:** Both public and class methods properly aligned
+### Removed
+- **Market Cap Column**: Removed market cap column from dashboard since we don't have that data
+  - Removed "Market Cap" header from table
+  - Removed market cap data display from table rows
+  - Removed related CSS styling and JavaScript functions
+  - Simplified table layout with relevant columns only

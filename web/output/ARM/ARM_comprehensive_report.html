@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - ARM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Arm Holdings plc American Depositary Shares (ARM)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="ARM_logo.png" alt="Arm Holdings plc American Depositary Shares Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High market beta - amplified market movements</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="ARM_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                <p>Your browser does not support iframes.
+                    <a href="ARM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">48.46</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$155.09</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$164.3B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>204.1</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>100.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>67.8</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>2.40</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.04</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-54.0%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>5.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> ARM Holdings plc (Ticker: ARM)<br />
+<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>ARM Holdings plc demonstrates an exceptionally strong financial position as evidenced by its Altman Z-Score consistently well above the Safe Zone threshold of 3.0, with recent values ranging from 38.47 to 49.40 over the last eight quarters. This places ARM firmly in the <strong>Safe Zone</strong>, indicating minimal bankruptcy risk and robust operational health. The AI Risk Analysis, while not explicitly quantified here, can be inferred as <strong>Low Risk</strong> given the Z-Score magnitude and stable trajectory.</p>
+<p><strong>AI Peer Analysis</strong> positions ARM significantly above the typical semiconductor industry average Z-Score (industry averages generally range 2.5-4.0), highlighting ARM’s superior financial resilience and competitive advantage. This outperformance suggests ARM is a leader in financial stability within its sector.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not directly provided, but market valuation indicators such as a very high P/E ratio of <strong>204.07</strong> and EV/EBITDA of <strong>169.63</strong> imply strong investor growth expectations, albeit with potential valuation risk. The zero dividend yield and zero volatility metrics suggest a growth-focused stock with low current income return and stable price movement, possibly due to limited trading data or recent IPO/market relisting effects.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>40.86 - 49.40</td>
+<td>Extremely safe financial status</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$164.28 billion</td>
+<td>Large-cap technology leader</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$155.09</td>
+<td>High valuation reflecting growth</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>204.07</td>
+<td>High growth expectations</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>169.63</td>
+<td>Premium valuation</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.437</td>
+<td>Moderate liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.397</td>
+<td>Strong earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.046</td>
+<td>Moderate operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.139</td>
+<td>Low asset utilization typical for IP licensing</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No dividend payout</td>
+</tr>
+</tbody>
+</table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Recommendation:</strong> <strong>BUY with a Growth Profile Focus</strong>  </li>
+<li><strong>Rationale:</strong> ARM’s exceptional Z-Score and market leadership in semiconductors combined with strong retained earnings and operating profitability support a confident growth investment stance.  </li>
+<li><strong>Caveat:</strong> High valuation multiples warrant monitoring for potential market corrections or valuation re-rating.  </li>
+<li><strong>Timing:</strong> Favor entry on any short-term price pullbacks or consolidation phases to optimize risk/reward.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark (Semiconductors)</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.437</td>
+<td>~1.0 - 1.5</td>
+<td>Below typical benchmark; moderate liquidity</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.437</td>
+<td>N/A</td>
+<td>Indicates working capital covers ~44% of assets</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0 (typical)</td>
+<td>Data missing; inferred low leverage due to high Z-Score</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: Not provided</td>
+<td>N/A</td>
+<td>EBIT Ratio 4.6% suggests moderate earnings</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.139</td>
+<td>~0.3 - 0.5 (higher in manufacturing)</td>
+<td>Low asset turnover typical for IP licensing</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.046</td>
+<td>~0.05 - 0.10</td>
+<td>Moderate profitability, consistent with industry</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.397</td>
+<td>N/A</td>
+<td>Strong earnings retention supporting growth</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>Not available; inferred stable from Z-Score</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> ARM’s current ratio of <strong>0.437</strong> is below the semiconductor industry norm (~1.0-1.5), indicating tighter short-term liquidity. However, the very high Altman Z-Score suggests this is not a pressing concern, possibly due to strong cash flows or low short-term liabilities.  </li>
+<li><strong>Leverage:</strong> Although explicit debt-to-equity data is missing, the Z-Score’s market value equity to book debt component implies very strong equity backing and low financial leverage risk.  </li>
+<li><strong>Operational Efficiency:</strong> The asset turnover of <strong>0.139</strong> is low compared to manufacturing peers but aligns with ARM’s business model focused on IP licensing rather than asset-heavy production. EBIT ratio of <strong>4.6%</strong> indicates moderate operating profitability, consistent with a technology licensing firm.  </li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.397</strong> reflects solid reinvestment of earnings, supporting long-term growth and innovation.  </li>
+</ul>
+<p><strong>Data Quality Note:</strong> The absence of some key ratios (debt-to-equity, interest coverage) and zero volatility metrics indicate potential data completeness issues. However, the overall data quality is sufficient to maintain high confidence in the financial health assessment.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q8)</td>
+<td>40.86</td>
+<td>Safe</td>
+<td>Strong market equity, retained earnings</td>
+<td>Stable licensing revenue, strong IP portfolio</td>
+</tr>
+<tr>
+<td>Previous Quarters</td>
+<td>38.47 - 49.40</td>
+<td>Safe</td>
+<td>Consistent profitability, equity strength</td>
+<td>Continued innovation and market expansion</td>
+</tr>
+<tr>
+<td>Earliest Quarters</td>
+<td>45.61 - 48.68</td>
+<td>Safe</td>
+<td>High retained earnings, low debt</td>
+<td>Market leadership in semiconductor IP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>ARM’s Z-Score has remained extraordinarily high and stable over eight quarters, fluctuating between <strong>38.47</strong> and <strong>49.40</strong>, far exceeding the Safe Zone threshold of 3.0.  </li>
+<li>The primary drivers are likely the company’s strong market capitalization relative to debt, consistent retained earnings, and stable EBIT margins, reflecting a resilient business model focused on licensing rather than capital-intensive manufacturing.  </li>
+<li>The lack of volatility in Z-Score suggests minimal financial distress risk and strong operational consistency.  </li>
+<li>This trend aligns with ARM’s strategic positioning in the semiconductor industry, where it licenses CPU architectures to OEMs and semiconductor firms, generating recurring revenue streams with low capital expenditure.  </li>
+<li>Compared to the industry average Z-Score (typically 2.5-4.0), ARM’s position is exceptional, underscoring its competitive moat and financial robustness.</li>
+</ul>
+<hr />
+<h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Extremely strong (Z &gt; 38)</td>
+<td>High valuation (P/E 204)</td>
+<td>Divergent</td>
+<td>Growth premium; valuation risk present</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Not explicitly provided</td>
+<td>Implied positive (high P/E)</td>
+<td>Consistent</td>
+<td>Market expects strong growth</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming peers</td>
+<td>Sector strong but lower multiples</td>
+<td>Outperforming</td>
+<td>ARM is a market leader</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The fundamental health indicated by the Altman Z-Score is <strong>exceptionally strong</strong>, signaling minimal bankruptcy risk and robust financial footing.  </li>
+<li>Market signals show a <strong>high valuation premium</strong> with a P/E ratio of <strong>204.07</strong> and EV/EBITDA of <strong>169.63</strong>, indicating investor expectations of rapid future growth. This creates a divergence between fundamental safety and valuation risk.  </li>
+<li>Analyst sentiment, while not directly quantified, is inferred positive given the valuation multiples and zero dividend yield, consistent with a growth stock profile.  </li>
+<li>Peer comparison confirms ARM’s outperformance in financial health and market capitalization, reinforcing its leadership in the semiconductor IP industry.  </li>
+<li>Investors should be cautious of valuation-driven volatility despite strong fundamentals, suggesting timing entry points during price consolidations or pullbacks.</li>
+</ul>
+<hr />
+<h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Probability</th>
+<th>Severity</th>
+<th>Impact on Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential EBIT decline</td>
+<td>Diversify product offerings, R&amp;D investment</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Minimal due to strong equity</td>
+<td>Maintain conservative capital structure</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Valuation correction risk</td>
+<td>Monitor market multiples, hedge exposure</td>
+</tr>
+<tr>
+<td>Technological Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Potential IP obsolescence</td>
+<td>Continuous innovation, patent protection</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Moderate probability due to reliance on continuous innovation in a fast-evolving semiconductor industry. EBIT ratio of <strong>4.6%</strong> could be pressured if competitors innovate faster.  </li>
+<li><strong>Financial Risks:</strong> Low probability and severity given ARM’s strong Z-Score and implied low leverage.  </li>
+<li><strong>Market Risks:</strong> Medium probability of valuation correction given extremely high P/E and EV/EBITDA multiples, which could impact stock price but less likely to affect Z-Score materially.  </li>
+<li><strong>Technological Risks:</strong> Medium probability but high severity if ARM’s IP becomes obsolete or less competitive, potentially impacting retained earnings and EBIT.  </li>
+<li><strong>Scenario Analysis:</strong>  </li>
+<li><strong>Best Case:</strong> Continued innovation drives EBIT and retained earnings higher, sustaining or increasing Z-Score.  </li>
+<li><strong>Base Case:</strong> Stable EBIT and retained earnings maintain Z-Score in the 38-50 range.  </li>
+<li><strong>Worst Case:</strong> Market disruption or technological obsolescence reduces EBIT and retained earnings, lowering Z-Score but unlikely to fall below safe thresholds in the short term.</li>
+</ul>
+<hr />
+<h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score &gt; 38 indicates safety but high valuation risk</td>
+<td>Wait for valuation normalization</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>NOT APPLICABLE</td>
+<td>No dividend yield</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>HOLD</td>
+<td>Premium valuation vs strong Z-Score</td>
+<td>Enter on dips</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>Strong Z-Score supports growth thesis</td>
+<td>Buy on pullbacks</td>
+<td>Immediate to 3 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>High Z-Score with valuation risk; volatility low</td>
+<td>Opportunistic entry</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold due to valuation risk despite strong financial health.  </li>
+<li><strong>Dividend investors</strong> are not suited as ARM pays no dividends.  </li>
+<li><strong>Value investors</strong> should wait for price corrections to improve entry valuation while acknowledging strong fundamentals.  </li>
+<li><strong>Growth investors</strong> can initiate or add positions given ARM’s robust Z-Score and market leadership, focusing on momentum and innovation catalysts.  </li>
+<li><strong>Aggressive investors</strong> may capitalize on low volatility and strong fundamentals for immediate entry, accepting valuation risk for potential upside.</li>
+</ul>
+<hr />
+<h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Key Metrics</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Innovation &amp; Market Expansion</td>
+<td>Retained Earnings Ratio (0.397), EBIT Ratio (0.046)</td>
+<td>Increase R&amp;D investment, expand licensing deals</td>
+<td>Revenue growth, EBIT margin improvement</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Capital Efficiency &amp; Liquidity</td>
+<td>Working Capital Ratio (0.437), Debt-to-Equity (N/A)</td>
+<td>Optimize working capital, maintain low leverage</td>
+<td>Improved liquidity ratios, stable Z-Score</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score (40+), Market Valuation</td>
+<td>Monitor valuation risks, ensure IP protection</td>
+<td>Risk mitigation, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The CEO should focus on sustaining innovation to maintain EBIT and retained earnings growth, leveraging ARM’s strong financial base.  </li>
+<li>The CFO must address liquidity constraints indicated by a working capital ratio below 1.0, ensuring operational flexibility without increasing leverage.  </li>
+<li>The Board should oversee risk management, particularly valuation and technological risks, ensuring governance frameworks support long-term sustainability.</li>
+</ul>
+<hr />
+<h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Trajectory</th>
+<th>Projected Direction</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Momentum</td>
+<td>Stable, very high (&gt;38)</td>
+<td>Slightly declining or stable</td>
+<td>Innovation pipeline, licensing growth</td>
+<td>EBIT ratio, retained earnings ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Market leader</td>
+<td>Maintain or strengthen</td>
+<td>New product launches, partnerships</td>
+<td>Market share, peer Z-Score comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low to medium</td>
+<td>Stable with vigilance</td>
+<td>Technological disruption, valuation shifts</td>
+<td>P/E ratio, R&amp;D spend, patent filings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>ARM’s Z-Score momentum is expected to remain stable or slightly decline if valuation pressures or operational challenges arise, but will likely stay well within the Safe Zone.  </li>
+<li>Market position is projected to remain strong, supported by ongoing innovation and strategic partnerships in the semiconductor industry.  </li>
+<li>Risk profile requires monitoring for technological disruption and valuation corrections, with early warning signals including EBIT margin compression and declining retained earnings.  </li>
+<li>Investors and management should track leading indicators such as EBIT ratio trends, R&amp;D investment levels, and patent activity to anticipate shifts in financial health and market positioning.</li>
+</ul>
+<hr />
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>ARM Holdings plc exhibits an <strong>exceptionally strong financial health profile</strong> with Altman Z-Scores consistently in the high 30s to 40s, indicating negligible bankruptcy risk and robust operational performance. Despite moderate liquidity ratios and moderate EBIT margins, ARM’s business model as a semiconductor IP licensor supports stable cash flows and retained earnings growth.</p>
+<p>The company commands a <strong>premium market valuation</strong> reflecting high growth expectations, which introduces valuation risk that investors should monitor closely. ARM’s leadership position in the semiconductor industry and strong innovation pipeline underpin a positive growth outlook.</p>
+<p><strong>Investment Recommendation:</strong><br />
+- <strong>Growth and aggressive investors</strong> should consider initiating or increasing positions, focusing on momentum and innovation catalysts.<br />
+- <strong>Conservative and value investors</strong> should monitor for valuation-driven price corrections to optimize entry points.<br />
+- <strong>Dividend investors</strong> are not suited due to zero yield.</p>
+<p>Continuous monitoring of operational efficiency, innovation success, and market valuation metrics is essential to sustain ARM’s financial strength and investment appeal.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to:</em><br />
+- AI Risk Analysis inferred low risk from Z-Score &gt; 38<br />
+- Financial Data Context: Market Cap $164.28B, Current Price $155.09, Working Capital Ratio 0.437, Retained Earnings Ratio 0.397, EBIT Ratio 0.046, Asset Turnover 0.139<br />
+- AI Peer Analysis: Industry average Z-Score ~2.5-4.0 vs ARM’s 38-49<br />
+- Market Analysis: P/E 204.07, EV/EBITDA 169.63, Dividend Yield 0.00%<br />
+- Sector/Industry: Technology / Semiconductors<br />
+- Data Completeness: Some missing leverage data, zero volatility metrics noted  </p>
+<hr />
+<p><em>End of AI-Powered Altman Z-Score Investment Analysis for ARM Holdings plc</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        function resizeIframe() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                try {
+                    // Wait for iframe to load
+                    iframe.onload = function () {
+                        try {
+                            // Get the content height from the iframe document
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            const body = iframeDoc.body;
+                            const html = iframeDoc.documentElement;
+
+                            // Calculate the full content height
+                            const contentHeight = Math.max(
+                                body.scrollHeight,
+                                body.offsetHeight,
+                                html.clientHeight,
+                                html.scrollHeight,
+                                html.offsetHeight
+                            );
+
+                            // Set a minimum height to ensure visibility
+                            const finalHeight = Math.max(contentHeight, 800);
+
+                            // Apply the calculated height
+                            iframe.style.height = finalHeight + 'px';
+                            container.style.height = finalHeight + 'px';
+
+                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
+
+                        } catch (e) {
+                            // If cross-origin restrictions prevent access, use a reasonable default
+                            console.log('Cross-origin restriction detected, using estimated height');
+                            iframe.style.height = '2400px';
+                            container.style.height = '2400px';
+                        }
+                    };
+
+                    // Trigger resize if iframe is already loaded
+                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                        iframe.onload();
+                    }
+
+                } catch (e) {
+                    console.log('Error resizing iframe:', e);
+                    // Fallback to fixed height
+                    iframe.style.height = '2400px';
+                    container.style.height = '2400px';
+                }
+            }
+        }
+
+        // Resize on page load
+        window.addEventListener('load', resizeIframe);
+
+        // Resize when window is resized (in case dashboard is responsive)
+        window.addEventListener('resize', function () {
+            setTimeout(resizeIframe, 100);
+        });
+
+        // Additional resize after a delay to catch any dynamic content loading
+        setTimeout(resizeIframe, 1000);
+    </script>
+</body>
+
+</html>

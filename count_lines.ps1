@@ -101,7 +101,7 @@ Write-Host "  Code/Documentation Ratio: $([math]::Round(($totalPythonLines + $to
 # Additional file type analysis
 Write-Host ""
 Write-Host "OTHER FILE TYPES:" -ForegroundColor Cyan
-$otherExtensions = @('.html', '.css', '.js', '.json', '.txt', '.bat', '.ini', '.toml')
+$otherExtensions = @('.txt', '.bat', '.ini', '.toml')
 foreach ($ext in $otherExtensions) {
     $files = Get-ChildItem -Path $workspaceRoot -Recurse -Filter "*$ext" -File | Where-Object { 
         $_.FullName -notlike "*\__pycache__\*" -and 

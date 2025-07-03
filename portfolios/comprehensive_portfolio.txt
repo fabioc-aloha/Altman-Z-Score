@@ -10,9 +10,10 @@
 # The model selection procedure automatically assigns companies to the optimal
 # analytical framework based on industry, size, and business model.
 #
-# Total Companies: 364 (cleaned - duplicates removed + micro caps + day trader favorites)
+# Total Companies: 310 (cleaned - inactive/delisted companies removed)
 # Models Included: 9 specialized analytical frameworks
 # Coverage: Global markets, multiple industries, various business models, micro cap opportunities, day trading stocks
+# Last Updated: July 2025 - Verified active trading status
 # ===============================================================================
 #
 # MODEL ASSIGNMENT PRIORITY RULES:
@@ -121,7 +122,7 @@ RACE
 # ===============================================================================
 # Formula: Z' = 0.717A + 0.847B + 3.107C + 0.420D + 0.998E
 # Replaces: Market value of equity with book value (ratio D)
-# Total Stocks: 83
+# Total Stocks: 82
 
 # ===== US TECHNOLOGY - SERVICES =====
 ORCL
@@ -208,7 +209,6 @@ GEV
 # ===== US MEDIA & ENTERTAINMENT =====
 NFLX
 PARA
-WBD
 SPOT
 
 # ===== INTERNATIONAL SERVICES =====
@@ -229,7 +229,6 @@ BIDU
 BILI
 NTES
 TME
-DIDI
 SE
 GRAB
 INFY
@@ -517,7 +516,7 @@ UL
 # =============================================================================
 # Focus: Limited liquidity, higher volatility, growth potential, specialized niches
 # Note: Traditional Z-Score with size-adjusted thresholds and liquidity considerations
-# Total Stocks: 25
+# Total Stocks: 23
 
 # ===== US MICRO CAP TECHNOLOGY =====
 HIMX
@@ -540,10 +539,8 @@ MVIS
 BCDA
 VLCN
 WKHS
-RIDE
 
 # ===== US MICRO CAP CONSUMER & RETAIL =====
-BBBY
 EXPR
 APRN
 TELL
@@ -567,20 +564,17 @@ NANO.L
 # =============================================================================
 # Focus: High volume, volatility, news sensitivity, technical patterns
 # Note: Z-Score less relevant for short-term trading - focus on momentum & liquidity
-# Total Stocks: 30
+# Total Stocks: 22
 
 # ===== MEME STOCKS & RETAIL FAVORITES =====
 GME
 AMC
-BBIG
 SNDL
 CLOV
-WISH
 
 # ===== HIGH BETA TECHNOLOGY =====
 ROKU
 SNAP
-TWTR
 SQ
 HOOD
 SOFI
@@ -598,19 +592,14 @@ MRNA
 BNTX
 NVAX
 OCGN
-ATOS
 SENS
 
 # ===== SPACs & FORMER SPACs =====
 DWAC
-IPOF
-CCIV
 
 # ===== PENNY STOCKS & HIGH VOLATILITY =====
 PROG
 GNUS
-XELA
-NAKD
 
 # ===== CRYPTOCURRENCY-ADJACENT =====
 MARA
