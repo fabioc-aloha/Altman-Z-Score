@@ -101,12 +101,7 @@ These documents provide comprehensive understanding of the Altman Z-Score system
 - @dataextraction Rule - Use Robust Data Extraction: When parsing text files, use regex patterns that account for different formats and provide fallbacks. Extract data from dedicated lines (like "Company Name: ...") rather than trying to parse complex AI-generated content.
 - @selfcontained Rule - Create Self-Contained Solutions: When possible, create self-contained HTML files with embedded CSS and JavaScript rather than complex multi-file structures. This improves portability, reduces deployment complexity, and eliminates broken dependencies.
 - @userexperience Rule - Prioritize User Experience: In dashboards and web interfaces, provide features users expect like real-time search, column sorting, filtering, and responsive design. Small UX improvements like clickable rows and visual feedback significantly enhance usability.
-
-**Dashboard & Web Development Guidelines:**
-- Use hybrid Python/PowerShell architecture for complex workflows (PowerShell for file ops, Python for data processing)
-- Always specify UTF-8 encoding when reading/writing files to support international characters
-- Use Jinja2 templating for HTML generation with proper template organization
-- Create self-contained HTML files with embedded CSS/JS for better portability
-- Implement proper error handling in both PowerShell and Python components
-- Use dataclasses in Python for structured data with proper type hints
-- Follow separation of concerns: PowerShell for orchestration, Python for logic
+- @batchfiles Rule - Use PowerShell Instead of Batch Files: Windows batch files have limitations with input handling, especially in PowerShell environments. Replace batch files with PowerShell scripts (.ps1) for better reliability, error handling, and cross-environment compatibility. PowerShell provides consistent behavior for user input, variable handling, and process management.
+- @regexpowershell Rule - Avoid Complex Regex Character Classes in PowerShell: PowerShell treats square brackets as type casting operators, causing issues with regex character classes like [+-]. Use simpler patterns, alternation (|), or escape sequences. For matching optional signs, use patterns like `(.*?)` or `(\+?-?)` instead of `[+-]?`.
+- @workingdirectory Rule - Manage Working Directories in Cross-Script Calls: When PowerShell scripts call other scripts in different directories, ensure the Python module path is correct by either changing working directory before execution or using absolute paths. Scripts should handle path resolution gracefully to avoid import errors.
+- @userinput Rule - Robust User Input Validation: When creating interactive command-line tools, validate and sanitize user input properly. Use `Read-Host` instead of `set /p` in PowerShell environments, and provide clear feedback for invalid inputs. Always test user input scenarios thoroughly.
