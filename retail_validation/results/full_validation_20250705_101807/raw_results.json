@@ -1,0 +1,1255 @@
+{
+  "PRTY": {
+    "retail_score": 0.07346267513333168,
+    "retail_risk": "Distress",
+    "traditional_score": -0.13337829565986942,
+    "traditional_risk": "Distress",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.09409933994616321,
+      "retained_earnings_ratio": -0.21091670046830635,
+      "ebit_ratio": 0.03184188207529776,
+      "market_equity_ratio": 0.03145992714094781,
+      "asset_turnover": 0.0,
+      "inventory_adjustment": 0.26374536144102684,
+      "z_score": 0.07346267513333168
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Party City Holdco Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/PRTY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\PRTY.png",
+      "period_date": "2021-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "GME": {
+    "retail_score": 8.543094216778638,
+    "retail_risk": "Safe",
+    "traditional_score": 8.270201721048046,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.8296967015011744,
+      "retained_earnings_ratio": -0.01387139599006025,
+      "ebit_ratio": -0.004459270858154339,
+      "market_equity_ratio": 11.159746057529611,
+      "asset_turnover": 0.6506791026993907,
+      "inventory_adjustment": 0.47013397195612944,
+      "z_score": 8.543094216778638
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "GameStop Corp.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GME.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\GME.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "EXPR": {
+    "retail_score": 2.1008717748706234,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 1.6285040949608076,
+    "traditional_risk": "Distress",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.12068367511129387,
+      "retained_earnings_ratio": 0.2544015160996192,
+      "ebit_ratio": -0.048262742924570466,
+      "market_equity_ratio": 0.2819778208875312,
+      "asset_turnover": 1.4377758307876005,
+      "inventory_adjustment": 0.304387541057134,
+      "z_score": 2.1008717748706234
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Express, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/EXPR.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\EXPR.png",
+      "period_date": "2023-01-28",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BIG": {
+    "retail_score": 2.4495484026076912,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.298900643519144,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.039912381074961756,
+      "retained_earnings_ratio": 0.8272157564905999,
+      "ebit_ratio": -0.11250683771042029,
+      "market_equity_ratio": 0.09355882997118535,
+      "asset_turnover": 1.420048181988501,
+      "inventory_adjustment": 0.2772811414081442,
+      "z_score": 2.4495484026076912
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Big Lots, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BIG.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BIG.png",
+      "period_date": "2024-02-03",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "SPIR": {
+    "retail_score": -2.838803997346663,
+    "retail_risk": "Distress",
+    "traditional_score": -3.7785513820812615,
+    "traditional_risk": "Distress",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.476084205088467,
+      "retained_earnings_ratio": -2.779821774506005,
+      "ebit_ratio": -0.3550768436006716,
+      "market_equity_ratio": 1.8046899669690444,
+      "asset_turnover": 0.5705850445563735,
+      "inventory_adjustment": 0.0,
+      "z_score": -2.838803997346663
+    },
+    "warnings": [
+      "Inventory turnover could not be calculated"
+    ],
+    "metadata": {
+      "company_name": "Spire Global, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/SPIR.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\SPIR.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BBW": {
+    "retail_score": 6.094814268660274,
+    "retail_risk": "Safe",
+    "traditional_score": 5.9213102592873295,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1949364731200596,
+      "retained_earnings_ratio": 0.30872270275490077,
+      "ebit_ratio": 0.22858640621335652,
+      "market_equity_ratio": 4.714417805586118,
+      "asset_turnover": 1.7119976824069858,
+      "inventory_adjustment": 0.2673904215932163,
+      "z_score": 6.094814268660274
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Build-A-Bear Workshop, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBW.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBW.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "AM": {
+    "retail_score": 2.056345662327484,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.0353911880950113,
+    "traditional_risk": "Gray Zone",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.02049100377177204,
+      "retained_earnings_ratio": 0.015715196152278788,
+      "ebit_ratio": 0.1144038232841839,
+      "market_equity_ratio": 2.3799461862453475,
+      "asset_turnover": 0.20425485460315168,
+      "inventory_adjustment": 0.0,
+      "z_score": 2.056345662327484
+    },
+    "warnings": [
+      "Inventory turnover could not be calculated"
+    ],
+    "metadata": {
+      "company_name": "Antero Midstream Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AM.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AM.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "M": {
+    "retail_score": 2.5876426321053208,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.4554121777543276,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.12260699914644556,
+      "retained_earnings_ratio": 0.39623216680892576,
+      "ebit_ratio": 0.055420070723082554,
+      "market_equity_ratio": 0.2868929134177215,
+      "asset_turnover": 1.4026338251432753,
+      "inventory_adjustment": 0.2562667860340197,
+      "z_score": 2.5876426321053208
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Macy's, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/M.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\M.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "JWN": {
+    "retail_score": 2.201437981580785,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 1.883666313114615,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.17677894267231764,
+      "retained_earnings_ratio": -0.2642203881329467,
+      "ebit_ratio": 0.05520856569261655,
+      "market_equity_ratio": 0.5269633733708152,
+      "asset_turnover": 1.6747713584653134,
+      "inventory_adjustment": 0.37214828897338403,
+      "z_score": 2.201437981580785
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Nordstrom, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JWN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\JWN.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "DDS": {
+    "retail_score": 8.007787701041247,
+    "retail_risk": "Safe",
+    "traditional_score": 7.983021038830116,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.33871557897443655,
+      "retained_earnings_ratio": 1.7637929071602982,
+      "ebit_ratio": 0.2096150327919086,
+      "market_equity_ratio": 4.1084256859496895,
+      "asset_turnover": 1.835892625827869,
+      "inventory_adjustment": 0.27868258127304907,
+      "z_score": 8.007787701041247
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Dillard's, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/DDS.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\DDS.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BBWI": {
+    "retail_score": 3.075988359491228,
+    "retail_risk": "Safe",
+    "traditional_score": 2.722364302990868,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.22352216748768472,
+      "retained_earnings_ratio": -0.32389162561576357,
+      "ebit_ratio": 0.25985221674876846,
+      "market_equity_ratio": 1.1211545170263788,
+      "asset_turnover": 1.4997947454844007,
+      "inventory_adjustment": 0.4624205267938238,
+      "z_score": 3.075988359491228
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Bath & Body Works, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBWI.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBWI.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "AEO": {
+    "retail_score": 3.611325717993448,
+    "retail_risk": "Safe",
+    "traditional_score": 3.3222378997485764,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.18731875403802103,
+      "retained_earnings_ratio": 0.6411399782028441,
+      "ebit_ratio": 0.11154479185021307,
+      "market_equity_ratio": 0.8630176184581245,
+      "asset_turnover": 1.3910114794003825,
+      "inventory_adjustment": 0.4240547601657622,
+      "z_score": 3.611325717993448
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "American Eagle Outfitters, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AEO.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AEO.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "ANF": {
+    "retail_score": 5.468484126452094,
+    "retail_risk": "Safe",
+    "traditional_score": 5.139227918135989,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.33286776183548106,
+      "retained_earnings_ratio": 0.9687374143417639,
+      "ebit_ratio": 0.22449859646709114,
+      "market_equity_ratio": 2.239662750620457,
+      "asset_turnover": 1.4996231689145718,
+      "inventory_adjustment": 0.25708848908560217,
+      "z_score": 5.468484126452094
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Abercrombie & Fitch Co.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ANF.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\ANF.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "URBN": {
+    "retail_score": 4.756151589026839,
+    "retail_risk": "Safe",
+    "traditional_score": 4.392366449243234,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.19286510837529983,
+      "retained_earnings_ratio": 0.5538398222804394,
+      "ebit_ratio": 0.1048271040031154,
+      "market_equity_ratio": 3.2202412372019986,
+      "asset_turnover": 1.2281647446166373,
+      "inventory_adjustment": 0.4861975552714928,
+      "z_score": 4.756151589026839
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Urban Outfitters, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/URBN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\URBN.png",
+      "period_date": "2025-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "GPS": {
+    "retail_score": 2.6584513801971656,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.1326546066470344,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.26386201093815737,
+      "retained_earnings_ratio": 0.2557004627681952,
+      "ebit_ratio": 0.0935633151030711,
+      "market_equity_ratio": 0.378610370026679,
+      "asset_turnover": 1.2693310896087506,
+      "inventory_adjustment": 0.35716013546202224,
+      "z_score": 2.6584513801971656
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "The Gap, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GPS.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\GPS.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "FL": {
+    "retail_score": 2.405146823098767,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.2850150212453135,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1087729697688204,
+      "retained_earnings_ratio": 0.36959098992294015,
+      "ebit_ratio": 0.015263781861292234,
+      "market_equity_ratio": 0.6137574993487888,
+      "asset_turnover": 1.1837581505631298,
+      "inventory_adjustment": 0.3096174863387978,
+      "z_score": 2.405146823098767
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Foot Locker, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/FL.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\FL.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BBY": {
+    "retail_score": 4.608310443548191,
+    "retail_risk": "Safe",
+    "traditional_score": 4.106991552070825,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.21235286158841835,
+      "retained_earnings_ratio": 0.16817751319171967,
+      "ebit_ratio": 0.08537410363956163,
+      "market_equity_ratio": 1.2726005866043093,
+      "asset_turnover": 2.8093627384657016,
+      "inventory_adjustment": 0.526761717469682,
+      "z_score": 4.608310443548191
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Best Buy Co., Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBY.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "TGT": {
+    "retail_score": 3.4065325427381508,
+    "retail_risk": "Safe",
+    "traditional_score": 2.9889251059203055,
+    "traditional_risk": "Gray Zone",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.11622150288216863,
+      "retained_earnings_ratio": 0.14004050615381952,
+      "ebit_ratio": 0.09634925305959943,
+      "market_equity_ratio": 1.0969382207270955,
+      "asset_turnover": 1.8446917897142066,
+      "inventory_adjustment": 0.5004055468341183,
+      "z_score": 3.4065325427381508
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Target Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TGT.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TGT.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "DKS": {
+    "retail_score": 4.3147665583171495,
+    "retail_risk": "Safe",
+    "traditional_score": 4.238534991565696,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1977184723063893,
+      "retained_earnings_ratio": 0.6112152243865248,
+      "ebit_ratio": 0.14092887697068104,
+      "market_equity_ratio": 2.273710223774625,
+      "asset_turnover": 1.2853276900538442,
+      "inventory_adjustment": 0.214367918172962,
+      "z_score": 4.3147665583171495
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "DICK'S Sporting Goods, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/DKS.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\DKS.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BURL": {
+    "retail_score": 3.385382436979515,
+    "retail_risk": "Safe",
+    "traditional_score": 3.0332881692125486,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.15712236128446858,
+      "retained_earnings_ratio": 0.1696274736434875,
+      "ebit_ratio": 0.0815251231612468,
+      "market_equity_ratio": 2.1090802094131598,
+      "asset_turnover": 1.2125794988217773,
+      "inventory_adjustment": 0.4245932188709667,
+      "z_score": 3.385382436979515
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Burlington Stores, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BURL.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BURL.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "TJX": {
+    "retail_score": 6.8870273034034755,
+    "retail_risk": "Safe",
+    "traditional_score": 6.4598522869244235,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2069356515165832,
+      "retained_earnings_ratio": 0.2482912847648745,
+      "ebit_ratio": 0.19849444076978803,
+      "market_equity_ratio": 6.011814033909916,
+      "asset_turnover": 1.775174021229015,
+      "inventory_adjustment": 0.5076052535949748,
+      "z_score": 6.8870273034034755
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The TJX Companies, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TJX.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TJX.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "AZO": {
+    "retail_score": 3.308345674877593,
+    "retail_risk": "Safe",
+    "traditional_score": 3.0708533662302973,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.06704150743298795,
+      "retained_earnings_ratio": -0.2576178040068377,
+      "ebit_ratio": 0.22057460007365862,
+      "market_equity_ratio": 2.875781365011061,
+      "asset_turnover": 1.076483980648487,
+      "inventory_adjustment": 0.11742362333876721,
+      "z_score": 3.308345674877593
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "AutoZone, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AZO.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AZO.png",
+      "period_date": "2024-08-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "ORLY": {
+    "retail_score": 4.586527920682741,
+    "retail_risk": "Safe",
+    "traditional_score": 4.263020015460118,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.0499599798331393,
+      "retained_earnings_ratio": -0.18741349134512275,
+      "ebit_ratio": 0.21829015289039871,
+      "market_equity_ratio": 4.800132047423925,
+      "asset_turnover": 1.1218456800074608,
+      "inventory_adjustment": 0.13334483953202805,
+      "z_score": 4.586527920682741
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "O'Reilly Automotive, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ORLY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\ORLY.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "AAP": {
+    "retail_score": 1.726009031450975,
+    "retail_risk": "Distress",
+    "traditional_score": 1.5433700204956984,
+    "traditional_risk": "Distress",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2344353997537902,
+      "retained_earnings_ratio": 0.3855467656420212,
+      "ebit_ratio": -0.06605841819155557,
+      "market_equity_ratio": 0.35851871666369,
+      "asset_turnover": 0.8422147803842321,
+      "inventory_adjustment": 0.13117569899456852,
+      "z_score": 1.726009031450975
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Advance Auto Parts, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAP.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AAP.png",
+      "period_date": "2024-12-28",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "LOW": {
+    "retail_score": 3.8207608682816008,
+    "retail_risk": "Safe",
+    "traditional_score": 3.544458234377731,
+    "traditional_risk": "Safe",
+    "category": "recovery",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.06841909888172243,
+      "retained_earnings_ratio": -0.3433483365041065,
+      "ebit_ratio": 0.24281935873045335,
+      "market_equity_ratio": 2.2317618214989623,
+      "asset_turnover": 1.9413020277481323,
+      "inventory_adjustment": 0.2753652325425546,
+      "z_score": 3.8207608682816008
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Lowe's Companies, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/LOW.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\LOW.png",
+      "period_date": "2025-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "AMZN": {
+    "retail_score": 6.6674471084985445,
+    "retail_risk": "Safe",
+    "traditional_score": 5.991221469389139,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2506873165688901,
+      "retained_earnings_ratio": 0.27663251687486196,
+      "ebit_ratio": 0.10976741655384753,
+      "market_equity_ratio": 6.998058467762684,
+      "asset_turnover": 1.020907545919788,
+      "inventory_adjustment": 0.794723407571949,
+      "z_score": 6.6674471084985445
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Amazon.com, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMZN.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\AMZN.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "COST": {
+    "retail_score": 10.884347544444537,
+    "retail_risk": "Safe",
+    "traditional_score": 10.098500116408308,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2233821655138835,
+      "retained_earnings_ratio": 0.25230914636765905,
+      "ebit_ratio": 0.13296386991450787,
+      "market_equity_ratio": 9.472628241251703,
+      "asset_turnover": 3.6438401283097765,
+      "inventory_adjustment": 0.993716594268962,
+      "z_score": 10.884347544444537
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Costco Wholesale Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/COST.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\COST.png",
+      "period_date": "2024-09-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "WMT": {
+    "retail_score": 6.880773968426405,
+    "retail_risk": "Safe",
+    "traditional_score": 6.318221952772374,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08827058963358293,
+      "retained_earnings_ratio": 0.37693378268020844,
+      "ebit_ratio": 0.11252075162083099,
+      "market_equity_ratio": 4.811802156941354,
+      "asset_turnover": 2.610908547175671,
+      "inventory_adjustment": 0.7556672868491775,
+      "z_score": 6.880773968426405
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Walmart Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/WMT.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\WMT.png",
+      "period_date": "2025-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BJ": {
+    "retail_score": 5.786605161800646,
+    "retail_risk": "Safe",
+    "traditional_score": 5.150341131054286,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.05236461837103989,
+      "retained_earnings_ratio": 0.24098719022037973,
+      "ebit_ratio": 0.10929549396664405,
+      "market_equity_ratio": 2.7696578196656056,
+      "asset_turnover": 2.901757815126169,
+      "inventory_adjustment": 0.9243158328628193,
+      "z_score": 5.786605161800646
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "BJ's Wholesale Club Holdings, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BJ.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BJ.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "HD": {
+    "retail_score": 6.473788211971136,
+    "retail_risk": "Safe",
+    "traditional_score": 6.2200418655612415,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08564383732664718,
+      "retained_earnings_ratio": 0.9314807686305517,
+      "ebit_ratio": 0.22395156004536043,
+      "market_equity_ratio": 4.1327556479620915,
+      "asset_turnover": 1.65954701983999,
+      "inventory_adjustment": 0.3774039486589058,
+      "z_score": 6.473788211971136
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The Home Depot, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/HD.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\HD.png",
+      "period_date": "2025-02-02",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "DG": {
+    "retail_score": 2.5080945603572395,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.324494775011969,
+    "traditional_risk": "Gray Zone",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.04666095328026614,
+      "retained_earnings_ratio": 0.1093923556277568,
+      "ebit_ratio": 0.055056971708844195,
+      "market_equity_ratio": 1.0587409287379677,
+      "asset_turnover": 1.3044890084015432,
+      "inventory_adjustment": 0.3550610925171029,
+      "z_score": 2.5080945603572395
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Dollar General Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/DG.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\DG.png",
+      "period_date": "2025-01-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "DLTR": {
+    "retail_score": 2.957820676751945,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.401217045286599,
+    "traditional_risk": "Gray Zone",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.34516198240720875,
+      "retained_earnings_ratio": 0.21140849603089465,
+      "ebit_ratio": 0.07841664878781378,
+      "market_equity_ratio": 1.45011179578089,
+      "asset_turnover": 0.94285024672817,
+      "inventory_adjustment": 0.3519242764471058,
+      "z_score": 2.957820676751945
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Dollar Tree, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/DLTR.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\DLTR.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "SHW": {
+    "retail_score": 4.597345956406613,
+    "retail_risk": "Safe",
+    "traditional_score": 4.151039205023398,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.13171212646936858,
+      "retained_earnings_ratio": 0.0,
+      "ebit_ratio": 0.15965234464257,
+      "market_equity_ratio": 4.530459980185278,
+      "asset_turnover": 0.9773998629012466,
+      "inventory_adjustment": 0.43352563262095184,
+      "z_score": 4.597345956406613
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The Sherwin-Williams Company",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/SHW.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\SHW.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "TIF": {
+    "error": "Data merger failed for TIF: FMP ratios calculation failed: Empty response from FMP API",
+    "category": "other",
+    "bankruptcy_date": null,
+    "data_source": "error"
+  },
+  "ITX": {
+    "error": "Data merger failed for ITX: FMP ratios calculation failed: Invalid ticker symbol 'ITX' - not found in financial databases",
+    "category": "other",
+    "bankruptcy_date": null,
+    "data_source": "error"
+  },
+  "HM-B.ST": {
+    "retail_score": 3.2630044474946525,
+    "retail_risk": "Safe",
+    "traditional_score": 2.975118776831167,
+    "traditional_risk": "Gray Zone",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.19631660137392212,
+      "retained_earnings_ratio": 0.21912836960502513,
+      "ebit_ratio": 0.09603027511736047,
+      "market_equity_ratio": 1.6498149907688633,
+      "asset_turnover": 1.3011086819004074,
+      "inventory_adjustment": 0.22549444829979182,
+      "z_score": 3.2630044474946525
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "H & M Hennes & Mauritz AB (publ)",
+      "period_date": "2024-11-30",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "9983.T": {
+    "retail_score": 8.532542515916587,
+    "retail_risk": "Safe",
+    "traditional_score": 8.280480740085144,
+    "traditional_risk": "Safe",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.526488300560408,
+      "retained_earnings_ratio": 0.49227623750371075,
+      "ebit_ratio": 0.1352889773425708,
+      "market_equity_ratio": 9.62383774988679,
+      "asset_turnover": 0.8651650910854577,
+      "inventory_adjustment": 0.25129691298177576,
+      "z_score": 8.532542515916587
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Fast Retailing Co., Ltd.",
+      "period_date": "2024-08-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "ASC.L": {
+    "retail_score": 1.8367993559546267,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 1.589428472685834,
+    "traditional_risk": "Distress",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.27566924973582246,
+      "retained_earnings_ratio": 0.058383233532934134,
+      "ebit_ratio": -0.03676470588235294,
+      "market_equity_ratio": 0.20909647408423337,
+      "asset_turnover": 1.2750968650933427,
+      "inventory_adjustment": 0.2900570183868281,
+      "z_score": 1.8367993559546267
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "ASOS Plc",
+      "period_date": "2024-08-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "ZAL.DE": {
+    "retail_score": 3.254437102253392,
+    "retail_risk": "Safe",
+    "traditional_score": 2.719044461770815,
+    "traditional_risk": "Gray Zone",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.4887335763223487,
+      "retained_earnings_ratio": 0.1330176981174614,
+      "ebit_ratio": 0.04908628615087864,
+      "market_equity_ratio": 1.3782088700033843,
+      "asset_turnover": 1.3242275078595673,
+      "inventory_adjustment": 0.3371889182852595,
+      "z_score": 3.254437102253392
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Zalando SE",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "CTSO": {
+    "retail_score": -7.635765108750663,
+    "retail_risk": "Distress",
+    "traditional_score": -7.975006740529132,
+    "traditional_risk": "Distress",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.39834784627888076,
+      "retained_earnings_ratio": -6.417542573066084,
+      "ebit_ratio": -0.3543467907919319,
+      "market_equity_ratio": 1.8818738865852627,
+      "asset_turnover": 0.7513910262499605,
+      "inventory_adjustment": 0.31921225883890914,
+      "z_score": -7.635765108750663
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Cytosorbents Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/950579501646.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\CTSO.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "ROST": {
+    "retail_score": 5.795468938670431,
+    "retail_risk": "Safe",
+    "traditional_score": 5.3568423900510584,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.3417691736084778,
+      "retained_earnings_ratio": 0.27696176106644255,
+      "ebit_ratio": 0.17346718610494552,
+      "market_equity_ratio": 4.579136121152767,
+      "asset_turnover": 1.4175611116880857,
+      "inventory_adjustment": 0.5202299326423436,
+      "z_score": 5.795468938670431
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Ross Stores, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ROST.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\ROST.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "TSCO": {
+    "retail_score": 5.5014820821830215,
+    "retail_risk": "Safe",
+    "traditional_score": 5.426066606399081,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.047905840455622545,
+      "retained_earnings_ratio": 0.7047797227776087,
+      "ebit_ratio": 0.14966439701860745,
+      "market_equity_ratio": 3.843982818127998,
+      "asset_turnover": 1.5178475108574436,
+      "inventory_adjustment": 0.2783474997039504,
+      "z_score": 5.5014820821830215
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Tractor Supply Company",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSCO.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\TSCO.png",
+      "period_date": "2024-12-28",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "BGFV": {
+    "retail_score": 1.4161255298376996,
+    "retail_risk": "Distress",
+    "traditional_score": 1.4399645574735178,
+    "traditional_risk": "Distress",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.04244083194664618,
+      "retained_earnings_ratio": 0.1614530512040383,
+      "ebit_ratio": -0.09118985962459343,
+      "market_equity_ratio": 0.07482159744556259,
+      "asset_turnover": 1.305402664408582,
+      "inventory_adjustment": 0.17958634740261817,
+      "z_score": 1.4161255298376996
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Big 5 Sporting Goods Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BGFV.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BGFV.png",
+      "period_date": "2024-12-29",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "SBH": {
+    "retail_score": 2.512635185929994,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.6299619708535342,
+    "traditional_risk": "Gray Zone",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.09620469626721195,
+      "retained_earnings_ratio": 0.26520293071822504,
+      "ebit_ratio": 0.10123280505310074,
+      "market_equity_ratio": 0.4792124947559653,
+      "asset_turnover": 1.3308862941338016,
+      "inventory_adjustment": 0.14684679948242244,
+      "z_score": 2.512635185929994
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Sally Beauty Holdings, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/SBH.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\SBH.png",
+      "period_date": "2024-09-30",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "POOL": {
+    "retail_score": 5.98079321468227,
+    "retail_risk": "Safe",
+    "traditional_score": 6.018651619452726,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1305789707450662,
+      "retained_earnings_ratio": 0.1925298617890234,
+      "ebit_ratio": 0.18324533339033736,
+      "market_equity_ratio": 5.420537143168129,
+      "asset_turnover": 1.5768001391847952,
+      "inventory_adjustment": 0.2414492360195455,
+      "z_score": 5.98079321468227
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Pool Corporation",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/POOL.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\POOL.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  },
+  "SPNC": {
+    "retail_score": 0.0015937723302741902,
+    "retail_risk": "Distress",
+    "traditional_score": -0.33640293156125156,
+    "traditional_risk": "Distress",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.2508614716400281,
+      "retained_earnings_ratio": -0.5876259655225331,
+      "ebit_ratio": -0.1014583401150489,
+      "market_equity_ratio": 0.20891624854183358,
+      "asset_turnover": 0.6297067043652547,
+      "inventory_adjustment": 0.2059848539661867,
+      "z_score": 0.0015937723302741902
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Spectranetics Corp. (The)",
+      "period_date": "2016-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api"
+  }
+}

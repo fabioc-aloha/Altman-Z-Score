@@ -512,7 +512,7 @@ function Show-Results {
                 if ($report -match "Retail Model Accuracy: (\d+\.?\d*)%") {
                     Write-Host "   Bankruptcy Prediction Accuracy: $($matches[1])%" -ForegroundColor White
                 }
-                if ($report -match "Improvement: ([+-]\d+\.?\d*)%") {
+                if ($report -match "Improvement: (.*?)%") {
                     $improvement = $matches[1]
                     $color = if ($improvement -like "+*") { "Green" } else { "Red" }
                     Write-Host "   Improvement over Traditional: $improvement%" -ForegroundColor $color
